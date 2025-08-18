@@ -1,0 +1,403 @@
+Title: Rotation formalisms in three dimensions
+
+URL Source: https://en.wikipedia.org/wiki/Rotation_formalisms_in_three_dimensions
+
+Published Time: 2006-10-04T20:30:27Z
+
+Markdown Content:
+In [geometry](https://en.wikipedia.org/wiki/Geometry "Geometry"), there exist various **rotation formalisms** to express a [rotation](https://en.wikipedia.org/wiki/Rotation_(mathematics) "Rotation (mathematics)") in three [dimensions](https://en.wikipedia.org/wiki/Dimension_(vector_space) "Dimension (vector space)") as a mathematical [transformation](https://en.wikipedia.org/wiki/Transformation_(geometry) "Transformation (geometry)"). In physics, this concept is applied to [classical mechanics](https://en.wikipedia.org/wiki/Classical_mechanics "Classical mechanics") where rotational (or angular) [kinematics](https://en.wikipedia.org/wiki/Kinematics "Kinematics") is the science of [quantitative](https://en.wikipedia.org/wiki/Quantity "Quantity") description of a purely rotational [motion](https://en.wikipedia.org/wiki/Motion_(physics) "Motion (physics)"). The [orientation](https://en.wikipedia.org/wiki/Orientation_(geometry) "Orientation (geometry)") of an object at a given instant is described with the same tools, as it is defined as an imaginary rotation from a reference placement in space, rather than an actually observed rotation from a previous placement in space.
+
+According to [Euler's rotation theorem](https://en.wikipedia.org/wiki/Euler%27s_rotation_theorem "Euler's rotation theorem"), the rotation of a [rigid body](https://en.wikipedia.org/wiki/Rigid_body "Rigid body") (or three-dimensional [coordinate system](https://en.wikipedia.org/wiki/Coordinate_system "Coordinate system") with a fixed [origin](https://en.wikipedia.org/wiki/Origin_(mathematics) "Origin (mathematics)")) is described by a single rotation about some axis. Such a rotation may be uniquely described by a minimum of three [real](https://en.wikipedia.org/wiki/Real_number "Real number") parameters. However, for various reasons, there are several ways to represent it. Many of these representations use more than the necessary minimum of three parameters, although each of them still has only three [degrees of freedom](https://en.wikipedia.org/wiki/Degrees_of_freedom_(mechanics) "Degrees of freedom (mechanics)").
+
+An example where rotation representation is used is in [computer vision](https://en.wikipedia.org/wiki/Computer_vision "Computer vision"), where an [automated](https://en.wikipedia.org/wiki/Automation "Automation") observer needs to track a target. Consider a rigid body, with three [orthogonal unit vectors](https://en.wikipedia.org/wiki/Orthonormal_basis "Orthonormal basis") fixed to its body (representing the three axes of the object's local [coordinate system](https://en.wikipedia.org/wiki/Cartesian_coordinate_system "Cartesian coordinate system")). The basic problem is to specify the orientation of these three [unit vectors](https://en.wikipedia.org/wiki/Unit_vector "Unit vector"), and hence the rigid body, with respect to the observer's coordinate system, regarded as a reference placement in space.
+
+Rotations and motions
+---------------------
+
+[[edit](https://en.wikipedia.org/w/index.php?title=Rotation_formalisms_in_three_dimensions&action=edit&section=1 "Edit section: Rotations and motions")]
+
+Rotation formalisms are focused on proper ([orientation-preserving](https://en.wikipedia.org/wiki/Orientation_(vector_space) "Orientation (vector space)")) motions of the [Euclidean space](https://en.wikipedia.org/wiki/Euclidean_space "Euclidean space") with [one fixed point](https://en.wikipedia.org/wiki/Stabilizer_(group_theory) "Stabilizer (group theory)"), that a _rotation_ refers to. Although physical motions with a fixed point are an important case (such as ones described in the [center-of-mass frame](https://en.wikipedia.org/wiki/Center-of-mass_frame "Center-of-mass frame"), or motions of a [joint](https://en.wikipedia.org/wiki/Joint_(mechanics) "Joint (mechanics)")), this approach creates a knowledge about all motions. Any proper motion of the Euclidean space decomposes to a rotation around the origin and a [translation](https://en.wikipedia.org/wiki/Translation_(geometry) "Translation (geometry)"). Whichever the order of their [composition](https://en.wikipedia.org/wiki/Function_composition "Function composition") will be, the "pure" rotation component wouldn't change, uniquely determined by the complete motion.
+
+One can also understand "pure" rotations as [linear maps](https://en.wikipedia.org/wiki/Linear_map "Linear map") in a [vector space](https://en.wikipedia.org/wiki/Vector_space "Vector space") equipped with Euclidean structure, not as maps of [points](https://en.wikipedia.org/wiki/Point_(geometry) "Point (geometry)") of a corresponding [affine space](https://en.wikipedia.org/wiki/Affine_space "Affine space"). In other words, a rotation formalism captures only the rotational part of a motion, that contains three degrees of freedom, and ignores the translational part, that contains another three.
+
+When representing a rotation as numbers in a computer, some people prefer the quaternion representation or the axis+angle representation, because they avoid the [gimbal lock](https://en.wikipedia.org/wiki/Gimbal_lock "Gimbal lock") that can occur with Euler rotations.[[1]](https://en.wikipedia.org/wiki/Rotation_formalisms_in_three_dimensions#cite_note-1)
+
+Formalism alternatives
+----------------------
+
+[[edit](https://en.wikipedia.org/w/index.php?title=Rotation_formalisms_in_three_dimensions&action=edit&section=2 "Edit section: Formalism alternatives")]
+
+The above-mentioned triad of [unit vectors](https://en.wikipedia.org/wiki/Unit_vector "Unit vector") is also called a [basis](https://en.wikipedia.org/wiki/Basis_(linear_algebra) "Basis (linear algebra)"). Specifying [the coordinates](https://en.wikipedia.org/wiki/Real_coordinate_space "Real coordinate space") (_components_) of vectors of this basis in its current (rotated) position, in terms of the reference (non-rotated) coordinate axes, will completely describe the rotation. The three unit vectors, **û**, **v̂** and **ŵ**, that form the rotated basis each consist of 3 coordinates, yielding a total of 9 parameters.
+
+These parameters can be written as the elements of a 3 × 3 matrix **A**, called a **rotation matrix**. Typically, the coordinates of each of these vectors are arranged along a column of the matrix (however, beware that an alternative definition of rotation matrix exists and is widely used, where the vectors' coordinates defined above are arranged by rows[[2]](https://en.wikipedia.org/wiki/Rotation_formalisms_in_three_dimensions#cite_note-2)) ![Image 1: {\displaystyle \mathbf {A} ={\begin{bmatrix}{\hat {\mathbf {u} }}_{x}&{\hat {\mathbf {v} }}_{x}&{\hat {\mathbf {w} }}_{x}\\{\hat {\mathbf {u} }}_{y}&{\hat {\mathbf {v} }}_{y}&{\hat {\mathbf {w} }}_{y}\\{\hat {\mathbf {u} }}_{z}&{\hat {\mathbf {v} }}_{z}&{\hat {\mathbf {w} }}_{z}\\\end{bmatrix}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/a607b3bb5e356db23fe52e387d8a199f82137deb)
+
+The elements of the rotation matrix are not all independent—as Euler's rotation theorem dictates, the rotation matrix has only three degrees of freedom.
+
+The rotation matrix has the following properties:
+
+*   **A** is a real, [orthogonal matrix](https://en.wikipedia.org/wiki/Orthogonal_matrix "Orthogonal matrix"), hence each of its rows or columns represents a [unit vector](https://en.wikipedia.org/wiki/Unit_vector "Unit vector").
+*   The [eigenvalues](https://en.wikipedia.org/wiki/Eigenvalues "Eigenvalues") of **A** are ![Image 2: {\displaystyle \left\{1,e^{\pm i\theta }\right\}=\{1,\ \cos \theta +i\sin \theta ,\ \cos \theta -i\sin \theta \}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/81a1c7426961f5965ef05af5d2226459ac7a8a26) where _i_ is the standard [imaginary unit](https://en.wikipedia.org/wiki/Imaginary_unit "Imaginary unit") with the property _i_ 2 = −1
+*   The [determinant](https://en.wikipedia.org/wiki/Determinant "Determinant") of **A** is +1, equivalent to the product of its eigenvalues.
+*   The [trace](https://en.wikipedia.org/wiki/Trace_(linear_algebra) "Trace (linear algebra)") of **A** is 1 + 2 cos _θ_, equivalent to the sum of its eigenvalues.
+
+The angle θ which appears in the eigenvalue expression corresponds to the angle of the Euler axis and angle representation. The [eigenvector](https://en.wikipedia.org/wiki/Eigenvector "Eigenvector") corresponding to the eigenvalue of 1 is the accompanying Euler axis, since the axis is the only (nonzero) vector which remains unchanged by left-multiplying (rotating) it with the rotation matrix.
+
+The above properties are equivalent to ![Image 3: {\displaystyle {\begin{aligned}|{\hat {\mathbf {u} }}|=|{\hat {\mathbf {v} }}|=|{\hat {\mathbf {w} }}|&=1\\{\hat {\mathbf {u} }}\cdot {\hat {\mathbf {v} }}&=0\\{\hat {\mathbf {u} }}\times {\hat {\mathbf {v} }}&={\hat {\mathbf {w} }}\,,\end{aligned}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/b84a1393ae05ff2f98bba32be318ff7c4363bc70) which is another way of stating that (**û**, **v̂**, **ŵ**) form a 3D [orthonormal basis](https://en.wikipedia.org/wiki/Orthonormal_basis "Orthonormal basis"). These statements comprise a total of 6 conditions (the cross product contains 3), leaving the rotation matrix with just 3 degrees of freedom, as required.
+
+Two successive rotations represented by matrices **A**1 and **A**2 are easily combined as elements of a group, ![Image 4: {\displaystyle \mathbf {A} _{\text{total}}=\mathbf {A} _{2}\mathbf {A} _{1}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/4bae91dccb2936ecc5e1094686e0cd1f1663e64f) (Note the order, since the vector being rotated is multiplied from the right).
+
+The ease by which vectors can be rotated using a rotation matrix, as well as the ease of combining successive rotations, make the rotation matrix a useful and popular way to represent rotations, even though it is less concise than other representations.
+
+### Euler axis and angle (rotation vector)
+
+[[edit](https://en.wikipedia.org/w/index.php?title=Rotation_formalisms_in_three_dimensions&action=edit&section=4 "Edit section: Euler axis and angle (rotation vector)")]
+
+[![Image 5](https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Euler_AxisAngle.png/250px-Euler_AxisAngle.png)](https://en.wikipedia.org/wiki/File:Euler_AxisAngle.png)
+
+A visualization of a rotation represented by an Euler axis and angle.
+
+From [Euler's rotation theorem](https://en.wikipedia.org/wiki/Euler%27s_rotation_theorem "Euler's rotation theorem") we know that any rotation can be expressed as a single rotation about some axis. The axis is the unit vector (unique except for sign) which remains unchanged by the rotation. The magnitude of the angle is also unique, with its sign being determined by the sign of the rotation axis.
+
+The axis can be represented as a three-dimensional [unit vector](https://en.wikipedia.org/wiki/Unit_vector "Unit vector")![Image 6: {\displaystyle {\hat {\mathbf {e} }}={\begin{bmatrix}e_{x}\\e_{y}\\e_{z}\end{bmatrix}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/e0b77c49fa34a34862743cd970a64afbaeba5d01) and the angle by a scalar θ.
+
+Since the axis is normalized, it has only two [degrees of freedom](https://en.wikipedia.org/wiki/Degrees_of_freedom_(mechanics) "Degrees of freedom (mechanics)"). The angle adds the third degree of freedom to this rotation representation.
+
+One may wish to express rotation as a **rotation vector**, or **Euler vector**, an un-normalized three-dimensional vector the direction of which specifies the axis, and the length of which is θ, ![Image 7: {\displaystyle \mathbf {r} =\theta {\hat {\mathbf {e} }}\,.}](https://wikimedia.org/api/rest_v1/media/math/render/svg/bd45f452dd9698894dd4c512d40d1f09b734345b)
+
+The rotation vector is useful in some contexts, as it represents a three-dimensional rotation with only three [scalar](https://en.wikipedia.org/wiki/Scalar_(mathematics) "Scalar (mathematics)") values (its components), representing the three degrees of freedom. This is also true for representations based on sequences of three Euler angles (see below).
+
+If the rotation angle θ is zero, the axis is not uniquely defined. Combining two successive rotations, each represented by an Euler axis and angle, is not straightforward, and in fact does not satisfy the law of vector addition, which shows that finite rotations are not really vectors at all. It is best to employ the rotation matrix or quaternion notation, calculate the product, and then convert back to Euler axis and angle.
+
+[![Image 8](https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Praezession.svg/250px-Praezession.svg.png)](https://en.wikipedia.org/wiki/File:Praezession.svg)
+
+Euler rotations of the Earth. [Intrinsic](https://en.wikipedia.org/wiki/Earth%27s_rotation "Earth's rotation") (green), [precession](https://en.wikipedia.org/wiki/Axial_precession "Axial precession") (blue) and [nutation](https://en.wikipedia.org/wiki/Nutation "Nutation") (red)
+
+The idea behind Euler rotations is to split the complete rotation of the coordinate system into three simpler constitutive rotations, called [precession](https://en.wikipedia.org/wiki/Precession "Precession"), [nutation](https://en.wikipedia.org/wiki/Nutation "Nutation"), and [intrinsic rotation](https://en.wikipedia.org/wiki/Rotation "Rotation"), being each one of them an increment on one of the [Euler angles](https://en.wikipedia.org/wiki/Euler_angles "Euler angles"). Notice that the outer matrix will represent a rotation around one of the axes of the reference frame, and the inner matrix represents a rotation around one of the moving frame axes. The middle matrix represents a rotation around an intermediate axis called **line of nodes**.
+
+However, the definition of Euler angles is not unique and in the literature many different conventions are used. These conventions depend on the axes about which the rotations are carried out, and their sequence (since rotations on a sphere are [non-commutative](https://en.wikipedia.org/wiki/Non-commutative "Non-commutative")).
+
+The convention being used is usually indicated by specifying the axes about which the consecutive rotations (before being composed) take place, referring to them by index (1, 2, 3) or letter (X, Y, Z). The engineering and robotics communities typically use 3-1-3 Euler angles. Notice that after composing the independent rotations, they do not rotate about their axis anymore. The most external matrix rotates the other two, leaving the second rotation matrix over the line of nodes, and the third one in a frame comoving with the body. There are 3 × 3 × 3 = 27 possible combinations of three basic rotations but only 3 × 2 × 2 = 12 of them can be used for representing arbitrary 3D rotations as Euler angles. These 12 combinations avoid consecutive rotations around the same axis (such as XXY) which would reduce the degrees of freedom that can be represented.
+
+Therefore, Euler angles are never expressed in terms of the external frame, or in terms of the co-moving rotated body frame, but in a mixture. Other conventions (e.g., [rotation matrix](https://en.wikipedia.org/wiki/Rotation_matrix "Rotation matrix") or [quaternions](https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation "Quaternions and spatial rotation")) are used to avoid this problem.
+
+In [aviation](https://en.wikipedia.org/wiki/Aviation "Aviation") orientation of the aircraft is usually expressed as [intrinsic](https://en.wikipedia.org/wiki/Euler_angles#Intrinsic_rotations "Euler angles")[Tait-Bryan angles](https://en.wikipedia.org/wiki/Euler_angles#Tait.E2.80.93Bryan_angles "Euler angles") following the _z_-_y_′-_x_″ convention, which are called [_**heading**_](https://en.wikipedia.org/wiki/Course_(navigation)#Aircraft_heading "Course (navigation)"), [_**elevation**_](https://en.wikipedia.org/wiki/Elevation_(ballistics) "Elevation (ballistics)"), and [_**bank**_](https://en.wikipedia.org/wiki/Banked_turn "Banked turn") (or synonymously, [_**yaw**_](https://en.wikipedia.org/wiki/Yaw_(rotation) "Yaw (rotation)"), [_**pitch**_](https://en.wikipedia.org/wiki/Pitching_moment "Pitching moment"), and _**roll**_).
+
+[Quaternions](https://en.wikipedia.org/wiki/Quaternion "Quaternion"), which form a four-dimensional [vector space](https://en.wikipedia.org/wiki/Vector_space "Vector space"), have proven very useful in representing rotations due to several advantages over the other representations mentioned in this article.
+
+A quaternion representation of rotation is written as a [versor](https://en.wikipedia.org/wiki/Versor "Versor") (normalized quaternion): ![Image 9: {\displaystyle {\hat {\mathbf {q} }}=q_{i}\mathbf {i} +q_{j}\mathbf {j} +q_{k}\mathbf {k} +q_{r}={\begin{bmatrix}q_{i}\\q_{j}\\q_{k}\\q_{r}\end{bmatrix}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/fec2e76b556139e33be1b0e9ca06788078658d6a)
+
+The above definition stores the quaternion as an array following the convention used in (Wertz 1980) and (Markley 2003). An alternative definition, used for example in (Coutsias 1999) and (Schmidt 2001), defines the "scalar" term as the first quaternion element, with the other elements shifted down one position.
+
+In terms of the Euler axis ![Image 10: {\displaystyle {\hat {\mathbf {e} }}={\begin{bmatrix}e_{x}\\e_{y}\\e_{z}\end{bmatrix}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/e0b77c49fa34a34862743cd970a64afbaeba5d01)
+
+and angle θ this versor's components are expressed as follows: ![Image 11: {\displaystyle {\begin{aligned}q_{i}&=e_{x}\sin {\frac {\theta }{2}}\\q_{j}&=e_{y}\sin {\frac {\theta }{2}}\\q_{k}&=e_{z}\sin {\frac {\theta }{2}}\\q_{r}&=\cos {\frac {\theta }{2}}\end{aligned}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/db2091c5d9b72a975312e2d30474d0009725783f)
+
+Inspection shows that the quaternion parametrization obeys the following constraint: ![Image 12: {\displaystyle q_{i}^{2}+q_{j}^{2}+q_{k}^{2}+q_{r}^{2}=1}](https://wikimedia.org/api/rest_v1/media/math/render/svg/4409c7e761c8ac949dbbdab9066d6acc420b7fcb)
+
+The last term (in our definition) is often called the scalar term, which has its origin in quaternions when understood as the mathematical extension of the complex numbers, written as ![Image 13: {\displaystyle a+bi+cj+dk\qquad {\text{with }}a,b,c,d\in \mathbb {R} }](https://wikimedia.org/api/rest_v1/media/math/render/svg/9b4d4e0ecbaa50ec9b59693077d2886f6a937b5a) and where {_i_, _j_, _k_} are the [hypercomplex numbers](https://en.wikipedia.org/wiki/Hypercomplex_number "Hypercomplex number") satisfying ![Image 14: {\displaystyle {\begin{array}{ccccccc}i^{2}&=&j^{2}&=&k^{2}&=&-1\\ij&=&-ji&=&k&&\\jk&=&-kj&=&i&&\\ki&=&-ik&=&j&&\end{array}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/fcb044249754d41f586308af211db2be8076a8a6)
+
+Quaternion multiplication, which is used to specify a [composite](https://en.wikipedia.org/wiki/Function_composition "Function composition") rotation, is performed in the same manner as multiplication of [complex numbers](https://en.wikipedia.org/wiki/Complex_numbers "Complex numbers"), except that the order of the elements must be taken into account, since multiplication is not commutative. In matrix notation we can write quaternion multiplication as ![Image 15: {\displaystyle {\tilde {\mathbf {q} }}\otimes \mathbf {q} ={\begin{bmatrix}\;\;\,q_{r}&\;\;\,q_{k}&-q_{j}&\;\;\,q_{i}\\-q_{k}&\;\;\,q_{r}&\;\;\,q_{i}&\;\;\,q_{j}\\\;\;\,q_{j}&-q_{i}&\;\;\,q_{r}&\;\;\,q_{k}\\-q_{i}&-q_{j}&-q_{k}&\;\;\,q_{r}\end{bmatrix}}{\begin{bmatrix}{\tilde {q}}_{i}\\{\tilde {q}}_{j}\\{\tilde {q}}_{k}\\{\tilde {q}}_{r}\end{bmatrix}}={\begin{bmatrix}\;\;\,{\tilde {q}}_{r}&-{\tilde {q}}_{k}&\;\;\,{\tilde {q}}_{j}&\;\;\,{\tilde {q}}_{i}\\\;\;\,{\tilde {q}}_{k}&\;\;\,{\tilde {q}}_{r}&-{\tilde {q}}_{i}&\;\;\,{\tilde {q}}_{j}\\-{\tilde {q}}_{j}&\;\;\,{\tilde {q}}_{i}&\;\;\,{\tilde {q}}_{r}&\;\;\,{\tilde {q}}_{k}\\-{\tilde {q}}_{i}&-{\tilde {q}}_{j}&-{\tilde {q}}_{k}&\;\;\,{\tilde {q}}_{r}\end{bmatrix}}{\begin{bmatrix}q_{i}\\q_{j}\\q_{k}\\q_{r}\end{bmatrix}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/7dac866a72a8d230a233b01307ced0bbde2ee206)
+
+Combining two consecutive quaternion rotations is therefore just as simple as using the rotation matrix. Just as two successive rotation matrices, **A**1 followed by **A**2, are combined as ![Image 16: {\displaystyle \mathbf {A} _{3}=\mathbf {A} _{2}\mathbf {A} _{1},}](https://wikimedia.org/api/rest_v1/media/math/render/svg/b011dc8db518b55a07d447ad4b51bf2976fadcb1) we can represent this with quaternion parameters in a similarly concise way: ![Image 17: {\displaystyle \mathbf {q} _{3}=\mathbf {q} _{2}\otimes \mathbf {q} _{1}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/13e53799b4e245d8dff51387804e4ea9a6d44d2e)
+
+Quaternions are a very popular parametrization due to the following properties:
+
+*   More compact than the matrix representation and less susceptible to [round-off errors](https://en.wikipedia.org/wiki/Round-off_error "Round-off error")
+*   Expression of the rotation matrix in terms of quaternion parameters involves no [trigonometric functions](https://en.wikipedia.org/wiki/Trigonometric_function "Trigonometric function")
+*   It is simple to combine two individual rotations represented as quaternions using a quaternion product
+
+Like rotation matrices, quaternions must sometimes be renormalized due to rounding errors, to make sure that they correspond to valid rotations. The computational cost of renormalizing a quaternion, however, is much less than for normalizing a 3 × 3 matrix.
+
+Quaternions also capture the spinorial character of rotations in three dimensions. For a three-dimensional object connected to its (fixed) surroundings by slack strings or bands, the strings or bands can be untangled after _two_ complete turns about some fixed axis from an initial untangled state. Algebraically, the quaternion describing such a rotation changes from a scalar +1 (initially), through (scalar + pseudovector) values to scalar −1 (at one full turn), through (scalar + pseudovector) values back to scalar +1 (at two full turns). This cycle repeats every 2 turns. After 2 _n_ turns (integer _n_> 0), without any intermediate untangling attempts, the strings/bands can be partially untangled back to the 2(_n_ − 1) turns state with each application of the same procedure used in untangling from 2 turns to 0 turns. Applying the same procedure _n_ times will take a 2 _n_-tangled object back to the untangled or 0 turn state. The untangling process also removes any rotation-generated twisting about the strings/bands themselves. Simple 3D mechanical models can be used to demonstrate these facts.
+
+The **Rodrigues vector** (sometimes called the **Gibbs vector**, with coordinates called **Rodrigues parameters**)[[3]](https://en.wikipedia.org/wiki/Rotation_formalisms_in_three_dimensions#cite_note-Rodrigues-3)[[4]](https://en.wikipedia.org/wiki/Rotation_formalisms_in_three_dimensions#cite_note-4) can be expressed in terms of the axis and angle of the rotation as follows: ![Image 18: {\displaystyle \mathbf {g} ={\hat {\mathbf {e} }}\tan {\frac {\theta }{2}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/058560fcaf7e2077e22e2015ea6a50ed3f1dff67)
+
+This representation is a higher-dimensional analog of the [gnomonic projection](https://en.wikipedia.org/wiki/Gnomonic_projection "Gnomonic projection"), mapping unit quaternions from a 3-sphere onto the 3-dimensional pure-vector hyperplane.
+
+It has a discontinuity at 180° (π radians): as any rotation vector **r** tends to an angle of π radians, its tangent tends to infinity.
+
+A rotation **g** followed by a rotation **f** in the Rodrigues representation has the simple rotation composition form
+
+![Image 19: {\displaystyle (\mathbf {g} ,\mathbf {f} )={\frac {\mathbf {g} +\mathbf {f} -\mathbf {f} \times \mathbf {g} }{1-\mathbf {g} \cdot \mathbf {f} }}\,.}](https://wikimedia.org/api/rest_v1/media/math/render/svg/4190ee4c34055e19498ec95e810949bbcc0ba280)
+
+Today, the most straightforward way to prove this formula is in the (faithful) [doublet representation](https://en.wikipedia.org/wiki/Pauli_matrices#SU(2) "Pauli matrices"), where **g** = **n̂** tan _a_, etc.
+
+The combinatoric features of the Pauli matrix derivation just mentioned are also identical to the equivalent [quaternion](https://en.wikipedia.org/wiki/Quaternion "Quaternion") derivation below. Construct a quaternion associated with a spatial rotation R as, ![Image 20: {\displaystyle S=\cos {\frac {\phi }{2}}+\sin {\frac {\phi }{2}}\mathbf {S} .}](https://wikimedia.org/api/rest_v1/media/math/render/svg/75ddd7ad477f57f3ed531218aef24eb163110d88) Then the composition of the rotation R B with R A is the rotation _R C_ = _R B R A_, with rotation axis and angle defined by the product of the quaternions, ![Image 21: {\displaystyle A=\cos {\frac {\alpha }{2}}+\sin {\frac {\alpha }{2}}\mathbf {A} \quad {\text{and}}\quad B=\cos {\frac {\beta }{2}}+\sin {\frac {\beta }{2}}\mathbf {B} ,}](https://wikimedia.org/api/rest_v1/media/math/render/svg/b4c925c65e1832deee4634f78b574b66a5d55d32) that is ![Image 22: {\displaystyle C=\cos {\frac {\gamma }{2}}+\sin {\frac {\gamma }{2}}\mathbf {C} =\left(\cos {\frac {\beta }{2}}+\sin {\frac {\beta }{2}}\mathbf {B} \right)\left(\cos {\frac {\alpha }{2}}+\sin {\frac {\alpha }{2}}\mathbf {A} \right).}](https://wikimedia.org/api/rest_v1/media/math/render/svg/b9db2dd23c88ff87547e521b0b236c6f585c29f8)
+
+Expand this quaternion product to ![Image 23: {\displaystyle \cos {\frac {\gamma }{2}}+\sin {\frac {\gamma }{2}}\mathbf {C} =\left(\cos {\frac {\beta }{2}}\cos {\frac {\alpha }{2}}-\sin {\frac {\beta }{2}}\sin {\frac {\alpha }{2}}\mathbf {B} \cdot \mathbf {A} \right)+\left(\sin {\frac {\beta }{2}}\cos {\frac {\alpha }{2}}\mathbf {B} +\sin {\frac {\alpha }{2}}\cos {\frac {\beta }{2}}\mathbf {A} +\sin {\frac {\beta }{2}}\sin {\frac {\alpha }{2}}\mathbf {B} \times \mathbf {A} \right).}](https://wikimedia.org/api/rest_v1/media/math/render/svg/1da63d7a0e5eb4d57db489162bd6618a9408d028)
+
+Divide both sides of this equation by the identity resulting from the previous one, ![Image 24: {\displaystyle \cos {\frac {\gamma }{2}}=\cos {\frac {\beta }{2}}\cos {\frac {\alpha }{2}}-\sin {\frac {\beta }{2}}\sin {\frac {\alpha }{2}}\mathbf {B} \cdot \mathbf {A} ,}](https://wikimedia.org/api/rest_v1/media/math/render/svg/071c736128aedb24fbedffadf91aedc9d1e526a0) and evaluate
+
+![Image 25: {\displaystyle \tan {\frac {\gamma }{2}}\mathbf {C} ={\frac {\tan {\frac {\beta }{2}}\mathbf {B} +\tan {\frac {\alpha }{2}}\mathbf {A} +\tan {\frac {\beta }{2}}\tan {\frac {\alpha }{2}}\mathbf {B} \times \mathbf {A} }{1-\tan {\frac {\beta }{2}}\tan {\frac {\alpha }{2}}\mathbf {B} \cdot \mathbf {A} }}.}](https://wikimedia.org/api/rest_v1/media/math/render/svg/6beebd8e0b921524bd82b4675d58dc984250fdc0)
+
+This is Rodrigues' formula for the axis of a composite rotation defined in terms of the axes of the two component rotations. He derived this formula in 1840 (see page 408).[[3]](https://en.wikipedia.org/wiki/Rotation_formalisms_in_three_dimensions#cite_note-Rodrigues-3) The three rotation axes **A**, **B**, and **C** form a spherical triangle and the dihedral angles between the planes formed by the sides of this triangle are defined by the rotation angles.
+
+### Conformal rotation vector
+
+[[edit](https://en.wikipedia.org/w/index.php?title=Rotation_formalisms_in_three_dimensions&action=edit&section=8 "Edit section: Conformal rotation vector")]
+
+The [stereographic projection](https://en.wikipedia.org/wiki/Stereographic_projection "Stereographic projection") of a unit quaternion onto the pure-imaginary hyperplane is called the [conformal rotation vector](https://en.wikipedia.org/wiki/Conformal_rotation_vector "Conformal rotation vector"), with coordinates sometimes called _Modified Rodrigues parameters_ (MRPs).
+
+The conformal rotation vector can be expressed in terms of Euler axis and angle by ![Image 26: {\displaystyle \mathbf {p} ={\hat {\mathbf {e} }}\tan {\frac {\theta }{4}}\,.}](https://wikimedia.org/api/rest_v1/media/math/render/svg/35bfab586f37f28ac1036acb00b0abef23c2ea33) The MRPs can be expressed in terms of the components of a unit quaternion representing the same rotation as ![Image 27: {\displaystyle p_{x,y,z}={\frac {q_{i,j,k}}{1+q_{r}}}\,.}](https://wikimedia.org/api/rest_v1/media/math/render/svg/0d53d2157917794b95b3e2a7a08b6a2386c787bf)
+
+The stereographic projection of the opposite quaternion −**q** results in a different conformal rotation vector **p**_s_ than the projection of the original quaternion **q**. Comparing components one obtains that ![Image 28: {\displaystyle p_{x,y,z}^{s}={\frac {-q_{i,j,k}}{1-q_{r}}}={\frac {-p_{x,y,z}}{\mathbf {p} ^{2}}}\,.}](https://wikimedia.org/api/rest_v1/media/math/render/svg/391d2b50b349837567814e2033192fdb98ef7a42) Notably, if one of these vectors lies inside the unit 3-sphere, the other will lie outside.
+
+Using the same notation as above, a unit quaternion is obtained with:
+
+![Image 29: {\displaystyle s={\frac {2}{1+\lVert \mathbf {p} \rVert ^{2}}},\qquad {\begin{cases}q_{r}&=s-1,\\q_{i}&=s\,p_{x},\\q_{j}&=s\,p_{y},\\q_{k}&=s\,p_{z}.\end{cases}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/7314b2dff5d3bc0f481b756312e28727c35692da)
+
+### Cayley–Klein parameters
+
+[[edit](https://en.wikipedia.org/w/index.php?title=Rotation_formalisms_in_three_dimensions&action=edit&section=9 "Edit section: Cayley–Klein parameters")]
+
+See definition at [Wolfram Mathworld](http://mathworld.wolfram.com/Cayley-KleinParameters.html).
+
+### Higher-dimensional analogues
+
+[[edit](https://en.wikipedia.org/w/index.php?title=Rotation_formalisms_in_three_dimensions&action=edit&section=10 "Edit section: Higher-dimensional analogues")]
+
+### Vector transformation law
+
+[[edit](https://en.wikipedia.org/w/index.php?title=Rotation_formalisms_in_three_dimensions&action=edit&section=11 "Edit section: Vector transformation law")]
+
+Active rotations of a 3D vector **p** in Euclidean space around an axis **n** over an angle _η_ can be easily written in terms of dot and cross products as follows:
+
+![Image 30: {\displaystyle \mathbf {p} '=p_{\parallel }\mathbf {n} +\cos {\eta }\,\mathbf {p} _{\perp }+\sin {\eta }\,\mathbf {p} \wedge \mathbf {n} }](https://wikimedia.org/api/rest_v1/media/math/render/svg/4d02be6e3ee8137a7fdac182782e0a0893dc1398) wherein ![Image 31: {\displaystyle p_{\parallel }=\mathbf {p} \cdot \mathbf {n} }](https://wikimedia.org/api/rest_v1/media/math/render/svg/725804a8c315350272404217c9891fff3830ce33) is the longitudinal component of **p** along **n**, given by the [dot product](https://en.wikipedia.org/wiki/Dot_product "Dot product"), ![Image 32: {\displaystyle \mathbf {p} _{\perp }=\mathbf {p} -(\mathbf {p} \cdot \mathbf {n} )\mathbf {n} }](https://wikimedia.org/api/rest_v1/media/math/render/svg/02ffba0d771cbd2809c34da0f2a7a8919d9488af) is the transverse component of **p** with respect to **n**, and ![Image 33: {\displaystyle \mathbf {p} \wedge \mathbf {n} }](https://wikimedia.org/api/rest_v1/media/math/render/svg/6b0ecd85e919666ac74816c3ebed944297ab30ed)
+
+is the [cross product](https://en.wikipedia.org/wiki/Cross_product "Cross product") of **p** with **n**.
+
+The above formula shows that the longitudinal component of **p** remains unchanged, whereas the transverse portion of **p** is rotated in the plane perpendicular to **n**. This plane is spanned by the transverse portion of **p** itself and a direction perpendicular to both **p** and **n**. The rotation is directly identifiable in the equation as a 2D rotation over an angle _η_.
+
+Passive rotations can be described by the same formula, but with an inverse sign of either _η_ or **n**.
+
+Conversion formulae between formalisms
+--------------------------------------
+
+[[edit](https://en.wikipedia.org/w/index.php?title=Rotation_formalisms_in_three_dimensions&action=edit&section=12 "Edit section: Conversion formulae between formalisms")]
+
+### Rotation matrix ↔ Euler angles
+
+[[edit](https://en.wikipedia.org/w/index.php?title=Rotation_formalisms_in_three_dimensions&action=edit&section=13 "Edit section: Rotation matrix ↔ Euler angles")]
+
+The Euler angles (_φ_, _θ_, _ψ_) can be extracted from the rotation matrix **A** by inspecting the rotation matrix in analytical form.
+
+#### Rotation matrix → Euler angles (_z_-_x_-_z_ extrinsic)
+
+[[edit](https://en.wikipedia.org/w/index.php?title=Rotation_formalisms_in_three_dimensions&action=edit&section=14 "Edit section: Rotation matrix → Euler angles (z-x-z extrinsic)")]
+
+Using the x-convention, the 3-1-3 [extrinsic](https://en.wikipedia.org/wiki/Euler_angles#Extrinsic_rotations "Euler angles") Euler angles φ, θ and ψ (around the z-axis, x-axis and again the ![Image 34: {\displaystyle Z}](https://wikimedia.org/api/rest_v1/media/math/render/svg/1cc6b75e09a8aa3f04d8584b11db534f88fb56bd)-axis) can be obtained as follows: ![Image 35: {\displaystyle {\begin{aligned}\phi &=\operatorname {atan2} \left(A_{31},A_{32}\right)\\\theta &=\arccos \left(A_{33}\right)\\\psi &=-\operatorname {atan2} \left(A_{13},A_{23}\right)\end{aligned}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/62f111dc2a2bacaf9300a680d05abaf9f02fa4b8)
+
+Note that atan2(_a_, _b_) is equivalent to arctan ⁠_a_/_b_⁠ where it also takes into account the [quadrant](https://en.wikipedia.org/wiki/Cartesian_coordinate_system#Cartesian_coordinates_in_two_dimensions "Cartesian coordinate system") that the point (_b_, _a_) is in; see [atan2](https://en.wikipedia.org/wiki/Atan2 "Atan2").
+
+When implementing the conversion, one has to take into account several situations:[[5]](https://en.wikipedia.org/wiki/Rotation_formalisms_in_three_dimensions#cite_note-5)
+
+*   There are generally two solutions in the interval [−_π_, _π_]3. The above formula works only when θ is within the interval [0, _π_].
+*   For the special case _A_ 33 = 0, φ and ψ will be derived from _A_ 11 and _A_ 12.
+*   There are infinitely many but countably many solutions outside of the interval [−_π_, _π_]3.
+*   Whether all mathematical solutions apply for a given application depends on the situation.
+
+#### Euler angles (_z_-_y_′-_x_″ intrinsic) → rotation matrix
+
+[[edit](https://en.wikipedia.org/w/index.php?title=Rotation_formalisms_in_three_dimensions&action=edit&section=15 "Edit section: Euler angles (z-y′-x″ intrinsic) → rotation matrix")]
+
+The rotation matrix **A** is generated from the 3-2-1 [intrinsic](https://en.wikipedia.org/wiki/Euler_angles#Intrinsic_rotations "Euler angles") Euler angles by multiplying the three matrices generated by rotations about the axes. ![Image 36: {\displaystyle \mathbf {A} =\mathbf {A} _{3}\mathbf {A} _{2}\mathbf {A} _{1}=\mathbf {A} _{Z}\mathbf {A} _{Y}\mathbf {A} _{X}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/2faf1bbe1df3a2a5ea92e3614a377198a08b1f0c)
+
+The axes of the rotation depend on the specific convention being used. For the x-convention the rotations are about the x-, y- and z-axes with angles ϕ, θ and ψ, the individual matrices are as follows: ![Image 37: {\displaystyle {\begin{aligned}\mathbf {A} _{X}&={\begin{bmatrix}1&0&0\\0&\cos \phi &-\sin \phi \\0&\sin \phi &\cos \phi \end{bmatrix}}\\[5px]\mathbf {A} _{Y}&={\begin{bmatrix}\cos \theta &0&\sin \theta \\0&1&0\\-\sin \theta &0&\cos \theta \end{bmatrix}}\\[5px]\mathbf {A} _{Z}&={\begin{bmatrix}\cos \psi &-\sin \psi &0\\\sin \psi &\cos \psi &0\\0&0&1\end{bmatrix}}\end{aligned}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/d396db64b528dcfaed8795003f033d534ae5de87)
+
+This yields ![Image 38: {\displaystyle \mathbf {A} ={\begin{bmatrix}\cos \theta \cos \psi &-\cos \phi \sin \psi +\sin \phi \sin \theta \cos \psi &\sin \phi \sin \psi +\cos \phi \sin \theta \cos \psi \\\cos \theta \sin \psi &\cos \phi \cos \psi +\sin \phi \sin \theta \sin \psi &-\sin \phi \cos \psi +\cos \phi \sin \theta \sin \psi \\-\sin \theta &\sin \phi \cos \theta &\cos \phi \cos \theta \\\end{bmatrix}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/cb4a72b4715a3351432e121aa1122e11f2868319) Note: This is valid for a [right-hand](https://en.wikipedia.org/wiki/Right-hand_rule "Right-hand rule") system, which is the convention used in almost all engineering and physics disciplines.
+
+The interpretation of these right-handed rotation matrices is that they express coordinate transformations ([passive](https://en.wikipedia.org/wiki/Active_and_passive_transformation#Passive_transformation "Active and passive transformation")) as opposed to point transformations ([active](https://en.wikipedia.org/wiki/Active_and_passive_transformation#Passive_transformation "Active and passive transformation")). Because **A** expresses a rotation from the local frame **1** to the global frame **0** (i.e., **A** encodes the axes of frame **1** with respect to frame **0**), the elementary rotation matrices are composed as above. Because the inverse rotation is just the rotation transposed, if we wanted the global-to-local rotation from frame **0** to frame **1**, we would write ![Image 39: {\displaystyle \mathbf {A} ^{\mathsf {T}}=(\mathbf {A} _{Z}\mathbf {A} _{Y}\mathbf {A} _{X})^{\mathsf {T}}=\mathbf {A} _{X}^{\mathsf {T}}\mathbf {A} _{Y}^{\mathsf {T}}\mathbf {A} _{Z}^{\mathsf {T}}\,.}](https://wikimedia.org/api/rest_v1/media/math/render/svg/439dbd9f00c548915ecea9a3515f700c38168a9b)
+
+### Rotation matrix ↔ Euler axis/angle
+
+[[edit](https://en.wikipedia.org/w/index.php?title=Rotation_formalisms_in_three_dimensions&action=edit&section=16 "Edit section: Rotation matrix ↔ Euler axis/angle")]
+
+If the Euler angle θ is not a multiple of π, the Euler axis **ê** and angle θ can be computed from the elements of the rotation matrix A as follows: ![Image 40: {\displaystyle {\begin{aligned}\theta &=\arccos {\frac {A_{11}+A_{22}+A_{33}-1}{2}}\\e_{1}&={\frac {A_{32}-A_{23}}{2\sin \theta }}\\e_{2}&={\frac {A_{13}-A_{31}}{2\sin \theta }}\\e_{3}&={\frac {A_{21}-A_{12}}{2\sin \theta }}\end{aligned}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/52ec1f64f850e88a08349ab485850f77a1045187)
+
+Alternatively, the following method can be used:
+
+Eigendecomposition of the rotation matrix yields the eigenvalues 1 and cos _θ_ ± _i_ sin _θ_. The Euler axis is the eigenvector corresponding to the eigenvalue of 1, and θ can be computed from the remaining eigenvalues.
+
+The Euler axis can be also found using singular value decomposition since it is the normalized vector spanning the null-space of the matrix **I** − **A**.
+
+To convert the other way the rotation matrix corresponding to an Euler axis **ê** and angle θ can be computed according to [Rodrigues' rotation formula](https://en.wikipedia.org/wiki/Rodrigues%27_rotation_formula "Rodrigues' rotation formula") (with appropriate modification) as follows: ![Image 41: {\displaystyle \mathbf {A} =\mathbf {I} _{3}\cos \theta +(1-\cos \theta ){\hat {\mathbf {e} }}{\hat {\mathbf {e} }}^{\mathsf {T}}+\left[{\hat {\mathbf {e} }}\right]_{\times }\sin \theta }](https://wikimedia.org/api/rest_v1/media/math/render/svg/c1e2785f256aa4d31f2f9fd0eda8a4290dcc1940)
+
+with **I**3 the 3 × 3[identity matrix](https://en.wikipedia.org/wiki/Identity_matrix "Identity matrix"), and ![Image 42: {\displaystyle \left[{\hat {\mathbf {e} }}\right]_{\times }={\begin{bmatrix}0&-e_{3}&e_{2}\\e_{3}&0&-e_{1}\\-e_{2}&e_{1}&0\end{bmatrix}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/7543a05032b732bedc3c2a829bccdaa4a1767a08)
+
+is the [cross-product matrix](https://en.wikipedia.org/wiki/Cross_product#Conversion_to_matrix_multiplication "Cross product").
+
+This expands to: ![Image 43: {\displaystyle {\begin{aligned}A_{11}&=(1-\cos \theta )e_{1}^{2}+\cos \theta \\A_{12}&=(1-\cos \theta )e_{1}e_{2}-e_{3}\sin \theta \\A_{13}&=(1-\cos \theta )e_{1}e_{3}+e_{2}\sin \theta \\A_{21}&=(1-\cos \theta )e_{2}e_{1}+e_{3}\sin \theta \\A_{22}&=(1-\cos \theta )e_{2}^{2}+\cos \theta \\A_{23}&=(1-\cos \theta )e_{2}e_{3}-e_{1}\sin \theta \\A_{31}&=(1-\cos \theta )e_{3}e_{1}-e_{2}\sin \theta \\A_{32}&=(1-\cos \theta )e_{3}e_{2}+e_{1}\sin \theta \\A_{33}&=(1-\cos \theta )e_{3}^{2}+\cos \theta \end{aligned}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/0ef67573e414ef765c291bd0eefe134c6aaf2d37)
+
+### Rotation matrix ↔ quaternion
+
+[[edit](https://en.wikipedia.org/w/index.php?title=Rotation_formalisms_in_three_dimensions&action=edit&section=17 "Edit section: Rotation matrix ↔ quaternion")]
+
+When computing a quaternion from the rotation matrix there is a sign ambiguity, since **q** and −**q** represent the same rotation.
+
+One way of computing the quaternion ![Image 44: {\displaystyle \mathbf {q} ={\begin{bmatrix}q_{i}\\q_{j}\\q_{k}\\q_{r}\end{bmatrix}}=q_{i}\mathbf {i} +q_{j}\mathbf {j} +q_{k}\mathbf {k} +q_{r}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/88945e3e96fc6cc9b8a55884687d7d7fa9e80ffb) from the rotation matrix **A** is as follows: ![Image 45: {\displaystyle {\begin{aligned}q_{r}&={\frac {1}{2}}{\sqrt {1+A_{11}+A_{22}+A_{33}}}\\q_{i}&={\frac {1}{4q_{r}}}\left(A_{32}-A_{23}\right)\\q_{j}&={\frac {1}{4q_{r}}}\left(A_{13}-A_{31}\right)\\q_{k}&={\frac {1}{4q_{r}}}\left(A_{21}-A_{12}\right)\end{aligned}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/1c98c74aed7d993fdcff58567dc242100c43871c)
+
+There are three other mathematically equivalent ways to compute **q**. Numerical inaccuracy can be reduced by avoiding situations in which the denominator is close to zero. One of the other three methods looks as follows:[[6]](https://en.wikipedia.org/wiki/Rotation_formalisms_in_three_dimensions#cite_note-6)[[7]](https://en.wikipedia.org/wiki/Rotation_formalisms_in_three_dimensions#cite_note-7)![Image 46: {\displaystyle {\begin{aligned}q_{i}&={\frac {1}{2}}{\sqrt {1+A_{11}-A_{22}-A_{33}}}\\q_{j}&={\frac {1}{4q_{i}}}\left(A_{12}+A_{21}\right)\\q_{k}&={\frac {1}{4q_{i}}}\left(A_{13}+A_{31}\right)\\q_{r}&={\frac {1}{4q_{i}}}\left(A_{32}-A_{23}\right)\end{aligned}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/aedf22a08f2e5722f5a2a54ccc92a3130a080c4f)
+
+The rotation matrix corresponding to the quaternion **q** can be computed as follows: ![Image 47: {\displaystyle \mathbf {A} =\left(q_{r}^{2}-{\check {\mathbf {q} }}^{\mathsf {T}}{\check {\mathbf {q} }}\right)\mathbf {I} _{3}+2{\check {\mathbf {q} }}{\check {\mathbf {q} }}^{\mathsf {T}}+2q_{r}\mathbf {\mathcal {Q}} }](https://wikimedia.org/api/rest_v1/media/math/render/svg/75f374025676c64d52c4c542c6ebff1c014226bc) where ![Image 48: {\displaystyle {\check {\mathbf {q} }}={\begin{bmatrix}q_{i}\\q_{j}\\q_{k}\end{bmatrix}}\,,\quad \mathbf {\mathcal {Q}} ={\begin{bmatrix}0&-q_{k}&q_{j}\\q_{k}&0&-q_{i}\\-q_{j}&q_{i}&0\end{bmatrix}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/7743234856efd9c8174e0cba4dd6aa391814fa55) which gives ![Image 49: {\displaystyle \mathbf {A} ={\begin{bmatrix}1-2q_{j}^{2}-2q_{k}^{2}&2\left(q_{i}q_{j}-q_{k}q_{r}\right)&2\left(q_{i}q_{k}+q_{j}q_{r}\right)\\2\left(q_{i}q_{j}+q_{k}q_{r}\right)&1-2q_{i}^{2}-2q_{k}^{2}&2\left(q_{j}q_{k}-q_{i}q_{r}\right)\\2\left(q_{i}q_{k}-q_{j}q_{r}\right)&2\left(q_{j}q_{k}+q_{i}q_{r}\right)&1-2q_{i}^{2}-2q_{j}^{2}\end{bmatrix}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/1d3021f87afdff4409baae9d4673c3271435ee33)
+
+or equivalently ![Image 50: {\displaystyle \mathbf {A} ={\begin{bmatrix}-1+2q_{i}^{2}+2q_{r}^{2}&2\left(q_{i}q_{j}-q_{k}q_{r}\right)&2\left(q_{i}q_{k}+q_{j}q_{r}\right)\\2\left(q_{i}q_{j}+q_{k}q_{r}\right)&-1+2q_{j}^{2}+2q_{r}^{2}&2\left(q_{j}q_{k}-q_{i}q_{r}\right)\\2\left(q_{i}q_{k}-q_{j}q_{r}\right)&2\left(q_{j}q_{k}+q_{i}q_{r}\right)&-1+2q_{k}^{2}+2q_{r}^{2}\end{bmatrix}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/13f59d4b8cad4d521dc91d1a7b9566755331bf78)
+
+This is called the [Euler–Rodrigues formula](https://en.wikipedia.org/wiki/Euler%E2%80%93Rodrigues_formula "Euler–Rodrigues formula") for the transformation matrix ![Image 51: {\displaystyle \mathbf {A} }](https://wikimedia.org/api/rest_v1/media/math/render/svg/0795cc96c75d81520a120482662b90f024c9a1a1)
+
+### Euler angles ↔ quaternion
+
+[[edit](https://en.wikipedia.org/w/index.php?title=Rotation_formalisms_in_three_dimensions&action=edit&section=18 "Edit section: Euler angles ↔ quaternion")]
+
+#### Euler angles (_z_-_x_-_z_ extrinsic) → quaternion
+
+[[edit](https://en.wikipedia.org/w/index.php?title=Rotation_formalisms_in_three_dimensions&action=edit&section=19 "Edit section: Euler angles (z-x-z extrinsic) → quaternion")]
+
+We will consider the x-convention 3-1-3 [extrinsic Euler angles](https://en.wikipedia.org/wiki/Euler_angles#Extrinsic_rotations "Euler angles") for the following algorithm. The terms of the algorithm depend on the convention used.
+
+We can compute the quaternion ![Image 52: {\displaystyle \mathbf {q} ={\begin{bmatrix}q_{i}\\q_{j}\\q_{k}\\q_{r}\end{bmatrix}}=q_{i}\mathbf {i} +q_{j}\mathbf {j} +q_{k}\mathbf {k} +q_{r}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/88945e3e96fc6cc9b8a55884687d7d7fa9e80ffb) from the Euler angles (_ϕ_, _θ_, _ψ_) as follows:
+
+![Image 53: {\displaystyle {\begin{aligned}q_{i}&=\cos {\frac {\phi -\psi }{2}}\sin {\frac {\theta }{2}}\\q_{j}&=\sin {\frac {\phi -\psi }{2}}\sin {\frac {\theta }{2}}\\q_{k}&=\sin {\frac {\phi +\psi }{2}}\cos {\frac {\theta }{2}}\\q_{r}&=\cos {\frac {\phi +\psi }{2}}\cos {\frac {\theta }{2}}\end{aligned}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/9fc4b12f7f8a079268587039aad1775bd5b517f4)
+
+#### Euler angles (_z_-_y_′-_x_″ intrinsic) → quaternion
+
+[[edit](https://en.wikipedia.org/w/index.php?title=Rotation_formalisms_in_three_dimensions&action=edit&section=20 "Edit section: Euler angles (z-y′-x″ intrinsic) → quaternion")]
+
+A quaternion equivalent to [yaw](https://en.wikipedia.org/wiki/Yaw_(rotation) "Yaw (rotation)") (ψ), [pitch](https://en.wikipedia.org/wiki/Pitching_moment "Pitching moment") (θ) and roll (ϕ) angles. or [intrinsic](https://en.wikipedia.org/wiki/Euler_angles#Intrinsic_rotations "Euler angles")[Tait–Bryan angles](https://en.wikipedia.org/wiki/Euler_angles#Tait.E2.80.93Bryan_angles "Euler angles") following the _z_-_y_′-_x_″ convention, can be computed by
+
+![Image 54: {\displaystyle {\begin{aligned}q_{i}&=\sin {\frac {\phi }{2}}\cos {\frac {\theta }{2}}\cos {\frac {\psi }{2}}-\cos {\frac {\phi }{2}}\sin {\frac {\theta }{2}}\sin {\frac {\psi }{2}}\\q_{j}&=\cos {\frac {\phi }{2}}\sin {\frac {\theta }{2}}\cos {\frac {\psi }{2}}+\sin {\frac {\phi }{2}}\cos {\frac {\theta }{2}}\sin {\frac {\psi }{2}}\\q_{k}&=\cos {\frac {\phi }{2}}\cos {\frac {\theta }{2}}\sin {\frac {\psi }{2}}-\sin {\frac {\phi }{2}}\sin {\frac {\theta }{2}}\cos {\frac {\psi }{2}}\\q_{r}&=\cos {\frac {\phi }{2}}\cos {\frac {\theta }{2}}\cos {\frac {\psi }{2}}+\sin {\frac {\phi }{2}}\sin {\frac {\theta }{2}}\sin {\frac {\psi }{2}}\end{aligned}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/9feb10800f552124d78604f9f8d2ba296427394f)
+
+#### Quaternion → Euler angles (_z_-_x_-_z_ extrinsic)
+
+[[edit](https://en.wikipedia.org/w/index.php?title=Rotation_formalisms_in_three_dimensions&action=edit&section=21 "Edit section: Quaternion → Euler angles (z-x-z extrinsic)")]
+
+Given the rotation quaternion ![Image 55: {\displaystyle \mathbf {q} ={\begin{bmatrix}q_{i}\\q_{j}\\q_{k}\\q_{r}\end{bmatrix}}=q_{i}\mathbf {i} +q_{j}\mathbf {j} +q_{k}\mathbf {k} +q_{r}\,,}](https://wikimedia.org/api/rest_v1/media/math/render/svg/1431f831c652855b169a8c7dcb73e308338911eb) the x-convention 3-1-3 [extrinsic Euler Angles](https://en.wikipedia.org/wiki/Euler_angles#Extrinsic_rotations "Euler angles")(_φ_, _θ_, _ψ_) can be computed by
+
+![Image 56: {\displaystyle {\begin{aligned}\phi &=\operatorname {atan2} \left(\left(q_{i}q_{k}+q_{j}q_{r}\right),-\left(q_{j}q_{k}-q_{i}q_{r}\right)\right)\\\theta &=\arccos \left(-q_{i}^{2}-q_{j}^{2}+q_{k}^{2}+q_{r}^{2}\right)\\\psi &=\operatorname {atan2} \left(\left(q_{i}q_{k}-q_{j}q_{r}\right),\left(q_{j}q_{k}+q_{i}q_{r}\right)\right)\end{aligned}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/b6f53394f21fb5f7a1f3b9281c554399bc9b8a81)
+
+#### Quaternion → Euler angles (_z_-_y_′-_x_″ intrinsic)
+
+[[edit](https://en.wikipedia.org/w/index.php?title=Rotation_formalisms_in_three_dimensions&action=edit&section=22 "Edit section: Quaternion → Euler angles (z-y′-x″ intrinsic)")]
+
+Given the rotation quaternion ![Image 57: {\displaystyle \mathbf {q} ={\begin{bmatrix}q_{i}\\q_{j}\\q_{k}\\q_{r}\end{bmatrix}}=q_{i}\mathbf {i} +q_{j}\mathbf {j} +q_{k}\mathbf {k} +q_{r}\,,}](https://wikimedia.org/api/rest_v1/media/math/render/svg/1431f831c652855b169a8c7dcb73e308338911eb)[yaw](https://en.wikipedia.org/wiki/Yaw_(rotation) "Yaw (rotation)"), [pitch](https://en.wikipedia.org/wiki/Pitching_moment "Pitching moment") and roll angles, or [intrinsic](https://en.wikipedia.org/wiki/Euler_angles#Intrinsic_rotations "Euler angles")[Tait–Bryan angles](https://en.wikipedia.org/wiki/Euler_angles#Tait.E2.80.93Bryan_angles "Euler angles") following the _z_-_y_′-_x_″ convention, can be computed by
+
+![Image 58: {\displaystyle {\begin{aligned}{\text{roll}}&=\operatorname {atan2} \left(2\left(q_{r}q_{i}+q_{j}q_{k}\right),1-2\left(q_{i}^{2}+q_{j}^{2}\right)\right)\\{\text{pitch}}&=\arcsin \left(2\left(q_{r}q_{j}-q_{k}q_{i}\right)\right)\\{\text{yaw}}&=\operatorname {atan2} \left(2\left(q_{r}q_{k}+q_{i}q_{j}\right),1-2\left(q_{j}^{2}+q_{k}^{2}\right)\right)\end{aligned}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/ca9a1121260381f15dd0393df8a92ce5b5933479)
+
+### Euler axis–angle ↔ quaternion
+
+[[edit](https://en.wikipedia.org/w/index.php?title=Rotation_formalisms_in_three_dimensions&action=edit&section=23 "Edit section: Euler axis–angle ↔ quaternion")]
+
+Given the Euler axis **ê** and angle θ, the quaternion ![Image 59: {\displaystyle \mathbf {q} ={\begin{bmatrix}q_{i}\\q_{j}\\q_{k}\\q_{r}\end{bmatrix}}=q_{i}\mathbf {i} +q_{j}\mathbf {j} +q_{k}\mathbf {k} +q_{r}\,,}](https://wikimedia.org/api/rest_v1/media/math/render/svg/1431f831c652855b169a8c7dcb73e308338911eb)
+
+can be computed by ![Image 60: {\displaystyle {\begin{aligned}q_{i}&={\hat {e}}_{1}\sin {\frac {\theta }{2}}\\q_{j}&={\hat {e}}_{2}\sin {\frac {\theta }{2}}\\q_{k}&={\hat {e}}_{3}\sin {\frac {\theta }{2}}\\q_{r}&=\cos {\frac {\theta }{2}}\end{aligned}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/4087db7945d58547a8b12b78c9d71712997e68c3)
+
+Given the rotation quaternion **q**, define ![Image 61: {\displaystyle {\check {\mathbf {q} }}={\begin{bmatrix}q_{i}\\q_{j}\\q_{k}\end{bmatrix}}\,.}](https://wikimedia.org/api/rest_v1/media/math/render/svg/3858f055e1b0928882877e40e81025e5e1f5a68b) Then the Euler axis **ê** and angle θ can be computed by ![Image 62: {\displaystyle {\begin{aligned}{\hat {\mathbf {e} }}&={\frac {\check {\mathbf {q} }}{\left\|{\check {\mathbf {q} }}\right\|}}\\\theta &=2\arccos q_{r}\end{aligned}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/c8209df772fe3b8cabfd0f3234dd8800a58bdb13)
+
+### Rotation matrix ↔ Rodrigues vector
+
+[[edit](https://en.wikipedia.org/w/index.php?title=Rotation_formalisms_in_three_dimensions&action=edit&section=24 "Edit section: Rotation matrix ↔ Rodrigues vector")]
+
+#### Rodrigues vector → Rotation matrix
+
+[[edit](https://en.wikipedia.org/w/index.php?title=Rotation_formalisms_in_three_dimensions&action=edit&section=25 "Edit section: Rodrigues vector → Rotation matrix")]
+
+Since the definition of the Rodrigues vector can be related to rotation quaternions:![Image 63: {\displaystyle {\begin{cases}g_{i}={\dfrac {q_{i}}{q_{r}}}=e_{x}\tan \left({\dfrac {\theta }{2}}\right)\\g_{j}={\dfrac {q_{j}}{q_{r}}}=e_{y}\tan \left({\dfrac {\theta }{2}}\right)\\g_{k}={\dfrac {q_{k}}{q_{r}}}=e_{z}\tan \left({\dfrac {\theta }{2}}\right)\end{cases}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/88f16e63bd0e8990dbcab7722c1ec43e03ef567c)By making use of the following property![Image 64: {\displaystyle 1=q_{r}^{2}+q_{i}^{2}+q_{j}^{2}+q_{k}^{2}=q_{r}^{2}\left(1+{\frac {q_{i}^{2}}{q_{r}^{2}}}+{\frac {q_{j}^{2}}{q_{r}^{2}}}+{\frac {q_{k}^{2}}{q_{r}^{2}}}\right)=q_{r}^{2}\left(1+g_{i}^{2}+g_{j}^{2}+g_{k}^{2}\right)}](https://wikimedia.org/api/rest_v1/media/math/render/svg/a908bae0e0e823fb9f8859a15dcadf55662d3a4c)The formula can be obtained by factoring _q_ 2
+
+_r_ from the final expression obtained for quaternions:
+
+![Image 65: {\displaystyle \mathbf {A} =q_{r}^{2}{\begin{bmatrix}{\frac {1}{q_{r}^{2}}}-2{\frac {q_{j}^{2}}{q_{r}^{2}}}-2{\frac {q_{k}^{2}}{q_{r}^{2}}}&2\left({\frac {q_{i}}{q_{r}}}{\frac {q_{j}}{q_{r}}}-{\frac {q_{k}}{q_{r}}}\right)&2\left({\frac {q_{i}}{q_{r}}}{\frac {q_{k}}{q_{r}}}+{\frac {q_{j}}{q_{r}}}\right)\\2\left({\frac {q_{i}}{q_{r}}}{\frac {q_{j}}{q_{r}}}+{\frac {q_{k}}{q_{r}}}\right)&{\frac {1}{q_{r}^{2}}}-2{\frac {q_{i}^{2}}{q_{r}^{2}}}-2{\frac {q_{k}^{2}}{q_{r}^{2}}}&2\left({\frac {q_{j}}{q_{r}}}{\frac {q_{k}}{q_{r}}}-{\frac {q_{i}}{q_{r}}}\right)\\2\left({\frac {q_{i}}{q_{r}}}{\frac {q_{k}}{q_{r}}}-{\frac {q_{j}}{q_{r}}}\right)&2\left({\frac {q_{j}}{q_{r}}}{\frac {q_{k}}{q_{r}}}+{\frac {q_{i}}{q_{r}}}\right)&{\frac {1}{q_{r}^{2}}}-2{\frac {q_{i}^{2}}{q_{r}^{2}}}-2{\frac {q_{j}^{2}}{q_{r}^{2}}}\end{bmatrix}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/f787e8f4f5c55905300cc1cda819584a72405039)
+
+Leading to the final formula:
+
+![Image 66: {\displaystyle \mathbf {A} ={\frac {1}{1+g_{i}^{2}+g_{j}^{2}+g_{k}^{2}}}{\begin{bmatrix}1+g_{i}^{2}-g_{j}^{2}-g_{k}^{2}&2\left(g_{i}g_{j}-g_{k}\right)&2\left(g_{i}g_{k}+g_{j}\right)\\2\left(g_{i}g_{j}+g_{k}\right)&1-g_{i}^{2}+g_{j}^{2}-g_{k}^{2}&2\left(g_{j}g_{k}-g_{i}\right)\\2\left(g_{i}g_{k}-g_{j}\right)&2\left(g_{j}g_{k}+g_{i}\right)&1-g_{i}^{2}-g_{j}^{2}+g_{k}^{2}\end{bmatrix}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/3f3d43ccbf5851148c850f4350bcfb843375d270)
+
+Conversion formulae for derivatives
+-----------------------------------
+
+[[edit](https://en.wikipedia.org/w/index.php?title=Rotation_formalisms_in_three_dimensions&action=edit&section=26 "Edit section: Conversion formulae for derivatives")]
+
+### Rotation matrix ↔ angular velocities
+
+[[edit](https://en.wikipedia.org/w/index.php?title=Rotation_formalisms_in_three_dimensions&action=edit&section=27 "Edit section: Rotation matrix ↔ angular velocities")]
+
+The angular velocity vector ![Image 67: {\displaystyle {\boldsymbol {\omega }}={\begin{bmatrix}\omega _{x}\\\omega _{y}\\\omega _{z}\end{bmatrix}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/7d3471cff119ae82ea737bb64d4aba6592ee176e) can be extracted from the [time derivative](https://en.wikipedia.org/wiki/Time_derivative "Time derivative") of the rotation matrix ⁠d**A**/d _t_⁠ by the following relation: ![Image 68: {\displaystyle [{\boldsymbol {\omega }}]_{\times }={\begin{bmatrix}0&-\omega _{z}&\omega _{y}\\\omega _{z}&0&-\omega _{x}\\-\omega _{y}&\omega _{x}&0\end{bmatrix}}={\frac {\mathrm {d} \mathbf {A} }{\mathrm {d} t}}\mathbf {A} ^{\mathsf {T}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/e77acfcca1f8dcc42a510d9c87e84bc9cac1fee2)
+
+The derivation is adapted from Ioffe[[8]](https://en.wikipedia.org/wiki/Rotation_formalisms_in_three_dimensions#cite_note-8) as follows:
+
+For any vector **r**0, consider **r**(_t_) = **A**(_t_)**r**0 and differentiate it: ![Image 69: {\displaystyle {\frac {\mathrm {d} \mathbf {r} }{\mathrm {d} t}}={\frac {\mathrm {d} \mathbf {A} }{\mathrm {d} t}}\mathbf {r} _{0}={\frac {\mathrm {d} \mathbf {A} }{\mathrm {d} t}}\mathbf {A} ^{\mathsf {T}}(t)\mathrm {r} (t)}](https://wikimedia.org/api/rest_v1/media/math/render/svg/ff74145dc58d1ea175027918a9a57bb7a825ab95)
+
+The derivative of a vector is the [linear velocity](https://en.wikipedia.org/wiki/Velocity_vector "Velocity vector") of its tip. Since **A** is a rotation matrix, by definition the length of **r**(_t_) is always equal to the length of **r**0, and hence it does not change with time. Thus, when **r**(_t_) rotates, its tip moves along a circle, and the linear velocity of its tip is tangential to the circle; i.e., always perpendicular to **r**(_t_). In this specific case, the relationship between the linear velocity vector and the angular velocity vector is ![Image 70: {\displaystyle {\frac {\mathrm {d} \mathbf {r} }{\mathrm {d} t}}={\boldsymbol {\omega }}(t)\times \mathbf {r} (t)=[{\boldsymbol {\omega }}]_{\times }\mathbf {r} (t)}](https://wikimedia.org/api/rest_v1/media/math/render/svg/1ff9424c8647883330a8b9d739cb95a0e06f1c7c) (see [circular motion](https://en.wikipedia.org/wiki/Circular_motion "Circular motion") and [cross product](https://en.wikipedia.org/wiki/Cross_product#Conversion_to_matrix_multiplication "Cross product")).
+
+By the [transitivity](https://en.wikipedia.org/wiki/Transitive_relation "Transitive relation") of the abovementioned equations, ![Image 71: {\displaystyle {\frac {\mathrm {d} \mathbf {A} }{\mathrm {d} t}}\mathbf {A} ^{\mathsf {T}}(t)\mathbf {r} (t)=[{\boldsymbol {\omega }}]_{\times }\mathbf {r} (t)}](https://wikimedia.org/api/rest_v1/media/math/render/svg/c74108f541116e51a7ffb72a6f88465b229b727d)
+
+which implies ![Image 72: {\displaystyle {\frac {\mathrm {d} \mathbf {A} }{\mathrm {d} t}}\mathbf {A} ^{\mathsf {T}}(t)=[{\boldsymbol {\omega }}]_{\times }}](https://wikimedia.org/api/rest_v1/media/math/render/svg/5501f9dda072f6fd0085a041dc04e2208e7f7a32)
+
+### Quaternion ↔ angular velocities
+
+[[edit](https://en.wikipedia.org/w/index.php?title=Rotation_formalisms_in_three_dimensions&action=edit&section=28 "Edit section: Quaternion ↔ angular velocities")]
+
+The angular velocity vector ![Image 73: {\displaystyle {\boldsymbol {\omega }}={\begin{bmatrix}\omega _{x}\\\omega _{y}\\\omega _{z}\end{bmatrix}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/7d3471cff119ae82ea737bb64d4aba6592ee176e) can be obtained from the derivative of the quaternion ⁠d**q**/d _t_⁠ as follows:[[9]](https://en.wikipedia.org/wiki/Rotation_formalisms_in_three_dimensions#cite_note-9)![Image 74: {\displaystyle {\begin{bmatrix}0\\\omega _{x}\\\omega _{y}\\\omega _{z}\end{bmatrix}}=2{\frac {\mathrm {d} \mathbf {q} }{\mathrm {d} t}}{\tilde {\mathbf {q} }}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/859f1a4e4c9d1f9e747e6a257b9fe4d9e983d318) where **q̃** is the conjugate (inverse) of **q**.
+
+Conversely, the derivative of the quaternion is ![Image 75: {\displaystyle {\frac {\mathrm {d} \mathbf {q} }{\mathrm {d} t}}={\frac {1}{2}}{\begin{bmatrix}0\\\omega _{x}\\\omega _{y}\\\omega _{z}\end{bmatrix}}\mathbf {q} \,.}](https://wikimedia.org/api/rest_v1/media/math/render/svg/2906d34f36cc0b2c3847e6cae351e437e5777bb4)
+
+Rotors in a geometric algebra
+-----------------------------
+
+[[edit](https://en.wikipedia.org/w/index.php?title=Rotation_formalisms_in_three_dimensions&action=edit&section=29 "Edit section: Rotors in a geometric algebra")]
+
+The formalism of [geometric algebra](https://en.wikipedia.org/wiki/Geometric_algebra "Geometric algebra") (GA) provides an extension and interpretation of the quaternion method. Central to GA is the geometric product of vectors, an extension of the traditional [inner](https://en.wikipedia.org/wiki/Inner_product "Inner product") and [cross products](https://en.wikipedia.org/wiki/Cross_product "Cross product"), given by ![Image 76: {\displaystyle \mathbf {ab} =\mathbf {a} \cdot \mathbf {b} +\mathbf {a} \wedge \mathbf {b} }](https://wikimedia.org/api/rest_v1/media/math/render/svg/d67e3f44b397f2d5fb915a013227943a8c3b2986)
+
+where the symbol ∧ denotes the [exterior product or wedge product](https://en.wikipedia.org/wiki/Exterior_algebra "Exterior algebra"). This product of vectors **a**, and **b** produces two terms: a scalar part from the inner product and a [bivector](https://en.wikipedia.org/wiki/Bivector "Bivector") part from the wedge product. This bivector describes the plane perpendicular to what the cross product of the vectors would return.
+
+Bivectors in GA have some unusual properties compared to vectors. Under the geometric product, bivectors have a negative square: the bivector **x̂ŷ** describes the xy-plane. Its square is (**x̂ŷ**)2 = **x̂ŷx̂ŷ**. Because the unit basis vectors are orthogonal to each other, the geometric product reduces to the antisymmetric outer product, so **x̂** and **ŷ** can be swapped freely at the cost of a factor of−1. The square reduces to −**x̂x̂ŷŷ** = −1 since the basis vectors themselves square to +1.
+
+This result holds generally for all bivectors, and as a result the bivector plays a role similar to the [imaginary unit](https://en.wikipedia.org/wiki/Imaginary_unit "Imaginary unit"). Geometric algebra uses bivectors in its analogue to the quaternion, the _rotor_, given by ![Image 77: {\displaystyle \mathbf {R} =\exp \left({\frac {-{\hat {\mathbf {B} }}\theta }{2}}\right)=\cos {\frac {\theta }{2}}-{\hat {\mathbf {B} }}\sin {\frac {\theta }{2}}\,,}](https://wikimedia.org/api/rest_v1/media/math/render/svg/e946f6fe82b5535e31bc45c73814f9d74d76379e) where **B̂** is a unit bivector that describes the [plane of rotation](https://en.wikipedia.org/wiki/Plane_of_rotation "Plane of rotation"). Because **B̂** squares to −1, the [power series](https://en.wikipedia.org/wiki/Power_series "Power series") expansion of **R** generates the [trigonometric functions](https://en.wikipedia.org/wiki/Trigonometric_function "Trigonometric function"). The rotation formula that maps a vector **a** to a rotated vector **b** is then ![Image 78: {\displaystyle \mathbf {b} =\mathbf {RaR} ^{\dagger }}](https://wikimedia.org/api/rest_v1/media/math/render/svg/e828780ec145d9e9cf0798a42cae6cdcdf4055fe) where ![Image 79: {\displaystyle \mathbf {R} ^{\dagger }=\exp \left({\frac {1}{2}}{\hat {\mathbf {B} }}\theta \right)=\cos {\frac {\theta }{2}}+{\hat {\mathbf {B} }}\sin {\frac {\theta }{2}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/4e7099f587ce6248a18336cca3fbad54e59b5193) is the _reverse_ of ![Image 80: {\displaystyle \scriptstyle R}](https://wikimedia.org/api/rest_v1/media/math/render/svg/b814811ff06a8eb5ed4110cef7ea3013d29658ab) (reversing the order of the vectors in ![Image 81: {\displaystyle B}](https://wikimedia.org/api/rest_v1/media/math/render/svg/47136aad860d145f75f3eed3022df827cee94d7a) is equivalent to changing its sign).
+
+**Example.** A rotation about the axis ![Image 82: {\displaystyle {\hat {\mathbf {v} }}={\frac {1}{\sqrt {3}}}\left({\hat {\mathbf {x} }}+{\hat {\mathbf {y} }}+{\hat {\mathbf {z} }}\right)}](https://wikimedia.org/api/rest_v1/media/math/render/svg/6209bbc08be77cf48007671624382139ce0b6572) can be accomplished by converting **v̂** to its dual bivector, ![Image 83: {\displaystyle {\hat {\mathbf {B} }}={\hat {\mathbf {x} }}{\hat {\mathbf {y} }}{\hat {\mathbf {z} }}{\hat {\mathbf {v} }}=\mathbf {i} {\hat {\mathbf {v} }}\,,}](https://wikimedia.org/api/rest_v1/media/math/render/svg/39b484daf33e020c5aa8872272b14b102a228cce) where **i** = **x̂ŷẑ** is the unit volume element, the only trivector (pseudoscalar) in three-dimensional space. The result is ![Image 84: {\displaystyle {\hat {\mathbf {B} }}={\frac {1}{\sqrt {3}}}\left({\hat {\mathbf {y} }}{\hat {\mathbf {z} }}+{\hat {\mathbf {z} }}{\hat {\mathbf {x} }}+{\hat {\mathbf {x} }}{\hat {\mathbf {y} }}\right)\,.}](https://wikimedia.org/api/rest_v1/media/math/render/svg/e57954ba83ee88812400a8a2cf6d72dfa2f2a11a)
+
+In three-dimensional space, however, it is often simpler to leave the expression for **B̂** = **iv̂**, using the fact that **i** commutes with all objects in 3D and also squares to −1. A rotation of the **x̂** vector in this plane by an angle θ is then
+
+![Image 85: {\displaystyle {\hat {\mathbf {x} }}'=\mathbf {R} {\hat {\mathbf {x} }}\mathbf {R} ^{\dagger }=e^{-i{\hat {\mathbf {v} }}{\frac {\theta }{2}}}{\hat {\mathbf {x} }}e^{i{\hat {\mathbf {v} }}{\frac {\theta }{2}}}={\hat {\mathbf {x} }}\cos ^{2}{\frac {\theta }{2}}+\mathbf {i} \left({\hat {\mathbf {x} }}{\hat {\mathbf {v} }}-{\hat {\mathbf {v} }}{\hat {\mathbf {x} }}\right)\cos {\frac {\theta }{2}}\sin {\frac {\theta }{2}}+{\hat {\mathbf {v} }}{\hat {\mathbf {x} }}{\hat {\mathbf {v} }}\sin ^{2}{\frac {\theta }{2}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/7027a37de557deef2daa1530a94f2c697df1d50a)
+
+Recognizing that ![Image 86: {\displaystyle \mathbf {i} ({\hat {\mathbf {x} }}{\hat {\mathbf {v} }}-{\hat {\mathbf {v} }}{\hat {\mathbf {x} }})=2\mathbf {i} ({\hat {\mathbf {x} }}\wedge {\hat {\mathbf {v} }})}](https://wikimedia.org/api/rest_v1/media/math/render/svg/d103c41260f9a26465b9621139b2e9ae7316d7a4) and that −**v̂x̂v̂** is the reflection of **x̂** about the plane perpendicular to **v̂** gives a geometric interpretation to the rotation operation: the rotation preserves the components that are parallel to **v̂** and changes only those that are perpendicular. The terms are then computed: ![Image 87: {\displaystyle {\begin{aligned}{\hat {\mathbf {v} }}{\hat {\mathbf {x} }}{\hat {\mathbf {v} }}&={\frac {1}{3}}\left(-{\hat {\mathbf {x} }}+2{\hat {\mathbf {y} }}+2{\hat {\mathbf {z} }}\right)\\2\mathbf {i} {\hat {\mathbf {x} }}\wedge {\hat {\mathbf {v} }}&=2\mathbf {i} {\frac {1}{\sqrt {3}}}\left({\hat {\mathbf {x} }}{\hat {\mathbf {y} }}+{\hat {\mathbf {x} }}{\hat {\mathbf {z} }}\right)={\frac {2}{\sqrt {3}}}\left({\hat {\mathbf {y} }}-{\hat {\mathbf {z} }}\right)\end{aligned}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/86cb0a6d8f022112d16413a4adf9d5bbf92f759a)
+
+The result of the rotation is then ![Image 88: {\displaystyle {\hat {\mathbf {x} }}'={\hat {\mathbf {x} }}\left(\cos ^{2}{\frac {\theta }{2}}-{\frac {1}{3}}\sin ^{2}{\frac {\theta }{2}}\right)+{\frac {2}{3}}{\hat {\mathbf {y} }}\sin {\frac {\theta }{2}}\left(\sin {\frac {\theta }{2}}+{\sqrt {3}}\cos {\frac {\theta }{2}}\right)+{\frac {2}{3}}{\hat {\mathbf {z} }}\sin {\frac {\theta }{2}}\left(\sin {\frac {\theta }{2}}-{\sqrt {3}}\cos {\frac {\theta }{2}}\right)}](https://wikimedia.org/api/rest_v1/media/math/render/svg/db23fe03b37480bfbc83682b8965a64fae5df330)
+
+A simple check on this result is the angle _θ_ = ⁠2/3⁠π. Such a rotation should map **x̂** to **ŷ**. Indeed, the rotation reduces to ![Image 89: {\displaystyle {\begin{aligned}{\hat {\mathbf {x} }}'&={\hat {\mathbf {x} }}\left({\frac {1}{4}}-{\frac {1}{3}}{\frac {3}{4}}\right)+{\frac {2}{3}}{\hat {\mathbf {y} }}{\frac {\sqrt {3}}{2}}\left({\frac {\sqrt {3}}{2}}+{\sqrt {3}}{\frac {1}{2}}\right)+{\frac {2}{3}}{\hat {\mathbf {z} }}{\frac {\sqrt {3}}{2}}\left({\frac {\sqrt {3}}{2}}-{\sqrt {3}}{\frac {1}{2}}\right)\\&=0{\hat {\mathbf {x} }}+{\hat {\mathbf {y} }}+0{\hat {\mathbf {z} }}={\hat {\mathbf {y} }}\end{aligned}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/63fba1ecf9cfbf752480127e3188772e7f93f105)
+
+exactly as expected. This rotation formula is valid not only for vectors but for any [multivector](https://en.wikipedia.org/wiki/Multivector "Multivector"). In addition, when Euler angles are used, the complexity of the operation is much reduced. Compounded rotations come from multiplying the rotors, so the total rotor from Euler angles is ![Image 90: {\displaystyle \mathbf {R} =\mathbf {R} _{\gamma '}\mathbf {R} _{\beta '}\mathbf {R} _{\alpha }=\exp \left({\frac {-\mathbf {i} {\hat {\mathbf {z} }}'\gamma }{2}}\right)\exp \left({\frac {-\mathbf {i} {\hat {\mathbf {x} }}'\beta }{2}}\right)\exp \left({\frac {-\mathbf {i} {\hat {\mathbf {z} }}\alpha }{2}}\right)}](https://wikimedia.org/api/rest_v1/media/math/render/svg/ea8410f1b1ceca37f211b1b4251d22fa9a5e3b04) but ![Image 91: {\displaystyle {\begin{aligned}{\hat {\mathbf {x} }}'&=\mathbf {R} _{\alpha }{\hat {\mathbf {x} }}\mathbf {R} _{\alpha }^{\dagger }\quad {\text{and}}\\{\hat {\mathbf {z} }}'&=\mathbf {R} _{\beta '}{\hat {\mathbf {z} }}\mathbf {R} _{\beta '}^{\dagger }\,.\end{aligned}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/1acdba803d3e60e11e3cf906a872a0f9b7ce6ace) These rotors come back out of the exponentials like so: ![Image 92: {\displaystyle \mathbf {R} _{\beta '}=\cos {\frac {\beta }{2}}-\mathbf {i} \mathbf {R} _{\alpha }{\hat {\mathbf {x} }}\mathbf {R} _{\alpha }^{\dagger }\sin {\frac {\beta }{2}}=\mathbf {R} _{\alpha }\mathbf {R} _{\beta }\mathbf {R} _{\alpha }^{\dagger }}](https://wikimedia.org/api/rest_v1/media/math/render/svg/9b7420c5efde1e8f4b84d043e5b245aebe1cd218) where **R**_β_ refers to rotation in the original coordinates. Similarly for the γ rotation, ![Image 93: {\displaystyle \mathbf {R} _{\gamma '}=\mathbf {R} _{\beta '}\mathbf {R} _{\gamma }\mathbf {R} _{\beta '}^{\dagger }=\mathbf {R} _{\alpha }\mathbf {R} _{\beta }\mathbf {R} _{\alpha }^{\dagger }\mathbf {R} _{\gamma }\mathbf {R} _{\alpha }\mathbf {R} _{\beta }^{\dagger }\mathbf {R} _{\alpha }^{\dagger }\,.}](https://wikimedia.org/api/rest_v1/media/math/render/svg/3c22dbb59a8e30f2048ae3d456afba942ef7ed03) Noting that **R**_γ_ and **R**_α_ commute (rotations in the same plane must commute), and the total rotor becomes ![Image 94: {\displaystyle \mathbf {R} =\mathbf {R} _{\alpha }\mathbf {R} _{\beta }\mathbf {R} _{\gamma }}](https://wikimedia.org/api/rest_v1/media/math/render/svg/d5d3f32f1ad974c2867edea0570cebf20de9f875)
+
+Thus, the compounded rotations of Euler angles become a series of equivalent rotations in the original fixed frame.
+
+While rotors in geometric algebra work almost identically to quaternions in three dimensions, the power of this formalism is its generality: this method is appropriate and valid in spaces with any number of dimensions. In 3D, rotations have three degrees of freedom, a degree for each linearly independent plane (bivector) the rotation can take place in. It has been known that pairs of quaternions can be used to generate rotations in 4D, yielding six degrees of freedom, and the geometric algebra approach verifies this result: in 4D, there are six linearly independent bivectors that can be used as the generators of rotations.
+
+*   [Euler filter](https://en.wikipedia.org/wiki/Euler_filter "Euler filter")
+*   [Orientation (geometry)](https://en.wikipedia.org/wiki/Orientation_(geometry) "Orientation (geometry)")
+*   [Rotation around a fixed axis](https://en.wikipedia.org/wiki/Rotation_around_a_fixed_axis "Rotation around a fixed axis")
+
+1.   **[^](https://en.wikipedia.org/wiki/Rotation_formalisms_in_three_dimensions#cite_ref-1)**["Fiducial Marker Tracking for Augmented Reality"](http://www.questionablyartificial.com/2016---fiducial-marker-tracking-for-augmented-reality.html).
+2.   **[^](https://en.wikipedia.org/wiki/Rotation_formalisms_in_three_dimensions#cite_ref-2)**[Weisstein, Eric W.](https://en.wikipedia.org/wiki/Eric_W._Weisstein "Eric W. Weisstein")["Rotation Matrix"](https://mathworld.wolfram.com/RotationMatrix.html). _[MathWorld](https://en.wikipedia.org/wiki/MathWorld "MathWorld")_.
+3.   ^ [_**a**_](https://en.wikipedia.org/wiki/Rotation_formalisms_in_three_dimensions#cite_ref-Rodrigues_3-0)[_**b**_](https://en.wikipedia.org/wiki/Rotation_formalisms_in_three_dimensions#cite_ref-Rodrigues_3-1)[Rodrigues, Olinde](https://en.wikipedia.org/wiki/Olinde_Rodrigues "Olinde Rodrigues") (1840). "Des lois géometriques qui regissent les déplacements d'un systéme solide dans l'espace, et de la variation des coordonnées provenant de ces déplacement considérées indépendant des causes qui peuvent les produire". _J. Math. Pures Appl_. **5**: 380–440.[online](http://sites.mathdoc.fr/JMPA/PDF/JMPA_1840_1_5_A39_0.pdf)
+4.   **[^](https://en.wikipedia.org/wiki/Rotation_formalisms_in_three_dimensions#cite_ref-4)**cf. J Willard Gibbs (1884). _Elements of Vector Analysis_, New Haven, p. 67
+5.   **[^](https://en.wikipedia.org/wiki/Rotation_formalisms_in_three_dimensions#cite_ref-5)**[Direct and inverse kinematics](http://cmp.felk.cvut.cz/cmp/courses/ROB/roblec/serial-noteeng.pdf) lecture notes, page 5
+6.   **[^](https://en.wikipedia.org/wiki/Rotation_formalisms_in_three_dimensions#cite_ref-6)**Mebius, Johan (2007). "Derivation of the Euler–Rodrigues formula for three-dimensional rotations from the general formula for four-dimensional rotations". [arXiv](https://en.wikipedia.org/wiki/ArXiv_(identifier) "ArXiv (identifier)"):[math/0701759](https://arxiv.org/abs/math/0701759).
+7.   **[^](https://en.wikipedia.org/wiki/Rotation_formalisms_in_three_dimensions#cite_ref-7)**Shuster, Malcolm D. (1993). ["A Survey of Attitude Representations"](http://malcolmdshuster.com/Pub_1993h_J_Repsurv_scan.pdf)(PDF). _Journal of the Astronautical Sciences_. **41** (4): 439–517. [Bibcode](https://en.wikipedia.org/wiki/Bibcode_(identifier) "Bibcode (identifier)"):[1993JAnSc..41..439S](https://ui.adsabs.harvard.edu/abs/1993JAnSc..41..439S).
+8.   **[^](https://en.wikipedia.org/wiki/Rotation_formalisms_in_three_dimensions#cite_ref-8)**[[1]](http://www.euclideanspace.com/physics/kinematics/angularvelocity/mark.htm) Physics - Mark Ioffe - _W_(_t_) in terms of matrices
+9.   **[^](https://en.wikipedia.org/wiki/Rotation_formalisms_in_three_dimensions#cite_ref-9)**[Quaternions and Rotation](http://web.cs.iastate.edu/~cs577/handouts/quaternion.pdf) lecture notes, p. 14-15
+
+*   Shuster, M.D. (1993). ["A Survey of Attitude Representations"](http://www.malcolmdshuster.com/Pub_1993h_J_Repsurv_scan.pdf)(PDF). _Journal of the Astronautical Sciences_. **41** (4): 439–517. [Bibcode](https://en.wikipedia.org/wiki/Bibcode_(identifier) "Bibcode (identifier)"):[1993JAnSc..41..439S](https://ui.adsabs.harvard.edu/abs/1993JAnSc..41..439S).
+*   Taubin, G. (2011). ["3D Rotations"](http://mesh.brown.edu/rotations). _IEEE Computer Graphics and Applications_. **31** (6): 84–89. [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1109/MCG.2011.92](https://doi.org/10.1109%2FMCG.2011.92). [PMID](https://en.wikipedia.org/wiki/PMID_(identifier) "PMID (identifier)")[24808261](https://pubmed.ncbi.nlm.nih.gov/24808261).
+*   Coutsias, E.; Romero, L. (2004). ["The Quaternions with an application to Rigid Body Dynamics"](https://digitalrepository.unm.edu/math_fsp/4/). _Sandia Technical Report_. Sandia National Laboraties. SAND2004-0153.
+*   Markley, F. Landis (2003). "Attitude Error Representations for Kalman Filtering". _Journal of Guidance, Control and Dynamics_. **26** (2): 311–7. [Bibcode](https://en.wikipedia.org/wiki/Bibcode_(identifier) "Bibcode (identifier)"):[2003JGCD...26..311M](https://ui.adsabs.harvard.edu/abs/2003JGCD...26..311M). [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.2514/2.5048](https://doi.org/10.2514%2F2.5048). [hdl](https://en.wikipedia.org/wiki/Hdl_(identifier) "Hdl (identifier)"):[2060/20020060647](https://hdl.handle.net/2060%2F20020060647).
+*   Goldstein, H. (1980). _Classical Mechanics_ (2nd ed.). Addison–Wesley. [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) "ISBN (identifier)")[0-201-02918-9](https://en.wikipedia.org/wiki/Special:BookSources/0-201-02918-9 "Special:BookSources/0-201-02918-9").
+*   Wertz, James R. (1980). _Spacecraft Attitude Determination and Control_. [D. Reidel](https://en.wikipedia.org/wiki/D._Reidel "D. Reidel"). [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) "ISBN (identifier)")[90-277-1204-2](https://en.wikipedia.org/wiki/Special:BookSources/90-277-1204-2 "Special:BookSources/90-277-1204-2").
+*   Schmidt, J.; Niemann, H. (2001). "Using Quaternions for Parametrizing 3-D Rotations in Unconstrained Nonlinear Optimization". _Proceedings of the Vision Modeling and Visualization Conference 2001_. IOS Press. pp.399–406. [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) "ISBN (identifier)")[3898380289](https://en.wikipedia.org/wiki/Special:BookSources/3898380289 "Special:BookSources/3898380289").
+*   Landau, L.; Lifshitz, E.M. (1976). [_Mechanics_](https://archive.org/details/mechanics00land) (3rd ed.). [Pergamon Press](https://en.wikipedia.org/wiki/Pergamon_Press "Pergamon Press"). [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) "ISBN (identifier)")[0-08-021022-8](https://en.wikipedia.org/wiki/Special:BookSources/0-08-021022-8 "Special:BookSources/0-08-021022-8").
+*   Klumpp, A.R. (December 1976). "Singularity-Free Extraction of a Quaternion from a Direction-Cosine Matrix". _Journal of Spacecraft and Rockets_. **13** (12): 754–5. [Bibcode](https://en.wikipedia.org/wiki/Bibcode_(identifier) "Bibcode (identifier)"):[1976JSpRo..13..754K](https://ui.adsabs.harvard.edu/abs/1976JSpRo..13..754K). [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.2514/3.27947](https://doi.org/10.2514%2F3.27947).
+*   Doran, C.; Lasenby, A. (2003). _Geometric Algebra for Physicists_. Cambridge University Press. [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) "ISBN (identifier)")[978-0-521-71595-9](https://en.wikipedia.org/wiki/Special:BookSources/978-0-521-71595-9 "Special:BookSources/978-0-521-71595-9").
+*   Terzakis, G.; Lourakis, M.; Ait-Boudaoud, D. (2018). ["Modified Rodrigues Parameters: An Efficient Representation of Orientation in 3D Vision and Graphics"](http://rdcu.be/wIBC). _Journal of Mathematical Imaging and Vision_. **60** (3): 422–442. [Bibcode](https://en.wikipedia.org/wiki/Bibcode_(identifier) "Bibcode (identifier)"):[2018JMIV...60..422T](https://ui.adsabs.harvard.edu/abs/2018JMIV...60..422T). [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1007/s10851-017-0765-x](https://doi.org/10.1007%2Fs10851-017-0765-x).
+*   Rowenhorst, D.; Rollett, A.D.; Rohrer, G.S.; Groeber, M.; Jackson, M.; Konijnenberg, P.J.; De Graef, M. (2015). ["Consistent representations of and conversions between 3D rotations"](https://doi.org/10.1088%2F0965-0393%2F23%2F8%2F083501). _Modelling and Simulation in Materials Science and Engineering_. **23** (8): 083501. [Bibcode](https://en.wikipedia.org/wiki/Bibcode_(identifier) "Bibcode (identifier)"):[2015MSMSE..23h3501R](https://ui.adsabs.harvard.edu/abs/2015MSMSE..23h3501R). [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1088/0965-0393/23/8/083501](https://doi.org/10.1088%2F0965-0393%2F23%2F8%2F083501). [S2CID](https://en.wikipedia.org/wiki/S2CID_(identifier) "S2CID (identifier)")[16130878](https://api.semanticscholar.org/CorpusID:16130878).
+
+*   [EuclideanSpace](http://www.euclideanspace.com/maths/geometry/rotations/index.htm) has a wealth of information on rotation representation
+*   [Q36. How do I generate a rotation matrix from Euler angles?](http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q36) and [Q37. How do I convert a rotation matrix to Euler angles?](http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q37) — The Matrix and Quaternions FAQ
+*   [Imaginary numbers are not Real – the Geometric Algebra of Spacetime](http://www.mrao.cam.ac.uk/~clifford/introduction/intro/node9.html#SECTION00030000000000000000) – Section "Rotations and Geometric Algebra" derives and applies the rotor description of rotations
+*   [Starlino's DCM Tutorial](http://www.starlino.com/dcm_tutorial.html) – Direction cosine matrix theory tutorial and applications. Space orientation estimation algorithm using accelerometer, gyroscope and magnetometer IMU devices. Using complimentary filter (popular alternative to Kalman filter) with DCM matrix.
