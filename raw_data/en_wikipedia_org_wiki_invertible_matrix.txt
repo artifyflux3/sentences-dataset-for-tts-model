@@ -1,0 +1,417 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Definition 2 Examples 3 Methods of matrix inversion Toggle Methods of matrix inversion subsection 3.1 Gaussian elimination 3.2 Newton's method 3.3 Cayley–Hamilton method 3.4 Eigendecomposition 3.5 Cholesky decomposition 3.6 Analytic solution 3.6.1 Inversion of 2 × 2 matrices 3.6.2 Inversion of 3 × 3 matrices 3.6.3 Inversion of 4 × 4 matrices 3.7 Blockwise inversion 3.8 By Neumann series 3.9 p -adic approximation 3.10 Reciprocal basis vectors method 4 Properties Toggle Properties subsection 4.1 Singularity 4.2 Invertible matrix theorem 4.3 Other properties 4.4 In relation to its adjugate 4.5 In relation to the identity matrix 4.6 Density 5 Derivative of the matrix inverse 6 Generalizations Toggle Generalizations subsection 6.1 Non-square matrices 6.2 In Abstract algebra 7 Applications Toggle Applications subsection 7.1 Regression/least squares 7.2 Matrix inverses in real-time simulations 7.3 Matrix inverses in MIMO wireless communication 8 See also 9 References 10 Further reading 11 External links Toggle the table of contents Invertible matrix 37 languages العربية Azərbaycanca 閩南語 / Bân-lâm-gí Català Чӑвашла Čeština Dansk Deutsch Eesti Ελληνικά Español Esperanto Euskara فارسی Français Galego 한국어 Bahasa Indonesia Íslenska Italiano עברית Lombard Magyar 日本語 Română Русский Simple English کوردی Српски / srpski Srpskohrvatski / српскохрватски Suomi Svenska தமிழ் Türkçe Українська Tiếng Việt 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Matrix which has a multiplicative inverse In linear algebra , an invertible matrix ( non-singular , non-degenerate or regular ) is a square matrix that has an inverse . In other words, if a matrix is invertible, it can be multiplied by another matrix to yield the identity matrix . Invertible matrices are the same size as their inverse.
+
+The inverse of a matrix represents the inverse operation, meaning if you apply a matrix to a particular vector, then apply the matrix's inverse, you get back the original vector.
+
+Definition [ edit ] An n -by- n square matrix A is called invertible if there exists an n -by- n square matrix B such that A B = B A = I n , {\displaystyle \mathbf {AB} =\mathbf {BA} =\mathbf {I} _{n},} where I n denotes the n -by- n identity matrix and the multiplication used is ordinary matrix multiplication .
+
+[ 1 ] If this is the case, then the matrix B is uniquely determined by A , and is called the (multiplicative) inverse of A , denoted by A −1 .
+
+Matrix inversion is the process of finding the matrix which when multiplied by the original matrix gives the identity matrix.
+
+[ 2 ] Examples [ edit ] Consider the following 2-by-2 matrix: A = ( − − 1 3 2 1 − − 1 ) .
+
+{\displaystyle \mathbf {A} ={\begin{pmatrix}-1&{\tfrac {3}{2}}\\1&-1\end{pmatrix}}.} The matrix A {\displaystyle \mathbf {A} } is invertible, as it has inverse B = ( 2 3 2 2 ) , {\displaystyle \mathbf {B} ={\begin{pmatrix}2&3\\2&2\end{pmatrix}},} which can be confirmed by computing A B = ( − − 1 3 2 1 − − 1 ) ( 2 3 2 2 ) = ( ( − − 1 ) × × 2 + 3 2 × × 2 ( − − 1 ) × × 3 + 3 2 × × 2 1 × × 2 + ( − − 1 ) × × 2 1 × × 3 + ( − − 1 ) × × 2 ) = ( 1 0 0 1 ) = I 2 {\displaystyle \mathbf {A} \mathbf {B} ={\begin{pmatrix}-1&{\tfrac {3}{2}}\\1&-1\end{pmatrix}}{\begin{pmatrix}2&3\\2&2\end{pmatrix}}={\begin{pmatrix}(-1)\times 2+{\tfrac {3}{2}}\times 2&(-1)\times 3+{\tfrac {3}{2}}\times 2\\1\times 2+(-1)\times 2&1\times 3+(-1)\times 2\end{pmatrix}}={\begin{pmatrix}1&0\\0&1\end{pmatrix}}=\mathbf {I} _{2}} To check that it is invertible without finding an inverse, you can compute det A = − − 1 2 {\textstyle \det \mathbf {A} =-{\frac {1}{2}}} , which is non-zero.
+
+On the other hand, this is a non-invertible matrix: C = ( 2 4 2 4 ) .
+
+{\displaystyle \mathbf {C} ={\begin{pmatrix}2&4\\2&4\end{pmatrix}}.} We can see the rank of this 2-by-2 matrix is 1, which is n − 1 ≠ n , so it is non-invertible. Additionally, we can compute that the determinant of C {\displaystyle \mathbf {C} } is 0, which is a necessary and sufficient condition for a matrix to be non-invertible.
+
+Methods of matrix inversion [ edit ] Gaussian elimination [ edit ] Gaussian elimination is a useful and easy way to compute the inverse of a matrix. To compute a matrix inverse using this method, an augmented matrix is first created with the left side being the matrix to invert and the right side being the identity matrix . Then, Gaussian elimination is used to convert the left side into the identity matrix, which causes the right side to become the inverse of the input matrix.
+
+For example, take the following matrix: A = ( − − 1 3 2 1 − − 1 ) .
+
+{\displaystyle \mathbf {A} ={\begin{pmatrix}-1&{\tfrac {3}{2}}\\1&-1\end{pmatrix}}.} The first step to compute its inverse is to create the augmented matrix ( − − 1 3 2 1 0 1 − − 1 0 1 ) .
+
+{\displaystyle \left(\!\!{\begin{array}{cc|cc}-1&{\tfrac {3}{2}}&1&0\\1&-1&0&1\end{array}}\!\!\right).} Call the first row of this matrix R 1 {\displaystyle R_{1}} and the second row R 2 {\displaystyle R_{2}} . Then, add row 1 to row 2 ( R 1 + R 2 → → R 2 ) .
+
+{\displaystyle (R_{1}+R_{2}\to R_{2}).} This yields ( − − 1 3 2 1 0 0 1 2 1 1 ) .
+
+{\displaystyle \left(\!\!{\begin{array}{cc|cc}-1&{\tfrac {3}{2}}&1&0\\0&{\tfrac {1}{2}}&1&1\end{array}}\!\!\right).} Next, subtract row 2, multiplied by 3, from row 1 ( R 1 − − 3 R 2 → → R 1 ) , {\displaystyle (R_{1}-3\,R_{2}\to R_{1}),} which yields ( − − 1 0 − − 2 − − 3 0 1 2 1 1 ) .
+
+{\displaystyle \left(\!\!{\begin{array}{cc|cc}-1&0&-2&-3\\0&{\tfrac {1}{2}}&1&1\end{array}}\!\!\right).} Finally, multiply row 1 by −1 ( − − R 1 → → R 1 ) {\displaystyle (-R_{1}\to R_{1})} and row 2 by 2 ( 2 R 2 → → R 2 ) .
+
+{\displaystyle (2\,R_{2}\to R_{2}).} This yields the identity matrix on the left side and the inverse matrix on the right: ( 1 0 2 3 0 1 2 2 ) .
+
+{\displaystyle \left(\!\!{\begin{array}{cc|cc}1&0&2&3\\0&1&2&2\end{array}}\!\!\right).} Thus, A − − 1 = ( 2 3 2 2 ) .
+
+{\displaystyle \mathbf {A} ^{-1}={\begin{pmatrix}2&3\\2&2\end{pmatrix}}.} It works because the process of Gaussian elimination can be viewed as a sequence of applying left matrix multiplication using elementary row operations using elementary matrices ( E n {\displaystyle \mathbf {E} _{n}} ), such as E n E n − − 1 ⋯ ⋯ E 2 E 1 A = I .
+
+{\displaystyle \mathbf {E} _{n}\mathbf {E} _{n-1}\cdots \mathbf {E} _{2}\mathbf {E} _{1}\mathbf {A} =\mathbf {I} .} Applying right-multiplication using A − − 1 , {\displaystyle \mathbf {A} ^{-1},} we get E n E n − − 1 ⋯ ⋯ E 2 E 1 I = I A − − 1 .
+
+{\displaystyle \mathbf {E} _{n}\mathbf {E} _{n-1}\cdots \mathbf {E} _{2}\mathbf {E} _{1}\mathbf {I} =\mathbf {I} \mathbf {A} ^{-1}.} And the right side I A − − 1 = A − − 1 , {\displaystyle \mathbf {I} \mathbf {A} ^{-1}=\mathbf {A} ^{-1},} which is the inverse we want.
+
+To obtain E n E n − − 1 ⋯ ⋯ E 2 E 1 I , {\displaystyle \mathbf {E} _{n}\mathbf {E} _{n-1}\cdots \mathbf {E} _{2}\mathbf {E} _{1}\mathbf {I} ,} we create the augumented matrix by combining A with I and applying Gaussian elimination . The two portions will be transformed using the same sequence of elementary row operations. When the left portion becomes I , the right portion applied the same elementary row operation sequence will become A −1 .
+
+Newton's method [ edit ] A generalization of Newton's method as used for a multiplicative inverse algorithm may be convenient if it is convenient to find a suitable starting seed: X k + 1 = 2 X k − − X k A X k .
+
+{\displaystyle X_{k+1}=2X_{k}-X_{k}AX_{k}.} Victor Pan and John Reif have done work that includes ways of generating a starting seed.
+
+[ 3 ] [ 4 ] Newton's method is particularly useful when dealing with families of related matrices that behave enough like the sequence manufactured for the homotopy above: sometimes a good starting point for refining an approximation for the new inverse can be the already obtained inverse of a previous matrix that nearly matches the current matrix. For example, the pair of sequences of inverse matrices used in obtaining matrix square roots by Denman–Beavers iteration . That may need more than one pass of the iteration at each new matrix, if they are not close enough together for just one to be enough. Newton's method is also useful for "touch up" corrections to the Gauss–Jordan algorithm which has been contaminated by small errors from imperfect computer arithmetic .
+
+Cayley–Hamilton method [ edit ] The Cayley–Hamilton theorem allows the inverse of A to be expressed in terms of det( A ) , traces and powers of A : [ 5 ] A − − 1 = 1 det ( A ) ∑ ∑ s = 0 n − − 1 A s ∑ ∑ k 1 , k 2 , … … , k n − − 1 ∏ ∏ l = 1 n − − 1 ( − − 1 ) k l + 1 l k l k l !
+
+tr ⁡ ⁡ ( A l ) k l , {\displaystyle \mathbf {A} ^{-1}={\frac {1}{\det(\mathbf {A} )}}\sum _{s=0}^{n-1}\mathbf {A} ^{s}\sum _{k_{1},k_{2},\ldots ,k_{n-1}}\prod _{l=1}^{n-1}{\frac {(-1)^{k_{l}+1}}{l^{k_{l}}k_{l}!}}\operatorname {tr} \left(\mathbf {A} ^{l}\right)^{k_{l}},} where n is size of A , and tr( A ) is the trace of matrix A given by the sum of the main diagonal . The sum is taken over s and the sets of all k l ≥ ≥ 0 {\displaystyle k_{l}\geq 0} satisfying the linear Diophantine equation s + ∑ ∑ l = 1 n − − 1 l k l = n − − 1.
+
+{\displaystyle s+\sum _{l=1}^{n-1}lk_{l}=n-1.} The formula can be rewritten in terms of complete Bell polynomials of arguments t l = − − ( l − − 1 ) !
+
+tr ⁡ ⁡ ( A l ) {\displaystyle t_{l}=-(l-1)!\operatorname {tr} \left(A^{l}\right)} as A − − 1 = 1 det ( A ) ∑ ∑ s = 1 n A s − − 1 ( − − 1 ) n − − 1 ( n − − s ) !
+
+B n − − s ( t 1 , t 2 , … … , t n − − s ) .
+
+{\displaystyle \mathbf {A} ^{-1}={\frac {1}{\det(\mathbf {A} )}}\sum _{s=1}^{n}\mathbf {A} ^{s-1}{\frac {(-1)^{n-1}}{(n-s)!}}B_{n-s}(t_{1},t_{2},\ldots ,t_{n-s}).} That is described in more detail under Cayley–Hamilton method .
+
+Eigendecomposition [ edit ] Main article: Eigendecomposition of a matrix If matrix A can be eigendecomposed, and if none of its eigenvalues are zero, then A is invertible and its inverse is given by A − − 1 = Q Λ Λ − − 1 Q − − 1 , {\displaystyle \mathbf {A} ^{-1}=\mathbf {Q} \mathbf {\Lambda } ^{-1}\mathbf {Q} ^{-1},} where Q is the square ( N × N ) matrix whose i th column is the eigenvector q i {\displaystyle q_{i}} of A , and Λ is the diagonal matrix whose diagonal entries are the corresponding eigenvalues, that is, Λ Λ i i = λ λ i .
+
+{\displaystyle \Lambda _{ii}=\lambda _{i}.} If A is symmetric, Q is guaranteed to be an orthogonal matrix , therefore Q − − 1 = Q T .
+
+{\displaystyle \mathbf {Q} ^{-1}=\mathbf {Q} ^{\mathrm {T} }.} Furthermore, because Λ is a diagonal matrix, its inverse is easy to calculate: [ Λ Λ − − 1 ] i i = 1 λ λ i .
+
+{\displaystyle \left[\Lambda ^{-1}\right]_{ii}={\frac {1}{\lambda _{i}}}.} Cholesky decomposition [ edit ] Main article: Cholesky decomposition If matrix A is positive definite , then its inverse can be obtained as A − − 1 = ( L ∗ ∗ ) − − 1 L − − 1 , {\displaystyle \mathbf {A} ^{-1}=\left(\mathbf {L} ^{*}\right)^{-1}\mathbf {L} ^{-1},} where L is the lower triangular Cholesky decomposition of A , and L * denotes the conjugate transpose of L .
+
+Analytic solution [ edit ] Main article: Cramer's rule Writing the transpose of the matrix of cofactors , known as an adjugate matrix , may also be an efficient way to calculate the inverse of small matrices, but the recursive method is inefficient for large matrices. To determine the inverse, we calculate a matrix of cofactors: A − − 1 = 1 | A | C T = 1 | A | ( C 11 C 21 ⋯ ⋯ C n 1 C 12 C 22 ⋯ ⋯ C n 2 ⋮ ⋮ ⋮ ⋮ ⋱ ⋱ ⋮ ⋮ C 1 n C 2 n ⋯ ⋯ C n n ) {\displaystyle \mathbf {A} ^{-1}={1 \over {\begin{vmatrix}\mathbf {A} \end{vmatrix}}}\mathbf {C} ^{\mathrm {T} }={1 \over {\begin{vmatrix}\mathbf {A} \end{vmatrix}}}{\begin{pmatrix}\mathbf {C} _{11}&\mathbf {C} _{21}&\cdots &\mathbf {C} _{n1}\\\mathbf {C} _{12}&\mathbf {C} _{22}&\cdots &\mathbf {C} _{n2}\\\vdots &\vdots &\ddots &\vdots \\\mathbf {C} _{1n}&\mathbf {C} _{2n}&\cdots &\mathbf {C} _{nn}\\\end{pmatrix}}} so that ( A − − 1 ) i j = 1 | A | ( C T ) i j = 1 | A | ( C j i ) {\displaystyle \left(\mathbf {A} ^{-1}\right)_{ij}={1 \over {\begin{vmatrix}\mathbf {A} \end{vmatrix}}}\left(\mathbf {C} ^{\mathrm {T} }\right)_{ij}={1 \over {\begin{vmatrix}\mathbf {A} \end{vmatrix}}}\left(\mathbf {C} _{ji}\right)} where | A | is the determinant of A , C is the matrix of cofactors, and C T represents the matrix transpose .
+
+Inversion of 2 × 2 matrices [ edit ] The cofactor equation listed above yields the following result for 2 × 2 matrices. Inversion of these matrices can be done as follows: [ 6 ] A − − 1 = [ a b c d ] − − 1 = 1 det A [ d − − b − − c a ] = 1 a d − − b c [ d − − b − − c a ] .
+
+{\displaystyle \mathbf {A} ^{-1}={\begin{bmatrix}a&b\\c&d\\\end{bmatrix}}^{-1}={\frac {1}{\det \mathbf {A} }}{\begin{bmatrix}\,\,\,d&\!\!-b\\-c&\,a\\\end{bmatrix}}={\frac {1}{ad-bc}}{\begin{bmatrix}\,\,\,d&\!\!-b\\-c&\,a\\\end{bmatrix}}.} This is possible because 1/( ad − bc ) is the reciprocal of the determinant of the matrix in question, and the same strategy could be used for other matrix sizes.
+
+The Cayley–Hamilton method gives A − − 1 = 1 det A [ ( tr ⁡ ⁡ A ) I − − A ] .
+
+{\displaystyle \mathbf {A} ^{-1}={\frac {1}{\det \mathbf {A} }}\left[\left(\operatorname {tr} \mathbf {A} \right)\mathbf {I} -\mathbf {A} \right].} Inversion of 3 × 3 matrices [ edit ] A computationally efficient 3 × 3 matrix inversion is given by A − − 1 = [ a b c d e f g h i ] − − 1 = 1 det ( A ) [ A B C D E F G H I ] T = 1 det ( A ) [ A D G B E H C F I ] {\displaystyle \mathbf {A} ^{-1}={\begin{bmatrix}a&b&c\\d&e&f\\g&h&i\\\end{bmatrix}}^{-1}={\frac {1}{\det(\mathbf {A} )}}{\begin{bmatrix}\,A&\,B&\,C\\\,D&\,E&\,F\\\,G&\,H&\,I\\\end{bmatrix}}^{\mathrm {T} }={\frac {1}{\det(\mathbf {A} )}}{\begin{bmatrix}\,A&\,D&\,G\\\,B&\,E&\,H\\\,C&\,F&\,I\\\end{bmatrix}}} (where the scalar A is not to be confused with the matrix A ).
+
+If the determinant is non-zero, the matrix is invertible, with the entries of the intermediary matrix on the right side above given by A = ( e i − − f h ) , D = − − ( b i − − c h ) , G = ( b f − − c e ) , B = − − ( d i − − f g ) , E = ( a i − − c g ) , H = − − ( a f − − c d ) , C = ( d h − − e g ) , F = − − ( a h − − b g ) , I = ( a e − − b d ) .
+
+{\displaystyle {\begin{alignedat}{6}A&={}&(ei-fh),&\quad &D&={}&-(bi-ch),&\quad &G&={}&(bf-ce),\\B&={}&-(di-fg),&\quad &E&={}&(ai-cg),&\quad &H&={}&-(af-cd),\\C&={}&(dh-eg),&\quad &F&={}&-(ah-bg),&\quad &I&={}&(ae-bd).\\\end{alignedat}}} The determinant of A can be computed by applying the rule of Sarrus as follows: det ( A ) = a A + b B + c C .
+
+{\displaystyle \det(\mathbf {A} )=aA+bB+cC.} The Cayley–Hamilton decomposition gives A − − 1 = 1 det ( A ) ( 1 2 [ ( tr ⁡ ⁡ A ) 2 − − tr ⁡ ⁡ ( A 2 ) ] I − − A tr ⁡ ⁡ A + A 2 ) .
+
+{\displaystyle \mathbf {A} ^{-1}={\frac {1}{\det(\mathbf {A} )}}\left({\tfrac {1}{2}}\left[(\operatorname {tr} \mathbf {A} )^{2}-\operatorname {tr} (\mathbf {A} ^{2})\right]\mathbf {I} -\mathbf {A} \operatorname {tr} \mathbf {A} +\mathbf {A} ^{2}\right).} The general 3 × 3 inverse can be expressed concisely in terms of the cross product and triple product . If a matrix A = [ x 0 x 1 x 2 ] {\displaystyle \mathbf {A} ={\begin{bmatrix}\mathbf {x} _{0}&\mathbf {x} _{1}&\mathbf {x} _{2}\end{bmatrix}}} (consisting of three column vectors, x 0 {\displaystyle \mathbf {x} _{0}} , x 1 {\displaystyle \mathbf {x} _{1}} , and x 2 {\displaystyle \mathbf {x} _{2}} ) is invertible, its inverse is given by A − − 1 = 1 det ( A ) [ ( x 1 × × x 2 ) T ( x 2 × × x 0 ) T ( x 0 × × x 1 ) T ] .
+
+{\displaystyle \mathbf {A} ^{-1}={\frac {1}{\det(\mathbf {A} )}}{\begin{bmatrix}{(\mathbf {x} _{1}\times \mathbf {x} _{2})}^{\mathrm {T} }\\{(\mathbf {x} _{2}\times \mathbf {x} _{0})}^{\mathrm {T} }\\{(\mathbf {x} _{0}\times \mathbf {x} _{1})}^{\mathrm {T} }\end{bmatrix}}.} The determinant of A , det( A ) , is equal to the triple product of x 0 , x 1 , and x 2 —the volume of the parallelepiped formed by the rows or columns: det ( A ) = x 0 ⋅ ⋅ ( x 1 × × x 2 ) .
+
+{\displaystyle \det(\mathbf {A} )=\mathbf {x} _{0}\cdot (\mathbf {x} _{1}\times \mathbf {x} _{2}).} The correctness of the formula can be checked by using cross- and triple-product properties and by noting that for groups, left and right inverses always coincide. Intuitively, because of the cross products, each row of A –1 is orthogonal to the non-corresponding two columns of A (causing the off-diagonal terms of I = A − − 1 A {\displaystyle \mathbf {I} =\mathbf {A} ^{-1}\mathbf {A} } be zero). Dividing by det ( A ) = x 0 ⋅ ⋅ ( x 1 × × x 2 ) {\displaystyle \det(\mathbf {A} )=\mathbf {x} _{0}\cdot (\mathbf {x} _{1}\times \mathbf {x} _{2})} causes the diagonal entries of I = A −1 A to be unity. For example, the first diagonal is: 1 = 1 x 0 ⋅ ⋅ ( x 1 × × x 2 ) x 0 ⋅ ⋅ ( x 1 × × x 2 ) .
+
+{\displaystyle 1={\frac {1}{\mathbf {x_{0}} \cdot (\mathbf {x} _{1}\times \mathbf {x} _{2})}}\mathbf {x_{0}} \cdot (\mathbf {x} _{1}\times \mathbf {x} _{2}).} Inversion of 4 × 4 matrices [ edit ] With increasing dimension, expressions for the inverse of A get complicated. For n = 4 , the Cayley–Hamilton method leads to an expression that is still tractable: A − − 1 = 1 det ( A ) ( 1 6 ( ( tr ⁡ ⁡ A ) 3 − − 3 tr ⁡ ⁡ A tr ⁡ ⁡ ( A 2 ) + 2 tr ⁡ ⁡ ( A 3 ) ) I − − 1 2 A ( ( tr ⁡ ⁡ A ) 2 − − tr ⁡ ⁡ ( A 2 ) ) + A 2 tr ⁡ ⁡ A − − A 3 ) .
+
+{\displaystyle {\begin{aligned}\mathbf {A} ^{-1}={\frac {1}{\det(\mathbf {A} )}}{\Bigl (}&{\tfrac {1}{6}}{\bigl (}(\operatorname {tr} \mathbf {A} )^{3}-3\operatorname {tr} \mathbf {A} \operatorname {tr} (\mathbf {A} ^{2})+2\operatorname {tr} (\mathbf {A} ^{3}){\bigr )}\mathbf {I} \\[-3mu]&\ \ \ -{\tfrac {1}{2}}\mathbf {A} {\bigl (}(\operatorname {tr} \mathbf {A} )^{2}-\operatorname {tr} (\mathbf {A} ^{2}){\bigr )}+\mathbf {A} ^{2}\operatorname {tr} \mathbf {A} -\mathbf {A} ^{3}{\Bigr )}.\end{aligned}}} Blockwise inversion [ edit ] Let M = [ A B C D ] {\displaystyle \mathbf {M} ={\begin{bmatrix}\mathbf {A} &\mathbf {B} \\\mathbf {C} &\mathbf {D} \end{bmatrix}}} where A , B , C and D are matrix sub-blocks of arbitrary size and M / A := D − − C A − − 1 B {\displaystyle \mathbf {M} /\mathbf {A} :=\mathbf {D} -\mathbf {C} \mathbf {A} ^{-1}\mathbf {B} } is the Schur complement of A . ( A must be square, so that it can be inverted. Furthermore, A and D − CA −1 B must be nonsingular.
+
+[ 7 ] ) Matrices can also be inverted blockwise by using the analytic inversion formula: [ 8 ] [ A B C D ] − − 1 = [ A − − 1 + A − − 1 B ( M / A ) − − 1 C A − − 1 − − A − − 1 B ( M / A ) − − 1 − − ( M / A ) − − 1 C A − − 1 ( M / A ) − − 1 ] , {\displaystyle {\begin{bmatrix}\mathbf {A} &\mathbf {B} \\\mathbf {C} &\mathbf {D} \end{bmatrix}}^{-1}={\begin{bmatrix}\mathbf {A} ^{-1}+\mathbf {A} ^{-1}\mathbf {B} \ (\mathbf {M} /\mathbf {A} )^{-1}\mathbf {CA} ^{-1}&-\mathbf {A} ^{-1}\mathbf {B} \left(\mathbf {M} /\mathbf {A} \right)^{-1}\\-\left(\mathbf {M} /\mathbf {A} \right)^{-1}\mathbf {CA} ^{-1}&\left(\mathbf {M} /\mathbf {A} \right)^{-1}\end{bmatrix}},} 1 The strategy is particularly advantageous if A is diagonal and M / A is a small matrix, since they are the only matrices requiring inversion.
+
+The nullity theorem says that the nullity of A equals the nullity of the sub-block in the lower right of the inverse matrix, and that the nullity of B equals the nullity of the sub-block in the upper right of the inverse matrix.
+
+The inversion procedure that led to Equation ( 1 ) performed matrix block operations that operated on C and D first. Instead, if A and B are operated on first, and provided D and M / D := A − BD −1 C are nonsingular, [ 9 ] the result is [ A B C D ] − − 1 = [ ( M / D ) − − 1 − − ( M / D ) − − 1 B D − − 1 − − D − − 1 C ( M / D ) − − 1 D − − 1 + D − − 1 C ( M / D ) − − 1 B D − − 1 ] .
+
+{\displaystyle {\begin{bmatrix}\mathbf {A} &\mathbf {B} \\\mathbf {C} &\mathbf {D} \end{bmatrix}}^{-1}={\begin{bmatrix}\left(\mathbf {M} /\mathbf {D} \right)^{-1}&-\left(\mathbf {M} /\mathbf {D} \right)^{-1}\mathbf {BD} ^{-1}\\-\mathbf {D} ^{-1}\mathbf {C} \left(\mathbf {M} /\mathbf {D} \right)^{-1}&\quad \mathbf {D} ^{-1}+\mathbf {D} ^{-1}\mathbf {C} \left(\mathbf {M} /\mathbf {D} \right)^{-1}\mathbf {BD} ^{-1}\end{bmatrix}}.} 2 Equating the upper-left sub-matrices of Equations ( 1 ) and ( 2 ) leads to ( A − − B D − − 1 C ) − − 1 = A − − 1 + A − − 1 B ( D − − C A − − 1 B ) − − 1 C A − − 1 ( A − − B D − − 1 C ) − − 1 B D − − 1 = A − − 1 B ( D − − C A − − 1 B ) − − 1 D − − 1 C ( A − − B D − − 1 C ) − − 1 = ( D − − C A − − 1 B ) − − 1 C A − − 1 D − − 1 + D − − 1 C ( A − − B D − − 1 C ) − − 1 B D − − 1 = ( D − − C A − − 1 B ) − − 1 {\displaystyle {\begin{aligned}\left(\mathbf {A} -\mathbf {BD} ^{-1}\mathbf {C} \right)^{-1}&=\mathbf {A} ^{-1}+\mathbf {A} ^{-1}\mathbf {B} \left(\mathbf {D} -\mathbf {CA} ^{-1}\mathbf {B} \right)^{-1}\mathbf {CA} ^{-1}\\\left(\mathbf {A} -\mathbf {BD} ^{-1}\mathbf {C} \right)^{-1}\mathbf {BD} ^{-1}&=\mathbf {A} ^{-1}\mathbf {B} \left(\mathbf {D} -\mathbf {CA} ^{-1}\mathbf {B} \right)^{-1}\\\mathbf {D} ^{-1}\mathbf {C} \left(\mathbf {A} -\mathbf {BD} ^{-1}\mathbf {C} \right)^{-1}&=\left(\mathbf {D} -\mathbf {CA} ^{-1}\mathbf {B} \right)^{-1}\mathbf {CA} ^{-1}\\\mathbf {D} ^{-1}+\mathbf {D} ^{-1}\mathbf {C} \left(\mathbf {A} -\mathbf {BD} ^{-1}\mathbf {C} \right)^{-1}\mathbf {BD} ^{-1}&=\left(\mathbf {D} -\mathbf {CA} ^{-1}\mathbf {B} \right)^{-1}\end{aligned}}} 3 where Equation ( 3 ) is the Woodbury matrix identity , which is equivalent to the binomial inverse theorem .
+
+If A and D are both invertible, then the above two block matrix inverses can be combined to provide the simple factorization [ A B C D ] − − 1 = [ ( A − − B D − − 1 C ) − − 1 0 0 ( D − − C A − − 1 B ) − − 1 ] [ I − − B D − − 1 − − C A − − 1 I ] .
+
+{\displaystyle {\begin{bmatrix}\mathbf {A} &\mathbf {B} \\\mathbf {C} &\mathbf {D} \end{bmatrix}}^{-1}={\begin{bmatrix}\left(\mathbf {A} -\mathbf {B} \mathbf {D} ^{-1}\mathbf {C} \right)^{-1}&\mathbf {0} \\\mathbf {0} &\left(\mathbf {D} -\mathbf {C} \mathbf {A} ^{-1}\mathbf {B} \right)^{-1}\end{bmatrix}}{\begin{bmatrix}\mathbf {I} &-\mathbf {B} \mathbf {D} ^{-1}\\-\mathbf {C} \mathbf {A} ^{-1}&\mathbf {I} \end{bmatrix}}.} 2 By the Weinstein–Aronszajn identity , one of the two matrices in the block-diagonal matrix is invertible exactly when the other is.
+
+This formula simplifies significantly when the upper right block matrix B is the zero matrix . This formulation is useful when the matrices A and D have relatively simple inverse formulas (or pseudo inverses in the case where the blocks are not all square. In this special case, the block matrix inversion formula stated in full generality above becomes [ A 0 C D ] − − 1 = [ A − − 1 0 − − D − − 1 C A − − 1 D − − 1 ] .
+
+{\displaystyle {\begin{bmatrix}\mathbf {A} &\mathbf {0} \\\mathbf {C} &\mathbf {D} \end{bmatrix}}^{-1}={\begin{bmatrix}\mathbf {A} ^{-1}&\mathbf {0} \\-\mathbf {D} ^{-1}\mathbf {CA} ^{-1}&\mathbf {D} ^{-1}\end{bmatrix}}.} If the given invertible matrix is a symmetric matrix with invertible block A the following block inverse formula holds [ 10 ] [ A C T C D ] − − 1 = [ A − − 1 + A − − 1 C T S − − 1 C A − − 1 − − A − − 1 C T S − − 1 − − S − − 1 C A − − 1 S − − 1 ] , {\displaystyle {\begin{bmatrix}\mathbf {A} &\mathbf {C} ^{T}\\\mathbf {C} &\mathbf {D} \end{bmatrix}}^{-1}={\begin{bmatrix}\mathbf {A} ^{-1}+\mathbf {A} ^{-1}\mathbf {C} ^{T}\mathbf {S} ^{-1}\mathbf {C} \mathbf {A} ^{-1}&-\mathbf {A} ^{-1}\mathbf {C} ^{T}\mathbf {S} ^{-1}\\-\mathbf {S} ^{-1}\mathbf {C} \mathbf {A} ^{-1}&\mathbf {S} ^{-1}\end{bmatrix}},} 4 where S = D − − C A − − 1 C T {\displaystyle \mathbf {S} =\mathbf {D} -\mathbf {C} \mathbf {A} ^{-1}\mathbf {C} ^{T}} . This requires 2 inversions of the half-sized matrices A and S and only 4 multiplications of half-sized matrices, if organized properly W 1 = C A − − 1 , W 2 = W 1 C T = C A − − 1 C T , W 3 = S − − 1 W 1 = S − − 1 C A − − 1 , W 4 = W 1 T W 3 = A − − 1 C T S − − 1 C A − − 1 , {\displaystyle {\begin{aligned}\mathbf {W} _{1}&=\mathbf {C} \mathbf {A} ^{-1},\\[3mu]\mathbf {W} _{2}&=\mathbf {W} _{1}\mathbf {C} ^{T}=\mathbf {C} \mathbf {A} ^{-1}\mathbf {C} ^{T},\\[3mu]\mathbf {W} _{3}&=\mathbf {S} ^{-1}\mathbf {W} _{1}=\mathbf {S} ^{-1}\mathbf {C} \mathbf {A} ^{-1},\\[3mu]\mathbf {W} _{4}&=\mathbf {W} _{1}^{T}\mathbf {W} _{3}=\mathbf {A} ^{-1}\mathbf {C} ^{T}\mathbf {S} ^{-1}\mathbf {C} \mathbf {A} ^{-1},\end{aligned}}} together with some additions, subtractions, negations and transpositions of negligible complexity. Any matrix M {\displaystyle \mathbf {M} } has an associated positive semidefinite, symmetric matrix M T M {\displaystyle \mathbf {M} ^{T}\mathbf {M} } , which is exactly invertible (and positive definite), if and only if M {\displaystyle \mathbf {M} } is invertible. By writing M − − 1 = ( M T M ) − − 1 M T {\displaystyle \mathbf {M} ^{-1}=\left(\mathbf {M} ^{T}\mathbf {M} \right)^{-1}\mathbf {M} ^{T}} matrix inversion can be reduced to inverting symmetric matrices and 2 additional matrix multiplications, because the positive definite matrix M T M {\displaystyle \mathbf {M} ^{T}\mathbf {M} } satisfies the invertibility condition for its left upper block A .
+
+Those formulas together allow to construct a divide and conquer algorithm that uses blockwise inversion of associated symmetric matrices to invert a matrix with the same time complexity as the matrix multiplication algorithm that is used internally.
+
+[ 10 ] Research into matrix multiplication complexity shows that there exist matrix multiplication algorithms with a complexity of O ( n 2.371552 ) operations, while the best proven lower bound is Ω ( n 2 log n ) .
+
+[ 11 ] By Neumann series [ edit ] If a matrix A has the property that lim n → → ∞ ∞ ( I − − A ) n = 0 {\displaystyle \lim _{n\to \infty }(\mathbf {I} -\mathbf {A} )^{n}=0} then A is nonsingular and its inverse may be expressed by a Neumann series : [ 12 ] A − − 1 = ∑ ∑ n = 0 ∞ ∞ ( I − − A ) n .
+
+{\displaystyle \mathbf {A} ^{-1}=\sum _{n=0}^{\infty }(\mathbf {I} -\mathbf {A} )^{n}.} Truncating the sum results in an "approximate" inverse which may be useful as a preconditioner . Note that a truncated series can be accelerated exponentially by noting that the Neumann series is a geometric sum . As such, it satisfies ∑ ∑ n = 0 2 L − − 1 ( I − − A ) n = ∏ ∏ l = 0 L − − 1 ( I + ( I − − A ) 2 l ) {\displaystyle \sum _{n=0}^{2^{L}-1}(\mathbf {I} -\mathbf {A} )^{n}=\prod _{l=0}^{L-1}\left(\mathbf {I} +(\mathbf {I} -\mathbf {A} )^{2^{l}}\right)} .
+
+Therefore, only 2 L − 2 matrix multiplications are needed to compute 2 L terms of the sum.
+
+More generally, if A is "near" the invertible matrix X in the sense that lim n → → ∞ ∞ ( I − − X − − 1 A ) n = 0 o r lim n → → ∞ ∞ ( I − − A X − − 1 ) n = 0 {\displaystyle \lim _{n\to \infty }\left(\mathbf {I} -\mathbf {X} ^{-1}\mathbf {A} \right)^{n}=0\mathrm {~~or~~} \lim _{n\to \infty }\left(\mathbf {I} -\mathbf {A} \mathbf {X} ^{-1}\right)^{n}=0} then A is nonsingular and its inverse is A − − 1 = ∑ ∑ n = 0 ∞ ∞ ( X − − 1 ( X − − A ) ) n X − − 1 .
+
+{\displaystyle \mathbf {A} ^{-1}=\sum _{n=0}^{\infty }\left(\mathbf {X} ^{-1}(\mathbf {X} -\mathbf {A} )\right)^{n}\mathbf {X} ^{-1}~.} If it is also the case that A − X has rank 1 then this simplifies to A − − 1 = X − − 1 − − X − − 1 ( A − − X ) X − − 1 1 + tr ⁡ ⁡ ( X − − 1 ( A − − X ) ) .
+
+{\displaystyle \mathbf {A} ^{-1}=\mathbf {X} ^{-1}-{\frac {\mathbf {X} ^{-1}(\mathbf {A} -\mathbf {X} )\mathbf {X} ^{-1}}{1+\operatorname {tr} \left(\mathbf {X} ^{-1}(\mathbf {A} -\mathbf {X} )\right)}}~.} p -adic approximation [ edit ] If A is a matrix with integer or rational entries, and we seek a solution in arbitrary-precision rationals, a p -adic approximation method converges to an exact solution in O( n 4 log 2 n ) , assuming standard O( n 3 ) matrix multiplication is used.
+
+[ 13 ] The method relies on solving n linear systems via Dixon's method of p -adic approximation (each in O( n 3 log 2 n ) ) and is available as such in software specialized in arbitrary-precision matrix operations, for example, in IML.
+
+[ 14 ] Reciprocal basis vectors method [ edit ] Main article: Reciprocal basis Given an n × n square matrix X = [ x i j ] {\displaystyle \mathbf {X} =\left[x^{ij}\right]} , 1 ≤ ≤ i , j ≤ ≤ n {\displaystyle 1\leq i,j\leq n} , with n rows interpreted as n vectors x i = x i j e j {\displaystyle \mathbf {x} _{i}=x^{ij}\mathbf {e} _{j}} ( Einstein summation assumed) where the e j {\displaystyle \mathbf {e} _{j}} are a standard orthonormal basis of Euclidean space R n {\displaystyle \mathbb {R} ^{n}} ( e i = e i , e i ⋅ ⋅ e j = δ δ i j {\displaystyle \mathbf {e} _{i}=\mathbf {e} ^{i},\mathbf {e} _{i}\cdot \mathbf {e} ^{j}=\delta _{i}^{j}} ), then using Clifford algebra (or geometric algebra ) we compute the reciprocal (sometimes called dual ) column vectors: x i = x j i e j = ( − − 1 ) i − − 1 ( x 1 ∧ ∧ ⋯ ⋯ ∧ ∧ ( ) i ∧ ∧ ⋯ ⋯ ∧ ∧ x n ) ⋅ ⋅ ( x 1 ∧ ∧ x 2 ∧ ∧ ⋯ ⋯ ∧ ∧ x n ) − − 1 {\displaystyle \mathbf {x} ^{i}=x_{ji}\mathbf {e} ^{j}=(-1)^{i-1}(\mathbf {x} _{1}\wedge \cdots \wedge ()_{i}\wedge \cdots \wedge \mathbf {x} _{n})\cdot (\mathbf {x} _{1}\wedge \ \mathbf {x} _{2}\wedge \cdots \wedge \mathbf {x} _{n})^{-1}} as the columns of the inverse matrix X − − 1 = [ x j i ] .
+
+{\displaystyle \mathbf {X} ^{-1}=[x_{ji}].} Note that, the place " ( ) i {\displaystyle ()_{i}} " indicates that " x i {\displaystyle \mathbf {x} _{i}} " is removed from that place in the above expression for x i {\displaystyle \mathbf {x} ^{i}} . We then have X X − − 1 = [ x i ⋅ ⋅ x j ] = [ δ δ i j ] = I n {\displaystyle \mathbf {X} \mathbf {X} ^{-1}=\left[\mathbf {x} _{i}\cdot \mathbf {x} ^{j}\right]=\left[\delta _{i}^{j}\right]=\mathbf {I} _{n}} , where δ δ i j {\displaystyle \delta _{i}^{j}} is the Kronecker delta . We also have X − − 1 X = [ ( e i ⋅ ⋅ x k ) ( e j ⋅ ⋅ x k ) ] = [ e i ⋅ ⋅ e j ] = [ δ δ i j ] = I n {\displaystyle \mathbf {X} ^{-1}\mathbf {X} =\left[\left(\mathbf {e} _{i}\cdot \mathbf {x} ^{k}\right)\left(\mathbf {e} ^{j}\cdot \mathbf {x} _{k}\right)\right]=\left[\mathbf {e} _{i}\cdot \mathbf {e} ^{j}\right]=\left[\delta _{i}^{j}\right]=\mathbf {I} _{n}} , as required. If the vectors x i {\displaystyle \mathbf {x} _{i}} are not linearly independent, then ( x 1 ∧ ∧ x 2 ∧ ∧ ⋯ ⋯ ∧ ∧ x n ) = 0 {\displaystyle (\mathbf {x} _{1}\wedge \mathbf {x} _{2}\wedge \cdots \wedge \mathbf {x} _{n})=0} and the matrix X {\displaystyle \mathbf {X} } is not invertible (has no inverse).
+
+Properties [ edit ] Singularity [ edit ] Over a field , a square matrix that is not invertible is called singular or degenerate . A square matrix with entries in a field is singular if and only if its determinant is zero.
+
+Invertible matrix theorem [ edit ] Let A be a square n -by- n matrix over a field K (e.g., the field ⁠ R {\displaystyle \mathbb {R} } ⁠ of real numbers). The following statements are equivalent, i.e., they are either all true or all false for any given matrix: [ 15 ] A is invertible, i.e. it has an inverse under matrix multiplication, i.e., there exists a B such that AB = I n = BA . (In that statement, "invertible" can equivalently be replaced with "left-invertible" or "right-invertible" in which one-sided inverses are considered.) The linear transformation mapping x to Ax is invertible, i.e., it has an inverse under function composition. (There, again, "invertible" can equivalently be replaced with either "left-invertible" or "right-invertible".) The transpose A T is an invertible matrix.
+
+A is row-equivalent to the n -by- n identity matrix I n .
+
+A is column-equivalent to the n -by- n identity matrix I n .
+
+A has n pivot positions .
+
+A has full rank : rank A = n .
+
+A has a trivial kernel : ker( A ) = { 0 }.
+
+The linear transformation mapping x to Ax is bijective; that is, the equation Ax = b has exactly one solution for each b in K n . (There, "bijective" can equivalently be replaced with " injective " or " surjective ".) The columns of A form a basis of K n . (In this statement, "basis" can equivalently be replaced with either "linearly independent set" or "spanning set") The rows of A form a basis of K n . (Similarly, here, "basis" can equivalently be replaced with either "linearly independent set" or "spanning set") The determinant of A is nonzero: det A ≠ 0 . In general, a square matrix over a commutative ring is invertible if and only if its determinant is a unit (i.e. multiplicatively invertible element) of that ring.
+
+The number 0 is not an eigenvalue of A . (More generally, a number λ λ {\displaystyle \lambda } is an eigenvalue of A if the matrix A − − λ λ I {\displaystyle \mathbf {A} -\lambda \mathbf {I} } is singular, where I is the identity matrix.) The matrix A can be expressed as a finite product of elementary matrices .
+
+Other properties [ edit ] Furthermore, the following properties hold for an invertible matrix A : ( A − − 1 ) − − 1 = A {\displaystyle (\mathbf {A} ^{-1})^{-1}=\mathbf {A} } ( k A ) − − 1 = k − − 1 A − − 1 {\displaystyle (k\mathbf {A} )^{-1}=k^{-1}\mathbf {A} ^{-1}} for nonzero scalar k ( A x ) + = x + A − − 1 {\displaystyle (\mathbf {Ax} )^{+}=\mathbf {x} ^{+}\mathbf {A} ^{-1}} if A has orthonormal columns, where + denotes the Moore–Penrose inverse and x is a vector ( A T ) − − 1 = ( A − − 1 ) T {\displaystyle (\mathbf {A} ^{\mathrm {T} })^{-1}=(\mathbf {A} ^{-1})^{\mathrm {T} }} For any invertible n -by- n matrices A and B , ( A B ) − − 1 = B − − 1 A − − 1 .
+
+{\displaystyle (\mathbf {AB} )^{-1}=\mathbf {B} ^{-1}\mathbf {A} ^{-1}.} More generally, if A 1 , … … , A k {\displaystyle \mathbf {A} _{1},\dots ,\mathbf {A} _{k}} are invertible n -by- n matrices, then ( A 1 A 2 ⋯ ⋯ A k − − 1 A k ) − − 1 = A k − − 1 A k − − 1 − − 1 ⋯ ⋯ A 2 − − 1 A 1 − − 1 .
+
+{\displaystyle (\mathbf {A} _{1}\mathbf {A} _{2}\cdots \mathbf {A} _{k-1}\mathbf {A} _{k})^{-1}=\mathbf {A} _{k}^{-1}\mathbf {A} _{k-1}^{-1}\cdots \mathbf {A} _{2}^{-1}\mathbf {A} _{1}^{-1}.} det A − − 1 = ( det A ) − − 1 .
+
+{\displaystyle \det \mathbf {A} ^{-1}=(\det \mathbf {A} )^{-1}.} Left and right inverses are equal.  That is, if L A = I {\displaystyle \mathbf {LA} =\mathbf {I} } and A R = I {\displaystyle \mathbf {AR} =\mathbf {I} } then L = L ( A R ) = ( L A ) R = R {\displaystyle \mathbf {L} =\mathbf {L} (\mathbf {AR} )=(\mathbf {LA} )\mathbf {R} =\mathbf {R} } .
+
+The rows of the inverse matrix V of a matrix U are orthonormal to the columns of U (and vice versa interchanging rows for columns). To see this, suppose that UV = VU = I where the rows of V are denoted as v i T {\displaystyle v_{i}^{\mathrm {T} }} and the columns of U as u j {\displaystyle u_{j}} for 1 ≤ ≤ i , j ≤ ≤ n .
+
+{\displaystyle 1\leq i,j\leq n.} Then clearly, the Euclidean inner product of any two v i T u j = δ δ i , j .
+
+{\displaystyle v_{i}^{\mathrm {T} }u_{j}=\delta _{i,j}.} This property can also be useful in constructing the inverse of a square matrix in some instances, where a set of orthogonal vectors (but not necessarily orthonormal vectors) to the columns of U are known. In which case, one can apply the iterative Gram–Schmidt process to this initial set to determine the rows of the inverse V .
+
+A matrix that is its own inverse (i.e., a matrix A such that A = A −1 and consequently A 2 = I ) is called an involutory matrix .
+
+In relation to its adjugate [ edit ] The adjugate of a matrix A can be used to find the inverse of A as follows: If A is an invertible matrix, then A − − 1 = 1 det ( A ) adj ⁡ ⁡ ( A ) .
+
+{\displaystyle \mathbf {A} ^{-1}={\frac {1}{\det(\mathbf {A} )}}\operatorname {adj} (\mathbf {A} ).} In relation to the identity matrix [ edit ] It follows from the associativity of matrix multiplication that if A B = I {\displaystyle \mathbf {AB} =\mathbf {I} \ } for finite square matrices A and B , then also B A = I {\displaystyle \mathbf {BA} =\mathbf {I} \ } [ 16 ] Density [ edit ] Over the field of real numbers, the set of singular n -by- n matrices, considered as a subset of ⁠ R n × × n , {\displaystyle \mathbb {R} ^{n\times n},} ⁠ is a null set , that is, has Lebesgue measure zero. That is true because singular matrices are the roots of the determinant function. It is a continuous function because it is a polynomial in the entries of the matrix. Thus in the language of measure theory , almost all n -by- n matrices are invertible.
+
+Furthermore, the set of n -by- n invertible matrices is open and dense in the topological space of all n -by- n matrices.  Equivalently, the set of singular matrices is closed and nowhere dense in the space of n -by- n matrices.
+
+In practice, however, non-invertible matrices may be encountered. In numerical calculations , matrices that are invertible but close to a non-invertible matrix may still be problematic and are said to be ill-conditioned .
+
+Derivative of the matrix inverse [ edit ] Suppose that the invertible matrix A depends on a parameter t . Then the derivative of the inverse of A with respect to t is given by [ 17 ] d A − − 1 d t = − − A − − 1 d A d t A − − 1 .
+
+{\displaystyle {\frac {\mathrm {d} \mathbf {A} ^{-1}}{\mathrm {d} t}}=-\mathbf {A} ^{-1}{\frac {\mathrm {d} \mathbf {A} }{\mathrm {d} t}}\mathbf {A} ^{-1}.} To derive the above expression for the derivative of the inverse of A , one can differentiate the definition of the matrix inverse A − − 1 A = I {\displaystyle \mathbf {A} ^{-1}\mathbf {A} =\mathbf {I} } and then solve for the inverse of A : d ( A − − 1 A ) d t = d A − − 1 d t A + A − − 1 d A d t = d I d t = 0 .
+
+{\displaystyle {\frac {\mathrm {d} (\mathbf {A} ^{-1}\mathbf {A} )}{\mathrm {d} t}}={\frac {\mathrm {d} \mathbf {A} ^{-1}}{\mathrm {d} t}}\mathbf {A} +\mathbf {A} ^{-1}{\frac {\mathrm {d} \mathbf {A} }{\mathrm {d} t}}={\frac {\mathrm {d} \mathbf {I} }{\mathrm {d} t}}=\mathbf {0} .} Subtracting A − − 1 d A d t {\displaystyle \mathbf {A} ^{-1}{\frac {\mathrm {d} \mathbf {A} }{\mathrm {d} t}}} from both sides of the above and multiplying on the right by A − − 1 {\displaystyle \mathbf {A} ^{-1}} gives the correct expression for the derivative of the inverse: d A − − 1 d t = − − A − − 1 d A d t A − − 1 .
+
+{\displaystyle {\frac {\mathrm {d} \mathbf {A} ^{-1}}{\mathrm {d} t}}=-\mathbf {A} ^{-1}{\frac {\mathrm {d} \mathbf {A} }{\mathrm {d} t}}\mathbf {A} ^{-1}.} Similarly, if ε ε {\displaystyle \varepsilon } is a small number then ( A + ε ε X ) − − 1 = A − − 1 − − ε ε A − − 1 X A − − 1 + O ( ε ε 2 ) .
+
+{\displaystyle \left(\mathbf {A} +\varepsilon \mathbf {X} \right)^{-1}=\mathbf {A} ^{-1}-\varepsilon \mathbf {A} ^{-1}\mathbf {X} \mathbf {A} ^{-1}+{\mathcal {O}}(\varepsilon ^{2})\,.} More generally, if d f ( A ) d t = ∑ ∑ i g i ( A ) d A d t h i ( A ) , {\displaystyle {\frac {\mathrm {d} f(\mathbf {A} )}{\mathrm {d} t}}=\sum _{i}g_{i}(\mathbf {A} ){\frac {\mathrm {d} \mathbf {A} }{\mathrm {d} t}}h_{i}(\mathbf {A} ),} then, f ( A + ε ε X ) = f ( A ) + ε ε ∑ ∑ i g i ( A ) X h i ( A ) + O ( ε ε 2 ) .
+
+{\displaystyle f(\mathbf {A} +\varepsilon \mathbf {X} )=f(\mathbf {A} )+\varepsilon \sum _{i}g_{i}(\mathbf {A} )\mathbf {X} h_{i}(\mathbf {A} )+{\mathcal {O}}\left(\varepsilon ^{2}\right).} Given a positive integer n {\displaystyle n} , d A n d t = ∑ ∑ i = 1 n A i − − 1 d A d t A n − − i , d A − − n d t = − − ∑ ∑ i = 1 n A − − i d A d t A − − ( n + 1 − − i ) .
+
+{\displaystyle {\begin{aligned}{\frac {\mathrm {d} \mathbf {A} ^{n}}{\mathrm {d} t}}&=\sum _{i=1}^{n}\mathbf {A} ^{i-1}{\frac {\mathrm {d} \mathbf {A} }{\mathrm {d} t}}\mathbf {A} ^{n-i},\\{\frac {\mathrm {d} \mathbf {A} ^{-n}}{\mathrm {d} t}}&=-\sum _{i=1}^{n}\mathbf {A} ^{-i}{\frac {\mathrm {d} \mathbf {A} }{\mathrm {d} t}}\mathbf {A} ^{-(n+1-i)}.\end{aligned}}} Therefore, ( A + ε ε X ) n = A n + ε ε ∑ ∑ i = 1 n A i − − 1 X A n − − i + O ( ε ε 2 ) , ( A + ε ε X ) − − n = A − − n − − ε ε ∑ ∑ i = 1 n A − − i X A − − ( n + 1 − − i ) + O ( ε ε 2 ) .
+
+{\displaystyle {\begin{aligned}(\mathbf {A} +\varepsilon \mathbf {X} )^{n}&=\mathbf {A} ^{n}+\varepsilon \sum _{i=1}^{n}\mathbf {A} ^{i-1}\mathbf {X} \mathbf {A} ^{n-i}+{\mathcal {O}}\left(\varepsilon ^{2}\right),\\(\mathbf {A} +\varepsilon \mathbf {X} )^{-n}&=\mathbf {A} ^{-n}-\varepsilon \sum _{i=1}^{n}\mathbf {A} ^{-i}\mathbf {X} \mathbf {A} ^{-(n+1-i)}+{\mathcal {O}}\left(\varepsilon ^{2}\right).\end{aligned}}} Generalizations [ edit ] Non-square matrices [ edit ] Non-square matrices, i.e.
+
+m -by- n matrices for which m ≠ n , do not have an inverse.  However, in some cases such a matrix may have a left inverse or right inverse . If A is m -by- n and the rank of A is equal to n , ( n ≤ m ), then A has a left inverse, an n -by- m matrix B such that BA = I n .  If A has rank m ( m ≤ n ), then it has a right inverse, an n -by- m matrix B such that AB = I m .
+
+Some of the properties of inverse matrices are shared by generalized inverses (such as the Moore–Penrose inverse ), which can be defined for any m -by- n matrix.
+
+[ 18 ] In Abstract algebra [ edit ] While the most common case is that of matrices over the real or complex numbers, all of those definitions can be given for matrices over any algebraic structure equipped with addition and multiplication (i.e.
+
+rings ). However, in the case of a ring being commutative , the condition for a square matrix to be invertible is that its determinant is invertible in the ring, which in general is a stricter requirement than it being nonzero. For a noncommutative ring , the usual determinant is not defined. The conditions for existence of left-inverse or right-inverse are more complicated, since a notion of rank does not exist over rings.
+
+The set of n × n invertible matrices together with the operation of matrix multiplication and entries from ring R form a group , the general linear group of degree n , denoted GL n ( R ) .
+
+Applications [ edit ] For most practical applications, it is not necessary to invert a matrix to solve a system of linear equations ; however, for a unique solution, it is necessary for the matrix involved to be invertible.
+
+Decomposition techniques like LU decomposition are much faster than inversion, and various fast algorithms for special classes of linear systems have also been developed.
+
+Regression/least squares [ edit ] Although an explicit inverse is not necessary to estimate the vector of unknowns, it is the easiest way to estimate their accuracy and is found in the diagonal of a matrix inverse (the posterior covariance matrix of the vector of unknowns). However, faster algorithms to compute only the diagonal entries of a matrix inverse are known in many cases.
+
+[ 19 ] Matrix inverses in real-time simulations [ edit ] Matrix inversion plays a significant role in computer graphics , particularly in 3D graphics rendering and 3D simulations . Examples include screen-to-world ray casting , world-to-subspace-to-world object transformations, and physical simulations.
+
+Matrix inverses in MIMO wireless communication [ edit ] Matrix inversion also plays a significant role in the MIMO (Multiple-Input, Multiple-Output) technology in wireless communications . The MIMO system consists of N transmit and M receive antennas. Unique signals, occupying the same frequency band , are sent via N transmit antennas and are received via M receive antennas. The signal arriving at each receive antenna will be a linear combination of the N transmitted signals forming an N × M transmission matrix H . It is crucial for the matrix H to be invertible so that the receiver can figure out the transmitted information.
+
+[ 20 ] See also [ edit ] Singular matrix Binomial inverse theorem LU decomposition Matrix decomposition Matrix square root Minor (linear algebra) Partial inverse of a matrix Pseudoinverse Rybicki Press algorithm Singular value decomposition Woodbury matrix identity References [ edit ] ^ Axler, Sheldon (18 December 2014).
+
+Linear Algebra Done Right .
+
+Undergraduate Texts in Mathematics (3rd ed.).
+
+Springer Publishing (published 2015). p. 296.
+
+ISBN 978-3-319-11079-0 .
+
+^ J.-S. Roger Jang (March 2001).
+
+"Matrix Inverse in Block Form" .
+
+^ Pan, Victor; Reif, John (1985), Efficient Parallel Solution of Linear Systems , Proceedings of the 17th Annual ACM Symposium on Theory of Computing, Providence: ACM ^ Pan, Victor; Reif, John (1985), Harvard University Center for Research in Computing Technology Report TR-02-85 , Cambridge, MA: Aiken Computation Laboratory ^ A proof can be found in the Appendix B of Kondratyuk, L. A.; Krivoruchenko, M. I. (1992).
+
+"Superconducting quark matter in SU(2) color group" .
+
+Zeitschrift für Physik A .
+
+344 (1): 99– 115.
+
+Bibcode : 1992ZPhyA.344...99K .
+
+doi : 10.1007/BF01291027 .
+
+S2CID 120467300 .
+
+^ Strang, Gilbert (2003).
+
+Introduction to linear algebra (3rd ed.). SIAM. p. 71.
+
+ISBN 978-0-9614088-9-3 .
+
+, Chapter 2, page 71 ^ Bernstein, Dennis (2005).
+
+Matrix Mathematics . Princeton University Press. p. 44.
+
+ISBN 978-0-691-11802-4 .
+
+^ Tzon-Tzer, Lu; Sheng-Hua, Shiou (2002). "Inverses of 2 × 2 block matrices".
+
+Computers & Mathematics with Applications .
+
+43 ( 1– 2): 119– 129.
+
+doi : 10.1016/S0898-1221(01)00278-4 .
+
+^ Bernstein, Dennis (2005).
+
+Matrix Mathematics . Princeton University Press. p. 45.
+
+ISBN 978-0-691-11802-4 .
+
+^ a b T. H. Cormen, C. E. Leiserson, R. L. Rivest, C. Stein, Introduction to Algorithms , 3rd ed., MIT Press, Cambridge, MA, 2009, §28.2.
+
+^ Ran Raz . On the complexity of matrix product. In Proceedings of the thirty-fourth annual ACM symposium on Theory of computing. ACM Press, 2002.
+
+doi : 10.1145/509907.509932 .
+
+^ Stewart, Gilbert (1998).
+
+Matrix Algorithms: Basic decompositions . SIAM. p. 55.
+
+ISBN 978-0-89871-414-2 .
+
+^ Haramoto, H.; Matsumoto, M. (2009).
+
+"A p-adic algorithm for computing the inverse of integer matrices" .
+
+Journal of Computational and Applied Mathematics .
+
+225 (1): 320– 322.
+
+Bibcode : 2009JCoAM.225..320H .
+
+doi : 10.1016/j.cam.2008.07.044 .
+
+^ "IML - Integer Matrix Library" .
+
+cs.uwaterloo.ca . Retrieved 14 April 2018 .
+
+^ Weisstein, Eric W.
+
+"Invertible Matrix Theorem" .
+
+mathworld.wolfram.com . Retrieved 2020-09-08 .
+
+^ Horn, Roger A.; Johnson, Charles R. (1985).
+
+Matrix Analysis .
+
+Cambridge University Press . p. 14.
+
+ISBN 978-0-521-38632-6 .
+
+.
+
+^ Magnus, Jan R.; Neudecker, Heinz (1999).
+
+Matrix Differential Calculus : with Applications in Statistics and Econometrics (Revised ed.). New York: John Wiley & Sons. pp.
+
+151– 152.
+
+ISBN 0-471-98633-X .
+
+^ Roman, Stephen (2008), Advanced Linear Algebra , Graduate Texts in Mathematics (Third ed.), Springer, p. 446, ISBN 978-0-387-72828-5 .
+
+^ Lin, Lin; Lu, Jianfeng; Ying, Lexing; Car, Roberto; E, Weinan (2009).
+
+"Fast algorithm for extracting the diagonal of the inverse matrix with application to the electronic structure analysis of metallic systems" .
+
+Communications in Mathematical Sciences .
+
+7 (3): 755– 777.
+
+doi : 10.4310/CMS.2009.v7.n3.a12 .
+
+^ Albreem, M.; Juntti, M.; Shahabuddin, S. (January 2020). "Efficient initialisation of iterative linear massive MIMO detectors using a stair matrix".
+
+Electronics Letters .
+
+56 (1): 50– 52.
+
+Bibcode : 2020ElL....56...50A .
+
+doi : 10.1049/el.2019.2938 .
+
+Further reading [ edit ] "Inversion of a matrix" , Encyclopedia of Mathematics , EMS Press , 2001 [1994] Cormen, Thomas H.
+
+; Leiserson, Charles E.
+
+; Rivest, Ronald L.
+
+; Stein, Clifford (2001) [1990]. "28.4: Inverting matrices".
+
+Introduction to Algorithms (2nd ed.). MIT Press and McGraw-Hill. pp.
+
+755– 760.
+
+ISBN 0-262-03293-7 .
+
+Bernstein, Dennis S. (2009).
+
+Matrix Mathematics: Theory, Facts, and Formulas (2nd ed.). Princeton University Press.
+
+ISBN 978-0691140391 – via Google Books .
+
+Petersen, Kaare Brandt; Pedersen, Michael Syskind (November 15, 2012).
+
+"The Matrix Cookbook" (PDF) . pp.
+
+17– 23.
+
+External links [ edit ] Sanderson, Grant (August 15, 2016).
+
+"Inverse Matrices, Column Space and Null Space" .
+
+Essence of Linear Algebra .
+
+Archived from the original on 2021-11-03 – via YouTube .
+
+Strang, Gilbert .
+
+"Linear Algebra Lecture on Inverse Matrices" .
+
+MIT OpenCourseWare .
+
+v t e Linear algebra Outline Glossary Basic concepts Scalar Vector Vector space Scalar multiplication Vector projection Linear span Linear map Linear projection Linear independence Linear combination Multilinear map Basis Change of basis Row and column vectors Row and column spaces Kernel Eigenvalues and eigenvectors Transpose Linear equations Matrices Block Decomposition Invertible Minor Multiplication Rank Transformation Cramer's rule Gaussian elimination Productive matrix Gram matrix Bilinear Orthogonality Dot product Hadamard product Inner product space Outer product Kronecker product Gram–Schmidt process Multilinear algebra Determinant Cross product Triple product Seven-dimensional cross product Geometric algebra Exterior algebra Bivector Multivector Tensor Outermorphism Vector space constructions Dual Direct sum Function space Quotient Subspace Tensor product Numerical Floating-point Numerical stability Basic Linear Algebra Subprograms Sparse matrix Comparison of linear algebra libraries Category v t e Matrix classes Explicitly constrained entries Alternant Anti-diagonal Anti-Hermitian Anti-symmetric Arrowhead Band Bidiagonal Bisymmetric Block-diagonal Block Block tridiagonal Boolean Cauchy Centrosymmetric Conference Complex Hadamard Copositive Diagonally dominant Diagonal Discrete Fourier Transform Elementary Equivalent Frobenius Generalized permutation Hadamard Hankel Hermitian Hessenberg Hollow Integer Logical Matrix unit Metzler Moore Nonnegative Pentadiagonal Permutation Persymmetric Polynomial Quaternionic Signature Skew-Hermitian Skew-symmetric Skyline Sparse Sylvester Symmetric Toeplitz Triangular Tridiagonal Vandermonde Walsh Z Constant Exchange Hilbert Identity Lehmer Of ones Pascal Pauli Redheffer Shift Zero Conditions on eigenvalues or eigenvectors Companion Convergent Defective Definite Diagonalizable Hurwitz-stable Positive-definite Stieltjes Satisfying conditions on products or inverses Congruent Idempotent or Projection Invertible Involutory Nilpotent Normal Orthogonal Unimodular Unipotent Unitary Totally unimodular Weighing With specific applications Adjugate Alternating sign Augmented Bézout Carleman Cartan Circulant Cofactor Commutation Confusion Coxeter Distance Duplication and elimination Euclidean distance Fundamental (linear differential equation) Generator Gram Hessian Householder Jacobian Moment Payoff Pick Random Rotation Routh-Hurwitz Seifert Shear Similarity Symplectic Totally positive Transformation Used in statistics Centering Correlation Covariance Design Doubly stochastic Fisher information Hat Precision Stochastic Transition Used in graph theory Adjacency Biadjacency Degree Edmonds Incidence Laplacian Seidel adjacency Tutte Used in science and engineering Cabibbo–Kobayashi–Maskawa Density Fundamental (computer vision) Fuzzy associative Gamma Gell-Mann Hamiltonian Irregular Overlap S State transition Substitution Z (chemistry) Related terms Jordan normal form Linear independence Matrix exponential Matrix representation of conic sections Perfect matrix Pseudoinverse Row echelon form Wronskian Mathematics portal List of matrices Category:Matrices (mathematics) NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐rn2vf
+Cached time: 20250812000153
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.896 seconds
+Real time usage: 1.221 seconds
+Preprocessor visited node count: 10704/1000000
+Revision size: 47907/2097152 bytes
+Post‐expand include size: 122350/2097152 bytes
+Template argument size: 14643/2097152 bytes
+Highest expansion depth: 10/100
+Expensive parser function count: 6/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 114930/5000000 bytes
+Lua time usage: 0.436/10.000 seconds
+Lua memory usage: 5936410/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  769.849      1 -total
+ 30.01%  231.010      1 Template:Reflist
+ 21.27%  163.718    157 Template:Math
+ 17.42%  134.145      9 Template:Cite_book
+ 16.26%  125.150      1 Template:Short_description
+ 11.80%   90.820      2 Template:Pagetype
+ 10.59%   81.522      2 Template:Navbox
+  9.23%   71.035      1 Template:Linear_algebra
+  6.29%   48.421    163 Template:Main_other
+  5.08%   39.083      5 Template:NumBlk Saved in parser cache with key enwiki:pcache:217122:|#|:idhash:canonical and timestamp 20250812000153 and revision id 1301955995. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Invertible_matrix&oldid=1301955995 " Categories : Linear algebra Matrices (mathematics) Determinants Matrix theory Hidden categories: Articles with short description Short description is different from Wikidata This page was last edited on 22 July 2025, at 15:57 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Invertible matrix 37 languages Add topic
+

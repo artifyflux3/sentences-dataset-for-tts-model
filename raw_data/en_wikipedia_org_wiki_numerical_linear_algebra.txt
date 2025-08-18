@@ -1,0 +1,163 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 History 2 Matrix decompositions Toggle Matrix decompositions subsection 2.1 Partitioned matrices 2.2 Singular value decomposition 2.3 QR factorization 2.4 LU factorization 2.5 Eigenvalue decomposition 3 Algorithms Toggle Algorithms subsection 3.1 Gaussian elimination 3.2 Solutions of linear systems 3.3 Least squares optimisation 4 Conditioning and stability 5 Iterative methods 6 Software 7 References 8 Further reading 9 External links Toggle the table of contents Numerical linear algebra 19 languages العربية Català Deutsch Ελληνικά Español فارسی 한국어 Hrvatski Bahasa Indonesia Minangkabau Nederlands 日本語 Português Русский Scots Simple English Svenska Українська 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikibooks Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Field of mathematics Numerical linear algebra , sometimes called applied linear algebra , is the study of how matrix operations can be used to create computer algorithms which efficiently and accurately provide approximate answers to questions in continuous mathematics. It is a subfield of numerical analysis , and a type of linear algebra .
+
+Computers use floating-point arithmetic and cannot exactly represent irrational data, so when a computer algorithm is applied to a matrix of data, it can sometimes increase the difference between a number stored in the computer and the true number that it is an approximation of. Numerical linear algebra uses properties of vectors and matrices to develop computer algorithms that minimize the error introduced by the computer, and is also concerned with ensuring that the algorithm is as efficient as possible.
+
+Numerical linear algebra aims to solve problems of continuous mathematics using finite precision computers, so its applications to the natural and social sciences are as vast as the applications of continuous mathematics. It is often a fundamental part of engineering and computational science problems, such as image and signal processing , telecommunication , computational finance , materials science simulations, structural biology , data mining , bioinformatics , and fluid dynamics . Matrix methods are particularly used in finite difference methods , finite element methods , and the modeling of differential equations . Noting the broad applications of numerical linear algebra, Lloyd N. Trefethen and David Bau, III argue that it is "as fundamental to the mathematical sciences as calculus and differential equations", [ 1 ] : x even though it is a comparatively small field.
+
+[ 2 ] Because many properties of matrices and vectors also apply to functions and operators, numerical linear algebra can also be viewed as a type of functional analysis which has a particular emphasis on practical algorithms.
+
+[ 1 ] : ix Common problems in numerical linear algebra include obtaining matrix decompositions like the singular value decomposition , the QR factorization , the LU factorization , or the eigendecomposition , which can then be used to answer common linear algebraic problems like solving linear systems of equations, locating eigenvalues, or least squares optimisation. Numerical linear algebra's central concern with developing algorithms that do not introduce errors when applied to real data on a finite precision computer is often achieved by iterative methods rather than direct ones.
+
+History [ edit ] Numerical linear algebra was developed by computer pioneers like John von Neumann , Alan Turing , James H. Wilkinson , Alston Scott Householder , George Forsythe , and Heinz Rutishauser , in order to apply the earliest computers to problems in continuous mathematics, such as ballistics problems and the solutions to systems of partial differential equations .
+
+[ 2 ] The first serious attempt to minimize computer error in the application of algorithms to real data is John von Neumann and Herman Goldstine 's work in 1947.
+
+[ 3 ] The field has grown as technology has increasingly enabled researchers to solve complex problems on extremely large high-precision matrices, and some numerical algorithms have grown in prominence as technologies like parallel computing have made them practical approaches to scientific problems.
+
+[ 2 ] Matrix decompositions [ edit ] Further information: Matrix decomposition Partitioned matrices [ edit ] Main article: Block matrix For many problems in applied linear algebra, it is useful to adopt the perspective of a matrix as being a concatenation of column vectors. For example, when solving the linear system x = A − − 1 b {\displaystyle x=A^{-1}b} , rather than understanding x as the product of A − − 1 {\displaystyle A^{-1}} with b , it is helpful to think of x as the vector of coefficients in the linear expansion of b in the basis formed by the columns of A .
+
+[ 1 ] : 8 Thinking of matrices as a concatenation of columns is also a practical approach for the purposes of matrix algorithms. This is because matrix algorithms frequently contain two nested loops: one over the columns of a matrix A , and another over the rows of A . For example, for matrices A m × × n {\displaystyle A^{m\times n}} and vectors x n × × 1 {\displaystyle x^{n\times 1}} and y m × × 1 {\displaystyle y^{m\times 1}} , we could use the column partitioning perspective to compute y := Ax + y as for q = 1 : n for p = 1 : m y ( p ) = A ( p , q ) * x ( q ) + y ( p ) end end Singular value decomposition [ edit ] Main article: singular value decomposition The singular value decomposition of a matrix A m × × n {\displaystyle A^{m\times n}} is A = U Σ Σ V ∗ ∗ {\displaystyle A=U\Sigma V^{\ast }} where U and V are unitary , and Σ Σ {\displaystyle \Sigma } is diagonal . The diagonal entries of Σ Σ {\displaystyle \Sigma } are called the singular values of A . Because singular values are the square roots of the eigenvalues of A A ∗ ∗ {\displaystyle AA^{\ast }} , there is a tight connection between the singular value decomposition and eigenvalue decompositions. This means that most methods for computing the singular value decomposition are similar to eigenvalue methods; [ 1 ] : 36 perhaps the most common method involves Householder procedures .
+
+[ 1 ] : 253 QR factorization [ edit ] Main article: QR decomposition The QR factorization of a matrix A m × × n {\displaystyle A^{m\times n}} is a matrix Q m × × m {\displaystyle Q^{m\times m}} and a matrix R m × × n {\displaystyle R^{m\times n}} so that A = QR , where Q is orthogonal and R is upper triangular .
+
+[ 1 ] : 50 [ 4 ] : 223 The two main algorithms for computing QR factorizations are the Gram–Schmidt process and the Householder transformation . The QR factorization is often used to solve linear least-squares problems, and eigenvalue problems (by way of the iterative QR algorithm ).
+
+LU factorization [ edit ] Main article: LU decomposition An LU factorization of a matrix A consists of a lower triangular matrix L and an upper triangular matrix U so that A = LU . The matrix U is found by an upper triangularization procedure which involves left-multiplying A by a series of matrices M 1 , … … , M n − − 1 {\displaystyle M_{1},\ldots ,M_{n-1}} to form the product M n − − 1 ⋯ ⋯ M 1 A = U {\displaystyle M_{n-1}\cdots M_{1}A=U} , so that equivalently L = M 1 − − 1 ⋯ ⋯ M n − − 1 − − 1 {\displaystyle L=M_{1}^{-1}\cdots M_{n-1}^{-1}} .
+
+[ 1 ] : 147 [ 4 ] : 96 Eigenvalue decomposition [ edit ] Main article: Eigendecomposition of a matrix The eigenvalue decomposition of a matrix A m × × m {\displaystyle A^{m\times m}} is A = X Λ Λ X − − 1 {\displaystyle A=X\Lambda X^{-1}} , where the columns of X are the eigenvectors of A , and Λ Λ {\displaystyle \Lambda } is a diagonal matrix the diagonal entries of which are the corresponding eigenvalues of A .
+
+[ 1 ] : 33 There is no direct method for finding the eigenvalue decomposition of an arbitrary matrix. Because it is not possible to write a program that finds the exact roots of an arbitrary polynomial in finite time, any general eigenvalue solver must necessarily be iterative.
+
+[ 1 ] : 192 Algorithms [ edit ] Gaussian elimination [ edit ] Main article: Gaussian elimination From the numerical linear algebra perspective, Gaussian elimination is a procedure for factoring a matrix A into its LU factorization, which Gaussian elimination accomplishes by left-multiplying A by a succession of matrices L m − − 1 ⋯ ⋯ L 2 L 1 A = U {\displaystyle L_{m-1}\cdots L_{2}L_{1}A=U} until U is upper triangular and L is lower triangular, where L ≡ ≡ L 1 − − 1 L 2 − − 1 ⋯ ⋯ L m − − 1 − − 1 {\displaystyle L\equiv L_{1}^{-1}L_{2}^{-1}\cdots L_{m-1}^{-1}} .
+
+[ 1 ] : 148 Naive programs for Gaussian elimination are notoriously highly unstable, and produce huge errors when applied to matrices with many significant digits.
+
+[ 2 ] The simplest solution is to introduce pivoting , which produces a modified Gaussian elimination algorithm that is stable.
+
+[ 1 ] : 151 Solutions of linear systems [ edit ] Further information: System of linear equations § Other methods Numerical linear algebra characteristically approaches matrices as a concatenation of columns vectors. In order to solve the linear system x = A − − 1 b {\displaystyle x=A^{-1}b} , the traditional algebraic approach is to understand x as the product of A − − 1 {\displaystyle A^{-1}} with b . Numerical linear algebra instead interprets x as the vector of coefficients of the linear expansion of b in the basis formed by the columns of A .
+
+[ 1 ] : 8 Many different decompositions can be used to solve the linear problem, depending on the characteristics of the matrix A and the vectors x and b , which may make one factorization much easier to obtain than others. If A = QR is a QR factorization of A , then equivalently R x = Q ∗ ∗ b {\displaystyle Rx=Q^{\ast }b} . This is as easy to compute as a matrix factorization.
+
+[ 1 ] : 54 If A = X Λ Λ X − − 1 {\displaystyle A=X\Lambda X^{-1}} is an eigendecomposition A , and we seek to find b so that b = Ax , with b ′ = X − − 1 b {\displaystyle b'=X^{-1}b} and x ′ = X − − 1 x {\displaystyle x'=X^{-1}x} , then we have b ′ = Λ Λ x ′ {\displaystyle b'=\Lambda x'} .
+
+[ 1 ] : 33 This is closely related to the solution to the linear system using the singular value decomposition, because singular values of a matrix are the absolute values of its eigenvalues, which are also equivalent to the square roots of the absolute values of the eigenvalues of the Gram matrix X ∗ ∗ X {\displaystyle X^{*}X} . And if A = LU is an LU factorization of A , then Ax = b can be solved using the triangular matrices Ly = b and Ux = y .
+
+[ 1 ] : 147 [ 4 ] : 99 Least squares optimisation [ edit ] Main article: Numerical methods for linear least squares Matrix decompositions suggest a number of ways to solve the linear system r = b − Ax where we seek to minimize r , as in the regression problem . The QR algorithm solves this problem by computing the reduced QR factorization of A and rearranging to obtain R ^ ^ x = Q ^ ^ ∗ ∗ b {\displaystyle {\widehat {R}}x={\widehat {Q}}^{\ast }b} . This upper triangular system can then be solved for x . The SVD also suggests an algorithm for obtaining linear least squares. By computing the reduced SVD decomposition A = U ^ ^ Σ Σ ^ ^ V ∗ ∗ {\displaystyle A={\widehat {U}}{\widehat {\Sigma }}V^{\ast }} and then computing the vector U ^ ^ ∗ ∗ b {\displaystyle {\widehat {U}}^{\ast }b} , we reduce the least squares problem to a simple diagonal system.
+
+[ 1 ] : 84 The fact that least squares solutions can be produced by the QR and SVD factorizations means that, in addition to the classical normal equations method for solving least squares problems, these problems can also be solved by methods that include the Gram-Schmidt algorithm and Householder methods.
+
+Conditioning and stability [ edit ] Main article: Numerical analysis § Numerical stability and well-posed problems Allow that a problem is a function f : X → → Y {\displaystyle f:X\to Y} , where X is a normed vector space of data and Y is a normed vector space of solutions. For some data point x ∈ ∈ X {\displaystyle x\in X} , the problem is said to be ill-conditioned if a small perturbation in x produces a large change in the value of f ( x ). We can quantify this by defining a condition number which represents how well-conditioned a problem is, defined as κ κ ^ ^ = lim δ δ → → 0 sup ‖ ‖ δ δ x ‖ ‖ ≤ ≤ δ δ ‖ ‖ δ δ f ‖ ‖ ‖ ‖ δ δ x ‖ ‖ .
+
+{\displaystyle {\widehat {\kappa }}=\lim _{\delta \to 0}\sup _{\|\delta x\|\leq \delta }{\frac {\|\delta f\|}{\|\delta x\|}}.} Instability is the tendency of computer algorithms, which depend on floating-point arithmetic , to produce results that differ dramatically from the exact mathematical solution to a problem. When a matrix contains real data with many significant digits , many algorithms for solving problems like linear systems of equation or least squares optimisation may produce highly inaccurate results. Creating stable algorithms for ill-conditioned problems is a central concern in numerical linear algebra. One example is that the stability of householder triangularization makes it a particularly robust solution method for linear systems, whereas the instability of the normal equations method for solving least squares problems is a reason to favour matrix decomposition methods like using the singular value decomposition. Some matrix decomposition methods may be unstable, but have straightforward modifications that make them stable; one example is the unstable Gram–Schmidt, which can easily be changed to produce the stable modified Gram–Schmidt .
+
+[ 1 ] : 140 Another classical problem in numerical linear algebra is the finding that Gaussian elimination is unstable, but becomes stable with the introduction of pivoting.
+
+Iterative methods [ edit ] Main article: Iterative methods There are two reasons that iterative algorithms are an important part of numerical linear algebra. First, many important numerical problems have no direct solution; in order to find the eigenvalues and eigenvectors of an arbitrary matrix, we can only adopt an iterative approach. Second, noniterative algorithms for an arbitrary m × × m {\displaystyle m\times m} matrix require O ( m 3 ) {\displaystyle O(m^{3})} time, which is a surprisingly high floor given that matrices contain only m 2 {\displaystyle m^{2}} numbers. Iterative approaches can take advantage of several features of some matrices to reduce this time. For example, when a matrix is sparse , an iterative algorithm can skip many of the steps that a direct approach would necessarily follow, even if they are redundant steps given a highly structured matrix.
+
+The core of many iterative methods in numerical linear algebra is the projection of a matrix onto a lower dimensional Krylov subspace , which allows features of a high-dimensional matrix to be approximated by iteratively computing the equivalent features of similar matrices starting in a low dimension space and moving to successively higher dimensions. When A is symmetric and we wish to solve the linear problem Ax = b , the classical iterative approach is the conjugate gradient method . If A is not symmetric, then examples of iterative solutions to the linear problem are the generalized minimal residual method and CGN . If A is symmetric, then to solve the eigenvalue and eigenvector problem we can use the Lanczos algorithm , and if A is non-symmetric, then we can use Arnoldi iteration .
+
+Software [ edit ] Main article: List of numerical analysis software Several programming languages use numerical linear algebra optimisation techniques and are designed to implement numerical linear algebra algorithms. These languages include MATLAB , Analytica , Maple , and Mathematica . Other programming languages which are not explicitly designed for numerical linear algebra have libraries that provide numerical linear algebra routines and optimisation; C and Fortran have packages like Basic Linear Algebra Subprograms and LAPACK , Python has the library NumPy , and Perl has the Perl Data Language . Many numerical linear algebra commands in R rely on these more fundamental libraries like LAPACK .
+
+[ 5 ] More libraries can be found on the List of numerical libraries .
+
+References [ edit ] ^ a b c d e f g h i j k l m n o p q Trefethen, Lloyd; Bau III, David (1997).
+
+Numerical Linear Algebra (1st ed.). Philadelphia: SIAM.
+
+ISBN 978-0-89871-361-9 .
+
+^ a b c d Golub, Gene H.
+
+"A History of Modern Numerical Linear Algebra" (PDF) .
+
+University of Chicago Statistics Department . Retrieved February 17, 2019 .
+
+^ von Neumann, John; Goldstine, Herman H. (1947).
+
+"Numerical inverting of matrices of high order" .
+
+Bulletin of the American Mathematical Society .
+
+53 (11): 1021– 1099.
+
+doi : 10.1090/s0002-9904-1947-08909-6 .
+
+S2CID 16174165 .
+
+^ a b c Golub, Gene H.; Van Loan, Charles F. (1996).
+
+Matrix Computations (3rd ed.). Baltimore: The Johns Hopkins University Press.
+
+ISBN 0-8018-5413-X .
+
+^ Rickert, Joseph (August 29, 2013).
+
+"R and Linear Algebra" .
+
+R-bloggers . Retrieved February 17, 2019 .
+
+Further reading [ edit ] Dongarra, Jack ; Hammarling, Sven (1990). "Evolution of Numerical Software for Dense Linear Algebra". In Cox, M. G.; Hammarling, S. (eds.).
+
+Reliable Numerical Computation . Oxford: Clarendon Press. pp.
+
+297– 327.
+
+ISBN 0-19-853564-3 .
+
+Claude Brezinski, Gérard Meurant and Michela Redivo-Zaglia (2022): A Journey through the History of Numerical Linear Algebra , SIAM, ISBN 978-1-61197-722-6 .
+
+Demmel, J. W. (1997): Applied Numerical Linear Algebra , SIAM.
+
+Ciarlet, P. G., Miara, B., & Thomas, J. M. (1989): Introduction to Numerical Linear Algebra and Optimization , Cambridge Univ. Press.
+
+Trefethen, Lloyd; Bau III, David (1997): Numerical Linear Algebra (1st ed.), SIAM, ISBN 978-0-89871-361-9 Golub, Gene H.; Van Loan, Charles F. (1996): Matrix Computations (3rd ed.), The Johns Hopkins University Press.
+
+ISBN 978-0-8018-5413-2 G. W. Stewart (1998): Matrix Algorithms Vol I: Basic Decompositions , SIAM, ISBN 978-0-89871-414-2 G. W. Stewart (2001): Matrix Algorithms Vol II: Eigensystems , SIAM, ISBN 978-0-89871-503-3 Varga, Richard S. (2000): Matrix Iterative Analysis , Springer.
+
+Yousef Saad (2003) : Iterative Methods for Sparse Linear Systems , 2nd Ed., SIAM, ISBN 978-0-89871534-7 Raf Vandebril, Marc Van Barel, and Nicola Mastronardi (2008): Matrix Computations and Semiseparable Matrices, Volume 1: Linear systems , Johns Hopkins Univ. Press, ISBN 978-0-8018-8714-7 Raf Vandebril, Marc Van Barel, and Nicola Mastronardi (2008): Matrix Computations and Semiseparable Matrices, Volume 2: Eigenvalue and Singular Value Methods , Johns Hopkins Univ. Press, ISBN 978-0-8018-9052-9 Higham, N. J. (2002): Accuracy and Stability of Numerical Algorithms , SIAM.
+
+Higham, N. J. (2008): Functions of Matrices: Theory and Computation , SIAM.
+
+David S. Watkins (2008): The Matrix Eigenvalue Problem: GR and Krylov Subspace Methods , SIAM.
+
+Liesen, J., and Strakos, Z. (2012): Krylov Subspace Methods: Principles and Analysis , Oxford Univ. Press.
+
+External links [ edit ] Wikimedia Commons has media related to Numerical linear algebra .
+
+Freely available software for numerical algebra on the web , composed by Jack Dongarra and Hatem Ltaief, University of Tennessee NAG Library of numerical linear algebra routines Numerical Linear Algebra Group on Twitter (Research group in the United Kingdom) siagla on Twitter (Activity group about numerical linear algebra in the Society for Industrial and Applied Mathematics ) The GAMM Activity Group on Applied and Numerical Linear Algebra v t e Numerical linear algebra Key concepts Floating point Numerical stability Problems System of linear equations Matrix decompositions Matrix multiplication ( algorithms ) Matrix splitting Sparse problems Hardware CPU cache TLB Cache-oblivious algorithm SIMD Multiprocessing Software ATLAS MATLAB Basic Linear Algebra Subprograms (BLAS) LAPACK Specialized libraries General purpose software v t e Industrial and applied mathematics Computational Algorithms design analysis Automata theory Automated theorem proving Coding theory Computational geometry Constraint satisfaction Constraint programming Computational logic Cryptography Information theory Statistics Mathematical software Arbitrary-precision arithmetic Finite element analysis Tensor software Interactive geometry software Optimization software Statistical software Numerical-analysis software Numerical libraries Solvers Discrete Computer algebra Computational number theory Combinatorics Graph theory Discrete geometry Analysis Approximation theory Clifford analysis Clifford algebra Differential equations Ordinary differential equations Partial differential equations Stochastic differential equations Differential geometry Differential forms Gauge theory Geometric analysis Dynamical systems Chaos theory Control theory Functional analysis Operator algebra Operator theory Harmonic analysis Fourier analysis Multilinear algebra Exterior Geometric Tensor Vector Multivariable calculus Exterior Geometric Tensor Vector Numerical analysis Numerical linear algebra Numerical methods for ordinary differential equations Numerical methods for partial differential equations Validated numerics Variational calculus Probability theory Distributions ( random variables ) Stochastic processes / analysis Path integral Stochastic variational calculus Mathematical physics Analytical mechanics Lagrangian Hamiltonian Field theory Classical Conformal Effective Gauge Quantum Statistical Topological Perturbation theory in quantum mechanics Potential theory String theory Bosonic Topological Supersymmetry Supersymmetric quantum mechanics Supersymmetric theory of stochastic dynamics Algebraic structures Algebra of physical space Feynman integral Poisson algebra Quantum group Renormalization group Representation theory Spacetime algebra Superalgebra Supersymmetry algebra Decision sciences Game theory Operations research Optimization Social choice theory Statistics Mathematical economics Mathematical finance Other applications Biology Chemistry Psychology Sociology " The Unreasonable Effectiveness of Mathematics in the Natural Sciences " Related Mathematics Organizations Society for Industrial and Applied Mathematics Japan Society for Industrial and Applied Mathematics Société de Mathématiques Appliquées et Industrielles International Council for Industrial and Applied Mathematics European Community on Computational Methods in Applied Sciences Category Mathematics portal / outline / topics list NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐cdm75
+Cached time: 20250812011901
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.544 seconds
+Real time usage: 0.764 seconds
+Preprocessor visited node count: 6539/1000000
+Revision size: 20635/2097152 bytes
+Post‐expand include size: 68033/2097152 bytes
+Template argument size: 2023/2097152 bytes
+Highest expansion depth: 15/100
+Expensive parser function count: 14/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 68741/5000000 bytes
+Lua time usage: 0.289/10.000 seconds
+Lua memory usage: 5582392/52428800 bytes
+Number of Wikibase entities loaded: 1/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  532.944      1 -total
+ 21.47%  114.434      1 Template:Reflist
+ 19.20%  102.304     20 Template:Rp
+ 18.96%  101.032      4 Template:Navbox
+ 17.87%   95.225     20 Template:R/superscript
+ 17.48%   93.135      1 Template:Numerical_linear_algebra
+ 15.51%   82.665      3 Template:Cite_book
+ 12.49%   66.591      1 Template:Short_description
+ 10.30%   54.883      1 Template:Commonscat
+  9.86%   52.566      1 Template:Sister_project Saved in parser cache with key enwiki:pcache:7330660:|#|:idhash:canonical and timestamp 20250812011901 and revision id 1296227729. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Numerical_linear_algebra&oldid=1296227729 " Categories : Numerical linear algebra Computational fields of study Hidden categories: Articles with short description Short description is different from Wikidata Commons category link from Wikidata Twitter username different from Wikidata This page was last edited on 18 June 2025, at 17:53 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Numerical linear algebra 19 languages Add topic
+

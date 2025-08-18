@@ -1,0 +1,203 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Motivation Toggle Motivation subsection 1.1 Mines and factories 1.2 Moving books: the importance of the cost function 2 Hitchcock problem 3 Abstract formulation of the problem Toggle Abstract formulation of the problem subsection 3.1 Monge and Kantorovich formulations 3.2 Duality formula 3.3 Economic interpretation 4 Solution of the problem Toggle Solution of the problem subsection 4.1 Optimal transportation on the real line 4.2 Discrete version and linear programming formulation 4.3 Semi-discrete case 4.4 Quadratic normal case 4.5 Separable Hilbert spaces 5 Entropic regularization 6 Applications 7 See also 8 References 9 Further reading Toggle the table of contents Transportation theory (mathematics) 14 languages Asturianu Български Čeština Deutsch Español Français Հայերեն پښتو Polski Русский Српски / srpski Українська Tiếng Việt 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia (Redirected from Optimal transport ) Study of optimal transportation and allocation of resources In mathematics and economics, transportation theory or transport theory is a name given to the study of optimal transportation and allocation of resources . The problem was formalized by the French mathematician Gaspard Monge in 1781.
+
+[ 1 ] In the 1920s A. N. Tolstoi was one of the first to study the transportation problem mathematically . In 1930, in the collection Transportation Planning Volume I for the National Commissariat of Transportation of the Soviet Union, he published a paper "Methods of Finding the Minimal Kilometrage in Cargo-transportation in space".
+
+[ 2 ] [ 3 ] Major advances were made in the field during World War II by the Soviet mathematician and economist Leonid Kantorovich .
+
+[ 4 ] Consequently, the problem as it is stated is sometimes known as the Monge–Kantorovich transportation problem .
+
+[ 5 ] The linear programming formulation of the transportation problem is also known as the Hitchcock – Koopmans transportation problem.
+
+[ 6 ] Motivation [ edit ] Mines and factories [ edit ] Suppose that we have a collection of m {\displaystyle m} mines mining iron ore, and a collection of n {\displaystyle n} factories which use the iron ore that the mines produce. Suppose for the sake of argument that these mines and factories form two disjoint subsets M {\displaystyle M} and F {\displaystyle F} of the Euclidean plane R 2 {\displaystyle \mathbb {R} ^{2}} . Suppose also that we have a cost function c : R 2 × × R 2 → → [ 0 , ∞ ∞ ) {\displaystyle c:\mathbb {R} ^{2}\times \mathbb {R} ^{2}\to [0,\infty )} , so that c ( x , y ) {\displaystyle c(x,y)} is the cost of transporting one shipment of iron from x {\displaystyle x} to y {\displaystyle y} . For simplicity, we ignore the time taken to do the transporting. We also assume that each mine can supply only one factory (no splitting of shipments) and that each factory requires precisely one shipment to be in operation (factories cannot work at half- or double-capacity). Having made the above assumptions, a transport plan is a bijection T : M → → F {\displaystyle T:M\to F} .
+In other words, each mine m ∈ ∈ M {\displaystyle m\in M} supplies precisely one target factory T ( m ) ∈ ∈ F {\displaystyle T(m)\in F} and each factory is supplied by precisely one mine. 
+We wish to find the optimal transport plan , the plan T {\displaystyle T} whose total cost c ( T ) := ∑ ∑ m ∈ ∈ M c ( m , T ( m ) ) {\displaystyle c(T):=\sum _{m\in M}c(m,T(m))} is the least of all possible transport plans from M {\displaystyle M} to F {\displaystyle F} . This motivating special case of the transportation problem is an instance of the assignment problem .
+More specifically, it is equivalent to finding a minimum weight matching in a bipartite graph .
+
+Moving books: the importance of the cost function [ edit ] The following simple example illustrates the importance of the cost function in determining the optimal transport plan. Suppose that we have n {\displaystyle n} books of equal width on a shelf (the real line ), arranged in a single contiguous block. We wish to rearrange them into another contiguous block, but shifted one book-width to the right. Two obvious candidates for the optimal transport plan present themselves: move all n {\displaystyle n} books one book-width to the right ("many small moves"); move the left-most book n {\displaystyle n} book-widths to the right and leave all other books fixed ("one big move").
+
+If the cost function is proportional to Euclidean distance ( c ( x , y ) = α α ‖ ‖ x − − y ‖ ‖ {\displaystyle c(x,y)=\alpha \|x-y\|} for some α α > 0 {\displaystyle \alpha >0} ) then these two candidates are both optimal. If, on the other hand, we choose the strictly convex cost function proportional to the square of Euclidean distance ( c ( x , y ) = α α ‖ ‖ x − − y ‖ ‖ 2 {\displaystyle c(x,y)=\alpha \|x-y\|^{2}} for some α α > 0 {\displaystyle \alpha >0} ), then the "many small moves" option becomes the unique minimizer.
+
+Note that the above cost functions consider only the horizontal distance traveled by the books, not the horizontal distance traveled by a device used to pick each book up and move the book into position. If the latter is considered instead, then, of the two transport plans, the second is always optimal for the Euclidean distance, while, provided there are at least 3 books, the first transport plan is optimal for the squared Euclidean distance.
+
+Hitchcock problem [ edit ] The following transportation problem formulation is credited to F. L. Hitchcock : [ 7 ] Suppose there are m {\displaystyle m} sources x 1 , … … , x m {\displaystyle x_{1},\ldots ,x_{m}} for a commodity, with a ( x i ) {\displaystyle a(x_{i})} units of supply at x i {\displaystyle x_{i}} and n {\displaystyle n} sinks y 1 , … … , y n {\displaystyle y_{1},\ldots ,y_{n}} for the commodity, with the demand b ( y j ) {\displaystyle b(y_{j})} at y j {\displaystyle y_{j}} . If c ( x i , y j ) {\displaystyle c(x_{i},\ y_{j})} is the unit cost of shipment from x i {\displaystyle x_{i}} to y j {\displaystyle y_{j}} , find a flow that satisfies demand from supplies and minimizes the flow cost. This challenge in logistics was taken up by D. R. Fulkerson [ 8 ] and in the book Flows in Networks (1962) written with L. R. Ford Jr.
+
+[ 9 ] Tjalling Koopmans is also credited with formulations of transport economics and allocation of resources.
+
+Abstract formulation of the problem [ edit ] Monge and Kantorovich formulations [ edit ] The transportation problem as it is stated in modern or more technical literature looks somewhat different because of the development of Riemannian geometry and measure theory . The mines-factories example, simple as it is, is a useful reference point when thinking of the abstract case. In this setting, we allow the possibility that we may not wish to keep all mines and factories open for business, and allow mines to supply more than one factory, and factories to accept iron from more than one mine.
+
+Let X {\displaystyle X} and Y {\displaystyle Y} be two separable metric spaces such that any probability measure on X {\displaystyle X} (or Y {\displaystyle Y} ) is a Radon measure (i.e. they are Radon spaces ). Let c : X × × Y → → [ 0 , ∞ ∞ ) {\displaystyle c:X\times Y\to [0,\infty )} be a Borel- measurable function . Given probability measures μ μ {\displaystyle \mu } on X {\displaystyle X} and ν ν {\displaystyle \nu } on Y {\displaystyle Y} , Monge's formulation of the optimal transportation problem is to find a transport map T : X → → Y {\displaystyle T:X\to Y} that realizes the infimum inf { ∫ ∫ X c ( x , T ( x ) ) d μ μ ( x ) | T ∗ ∗ ( μ μ ) = ν ν } , {\displaystyle \inf \left\{\left.\int _{X}c(x,T(x))\,\mathrm {d} \mu (x)\right|T_{*}(\mu )=\nu \right\},} where T ∗ ∗ ( μ μ ) {\displaystyle T_{*}(\mu )} denotes the push forward of μ μ {\displaystyle \mu } by T {\displaystyle T} . A map T {\displaystyle T} that attains this infimum ( i.e.
+
+makes it a minimum instead of an infimum) is called an "optimal transport map".
+
+Monge's formulation of the optimal transportation problem can be ill-posed, because sometimes there is no T {\displaystyle T} satisfying T ∗ ∗ ( μ μ ) = ν ν {\displaystyle T_{*}(\mu )=\nu } : this happens, for example, when μ μ {\displaystyle \mu } is a Dirac measure but ν ν {\displaystyle \nu } is not.
+
+We can improve on this by adopting Kantorovich's formulation of the optimal transportation problem, which is to find a probability measure γ γ {\displaystyle \gamma } on X × × Y {\displaystyle X\times Y} that attains the infimum inf { ∫ ∫ X × × Y c ( x , y ) d γ γ ( x , y ) | γ γ ∈ ∈ Γ Γ ( μ μ , ν ν ) } , {\displaystyle \inf \left\{\left.\int _{X\times Y}c(x,y)\,\mathrm {d} \gamma (x,y)\right|\gamma \in \Gamma (\mu ,\nu )\right\},} where Γ Γ ( μ μ , ν ν ) {\displaystyle \Gamma (\mu ,\nu )} denotes the collection of all probability measures on X × × Y {\displaystyle X\times Y} with marginals μ μ {\displaystyle \mu } on X {\displaystyle X} and ν ν {\displaystyle \nu } on Y {\displaystyle Y} . It can be shown [ 10 ] that a minimizer for this problem always exists when the cost function c {\displaystyle c} is lower semi-continuous and Γ Γ ( μ μ , ν ν ) {\displaystyle \Gamma (\mu ,\nu )} is a tight collection of measures (which is guaranteed for Radon spaces X {\displaystyle X} and Y {\displaystyle Y} ). (Compare this formulation with the definition of the Wasserstein metric W p {\displaystyle W_{p}} on the space of probability measures.) A gradient descent formulation for the solution of the Monge–Kantorovich problem was given by Sigurd Angenent , Steven Haker, and Allen Tannenbaum .
+
+[ 11 ] Duality formula [ edit ] The minimum of the Kantorovich problem is equal to sup ( ∫ ∫ X φ φ ( x ) d μ μ ( x ) + ∫ ∫ Y ψ ψ ( y ) d ν ν ( y ) ) , {\displaystyle \sup \left(\int _{X}\varphi (x)\,\mathrm {d} \mu (x)+\int _{Y}\psi (y)\,\mathrm {d} \nu (y)\right),} where the supremum runs over all pairs of bounded and continuous functions φ φ : X → → R {\displaystyle \varphi :X\rightarrow \mathbb {R} } and ψ ψ : Y → → R {\displaystyle \psi :Y\rightarrow \mathbb {R} } such that φ φ ( x ) + ψ ψ ( y ) ≤ ≤ c ( x , y ) .
+
+{\displaystyle \varphi (x)+\psi (y)\leq c(x,y).} Economic interpretation [ edit ] The economic interpretation is clearer if signs are flipped. Let x ∈ ∈ X {\displaystyle x\in X} stand for the vector of characteristics of a worker, y ∈ ∈ Y {\displaystyle y\in Y} for the vector of characteristics of a firm, and Φ Φ ( x , y ) = − − c ( x , y ) {\displaystyle \Phi (x,y)=-c(x,y)} for the economic output generated by worker x {\displaystyle x} matched with firm y {\displaystyle y} .  Setting u ( x ) = − − φ φ ( x ) {\displaystyle u(x)=-\varphi (x)} and v ( y ) = − − ψ ψ ( y ) {\displaystyle v(y)=-\psi (y)} , the Monge–Kantorovich problem
+rewrites: sup { ∫ ∫ X × × Y Φ Φ ( x , y ) d γ γ ( x , y ) , γ γ ∈ ∈ Γ Γ ( μ μ , ν ν ) } {\displaystyle \sup \left\{\int _{X\times Y}\Phi (x,y)d\gamma (x,y),\gamma \in \Gamma (\mu ,\nu )\right\}} which has dual : inf { ∫ ∫ X u ( x ) d μ μ ( x ) + ∫ ∫ Y v ( y ) d ν ν ( y ) : u ( x ) + v ( y ) ≥ ≥ Φ Φ ( x , y ) } {\displaystyle \inf \left\{\int _{X}u(x)\,d\mu (x)+\int _{Y}v(y)\,d\nu (y):u(x)+v(y)\geq \Phi (x,y)\right\}} where the infimum runs over bounded and continuous function u : X → → R {\displaystyle u:X\to \mathbb {R} } and v : Y → → R {\displaystyle v:Y\to \mathbb {R} } . If the dual problem has a solution, one can see that: v ( y ) = sup x { Φ Φ ( x , y ) − − u ( x ) } {\displaystyle v(y)=\sup _{x}\left\{\Phi (x,y)-u(x)\right\}} so that u ( x ) {\displaystyle u(x)} interprets as the equilibrium wage of a worker of type x {\displaystyle x} , and v ( y ) {\displaystyle v(y)} interprets as the equilibrium profit of a firm of type y {\displaystyle y} .
+
+[ 12 ] Solution of the problem [ edit ] Optimal transportation on the real line [ edit ] Optimal transportation matrix Continuous optimal transport For 1 ≤ ≤ p < ∞ ∞ {\displaystyle 1\leq p<\infty } , let P p ( R ) {\displaystyle {\mathcal {P}}_{p}(\mathbb {R} )} denote the collection of probability measures on R {\displaystyle \mathbb {R} } that have finite p {\displaystyle p} -th moment . Let μ μ , ν ν ∈ ∈ P p ( R ) {\displaystyle \mu ,\nu \in {\mathcal {P}}_{p}(\mathbb {R} )} and let c ( x , y ) = h ( x − − y ) {\displaystyle c(x,y)=h(x-y)} , where h : R → → [ 0 , ∞ ∞ ) {\displaystyle h:\mathbb {R} \to [0,\infty )} is a convex function .
+
+If μ μ {\displaystyle \mu } has no atom , i.e., if the cumulative distribution function F μ μ : R → → [ 0 , 1 ] {\displaystyle F_{\mu }:\mathbb {R} \to [0,1]} of μ μ {\displaystyle \mu } is a continuous function , then F ν ν − − 1 ∘ ∘ F μ μ : R → → R {\displaystyle F_{\nu }^{-1}\circ F_{\mu }:\mathbb {R} \to \mathbb {R} } is an optimal transport map. It is the unique optimal transport map if h {\displaystyle h} is strictly convex.
+
+We have min γ γ ∈ ∈ Γ Γ ( μ μ , ν ν ) ∫ ∫ R 2 c ( x , y ) d γ γ ( x , y ) = ∫ ∫ 0 1 c ( F μ μ − − 1 ( s ) , F ν ν − − 1 ( s ) ) d s .
+
+{\displaystyle \min _{\gamma \in \Gamma (\mu ,\nu )}\int _{\mathbb {R} ^{2}}c(x,y)\,\mathrm {d} \gamma (x,y)=\int _{0}^{1}c\left(F_{\mu }^{-1}(s),F_{\nu }^{-1}(s)\right)\,\mathrm {d} s.} The proof of this solution appears in Rachev & Rüschendorf (1998).
+
+[ 13 ] Discrete version and linear programming formulation [ edit ] In the case where the margins μ μ {\displaystyle \mu } and ν ν {\displaystyle \nu } are discrete, let μ μ x {\displaystyle \mu _{x}} and ν ν y {\displaystyle \nu _{y}} be the probability masses respectively assigned to x ∈ ∈ X {\displaystyle x\in \mathbf {X} } and y ∈ ∈ Y {\displaystyle y\in \mathbf {Y} } , and let γ γ x y {\displaystyle \gamma _{xy}} be the probability of an x y {\displaystyle xy} assignment. The objective function in the primal Kantorovich problem is then ∑ ∑ x ∈ ∈ X , y ∈ ∈ Y γ γ x y c x y {\displaystyle \sum _{x\in \mathbf {X} ,y\in \mathbf {Y} }\gamma _{xy}c_{xy}} and the constraint γ γ ∈ ∈ Γ Γ ( μ μ , ν ν ) {\displaystyle \gamma \in \Gamma (\mu ,\nu )} expresses as ∑ ∑ y ∈ ∈ Y γ γ x y = μ μ x , ∀ ∀ x ∈ ∈ X {\displaystyle \sum _{y\in \mathbf {Y} }\gamma _{xy}=\mu _{x},\forall x\in \mathbf {X} } and ∑ ∑ x ∈ ∈ X γ γ x y = ν ν y , ∀ ∀ y ∈ ∈ Y .
+
+{\displaystyle \sum _{x\in \mathbf {X} }\gamma _{xy}=\nu _{y},\forall y\in \mathbf {Y} .} In order to input this in a linear programming problem, we need to vectorize the matrix γ γ x y {\displaystyle \gamma _{xy}} by either stacking its columns or its rows , we call vec {\displaystyle \operatorname {vec} } this operation. In the column-major order , the constraints above rewrite as ( 1 1 × × | Y | ⊗ ⊗ I | X | ) vec ⁡ ⁡ ( γ γ ) = μ μ {\displaystyle \left(1_{1\times |\mathbf {Y} |}\otimes I_{|\mathbf {X} |}\right)\operatorname {vec} (\gamma )=\mu } and ( I | Y ‖ ‖ ⊗ ⊗ 1 1 × × | X | ) vec ⁡ ⁡ ( γ γ ) = ν ν {\displaystyle \left(I_{|\mathbf {Y} \|}\otimes 1_{1\times |\mathbf {X} |}\right)\operatorname {vec} (\gamma )=\nu } where ⊗ ⊗ {\displaystyle \otimes } is the Kronecker product , 1 n × × m {\displaystyle 1_{n\times m}} is a matrix of size n × × m {\displaystyle n\times m} with all entries of ones, and I n {\displaystyle I_{n}} is the identity matrix of size n {\displaystyle n} . As a result, setting z = vec ⁡ ⁡ ( γ γ ) {\displaystyle z=\operatorname {vec} (\gamma )} , the linear programming formulation of the problem is Minimize vec ⁡ ⁡ ( c ) ⊤ ⊤ z subject to: z ≥ ≥ 0 , ( 1 1 × × | Y | ⊗ ⊗ I | X | I | Y | ⊗ ⊗ 1 1 × × | X | ) z = ( μ μ ν ν ) {\displaystyle {\begin{aligned}&{\text{Minimize }}&&\operatorname {vec} (c)^{\top }z\\[4pt]&{\text{subject to:}}&&z\geq 0,\\[4pt]&&&{\begin{pmatrix}1_{1\times |\mathbf {Y} |}\otimes I_{|\mathbf {X} |}\\I_{|\mathbf {Y} |}\otimes 1_{1\times |\mathbf {X} |}\end{pmatrix}}z={\binom {\mu }{\nu }}\end{aligned}}} which can be readily inputted in a large-scale linear programming solver (see chapter 3.4 of Galichon (2016) [ 12 ] ).
+
+Semi-discrete case [ edit ] In the semi-discrete case, X = Y = R d {\displaystyle X=Y=\mathbb {R} ^{d}} and μ μ {\displaystyle \mu } is a continuous distribution over R d {\displaystyle \mathbb {R} ^{d}} , while ν ν = ∑ ∑ j = 1 J ν ν j δ δ y i {\displaystyle \nu =\sum _{j=1}^{J}\nu _{j}\delta _{y_{i}}} is a discrete distribution which assigns probability mass ν ν j {\displaystyle \nu _{j}} to site y j ∈ ∈ R d {\displaystyle y_{j}\in \mathbb {R} ^{d}} . In this case, we can see [ 14 ] that the primal and dual Kantorovich problems respectively boil down to: inf { ∫ ∫ X ∑ ∑ j = 1 J c ( x , y j ) d γ γ j ( x ) , γ γ ∈ ∈ Γ Γ ( μ μ , ν ν ) } {\displaystyle \inf \left\{\int _{X}\sum _{j=1}^{J}c(x,y_{j})\,d\gamma _{j}(x),\gamma \in \Gamma (\mu ,\nu )\right\}} for the primal, where γ γ ∈ ∈ Γ Γ ( μ μ , ν ν ) {\displaystyle \gamma \in \Gamma (\mu ,\nu )} means that ∫ ∫ X d γ γ j ( x ) = ν ν j {\displaystyle \int _{X}d\gamma _{j}(x)=\nu _{j}} and ∑ ∑ j d γ γ j ( x ) = d μ μ ( x ) {\displaystyle \sum _{j}d\gamma _{j}(x)=d\mu (x)} , and: sup { ∫ ∫ X φ φ ( x ) d μ μ ( x ) + ∑ ∑ j = 1 J ψ ψ j ν ν j : ψ ψ j + φ φ ( x ) ≤ ≤ c ( x , y j ) } {\displaystyle \sup \left\{\int _{X}\varphi (x)d\mu (x)+\sum _{j=1}^{J}\psi _{j}\nu _{j}:\psi _{j}+\varphi (x)\leq c(x,y_{j})\right\}} for the dual, which can be rewritten as: sup ψ ψ ∈ ∈ R J { ∫ ∫ X inf j { c ( x , y j ) − − ψ ψ j } d μ μ ( x ) + ∑ ∑ j = 1 J ψ ψ j ν ν j } {\displaystyle \sup _{\psi \in \mathbb {R} ^{J}}\left\{\int _{X}\inf _{j}\left\{c(x,y_{j})-\psi _{j}\right\}d\mu (x)+\sum _{j=1}^{J}\psi _{j}\nu _{j}\right\}} which is a finite-dimensional convex optimization problem that can be solved by standard techniques, such as gradient descent .
+
+In the case when c ( x , y ) = | x − − y | 2 / 2 {\displaystyle c(x,y)=|x-y|^{2}/2} , one can show that the set of x ∈ ∈ X {\displaystyle x\in \mathbf {X} } assigned to a particular site j {\displaystyle j} is a convex polyhedron. The resulting configuration is called a power diagram .
+
+[ 15 ] Quadratic normal case [ edit ] Assume the particular case μ μ = N ( 0 , Σ Σ X ) {\displaystyle \mu ={\mathcal {N}}(0,\Sigma _{X})} , ν ν = N ( 0 , Σ Σ Y ) {\displaystyle \nu ={\mathcal {N}}(0,\Sigma _{Y})} , and c ( x , y ) = | y − − A x | 2 / 2 {\displaystyle c(x,y)=|y-Ax|^{2}/2} where A {\displaystyle A} is invertible. One then has φ φ ( x ) = − − x ⊤ ⊤ Σ Σ X − − 1 / 2 ( Σ Σ X 1 / 2 A ⊤ ⊤ Σ Σ Y A Σ Σ X 1 / 2 ) 1 / 2 Σ Σ X − − 1 / 2 x / 2 {\displaystyle \varphi (x)=-x^{\top }\Sigma _{X}^{-1/2}\left(\Sigma _{X}^{1/2}A^{\top }\Sigma _{Y}A\Sigma _{X}^{1/2}\right)^{1/2}\Sigma _{X}^{-1/2}x/2} ψ ψ ( y ) = − − y ⊤ ⊤ A Σ Σ X 1 / 2 ( Σ Σ X 1 / 2 A ⊤ ⊤ Σ Σ Y A Σ Σ X 1 / 2 ) − − 1 / 2 Σ Σ X 1 / 2 A y / 2 {\displaystyle \psi (y)=-y^{\top }A\Sigma _{X}^{1/2}\left(\Sigma _{X}^{1/2}A^{\top }\Sigma _{Y}A\Sigma _{X}^{1/2}\right)^{-1/2}\Sigma _{X}^{1/2}Ay/2} T ( x ) = ( A ⊤ ⊤ ) − − 1 Σ Σ X − − 1 / 2 ( Σ Σ X 1 / 2 A ⊤ ⊤ Σ Σ Y A Σ Σ X 1 / 2 ) 1 / 2 Σ Σ X − − 1 / 2 x {\displaystyle T(x)=(A^{\top })^{-1}\Sigma _{X}^{-1/2}\left(\Sigma _{X}^{1/2}A^{\top }\Sigma _{Y}A\Sigma _{X}^{1/2}\right)^{1/2}\Sigma _{X}^{-1/2}x} The proof of this solution appears in Galichon (2016).
+
+[ 12 ] Separable Hilbert spaces [ edit ] Let X {\displaystyle X} be a separable Hilbert space . Let P p ( X ) {\displaystyle {\mathcal {P}}_{p}(X)} denote the collection of probability measures on X {\displaystyle X} that have finite p {\displaystyle p} -th moment; let P p r ( X ) {\displaystyle {\mathcal {P}}_{p}^{r}(X)} denote those elements μ μ ∈ ∈ P p ( X ) {\displaystyle \mu \in {\mathcal {P}}_{p}(X)} that are Gaussian regular : if g {\displaystyle g} is any strictly positive Gaussian measure on X {\displaystyle X} and g ( N ) = 0 {\displaystyle g(N)=0} , then μ μ ( N ) = 0 {\displaystyle \mu (N)=0} also.
+
+Let μ μ ∈ ∈ P p r ( X ) {\displaystyle \mu \in {\mathcal {P}}_{p}^{r}(X)} , ν ν ∈ ∈ P p ( X ) {\displaystyle \nu \in {\mathcal {P}}_{p}(X)} , c ( x , y ) = | x − − y | p / p {\displaystyle c(x,y)=|x-y|^{p}/p} for p ∈ ∈ ( 1 , ∞ ∞ ) , p − − 1 + q − − 1 = 1 {\displaystyle p\in (1,\infty ),p^{-1}+q^{-1}=1} . Then the Kantorovich problem has a unique solution κ κ {\displaystyle \kappa } , and this solution is induced by an optimal transport map: i.e., there exists a Borel map r ∈ ∈ L p ( X , μ μ ; X ) {\displaystyle r\in L^{p}(X,\mu ;X)} such that κ κ = ( i d X × × r ) ∗ ∗ ( μ μ ) ∈ ∈ Γ Γ ( μ μ , ν ν ) .
+
+{\displaystyle \kappa =(\mathrm {id} _{X}\times r)_{*}(\mu )\in \Gamma (\mu ,\nu ).} Moreover, if ν ν {\displaystyle \nu } has bounded support , then r ( x ) = x − − | ∇ ∇ φ φ ( x ) | q − − 2 ∇ ∇ φ φ ( x ) {\displaystyle r(x)=x-|\nabla \varphi (x)|^{q-2}\,\nabla \varphi (x)} for μ μ {\displaystyle \mu } -almost all x ∈ ∈ X {\displaystyle x\in X} for some locally Lipschitz , c {\displaystyle c} -concave and maximal Kantorovich potential φ φ {\displaystyle \varphi } . (Here ∇ ∇ φ φ {\displaystyle \nabla \varphi } denotes the Gateaux derivative of φ φ {\displaystyle \varphi } .) Entropic regularization [ edit ] Consider a variant of the discrete problem above, where we have added an entropic regularization term to the objective function of the primal problem Minimize ∑ ∑ x ∈ ∈ X , y ∈ ∈ Y γ γ x y c x y + ε ε γ γ x y ln ⁡ ⁡ γ γ x y subject to: γ γ ≥ ≥ 0 ∑ ∑ y ∈ ∈ Y γ γ x y = μ μ x , ∀ ∀ x ∈ ∈ X ∑ ∑ x ∈ ∈ X γ γ x y = ν ν y , ∀ ∀ y ∈ ∈ Y {\displaystyle {\begin{aligned}&{\text{Minimize }}\sum _{x\in \mathbf {X} ,y\in \mathbf {Y} }\gamma _{xy}c_{xy}+\varepsilon \gamma _{xy}\ln \gamma _{xy}\\[4pt]&{\text{subject to: }}\\[4pt]&\gamma \geq 0\\[4pt]&\sum _{y\in \mathbf {Y} }\gamma _{xy}=\mu _{x},\forall x\in \mathbf {X} \\[4pt]&\sum _{x\in \mathbf {X} }\gamma _{xy}=\nu _{y},\forall y\in \mathbf {Y} \end{aligned}}} One can show that the dual regularized problem is max φ φ , ψ ψ ∑ ∑ x ∈ ∈ X φ φ x μ μ x + ∑ ∑ y ∈ ∈ Y ψ ψ y v y − − ε ε ∑ ∑ x ∈ ∈ X , y ∈ ∈ Y exp ⁡ ⁡ ( φ φ x + ψ ψ y − − c x y ε ε ) {\displaystyle \max _{\varphi ,\psi }\sum _{x\in \mathbf {X} }\varphi _{x}\mu _{x}+\sum _{y\in \mathbf {Y} }\psi _{y}v_{y}-\varepsilon \sum _{x\in \mathbf {X} ,y\in \mathbf {Y} }\exp \left({\frac {\varphi _{x}+\psi _{y}-c_{xy}}{\varepsilon }}\right)} where, compared with the unregularized version, the "hard" constraint in the former dual ( φ φ x + ψ ψ y − − c x y ≥ ≥ 0 {\displaystyle \varphi _{x}+\psi _{y}-c_{xy}\geq 0} ) has been replaced by a "soft" penalization of that constraint (the sum of the ε ε exp ⁡ ⁡ ( ( φ φ x + ψ ψ y − − c x y ) / ε ε ) {\displaystyle \varepsilon \exp \left((\varphi _{x}+\psi _{y}-c_{xy})/\varepsilon \right)} terms). The optimality conditions in the dual problem can be expressed as Eq. 5.1: μ μ x = ∑ ∑ y ∈ ∈ Y exp ⁡ ⁡ ( φ φ x + ψ ψ y − − c x y ε ε ) ∀ ∀ x ∈ ∈ X {\displaystyle \mu _{x}=\sum _{y\in \mathbf {Y} }\exp \left({\frac {\varphi _{x}+\psi _{y}-c_{xy}}{\varepsilon }}\right)~\forall x\in \mathbf {X} } Eq. 5.2: ν ν y = ∑ ∑ x ∈ ∈ X exp ⁡ ⁡ ( φ φ x + ψ ψ y − − c x y ε ε ) ∀ ∀ y ∈ ∈ Y {\displaystyle \nu _{y}=\sum _{x\in \mathbf {X} }\exp \left({\frac {\varphi _{x}+\psi _{y}-c_{xy}}{\varepsilon }}\right)~\forall y\in \mathbf {Y} } Denoting A {\displaystyle A} as the | X | × × | Y | {\displaystyle |\mathbf {X} |\times |\mathbf {Y} |} matrix of term A x y = exp ⁡ ⁡ ( − − c x y / ε ε ) {\displaystyle A_{xy}=\exp \left(-c_{xy}/\varepsilon \right)} , solving the dual is therefore equivalent to looking for two diagonal positive matrices D 1 {\displaystyle D_{1}} and D 2 {\displaystyle D_{2}} of respective sizes | X | {\displaystyle |\mathbf {X} |} and | Y | {\displaystyle |\mathbf {Y} |} , such that D 1 A D 2 1 | Y | = μ μ {\displaystyle D_{1}AD_{2}1_{|\mathbf {Y} |}=\mu } and ( D 1 A D 2 ) ⊤ ⊤ 1 | X | = ν ν {\displaystyle (D_{1}AD_{2})^{\top }1_{|\mathbf {X} |}=\nu } . The existence of such matrices generalizes Sinkhorn's theorem and the matrices can be computed using the Sinkhorn–Knopp algorithm , [ 16 ] which simply consists of iteratively looking for φ φ x {\displaystyle \varphi _{x}} to solve Equation 5.1 , and ψ ψ y {\displaystyle \psi _{y}} to solve Equation 5.2 . Sinkhorn–Knopp's algorithm is therefore a coordinate descent algorithm on the dual regularized problem.
+
+Applications [ edit ] The Monge–Kantorovich optimal transport has found applications in wide range in different fields. Among them are: Image registration and warping [ 17 ] Reflector design [ 18 ] Retrieving information from shadowgraphy and proton radiography [ 19 ] Seismic tomography and reflection seismology [ 20 ] The broad class of economic modelling that involves gross substitutes property (among others, models of matching and discrete choice ).
+
+See also [ edit ] Wikimedia Commons has media related to Transportation theory .
+
+Wasserstein metric Transport function Hungarian algorithm Transportation planning Earth mover's distance Monge–Ampère equation References [ edit ] ^ G. Monge.
+
+Mémoire sur la théorie des déblais et des remblais. Histoire de l’Académie Royale des Sciences de Paris, avec les Mémoires de Mathématique et de Physique pour la même année , pages 666–704, 1781.
+
+^ Schrijver, Alexander , Combinatorial Optimization , Berlin; New York : Springer, 2003.
+
+ISBN 3540443894 . Cf.
+
+p. 362 ^ Ivor Grattan-Guinness, Ivor, Companion encyclopedia of the history and philosophy of the mathematical sciences , Volume 1, JHU Press, 2003. Cf.
+
+p.831 ^ L. Kantorovich.
+
+On the translocation of masses.
+
+C.R. (Doklady) Acad. Sci. URSS (N.S.), 37:199–201, 1942.
+
+^ Cédric Villani (2003).
+
+Topics in Optimal Transportation . American Mathematical Soc. p. 66.
+
+ISBN 978-0-8218-3312-4 .
+
+^ Singiresu S. Rao (2009).
+
+Engineering Optimization: Theory and Practice (4th ed.). John Wiley & Sons. p. 221.
+
+ISBN 978-0-470-18352-6 .
+
+^ Frank L. Hitchcock (1941) "The distribution of a product from several sources to numerous localities", MIT Journal of Mathematics and Physics 20:224–230 MR 0004469 .
+
+^ D. R. Fulkerson (1956) Hitchcock Transportation Problem , RAND corporation.
+
+^ L. R. Ford Jr.
+
+& D. R. Fulkerson (1962) § 3.1 in Flows in Networks , page 95, Princeton University Press ^ L. Ambrosio, N. Gigli & G. Savaré.
+
+Gradient Flows in Metric Spaces and in the Space of Probability Measures .
+
+Lectures in Mathematics ETH Zürich, Birkhäuser Verlag, Basel. (2005) ^ Angenent, S.; Haker, S.; Tannenbaum, A. (2003). "Minimizing flows for the Monge–Kantorovich problem".
+
+SIAM J. Math. Anal .
+
+35 (1): 61– 97.
+
+CiteSeerX 10.1.1.424.1064 .
+
+doi : 10.1137/S0036141002410927 .
+
+^ a b c Galichon, Alfred .
+
+Optimal Transport Methods in Economics . Princeton University Press, 2016.
+
+^ Rachev, Svetlozar T., and Ludger Rüschendorf.
+
+Mass Transportation Problems: Volume I: Theory . Vol. 1. Springer, 1998.
+
+^ Santambrogio, Filippo.
+
+Optimal Transport for Applied Mathematicians . Birkhäuser Basel, 2016. In particular chapter 6, section 4.2.
+
+^ Aurenhammer, Franz (1987), "Power diagrams: properties, algorithms and applications", SIAM Journal on Computing , 16 (1): 78– 96, doi : 10.1137/0216006 , MR 0873251 .
+
+^ Peyré, Gabriel and Marco Cuturi (2019), "Computational Optimal Transport: With Applications to Data Science", Foundations and Trends in Machine Learning: Vol. 11: No. 5-6, pp 355–607. DOI: 10.1561/2200000073 .
+
+^ Haker, Steven; Zhu, Lei; Tannenbaum, Allen; Angenent, Sigurd (1 December 2004). "Optimal Mass Transport for Registration and Warping".
+
+International Journal of Computer Vision .
+
+60 (3): 225– 240.
+
+CiteSeerX 10.1.1.59.4082 .
+
+doi : 10.1023/B:VISI.0000036836.66311.97 .
+
+ISSN 0920-5691 .
+
+S2CID 13261370 .
+
+^ Glimm, T.; Oliker, V. (1 September 2003). "Optical Design of Single Reflector Systems and the Monge–Kantorovich Mass Transfer Problem".
+
+Journal of Mathematical Sciences .
+
+117 (3): 4096– 4108.
+
+doi : 10.1023/A:1024856201493 .
+
+ISSN 1072-3374 .
+
+S2CID 8301248 .
+
+^ Kasim, Muhammad Firmansyah; Ceurvorst, Luke; Ratan, Naren; Sadler, James; Chen, Nicholas; Sävert, Alexander; Trines, Raoul; Bingham, Robert; Burrows, Philip N. (16 February 2017). "Quantitative shadowgraphy and proton radiography for large intensity modulations".
+
+Physical Review E .
+
+95 (2): 023306.
+
+arXiv : 1607.04179 .
+
+Bibcode : 2017PhRvE..95b3306K .
+
+doi : 10.1103/PhysRevE.95.023306 .
+
+PMID 28297858 .
+
+S2CID 13326345 .
+
+^ Metivier, Ludovic (24 February 2016).
+
+"Measuring the misfit between seismograms using an optimal transport distance: application to full waveform inversion" .
+
+Geophysical Journal International .
+
+205 (1): 345– 377.
+
+Bibcode : 2016GeoJI.205..345M .
+
+doi : 10.1093/gji/ggw014 .
+
+Further reading [ edit ] Brualdi, Richard A. (2006).
+
+Combinatorial matrix classes . Encyclopedia of Mathematics and Its Applications. Vol. 108. Cambridge: Cambridge University Press .
+
+ISBN 978-0-521-86565-4 .
+
+Zbl 1106.05001 .
+
+Authority control databases National United States Czech Republic Israel Other Yale LUX Retrieved from " https://en.wikipedia.org/w/index.php?title=Transportation_theory_(mathematics)&oldid=1304095655 " Categories : Calculus of variations Matching (graph theory) Mathematical economics Measure theory Transport economics Optimization in vector spaces Mathematical optimization in business Hidden categories: Articles with short description Short description is different from Wikidata Use dmy dates from July 2021 Commons category link is on Wikidata This page was last edited on 3 August 2025, at 23:46 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Transportation theory (mathematics) 14 languages Add topic
+

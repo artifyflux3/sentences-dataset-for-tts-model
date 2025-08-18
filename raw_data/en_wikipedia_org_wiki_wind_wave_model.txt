@@ -1,0 +1,331 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Historical overview 2 General strategy Toggle General strategy subsection 2.1 Input 2.2 Representation 2.3 Output 2.4 Coupled models 3 Examples Toggle Examples subsection 3.1 WAVEWATCH 3.2 WAM 3.3 Other models 4 The formulae of Bretschneider, Wilson, and Young & Verhagen Toggle The formulae of Bretschneider, Wilson, and Young & Verhagen subsection 4.1 Common Formulas for Deep Water 4.1.1 Example: Lake Garda 4.1.1.1 Bretschneider Formula: Lake Garda 4.1.1.2 Wilson Formula: Lake Garda 4.1.1.3 Young & Verhagen Formula: Lake Garda 5 Shallow and coastal waters Toggle Shallow and coastal waters subsection 5.1 One-dimensional approach 5.1.1 Example: wave growth calculation in The Netherlands 5.2 Two-dimensional approach 6 Validation 7 Reanalyses 8 References Toggle the table of contents Wind wave model 1 language Nederlands Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Numerical modelling of the sea state NOAA WAVEWATCH III (R) 120-hour Forecast for the North Atlantic For broader coverage of this topic, see Wind waves .
+
+In fluid dynamics , wind wave modeling describes the effort to depict the sea state and predict the evolution of the energy of wind waves using numerical techniques . These simulations consider atmospheric wind forcing, nonlinear wave interactions, and frictional dissipation, and they output statistics describing wave heights , periods , and propagation directions for regional seas or global oceans.  Such wave hindcasts and wave forecasts are extremely important for commercial interests on the high seas.
+
+[ 1 ] For example, the shipping industry requires guidance for operational planning and tactical seakeeping purposes.
+
+[ 1 ] For the specific case of predicting wind wave statistics on the ocean, the term ocean surface wave model is used.
+
+Other applications, in particular coastal engineering , have led to the developments of wind wave models specifically designed for coastal applications.
+
+Historical overview [ edit ] Early forecasts of the sea state were created manually based upon empirical relationships between the present state of the sea, the expected wind conditions, the fetch/duration, and the direction of the wave propagation.
+
+[ 2 ] Alternatively, the swell part of the state has been forecasted as early as 1920 using remote observations.
+
+[ 3 ] During the 1950s and 1960s, much of the theoretical groundwork necessary for numerical descriptions of wave evolution was laid. For forecasting purposes, it was realized that the  random nature of the sea state was best described by a spectral decomposition in which the energy of the waves was attributed to as many wave trains as necessary, each with a specific direction and period. This approach allowed to make combined forecasts of wind seas and swells.  The first numerical model based on the spectral decomposition of the sea state was operated in 1956 by the French Weather Service, and focused on the North Atlantic.
+
+[ 4 ] The 1970s saw the first operational, hemispheric wave model: the spectral wave ocean model (SWOM) at the Fleet Numerical Oceanography Center .
+
+[ 5 ] First generation wave models did not consider nonlinear wave interactions. Second generation models, available by the early 1980s, parameterized these interactions.  They included the "coupled hybrid" and "coupled discrete" formulations.
+
+[ 6 ] Third generation models explicitly represent all the physics relevant for the development of the sea state in two dimensions.  The wave modeling project (WAM), an international effort, led to the refinement of modern wave modeling techniques during the decade 1984-1994.
+
+[ 7 ] Improvements included two-way coupling between wind and waves, assimilation of satellite wave data, and medium-range operational forecasting.
+
+Wind wave models are used in the context of a forecasting or hindcasting system. Differences in model results arise (with decreasing order of importance) from: differences in wind and sea ice forcing, differences in parameterizations of physical processes, the use of data assimilation and associated methods, and the numerical techniques used to solve the wave energy evolution equation.
+
+In the aftermath of World War II , the study of wave growth garnered significant attention. The global nature of the war, encompassing battles in the Pacific, Atlantic, and Mediterranean seas, necessitated the execution of landing operations on enemy-held coasts. Safe landing was paramount, given that choppy waters posed the danger of capsizing landing craft . Consequently, the precise forecasting of weather and wave conditions became essential, prompting the recruitment of meteorologists and oceanographers by the warring nations.
+
+[ 8 ] [ 9 ] During this period, both Japan and the United States embarked on wave prediction research. In the U.S., comprehensive studies were carried out at the Scripps Institution of Oceanography affiliated with the University of California . Under the guidance of Harald Svedrup , Walter Munk devised an avant-garde wave calculation methodology for the United States Navy and later refined this approach for the Office of Naval Research .
+
+This pioneering effort led to the creation of the significant wave method , which underwent subsequent refinements and data integrations. The method, in due course, came to be popularly referred to as the SMB method, an acronym derived from its founders Sverdrup, Munk, and Charles L. Bretschneider.
+
+[ 10 ] [ 11 ] Between 1950 and 1980, various formulae were proposed. Given that two-dimensional field models had not been formulated during that time, studies were initiated in the Netherlands by Rijkswaterstaat and the Technische Adviescommissie voor de Waterkeringen (TAW - Technical Advisory Committee for Flood Defences) to discern the most appropriate formula to compute wave height at the base of a dike .
+
+[ 12 ] This work concluded that the 1973 Bretschneider formula was the most suitable. However, subsequent studies by Young and Verhagen in 1997 suggested that adjusting certain coefficients enhanced the formula's efficacy in shallow water regions.
+
+General strategy [ edit ] Input [ edit ] A wave model requires as initial conditions information describing the state of the sea.  An analysis of the sea or ocean can be created through data assimilation, where observations such as buoy or satellite altimeter measurements are combined with a background guess from a previous forecast or climatology to create the best estimate of the ongoing conditions. In practice, many forecasting system rely only on the previous forecast, without any assimilation of observations.
+
+[ 13 ] A more critical input is the "forcing" by wind fields: a time-varying map of wind speed and directions. The most common sources of errors in wave model results are the errors in the wind field.
+
+Ocean currents can also be important, in particular in western boundary currents such as the Gulf Stream, Kuroshio or Agulhas current, or in coastal areas where tidal currents are strong. Waves are also affected by sea ice and icebergs, and all operational global wave models take at least the sea ice into account.
+
+This figures show an example of the effects of currents on the wave heights. This example is adapted from scientific paper published in the Journal of Physical Oceanography (vol. 42, December 2012). The top panels show the tidal currents at 3 AM and 11 AM on 28 October 2008, off the West coast of France, around the island of Ouessant, which lies 20 km from the mainland. The bottom panel show the heights and directions of waves, computed with the numerical model WAVEWATCH III (R), using a triangular mesh with variable resolution. The strong currents south of Ouessant deflect the waves away from the measuring buoy at low tide.
+
+Representation [ edit ] The sea state is described as a spectrum ; the sea surface can be decomposed into waves of varying frequencies using the principle of superposition . The waves are also separated by their direction of propagation. The model domain size can range from regional to the global ocean.  Smaller domains can be nested within a global domain to provide higher resolution in a region of interest.  The sea state evolves according to physical equations – based on a spectral representation of the conservation of wave action – which include: wave propagation / advection, refraction (by bathymetry and currents), shoaling , and a source function which allows for wave energy to be augmented or diminished.  The source function has at least three terms: wind forcing, nonlinear transfer, and dissipation by whitecapping.
+
+[ 6 ] Wind data are typically provided from a separate atmospheric model from an operational weather forecasting center.
+
+For intermediate water depths the effect of bottom friction should also be added.
+
+[ 14 ] At ocean scales, the dissipation of swells - without breaking - is a very important term.
+
+[ 15 ] Output [ edit ] The output of a wind wave model is a description of the wave spectra, with amplitudes associated with each frequency and propagation direction. Results are typically summarized by the significant wave height , which is the average height of the one-third largest waves, and the period and propagation direction of the dominant wave.
+
+Coupled models [ edit ] Wind waves also act to modify atmospheric properties through frictional drag of near-surface winds and heat fluxes.
+
+[ 16 ] Two-way coupled models allow the wave activity to feed back upon the atmosphere. The European Centre for Medium-Range Weather Forecasts (ECMWF) coupled atmosphere-wave forecast system described below facilitates this through exchange of the Charnock parameter which controls the sea surface roughness . This allows the atmosphere to respond to changes in the surface roughness as the wind sea builds up or decays.
+
+Examples [ edit ] WAVEWATCH [ edit ] The operational wave forecasting systems at NOAA are based on the WAVEWATCH III model.
+
+[ 17 ] This system has a global domain of approximately 50 km resolution, with nested regional domains for the northern hemisphere oceanic basins at approximately 18 km and approximately 7 km resolution.  Physics includes wave field refraction, nonlinear resonant interactions, sub-grid representations of unresolved islands, and dynamically updated ice coverage.  Wind data is provided from the GDAS data assimilation system for the GFS weather model.  Up to 2008, the model was limited to regions outside the surf zone where the waves are not strongly impacted by shallow depths.
+
+[ 18 ] The model can incorporate the effects of currents on waves from its early design by Hendrik Tolman in the 1990s, and is now extended for near shore applications.
+
+WAM [ edit ] The wave model WAM was the first so-called third generation prognostic wave model where the two-dimensional wave spectrum was allowed to evolve freely (up to a cut-off frequency) with no constraints on the spectral shape.
+
+[ 19 ] The model underwent a series of software updates from its inception in the late 1980s.
+
+[ 20 ] The last official release is Cycle 4.5, maintained by the German Helmholtz Zentrum, Geesthacht .
+
+[ 21 ] ECMWF has incorporated  WAM into its deterministic and ensemble forecasting system ., [ 22 ] known as the Integrated Forecast System (IFS). The model currently comprises 36 frequency bins and 36 propagation directions at an average spatial resolution of 25 km. The model has been coupled to the atmospheric component of IFS since 1998.
+
+[ 23 ] [ 24 ] Other models [ edit ] Wind wave forecasts are issued regionally by Environment Canada .
+
+[ 25 ] Regional wave predictions are also produced by universities, such as Texas A&M University 's use of the SWAN model (developed by Delft University of Technology ) to forecast waves in the Gulf of Mexico.
+
+[ 26 ] Another model, CCHE2D-COAST is a processes-based integrated model which is capable of simulating coastal processes in different coasts with complex shorelines such as irregular wave deformation from offshore to onshore, nearshore currents induced by radiation stresses, wave set-up, wave set-down, sediment transport, and seabed morphological changes.
+
+[ 27 ] Other wind wave models include the U.S. Navy Standard Surf Model (NSSM).
+
+[ 28 ] The formulae of Bretschneider, Wilson , and Young & Verhagen [ edit ] For determining wave growth in deep waters subjected to prolonged fetch , the basic formula set is: g H s u w 2 = 0.283 {\displaystyle {{gH_{s}} \over {u_{w}^{2}}}=0.283} g T s u w = 7.54 {\displaystyle {{gT_{s}} \over {u_{w}}}=7.54} Where: g {\displaystyle g} = gravitational acceleration (m/s 2 ) H s {\displaystyle H_{s}} = significant wave height (m) T s {\displaystyle T_{s}} = significant wave period (s) u w {\displaystyle u_{w}} = wind speed (m/s) The constants in these formulas are deduced from empirical data. Factoring in water depth, wind fetch, and storm duration complicates the equations considerably. However, the application of dimensionless values facilitates the identification of patterns for all these variables. The dimensionless parameters employed are: H ^ ^ = g H s / u w 2 {\displaystyle {\widehat {H}}={gH_{s}/u_{w}^{2}}} T ^ ^ = g T s / u w {\displaystyle {\widehat {T}}={gT_{s}/u_{w}}} d ^ ^ = g d / u w 2 {\displaystyle {\widehat {d}}={gd/u_{w}^{2}}} F ^ ^ = g F / u w 2 {\displaystyle {\widehat {F}}={gF/u_{w}^{2}}} t ^ ^ = g t / u w {\displaystyle {\widehat {t}}={gt/u_{w}}} Where: d {\displaystyle d} = water depth (m) F {\displaystyle F} = wind fetch (m) t {\displaystyle t} = storm duration (s) When plotted against the dimensionless wind fetch, both dimensionless wave height and wave period tend to align linearly. However, this trend becomes notably more flattened for more extended dimensionless wind fetches. Various researchers have endeavoured to formulate equations capturing this observed behaviour.
+
+Dimensionless wave height and period against the backdrop of the dimensionless fetch (data courtesy of Wilson, 1965) [ 29 ] Common Formulas for Deep Water [ edit ] Bretschneider (1952, 1977): H ^ ^ = 0.283 tanh ⁡ ⁡ ( 0.0125 F ^ ^ ) 0.42 {\displaystyle {\widehat {H}}=0.283\tanh(0.0125{\widehat {F}})^{0.42}} T ^ ^ = 7.54 tanh ⁡ ⁡ ( 0.077 F ^ ^ ) 0.25 {\displaystyle {\widehat {T}}=7.54\tanh(0.077{\widehat {F}})^{0.25}} Wilson (1965): [ 30 ] H ^ ^ = 0.30 { 1 − − [ 1 + 0.004 F ^ ^ 1 / 2 ] − − 2 } {\displaystyle {\widehat {H}}=0.30\{1-[1+0.004{\widehat {F}}^{1/2}]^{-2}\}} T ^ ^ = 1.37 { 1 − − [ 1 + 0.008 F ^ ^ 1 / 3 ] − − 5 } {\displaystyle {\widehat {T}}=1.37\{1-[1+0.008{\widehat {F}}^{1/3}]^{-5}\}} Wave growth chart based on the formulas by Groen & Dorrestein [ 31 ] Graph depicting the variation of significant wave height with dimensionless fetch based on the Young & Verhagen wave growth formula, set against a specific water depth and wind speed.
+
+In the Netherlands, a formula devised by Groen & Dorrestein (1976) is also in common use: [ 31 ] H ^ ^ = 0.24 tanh ⁡ ⁡ ( 0.015 F ^ ^ ) 0.45 {\displaystyle {\widehat {H}}=0.24\tanh \left(0.015{\widehat {F}}\right)^{0.45}} for F ^ ^ > 10 {\displaystyle {\widehat {F}}>10} T ^ ^ = 2 π π tanh ⁡ ⁡ ( 0.0345 F ^ ^ ) 0.37 {\displaystyle {\widehat {T}}=2\pi \tanh \left(0.0345{\widehat {F}}\right)^{0.37}} for F ^ ^ > 400 {\displaystyle {\widehat {F}}>400} T ^ ^ = 0.502 F ^ ^ 0.225 {\displaystyle {\widehat {T}}=0.502{\widehat {F}}^{0.225}} for 10 < F ^ ^ < 400 {\displaystyle 10<{\widehat {F}}<400} During periods when programmable computers weren't commonly utilised, these formulas were cumbersome to use. Consequently, for practical applications, nomograms were developed which did away with dimensionless units, instead presenting wave heights in metres, storm duration in hours, and the wind fetch in km.
+
+Integrating the water depth into the same chart was problematic as it introduced too many input parameters. Therefore, during the primary usage of nomograms, separate nomograms were crafted for distinct depths. The use of computers has resulted in reduced reliance on nomograms.
+
+For deep water, the distinctions between the various formulas are subtle. However, for shallow water, the formula modified by Young & Verhagen [ 32 ] proves more suitable. It's defined as: H ^ ^ = 0.241 ( tanh ⁡ ⁡ A H tanh ⁡ ⁡ B H tanh ⁡ ⁡ A H ) 0.87 {\displaystyle {\widehat {H}}=0.241\left(\tanh {A_{H}}\tanh {{B_{H}} \over {\tanh {A_{H}}}}\right)^{0.87}} A H = 0.493 d ^ ^ 0.75 {\displaystyle A_{H}=0.493{\widehat {d}}^{0.75}} and B H = 0.00313 F ^ ^ 0.57 {\displaystyle B_{H}=0.00313{\widehat {F}}^{0.57}} and T ^ ^ = 7.519 ( tanh ⁡ ⁡ A T tanh ⁡ ⁡ B T tanh ⁡ ⁡ A T ) 0.387 {\displaystyle {\widehat {T}}=7.519\left(\tanh {A_{T}}\tanh {{B_{T}} \over {\tanh {A_{T}}}}\right)^{0.387}} A T = 0.331 d ^ ^ 1.01 {\displaystyle A_{T}=0.331{\widehat {d}}^{1.01}} and B T = 0.0005215 F ^ ^ 0.73 {\displaystyle B_{T}=0.0005215{\widehat {F}}^{0.73}} Research by Bart demonstrated that, under Dutch conditions (for example, in the IJsselmeer ), this formula is reliable.
+
+[ 33 ] Example: Lake Garda [ edit ] Lake Garda in Italy is a deep, elongated lake, measuring about 350 m in depth and spanning 45 km in length. With a wind speed of 25 m/s from the SSW, the Bretschneider and Wilson formulas suggest an H s of 3.5 m and a period of roughly 7 s (assuming the storm persists for at least 4 hours). The Young and Verhagen formula, however, predicts a lower wave height of 2.6 m. This diminished result is attributed to the formula's calibration for shallow waters, whilst Lake Garda is notably deep.
+
+Bretschneider Formula: Lake Garda [ edit ] Based on Bretschneider's formula: Predicted wave height: 3.54 meters Predicted wave period: 7.02 seconds Wilson Formula: Lake Garda [ edit ] Utilizing Wilson's formula, the predictions are: Predicted wave height: 3.56 meters Predicted wave period: 7.01 seconds Young & Verhagen Formula: Lake Garda [ edit ] Young & Verhagen's formula, which typically applies to shallow waters, yields: Predicted wave height: 2.63 meters Predicted wave period: 6.89 seconds Shallow and coastal waters [ edit ] Global wind wave models such as WAVEWATCH and WAM are not reliable in shallow water areas near the coast. To address this issue, the SWAN (Simulating WAves Nearshore) program was developed in 1993 by Delft University of Technology , in collaboration with Rijkswaterstaat and the Office of Naval Research in the United States.
+
+[ 34 ] [ 35 ] Initially, the main focus of this development was on wave changes due to the effects of breaking , refraction , and the like. The program was subsequently developed to include analysis of wave growth.
+
+[ 36 ] SWAN essentially calculates the energy of a wave field (in the form of a wave spectrum ) and derives the significant wave height from this spectrum. SWAN lacks a user interface for easily creating input files and presenting the output. The program is open-source , and many institutions and companies have since developed their own user environments for SWAN. The program has become a global standard for such calculations, and can be used in both one-dimensional and two-dimensional modes.
+
+[ 37 ] One-dimensional approach [ edit ] Wave growth in the Western Scheldt The computation time for a calculation with SWAN is in the order of seconds. In one-dimensional mode, results are available from the input of a cross-sectional profile and wind information. In many cases, this can yield a sufficiently reliable value for the local wave spectrum, particularly when the wind path crosses shallow areas.
+
+Example: wave growth calculation in The Netherlands [ edit ] As an example, a calculation of the wave growth in the Westerschelde has been made. For this example, the one-dimensional version of SWAN and the open-source user interface SwanOne were used.
+
+[ 38 ] The wave height at the base of the sea dike near Goudorpe on South Beveland , just west of the Westerscheldetunnel , was calculated, with the wind coming from the SW at a speed of 25m/s (force 9 to 10). In the graph, this is from left to right. The dike is quite far from deep water, with a salt marsh in front of it.
+
+The calculation was made for low water, average water level, and high water. At high tide, the salt marsh is under water; at low tide, only the salt marsh is submerged (the tidal difference here is about 5 metres). At high tide, there is a constant increase in wave height, which is faster in deep water than in shallow water. At low tide, some plates are dry, and wave growth has to start all over again. Close to the shore (beyond the Gat van Borssele), there's a tall salt marsh; at low tide, there are no waves there, at average tide, the wave height decreases to almost nothing at the dike, and at high tide, there's still a wave height of 1 m present. The measure of period shown in these graphs is the spectral period (T m-1,0 ).
+
+Two-dimensional approach [ edit ] Calculation of wave growth (and decline) on Lake Garda due to strong wind (25 m/s) from the SSW (210°).
+
+[ 39 ] In situations where significant refraction occurs, or where the coastline is irregular, the one-dimensional method falls short, necessitating the use of a field model. Even in a relatively rectangular lake like Lake Garda, a two-dimensional calculation provides considerably more information, especially in its southern regions. The figure below demonstrates the results of such a calculation.
+
+This case highlights another limitation of the one-dimensional approach: at certain points, the actual wave growth is less than predicted by the one-dimensional model. This discrepancy arises because the model assumes a broad wave field, which isn't the case for narrow lakes.
+
+[ 40 ] Validation [ edit ] Comparison of the wave model forecasts with observations is essential for characterizing model deficiencies and identifying areas for improvement. In-situ observations are obtained from buoys, ships and oil platforms.
+
+Altimetry data from satellites, such as GEOSAT and TOPEX , can also be used to infer the characteristics of wind waves.
+
+Hindcasts of wave models during extreme conditions also serves as a useful test bed for the models.
+
+[ 41 ] Reanalyses [ edit ] A retrospective analysis, or reanalysis, combines all available observations with a physical model to describe the state of a system over a time period of decades.  Wind waves are a part of both the NCEP Reanalysis [ 42 ] and the ERA-40 from the ECMWF.
+
+[ 43 ] Such resources permit the creation of monthly wave climatologies, and can track the variation of wave activity on interannual and multi-decadal time scales.  During the northern hemisphere winter, the most intense wave activity is located in the central North Pacific south of the Aleutians, and in the central North Atlantic south of Iceland. During the southern hemisphere winter, intense wave activity circumscribes the pole at around 50°S, with 5 m significant wave heights typical in the southern Indian Ocean.
+
+[ 43 ] References [ edit ] ^ a b Cox, Andrew T. & Vincent J. Cardone (2002).
+
+"20 Years Of Operational Forecasting At Oceanweather" (PDF) .
+
+7th International Workshop on Wave Hindcasting and Forecasting October 21–25, 2002, Banff, Alberta, Canada . Retrieved 2008-11-21 .
+
+^ Wittmann, Paul and Mike Clancy, "Thirty Years of Operational Ocean Wave Forecasting at Fleet Numerical Meteorology and Oceanography Center" , Symposium on the 50th Anniversary of Operational Numerical Weather Prediction , 14–17 June 2004, University of Maryland ^ Robert Montagne, The swell forecasting service in Morocco (In French), 1922, Annales Hydrographiques, pp. 157-186. This paper describes the use of the method published by Gain in the same journal (1918) which combines a classification of North Atlantic Storms with the use of observations in Azores and Portugal to forecast the swells in Morocco.
+
+^ Gelci, R.,  H. Cazalé, J. Vassal  (1957) Sea state forecasting. The spectral method (In French), Bulletin d'information du Comité d'Océanographie et d'Etude des Côtes, Vol. 9 (1957), pp. 416-435.
+
+^ "Wave Modeling" Archived 2001-11-21 at the Wayback Machine , Oceanweather Inc ^ a b Komen, Gerbrand, "The Wave Modeling Group, a historical perspective" ^ G.J. Komen, L. Cavaleri, M. Donelan, K. Hasselmann, S. Hasselmann and P.A.E.M. Janssen, 1994. Dynamics and Modelling of Ocean Waves. Cambridge University Press, 532p.
+
+^ Goda, Y. (1999).
+
+「波動問題」の歴史的変遷 [ On the Historical Development of the Mathematical Theory of Water Waves ] (PDF) (in Japanese). Tokyo: Japan Society of Civil Engineers . Retrieved 27 August 2023 .
+
+^ Goda, Y. (1999).
+
+"On the Historical Development of the Mathematical Theory of Water Waves" .
+
+35th Summer Training Course Lecture Collection, Japan Society of Civil Engineers Coastal Engineering Committee . Retrieved 27 August 2023 – via TU Delft Repository.
+
+^ Saville, T. (1954).
+
+North Atlantic Coast Wave Statistics: Hindcast by Bretschneider-Revised Sverdrup-Munk Method . U.S. Beach Erosion Board.
+
+^ Bretschneider, C.L. (2011).
+
+"Revisions in Wave Forecasting: Deep and Shallow Water" .
+
+Coastal Engineering Proceedings .
+
+1 (6): 3.
+
+doi : 10.9753/icce.v6.3 (inactive 1 July 2025).
+
+ISSN 2156-1028 . Retrieved 11 August 2023 .
+
+{{ cite journal }} :  CS1 maint: DOI inactive as of July 2025 ( link ) ^ Holthuijsen, L.H. (1980).
+
+"Methods for wave prediction" .
+
+P80-01 . Rijkswaterstaat - TAW.
+
+^ Tolman, Hendrik.
+
+"User manual and system documentation of WAVEWATCH III TM version 3.14 †" (PDF) .
+
+National Oceanographic and Atmospheric Administration . Retrieved 22 March 2022 .
+
+^ Ardhuin, F.; O'Reilly, W. C.; Herbers, T. H. C.; Jessen, P. F. (2003).
+
+"Swell transformation across the continental shelf. part I: Attenuation and directional broadening" .
+
+J. Phys. Oceanogr .
+
+33 (9): 1921– 1939.
+
+Bibcode : 2003JPO....33.1921A .
+
+doi : 10.1175/1520-0485(2003)033<1921:statcs>2.0.co;2 .
+
+^ Ardhuin, F.; Chapron, B.; Collard, F. (2009). "Observation of swell dissipation across oceans".
+
+Geophys. Res. Lett .
+
+36 (6): L06607.
+
+arXiv : 0809.2497 .
+
+Bibcode : 2009GeoRL..36.6607A .
+
+doi : 10.1029/2008GL037030 .
+
+S2CID 6470677 .
+
+^ Bender, L.C. (1996).
+
+"Modification of the Physics and Numerics in a Third-Generation Ocean Wave Model" .
+
+Journal of Atmospheric and Oceanic Technology .
+
+13 (3): 726– 750.
+
+Bibcode : 1996JAtOT..13..726B .
+
+doi : 10.1175/1520-0426(1996)013<0726:motpan>2.0.co;2 .
+
+^ Tolman, H. L., "WAVEWATCH III Model Description" ^ Tolman, 2002g: User manual and system documentation of WAVEWATCH-III version 2.22 . NOAA / NWS / NCEP / MMAB Technical Note 222, 133 pp.
+
+^ Komen, GJ and Cavaleri, L. and Donelan, M. and Hasselmann, K. and Hasselmann, S. and Janssen, P. et al, 1994: "Dynamics and Modelling of Ocean Waves", Cambridge, 534 pp ^ Hasselmann, S; Hasselmann, K; Janssen, P A E M; et al. (1988).
+
+"The WAM model - A third generation ocean wave prediction model" .
+
+Journal of Physical Oceanography .
+
+18 (12): 1775– 1810.
+
+Bibcode : 1988JPO....18.1775W .
+
+doi : 10.1175/1520-0485(1988)018<1775:twmtgo>2.0.co;2 .
+
+^ "Entwicklungen KSD WAM Cycle 4.5" . Archived from the original on 2013-08-23 . Retrieved 2012-03-22 .
+
+^ "The Ocean Wave Model" Archived 2008-06-03 at the Wayback Machine , European Centre for Medium-Range Weather Forecasts ^ Janssen, P. A. E. M., J. D. Doyle, J. Bidlot, B. Hansen, L. Isaksen and P. Viterbo, 2002: "Impact and feedback of ocean waves on the atmosphere", in Advances in Fluid Mechanics, Atmosphere-Ocean Interactions, Vol. I, WITpress, Ed. W.Perrie., pp 155-197 ^ Janssen, P. A. E. M., 2004: The interaction of ocean waves and wind, Cambridge, 300 pages ^ "Operational Model Forecasts" , Environment Canada ^ "Surf's Up: Professor Using Models To Predict Huge Waves" , ScienceDaily , Feb. 23, 2005 ^ "CCHE2D-Coast | the National Center for Computational Hydroscience and Engineering" . Archived from the original on 2016-03-04 . Retrieved 2015-06-01 .
+
+^ "Validation Test Report for the Navy Standard Surf Model" , US Naval Research Lab ^ Battjes, J.A. (1982).
+
+Wind Waves . TU Delft . Retrieved 10 August 2023 .
+
+^ Wilson, B.W. (1965).
+
+"Numerical Prediction of Ocean Waves in the North Atlantic for December 1959" .
+
+German Hydrographic Journal .
+
+18 (3): 114– 130.
+
+Bibcode : 1965DeHyZ..18..114W .
+
+doi : 10.1007/BF02333333 . Retrieved 10 August 2023 .
+
+^ a b Groen, P.; Dorrestein, R. (1976).
+
+"Sea Waves" .
+
+Knmi Publicatie 11 .
+
+Royal Netherlands Meteorological Institute . Retrieved 10 August 2023 .
+
+^ Young, I.R.; Verhagen, L.A. (1996).
+
+"The Growth of Fetch Limited Waves in Water of Finite Depth. Part 1. Total Energy and Peak Frequency" .
+
+Coastal Engineering .
+
+29 ( 1– 2): 47– 78.
+
+Bibcode : 1996CoasE..29...47Y .
+
+doi : 10.1016/S0378-3839(96)00006-3 . Retrieved 10 August 2023 .
+
+^ Bart, L. (2013).
+
+The Accuracy of the Young and Verhagen Formula for Waves in Water of Finite Depth . TU Delft . Retrieved 10 August 2023 .
+
+^ "SWAN homepage" . TU Delft, fluid mechanics section.
+
+^ Holthuijsen, L.H.; Booij, N.; Ris, R.C. (1993).
+
+"A spectral wave model for the coastal zone" .
+
+Proceedings International Symposium on Ocean Wave Measurement and Analysis .
+
+2 : 630– 641 . Retrieved 11 August 2023 .
+
+^ "SWAN" .
+
+TU Delft . Retrieved 2023-08-27 .
+
+^ Guisado-Pintado, E. (2020), "Shallow water wave modelling in the nearshore (SWAN)" , Sandy Beach Morphodynamics , Elsevier, pp.
+
+391– 419, doi : 10.1016/b978-0-08-102927-5.00017-5 , ISBN 978-0-08-102927-5 , S2CID 219883066 , retrieved 27 August 2023 ^ Verhagen, H.J.; van Vledder, G.P.; Eslami Arab, S. (2008).
+
+"A practical method for design of coastal structures in shallow water" .
+
+International Conference on Coastal Engineering .
+
+31 . Retrieved 11 August 2023 .
+
+^ Favaretto, C.; Martinelli, L.; Philipine Vigneron, E.; Ruol, P. (2022).
+
+"Wave Hindcast in Enclosed Basins: Comparison among SWAN, STWAVE and CMS-Wave Models" .
+
+Water .
+
+14 (7): 1087.
+
+Bibcode : 2022Water..14.1087F .
+
+doi : 10.3390/w14071087 .
+
+hdl : 11577/3439620 .
+
+^ Breugem, A. (2003).
+
+A reanalysis of the wave observations in Lake George . TU Delft . Retrieved 11 August 2023 .
+
+^ Cardone, V.; Jensen, R.; Resio, D.; Swail, V.; Cox, A. (1996).
+
+"Evaluation of Contemporary Ocean Wave Models in Rare Extreme Events: The "Halloween Storm" of October 1991 and the "Storm of the Century" of March 1993" .
+
+J. Atmos. Oceanic Technol .
+
+13 (1): 198– 230.
+
+Bibcode : 1996JAtOT..13..198C .
+
+doi : 10.1175/1520-0426(1996)013<0198:eocowm>2.0.co;2 .
+
+^ Cox, A., V. Cardone, and V. Swail, "Evaluation Of NCEP-NCAR Reanalysis Project Marine Surface Wind Products For A Long Term North Atlantic Wave Hindcast" ^ a b Caires, S., A. Sterl, G. Burgers, and G. Komen, ERA-40, "Forty-year European Re-Analysis of the Global Atmosphere; Ocean wave product validation and analysis" Archived 2007-02-07 at the Wayback Machine v t e Physical oceanography Waves Airy wave theory Ballantine scale Benjamin–Feir instability Boussinesq approximation Breaking wave Clapotis Cnoidal wave Cross sea Dispersion Edge wave Equatorial waves Gravity wave Green's law Infragravity wave Internal wave Iribarren number Kelvin wave Kinematic wave Longshore drift Luke's variational principle Mild-slope equation Radiation stress Rogue wave Draupner wave Rossby wave Rossby-gravity waves Sea state Seiche Significant wave height Soliton Stokes drift Stokes problem Stokes wave Swell Trochoidal wave Tsunami megatsunami Undertow Ursell number Wave action Wave base Wave height Wave nonlinearity Wave power Wave radar Wave setup Wave shoaling Wave turbulence Wave–current interaction Waves and shallow water one-dimensional Saint-Venant equations shallow water equations Wind fetch Wind setup Wind wave model Circulation Atmospheric circulation Baroclinity Boundary current Coriolis force Coriolis–Stokes force Craik–Leibovich vortex force Downwelling Eddy Ekman layer Ekman spiral Ekman transport El Niño–Southern Oscillation General circulation model Geochemical Ocean Sections Study Geostrophic current Global Ocean Data Analysis Project Gulf Stream Humboldt Current Hydrothermal circulation Langmuir circulation Longshore drift Loop Current Modular Ocean Model Ocean current Ocean dynamical thermostat Ocean dynamics Ocean gyre Overflow Princeton Ocean Model Rip current Subsurface ocean current Sverdrup balance Thermohaline circulation shutdown Upwelling Whirlpool Wind generated current World Ocean Circulation Experiment Tides Amphidromic point Earth tide Head of tide Internal tide Lunitidal interval Perigean spring tide Rip tide Rule of twelfths Slack tide Theory of tides Tidal bore Tidal force Tidal power Tidal race Tidal range Tidal resonance Tide gauge Tideline Landforms Abyssal fan Abyssal plain Atoll Bathymetric chart Carbonate platform Coastal geography Cold seep Continental margin Continental rise Continental shelf Contourite Guyot Hydrography Knoll Ocean bank Oceanic basin Oceanic plateau Oceanic trench Passive margin Seabed Seamount Submarine canyon Submarine volcano Plate tectonics Convergent boundary Divergent boundary Fracture zone Hydrothermal vent Marine geology Mid-ocean ridge Mohorovičić discontinuity Oceanic crust Outer trench swell Ridge push Seafloor spreading Slab pull Slab suction Slab window Subduction Transform fault Vine–Matthews–Morley hypothesis Volcanic arc Ocean zones Benthic Deep ocean water Deep sea Littoral Mesopelagic Oceanic Pelagic Photic Surf Swash Sea level Deep-ocean Assessment and Reporting of Tsunamis Global Sea Level Observing System North West Shelf Operational Oceanographic System Sea-level curve Sea level drop Sea level rise World Geodetic System Acoustics Deep scattering layer Ocean acoustic tomography Sofar bomb SOFAR channel Underwater acoustics Satellites Jason-1 OSTM/Jason-2 Jason-3 Related Acidification Argo Benthic lander Color of water DSV Alvin Marginal sea Marine energy Marine pollution Mooring National Oceanographic Data Center Ocean Explorations Observations Reanalysis Ocean surface topography Ocean temperature Ocean thermal energy conversion Oceanography Outline of oceanography Pelagic sediment Sea surface microlayer Sea surface temperature Seawater Science On a Sphere Stratification Thermocline Underwater glider Water column World Ocean Atlas Category Commons Oceans portal Retrieved from " https://en.wikipedia.org/w/index.php?title=Wind_wave_model&oldid=1300155714 " Categories : Physical oceanography Water waves Hidden categories: Webarchive template wayback links CS1 Japanese-language sources (ja) CS1 maint: DOI inactive as of July 2025 Articles with short description Short description is different from Wikidata Articles containing Dutch-language text This page was last edited on 12 July 2025, at 15:37 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Wind wave model 1 language Add topic
+

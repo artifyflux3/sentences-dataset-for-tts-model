@@ -1,0 +1,227 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Information distance Toggle Information distance subsection 1.1 Normalized information distance (similarity metric) 2 Normalized compression distance Toggle Normalized compression distance subsection 2.1 Applications 2.2 Performance 2.3 Comparison with the Normalized Relative Compression (NRC) 3 Normalized Google distance 4 See also 5 References 6 External links Toggle the table of contents Normalized compression distance 1 language Čeština Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Normalized compression distance ( NCD ) is a way of measuring the similarity between two objects, be it two documents, two letters, two emails, two music scores, two languages, two programs, two pictures, two systems,  two genomes, to name a few. Such a measurement should not be application dependent or arbitrary.  A reasonable definition for the similarity between two objects is how difficult it is to transform them into each other.
+
+It can be used in information retrieval and data mining for cluster analysis .
+
+Information distance [ edit ] We assume that the objects one talks about are finite strings of 0s and 1s . Thus we mean string similarity . Every computer file is of this form, that is, if an object is a file in a computer it is of this form. One can define the information distance between strings x {\displaystyle x} and y {\displaystyle y} as the length of the shortest program p {\displaystyle p} that computes x {\displaystyle x} from y {\displaystyle y} and vice versa. This shortest program is in a fixed programming language. For technical reasons one uses the theoretical notion of Turing machines . Moreover, to express the length of p {\displaystyle p} one uses the notion of Kolmogorov complexity . Then, it has been shown [ 1 ] | p | = max { K ( x ∣ ∣ y ) , K ( y ∣ ∣ x ) } {\displaystyle |p|=\max\{K(x\mid y),K(y\mid x)\}} up to logarithmic additive terms which can be ignored. This information distance is shown to be a metric (it satisfies the metric inequalities up to a logarithmic additive term), is universal (it minorizes 
+every computable distance as computed for example from features up to a constant additive term).
+
+[ 1 ] Normalized information distance (similarity metric) [ edit ] The information distance is absolute, but if we want to express similarity, then we are more interested in relative ones. For example, if two strings of length 1,000,000 differ by 1000 bits, then we consider that those strings are relatively more similar than two strings of 1000 bits that differ by 1000 bits. Hence we need to normalize to obtain a similarity metric.  This way one obtains the normalized information distance (NID), N I D ( x , y ) = max { K ( x ∣ ∣ y ) , K ( y ∣ ∣ x ) } max { K ( x ) , K ( y ) } , {\displaystyle NID(x,y)={\frac {\max\{K{(x\mid y)},K{(y\mid x)}\}}{\max\{K(x),K(y)\}}},} where K ( x ∣ ∣ y ) {\displaystyle K(x\mid y)} is algorithmic information of x {\displaystyle x} given y {\displaystyle y} as input. The NID is called the similarity metric. Since the function N I D ( x , y ) {\displaystyle NID(x,y)} has been shown to satisfy the basic requirements for a metric distance measure.
+
+[ 2 ] [ 3 ] However, it is not computable or even semicomputable.
+
+[ 4 ] Normalized compression distance [ edit ] While the NID metric is not computable, it has an abundance of applications. Simply approximating K {\displaystyle K} by real-world compressors, with Z ( x ) {\displaystyle Z(x)} is the binary length of the file x {\displaystyle x} compressed with compressor Z (for example " gzip ", " bzip2 ", " PPMZ ") in order to make NID easy to apply.
+
+[ 2 ] Vitanyi and Cilibrasi rewrote the NID to obtain the Normalized Compression Distance (NCD) N C D Z ( x , y ) = Z ( x y ) − − min { Z ( x ) , Z ( y ) } max { Z ( x ) , Z ( y ) } .
+
+{\displaystyle NCD_{Z}(x,y)={\frac {Z(xy)-\min\{Z(x),Z(y)\}}{\max\{Z(x),Z(y)\}}}.} [ 3 ] The NCD is actually a family of distances parametrized with the compressor Z. The better Z is, the closer the NCD approaches the NID, and the better the results are.
+
+[ 3 ] Applications [ edit ] The normalized compression distance has been used to fully automatically reconstruct language and phylogenetic trees.
+
+[ 2 ] [ 3 ] It can also be used for new applications of general clustering and classification of natural data in arbitrary domains, [ 3 ] for clustering of heterogeneous data, [ 3 ] and for anomaly detection across domains.
+
+[ 5 ] The NID and NCD have been applied to numerous subjects, including music classification, [ 3 ] to analyze network traffic and cluster computer worms and viruses, [ 6 ] authorship attribution, [ 7 ] gene expression dynamics, [ 8 ] predicting useful versus useless stem cells, [ 9 ] critical networks, [ 10 ] image registration, [ 11 ] question-answer systems.
+
+[ 12 ] Performance [ edit ] Researchers from the datamining community use NCD and variants as "parameter-free, feature-free" data-mining tools.
+
+[ 5 ] One group have experimentally tested a closely related metric on a large variety of sequence benchmarks. Comparing their compression method with 51 major methods found in 7 major data-mining conferences over the past decade, they established superiority of the compression method for clustering heterogeneous data, and for anomaly detection, and competitiveness in clustering domain data.
+
+NCD has an advantage of being robust to noise.
+
+[ 13 ] However, although NCD appears "parameter-free", practical questions include which compressor to use in computing the NCD and other possible problems.
+
+[ 14 ] Comparison with the Normalized Relative Compression (NRC) [ edit ] In order to measure the information of a string relative to another there is the need to rely on relative semi-distances (NRC).
+
+[ 15 ] These are measures that do not need to respect symmetry and triangle inequality distance properties. Although the NCD and the NRC seem very similar, they address different questions. The NCD measures how similar both strings are, mostly using the information content, while the NRC indicates the fraction of a target string that cannot be constructed using information from another string. For a comparison, with application to the evolution of primate genomes, see.
+
+[ 16 ] Normalized Google distance [ edit ] Main article: Normalized Google distance Objects can be given literally, like the literal four-letter genome of a mouse , or the literal text of War and Peace by Tolstoy. For simplicity we take it that all meaning of the object is represented by the literal object itself. Objects can also be given by name, like "the four-letter genome of a mouse," or "the text of `War and Peace' by Tolstoy." There are also objects that cannot be given literally, but only by name, and that acquire their meaning from their contexts in background common knowledge in humankind, like "home" or "red." 
+We are interested in semantic similarity . Using code-word lengths obtained from the page-hit counts returned by Google from the web, we obtain a semantic distance using the NCD formula and viewing Google as a compressor useful for data mining, text comprehension, classification, and translation. The associated NCD,  called the normalized Google distance (NGD) can be rewritten as N G D ( x , y ) = max { log ⁡ ⁡ f ( x ) , log ⁡ ⁡ f ( y ) } − − log ⁡ ⁡ f ( x , y ) log ⁡ ⁡ N − − min { log ⁡ ⁡ f ( x ) , log ⁡ ⁡ f ( y ) } , {\displaystyle NGD(x,y)={\frac {\max\{\log f(x),\log f(y)\}-\log f(x,y)}{\log N-\min\{\log f(x),\log f(y)\}}},} where f ( x ) {\displaystyle f(x)} denotes the number of pages containing the search term x {\displaystyle x} , and f ( x , y ) {\displaystyle f(x,y)} denotes the number of pages containing both x {\displaystyle x} and y {\displaystyle y} ,) as returned by Google or any search engine capable of returning an aggregate page count. The number N {\displaystyle N} can be set to the number of pages indexed although it is more proper to count each page according to the number of search terms or phrases it contains. As rule of the thumb one can multiply the number of pages by, say, a thousand...
+
+[ 17 ] See also [ edit ] Word2vec References [ edit ] ^ a b C.H. Bennett, P. Gacs, M. Li, P.M.B. Vitányi, and W. Zurek, Information Distance, IEEE Trans. Inform. Theory, IT-44:4(1998) 1407–1423 ^ a b c Li, Ming; Chen, Xin; Li, Xin; Ma, Bin; Vitanyi, P. M. B. (2011-09-27). "M. Li, X. Chen, X. Li, B. Ma, P.M.B. Vitanyi, The similarity metric, IEEE Trans. Inform. Th., 50:12(2004), 3250–3264".
+
+IEEE Transactions on Information Theory .
+
+50 (12): 3250– 3264.
+
+doi : 10.1109/TIT.2004.838101 .
+
+S2CID 221927 .
+
+^ a b c d e f g Cilibrasi, R.; Vitanyi, P. M. B. (2011-09-27). "R. Cilibrasi, P.M.B. Vitanyi, Clustering by compression".
+
+IEEE Transactions on Information Theory .
+
+51 (4): 1523– 1545.
+
+arXiv : cs/0312044 .
+
+doi : 10.1109/TIT.2005.844059 .
+
+S2CID 911 .
+
+^ Terwijn, Sebastiaan A.; Torenvliet, Leen; Vitányi, Paul M.B. (2011).
+
+"Nonapproximability of the normalized information distance" .
+
+Journal of Computer and System Sciences .
+
+77 (4): 738– 742.
+
+doi : 10.1016/j.jcss.2010.06.018 .
+
+hdl : 2066/92129 .
+
+S2CID 10831035 .
+
+^ a b Keogh, Eamonn; Lonardi, Stefano; Ratanamahatana, Chotirat Ann (2004-08-22). "Towards parameter-free data mining".
+
+E. Keogh, S. Lonardi, and C.A. Ratanamahatana. "Towards parameter-free data mining." In Conference on Knowledge Discovery in Data: Proceedings of the tenth ACM SIGKDD international conference on Knowledge discovery and data mining, vol. 22, no. 25, pp. 206–215. 2004 . Dl.acm.org. p. 206.
+
+doi : 10.1145/1014052.1014077 .
+
+ISBN 978-1581138887 .
+
+S2CID 1616057 .
+
+^ "S. Wehner, Analyzing worms and network traffic using compression, Journal of Computer Security, 15:3(2007), 303–320" . Iospress.metapress.com . Retrieved 2012-11-03 .
+
+{{ cite journal }} : Cite journal requires |journal= ( help ) ^ Stamatatos, Efstathios (2009). "A survey of modern authorship attribution methods".
+
+Journal of the American Society for Information Science and Technology .
+
+60 (3): 538– 556.
+
+CiteSeerX 10.1.1.207.3310 .
+
+doi : 10.1002/asi.21001 .
+
+^ Nykter, M. (2008).
+
+"Gene expression dynamics in the macrophage exhibit criticality" .
+
+Proceedings of the National Academy of Sciences .
+
+105 (6): 1897– 1900.
+
+Bibcode : 2008PNAS..105.1897N .
+
+doi : 10.1073/pnas.0711525105 .
+
+PMC 2538855 .
+
+PMID 18250330 .
+
+^ Cohen, Andrew R (2010). "Computational prediction of neural progenitor cell fates".
+
+Nature Methods .
+
+7 (3): 213– 218.
+
+doi : 10.1038/nmeth.1424 .
+
+hdl : 1866/4484 .
+
+PMID 20139969 .
+
+S2CID 18652440 .
+
+^ Nykter, Matti; Price, Nathan D.; Larjo, Antti; Aho, Tommi; Kauffman, Stuart A.; Yli-Harja, Olli; Shmulevich, Ilya (2008). "M. Nykter, N.D. Price, A. Larjo, T. Aho, S.A. Kauffman, O. Yli-Harja1, and I. Shmulevich, Critical networks exhibit maximal information diversity in structure-dynamics relationships, Phys. Rev. Lett. 100, 058702 (2008)".
+
+Physical Review Letters .
+
+100 (5): 058702.
+
+arXiv : 0801.3699 .
+
+doi : 10.1103/PhysRevLett.100.058702 .
+
+PMID 18352443 .
+
+S2CID 5760862 .
+
+^ Bardera, Anton; Feixas, Miquel; Boada, Imma; Sbert, Mateu (July 2006). "Compression-based Image Registration".
+
+M. Feixas, I. Boada, M. Sbert, Compression-based Image Registration. Proc. IEEE International Symposium on Information Theory, 2006. 436–440 .
+
+IEEE . pp.
+
+436– 440.
+
+doi : 10.1109/ISIT.2006.261706 .
+
+hdl : 10256/3052 .
+
+ISBN 978-1-4244-0505-3 .
+
+S2CID 12549455 .
+
+^ Zhang, Xian; Hao, Yu; Zhu, Xiaoyan; Li, Ming; Cheriton, David R. (2007). "Information distance from a question to an answer".
+
+X Zhang, Y Hao, X Zhu, M Li, Information distance from a question to an answer, Proc. 13th ACM SIGKDD international conference on Knowledge discovery and data mining, 2007, 874–883 . Dl.acm.org. p. 874.
+
+doi : 10.1145/1281192.1281285 .
+
+ISBN 9781595936097 .
+
+S2CID 3040254 .
+
+^ Cebrian, M.; Alfonseca, M.; Ortega, A. (2011-09-27). "The normalized compression distance is resistant to noise".
+
+IEEE Transactions on Information Theory .
+
+53 (5): 1895– 1900.
+
+CiteSeerX 10.1.1.158.2463 .
+
+doi : 10.1109/TIT.2007.894669 .
+
+S2CID 15691266 .
+
+^ "M. Cebrián, M. Alfonseca, and A. Ortega, Common pitfalls using the normalized compression distance: what to watch out for in a compressor, Commun. Inf. Syst. 5:4(2005), 367–384" . Projecteuclid.org . Retrieved 2012-11-03 .
+
+^ Ziv, J.; Merhav, N. (1993). "A measure of relative entropy between individual sequences with application to universal classification".
+
+IEEE Transactions on Information Theory .
+
+39 (4): 1270– 1279.
+
+doi : 10.1109/18.243444 .
+
+^ Pratas, Diogo; Silva, Raquel M.; Pinho, Armando J. (2018).
+
+"Comparison of Compression-Based Measures with Application to the Evolution of Primate Genomes" .
+
+Entropy .
+
+20 (6): 393.
+
+Bibcode : 2018Entrp..20..393P .
+
+doi : 10.3390/e20060393 .
+
+PMC 7512912 .
+
+PMID 33265483 .
+
+Material was copied from this source, which is available under a Creative Commons Attribution 4.0 International License .
+
+^ Cilibrasi, R. L.; Vitanyi, P. M. B. (2011-09-27). "R.L. Cilibrasi, P.M.B. Vitanyi, The Google Similarity Distance, IEEE Trans. Knowledge and Data Engineering, 19:3(2007), 370-383".
+
+IEEE Transactions on Knowledge and Data Engineering .
+
+19 (3): 370– 383.
+
+arXiv : cs/0412098 .
+
+doi : 10.1109/TKDE.2007.48 .
+
+S2CID 59777 .
+
+External links [ edit ] Efficient Estimation of Word Representations in Vector Space M. Li and P. Vitanyi , An Introduction to Kolmogorov Complexity and Its Applications, Springer-Verlag, New York,  4th Edition 2019 Retrieved from " https://en.wikipedia.org/w/index.php?title=Normalized_compression_distance&oldid=1252407303 " Category : Statistical distance Hidden category: CS1 errors: missing periodical This page was last edited on 21 October 2024, at 06:12 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Normalized compression distance 1 language Add topic
+

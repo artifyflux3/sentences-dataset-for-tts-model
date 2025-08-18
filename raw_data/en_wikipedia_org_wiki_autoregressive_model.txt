@@ -1,0 +1,365 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Definition 2 Intertemporal effect of shocks 3 Characteristic polynomial 4 Graphs of AR( p ) processes 5 Example: An AR(1) process Toggle Example: An AR(1) process subsection 5.1 Explicit mean/difference form of AR(1) process 6 Choosing the maximum lag 7 Calculation of the AR parameters Toggle Calculation of the AR parameters subsection 7.1 Yule–Walker equations 7.2 Estimation of AR parameters 8 Spectrum Toggle Spectrum subsection 8.1 AR(0) 8.2 AR(1) 8.3 AR(2) 9 Implementations in statistics packages 10 Impulse response 11 n -step-ahead forecasting 12 See also 13 Notes 14 References 15 External links Toggle the table of contents Autoregressive model 19 languages 閩南語 / Bân-lâm-gí Català Español فارسی Français 한국어 Italiano עברית Македонски Nederlands 日本語 Polski Русский Simple English Svenska Türkçe Українська 粵語 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Representation of a type of random process This article includes a list of general references , but it lacks sufficient corresponding inline citations .
+
+Please help to improve this article by introducing more precise citations.
+
+( March 2011 ) ( Learn how and when to remove this message ) In statistics, econometrics, and signal processing, an autoregressive ( AR ) model is a representation of a type of random process ; as such, it can be used to describe certain time-varying processes in nature, economics, behavior, etc. The autoregressive model specifies that the output variable depends linearly on its own previous values and on a stochastic term (an imperfectly predictable term); thus the model is in the form of a stochastic difference equation (or recurrence relation) which should not be confused with a differential equation . Together with the moving-average (MA) model , it is a special case and key component of the more general autoregressive–moving-average (ARMA) and autoregressive integrated moving average (ARIMA) models of time series, which have a more complicated stochastic structure; it is also a special case of the vector autoregressive model (VAR), which consists of a system of more than one interlocking stochastic difference equation in more than one evolving random variable. Another important extension is the time-varying autoregressive (TVAR) model, where the autoregressive coefficients are allowed to change over time to model evolving or non-stationary processes. TVAR models are widely applied in cases where the underlying dynamics of the system are not constant, such as in sensors time series modelling [ 1 ] [ 2 ] , finance [ 3 ] , climate science [ 4 ] , economics [ 5 ] , signal processing [ 6 ] and telecommunications [ 7 ] , radar systems [ 8 ] , and biological signals [ 9 ] .
+
+Unlike the moving-average (MA) model, the autoregressive model is not always stationary; non-stationarity can arise either due to the presence of a unit root or due to time-varying model parameters, as in time-varying autoregressive (TVAR) models.
+
+Large language models are called autoregressive, but they are not a classical autoregressive model in this sense because they are not linear.
+
+Definition [ edit ] The notation A R ( p ) {\displaystyle AR(p)} indicates an autoregressive model of order p . The AR( p ) model is defined as X t = ∑ ∑ i = 1 p φ φ i X t − − i + ε ε t {\displaystyle X_{t}=\sum _{i=1}^{p}\varphi _{i}X_{t-i}+\varepsilon _{t}} where φ φ 1 , … … , φ φ p {\displaystyle \varphi _{1},\ldots ,\varphi _{p}} are the parameters of the model, and ε ε t {\displaystyle \varepsilon _{t}} is white noise .
+
+[ 10 ] [ 11 ] This can be equivalently written using the backshift operator B as X t = ∑ ∑ i = 1 p φ φ i B i X t + ε ε t {\displaystyle X_{t}=\sum _{i=1}^{p}\varphi _{i}B^{i}X_{t}+\varepsilon _{t}} so that, moving the summation term to the left side and using polynomial notation , we have ϕ ϕ [ B ] X t = ε ε t {\displaystyle \phi [B]X_{t}=\varepsilon _{t}} An autoregressive model can thus be viewed as the output of an all- pole infinite impulse response filter whose input is white noise.
+
+Some parameter constraints are necessary for the model to remain weak-sense stationary .  For example, processes in the AR(1) model with | φ φ 1 | ≥ ≥ 1 {\displaystyle |\varphi _{1}|\geq 1} are not stationary. More generally, for an AR( p ) model to be weak-sense stationary, the roots of the polynomial Φ Φ ( z ) := 1 − − ∑ ∑ i = 1 p φ φ i z i {\displaystyle \Phi (z):=\textstyle 1-\sum _{i=1}^{p}\varphi _{i}z^{i}} must lie outside the unit circle , i.e., each (complex) root z i {\displaystyle z_{i}} must satisfy | z i | > 1 {\displaystyle |z_{i}|>1} (see pages 89,92 [ 12 ] ).
+
+Intertemporal effect of shocks [ edit ] In an AR process, a one-time shock affects values of the evolving variable infinitely far into the future. For example, consider the AR(1) model X t = φ φ 1 X t − − 1 + ε ε t {\displaystyle X_{t}=\varphi _{1}X_{t-1}+\varepsilon _{t}} . A non-zero value for ε ε t {\displaystyle \varepsilon _{t}} at say time t =1 affects X 1 {\displaystyle X_{1}} by the amount ε ε 1 {\displaystyle \varepsilon _{1}} . Then by the AR equation for X 2 {\displaystyle X_{2}} in terms of X 1 {\displaystyle X_{1}} , this affects X 2 {\displaystyle X_{2}} by the amount φ φ 1 ε ε 1 {\displaystyle \varphi _{1}\varepsilon _{1}} . Then by the AR equation for X 3 {\displaystyle X_{3}} in terms of X 2 {\displaystyle X_{2}} , this affects X 3 {\displaystyle X_{3}} by the amount φ φ 1 2 ε ε 1 {\displaystyle \varphi _{1}^{2}\varepsilon _{1}} . Continuing this process shows that the effect of ε ε 1 {\displaystyle \varepsilon _{1}} never ends, although if the process is stationary then the effect diminishes toward zero in the limit.
+
+Because each shock affects X values infinitely far into the future from when they occur, any given value X t is affected by shocks occurring infinitely far into the past. This can also be seen by rewriting the autoregression ϕ ϕ ( B ) X t = ε ε t {\displaystyle \phi (B)X_{t}=\varepsilon _{t}\,} (where the constant term has been suppressed by assuming that the variable has been measured as deviations from its mean) as X t = 1 ϕ ϕ ( B ) ε ε t .
+
+{\displaystyle X_{t}={\frac {1}{\phi (B)}}\varepsilon _{t}\,.} When the polynomial division on the right side is carried out, the polynomial in the backshift operator applied to ε ε t {\displaystyle \varepsilon _{t}} has an infinite order—that is, an infinite number of lagged values of ε ε t {\displaystyle \varepsilon _{t}} appear on the right side of the equation.
+
+Characteristic polynomial [ edit ] The autocorrelation function of an AR( p ) process can be expressed as [ citation needed ] ρ ρ ( τ τ ) = ∑ ∑ k = 1 p a k y k − − | τ τ | , {\displaystyle \rho (\tau )=\sum _{k=1}^{p}a_{k}y_{k}^{-|\tau |},} where y k {\displaystyle y_{k}} are the roots of the polynomial ϕ ϕ ( B ) = 1 − − ∑ ∑ k = 1 p φ φ k B k {\displaystyle \phi (B)=1-\sum _{k=1}^{p}\varphi _{k}B^{k}} where B is the backshift operator , where ϕ ϕ ( ⋅ ⋅ ) {\displaystyle \phi (\cdot )} is the function defining the autoregression, and where φ φ k {\displaystyle \varphi _{k}} are the coefficients in the autoregression. The formula is valid only if all the roots have multiplicity 1.
+
+[ citation needed ] The autocorrelation function of an AR( p ) process is a sum of decaying exponentials.
+
+Each real root contributes a component to the autocorrelation function that decays exponentially.
+
+Similarly, each pair of complex conjugate roots contributes an exponentially damped oscillation.
+
+Graphs of AR( p ) processes [ edit ] AR(0); AR(1) with AR parameter 0.3; AR(1) with AR parameter 0.9; AR(2) with AR parameters 0.3 and 0.3; and AR(2) with AR parameters 0.9 and −0.8 The simplest AR process is AR(0), which has no dependence between the terms.  Only the error/innovation/noise term contributes to the output of the process, so in the figure, AR(0) corresponds to white noise.
+
+For an AR(1) process with a positive φ φ {\displaystyle \varphi } , only the previous term in the process and the noise term contribute to the output.  If φ φ {\displaystyle \varphi } is close to 0, then the process still looks like white noise, but as φ φ {\displaystyle \varphi } approaches 1, the output gets a larger contribution from the previous term relative to the noise. This results in a "smoothing" or integration of the output, similar to a low pass filter .
+
+For an AR(2) process, the previous two terms and the noise term contribute to the output. If both φ φ 1 {\displaystyle \varphi _{1}} and φ φ 2 {\displaystyle \varphi _{2}} are positive, the output will resemble a low pass filter, with the high frequency part of the noise decreased. If φ φ 1 {\displaystyle \varphi _{1}} is positive while φ φ 2 {\displaystyle \varphi _{2}} is negative, then the process favors changes in sign between terms of the process.  The output oscillates. This can be linked to edge detection or detection of change in direction.
+
+Example: An AR(1) process [ edit ] An AR(1) process is given by: X t = φ φ X t − − 1 + ε ε t {\displaystyle X_{t}=\varphi X_{t-1}+\varepsilon _{t}\,} where ε ε t {\displaystyle \varepsilon _{t}} is a white noise process with zero mean and constant variance σ σ ε ε 2 {\displaystyle \sigma _{\varepsilon }^{2}} .
+(Note: The subscript on φ φ 1 {\displaystyle \varphi _{1}} has been dropped.) The process is weak-sense stationary if | φ φ | < 1 {\displaystyle |\varphi |<1} since it is obtained as the output of a stable filter whose input is white noise.  (If φ φ = 1 {\displaystyle \varphi =1} then the variance of X t {\displaystyle X_{t}} depends on time lag t , so that the variance of the series diverges to infinity as t goes to infinity, and is therefore not weak-sense stationary.) Assuming | φ φ | < 1 {\displaystyle |\varphi |<1} , the mean E ⁡ ⁡ ( X t ) {\displaystyle \operatorname {E} (X_{t})} is identical for all values of t by definition of weak sense stationarity. If the mean is denoted by μ μ {\displaystyle \mu } , it follows from E ⁡ ⁡ ( X t ) = φ φ E ⁡ ⁡ ( X t − − 1 ) + E ⁡ ⁡ ( ε ε t ) , {\displaystyle \operatorname {E} (X_{t})=\varphi \operatorname {E} (X_{t-1})+\operatorname {E} (\varepsilon _{t}),} that μ μ = φ φ μ μ + 0 , {\displaystyle \mu =\varphi \mu +0,} and hence μ μ = 0.
+
+{\displaystyle \mu =0.} The variance is var ( X t ) = E ⁡ ⁡ ( X t 2 ) − − μ μ 2 = σ σ ε ε 2 1 − − φ φ 2 , {\displaystyle {\textrm {var}}(X_{t})=\operatorname {E} (X_{t}^{2})-\mu ^{2}={\frac {\sigma _{\varepsilon }^{2}}{1-\varphi ^{2}}},} where σ σ ε ε {\displaystyle \sigma _{\varepsilon }} is the standard deviation of ε ε t {\displaystyle \varepsilon _{t}} . This can be shown by noting that var ( X t ) = φ φ 2 var ( X t − − 1 ) + σ σ ε ε 2 , {\displaystyle {\textrm {var}}(X_{t})=\varphi ^{2}{\textrm {var}}(X_{t-1})+\sigma _{\varepsilon }^{2},} and then by noticing that the quantity above is a stable fixed point of this relation.
+
+The autocovariance is given by B n = E ⁡ ⁡ ( X t + n X t ) − − μ μ 2 = σ σ ε ε 2 1 − − φ φ 2 φ φ | n | .
+
+{\displaystyle B_{n}=\operatorname {E} (X_{t+n}X_{t})-\mu ^{2}={\frac {\sigma _{\varepsilon }^{2}}{1-\varphi ^{2}}}\,\,\varphi ^{|n|}.} It can be seen that the autocovariance function decays with a decay time (also called time constant ) of τ τ = 1 / ( 1 − − φ φ ) {\displaystyle \tau =1/(1-\varphi )} .
+
+[ 13 ] The spectral density function is the Fourier transform of the autocovariance function. In discrete terms this will be the discrete-time Fourier transform: Φ Φ ( ω ω ) = 1 2 π π ∑ ∑ n = − − ∞ ∞ ∞ ∞ B n e − − i ω ω n = 1 2 π π ( σ σ ε ε 2 1 + φ φ 2 − − 2 φ φ cos ⁡ ⁡ ( ω ω ) ) .
+
+{\displaystyle \Phi (\omega )={\frac {1}{\sqrt {2\pi }}}\,\sum _{n=-\infty }^{\infty }B_{n}e^{-i\omega n}={\frac {1}{\sqrt {2\pi }}}\,\left({\frac {\sigma _{\varepsilon }^{2}}{1+\varphi ^{2}-2\varphi \cos(\omega )}}\right).} This expression is periodic due to the discrete nature of the X j {\displaystyle X_{j}} , which is manifested as the cosine term in the denominator.  If we assume that the sampling time ( Δ Δ t = 1 {\displaystyle \Delta t=1} ) is much smaller than the decay time ( τ τ {\displaystyle \tau } ), then we can use a continuum approximation to B n {\displaystyle B_{n}} : B ( t ) ≈ ≈ σ σ ε ε 2 1 − − φ φ 2 φ φ | t | {\displaystyle B(t)\approx {\frac {\sigma _{\varepsilon }^{2}}{1-\varphi ^{2}}}\,\,\varphi ^{|t|}} which yields a Lorentzian profile for the spectral density: Φ Φ ( ω ω ) = 1 2 π π σ σ ε ε 2 1 − − φ φ 2 γ γ π π ( γ γ 2 + ω ω 2 ) {\displaystyle \Phi (\omega )={\frac {1}{\sqrt {2\pi }}}\,{\frac {\sigma _{\varepsilon }^{2}}{1-\varphi ^{2}}}\,{\frac {\gamma }{\pi (\gamma ^{2}+\omega ^{2})}}} where γ γ = 1 / τ τ {\displaystyle \gamma =1/\tau } is the angular frequency associated with the decay time τ τ {\displaystyle \tau } .
+
+An alternative expression for X t {\displaystyle X_{t}} can be derived by first substituting φ φ X t − − 2 + ε ε t − − 1 {\displaystyle \varphi X_{t-2}+\varepsilon _{t-1}} for X t − − 1 {\displaystyle X_{t-1}} in the defining equation. Continuing this process N times yields X t = φ φ N X t − − N + ∑ ∑ k = 0 N − − 1 φ φ k ε ε t − − k .
+
+{\displaystyle X_{t}=\varphi ^{N}X_{t-N}+\sum _{k=0}^{N-1}\varphi ^{k}\varepsilon _{t-k}.} For N approaching infinity, φ φ N {\displaystyle \varphi ^{N}} will approach zero and: X t = ∑ ∑ k = 0 ∞ ∞ φ φ k ε ε t − − k .
+
+{\displaystyle X_{t}=\sum _{k=0}^{\infty }\varphi ^{k}\varepsilon _{t-k}.} It is seen that X t {\displaystyle X_{t}} is white noise convolved with the φ φ k {\displaystyle \varphi ^{k}} kernel plus the constant mean. If the white noise ε ε t {\displaystyle \varepsilon _{t}} is a Gaussian process then X t {\displaystyle X_{t}} is also a Gaussian process. In other cases, the central limit theorem indicates that X t {\displaystyle X_{t}} will be approximately normally distributed when φ φ {\displaystyle \varphi } is close to one.
+
+For ε ε t = 0 {\displaystyle \varepsilon _{t}=0} , the process X t = φ φ X t − − 1 {\displaystyle X_{t}=\varphi X_{t-1}} will be a geometric progression ( exponential growth or decay). In this case, the solution can be found analytically: X t = a φ φ t {\displaystyle X_{t}=a\varphi ^{t}} whereby a {\displaystyle a} is an unknown constant ( initial condition ).
+
+Explicit mean/difference form of AR(1) process [ edit ] The AR(1) model is the discrete-time analogy of the continuous Ornstein-Uhlenbeck process .  It is therefore sometimes useful to understand the properties of the AR(1) model cast in an equivalent form. In this form, the AR(1) model, with process parameter θ θ ∈ ∈ R {\displaystyle \theta \in \mathbb {R} } , is given by X t + 1 = X t + ( 1 − − θ θ ) ( μ μ − − X t ) + ε ε t + 1 {\displaystyle X_{t+1}=X_{t}+(1-\theta )(\mu -X_{t})+\varepsilon _{t+1}} , where | θ θ | < 1 {\displaystyle |\theta |<1\,} , μ μ := E ( X ) {\displaystyle \mu :=E(X)} is the model mean, and { ϵ ϵ t } {\displaystyle \{\epsilon _{t}\}} is a white-noise process with zero mean and constant variance σ σ {\displaystyle \sigma } .
+
+By rewriting this as X t + 1 = θ θ X t + ( 1 − − θ θ ) μ μ + ε ε t + 1 {\displaystyle X_{t+1}=\theta X_{t}+(1-\theta )\mu +\varepsilon _{t+1}} and then deriving (by induction) X t + n = θ θ n X t + ( 1 − − θ θ n ) μ μ + Σ Σ i = 1 n ( θ θ n − − i ϵ ϵ t + i ) {\displaystyle X_{t+n}=\theta ^{n}X_{t}+(1-\theta ^{n})\mu +\Sigma _{i=1}^{n}\left(\theta ^{n-i}\epsilon _{t+i}\right)} , one can show that E ⁡ ⁡ ( X t + n | X t ) = μ μ [ 1 − − θ θ n ] + X t θ θ n {\displaystyle \operatorname {E} (X_{t+n}|X_{t})=\mu \left[1-\theta ^{n}\right]+X_{t}\theta ^{n}} and Var ⁡ ⁡ ( X t + n | X t ) = σ σ 2 1 − − θ θ 2 n 1 − − θ θ 2 {\displaystyle \operatorname {Var} (X_{t+n}|X_{t})=\sigma ^{2}{\frac {1-\theta ^{2n}}{1-\theta ^{2}}}} .
+
+Choosing the maximum lag [ edit ] Main article: Partial autocorrelation function The partial autocorrelation of an AR(p) process equals zero at lags larger than p , so the appropriate maximum lag p is the one after which the partial autocorrelations are all zero.
+
+Calculation of the AR parameters [ edit ] There are many ways to estimate the coefficients, such as the ordinary least squares procedure or method of moments (through Yule–Walker equations).
+
+The AR( p ) model is given by the equation X t = ∑ ∑ i = 1 p φ φ i X t − − i + ε ε t .
+
+{\displaystyle X_{t}=\sum _{i=1}^{p}\varphi _{i}X_{t-i}+\varepsilon _{t}.\,} It is based on parameters φ φ i {\displaystyle \varphi _{i}} where i = 1, ..., p . There is a direct correspondence between these parameters and the covariance function of the process, and this correspondence can be inverted to determine the parameters from the autocorrelation function (which is itself obtained from the covariances). This is done using the Yule–Walker equations.
+
+Yule–Walker equations [ edit ] The Yule–Walker equations, named for Udny Yule and Gilbert Walker , [ 14 ] [ 15 ] are the following set of equations.
+
+[ 16 ] γ γ m = ∑ ∑ k = 1 p φ φ k γ γ m − − k + σ σ ε ε 2 δ δ m , 0 , {\displaystyle \gamma _{m}=\sum _{k=1}^{p}\varphi _{k}\gamma _{m-k}+\sigma _{\varepsilon }^{2}\delta _{m,0},} where m = 0, …, p , yielding p + 1 equations. Here γ γ m {\displaystyle \gamma _{m}} is the autocovariance function of X t , σ σ ε ε {\displaystyle \sigma _{\varepsilon }} is the standard deviation of the input noise process, and δ δ m , 0 {\displaystyle \delta _{m,0}} is the Kronecker delta function .
+
+Because the last part of an individual equation is non-zero only if m = 0 , the set of equations can be solved by representing the equations for m > 0 in matrix form, thus getting the equation [ γ γ 1 γ γ 2 γ γ 3 ⋮ ⋮ γ γ p ] = [ γ γ 0 γ γ − − 1 γ γ − − 2 ⋯ ⋯ γ γ 1 γ γ 0 γ γ − − 1 ⋯ ⋯ γ γ 2 γ γ 1 γ γ 0 ⋯ ⋯ ⋮ ⋮ ⋮ ⋮ ⋮ ⋮ ⋱ ⋱ γ γ p − − 1 γ γ p − − 2 γ γ p − − 3 ⋯ ⋯ ] [ φ φ 1 φ φ 2 φ φ 3 ⋮ ⋮ φ φ p ] {\displaystyle {\begin{bmatrix}\gamma _{1}\\\gamma _{2}\\\gamma _{3}\\\vdots \\\gamma _{p}\\\end{bmatrix}}={\begin{bmatrix}\gamma _{0}&\gamma _{-1}&\gamma _{-2}&\cdots \\\gamma _{1}&\gamma _{0}&\gamma _{-1}&\cdots \\\gamma _{2}&\gamma _{1}&\gamma _{0}&\cdots \\\vdots &\vdots &\vdots &\ddots \\\gamma _{p-1}&\gamma _{p-2}&\gamma _{p-3}&\cdots \\\end{bmatrix}}{\begin{bmatrix}\varphi _{1}\\\varphi _{2}\\\varphi _{3}\\\vdots \\\varphi _{p}\\\end{bmatrix}}} which can be solved for all { φ φ m ; m = 1 , 2 , … … , p } .
+
+{\displaystyle \{\varphi _{m};m=1,2,\dots ,p\}.} The remaining equation for m = 0 is γ γ 0 = ∑ ∑ k = 1 p φ φ k γ γ − − k + σ σ ε ε 2 , {\displaystyle \gamma _{0}=\sum _{k=1}^{p}\varphi _{k}\gamma _{-k}+\sigma _{\varepsilon }^{2},} which, once { φ φ m ; m = 1 , 2 , … … , p } {\displaystyle \{\varphi _{m};m=1,2,\dots ,p\}} are known, can be solved for σ σ ε ε 2 .
+
+{\displaystyle \sigma _{\varepsilon }^{2}.} An alternative formulation is in terms of the autocorrelation function . The AR parameters are determined by the first p +1 elements ρ ρ ( τ τ ) {\displaystyle \rho (\tau )} of the autocorrelation function. The full autocorrelation function can then be derived by recursively calculating [ 17 ] ρ ρ ( τ τ ) = ∑ ∑ k = 1 p φ φ k ρ ρ ( k − − τ τ ) {\displaystyle \rho (\tau )=\sum _{k=1}^{p}\varphi _{k}\rho (k-\tau )} Examples for some Low-order AR( p ) processes p =1 γ γ 1 = φ φ 1 γ γ 0 {\displaystyle \gamma _{1}=\varphi _{1}\gamma _{0}} Hence ρ ρ 1 = γ γ 1 / γ γ 0 = φ φ 1 {\displaystyle \rho _{1}=\gamma _{1}/\gamma _{0}=\varphi _{1}} p =2 The Yule–Walker equations for an AR(2) process are γ γ 1 = φ φ 1 γ γ 0 + φ φ 2 γ γ − − 1 {\displaystyle \gamma _{1}=\varphi _{1}\gamma _{0}+\varphi _{2}\gamma _{-1}} γ γ 2 = φ φ 1 γ γ 1 + φ φ 2 γ γ 0 {\displaystyle \gamma _{2}=\varphi _{1}\gamma _{1}+\varphi _{2}\gamma _{0}} Remember that γ γ − − k = γ γ k {\displaystyle \gamma _{-k}=\gamma _{k}} Using the first equation yields ρ ρ 1 = γ γ 1 / γ γ 0 = φ φ 1 1 − − φ φ 2 {\displaystyle \rho _{1}=\gamma _{1}/\gamma _{0}={\frac {\varphi _{1}}{1-\varphi _{2}}}} Using the recursion formula yields ρ ρ 2 = γ γ 2 / γ γ 0 = φ φ 1 2 − − φ φ 2 2 + φ φ 2 1 − − φ φ 2 {\displaystyle \rho _{2}=\gamma _{2}/\gamma _{0}={\frac {\varphi _{1}^{2}-\varphi _{2}^{2}+\varphi _{2}}{1-\varphi _{2}}}} Estimation of AR parameters [ edit ] The above equations (the Yule–Walker equations) provide several routes to estimating the parameters of an AR( p ) model, by replacing the theoretical covariances with estimated values.
+
+[ 18 ] Some of these variants can be described as follows: Estimation of autocovariances or autocorrelations. Here each of these terms is estimated separately, using conventional estimates. There are different ways of doing this and the choice between these affects the properties of the estimation scheme. For example, negative estimates of the variance can be produced by some choices.
+
+Formulation as a least squares regression problem in which an ordinary least squares prediction problem is constructed, basing prediction of values of X t on the p previous values of the same series. This can be thought of as a forward-prediction scheme. The normal equations for this problem can be seen to correspond to an approximation of the matrix form of the Yule–Walker equations in which each appearance of an autocovariance of the same lag is replaced by a slightly different estimate.
+
+Formulation as an extended form of ordinary least squares prediction problem. Here two sets of prediction equations are combined into a single estimation scheme and a single set of normal equations. One set is the set of forward-prediction equations and the other is a corresponding set of backward prediction equations, relating to the backward representation of the AR model: X t = ∑ ∑ i = 1 p φ φ i X t + i + ε ε t ∗ ∗ .
+
+{\displaystyle X_{t}=\sum _{i=1}^{p}\varphi _{i}X_{t+i}+\varepsilon _{t}^{*}\,.} Here predicted values of X t would be based on the p future values of the same series.
+
+[ clarification needed ] This way of estimating the AR parameters is due to John Parker Burg, [ 19 ] and is called the Burg method: [ 20 ] Burg and later authors called these particular estimates "maximum entropy estimates", [ 21 ] but the reasoning behind this applies to the use of any set of estimated AR parameters. Compared to the estimation scheme using only the forward prediction equations, different estimates of the autocovariances are produced, and the estimates have different stability properties. Burg estimates are particularly associated with maximum entropy spectral estimation .
+
+[ 22 ] Other possible approaches to estimation include maximum likelihood estimation . Two distinct variants of maximum likelihood are available: in one (broadly equivalent to the forward prediction least squares scheme) the likelihood function considered is that corresponding to the conditional distribution of later values in the series given the initial p values in the series; in the second, the likelihood function considered is that corresponding to the unconditional joint distribution of all the values in the observed series. Substantial differences in the results of these approaches can occur if the observed series is short, or if the process is close to non-stationarity.
+
+Spectrum [ edit ] The power spectral density (PSD) of an AR( p ) process with noise variance V a r ( Z t ) = σ σ Z 2 {\displaystyle \mathrm {Var} (Z_{t})=\sigma _{Z}^{2}} is [ 17 ] S ( f ) = σ σ Z 2 | 1 − − ∑ ∑ k = 1 p φ φ k e − − i 2 π π f k | 2 .
+
+{\displaystyle S(f)={\frac {\sigma _{Z}^{2}}{|1-\sum _{k=1}^{p}\varphi _{k}e^{-i2\pi fk}|^{2}}}.} AR(0) [ edit ] For white noise (AR(0)) S ( f ) = σ σ Z 2 .
+
+{\displaystyle S(f)=\sigma _{Z}^{2}.} AR(1) [ edit ] For AR(1) S ( f ) = σ σ Z 2 | 1 − − φ φ 1 e − − 2 π π i f | 2 = σ σ Z 2 1 + φ φ 1 2 − − 2 φ φ 1 cos ⁡ ⁡ 2 π π f {\displaystyle S(f)={\frac {\sigma _{Z}^{2}}{|1-\varphi _{1}e^{-2\pi if}|^{2}}}={\frac {\sigma _{Z}^{2}}{1+\varphi _{1}^{2}-2\varphi _{1}\cos 2\pi f}}} If φ φ 1 > 0 {\displaystyle \varphi _{1}>0} there is a single spectral peak at f = 0 {\displaystyle f=0} , often referred to as red noise . As φ φ 1 {\displaystyle \varphi _{1}} becomes nearer 1, there is stronger power at low frequencies, i.e. larger time lags. This is then a low-pass filter, when applied to full spectrum light, everything except for the red light will be filtered.
+
+If φ φ 1 < 0 {\displaystyle \varphi _{1}<0} there is a minimum at f = 0 {\displaystyle f=0} , often referred to as blue noise . This similarly acts as a high-pass filter, everything except for blue light will be filtered.
+
+AR(2) [ edit ] The behavior of an AR(2) process is determined entirely by the roots of it characteristic equation , which is expressed in terms of the lag operator as: 1 − − φ φ 1 B − − φ φ 2 B 2 = 0 , {\displaystyle 1-\varphi _{1}B-\varphi _{2}B^{2}=0,} or equivalently by the poles of its transfer function , which is defined in the Z domain by: H z = ( 1 − − φ φ 1 z − − 1 − − φ φ 2 z − − 2 ) − − 1 .
+
+{\displaystyle H_{z}=(1-\varphi _{1}z^{-1}-\varphi _{2}z^{-2})^{-1}.} It follows that the poles are values of z satisfying: 1 − − φ φ 1 z − − 1 − − φ φ 2 z − − 2 = 0 {\displaystyle 1-\varphi _{1}z^{-1}-\varphi _{2}z^{-2}=0} , which yields: z 1 , z 2 = 1 2 φ φ 2 ( φ φ 1 ± ± φ φ 1 2 + 4 φ φ 2 ) {\displaystyle z_{1},z_{2}={\frac {1}{2\varphi _{2}}}\left(\varphi _{1}\pm {\sqrt {\varphi _{1}^{2}+4\varphi _{2}}}\right)} .
+
+z 1 {\displaystyle z_{1}} and z 2 {\displaystyle z_{2}} are the reciprocals of the characteristic roots, as well as the eigenvalues of the temporal update matrix: [ φ φ 1 φ φ 2 1 0 ] {\displaystyle {\begin{bmatrix}\varphi _{1}&\varphi _{2}\\1&0\end{bmatrix}}} AR(2) processes can be split into three groups depending on the characteristics of their roots/poles: When φ φ 1 2 + 4 φ φ 2 < 0 {\displaystyle \varphi _{1}^{2}+4\varphi _{2}<0} , the process has a pair of complex-conjugate poles, creating a mid-frequency peak at: f ∗ ∗ = 1 2 π π cos − − 1 ⁡ ⁡ ( φ φ 1 2 − − φ φ 2 ) , {\displaystyle f^{*}={\frac {1}{2\pi }}\cos ^{-1}\left({\frac {\varphi _{1}}{2{\sqrt {-\varphi _{2}}}}}\right),} with bandwidth about the peak inversely proportional to the moduli of the poles: | z 1 | = | z 2 | = − − φ φ 2 .
+
+{\displaystyle |z_{1}|=|z_{2}|={\sqrt {-\varphi _{2}}}.} The terms involving square roots are all real in the case of complex poles since they exist only when φ φ 2 < 0 {\displaystyle \varphi _{2}<0} .
+
+Otherwise the process has real roots, and: When φ φ 1 > 0 {\displaystyle \varphi _{1}>0} it acts as a low-pass filter on the white noise with a spectral peak at f = 0 {\displaystyle f=0} When φ φ 1 < 0 {\displaystyle \varphi _{1}<0} it acts as a high-pass filter on the white noise with a spectral peak at f = 1 / 2 {\displaystyle f=1/2} .
+
+The process is non-stationary when the poles are on or outside the unit circle, or equivalently when the characteristic roots are on or inside the unit circle.
+The process is stable when the poles are strictly within the unit circle (roots strictly outside the unit circle), or equivalently when the coefficients are in the triangle − − 1 ≤ ≤ φ φ 2 ≤ ≤ 1 − − | φ φ 1 | {\displaystyle -1\leq \varphi _{2}\leq 1-|\varphi _{1}|} .
+
+The full PSD function can be expressed in real form as: S ( f ) = σ σ Z 2 1 + φ φ 1 2 + φ φ 2 2 − − 2 φ φ 1 ( 1 − − φ φ 2 ) cos ⁡ ⁡ ( 2 π π f ) − − 2 φ φ 2 cos ⁡ ⁡ ( 4 π π f ) {\displaystyle S(f)={\frac {\sigma _{Z}^{2}}{1+\varphi _{1}^{2}+\varphi _{2}^{2}-2\varphi _{1}(1-\varphi _{2})\cos(2\pi f)-2\varphi _{2}\cos(4\pi f)}}} Implementations in statistics packages [ edit ] R – the stats package includes ar function; [ 23 ] the astsa package includes sarima function to fit various models including AR.
+
+[ 24 ] MATLAB – the Econometrics Toolbox [ 25 ] and System Identification Toolbox [ 26 ] include AR models.
+
+[ 27 ] MATLAB and Octave – the TSA toolbox contains several estimation functions for uni-variate, multivariate , and adaptive AR models.
+
+[ 28 ] PyMC 3 – the Bayesian statistics and probabilistic programming framework supports AR modes with p lags.
+
+bayesloop – supports parameter inference and model selection for the AR-1 process with time-varying parameters.
+
+[ 29 ] Python – statsmodels.org hosts an AR model.
+
+[ 30 ] Impulse response [ edit ] The impulse response of a system is the change in an evolving variable in response to a change in the value of a shock term k periods earlier, as a function of k . Since the AR model is a special case of the vector autoregressive model, the computation of the impulse response in vector autoregression#impulse response applies here.
+
+n -step-ahead forecasting [ edit ] Once the parameters of the autoregression X t = ∑ ∑ i = 1 p φ φ i X t − − i + ε ε t {\displaystyle X_{t}=\sum _{i=1}^{p}\varphi _{i}X_{t-i}+\varepsilon _{t}\,} have been estimated, the autoregression can be used to forecast an arbitrary number of periods into the future. First use t to refer to the first period for which data is not yet available; substitute the known preceding values X t-i for i= 1, ..., p into the autoregressive equation while setting the error term ε ε t {\displaystyle \varepsilon _{t}} equal to zero (because we forecast X t to equal its expected value, and the expected value of the unobserved error term is zero). The output of the autoregressive equation is the forecast for the first unobserved period. Next, use t to refer to the next period for which data is not yet available; again the autoregressive equation is used to make the forecast, with one difference: the value of X one period prior to the one now being forecast is not known, so its expected value—the predicted value arising from the previous forecasting step—is used instead. Then for future periods the same procedure is used, each time using one more forecast value on the right side of the predictive equation until, after p predictions, all p right-side values are predicted values from preceding steps.
+
+There are four sources of uncertainty regarding predictions obtained in this manner: (1) uncertainty as to whether the autoregressive model is the correct model; (2) uncertainty about the accuracy of the forecasted values that are used as lagged values in the right side of the autoregressive equation; (3) uncertainty about the true values of the autoregressive coefficients; and (4) uncertainty about the value of the error term ε ε t {\displaystyle \varepsilon _{t}\,} for the period being predicted. Each of the last three can be quantified and combined to give a confidence interval for the n -step-ahead predictions; the confidence interval will become wider as n increases because of the use of an increasing number of estimated values for the right-side variables.
+
+See also [ edit ] Moving average model Linear difference equation Predictive analytics Linear predictive coding Resonance Levinson recursion Ornstein–Uhlenbeck process Infinite impulse response Notes [ edit ] ^ Souza, Douglas Baptista de; Leao, Bruno Paes (26 October 2023).
+
+"Data Augmentation of Sensor Time Series using Time-varying Autoregressive Processes" .
+
+Annual Conference of the PHM Society .
+
+15 (1).
+
+doi : 10.36001/phmconf.2023.v15i1.3565 .
+
+^ Souza, Douglas Baptista de; Leao, Bruno Paes (5 November 2024). "Data Augmentation of Multivariate Sensor Time Series using Autoregressive Models and Application to Failure Prognostics".
+
+Annual Conference of the PHM Society .
+
+16 (1).
+
+arXiv : 2410.16419 .
+
+doi : 10.36001/phmconf.2024.v16i1.4145 .
+
+^ Jia, Zhixuan; Li, Wang; Jiang, Yunlong; Liu, Xingshen (9 July 2025).
+
+"The Use of Minimization Solvers for Optimizing Time-Varying Autoregressive Models and Their Applications in Finance" .
+
+Mathematics .
+
+13 (14): 2230.
+
+doi : 10.3390/math13142230 .
+
+^ Diodato, Nazzareno; Di Salvo, Cristina; Bellocchi, Gianni (18 March 2025). "Climate driven generative time-varying model for improved decadal storm power predictions in the Mediterranean".
+
+Communications Earth & Environment .
+
+6 (1): 212.
+
+Bibcode : 2025ComEE...6..212D .
+
+doi : 10.1038/s43247-025-02196-2 .
+
+^ Inayati, Syarifah; Iriawan, Nur (31 December 2024).
+
+"Time-Varying Autoregressive Models for Economic Forecasting" .
+
+Matematika : 131– 142.
+
+doi : 10.11113/matematika.v40.n3.1654 .
+
+^ Baptista de Souza, Douglas; Kuhn, Eduardo Vinicius; Seara, Rui (January 2019). "A Time-Varying Autoregressive Model for Characterizing Nonstationary Processes".
+
+IEEE Signal Processing Letters .
+
+26 (1): 134– 138.
+
+Bibcode : 2019ISPL...26..134B .
+
+doi : 10.1109/LSP.2018.2880086 .
+
+^ Wang, Shihan; Chen, Tao; Wang, Hongjian (17 March 2023).
+
+"IDBD-Based Beamforming Algorithm for Improving the Performance of Phased Array Radar in Nonstationary Environments" .
+
+Sensors .
+
+23 (6): 3211.
+
+Bibcode : 2023Senso..23.3211W .
+
+doi : 10.3390/s23063211 .
+
+PMC 10052024 .
+
+PMID 36991922 .
+
+^ Abramovich, Yuri I.; Spencer, Nicholas K.; Turley, Michael D. E. (April 2007). "Time-Varying Autoregressive (TVAR) Models for Multiple Radar Observations".
+
+IEEE Transactions on Signal Processing .
+
+55 (4): 1298– 1311.
+
+Bibcode : 2007ITSP...55.1298A .
+
+doi : 10.1109/TSP.2006.888064 .
+
+^ Gutierrez, D.; Salazar-Varas, R. (August 2011). "EEG signal classification using time-varying autoregressive models and common spatial patterns".
+
+2011 Annual International Conference of the IEEE Engineering in Medicine and Biology Society . pp.
+
+6585– 6588.
+
+doi : 10.1109/IEMBS.2011.6091624 .
+
+ISBN 978-1-4577-1589-1 .
+
+PMID 22255848 .
+
+^ Box, George E. P. (1994).
+
+Time series analysis : forecasting and control . Gwilym M. Jenkins, Gregory C. Reinsel (3rd ed.). Englewood Cliffs, N.J.: Prentice Hall. p. 54.
+
+ISBN 0-13-060774-6 .
+
+OCLC 28888762 .
+
+^ Shumway, Robert H. (2000).
+
+Time series analysis and its applications . David S. Stoffer. New York: Springer. pp.
+
+90– 91.
+
+ISBN 0-387-98950-1 .
+
+OCLC 42392178 .
+
+^ Shumway, Robert H.; Stoffer, David (2010).
+
+Time series analysis and its applications : with R examples (3rd ed.). Springer.
+
+ISBN 978-1441978646 .
+
+^ Lai, Dihui; and Lu, Bingfeng; "Understanding Autoregressive Model for Time Series as a Deterministic Dynamic System" Archived 2023-03-24 at the Wayback Machine , in Predictive Analytics and Futurism , June 2017, number 15, June 2017, pages 7-9 ^ Yule, G. Udny (1927) "On a Method of Investigating Periodicities in Disturbed Series, with Special Reference to Wolfer's Sunspot Numbers" Archived 2011-05-14 at the Wayback Machine , Philosophical Transactions of the Royal Society of London , Ser. A, Vol. 226, 267–298.] ^ Walker, Gilbert  (1931) "On Periodicity in Series of Related Terms" Archived 2011-06-07 at the Wayback Machine , Proceedings of the Royal Society of London , Ser. A, Vol. 131,  518–532.
+
+^ Theodoridis, Sergios (2015-04-10). "Chapter 1. Probability and Stochastic Processes".
+
+Machine Learning: A Bayesian and Optimization Perspective . Academic Press, 2015. pp.
+
+9– 51.
+
+ISBN 978-0-12-801522-3 .
+
+^ a b Von Storch, Hans; Zwiers, Francis W. (2001).
+
+Statistical analysis in climate research . Cambridge University Press.
+
+doi : 10.1017/CBO9780511612336 .
+
+ISBN 0-521-01230-9 .
+
+[ page needed ] ^ Eshel, Gidon.
+
+"The Yule Walker Equations for the AR Coefficients" (PDF) .
+
+stat.wharton.upenn.edu .
+
+Archived (PDF) from the original on 2018-07-13 . Retrieved 2019-01-27 .
+
+^ Burg, John Parker (1968); "A new analysis technique for time series data", in Modern Spectrum Analysis (Edited by D. G. Childers), NATO Advanced Study Institute of Signal Processing with emphasis on Underwater Acoustics. IEEE Press, New York.
+
+^ Brockwell, Peter J.; Dahlhaus, Rainer; Trindade, A. Alexandre (2005).
+
+"Modified Burg Algorithms for Multivariate Subset Autoregression" (PDF) .
+
+Statistica Sinica .
+
+15 : 197– 213. Archived from the original (PDF) on 2012-10-21.
+
+^ Burg, John Parker (1967) "Maximum Entropy Spectral Analysis", Proceedings of the 37th Meeting of the Society of Exploration Geophysicists , Oklahoma City, Oklahoma.
+
+^ Bos, Robert; De Waele, Stijn; Broersen, Piet M. T. (2002).
+
+"Autoregressive spectral estimation by application of the Burg algorithm to irregularly sampled data" .
+
+IEEE Transactions on Instrumentation and Measurement .
+
+51 (6): 1289.
+
+Bibcode : 2002ITIM...51.1289B .
+
+doi : 10.1109/TIM.2002.808031 .
+
+Archived from the original on 2023-04-16 . Retrieved 2019-12-11 .
+
+^ "Fit Autoregressive Models to Time Series" Archived 2016-01-28 at the Wayback Machine (in R) ^ Stoffer, David; Poison, Nicky (2023-01-09).
+
+"astsa: Applied Statistical Time Series Analysis" . Retrieved 2023-08-20 .
+
+^ "Econometrics Toolbox" .
+
+www.mathworks.com .
+
+Archived from the original on 2023-04-16 . Retrieved 2022-02-16 .
+
+^ "System Identification Toolbox" .
+
+www.mathworks.com .
+
+Archived from the original on 2022-02-16 . Retrieved 2022-02-16 .
+
+^ "Autoregressive Model - MATLAB & Simulink" .
+
+www.mathworks.com .
+
+Archived from the original on 2022-02-16 . Retrieved 2022-02-16 .
+
+^ "The Time Series Analysis (TSA) toolbox for Octave and MATLAB" .
+
+pub.ist.ac.at .
+
+Archived from the original on 2012-05-11 . Retrieved 2012-04-03 .
+
+^ "christophmark/bayesloop" . December 7, 2021.
+
+Archived from the original on September 28, 2020 . Retrieved September 4, 2018 – via GitHub.
+
+^ "statsmodels.tsa.ar_model.AutoReg — statsmodels 0.12.2 documentation" .
+
+www.statsmodels.org .
+
+Archived from the original on 2021-02-28 . Retrieved 2021-04-29 .
+
+References [ edit ] Mills, Terence C. (1990).
+
+Time Series Techniques for Economists . Cambridge University Press.
+
+ISBN 9780521343398 .
+
+Percival, Donald B.; Walden, Andrew T. (1993).
+
+Spectral Analysis for Physical Applications . Cambridge University Press.
+
+Bibcode : 1993sapa.book.....P .
+
+Pandit, Sudhakar M.; Wu, Shien-Ming (1983).
+
+Time Series and System Analysis with Applications . John Wiley & Sons.
+
+External links [ edit ] AutoRegression Analysis (AR) by Paul Bourke Econometrics lecture (topic: Autoregressive models) on YouTube by Mark Thoma v t e Stochastic processes Discrete time Bernoulli process Branching process Chinese restaurant process Galton–Watson process Independent and identically distributed random variables Markov chain Moran process Random walk Loop-erased Self-avoiding Biased Maximal entropy Continuous time Additive process Airy process Bessel process Birth–death process pure birth Brownian motion Bridge Dyson Excursion Fractional Geometric Meander Cauchy process Contact process Continuous-time random walk Cox process Diffusion process Empirical process Feller process Fleming–Viot process Gamma process Geometric process Hawkes process Hunt process Interacting particle systems Itô diffusion Itô process Jump diffusion Jump process Lévy process Local time Markov additive process McKean–Vlasov process Ornstein–Uhlenbeck process Poisson process Compound Non-homogeneous Quasimartingale Schramm–Loewner evolution Semimartingale Sigma-martingale Stable process Superprocess Telegraph process Variance gamma process Wiener process Wiener sausage Both Branching process Gaussian process Hidden Markov model (HMM) Markov process Martingale Differences Local Sub- Super- Random dynamical system Regenerative process Renewal process Stochastic chains with memory of variable length White noise Fields and other Dirichlet process Gaussian random field Gibbs measure Hopfield model Ising model Potts model Boolean network Markov random field Percolation Pitman–Yor process Point process Cox Determinantal Poisson Random field Random graph Time series models Autoregressive conditional heteroskedasticity (ARCH) model Autoregressive integrated moving average (ARIMA) model Autoregressive (AR) model Autoregressive–moving-average (ARMA) model Generalized autoregressive conditional heteroskedasticity (GARCH) model Moving-average (MA) model Financial models Binomial options pricing model Black–Derman–Toy Black–Karasinski Black–Scholes Chan–Karolyi–Longstaff–Sanders (CKLS) Chen Constant elasticity of variance (CEV) Cox–Ingersoll–Ross (CIR) Garman–Kohlhagen Heath–Jarrow–Morton (HJM) Heston Ho–Lee Hull–White Korn-Kreer-Lenssen LIBOR market Rendleman–Bartter SABR volatility Vašíček Wilkie Actuarial models Bühlmann Cramér–Lundberg Risk process Sparre–Anderson Queueing models Bulk Fluid Generalized queueing network M/G/1 M/M/1 M/M/c Properties Càdlàg paths Continuous Continuous paths Ergodic Exchangeable Feller-continuous Gauss–Markov Markov Mixing Piecewise-deterministic Predictable Progressively measurable Self-similar Stationary Time-reversible Limit theorems Central limit theorem Donsker's theorem Doob's martingale convergence theorems Ergodic theorem Fisher–Tippett–Gnedenko theorem Large deviation principle Law of large numbers (weak/strong) Law of the iterated logarithm Maximal ergodic theorem Sanov's theorem Zero–one laws ( Blumenthal , Borel–Cantelli , Engelbert–Schmidt , Hewitt–Savage , Kolmogorov , Lévy ) Inequalities Burkholder–Davis–Gundy Doob's martingale Doob's upcrossing Kunita–Watanabe Marcinkiewicz–Zygmund Tools Cameron–Martin formula Convergence of random variables Doléans-Dade exponential Doob decomposition theorem Doob–Meyer decomposition theorem Doob's optional stopping theorem Dynkin's formula Feynman–Kac formula Filtration Girsanov theorem Infinitesimal generator Itô integral Itô's lemma Karhunen–Loève theorem Kolmogorov continuity theorem Kolmogorov extension theorem Lévy–Prokhorov metric Malliavin calculus Martingale representation theorem Optional stopping theorem Prokhorov's theorem Quadratic variation Reflection principle Skorokhod integral Skorokhod's representation theorem Skorokhod space Snell envelope Stochastic differential equation Tanaka Stopping time Stratonovich integral Uniform integrability Usual hypotheses Wiener space Classical Abstract Disciplines Actuarial mathematics Control theory Econometrics Ergodic theory Extreme value theory (EVT) Large deviations theory Mathematical finance Mathematical statistics Probability theory Queueing theory Renewal theory Ruin theory Signal processing Statistics Stochastic analysis Time series analysis Machine learning List of topics Category v t e Artificial intelligence (AI) History timeline Companies Projects Concepts Parameter Hyperparameter Loss functions Regression Bias–variance tradeoff Double descent Overfitting Clustering Gradient descent SGD Quasi-Newton method Conjugate gradient method Backpropagation Attention Convolution Normalization Batchnorm Activation Softmax Sigmoid Rectifier Gating Weight initialization Regularization Datasets Augmentation Prompt engineering Reinforcement learning Q-learning SARSA Imitation Policy gradient Diffusion Latent diffusion model Autoregression Adversary RAG Uncanny valley RLHF Self-supervised learning Reflection Recursive self-improvement Hallucination Word embedding Vibe coding Applications Machine learning In-context learning Artificial neural network Deep learning Language model Large language model NMT Reasoning language model Model Context Protocol Intelligent agent Artificial human companion Humanity's Last Exam Artificial general intelligence (AGI) Implementations Audio–visual AlexNet WaveNet Human image synthesis HWR OCR Computer vision Speech synthesis 15.ai ElevenLabs Speech recognition Whisper Facial recognition AlphaFold Text-to-image models Aurora DALL-E Firefly Flux Ideogram Imagen Midjourney Recraft Stable Diffusion Text-to-video models Dream Machine Runway Gen Hailuo AI Kling Sora Veo Music generation Riffusion Suno AI Udio Text Word2vec Seq2seq GloVe BERT T5 Llama Chinchilla AI PaLM GPT 1 2 3 J ChatGPT 4 4o o1 o3 4.5 4.1 o4-mini 5 Claude Gemini chatbot Grok LaMDA BLOOM DBRX Project Debater IBM Watson IBM Watsonx Granite PanGu-Σ DeepSeek Qwen Decisional AlphaGo AlphaZero OpenAI Five Self-driving car MuZero Action selection AutoGPT Robot control People Alan Turing Warren Sturgis McCulloch Walter Pitts John von Neumann Claude Shannon Shun'ichi Amari Kunihiko Fukushima Takeo Kanade Marvin Minsky John McCarthy Nathaniel Rochester Allen Newell Cliff Shaw Herbert A. Simon Oliver Selfridge Frank Rosenblatt Bernard Widrow Joseph Weizenbaum Seymour Papert Seppo Linnainmaa Paul Werbos Geoffrey Hinton John Hopfield Jürgen Schmidhuber Yann LeCun Yoshua Bengio Lotfi A. Zadeh Stephen Grossberg Alex Graves James Goodnight Andrew Ng Fei-Fei Li Alex Krizhevsky Ilya Sutskever Oriol Vinyals Quoc V. Le Ian Goodfellow Demis Hassabis David Silver Andrej Karpathy Ashish Vaswani Noam Shazeer Aidan Gomez John Schulman Mustafa Suleyman Jan Leike Daniel Kokotajlo François Chollet Architectures Neural Turing machine Differentiable neural computer Transformer Vision transformer (ViT) Recurrent neural network (RNN) Long short-term memory (LSTM) Gated recurrent unit (GRU) Echo state network Multilayer perceptron (MLP) Convolutional neural network (CNN) Residual neural network (RNN) Highway network Mamba Autoencoder Variational autoencoder (VAE) Generative adversarial network (GAN) Graph neural network (GNN) Category Retrieved from " https://en.wikipedia.org/w/index.php?title=Autoregressive_model&oldid=1306549890 " Categories : Autocorrelation Signal processing Hidden categories: Webarchive template wayback links Wikipedia articles needing page number citations from March 2011 Articles with short description Short description matches Wikidata Articles lacking in-text citations from March 2011 All articles lacking in-text citations All articles with unsourced statements Articles with unsourced statements from October 2011 Articles with unsourced statements from July 2022 Wikipedia articles needing clarification from July 2020 This page was last edited on 18 August 2025, at 10:37 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Autoregressive model 19 languages Add topic
+

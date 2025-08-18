@@ -1,0 +1,206 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Training 2 Applications Toggle Applications subsection 2.1 Use in data compression 2.2 Video codecs based on vector quantization 2.3 Audio codecs based on vector quantization 2.4 Use in pattern recognition 2.5 Use as clustering algorithm 2.6 Generative Adversarial Networks (GAN) 3 See also 4 References 5 External links Toggle the table of contents Vector quantization 10 languages العربية Català Deutsch Español Français 한국어 Nederlands 日本語 Русский 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Classical quantization technique from signal processing This article has multiple issues.
+
+Please help improve it or discuss these issues on the talk page .
+
+( Learn how and when to remove these messages ) This article is missing information about something.
+
+Please expand the article to include this information. Further details may exist on the talk page .
+
+( February 2009 ) This article possibly contains original research .
+
+Please improve it by verifying the claims made and adding inline citations . Statements consisting only of original research should be removed.
+
+( November 2016 ) ( Learn how and when to remove this message ) This article may be too technical for most readers to understand .
+
+Please help improve it to make it understandable to non-experts , without removing the technical details.
+
+( October 2023 ) ( Learn how and when to remove this message ) ( Learn how and when to remove this message ) Vector quantization ( VQ ) is a classical quantization technique from signal processing that allows the modeling of probability density functions by the distribution of prototype vectors. Developed in the early 1980s by Robert M. Gray , it was originally used for data compression .  It works by dividing a large set of points ( vectors ) into groups having approximately the same number of points closest to them. Each group is represented by its centroid point, as in k-means and some other clustering algorithms. In simpler terms, vector quantization chooses a set of points to represent a larger set of points.
+
+The density matching property of vector quantization is powerful, especially for identifying the density of large and high-dimensional data. Since data points are represented by the index of their closest centroid, commonly occurring data have low error, and rare data high error.  This is why VQ is suitable for lossy data compression . It can also be used for lossy data correction and density estimation .
+
+Vector quantization is based on the competitive learning paradigm, so it is closely related to the self-organizing map model and to sparse coding models used in deep learning algorithms such as autoencoder .
+
+Training [ edit ] The simplest training algorithm for vector quantization is: [ 1 ] Pick a sample point at random Move the nearest quantization vector centroid towards this sample point, by a small fraction of the distance Repeat A more sophisticated algorithm reduces the bias in the density matching estimation, and ensures that all points are used, by including an extra sensitivity parameter [ citation needed ] : Increase each centroid's sensitivity s i {\displaystyle s_{i}} by a small amount Pick a sample point P {\displaystyle P} at random For each quantization vector centroid c i {\displaystyle c_{i}} , let d ( P , c i ) {\displaystyle d(P,c_{i})} denote the distance of P {\displaystyle P} and c i {\displaystyle c_{i}} Find the centroid c i {\displaystyle c_{i}} for which d ( P , c i ) − − s i {\displaystyle d(P,c_{i})-s_{i}} is the smallest Move c i {\displaystyle c_{i}} towards P {\displaystyle P} by a small fraction of the distance Set s i {\displaystyle s_{i}} to zero Repeat It is desirable to use a cooling schedule to produce convergence: see Simulated annealing .  Another (simpler) method is LBG which is based on K-Means .
+
+The algorithm can be iteratively updated with 'live' data, rather than by picking random points from a data set, but this will introduce some bias if the data are temporally correlated over many samples.
+
+Applications [ edit ] Vector quantization is used for lossy data compression, lossy data correction, pattern recognition, density estimation and clustering.
+
+Lossy data correction, or prediction, is used to recover data missing from some dimensions. It is done by finding the nearest group with the data dimensions available, then predicting the result based on the values for the missing dimensions, assuming that they will have the same value as the group's centroid.
+
+For density estimation , the area/volume that is closer to a particular centroid than to any other is inversely proportional to the density (due to the density matching property of the algorithm).
+
+Use in data compression [ edit ] Vector quantization, also called "block quantization" or "pattern matching quantization" is often used in lossy data compression .  It works by encoding values from a multidimensional vector space into a finite set of values from a discrete subspace of lower dimension. A lower-space vector requires less storage space, so the data is compressed.  Due to the density matching property of vector quantization, the compressed data has errors that are inversely proportional to density.
+
+The transformation is usually done by projection or by using a codebook . In some cases, a codebook can be also used to entropy code the discrete value in the same step, by generating a prefix coded variable-length encoded value as its output.
+
+The set of discrete amplitude levels is quantized jointly rather than each sample being quantized separately.  Consider a k -dimensional vector [ x 1 , x 2 , .
+
+.
+
+.
+
+, x k ] {\displaystyle [x_{1},x_{2},...,x_{k}]} of amplitude levels.  It is compressed by choosing the nearest matching vector from a set of n -dimensional vectors [ y 1 , y 2 , .
+
+.
+
+.
+
+, y n ] {\displaystyle [y_{1},y_{2},...,y_{n}]} , with n < k .
+
+All possible combinations of the n -dimensional vector [ y 1 , y 2 , .
+
+.
+
+.
+
+, y n ] {\displaystyle [y_{1},y_{2},...,y_{n}]} form the vector space to which all the quantized vectors belong.
+
+Only the index of the codeword in the codebook is sent instead of the quantized values. This conserves space and achieves more compression.
+
+Twin vector quantization (VQF) is part of the MPEG-4 standard dealing with time domain weighted interleaved vector quantization.
+
+Video codecs based on vector quantization [ edit ] This list is incomplete ; you can help by adding missing items .
+
+( August 2008 ) Bink video [ 2 ] Cinepak Daala is transform-based but uses pyramid vector quantization on transformed coefficients [ 3 ] Digital Video Interactive : Production-Level Video and Real-Time Video Indeo Microsoft Video 1 QuickTime : Apple Video (RPZA) and Graphics Codec (SMC) Sorenson SVQ1 and SVQ3 Smacker video VQA format, used in many games The usage of video codecs based on vector quantization has declined significantly in favor of those based on motion compensated prediction combined with transform coding , e.g. those defined in MPEG standards, as the low decoding complexity of vector quantization has become less relevant.
+
+Audio codecs based on vector quantization [ edit ] This list is incomplete ; you can help by adding missing items .
+
+( August 2008 ) AMR-WB+ CELP CELT (now part of Opus ) is transform-based but uses pyramid vector quantization on transformed coefficients Codec 2 DTS G.729 iLBC Ogg Vorbis [ 4 ] TwinVQ Use in pattern recognition [ edit ] VQ was also used in the eighties for speech [ 5 ] and speaker recognition .
+
+[ 6 ] Recently it has also been used for efficient nearest neighbor search [ 7 ] and on-line signature recognition.
+
+[ 8 ] In pattern recognition applications, one codebook is constructed for each class (each class being a user in biometric applications) using acoustic vectors of this user. In the testing phase the quantization distortion of a testing signal is worked out with the whole set of codebooks obtained in the training phase. The codebook that provides the smallest vector quantization distortion indicates the identified user.
+
+The main advantage of VQ in pattern recognition is its low computational burden when compared with other techniques such as dynamic time warping (DTW) and hidden Markov model (HMM). The main drawback when compared to DTW and HMM is that it does not take into account the temporal evolution of the signals (speech, signature, etc.) because all the vectors are mixed up. In order to overcome this problem a multi-section codebook approach has been proposed.
+
+[ 9 ] The multi-section approach consists of modelling the signal with several sections (for instance, one codebook for the initial part, another one for the center and a last codebook for the ending part).
+
+Use as clustering algorithm [ edit ] As VQ is seeking for centroids as density points of nearby lying samples, it can be also directly used as a prototype-based clustering method: each centroid is then associated with one prototype. 
+By aiming to minimize the expected squared quantization error [ 10 ] and introducing a decreasing learning gain fulfilling the Robbins-Monro conditions, multiple iterations over the whole data set with a concrete but fixed number of prototypes converges to the solution of k-means clustering algorithm in an incremental manner.
+
+Generative Adversarial Networks (GAN) [ edit ] VQ has been used to quantize a feature representation layer in the discriminator of Generative adversarial networks . The feature quantization (FQ) technique performs implicit feature matching.
+
+[ 11 ] It improves the GAN training, and yields an improved performance on a variety of popular GAN models: BigGAN for image generation, StyleGAN for face synthesis, and U-GAT-IT for unsupervised image-to-image translation.
+
+See also [ edit ] Subtopics Linde–Buzo–Gray algorithm (LBG) Learning vector quantization Lloyd's algorithm Growing Neural Gas , a neural network-like system for vector quantization Related topics Speech coding Ogg Vorbis Voronoi diagram Rate-distortion function Data clustering Centroidal Voronoi tessellation Image segmentation K-means clustering Autoencoder Deep Learning Part of this article was originally based on material from the Free On-line Dictionary of Computing and is used with permission under the GFDL.
+
+References [ edit ] ^ Dana H. Ballard (2000).
+
+An Introduction to Natural Computation . MIT Press. p. 189.
+
+ISBN 978-0-262-02420-4 .
+
+^ "Bink video" .
+
+Book of Wisdom . 2009-12-27 . Retrieved 2013-03-16 .
+
+^ Valin, JM. (October  2012).
+
+Pyramid Vector Quantization for Video Coding .
+
+IETF . I-D draft-valin-videocodec-pvq-00 . Retrieved 2013-12-17 .
+
+See also arXiv:1602.05209 ^ "Vorbis I Specification" . Xiph.org. 2007-03-09 . Retrieved 2007-03-09 .
+
+^ Burton, D. K.; Shore, J. E.; Buck, J. T. (1983). "A generalization of isolated word recognition using vector quantization".
+
+ICASSP '83. IEEE International Conference on Acoustics, Speech, and Signal Processing . Vol. 8. pp.
+
+1021– 1024.
+
+doi : 10.1109/ICASSP.1983.1171915 .
+
+^ Soong, F.; A. Rosenberg; L. Rabiner; B. Juang (1985). "A vector quantization approach to speaker recognition".
+
+ICASSP '85. IEEE International Conference on Acoustics, Speech, and Signal Processing . Vol. 1. pp.
+
+387– 390.
+
+doi : 10.1109/ICASSP.1985.1168412 .
+
+S2CID 8970593 .
+
+^ H. Jegou; M. Douze; C. Schmid (2011).
+
+"Product Quantization for Nearest Neighbor Search" (PDF) .
+
+IEEE Transactions on Pattern Analysis and Machine Intelligence .
+
+33 (1): 117– 128.
+
+CiteSeerX 10.1.1.470.8573 .
+
+doi : 10.1109/TPAMI.2010.57 .
+
+PMID 21088323 .
+
+S2CID 5850884 .
+
+Archived (PDF) from the original on 2011-12-17.
+
+^ Faundez-Zanuy, Marcos (2007). "offline and On-line signature recognition based on VQ-DTW".
+
+Pattern Recognition .
+
+40 (3): 981– 992.
+
+doi : 10.1016/j.patcog.2006.06.007 .
+
+^ Faundez-Zanuy, Marcos; Juan Manuel Pascual-Gaspar (2011). "Efficient On-line signature recognition based on Multi-section VQ".
+
+Pattern Analysis and Applications .
+
+14 (1): 37– 45.
+
+doi : 10.1007/s10044-010-0176-8 .
+
+S2CID 24868914 .
+
+^ Gray, R.M. (1984). "Vector Quantization".
+
+IEEE ASSP Magazine .
+
+1 (2): 4– 29.
+
+doi : 10.1109/massp.1984.1162229 .
+
+hdl : 2060/19890012969 .
+
+^ Feature Quantization Improves GAN Training https://arxiv.org/abs/2004.02088 External links [ edit ] http://www.data-compression.com/vq.html Archived 2017-12-10 at the Wayback Machine QccPack — Quantization, Compression, and Coding Library (open source) VQ Indexes Compression and Information Hiding Using Hybrid Lossless Index Coding , Wen-Jan Chen and Wen-Tsung Huang NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐286ld
+Cached time: 20250812021225
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.290 seconds
+Real time usage: 0.436 seconds
+Preprocessor visited node count: 1946/1000000
+Revision size: 13335/2097152 bytes
+Post‐expand include size: 60514/2097152 bytes
+Template argument size: 10987/2097152 bytes
+Highest expansion depth: 16/100
+Expensive parser function count: 6/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 48597/5000000 bytes
+Lua time usage: 0.163/10.000 seconds
+Lua memory usage: 6785636/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  327.952      1 -total
+ 23.78%   77.982      3 Template:Cite_book
+ 20.64%   67.686      1 Template:Multiple_issues
+ 18.41%   60.386      1 Template:Short_description
+ 13.35%   43.778      5 Template:Ambox
+ 11.82%   38.766      1 Template:Missing_information
+ 10.84%   35.563      2 Template:Pagetype
+  8.44%   27.682      8 Template:Main_other
+  7.24%   23.748      4 Template:Cite_journal
+  6.12%   20.057      2 Template:Expand_list Saved in parser cache with key enwiki:pcache:47805:|#|:idhash:canonical and timestamp 20250812021225 and revision id 1305279239. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Vector_quantization&oldid=1305279239 " Categories : Lossy compression algorithms Unsupervised learning Hidden categories: Articles with short description Short description is different from Wikidata Articles to be expanded from February 2009 Articles that may contain original research from November 2016 All articles that may contain original research Wikipedia articles that are too technical from October 2023 All articles that are too technical Articles with multiple maintenance issues All articles with unsourced statements Articles with unsourced statements from November 2016 Incomplete lists from August 2008 Webarchive template wayback links This page was last edited on 11 August 2025, at 03:44 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Vector quantization 10 languages Add topic
+

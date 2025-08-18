@@ -1,0 +1,156 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Programming language integration 2 High index DAEs Toggle High index DAEs subsection 2.1 Pendulum motion (index-3 DAE form) 3 Applications in APMonitor Modeling Language Toggle Applications in APMonitor Modeling Language subsection 3.1 Direct current (DC) motor 3.2 Blood glucose response of an insulin dependent patient 4 See also 5 References 6 External links Toggle the table of contents APMonitor 1 language Català Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Modelling language for algebraic equations APMonitor Developer(s) APMonitor Stable release v1.0.1
+   /    January 31, 2022 ( 2022-01-31 ) Repository https://github.com/APMonitor/ Operating system Cross-platform Type Technical computing License Proprietary , BSD Website APMonitor product page Advanced process monitor (APMonitor) is a modeling language for differential algebraic ( DAE ) equations.
+
+[ 1 ] It is a free web-service or local server for solving representations of physical systems in the form of implicit DAE models.  APMonitor is suited for large-scale problems and solves linear programming , integer programming , nonlinear programming , nonlinear mixed integer programming, dynamic simulation, [ 2 ] moving horizon estimation , [ 3 ] and nonlinear model predictive control .
+
+[ 4 ] APMonitor does not solve the problems directly, but calls nonlinear programming solvers such as APOPT , BPOPT , IPOPT , MINOS , and SNOPT . The APMonitor API provides exact first and second derivatives of continuous functions to the solvers through automatic differentiation and in sparse matrix form.
+
+Programming language integration [ edit ] Julia , MATLAB , Python are mathematical programming languages that have APMonitor integration through web-service APIs. The GEKKO Optimization Suite is a recent extension of APMonitor with complete Python integration. The interfaces are built-in optimization toolboxes or modules to both load and process solutions of optimization problems. APMonitor is an object-oriented modeling language and optimization suite that relies on programming languages to load, run, and retrieve solutions. APMonitor models and data are compiled at run-time and translated into objects that are solved by an optimization engine such as APOPT or IPOPT . The optimization engine is not specified by APMonitor, allowing several different optimization engines to be switched out. The simulation or optimization mode is also configurable to reconfigure the model for dynamic simulation , nonlinear model predictive control , moving horizon estimation or general problems in mathematical optimization .
+
+As a first step in solving the problem, a mathematical model is expressed in terms of variables and equations such as the Hock & Schittkowski Benchmark Problem #71 [ 5 ] used to test the performance of nonlinear programming solvers. This particular optimization problem has an objective function min x ∈ ∈ R x 1 x 4 ( x 1 + x 2 + x 3 ) + x 3 {\displaystyle \min _{x\in \mathbb {R} }\;x_{1}x_{4}(x_{1}+x_{2}+x_{3})+x_{3}} and subject to the inequality constraint x 1 x 2 x 3 x 4 ≥ ≥ 25 {\displaystyle x_{1}x_{2}x_{3}x_{4}\geq 25} and equality constraint x 1 2 + x 2 2 + x 3 2 + x 4 2 = 40 {\displaystyle {x_{1}}^{2}+{x_{2}}^{2}+{x_{3}}^{2}+{x_{4}}^{2}=40} . The four variables must be between a lower bound of 1 and an upper bound of 5. The initial guess values are x 1 = 1 , x 2 = 5 , x 3 = 5 , x 4 = 1 {\displaystyle x_{1}=1,x_{2}=5,x_{3}=5,x_{4}=1} . This mathematical model is translated into the APMonitor modeling language in the following text file.
+
+!
+
+file saved as hs71 .
+
+apm Variables x1 = 1 , >= 1 , <= 5 x2 = 5 , >= 1 , <= 5 x3 = 5 , >= 1 , <= 5 x4 = 1 , >= 1 , <= 5 End Variables Equations minimize x1 * x4 * ( x1 + x2 + x3 ) + x3 x1 * x2 * x3 * x4 > 25 x1 ^ 2 + x2 ^ 2 + x3 ^ 2 + x4 ^ 2 = 40 End Equations The problem is then solved in Python by first installing the APMonitor package with pip install APMonitor or from the following Python code.
+
+# Install APMonitor import pip pip .
+
+main ([ "install" , "APMonitor" ]) Installing a Python is only required once for any module. Once the APMonitor package is installed, it is imported and the apm_solve function solves the optimization problem. The solution is returned to the programming language for further processing and analysis.
+
+# Python example for solving an optimization problem from APMonitor.apm import * # Solve optimization problem sol = apm_solve ( "hs71" , 3 ) # Access solution x1 = sol [ "x1" ] x2 = sol [ "x2" ] Similar interfaces are available for MATLAB and Julia with minor differences from the above syntax. Extending the capability of a modeling language is important because significant pre- or post-processing of data or solutions is often required when solving complex optimization, dynamic simulation, estimation, or control problems.
+
+High index DAEs [ edit ] The highest order of a derivative that is necessary to return a DAE to ODE form is called the differentiation index . A standard way for dealing with high-index DAEs is to differentiate the equations to put them in index-1 DAE or ODE form (see Pantelides algorithm ). However, this approach can cause a number of undesirable numerical issues such as instability.  While the syntax is similar to other modeling languages such as gProms, APMonitor solves DAEs of any index without rearrangement or differentiation.
+
+[ 6 ] As an example, an index-3 DAE is shown below for the pendulum motion equations and lower index rearrangements can return this system of equations to ODE form (see Index 0 to 3 Pendulum example ).
+
+Pendulum motion (index-3 DAE form) [ edit ] Model pendulum Parameters m = 1 g = 9.81 s = 1 End Parameters Variables x = 0 y = - s v = 1 w = 0 lam = m * ( 1 + s * g ) / 2 * s ^ 2 End Variables Equations x ^ 2 + y ^ 2 = s ^ 2 $ x = v $ y = w m * $ v = - 2 * x * lam m * $ w = - m * g - 2 * y * lam End Equations End Model Applications in APMonitor Modeling Language [ edit ] Many physical systems are naturally expressed by differential algebraic equation .  Some of these include: cell cultures chemical reactors cogeneration (power and heat) [ 7 ] distillation columns drilling automation [ 8 ] essential oil steam distillation [ 9 ] friction stir welding [ 10 ] hydrate formation in deep-sea pipelines [ 11 ] infectious disease spread oscillators severe slugging control [ 12 ] solar thermal energy production [ 13 ] solid oxide fuel cells [ 14 ] [ 15 ] space shuttle launch simulation Unmanned Aerial Vehicles (UAVs) [ 16 ] Models for a direct current (DC) motor and blood glucose response of an insulin dependent patient are listed below. They are representative of differential and algebraic equations encountered in many branches of science and engineering.
+
+Direct current (DC) motor [ edit ] Parameters ! motor parameters (dc motor) v = 36 ! input voltage to the motor (volts) rm = 0.1 ! motor resistance (ohms) lm = 0.01 ! motor inductance (henrys) kb = 6.5e-4 ! back emf constant (volt·s/rad) kt = 0.1 ! torque constant (N·m/a) jm = 1.0e-4 ! rotor inertia (kg m^2) bm = 1.0e-5 ! mechanical damping (linear model of friction: bm * dth) ! load parameters jl = 1000 * jm ! load inertia (1000 times the rotor) bl = 1.0e-3 ! load damping (friction) k = 1.0e2 ! spring constant for motor shaft to load b = 0.1 ! spring damping for motor shaft to load End Parameters Variables i = 0 ! motor electric current (amperes) dth_m = 0 ! rotor angular velocity sometimes called omega (radians/sec) th_m = 0 ! rotor angle, theta (radians) dth_l = 0 ! wheel angular velocity (rad/s) th_l = 0 ! wheel angle (radians) End Variables Equations lm * $ i - v = - rm * i - kb * $ th_m jm * $ dth_m = kt * i - ( bm + b ) * $ th_m - k * th_m + b * $ th_l + k * th_l jl * $ dth_l = b * $ th_m + k * th_m - ( b + bl ) * $ th_l - k * th_l dth_m = $ th_m dth_l = $ th_l End Equations Blood glucose response of an insulin dependent patient [ edit ] ! Model source: ! A. Roy and R.S. Parker. “Dynamic Modeling of Free Fatty !   Acids, Glucose, and Insulin: An Extended Minimal Model,” !   Diabetes Technology and Therapeutics 8(6), 617-626, 2006.
+
+Parameters p1 = 0.068 ! 1/min p2 = 0.037 ! 1/min p3 = 0.000012 ! 1/min p4 = 1.3 ! mL/(min·µU) p5 = 0.000568 ! 1/mL p6 = 0.00006 ! 1/(min·µmol) p7 = 0.03 ! 1/min p8 = 4.5 ! mL/(min·µU) k1 = 0.02 ! 1/min k2 = 0.03 ! 1/min pF2 = 0.17 ! 1/min pF3 = 0.00001 ! 1/min n = 0.142 ! 1/min VolG = 117 ! dL VolF = 1 1.7 ! L ! basal parameters for Type-I diabetic Ib = 0 ! Insulin (µU/mL) Xb = 0 ! Remote insulin (µU/mL) Gb = 98 ! Blood Glucose (mg/dL) Yb = 0 ! Insulin for Lipogenesis (µU/mL) Fb = 380 ! Plasma Free Fatty Acid (µmol/L) Zb = 380 ! Remote Free Fatty Acid (µmol/L) ! insulin infusion rate u1 = 3 ! µU/min ! glucose uptake rate u2 = 300 ! mg/min ! external lipid infusion u3 = 0 ! mg/min End parameters Intermediates p9 = 0.00021 * exp ( - 0.0055 * G ) ! dL/(min*mg) End Intermediates Variables I = Ib X = Xb G = Gb Y = Yb F = Fb Z = Zb End variables Equations ! Insulin dynamics $ I = - n * I + p5 * u1 ! Remote insulin compartment dynamics $ X = - p2 * X + p3 * I ! Glucose dynamics $ G = - p1 * G - p4 * X * G + p6 * G * Z + p1 * Gb - p6 * Gb * Zb + u2 / VolG ! Insulin dynamics for lipogenesis $ Y = - pF2 * Y + pF3 * I ! Plasma-free fatty acid (FFA) dynamics $ F = - p7 * ( F - Fb ) - p8 * Y * F + p9 * ( F * G - Fb * Gb ) + u3 / VolF ! Remote FFA dynamics $ Z = - k2 * ( Z - Zb ) + k1 * ( F - Fb ) End Equations See also [ edit ] APOPT ASCEND EMSO GEKKO MATLAB Modelica References [ edit ] ^ J.D. Hedengren; R. Asgharzadeh Shishavan; K.M. Powell; T.F. Edgar (2014).
+
+"Nonlinear modeling, estimation and predictive control in APMonitor" .
+
+Computers & Chemical Engineering .
+
+70 (5): 133– 148.
+
+doi : 10.1016/j.compchemeng.2014.04.013 .
+
+^ Hedengren, J. (2008).
+
+"A Nonlinear Model Library for Dynamics and Control" (PDF) .
+
+CACHE (Computer Aids for Chemical Engineering) News . Archived from the original (PDF) on 2016-03-03 . Retrieved 2010-03-29 .
+
+^ Spivey, B. (2009). "Monitoring of Process Fouling Using First-Principles Modeling and Moving Horizon Estimation".
+
+Proc. Applications of Computer Algebra (ACA) Conference .
+
+^ Ramlal, J. (2007).
+
+"Moving Horizon Estimation for an Industrial Gas Phase Polymerization Reactor" (PDF) .
+
+IFAC Symposium on Nonlinear Control Systems Design (NOLCOS) . Archived from the original (PDF) on 2009-09-20 . Retrieved 2010-03-29 .
+
+^ W. Hock and K. Schittkowski, Test Examples for Nonlinear Programming Codes, Lecture Notes in Economics and Mathematical Systems, Vol. 187, Springer 1981.
+
+^ Harney, D. (2013). "Numerical evaluation of the stability of stationary points of index-2 differential-algebraic equations: Applications to reactive flash and reactive distillation systems".
+
+Computers & Chemical Engineering .
+
+49 : 61– 69.
+
+doi : 10.1016/j.compchemeng.2012.09.021 .
+
+^ Mojica, J. (2017).
+
+"Optimal combined long-term facility design and short-term operational strategy for CHP capacity investments" .
+
+Energy .
+
+118 : 97– 115.
+
+Bibcode : 2017Ene...118...97M .
+
+doi : 10.1016/j.energy.2016.12.009 .
+
+^ Eaton, A. (2017). "Real time model identification using multi-fidelity models in managed pressure drilling".
+
+Computers & Chemical Engineering .
+
+97 : 76– 84.
+
+doi : 10.1016/j.compchemeng.2016.11.008 .
+
+^ Valderrama, F. (2018). "An optimal control approach to steam distillation of essential oils from aromatic plants".
+
+Computers & Chemical Engineering .
+
+117 : 25– 31.
+
+doi : 10.1016/j.compchemeng.2018.05.009 .
+
+^ Nielsen, Isak (2012).
+
+Modeling and Control of Friction Stir Welding in 5 cm thick Copper Canisters (MSc thesis). Linköping University.
+
+^ Brower, D. (2012).
+
+"Fiber Optic Monitoring of Subsea Equipment" (PDF) .
+
+OMAE 2012 Proceedings, Rio de Janeiro, Brazil .
+
+^ Eaton, A. (2015).
+
+"Post-installed fiber optic pressure sensors on subsea production risers for severe slugging control" (PDF) .
+
+OMAE 2015 Proceedings, St. John's, Canada .
+
+^ Powell, K. (2014). "Dynamic Optimization of a Hybrid Solar Thermal and Fossil Fuel System".
+
+Solar Energy .
+
+108 : 210– 218.
+
+Bibcode : 2014SoEn..108..210P .
+
+doi : 10.1016/j.solener.2014.07.004 .
+
+^ Spivey, B. (2010).
+
+"Dynamic Modeling of Reliability Constraints in Solid Oxide Fuel Cells and Implications for Advanced Control" (PDF) .
+
+AIChE Annual Meeting Proceedings, Salt Lake City, Utah .
+
+^ Spivey, B. (2012). "Dynamic modeling, simulation, and MIMO predictive control of a tubular solid oxide fuel cell".
+
+Journal of Process Control .
+
+22 (8): 1502– 1520.
+
+doi : 10.1016/j.jprocont.2012.01.015 .
+
+^ Sun, L. (2013).
+
+"Optimal Trajectory Generation using Model Predictive Control for Aerially Towed Cable Systems" (PDF) .
+
+Journal of Guidance, Control, and Dynamics .
+
+37 (2): 525– 539.
+
+Bibcode : 2014JGCD...37..525S .
+
+doi : 10.2514/1.60820 .
+
+External links [ edit ] APMonitor home page Dynamic optimization course with APMonitor APMonitor documentation APMonitor citations Online solution engine with IPOPT Comparison of popular modeling language syntax Download APM MATLAB , APM Python , or APM Julia client for APMonitor Download APMonitor Server (Windows) Download APMonitor Server (Linux) v t e Mathematical optimization software Data formats Mathematica MPS nl sol Modeling tools AIMMS AMPL APMonitor ECLiPSe -CLP Gekko GAMS GNU MathProg JuMP LINDO OPL Mathematica MiniZinc OptimJ PuLP Pyomo TOMLAB Xpress Mosel ZIMPL CasADi Solvers LP , MILP ∗ APOPT ∗ ANTIGONE ∗ Artelys Knitro ∗ BCP ∗ CLP CBC ∗ CPLEX ∗ FortMP ∗ GCG ∗ GLOP ∗ GLPK/GLPSOL ∗ Gurobi Optimizer ∗ HiGHS ∗ LINDO ∗ Lp_solve LOQO Mathematica MINOS MINTO ∗ MOSEK ∗ NAG SCIP ∗ SoPlex Octeract Engine ∗ SYMPHONY ∗ Xpress Optimizer ∗ QP , MIQP ∗ APOPT ∗ ANTIGONE ∗ Artelys Knitro ∗ CBC ∗ CLP CPLEX ∗ FortMP ∗ HiGHS Gurobi Optimizer ∗ IPOPT LINDO ∗ Mathematica MINOS MOSEK ∗ NAG Octeract Engine ∗ SCIP ∗ Xpress Optimizer ∗ QCP , MIQCP ∗ APOPT ∗ ANTIGONE ∗ Artelys Knitro ∗ CPLEX ∗ Gurobi Optimizer ∗ IPOPT LINDO ∗ Mathematica MINOS MOSEK ∗ NAG SCIP ∗ Octeract Engine ∗ Xpress Optimizer ∗ Xpress NonLinear ∗ SOCP , MISOCP ∗ Artelys Knitro ∗ CPLEX ∗ Gurobi Optimizer ∗ LINDO ∗ LOQO Mathematica MOSEK ∗ NAG SCIP ∗ Xpress Optimizer ∗ SDP , MISDP ∗ Mathematica MOSEK NAG NLP , MINLP ∗ AOA ∗ APOPT ∗ ANTIGONE ∗ Artelys Knitro ∗ BARON ∗ Couenne ∗ Galahad library Gurobi Optimizer ∗ IPOPT LINDO ∗ LOQO MIDACO ∗ MINOS NAG NLPQLP NPSOL SCIP ∗ SNOPT ∗ Octeract Engine ∗ WORHP Xpress NonLinear ∗ GO ANTIGONE ∗ BARON Couenne ∗ Xpress Global Mathematica LINDO SCIP Octeract Engine CP Artelys Kalis Comet CPLEX CP Optimizer Gecode Mathematica JaCoP Xpress Kalis List of optimization software Comparison of optimization software Retrieved from " https://en.wikipedia.org/w/index.php?title=APMonitor&oldid=1303149123 " Categories : Numerical programming languages Mathematical optimization software Hidden categories: Articles with short description Short description matches Wikidata This page was last edited on 29 July 2025, at 09:57 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents APMonitor 1 language Add topic
+

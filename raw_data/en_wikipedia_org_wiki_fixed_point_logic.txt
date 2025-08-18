@@ -1,0 +1,182 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Partial fixed-point logic 2 Least fixed-point logic 3 Inflationary fixed-point logic 4 Simultaneous induction 5 Transitive closure logic 6 Deterministic transitive closure logic 7 Iterations 8 Notes 9 References Toggle the table of contents Fixed-point logic 1 language 한국어 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Concept in mathematical logic In mathematical logic , fixed-point logics are extensions of classical predicate logic that have been introduced to express recursion. Their development has been motivated by descriptive complexity theory and their relationship to database query languages , in particular to Datalog .
+
+Least fixed-point logic was first studied systematically by Yiannis N. Moschovakis in 1974, [ 1 ] and it was introduced to computer scientists in 1979, when Alfred Aho and Jeffrey Ullman suggested fixed-point logic as an expressive database query language.
+
+[ 2 ] Partial fixed-point logic [ edit ] For a relational signature X , FO[PFP]( X ) is the set of formulas formed from X using first-order connectives and predicates , second-order variables as well as a partial fixed point operator PFP {\displaystyle \operatorname {PFP} } used to form formulas of the form [ PFP x → → , P ⁡ ⁡ φ φ ] t → → {\displaystyle [\operatorname {PFP} _{{\vec {x}},P}\varphi ]{\vec {t}}} , where P {\displaystyle P} is a second-order variable, x → → {\displaystyle {\vec {x}}} a tuple of first-order variables, t → → {\displaystyle {\vec {t}}} a tuple of terms and the lengths of x → → {\displaystyle {\vec {x}}} and t → → {\displaystyle {\vec {t}}} coincide with the arity of P {\displaystyle P} .
+
+Let k be an integer, x , y {\displaystyle x,y} be vectors of k variables, P be a second-order variable of arity k , and let φ be an FO(PFP,X) function using x and P as variables. We can iteratively define ( P i ) i ∈ ∈ N {\displaystyle (P_{i})_{i\in N}} such that P 0 ( x ) = f a l s e {\displaystyle P_{0}(x)=false} and P i ( x ) = φ φ ( P i − − 1 , x ) {\displaystyle P_{i}(x)=\varphi (P_{i-1},x)} (meaning φ with P i − − 1 {\displaystyle P_{i-1}} substituted for the second-order variable P ). Then, either there is a fixed point, or the list of ( P i ) {\displaystyle (P_{i})} s is cyclic.
+
+[ 3 ] [ PFP P , x ⁡ ⁡ φ φ ( y ) ] {\displaystyle [\operatorname {PFP} _{P,x}\varphi (y)]} is defined as the value of the fixed point of ( P i ) {\displaystyle (P_{i})} on y if there is a fixed point, else as false.
+
+[ 4 ] Since P s are properties of arity k , there are at most 2 n k {\displaystyle 2^{n^{k}}} values for the P i {\displaystyle P_{i}} s, so with a polynomial-space counter we can check if there is a loop or not.
+
+[ 5 ] It has been proven that on ordered finite structures, a property is expressible in FO(PFP, X ) if and only if it lies in PSPACE .
+
+[ 6 ] Least fixed-point logic [ edit ] Since the iterated predicates involved in calculating the partial fixed point are not in general monotone, the fixed-point may not always exist. 
+FO(LFP,X), least fixed-point logic , is the set of formulas in FO(PFP,X) where the partial fixed point is taken only over such formulas φ that only contain positive occurrences of P (that is, occurrences preceded by an even number of negations). This guarantees monotonicity of the fixed-point construction (That is, if the second order variable is P , then P i ( x ) {\displaystyle P_{i}(x)} always implies P i + 1 ( x ) {\displaystyle P_{i+1}(x)} ).
+
+Due to monotonicity, we only add vectors to the truth table of P , and since there are only n k {\displaystyle n^{k}} possible vectors we will always find a fixed point before n k {\displaystyle n^{k}} iterations. The Immerman-Vardi theorem, shown independently by Immerman [ 7 ] and Vardi , [ 8 ] shows that FO(LFP, X ) characterises P on all ordered structures.
+
+The expressivity of least-fixed point logic coincides exactly with the expressivity of the database querying language Datalog , showing that, on ordered structures, Datalog can express exactly those queries executable in polynomial time.
+
+[ 9 ] Inflationary fixed-point logic [ edit ] Another way to ensure the monotonicity of the fixed-point construction is by only adding new tuples to P {\displaystyle P} at every stage of iteration, without removing tuples for which P {\displaystyle P} no longer holds. Formally, we define IFP ⁡ ⁡ ( ϕ ϕ P , x ) {\displaystyle \operatorname {IFP} (\phi _{P,x})} as PFP ⁡ ⁡ ( ψ ψ P , x ) {\displaystyle \operatorname {PFP} (\psi _{P,x})} where ψ ψ ( P , x ) = ϕ ϕ ( P , x ) ∨ ∨ P ( x ) {\displaystyle \psi (P,x)=\phi (P,x)\vee P(x)} .
+
+This inflationary fixed-point agrees with the least-fixed point where the latter is defined. Although at first glance it seems as if inflationary fixed-point logic should be more expressive than least fixed-point logic since it supports a wider range of fixed-point arguments, in fact, every FO[IFP]( X )-formula is equivalent to an FO[LFP]( X )-formula.
+
+[ 10 ] Simultaneous induction [ edit ] While all the fixed-point operators introduced so far iterated only on the definition of a single predicate, many computer programs are more naturally thought of as iterating over several predicates simultaneously. By either increasing the arity of the fixed-point operators or by nesting them, every simultaneous least, inflationary or partial fixed-point can in fact be expressed using the corresponding single-iteration constructions discussed above.
+
+[ 11 ] Transitive closure logic [ edit ] Rather than allow induction over arbitrary predicates, transitive closure logic allows only transitive closures to be expressed directly.
+
+FO[TC]( X ) is the set of formulas formed from X using first-order connectives and predicates, second-order variables as well as a transitive closure operator TC {\displaystyle \operatorname {TC} } used to form formulas of the form [ TC x → → , y → → ⁡ ⁡ φ φ ] s → → t → → {\displaystyle [\operatorname {TC} _{{\vec {x}},{\vec {y}}}\varphi ]{\vec {s}}{\vec {t}}} , where x → → {\displaystyle {\vec {x}}} and y → → {\displaystyle {\vec {y}}} are tuples of pairwise distinct first-order variables, t → → {\displaystyle {\vec {t}}} and s → → {\displaystyle {\vec {s}}} tuples of terms and the lengths of x → → {\displaystyle {\vec {x}}} , y → → {\displaystyle {\vec {y}}} , s → → {\displaystyle {\vec {s}}} and t → → {\displaystyle {\vec {t}}} coincide.
+
+TC is defined as follows: Let k be a positive integer and u , v , x , y {\displaystyle u,v,x,y} be vectors of k variables. Then T C ( ϕ ϕ u , v ) ( x , y ) {\displaystyle {\mathsf {TC}}(\phi _{u,v})(x,y)} is true if there exist n vectors of variables ( z i ) {\displaystyle (z_{i})} such that z 1 = x , z n = y {\displaystyle z_{1}=x,z_{n}=y} , and for all i < n {\displaystyle i<n} , ϕ ϕ ( z i , z i + 1 ) {\displaystyle \phi (z_{i},z_{i+1})} is true. Here, φ is a formula written in FO(TC) and ϕ ϕ ( x , y ) {\displaystyle \phi (x,y)} means that the variables u and v are replaced by x and y .
+
+Over ordered structures, FO[TC] characterises the complexity class NL .
+
+[ 12 ] This characterisation is a crucial part of Immerman's proof that NL is closed under complement (NL = co-NL).
+
+[ 13 ] Deterministic transitive closure logic [ edit ] FO[DTC]( X ) is defined as FO(TC,X) where the transitive closure operator is deterministic. This means that when we apply DTC ⁡ ⁡ ( ϕ ϕ u , v ) {\displaystyle \operatorname {DTC} (\phi _{u,v})} , we know that for all u , there exists at most one v such that ϕ ϕ ( u , v ) {\displaystyle \phi (u,v)} .
+
+We can suppose that DTC ⁡ ⁡ ( ϕ ϕ u , v ) {\displaystyle \operatorname {DTC} (\phi _{u,v})} is syntactic sugar for TC ⁡ ⁡ ( ψ ψ u , v ) {\displaystyle \operatorname {TC} (\psi _{u,v})} where ψ ψ ( u , v ) = ϕ ϕ ( u , v ) ∧ ∧ ∀ ∀ x ( x = v ∨ ∨ ¬ ¬ ϕ ϕ ( u , x ) ) {\displaystyle \psi (u,v)=\phi (u,v)\wedge \forall x(x=v\vee \neg \phi (u,x))} .
+
+Over ordered structures, FO[DTC] characterises the complexity class L .
+
+[ 12 ] Iterations [ edit ] The fixed-point operations that we defined so far iterate the inductive definitions of the predicates mentioned in the formula indefinitely, until a fixed point is reached. In implementations, it may be necessary to bound the number of iterations to limit the computation time. The resulting operators are also of interest from a theoretical point of view since they can also be used to characterise complexity classes.
+
+We will define first-order with iteration, F O [ t ( n ) ] {\displaystyle {\mathsf {FO}}[t(n)]} ; here t ( n ) {\displaystyle t(n)} is a (class of) functions from integers to integers, and for different classes of functions t ( n ) {\displaystyle t(n)} we will obtain different complexity classes F O [ t ( n ) ] {\displaystyle {\mathsf {FO}}[t(n)]} .
+
+In this section we will write ( ∀ ∀ x P ) Q {\displaystyle (\forall xP)Q} to mean ( ∀ ∀ x ( P ⇒ ⇒ Q ) ) {\displaystyle (\forall x(P\Rightarrow Q))} and ( ∃ ∃ x P ) Q {\displaystyle (\exists xP)Q} to mean ( ∃ ∃ x ( P ∧ ∧ Q ) ) {\displaystyle (\exists x(P\wedge Q))} . We first need to define quantifier blocks (QB), a quantifier block is a list ( Q 1 x 1 , ϕ ϕ 1 ) .
+
+.
+
+.
+
+( Q k x k , ϕ ϕ k ) {\displaystyle (Q_{1}x_{1},\phi _{1})...(Q_{k}x_{k},\phi _{k})} where the ϕ ϕ i {\displaystyle \phi _{i}} s are quantifier-free FO-formulae and Q i {\displaystyle Q_{i}} s are either ∀ ∀ {\displaystyle \forall } or ∃ ∃ {\displaystyle \exists } . If Q is a quantifiers block then we will call [ Q ] t ( n ) {\displaystyle [Q]^{t(n)}} the iteration operator, which is defined as Q written t ( n ) {\displaystyle t(n)} time. One should pay attention that here there are k ∗ ∗ t ( n ) {\displaystyle k*t(n)} quantifiers in the list, but only k variables and each of those variable are used t ( n ) {\displaystyle t(n)} times.
+
+[ 14 ] We can now define F O [ t ( n ) ] {\displaystyle {\mathsf {FO}}[t(n)]} to be the FO-formulae with an iteration operator whose exponent is in the class t ( n ) {\displaystyle t(n)} , and we obtain the following equalities: F O [ ( log ⁡ ⁡ n ) i ] {\displaystyle {\mathsf {FO}}[(\log n)^{i}]} is equal to FO-uniform AC i , and in fact F O [ t ( n ) ] {\displaystyle {\mathsf {FO}}[t(n)]} is FO-uniform AC of depth t ( n ) {\displaystyle t(n)} .
+
+[ 15 ] F O [ ( log ⁡ ⁡ n ) O ( 1 ) ] {\displaystyle {\mathsf {FO}}[(\log n)^{O(1)}]} is equal to NC.
+
+[ 16 ] F O [ n O ( 1 ) ] {\displaystyle {\mathsf {FO}}[n^{O(1)}]} is equal to PTIME . It is also another way to write FO(IFP).
+
+[ 17 ] F O [ 2 n O ( 1 ) ] {\displaystyle {\mathsf {FO}}[2^{n^{O(1)}}]} is equal to PSPACE . It is also another way to write FO(PFP).
+
+[ 18 ] Notes [ edit ] ^ Moschovakis, Yiannis N.
+
+(1974).
+
+"Elementary Induction on Abstract Structures" .
+
+Studies in Logic and the Foundations of Mathematics .
+
+77 .
+
+doi : 10.1016/s0049-237x(08)x7092-2 .
+
+ISBN 9780444105370 .
+
+ISSN 0049-237X .
+
+^ Aho, Alfred V.; Ullman, Jeffrey D. (1979). "Universality of data retrieval languages".
+
+Proceedings of the 6th ACM SIGACT-SIGPLAN symposium on Principles of programming languages - POPL '79 . New York, New York, USA: ACM Press. pp.
+
+110– 119.
+
+doi : 10.1145/567752.567763 .
+
+S2CID 3242505 .
+
+^ Ebbinghaus and Flum, p. 121 ^ Ebbinghaus and Flum, p. 121 ^ Immerman 1999, p. 161 ^ Abiteboul, S.; Vianu, V. (1989).
+
+"Fixpoint extensions of first-order logic and datalog-like languages" .
+
+[1989] Proceedings. Fourth Annual Symposium on Logic in Computer Science . IEEE Comput. Soc. Press. pp.
+
+71– 79.
+
+doi : 10.1109/lics.1989.39160 .
+
+ISBN 0-8186-1954-6 .
+
+S2CID 206437693 .
+
+^ Immerman, Neil (1986).
+
+"Relational queries computable in polynomial time" .
+
+Information and Control .
+
+68 ( 1– 3): 86– 104.
+
+doi : 10.1016/s0019-9958(86)80029-8 .
+
+^ Vardi, Moshe Y. (1982). "The complexity of relational query languages (Extended Abstract)".
+
+Proceedings of the fourteenth annual ACM symposium on Theory of computing - STOC '82 . New York, NY, USA: ACM. pp.
+
+137– 146.
+
+CiteSeerX 10.1.1.331.6045 .
+
+doi : 10.1145/800070.802186 .
+
+ISBN 978-0897910705 .
+
+S2CID 7869248 .
+
+^ Ebbinghaus and Flum, p. 242 ^ Yuri Gurevich and Saharon Shelah, Fixed-pointed extension of first order logic, Annals of Pure and Applied Logic 32 (1986) 265--280.
+
+^ Ebbinghaus and Flum, pp. 179, 193 ^ a b Immerman, Neil (1983).
+
+"Languages which capture complexity classes" .
+
+Proceedings of the fifteenth annual ACM symposium on Theory of computing - STOC '83 . New York, New York, USA: ACM Press. pp.
+
+347– 354.
+
+doi : 10.1145/800061.808765 .
+
+ISBN 0897910990 .
+
+S2CID 7503265 .
+
+^ Immerman, Neil (1988).
+
+"Nondeterministic Space is Closed under Complementation" .
+
+SIAM Journal on Computing .
+
+17 (5): 935– 938.
+
+doi : 10.1137/0217058 .
+
+ISSN 0097-5397 .
+
+^ Immerman 1999, p. 63 ^ Immerman 1999, p. 82 ^ Immerman 1999, p. 84 ^ Immerman 1999, p. 58 ^ Immerman 1999, p. 161 References [ edit ] Ebbinghaus, Heinz-Dieter; Flum, Jörg (1999).
+
+Finite Model Theory . Perspectives in Mathematical Logic (2 ed.). Springer.
+
+doi : 10.1007/978-3-662-03182-7 .
+
+ISBN 978-3-662-03184-1 .
+
+Neil, Immerman (1999).
+
+Descriptive complexity . Springer.
+
+ISBN 0-387-98600-6 .
+
+OCLC 901297152 .
+
+v t e Mathematical logic General Axiom list Cardinality First-order logic Formal proof Formal semantics Foundations of mathematics Information theory Lemma Logical consequence Model Theorem Theory Type theory Theorems ( list ) and paradoxes Gödel's completeness and incompleteness theorems Tarski's undefinability Banach–Tarski paradox Cantor's theorem, paradox and diagonal argument Compactness Halting problem Lindström's Löwenheim–Skolem Russell's paradox Logics Traditional Classical logic Logical truth Tautology Proposition Inference Logical equivalence Consistency Equiconsistency Argument Soundness Validity Syllogism Square of opposition Venn diagram Propositional Boolean algebra Boolean functions Logical connectives Propositional calculus Propositional formula Truth tables Many-valued logic 3 finite ∞ Predicate First-order list Second-order Monadic Higher-order Fixed-point Free Quantifiers Predicate Monadic predicate calculus Set theory Set hereditary Class ( Ur- ) Element Ordinal number Extensionality Forcing Relation equivalence partition Set operations: intersection union complement Cartesian product power set identities Types of sets Countable Uncountable Empty Inhabited Singleton Finite Infinite Transitive Ultrafilter Recursive Fuzzy Universal Universe constructible Grothendieck Von Neumann Maps and cardinality Function / Map domain codomain image In / Sur / Bi -jection Schröder–Bernstein theorem Isomorphism Gödel numbering Enumeration Large cardinal inaccessible Aleph number Operation binary Set theories Zermelo–Fraenkel axiom of choice continuum hypothesis General Kripke–Platek Morse–Kelley Naive New Foundations Tarski–Grothendieck Von Neumann–Bernays–Gödel Ackermann Constructive Formal systems ( list ), language and syntax Alphabet Arity Automata Axiom schema Expression ground Extension by definition conservative Relation Formation rule Grammar Formula atomic closed ground open Free/bound variable Language Metalanguage Logical connective ¬ ∨ ∧ → ↔ = Predicate functional variable propositional variable Proof Quantifier ∃ !
+
+∀ rank Sentence atomic spectrum Signature String Substitution Symbol function logical/constant non-logical variable Term Theory list Example axiomatic systems ( list ) of arithmetic : Peano second-order elementary function primitive recursive Robinson Skolem of the real numbers Tarski's axiomatization of Boolean algebras canonical minimal axioms of geometry : Euclidean : Elements Hilbert's Tarski's non-Euclidean Principia Mathematica Proof theory Formal proof Natural deduction Logical consequence Rule of inference Sequent calculus Theorem Systems axiomatic deductive Hilbert list Complete theory Independence ( from ZFC ) Proof of impossibility Ordinal analysis Reverse mathematics Self-verifying theories Model theory Interpretation function of models Model equivalence finite saturated spectrum submodel Non-standard model of arithmetic Diagram elementary Categorical theory Model complete theory Satisfiability Semantics of logic Strength Theories of truth semantic Tarski's Kripke's T-schema Transfer principle Truth predicate Truth value Type Ultraproduct Validity Computability theory Church encoding Church–Turing thesis Computably enumerable Computable function Computable set Decision problem decidable undecidable P NP P versus NP problem Kolmogorov complexity Lambda calculus Primitive recursive function Recursion Recursive set Turing machine Type theory Related Abstract logic Algebraic logic Automated theorem proving Category theory Concrete / Abstract category Category of sets History of logic History of mathematical logic timeline Logicism Mathematical object Philosophy of mathematics Supertask Mathematics portal Retrieved from " https://en.wikipedia.org/w/index.php?title=Fixed-point_logic&oldid=1304388088 " Categories : Descriptive complexity Database theory Predicate logic Hidden categories: Articles with short description Short description is different from Wikidata This page was last edited on 5 August 2025, at 19:17 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Fixed-point logic 1 language Add topic
+

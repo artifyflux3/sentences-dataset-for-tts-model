@@ -1,0 +1,357 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Origin 2 Flags 3 Definition variations and ambiguity 4 Inconsistent behavior 5 Methods to address integer overflow problems Toggle Methods to address integer overflow problems subsection 5.1 Detection 5.2 Avoidance 5.3 Handling 5.4 Programming language support 5.5 Saturated arithmetic 6 Examples 7 See also 8 References 9 External links Toggle the table of contents Integer overflow 16 languages العربية Català Deutsch Español فارسی Français 한국어 עברית Norsk bokmål Polski Русский Simple English Українська Tiếng Việt 粵語 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia (Redirected from Arithmetic overflow ) Computer arithmetic error Integer overflow can be demonstrated through an odometer overflowing, a mechanical version of the phenomenon. All digits are set to the maximum 9 and the next increment of the white digit causes a cascade of carry-over additions setting all digits to 0, but there is no higher digit (1,000,000s digit) to change to a 1, so the counter resets to zero. This is wrapping in contrast to saturating .
+
+In computer programming , an integer overflow occurs when an arithmetic operation on integers attempts to create a numeric value that is outside of the range that can be represented with a given number of digits – either higher than the maximum or lower than the minimum representable value.
+
+Integer overflow specifies an overflow of the data type integer . An overflow (of any type) occurs when a computer program or system tries to store more data in a fixed-size location than it can handle, resulting in data loss or corruption .
+
+[ 1 ] The most common implementation of integers in modern computers are two's complement .
+
+[ 2 ] In two's complement the most significant bit represents the sign (positive or negative), and the remaining least significant bits represent the number. Unfortunately, for most architectures the ALU doesn't know the binary representation is signed .
+
+Arithmetic operations can result in a value of bits exceeding the fixed-size of bits representing the number, this causes the sign bit to be changed, an integer overflow.  The most infamous examples are: 2,147,483,647 + 1 = -2,147,483,648 and -2,147,483,648 - 1 = 2,147,483,647.
+
+On some processors like graphics processing units (GPUs) and digital signal processors (DSPs) which support saturation arithmetic , overflowed results would be clamped , i.e. set to the minimum value in the representable range if the result is below the minimum and set to the maximum value in the representable range if the result is above the maximum, rather than wrapped around.
+
+An overflow condition may give results leading to unintended behavior. In particular, if the possibility has not been anticipated, overflow can compromise a program's reliability and security .
+
+For some applications, such as timers and clocks, wrapping on overflow can be desirable. The C11 standard states that for unsigned integers, modulo wrapping is the defined behavior and the term overflow never applies: "a computation involving unsigned operands can never overflow." [ 3 ] Origin [ edit ] Integer overflow occurs when an arithmetic operation on integers attempts to create a numeric value that is outside of the range that can be represented with a given number of digits. In the context of computer programming, the integers are binary , but any positional numeral system can have an invalid result of an arithmetic operation if positions are confined. As shown in the odometer example, using the decimal system, with the constraint of 6 positions ( digits ) the following operation will have an invalid result: 999999 + 1 .  Likewise, a binary system limited to 4 positions ( bits ) will have an invalid result  for the following operation: 1111 + 1 .  For both examples the results will have a value exceeding the range that can be represented by the constraints. Another way to look at this problem is that the most significant position's operation has a carry requiring another position/digit/bit to be allocated, breaking the constraints.
+
+All integers in computer programming have constraints of a max value and min value. The primary factors for determining the range is the allocation of bits and if it is signed or unsigned . The standard integer depends on the platform and programming language . Additional integer representation can be less than or greater than standard. Examples are the short integer and long integer respectively. Even arbitrary-precision exists, but would be limited by pre-set precision or available system memory.
+
+Most ALUs perform operations on unsigned (positive) binary numbers . These ALUs do not have any capability of dealing with signed (positive and negative) numbers. Because most numbers in programs need to support negative numbers, an abstraction is used, redefining the bits' meaning to include a sign. The most common solution is two's complement . Most programming languages provide this construct. A signed 32-bit integer will use the most significant bit to signify the sign (positive or negative), and the remaining 31-bits to represent the number. When an operation occurs that results in a carry past the 31-bits allocated for the number, the sign bit is overwritten.  The ALU doesn't know it did anything wrong. It is up to the program to detect this overflow fault.
+
+For usage of unsigned integers of register width , the ALU is not capable of returning a result with more bits outside its width.  The ALU will return the result along with a flag for carry-out. When these flags are returned true, the ALU has detected overflow.
+
+After overflow is detected, it is up to the program to handle this with additional logic.  The resulting value from the operation is corrupted and can cause additional issues if not handled properly.
+
+Using integers of the same size as the ALU 's register width will have the best performance in most applications.
+
+SIMD instruction extensions can provide single operations for integers exceeding the register width. For x86 32-bit processors the Streaming SIMD extensions (SSE2) added registers for 64-bit integers. For x86-64 64-bit processors the Advanced Vector Extensions (AVX) added registers up to 512-bit integers.
+
+[ 4 ] Typical Integer Boundaries Bits Alias [ a ] Range Signed Range [ b ] Unsigned Range 8-bit byte [ 5 ] [ c ] , sbyte, [ 6 ] octet 2 8 − 1 -128 [ 7 ] 0 [ 8 ] 127 [ 9 ] 255 [ 10 ] 16-bit word , short , int16, [ 11 ] uint16 [ 12 ] 2 16 − 1 −32,768 [ 13 ] 0 [ 14 ] 32,767 [ 15 ] 65,535 [ 16 ] 32-bit [ d ] int32, [ 17 ] uint32 [ 18 ] 2 32 − 1 -2,147,483,648 [ 19 ] 0 [ 20 ] 2,147,483,647 [ 21 ] 4,294,967,295 [ 22 ] 64-bit [ e ] int64, [ 23 ] uint64 [ 24 ] 2 64 − 1 −9,223,372,036,854,775,808 [ 25 ] 0 [ 26 ] 9,223,372,036,854,775,807 [ 27 ] 18,446,744,073,709,551,615 [ 28 ] 128-bit int128, [ 29 ] uint128 [ 30 ] 2 128 − 1 −170,141,183,460,469,231,731,687,303,715,884,105,728 0 170,141,183,460,469,231,731,687,303,715,884,105,727 340,282,366,920,938,463,463,374,607,431,768,211,455 ^ The integer (int) data type typically uses two's complement thus are signed. The 'u' prefix designates the unsigned implementation.
+
+^ Signed Ranges are assuming two's complement ^ The byte data type is typically unsigned by default.  The 's' prefix designates the signed implementation.
+
+^ The most common for personal computers as of 2005 [update] .
+
+^ The most common for personal computers as of 2025 [update] .
+
+When an unsigned arithmetic operation produces a result larger than the maximum above for an N-bit integer, an overflow reduces the result to modulo N-th power of 2, retaining only the least significant bits of the result and effectively causing a wrap around .
+
+In particular, multiplying or adding two integers may result in a value that is unexpectedly small, and subtracting from a small integer may cause a wrap to a large positive value (for example, 8-bit integer addition 255 + 2 results in 1, which is 257 mod 2 8 , and similarly subtraction 0 − 1 results in 255, a two's complement representation of −1).
+
+Such wrap around may cause security detriments—if an overflowed value is used as the number of bytes to allocate for a buffer, the buffer will be allocated unexpectedly small, potentially leading to a buffer overflow which, depending on the use of the buffer, might in turn cause arbitrary code execution.
+
+If the variable has a signed integer type, a program may make the assumption that a variable always contains a positive value. An integer overflow can cause the value to wrap and become negative, which violates the program's assumption and may lead to unexpected behavior (for example, 8-bit integer addition of 127 + 1 results in −128, a two's complement of 128). (A solution for this particular problem is to use unsigned integer types for values that a program expects and assumes will never be negative.) Flags [ edit ] Most computers have two dedicated processor flags to check for overflow conditions.
+
+The carry flag is set when the result of an addition or subtraction, considering the operands and result as unsigned numbers, does not fit in the given number of bits. This indicates an overflow with a carry or borrow from the most significant bit . An immediately following add with carry or subtract with borrow operation would use the contents of this flag to modify a register or a memory location that contains the higher part of a multi-word value.
+
+The overflow flag is set when the result of an operation on signed numbers does not have the sign that one would predict from the signs of the operands, e.g., a negative result when adding two positive numbers. This indicates that an overflow has occurred and the signed result represented in two's complement form would not fit in the given number of bits.
+
+Definition variations and ambiguity [ edit ] For an unsigned type, when the ideal result of an operation is outside the type's representable range and the returned result is obtained by wrapping, then this event is commonly defined as an overflow. In contrast, the C11 standard defines that this event is not an overflow and states "a computation involving unsigned operands can never overflow." [ 3 ] When the ideal result of an integer operation is outside the type's representable range and the returned result is obtained by clamping, then this event is commonly defined as a saturation. Use varies as to whether a saturation is or is not an overflow. To eliminate ambiguity, the terms wrapping overflow [ 31 ] and saturating overflow [ 32 ] can be used.
+
+Integer Underflow is an improper term used to signify the negative side of overflow. This terminology confuses the prefix "over" in overflow to be related to the sign of the number. Overflowing is related the boundary of bits, specifically the number's bits overflowing.  In two's complement this overflows into the sign bit. Many references can be found to integer underflow, but lack merit. For example: CWE-191 provides two code examples that are classic overflow and cast exceptions. CWE-191 then circularly references 24 Deadly Sins of Software Security .
+
+[ 33 ] This book does not define or give examples to integer underflow.
+
+[ 34 ] Apple's developer's guide similarly uses the term in a section titled, "Avoiding Integer Overflows and Underflows" but then the section examines overflows without defining or talking about integer underflows.
+
+[ 35 ] This term can also be found in bug reports and changelogs. The term maybe used improperly by the bug reporter or inexperienced engineer. These always result in a fix that is explained by another known error type such as overflow, array boundary, or improper casting.
+
+[ 36 ] Although underflow is not possible on integer operations, arithmetic underflow is possible on floating-point operations .
+
+When the ideal result of an operation is not an exact integer, the meaning of overflow can be ambiguous in edge cases. Consider the case where the ideal result has a value of 127.25 and the output type's maximum representable value is 127. If overflow is defined as the ideal value being outside the representable range of the output type, then this case would be classified as an overflow. For operations that have well defined rounding behavior, overflow classification may need to be postponed until after rounding is applied. The C11 standard [ 3 ] defines that conversions from floating point to integer must round toward zero. If C is used to convert the floating point value 127.25 to integer, then rounding should be applied first to give an ideal integer output of 127. Since the rounded integer is in the outputs range, the C standard would not classify this conversion as an overflow.
+
+Inconsistent behavior [ edit ] The behavior on occurrence of overflow may not be consistent in all circumstances. For example, in the language Rust , while functionality is provided to give users choice and control, the behavior for basic use of mathematic operators is naturally fixed; however, this fixed behavior differs between a program built in 'debug' mode and one built in 'release' mode.
+
+[ 37 ] In C, unsigned integer overflow is defined to wrap around, while signed integer overflow causes undefined behavior .
+
+Methods to address integer overflow problems [ edit ] Integer overflow handling in various programming languages Language Unsigned integer Signed integer Ada modulo the type's modulus raise Constraint_Error C , C++ modulo power of two undefined behavior C# modulo power of 2 in unchecked context; System.OverflowException is raised in checked context [ 38 ] Java modulo power of two (char is the only unsigned primitive type in Java) modulo power of two JavaScript all numbers are double-precision floating-point except the new BigInt MATLAB Builtin integers saturate. Fixed-point integers configurable to wrap or saturate Python 2 — convert to long type (bigint) Seed7 — raise OVERFLOW_ERROR [ 39 ] Scheme — convert to bigNum Simulink configurable to wrap or saturate Smalltalk — convert to LargeInteger Swift Causes error unless using special overflow operators.
+
+[ 40 ] Detection [ edit ] Run-time overflow detection implementation UBSan ( undefined behavior sanitizer) is available for C compilers .
+
+In Java 8, there are overloaded methods , for example Math.addExact(int, int) , which will throw an ArithmeticException in case of overflow.
+
+Computer emergency response team (CERT) developed the As-if Infinitely Ranged (AIR) integer model, a largely automated mechanism to eliminate integer overflow and truncation in C/C++ using run-time error handling.
+
+[ 41 ] Avoidance [ edit ] By allocating variables with data types that are large enough to contain all values that may possibly be computed and stored in them, it is always possible to avoid overflow. Even when the available space or the fixed data types provided by a programming language or environment are too limited to allow for variables to be defensively allocated with generous sizes, by carefully ordering operations and checking operands in advance, it is often possible to ensure a priori that the result will never be larger than can be stored.
+
+Static analysis tools, formal verification and design by contract techniques can be used to more confidently and robustly ensure that an overflow cannot accidentally result.
+
+Handling [ edit ] If it is anticipated that overflow may occur, then tests can be inserted into the program to detect when it happens, or is about to happen, and do other processing to mitigate it. For example, if an important result computed from user input overflows, the program can stop, reject the input, and perhaps prompt the user for different input, rather than the program proceeding with the invalid overflowed input and probably malfunctioning as a consequence.
+
+CPUs generally have a way to detect this to support addition of numbers larger than their register size, typically using a status bit. The technique is called multiple-precision arithmetic. Thus, it is possible to perform byte-wide addition on operands wider than a byte: first add the low bytes, store the result and check for overflow; then add the high bytes, and if necessary add the carry from the low bytes, then store the result.
+
+Handling possible overflow of a calculation may sometimes present a choice between performing a check before a calculation (to determine whether or not overflow is going to occur), or after it (to consider whether or not it likely occurred based on the resulting value). Since some implementations might generate a trap condition on integer overflow, the most portable programs test in advance of performing the operation that might overflow.
+
+Programming language support [ edit ] Programming languages implement various mitigation methods against an accidental overflow: Ada , Seed7 , and certain variants of functional languages trigger an exception condition on overflow, while Python (since 2.4) seamlessly converts internal representation of the number to match its growth, eventually representing it as long – whose ability is only limited by the available memory.
+
+[ 42 ] In languages with native support for arbitrary-precision arithmetic and type safety (such as Python , Smalltalk , or Common Lisp ), numbers are promoted to a larger size automatically when overflows occur, or exceptions thrown (conditions signaled) when a range constraint exists. Using such languages may thus be helpful to mitigate this issue. However, in some such languages, situations are still possible where an integer overflow can occur. An example is explicit optimization of a code path which is considered a bottleneck by the profiler. In the case of Common Lisp , this is possible by using an explicit declaration to type-annotate a variable to a machine-size word (fixnum) [ 43 ] and lower the type safety level to zero [ 44 ] for a particular code block.
+
+[ 45 ] [ 46 ] [ 47 ] [ 48 ] In stark contrast to older languages such as C, some newer languages such as Rust provide built-in functions that allow easy detection and user choice over how overflow should be handled case-by-case. In Rust, while use of basic mathematic operators naturally lacks such flexibility, users can alternatively perform calculations via a set of methods provided by each of the integer primitive types. These methods give users several choices between performing a checked (or overflowing ) operation (which indicates whether or not overflow occurred via the return type); an 'unchecked' operation; an operation that performs wrapping, or an operation which performs saturation at the numeric bounds.
+
+Saturated arithmetic [ edit ] In computer graphics or signal processing , it is typical to work on data that ranges from 0 to 1 or from −1 to 1. For example, take a grayscale image where 0 represents black, 1 represents white, and the values in between represent shades of gray. One operation that one may want to support is brightening the image by multiplying every pixel by a constant.
+
+Saturated arithmetic allows one to just blindly multiply every pixel by that constant without worrying about overflow by just sticking to a reasonable outcome that all these pixels larger than 1 (i.e., "brighter than white" ) just become white and all values "darker than black" just become black.
+
+Examples [ edit ] Unanticipated arithmetic overflow is a fairly common cause of program errors . Such overflow bugs may be hard to discover and diagnose because they may manifest themselves only for very large input data sets, which are less likely to be used in validation tests.
+
+Taking the arithmetic mean of two numbers by adding them and dividing by two, as done in many search algorithms , causes error if the sum (although not the resulting mean) is too large to be represented and hence overflows.
+
+[ 49 ] Between 1985 and 1987, arithmetic overflow in the Therac-25 radiation therapy machines, along with a lack of hardware safety controls, caused the death of at least six people from radiation overdoses.
+
+[ 50 ] An unhandled arithmetic overflow in the engine steering software was the primary cause of the crash of the 1996 maiden flight of the Ariane 5 rocket.
+
+[ 51 ] The software had been considered bug-free since it had been used in many previous flights, but those used smaller rockets which generated lower acceleration than Ariane 5. Frustratingly, the part of the software in which the overflow error occurred was not even required to be running for the Ariane 5 at the time that it caused the rocket to fail: it was a launch-regime process for a smaller predecessor of the Ariane 5 that had remained in the software when it was adapted for the new rocket. Further, the true cause of the failure was a flaw in the engineering specification of how the software dealt with the overflow when it was detected: it did a diagnostic dump to its bus, which would have been connected to test equipment during software testing during development but was connected to the rocket steering motors during flight; the data dump drove the engine nozzle hard to one side which put the rocket out of aerodynamic control and precipitated its rapid breakup in the air.
+
+[ 52 ] On 30 April 2015, the U.S.
+
+Federal Aviation Administration announced it will order Boeing 787 operators to reset its electrical system periodically, to avoid an integer overflow which could lead to loss of electrical power and ram air turbine deployment, and Boeing deployed a software update in the fourth quarter.
+
+[ 53 ] The European Aviation Safety Agency followed on 4 May 2015.
+
+[ 54 ] The error happens after 2 31 hundredths of a second (about 249 days), indicating a 32-bit signed integer .
+
+Overflow bugs are evident in some computer games. In Super Mario Bros.
+
+for the NES , the stored number of lives is a signed byte (ranging from −128 to 127) meaning the player can safely have 127 lives, but when the player reaches their 128th life, the counter rolls over to zero lives (although the number counter is glitched before this happens) and stops keeping count. As such, if the player then dies it's an immediate game over. This is caused by the game's data overflow that was an error of programming as the developers may not have thought said number of lives would be reasonably earned in a full playthrough.
+
+[ citation needed ] In the arcade game Donkey Kong , it is impossible to advance past level 22 due to an integer overflow in its time/bonus. The game calculates the time/bonus by taking the level number a user is on, multiplying it by 10, and adding 40. When they reach level 22, the time/bonus number is 260, which is too large for its 8-bit 256 value register, so it overflows to a value of 4 – too short to finish the level. In Donkey Kong Jr. Math , when trying to calculate a number over 10,000, it shows only the first 4 digits. Overflow is the cause of the famous "split-screen" level in Pac-Man .
+
+[ 55 ] Such a bug also caused the Far Lands in Minecraft Java Edition which existed from the Infdev development period to Beta 1.7.3; it was later fixed in Beta 1.8. The same bug also existed in Minecraft Bedrock Edition but has since been fixed.
+
+[ 56 ] [ unreliable source?
+
+] An integer signedness bug in the stack setup code emitted by the Pascal compiler prevented IBM– Microsoft Macro Assembler (MASM) version 1.00, a DOS program from 1981, and many other programs compiled with the same compiler, to run under some configurations with more than 512 KiB of memory.
+
+IBM– Microsoft Macro Assembler (MASM) version 1.00, and likely all other programs built by the same Pascal compiler, had an integer overflow and signedness error in the stack setup code, which prevented them from running on newer DOS machines or emulators under some common configurations with more than 512 KiB of memory. The program either hangs or displays an error message and exits to DOS.
+
+[ 57 ] In August 2016, a casino machine at Resorts World casino printed a prize ticket of $42,949,672.76 as a result of an overflow bug. The casino refused to pay this amount, calling it a malfunction, using in their defense that the machine clearly stated that the maximum payout was $10,000, so any prize exceeding that had to be the result of a programming bug. The New York State Gaming Commission ruled in favor of the casino.
+
+[ 58 ] See also [ edit ] Carry (arithmetic) Modular arithmetic Nuclear Gandhi References [ edit ] ^ "What is an overflow error?" .
+
+^ E.g. "Signed integers are two's complement binary values that can be used to represent both positive and negative integer values", Section 4.2.1 in Intel 64 and IA-32 Architectures Software Developer's Manual , Volume 1: Basic Architecture, November 2006 ^ a b c ISO staff.
+
+"ISO/IEC 9899:2011 Information technology - Programming languages - C" .
+
+ANSI.org .
+
+^ "Intel® AVX-512 - Fast Modular Multiplication Technique" .
+
+^ ".NET Byte Struct" .
+
+^ ".NET SByte Struct" .
+
+^ ".NET SByte.MinValue Field" .
+
+^ ".NET Byte.MinValue Field" .
+
+^ ".NET SByte.MaxValue Field" .
+
+^ ".NET Byte.MaxValue Field" .
+
+^ ".NET Int16 Struct" .
+
+^ ".NET UInt16 Struct" .
+
+^ ".NET Int16.MinValue Field" .
+
+^ ".NET UInt16.MinValue Field" .
+
+^ ".NET Int16.MaxValue Field" .
+
+^ ".NET UInt16.MaxValue Field" .
+
+^ ".NET Int32 Struct" .
+
+^ ".NET UInt32 Struct" .
+
+^ ".NET Int32.MinValue Field" .
+
+^ ".NET UInt32.MinValue Field" .
+
+^ ".NET Int32.MaxValue Field" .
+
+^ ".NET UInt32.MaxValue Field" .
+
+^ ".NET Int64 Struct" .
+
+^ ".NET UInt64 Struct" .
+
+^ ".NET Int64.MinValue Field" .
+
+^ ".NET UInt64.MinValue Field" .
+
+^ ".NET Int64.MaxValue Field" .
+
+^ ".NET UInt64.MaxValue Field" .
+
+^ ".NET Int128 Struct" .
+
+^ ".NET UInt128 Struct" .
+
+^ "Wrap on overflow - MATLAB & Simulink" .
+
+www.mathworks.com .
+
+^ "Saturate on overflow - MATLAB & Simulink" .
+
+www.mathworks.com .
+
+^ "CWE - CWE-191: Integer Underflow (Wrap or Wraparound) (3.1)" .
+
+cwe.mitre.org .
+
+^ Le Blanc, David.
+
+24 Deadly Sins of Software Security . p. 120.
+
+^ "Avoiding Buffer Overflows and Underflows" .
+
+developer.apple.com .
+
+^ "Integer underflow and buffer overflow processing MP4 metadata in libstagefright" .
+
+Mozilla .
+
+^ "Operator expressions - The Rust Reference" .
+
+Rust-lang.org . Retrieved 2021-02-12 .
+
+^ BillWagner (8 April 2023).
+
+"Checked and Unchecked (C# Reference)" .
+
+msdn.microsoft.com .
+
+^ Seed7 manual , section 16.3.3 OVERFLOW_ERROR.
+
+^ The Swift Programming Language. Swift 2.1 Edition. October 21, 2015.
+
+^ As-if Infinitely Ranged Integer Model ^ Python documentation , section 5.1 Arithmetic conversions.
+
+^ " Declaration TYPE " .
+
+Common Lisp HyperSpec .
+
+^ " Declaration OPTIMIZE " .
+
+Common Lisp HyperSpec .
+
+^ Reddy, Abhishek (2008-08-22).
+
+"Features of Common Lisp" .
+
+^ Pierce, Benjamin C.
+
+(2002).
+
+Types and Programming Languages . MIT Press.
+
+ISBN 0-262-16209-1 .
+
+^ Wright, Andrew K.; Felleisen, Matthias (1994).
+
+"A Syntactic Approach to Type Soundness" .
+
+Information and Computation .
+
+115 (1): 38– 94.
+
+doi : 10.1006/inco.1994.1093 .
+
+^ Macrakis, Stavros (April 1982). "Safety and power".
+
+ACM SIGSOFT Software Engineering Notes .
+
+7 (2): 25– 26.
+
+doi : 10.1145/1005937.1005941 .
+
+S2CID 10426644 .
+
+^ "Extra, Extra - Read All About It: Nearly All Binary Searches and Mergesorts are Broken" .
+
+googleresearch.blogspot.co.uk . 2 June 2006.
+
+^ Beuhler, Patrick (2021-07-05).
+
+"When Small Software Bugs Cause Big Problems" .
+
+Grio Blog . Retrieved 2023-07-16 .
+
+^ Gleick, James (1 December 1996).
+
+"A Bug and A Crash" .
+
+The New York Times . Retrieved 17 January 2019 .
+
+^ Official report of Ariane 5 launch failure incident.
+
+^ Mouawad, Jad (30 April 2015).
+
+"F.A.A. Orders Fix for Possible Power Loss in Boeing 787" .
+
+New York Times .
+
+^ "US-2015-09-07: Electrical Power – Deactivation" .
+
+Airworthiness Directives .
+
+European Aviation Safety Agency . 4 May 2015.
+
+^ Pittman, Jamey.
+
+"The Pac-Man Dossier" .
+
+^ "Far Lands" .
+
+Minecraft Wiki . Retrieved 24 September 2023 .
+
+^ Lenclud, Christophe (21 April 2017).
+
+"Debugging IBM MACRO Assembler Version 1.00" .
+
+^ Kravets, David (June 15, 2017).
+
+"Sorry ma'am you didn't win $43M – there was a slot machine 'malfunction' " .
+
+Ars Technica .
+
+External links [ edit ] Phrack #60, Basic Integer Overflows Phrack #60, Big Loop Integer Protection Efficient and Accurate Detection of Integer-based Attacks WASC Threat Classification – Integer Overflows Understanding Integer Overflow in C/C++ Binary Overflow – Binary Arithmetic ISO C11 Standard NewPP limit report
+Parsed by mw‐web.codfw.main‐7fd8ff79f8‐sfsnf
+Cached time: 20250813082735
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.660 seconds
+Real time usage: 0.802 seconds
+Preprocessor visited node count: 4304/1000000
+Revision size: 39569/2097152 bytes
+Post‐expand include size: 77262/2097152 bytes
+Template argument size: 8000/2097152 bytes
+Highest expansion depth: 24/100
+Expensive parser function count: 7/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 177665/5000000 bytes
+Lua time usage: 0.345/10.000 seconds
+Lua memory usage: 6074064/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  653.511      1 -total
+ 59.02%  385.689      2 Template:Reflist
+ 44.37%  289.948     47 Template:Cite_web
+ 10.54%   68.896      1 Template:Short_description
+  9.00%   58.837      1 Template:Table_alignment
+  6.41%   41.918      2 Template:Pagetype
+  6.15%   40.216      2 Template:Fix
+  5.76%   37.616      1 Template:Citation_needed
+  4.62%   30.192      1 Template:Notelist
+  4.25%   27.784     20 Template:Small Saved in parser cache with key enwiki:pcache:2151421:|#|:idhash:canonical and timestamp 20250813082735 and revision id 1305063124. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Integer_overflow&oldid=1305063124 " Categories : Software bugs Computer security exploits Computer arithmetic Hidden categories: Articles containing potentially dated statements from 2005 All articles containing potentially dated statements Articles containing potentially dated statements from 2025 Articles with short description Short description is different from Wikidata Use American English from January 2019 All Wikipedia articles written in American English All articles with unsourced statements Articles with unsourced statements from February 2025 All articles lacking reliable references Articles lacking reliable references from October 2024 This page was last edited on 9 August 2025, at 20:54 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Integer overflow 16 languages Add topic
+

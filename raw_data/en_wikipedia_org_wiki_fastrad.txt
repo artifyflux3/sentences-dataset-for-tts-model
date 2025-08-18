@@ -1,0 +1,76 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 History 2 Radiation CAD interface 3 Dose calculation and shielding 4 Monte Carlo algorithm 5 Interface to Geant4 6 Technical specifications 7 See also 8 External links 9 References Toggle the table of contents FASTRAD 1 language 日本語 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Electronic radiation calculation tool FASTRAD Developer(s) Fastrad collaboration Stable release 3.4
+   /    June 2014 Operating system multi-platform Type CAD software - computational physics License Proprietary Website www.fastrad.net FASTRAD is a tool dedicated to the calculation of radiation effects (Dose and Displacement Damage) on electronics.
+
+[ 1 ] The software has uses in high energy physics and nuclear experiments, medical areas, and accelerator and space physics studies, though it is primarily used in the design of satellites.
+
+History [ edit ] FASTRAD is a radiation tool dedicated to the analysis and design of radiation sensitive systems.  The project was created in 1999, five years after the creation of the product's parent company TRAD, [ 2 ] and has been under active development since.
+
+Over time, the radiation hardness that satellite manufacturers have been able to offer has greatly increased. Both the optimization of space systems in terms of the power/mass ratio , or the miniaturization of electronic devices, tends to increase the sensitivity of those systems to the space radiation environment.  In order to mitigate the impact on the radiation hardness process, the first solution is to replace the rough shielding analysis by an accurate estimate of the real radiation constraint on the system. Historically, FASTRAD has been able to assist this industry.
+
+The main goal of the software is to reduce the margins stemming from a conservative approach of estimating radiation analysis, while reducing the cycle time of mechanical design changes for shielding optimization.  In some cases, it can be used to justify the use of non rad-hard parts and save cost and planning for space program equipment.
+
+For space applications, the software is capable of simulating the entire satellite system.
+
+Radiation CAD interface [ edit ] The main CAD capabilities of the tool are: Creation of multiple simple primitives Insertion of complex 3D geometries coming from STEP or IGES format files Standard modelling tool set ( clipping plane , 2D projection, measurement tool, colors, view shot,...) [ 3 ] The core of the software is the radiation 3D modeler.  The goal of the engine is to make a realistic model of any mechanical design.  The main section of the interface is the display window, where the user can manipulate their design.
+
+The 3D solids can be defined either by using the component toolbar or by importing them from other 3rd party software ( CATIA , Pro/Engineer ...) with the standard STEP or IGES format.  The Open Cascade library included in FASTRAD provides advanced visualization capabilities like cut operations, complex shape management, and STEP and IGES exchange format modules.  The advanced STEP module allows you to import the hierarchy, name and color information.  The full 3D designer model is then managed by FASTRAD (visualization, radiation calculation, post-processing).
+
+Fig. 1) Dialog boxes of the material definition module. An interactive periodic element table makes the material creation easier.
+
+Material properties are one of the most important parts of radiation simula.  The interface allows you to set the material properties of each solid of the 3D model, such as the density and the mass ratio of each element of the (compound) material by determining its chemical composition (see Fig. 1.).  The list of predefined materials can be extended by the user.
+
+[ 3 ] Simulated radiation detectors can be placed on the 3D model.  In this way, radiation effects can be estimated at any point of the 3D model using a Monte Carlo algorithm for a fine calculation of energy deposition by particle-matter interaction (see “Dose calculation and shielding” below), or for a ray-tracing approach.
+
+[ 3 ] Several more features (local frame display, interactive measurement tool, context menus,...) are included in the interface.
+
+Dose calculation and shielding [ edit ] Once the radiation model is completed, the user can perform a deposited dose estimate using the sector analysis module of the software.  This ray-tracing module combines the information coming from the radiation model with the information of the radiation environment using a Dose Depth Curve.  This dose depth curve gives the deposited dose in a target material (mainly Silicon for electronic devices) behind an Aluminum spherical shielding thickness.  This calculation is performed for each detector placed in the 3D model.  Even for complex geometries, the calculation provides two kinds of information: the 3D distribution mass around each detector the estimated deposited dose in an isotropic radiation environment Fig. 2) Screenshot of the FASTRAD tool during a complete satellite analysis (CNES courtesy) Using a post-processing of those results, FASTRAD provides information about optimum shielding location using several viewing representation types.  Figure 2. presents a mapping of the mass distribution viewed by one component of an electronic board.  The red area indicates the critical directions in terms of shielding thickness.
+
+The user is able to optimize the size of additional shielding that can be used to decrease the received dose on the studied detector .
+
+[ citation needed ] The main advantage of this process is the short time needed to complete this task and the well defined mechanical shielding solution provided by the sector analysis post-processing.
+
+Monte Carlo algorithm [ edit ] The dose calculation in the software uses a Monte Carlo module [ 3 ] (developed through a partnership with the CNES ).  This algorithm can be used either in a forward process or a reverse one.  In the first case, the software manages the transport of electrons and photons (including secondary particles) from 1keV to 10 MeV, in the 3D model.  Creation of secondary photons and electrons are taken into account.  Any type of energy spectrum and source geometry can be defined.  Sensitive volumes (SV) are selected by the user and FASTRAD computes the deposited energy inside the SVs.  The reverse Monte Carlo module is dedicated to the dose calculation due to an isotropic irradiation of electrons in a complex and multi-scale geometry, and as a result, the forward algorithm can lead to large computational times. The principle of the reverse method is to use: A forward particle tracking method in the vicinity of the SV A backward particle tracking method from the SV to the external source.
+
+Fig. 3) Screen shot of the electron tracks during reverse Monte Carlo calculation on an electronic equipment.
+
+The Reverse Monte Carlo method for electron transport takes into account the energy deposition due to primary electrons and secondary photons.
+
+The Monte Carlo module was successfully verified through a comparison with GEANT4 results for the forward algorithm and with US Format for the reverse method.  One example is the case of a piece of electronic equipment in a satellite structure. The radiation environment corresponds to the electron energy spectrum of a geostationary mission (from 10 keV up to 5 MeV).
+
+Interface to Geant4 [ edit ] Geant4 is a particle-matter interaction toolkit maintained by a worldwide collaboration of scientists and software engineers.
+
+[ 4 ] This C++ library contains a wide range of interaction cross section data and models together with a tracking engine of particles through a 3D geometry.
+
+The Geant4 interface implemented in the FASTRAD software provides a tool able to create the 3D geometry, define the particle source, set the physics list and create all the resulting source files in a ready-to-compile Geant4 project. The tool is useful for young engineers who need to be driven into the Geant4 world, and who can use FASTRAD as a tutorial tool, or by experts who do not want to spend time on the creation of C++ files that describe the geometry, material, and basic physics and who can use the Geant4 project created by FASTRAD as a base that can be enhanced by specific features relative to their physical application.  The Geant4 interface gives the software a wide range of radiation related fields, as Geant4 is already used for space, medical, nuclear, aeronautical and military applications. Its radiation CAD capabilities facilitate the engineering process for any radiation sensitive system analysis.
+
+Technical specifications [ edit ] FASTRAD was developed using C++ with OpenGL to manage the 3D and Open Cascade library for the STEP import and Boolean operations. It was tested under Mac and LINUX using an OS emulator (PowerPC, VMware ...).
+
+[ citation needed ] Computer Requirements: Configuration: Windows Vista/XP/NT/2000 - 512 Mo RAM - 50 Mo HDD.
+
+See also [ edit ] NOVICE (EMPC)  ( [1] ) Geant4 - GEometry ANd Tracking IGES - Initial Graphics Exchange Specification CATIA - Computer Aided Three-dimensional Interactive Application Latchup RayXpert - 3D modelling software that calculates the gamma dose rate by Monte Carlo External links [ edit ] FASTRAD is distributed by TRAD.
+
+Official TRAD website Official FASTRAD website References [ edit ] ^ "FASTRAD Software for Space radiation analysis" .
+
+FASTRAD Software . Retrieved 2024-02-02 .
+
+^ "About us" .
+
+FASTRAD Software . Retrieved 2024-02-02 .
+
+^ a b c d "Modules" .
+
+FASTRAD Software . Retrieved 2024-02-02 .
+
+^ "Geant4" .
+
+Geant4 . Retrieved 2024-02-02 .
+
+Retrieved from " https://en.wikipedia.org/w/index.php?title=FASTRAD&oldid=1209658937 " Categories : Physics software Nuclear physics Radiation effects Hidden categories: Articles with short description Short description matches Wikidata All articles with unsourced statements Articles with unsourced statements from February 2024 This page was last edited on 23 February 2024, at 00:08 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents FASTRAD 1 language Add topic
+

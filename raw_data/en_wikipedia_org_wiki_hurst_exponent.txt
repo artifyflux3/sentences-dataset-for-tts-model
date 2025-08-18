@@ -1,144 +1,354 @@
-Title: Hurst exponent
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Definition 2 Relation to Fractal Dimension 3 Estimating the exponent Toggle Estimating the exponent subsection 3.1 Rescaled range (R/S) analysis 3.2 Confidence intervals 4 Generalized exponent Toggle Generalized exponent subsection 4.1 Note 5 See also 6 Implementations 7 References Toggle the table of contents Hurst exponent 5 languages Deutsch Ελληνικά Español Русский 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia A measure of the long-range dependence of a time series The Hurst exponent is used as a measure of long-term memory of time series . It relates to the autocorrelations of the time series, and the rate at which these decrease as the lag between pairs of values increases. Studies involving the Hurst exponent were originally developed in hydrology for the practical matter of determining optimum dam sizing for the Nile river 's volatile rain and drought conditions that had been observed over a long period of time.
 
-URL Source: https://en.wikipedia.org/wiki/Hurst_exponent
+[ 1 ] [ 2 ] The name "Hurst exponent", or "Hurst coefficient", derives from Harold Edwin Hurst (1880–1978), who was the lead researcher in these studies; the use of the standard notation H for the coefficient also relates to his name.
 
-Published Time: 2006-11-09T01:25:41Z
+In fractal geometry , the generalized Hurst exponent has been denoted by H or H q in honor of both Harold Edwin Hurst and Ludwig Otto Hölder (1859–1937) by Benoît Mandelbrot (1924–2010).
 
-Markdown Content:
-From Wikipedia, the free encyclopedia
+[ 3 ] H is directly related to fractal dimension , D , and is a measure of a data series' "mild" or "wild" randomness.
 
-The **Hurst exponent** is used as a measure of [long-term memory](https://en.wikipedia.org/wiki/Long-range_dependency "Long-range dependency") of [time series](https://en.wikipedia.org/wiki/Time_series "Time series"). It relates to the [autocorrelations](https://en.wikipedia.org/wiki/Autocorrelation "Autocorrelation") of the time series, and the rate at which these decrease as the lag between pairs of values increases. Studies involving the Hurst exponent were originally developed in [hydrology](https://en.wikipedia.org/wiki/Hydrology "Hydrology") for the practical matter of determining optimum dam sizing for the [Nile river](https://en.wikipedia.org/wiki/Nile_river "Nile river")'s volatile rain and drought conditions that had been observed over a long period of time.[[1]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-:0-1)[[2]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-2) The name "Hurst exponent", or "Hurst coefficient", derives from [Harold Edwin Hurst](https://en.wikipedia.org/wiki/Harold_Edwin_Hurst "Harold Edwin Hurst") (1880–1978), who was the lead researcher in these studies; the use of the standard notation _H_ for the coefficient also relates to his name.
+[ 4 ] The Hurst exponent is referred to as the "index of dependence" or "index of long-range dependence". It quantifies the relative tendency of a time series either to regress strongly to the mean or to cluster in a direction.
 
-In [fractal geometry](https://en.wikipedia.org/wiki/Fractal_geometry "Fractal geometry"), the **generalized Hurst exponent** has been denoted by [_H_](https://en.wikipedia.org/wiki/H_(disambiguation) "H (disambiguation)") or _H q_ in honor of both Harold Edwin Hurst and [Ludwig Otto Hölder](https://en.wikipedia.org/wiki/Otto_Ludwig_Holder "Otto Ludwig Holder") (1859–1937) by [Benoît Mandelbrot](https://en.wikipedia.org/wiki/Beno%C3%AEt_Mandelbrot "Benoît Mandelbrot") (1924–2010).[[3]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-:1-3)_H_ is directly related to [fractal dimension](https://en.wikipedia.org/wiki/Fractal_dimension "Fractal dimension"), _D_, and is a measure of a data series' "mild" or "wild" randomness.[[4]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-4)
+[ 5 ] A value H in the range 0.5–1 indicates a time series with long-term positive autocorrelation, meaning that the decay in autocorrelation is slower than exponential, following a power law ; for the series it means that a high value tends to be followed by another high value and that future excursions to more high values do occur. A value in the range 0 – 0.5 indicates a time series with long-term switching between high and low values in adjacent pairs, meaning that a single high value will probably be followed by a low value and that the value after that will tend to be high, with this tendency to switch between high and low values lasting a long time into the future, also following a power law. A value of H =0.5 indicates short-memory , with (absolute) autocorrelations decaying exponentially quickly to zero.
 
-The Hurst exponent is referred to as the "index of dependence" or "index of long-range dependence". It quantifies the relative tendency of a time series either to regress strongly to the mean or to cluster in a direction.[[5]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-5) A value _H_ in the range 0.5–1 indicates a time series with long-term positive autocorrelation, meaning that the decay in autocorrelation is slower than exponential, following a [power law](https://en.wikipedia.org/wiki/Power-law_tail "Power-law tail"); for the series it means that a high value tends to be followed by another high value and that future excursions to more high values do occur. A value in the range 0 – 0.5 indicates a time series with long-term switching between high and low values in adjacent pairs, meaning that a single high value will probably be followed by a low value and that the value after that will tend to be high, with this tendency to switch between high and low values lasting a long time into the future, also following a power law. A value of _H_=0.5 indicates [short-memory](https://en.wikipedia.org/wiki/Long-range_dependence#Short-range_dependence_versus_long-range_dependence "Long-range dependence"), with (absolute) autocorrelations decaying exponentially quickly to zero.
+Definition [ edit ] The Hurst exponent, H , is defined in terms of the asymptotic behaviour of the rescaled range as a function of the time span of a time series as follows; [ 6 ] [ 7 ] E [ R ( n ) S ( n ) ] = C n H as n → → ∞ ∞ , {\displaystyle \mathbb {E} \left[{\frac {R(n)}{S(n)}}\right]=Cn^{H}{\text{  as }}n\to \infty \,,} where R ( n ) {\displaystyle R(n)} is the range of the first n {\displaystyle n} cumulative deviations from the mean S ( n ) {\displaystyle S(n)} is the series (sum) of the first n standard deviations E [ x ] {\displaystyle \mathbb {E} \left[x\right]\,} is the expected value n {\displaystyle n} is the time span of the observation (number of data points in a time series) C {\displaystyle C} is a constant.
 
-The Hurst exponent, _H_, is defined in terms of the asymptotic behaviour of the [rescaled range](https://en.wikipedia.org/wiki/Rescaled_range "Rescaled range") as a function of the time span of a time series as follows;[[6]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-Qian-6)[[7]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-Feder-7)
+Relation to Fractal Dimension [ edit ] For self-similar time series, H is directly related to fractal dimension , D , where 1 < D < 2, such that D = 2 - H .  The values of the Hurst exponent vary between 0 and 1, with higher values indicating a smoother trend, less volatility, and less roughness.
 
-![Image 1: {\displaystyle \mathbb {E} \left[{\frac {R(n)}{S(n)}}\right]=Cn^{H}{\text{  as }}n\to \infty \,,}](https://wikimedia.org/api/rest_v1/media/math/render/svg/d32a26032869f8c902eb7a3062309dd88de63b5b) where
+[ 8 ] For more general time series or multi-dimensional process, the Hurst exponent and fractal dimension can be chosen independently, as the Hurst exponent represents structure over asymptotically longer periods, while fractal dimension represents structure over asymptotically shorter periods.
 
-Relation to Fractal Dimension
------------------------------
+[ 9 ] Estimating the exponent [ edit ] A number of estimators of long-range dependence have been proposed in the literature. The oldest and best-known is the so-called rescaled range (R/S) analysis popularized by Mandelbrot and Wallis [ 3 ] [ 10 ] and based on previous hydrological findings of Hurst.
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Hurst_exponent&action=edit&section=2 "Edit section: Relation to Fractal Dimension")]
+[ 1 ] Alternatives include DFA , Periodogram regression, [ 11 ] aggregated variances, [ 12 ] local Whittle's estimator, [ 13 ] wavelet analysis, [ 14 ] [ 15 ] both in the time domain and frequency domain .
 
-For self-similar time series, _H_ is directly related to [fractal dimension](https://en.wikipedia.org/wiki/Fractal_dimension "Fractal dimension"), _D_, where 1 <_D_< 2, such that _D_ = 2 - _H_. The values of the Hurst exponent vary between 0 and 1, with higher values indicating a smoother trend, less volatility, and less roughness.[[8]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-8)
+Rescaled range (R/S) analysis [ edit ] To estimate the Hurst exponent, one must first estimate the dependence of the rescaled range on the time span n of observation.
 
-For more general time series or multi-dimensional process, the Hurst exponent and fractal dimension can be chosen independently, as the Hurst exponent represents structure over asymptotically longer periods, while fractal dimension represents structure over asymptotically shorter periods.[[9]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-9)
+[ 7 ] A time series of full length N is divided into a number of nonoverlapping shorter time series of length n , where n takes values N , N /2, N /4, ... (in the convenient case that N is a power of 2). The average rescaled range is then calculated for each value of n .
 
-Estimating the exponent
------------------------
+For each such time series of length n {\displaystyle n} , X = X 1 , X 2 , … … , X n {\displaystyle X=X_{1},X_{2},\dots ,X_{n}\,} , the rescaled range is calculated as follows: [ 6 ] [ 7 ] Calculate the mean ; m = 1 n ∑ ∑ i = 1 n X i .
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Hurst_exponent&action=edit&section=3 "Edit section: Estimating the exponent")]
+{\displaystyle m={\frac {1}{n}}\sum _{i=1}^{n}X_{i}\,.} Create a mean-adjusted series; Y t = X t − − m for t = 1 , 2 , … … , n .
 
-A number of estimators of long-range dependence have been proposed in the literature. The oldest and best-known is the so-called [rescaled range](https://en.wikipedia.org/wiki/Rescaled_range "Rescaled range") (R/S) analysis popularized by Mandelbrot and Wallis[[3]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-:1-3)[[10]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-10) and based on previous hydrological findings of Hurst.[[1]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-:0-1) Alternatives include [DFA](https://en.wikipedia.org/wiki/Detrended_fluctuation_analysis "Detrended fluctuation analysis"), [Periodogram](https://en.wikipedia.org/wiki/Periodogram "Periodogram") regression,[[11]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-11) aggregated variances,[[12]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-12) local Whittle's estimator,[[13]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-13) wavelet analysis,[[14]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-14)[[15]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-15) both in the [time domain](https://en.wikipedia.org/wiki/Time_domain "Time domain") and [frequency domain](https://en.wikipedia.org/wiki/Frequency_domain "Frequency domain").
+{\displaystyle Y_{t}=X_{t}-m\quad {\text{  for }}t=1,2,\dots ,n\,.} Calculate the cumulative deviate series Z {\displaystyle Z} ; Z t = ∑ ∑ i = 1 t Y i for t = 1 , 2 , … … , n .
 
-### Rescaled range (R/S) analysis
+{\displaystyle Z_{t}=\sum _{i=1}^{t}Y_{i}\quad {\text{   for }}t=1,2,\dots ,n\,.} Compute the range R {\displaystyle R} ; R ( n ) = max ⁡ ⁡ ( Z 1 , Z 2 , … … , Z n ) − − min ⁡ ⁡ ( Z 1 , Z 2 , … … , Z n ) .
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Hurst_exponent&action=edit&section=4 "Edit section: Rescaled range (R/S) analysis")]
+{\displaystyle R(n)=\operatorname {max} \left(Z_{1},Z_{2},\dots ,Z_{n}\right)-\operatorname {min} \left(Z_{1},Z_{2},\dots ,Z_{n}\right).} Compute the standard deviation S {\displaystyle S} ; S ( n ) = 1 n ∑ ∑ i = 1 n ( X i − − m ) 2 .
 
-To estimate the Hurst exponent, one must first estimate the dependence of the [rescaled range](https://en.wikipedia.org/wiki/Rescaled_range "Rescaled range") on the time span _n_ of observation.[[7]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-Feder-7) A time series of full length _N_ is divided into a number of nonoverlapping shorter time series of length _n_, where _n_ takes values _N_, _N_/2, _N_/4, ... (in the convenient case that _N_ is a power of 2). The average rescaled range is then calculated for each value of _n_.
+{\displaystyle S(n)={\sqrt {{\frac {1}{n}}\sum _{i=1}^{n}\left(X_{i}-m\right)^{2}}}.} Calculate the rescaled range R ( n ) / S ( n ) {\displaystyle R(n)/S(n)} and average over all the partial time series of length n .
 
-For each such time series of length ![Image 2: {\displaystyle n}](https://wikimedia.org/api/rest_v1/media/math/render/svg/a601995d55609f2d9f5e233e36fbe9ea26011b3b), ![Image 3: {\displaystyle X=X_{1},X_{2},\dots ,X_{n}\,}](https://wikimedia.org/api/rest_v1/media/math/render/svg/5453b04dd982611ee2c478767473e7ead417da5d), the rescaled range is calculated as follows:[[6]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-Qian-6)[[7]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-Feder-7)
+{\displaystyle n.} The Hurst exponent is estimated by fitting the power law E [ R ( n ) / S ( n ) ] = C n H {\displaystyle \mathbb {E} [R(n)/S(n)]=Cn^{H}} to the data. This can be done by plotting log ⁡ ⁡ [ R ( n ) / S ( n ) ] {\displaystyle \log[R(n)/S(n)]} as a function of log ⁡ ⁡ n {\displaystyle \log n} , and fitting a straight line; the slope of the line gives H {\displaystyle H} . A more principled approach would be to fit the power law in a maximum-likelihood fashion.
 
-1.   Calculate the [mean](https://en.wikipedia.org/wiki/Mean "Mean"); ![Image 4: {\displaystyle m={\frac {1}{n}}\sum _{i=1}^{n}X_{i}\,.}](https://wikimedia.org/api/rest_v1/media/math/render/svg/b0bb9bcaebc0e796c95bbbf5896abca30e70cfd9)
-2.   Create a mean-adjusted series; ![Image 5: {\displaystyle Y_{t}=X_{t}-m\quad {\text{  for }}t=1,2,\dots ,n\,.}](https://wikimedia.org/api/rest_v1/media/math/render/svg/64e44d5373996038586268c1d0a423e92e86692d)
-3.   Calculate the cumulative deviate series ![Image 6: {\displaystyle Z}](https://wikimedia.org/api/rest_v1/media/math/render/svg/1cc6b75e09a8aa3f04d8584b11db534f88fb56bd); ![Image 7: {\displaystyle Z_{t}=\sum _{i=1}^{t}Y_{i}\quad {\text{   for }}t=1,2,\dots ,n\,.}](https://wikimedia.org/api/rest_v1/media/math/render/svg/864197fba72d0cee5681bbd609b484c74df04343)
-4.   Compute the range ![Image 8: {\displaystyle R}](https://wikimedia.org/api/rest_v1/media/math/render/svg/4b0bfb3769bf24d80e15374dc37b0441e2616e33); ![Image 9: {\displaystyle R(n)=\operatorname {max} \left(Z_{1},Z_{2},\dots ,Z_{n}\right)-\operatorname {min} \left(Z_{1},Z_{2},\dots ,Z_{n}\right).}](https://wikimedia.org/api/rest_v1/media/math/render/svg/d806128b12073a865935531777f5ed716db453f9)
-5.   Compute the [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation "Standard deviation")![Image 10: {\displaystyle S}](https://wikimedia.org/api/rest_v1/media/math/render/svg/4611d85173cd3b508e67077d4a1252c9c05abca2); ![Image 11: {\displaystyle S(n)={\sqrt {{\frac {1}{n}}\sum _{i=1}^{n}\left(X_{i}-m\right)^{2}}}.}](https://wikimedia.org/api/rest_v1/media/math/render/svg/b31ba28dd766f521cfefaa7be26d776f5c6fb473)
-6.   Calculate the rescaled range ![Image 12: {\displaystyle R(n)/S(n)}](https://wikimedia.org/api/rest_v1/media/math/render/svg/414d81a86d4e8223ede9d86bb3b2596523031461) and average over all the partial time series of length ![Image 13: {\displaystyle n.}](https://wikimedia.org/api/rest_v1/media/math/render/svg/e59df02a9f67a5da3c220f1244c99a46cc4eb1c6)
+[ 16 ] Such a graph is called a box plot . However, this approach is known to produce biased estimates of the power-law exponent.
 
-The Hurst exponent is estimated by fitting the [power law](https://en.wikipedia.org/wiki/Power_law "Power law")![Image 14: {\displaystyle \mathbb {E} [R(n)/S(n)]=Cn^{H}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/d65330dda2923c2ebdee79c9447fca3b3953a478) to the data. This can be done by plotting ![Image 15: {\displaystyle \log[R(n)/S(n)]}](https://wikimedia.org/api/rest_v1/media/math/render/svg/176342767e457ccbcdb73cda46dabdf85791a72c) as a function of ![Image 16: {\displaystyle \log n}](https://wikimedia.org/api/rest_v1/media/math/render/svg/317ab5292da7c7935aec01a570461fe0613b21d5), and fitting a straight line; the slope of the line gives ![Image 17: {\displaystyle H}](https://wikimedia.org/api/rest_v1/media/math/render/svg/75a9edddcca2f782014371f75dca39d7e13a9c1b). A more principled approach would be to fit the power law in a maximum-likelihood fashion.[[16]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-16) Such a graph is called a [box plot](https://en.wikipedia.org/wiki/Box_plot "Box plot"). However, this approach is known to produce biased estimates of the power-law exponent.[_[clarification needed](https://en.wikipedia.org/wiki/Wikipedia:Please\_clarify "Wikipedia:Please clarify")_] For small ![Image 18: {\displaystyle n}](https://wikimedia.org/api/rest_v1/media/math/render/svg/a601995d55609f2d9f5e233e36fbe9ea26011b3b) there is a significant deviation from the 0.5 slope.[_[clarification needed](https://en.wikipedia.org/wiki/Wikipedia:Please\_clarify "Wikipedia:Please clarify")_] Anis and Lloyd[[17]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-:2-17) estimated the theoretical (i.e., for white noise)[_[clarification needed](https://en.wikipedia.org/wiki/Wikipedia:Please\_clarify "Wikipedia:Please clarify")_] values of the R/S statistic to be:
+[ clarification needed ] For small n {\displaystyle n} there is a significant deviation from the 0.5 slope.
 
-![Image 19: {\displaystyle \mathbb {E} [R(n)/S(n)]={\begin{cases}{\frac {\Gamma ({\frac {n-1}{2}})}{{\sqrt {\pi }}\Gamma ({\frac {n}{2}})}}\sum \limits _{i=1}^{n-1}{\sqrt {\frac {n-i}{i}}},&{\text{for }}n\leq 340\\{\frac {1}{\sqrt {n{\frac {\pi }{2}}}}}\sum \limits _{i=1}^{n-1}{\sqrt {\frac {n-i}{i}}},&{\text{for }}n>340\end{cases}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/6179e69124c5b89755610f11f6cc0ff0cd1ad74a)
+[ clarification needed ] Anis and Lloyd [ 17 ] estimated the theoretical (i.e., for white noise) [ clarification needed ] values of the R/S statistic to be: E [ R ( n ) / S ( n ) ] = { Γ Γ ( n − − 1 2 ) π π Γ Γ ( n 2 ) ∑ ∑ i = 1 n − − 1 n − − i i , for n ≤ ≤ 340 1 n π π 2 ∑ ∑ i = 1 n − − 1 n − − i i , for n > 340 {\displaystyle \mathbb {E} [R(n)/S(n)]={\begin{cases}{\frac {\Gamma ({\frac {n-1}{2}})}{{\sqrt {\pi }}\Gamma ({\frac {n}{2}})}}\sum \limits _{i=1}^{n-1}{\sqrt {\frac {n-i}{i}}},&{\text{for }}n\leq 340\\{\frac {1}{\sqrt {n{\frac {\pi }{2}}}}}\sum \limits _{i=1}^{n-1}{\sqrt {\frac {n-i}{i}}},&{\text{for }}n>340\end{cases}}} where Γ Γ {\displaystyle \Gamma } is the Euler gamma function .
 
-where ![Image 20: {\displaystyle \Gamma }](https://wikimedia.org/api/rest_v1/media/math/render/svg/4cfde86a3f7ec967af9955d0988592f0693d2b19) is the [Euler gamma function](https://en.wikipedia.org/wiki/Euler_Gamma_Function "Euler Gamma Function").[_[clarification needed](https://en.wikipedia.org/wiki/Wikipedia:Please\_clarify "Wikipedia:Please clarify")_] The Anis-Lloyd corrected R/S Hurst exponent[_[clarification needed](https://en.wikipedia.org/wiki/Wikipedia:Please\_clarify "Wikipedia:Please clarify")_] is calculated as 0.5 plus the slope of ![Image 21: {\displaystyle R(n)/S(n)-\mathbb {E} [R(n)/S(n)]}](https://wikimedia.org/api/rest_v1/media/math/render/svg/6b359472554077d9c4a41143a1218d0894ec3771).
+[ clarification needed ] The Anis-Lloyd corrected R/S Hurst exponent [ clarification needed ] is calculated as 0.5 plus the slope of R ( n ) / S ( n ) − − E [ R ( n ) / S ( n ) ] {\displaystyle R(n)/S(n)-\mathbb {E} [R(n)/S(n)]} .
 
-### Confidence intervals
+Confidence intervals [ edit ] No asymptotic distribution theory has been derived for most of the Hurst exponent estimators so far. However, Weron [ 18 ] used bootstrapping to obtain approximate functional forms for confidence intervals of the two most popular methods, i.e., for the Anis-Lloyd [ 17 ] corrected R/S analysis: Level Lower bound Upper bound 90% 0.5 − exp(−7.35 log(log M) + 4.06) exp(−7.07 log(log M) + 3.75) + 0.5 95% 0.5 − exp(−7.33 log(log M) + 4.21) exp(−7.20 log(log M) + 4.04) + 0.5 99% 0.5 − exp(−7.19 log(log M) + 4.34) exp(−7.51 log(log M) + 4.58) + 0.5 and for DFA : Level Lower bound Upper bound 90% 0.5 − exp(−2.99 log M + 4.45) exp(−3.09 log M + 4.57) + 0.5 95% 0.5 − exp(−2.93 log M + 4.45) exp(−3.10 log M + 4.77) + 0.5 99% 0.5 − exp(−2.67 log M + 4.06) exp(−3.19 log M + 5.28) + 0.5 Here M = log 2 ⁡ ⁡ N {\displaystyle M=\log _{2}N} and N {\displaystyle N} is the series length. In both cases only subseries of length n > 50 {\displaystyle n>50} were considered for estimating the Hurst exponent; subseries of smaller length lead to a high variance of the R/S estimates.
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Hurst_exponent&action=edit&section=5 "Edit section: Confidence intervals")]
+Generalized exponent [ edit ] The basic Hurst exponent can be related to the expected size of changes, as a function of the lag between observations, as measured by E(| X t + τ − X t | 2 ). For the generalized form of the coefficient, the exponent here is replaced by a more general term, denoted by q .
 
-No asymptotic distribution theory has been derived for most of the Hurst exponent estimators so far. However, Weron[[18]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-18) used [bootstrapping](https://en.wikipedia.org/wiki/Bootstrapping_(statistics) "Bootstrapping (statistics)") to obtain approximate functional forms for confidence intervals of the two most popular methods, i.e., for the Anis-Lloyd[[17]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-:2-17) corrected R/S analysis:
+There are a variety of techniques that exist for estimating H , however assessing the accuracy of the estimation can be a complicated issue. Mathematically, in one technique, the Hurst exponent can be estimated such that: [ 19 ] [ 20 ] H q = H ( q ) , {\displaystyle H_{q}=H(q),} for a time series g ( t ) , t = 1 , 2 , … … {\displaystyle g(t),t=1,2,\dots } may be defined by the scaling properties of its structure functions S q {\displaystyle S_{q}} ( τ τ {\displaystyle \tau } ): S q = ⟨ | g ( t + τ τ ) − − g ( t ) | q ⟩ t ∼ ∼ τ τ q H ( q ) , {\displaystyle S_{q}=\left\langle \left|g(t+\tau )-g(t)\right|^{q}\right\rangle _{t}\sim \tau ^{qH(q)},} where q > 0 {\displaystyle q>0} , τ τ {\displaystyle \tau } is the time lag and averaging is over the time window t ≫ ≫ τ τ , {\displaystyle t\gg \tau ,} usually the largest time scale of the system.
 
-| Level | Lower bound | Upper bound |
-| --- | --- | --- |
-| 90% | 0.5 − exp(−7.35 log(log M) + 4.06) | exp(−7.07 log(log M) + 3.75) + 0.5 |
-| 95% | 0.5 − exp(−7.33 log(log M) + 4.21) | exp(−7.20 log(log M) + 4.04) + 0.5 |
-| 99% | 0.5 − exp(−7.19 log(log M) + 4.34) | exp(−7.51 log(log M) + 4.58) + 0.5 |
+Practically, in nature, there is no limit to time, and thus H is non-deterministic as it may only be estimated based on the observed data; e.g., the most dramatic daily move upwards ever seen in a stock market index can always be exceeded during some subsequent day.
 
-and for [DFA](https://en.wikipedia.org/wiki/Detrended_fluctuation_analysis "Detrended fluctuation analysis"):
+[ 21 ] In the above mathematical estimation technique, the function H ( q ) contains information about averaged generalized volatilities at scale τ τ {\displaystyle \tau } (only q = 1, 2 are used to define the volatility). In particular, the H 1 exponent indicates persistent ( H 1 > 1 ⁄ 2 ) or antipersistent ( H 1 < 1 ⁄ 2 ) behavior of the trend.
 
-| Level | Lower bound | Upper bound |
-| --- | --- | --- |
-| 90% | 0.5 − exp(−2.99 log M + 4.45) | exp(−3.09 log M + 4.57) + 0.5 |
-| 95% | 0.5 − exp(−2.93 log M + 4.45) | exp(−3.10 log M + 4.77) + 0.5 |
-| 99% | 0.5 − exp(−2.67 log M + 4.06) | exp(−3.19 log M + 5.28) + 0.5 |
+For the BRW ( brown noise , 1 / f 2 {\displaystyle 1/f^{2}} ) one gets H q = 1 2 , {\displaystyle H_{q}={\frac {1}{2}},} and for pink noise ( 1 / f {\displaystyle 1/f} ) H q = 0.
 
-Here ![Image 22: {\displaystyle M=\log _{2}N}](https://wikimedia.org/api/rest_v1/media/math/render/svg/07b8b291f6b1f0d5e975b7d5dbd0b88c0ebd991b) and ![Image 23: {\displaystyle N}](https://wikimedia.org/api/rest_v1/media/math/render/svg/f5e3890c981ae85503089652feb48b191b57aae3) is the series length. In both cases only subseries of length ![Image 24: {\displaystyle n>50}](https://wikimedia.org/api/rest_v1/media/math/render/svg/a7fd27e88c5493f3425fbc5fd932b6a54407f68b) were considered for estimating the Hurst exponent; subseries of smaller length lead to a high variance of the R/S estimates.
+{\displaystyle H_{q}=0.} The Hurst exponent for white noise is dimension dependent, [ 22 ] and for 1D and 2D it is H q 1 D = − − 1 2 , H q 2 D = − − 1.
 
-Generalized exponent
---------------------
+{\displaystyle H_{q}^{1D}=-{\frac {1}{2}},\quad H_{q}^{2D}=-1.} For the popular Lévy stable processes and truncated Lévy processes with parameter α it has been found that H q = q / α α , {\displaystyle H_{q}=q/\alpha ,} for q < α α {\displaystyle q<\alpha } , and H q = 1 {\displaystyle H_{q}=1} for q ≥ ≥ α α {\displaystyle q\geq \alpha } .
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Hurst_exponent&action=edit&section=6 "Edit section: Generalized exponent")]
+Multifractal detrended fluctuation analysis [ 23 ] is one method to estimate H ( q ) {\displaystyle H(q)} from non-stationary time series.
+When H ( q ) {\displaystyle H(q)} is a non-linear function of q the time series is a multifractal system .
 
-The basic Hurst exponent can be related to the expected size of changes, as a function of the lag between observations, as measured by E(|_X_ _t_+_τ_−_X_ _t_|2). For the generalized form of the coefficient, the exponent here is replaced by a more general term, denoted by _q_.
+Note [ edit ] In the above definition two separate requirements are mixed together as if they would be one.
 
-There are a variety of techniques that exist for estimating _H_, however assessing the accuracy of the estimation can be a complicated issue. Mathematically, in one technique, the Hurst exponent can be estimated such that:[[19]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-19)[[20]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-20)![Image 25: {\displaystyle H_{q}=H(q),}](https://wikimedia.org/api/rest_v1/media/math/render/svg/7b04dd6e1304b3e3f9519430c025952c79cb6bfd) for a time series ![Image 26: {\displaystyle g(t),t=1,2,\dots }](https://wikimedia.org/api/rest_v1/media/math/render/svg/a3a249cd85c9bf93b1022f93c6d77a2704043c40) may be defined by the scaling properties of its [structure](https://en.wikipedia.org/wiki/Algebraic_structure "Algebraic structure") functions ![Image 27: {\displaystyle S_{q}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/66227ac26289a99fd55f640226b18e977d4bf9f8) (![Image 28: {\displaystyle \tau }](https://wikimedia.org/api/rest_v1/media/math/render/svg/38a7dcde9730ef0853809fefc18d88771f95206c)): ![Image 29: {\displaystyle S_{q}=\left\langle \left|g(t+\tau )-g(t)\right|^{q}\right\rangle _{t}\sim \tau ^{qH(q)},}](https://wikimedia.org/api/rest_v1/media/math/render/svg/d51613aa7cfb9a1dbe1264b353346ee970a7dfaa) where ![Image 30: {\displaystyle q>0}](https://wikimedia.org/api/rest_v1/media/math/render/svg/482e0a33d9e8fd6307b5f68a5182c2d0d14efc9c), ![Image 31: {\displaystyle \tau }](https://wikimedia.org/api/rest_v1/media/math/render/svg/38a7dcde9730ef0853809fefc18d88771f95206c) is the time lag and averaging is over the time window ![Image 32: {\displaystyle t\gg \tau ,}](https://wikimedia.org/api/rest_v1/media/math/render/svg/c5f15a03df73c9e7943e18d456a6ce6c416fd31d) usually the largest time scale of the system.
+[ 24 ] Here are the two independent requirements: (i) stationarity of the increments , x ( t + T ) − x ( t ) = x ( T ) − x (0) in distribution. This is the condition that yields longtime autocorrelations. (ii) Self-similarity of the stochastic process then yields variance scaling, but is not needed for longtime memory. E.g., both Markov processes (i.e., memory-free processes) and fractional Brownian motion scale at the level of 1-point densities (simple averages), but neither scales at the level of pair correlations or, correspondingly, the 2-point probability density.
 
-Practically, in nature, there is no limit to time, and thus _H_ is non-deterministic as it may only be estimated based on the observed data; e.g., the most dramatic daily move upwards ever seen in a stock market index can always be exceeded during some subsequent day.[[21]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-21)
+[ clarification needed ] An efficient market requires a martingale condition, and unless the variance is linear in the time this produces nonstationary increments, x ( t + T ) − x ( t ) ≠ x ( T ) − x (0) . Martingales are Markovian at the level of pair correlations, meaning that pair correlations cannot be used to beat a martingale market. Stationary increments with nonlinear variance, on the other hand, induce the longtime pair memory of fractional Brownian motion that would make the market beatable at the level of pair correlations. Such a market would necessarily be far from "efficient".
 
-In the above mathematical estimation technique, the function _H_(_q_) contains information about averaged generalized volatilities at scale ![Image 33: {\displaystyle \tau }](https://wikimedia.org/api/rest_v1/media/math/render/svg/38a7dcde9730ef0853809fefc18d88771f95206c) (only _q_ = 1, 2 are used to define the volatility). In particular, the _H_ 1 exponent indicates persistent (_H_ 1>1⁄2) or antipersistent (_H_ 1<1⁄2) behavior of the trend.
+An analysis of economic time series by means of the Hurst exponent using rescaled range and Detrended fluctuation analysis is conducted by econophysicist A.F. Bariviera.
 
-For the BRW ([brown noise](https://en.wikipedia.org/wiki/Brown_noise "Brown noise"), ![Image 34: {\displaystyle 1/f^{2}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/13dc85513fc9696a8044cc820d3919af33af5799)) one gets ![Image 35: {\displaystyle H_{q}={\frac {1}{2}},}](https://wikimedia.org/api/rest_v1/media/math/render/svg/cfe469fda14e0b8ac93c4dde5211712d648a2b53) and for [pink noise](https://en.wikipedia.org/wiki/Pink_noise "Pink noise") (![Image 36: {\displaystyle 1/f}](https://wikimedia.org/api/rest_v1/media/math/render/svg/e9cd0e60c02ddf533da2abed825389fe5a94b7d0)) ![Image 37: {\displaystyle H_{q}=0.}](https://wikimedia.org/api/rest_v1/media/math/render/svg/02d9a7ce3d33c1bbb0dca7434778e0a42a6d6bc1)
+[ 25 ] This paper studies the time varying character of Long-range dependency and, thus of informational efficiency.
 
-The Hurst exponent for [white noise](https://en.wikipedia.org/wiki/White_noise "White noise") is dimension dependent,[[22]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-22) and for 1D and 2D it is ![Image 38: {\displaystyle H_{q}^{1D}=-{\frac {1}{2}},\quad H_{q}^{2D}=-1.}](https://wikimedia.org/api/rest_v1/media/math/render/svg/130216f432ff9819b119ecd896ecff7199575137)
+Hurst exponent has also been applied to the investigation of long-range dependency in DNA , [ 26 ] and photonic band gap materials.
 
-For the popular [Lévy stable processes](https://en.wikipedia.org/w/index.php?title=L%C3%A9vy_stable_process&action=edit&redlink=1 "Lévy stable process (page does not exist)") and [truncated Lévy processes](https://en.wikipedia.org/w/index.php?title=Truncated_L%C3%A9vy_process&action=edit&redlink=1 "Truncated Lévy process (page does not exist)") with parameter α it has been found that
+[ 27 ] See also [ edit ] Long-range dependency – Phenomenon in linguistics and data analysis Pages displaying short descriptions of redirect targets Anomalous diffusion – Diffusion process with a non-linear relationship to time Rescaled range – Statistical measure of time series variability Detrended fluctuation analysis – Method to detect power-law scaling in time series Implementations [ edit ] Matlab code for computing R/S, DFA, periodogram regression and wavelet estimates of the Hurst exponent and their corresponding confidence intervals is available from RePEc: https://ideas.repec.org/s/wuu/hscode.html Implementation of R/S in Python: https://github.com/Mottl/hurst and of DFA and MFDFA in Python: https://github.com/LRydin/MFDFA Matlab code for computing real Hurst and complex Hurst: https://www.mathworks.com/matlabcentral/fileexchange/49803-calculate-complex-hurst Excel sheet can also be used to do so: https://www.researchgate.net/publication/272792633_Excel_Hurst_Calculator References [ edit ] ^ a b Hurst, H.E. (1951). "Long-term storage capacity of reservoirs".
 
-![Image 39: {\displaystyle H_{q}=q/\alpha ,}](https://wikimedia.org/api/rest_v1/media/math/render/svg/52b772ef8c511fbe3017b3be7629af71fc43f767) for ![Image 40: {\displaystyle q<\alpha }](https://wikimedia.org/api/rest_v1/media/math/render/svg/8e8e2e11d3ae1cd7548c293ca761ddbe2008343d), and ![Image 41: {\displaystyle H_{q}=1}](https://wikimedia.org/api/rest_v1/media/math/render/svg/c1f2f178aa34be57ef906fec28b887113cf71aef) for ![Image 42: {\displaystyle q\geq \alpha }](https://wikimedia.org/api/rest_v1/media/math/render/svg/3d3120109e20b1f925804193688d187c73656943). [Multifractal detrended fluctuation analysis](https://en.wikipedia.org/w/index.php?title=Multifractal_detrended_fluctuation_analysis&action=edit&redlink=1 "Multifractal detrended fluctuation analysis (page does not exist)")[[23]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-23) is one method to estimate ![Image 43: {\displaystyle H(q)}](https://wikimedia.org/api/rest_v1/media/math/render/svg/bb7258e7274db86188844940fad02593b9ec5666) from non-stationary time series. When ![Image 44: {\displaystyle H(q)}](https://wikimedia.org/api/rest_v1/media/math/render/svg/bb7258e7274db86188844940fad02593b9ec5666) is a non-linear function of q the time series is a [multifractal system](https://en.wikipedia.org/wiki/Multifractal_system "Multifractal system").
+Transactions of the American Society of Civil Engineers .
 
-In the above definition two separate requirements are mixed together as if they would be one.[[24]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-24) Here are the two independent requirements: (i) [stationarity of the increments](https://en.wikipedia.org/wiki/Stationary_increments "Stationary increments"), _x_(_t_+_T_) − _x_(_t_) = _x_(_T_) − _x_(0) in distribution. This is the condition that yields longtime autocorrelations. (ii) [Self-similarity](https://en.wikipedia.org/wiki/Self-similarity "Self-similarity") of the [stochastic process](https://en.wikipedia.org/wiki/Stochastic_process "Stochastic process") then yields variance scaling, but is not needed for longtime memory. E.g., both [Markov processes](https://en.wikipedia.org/wiki/Markov_process "Markov process") (i.e., memory-free processes) and [fractional Brownian motion](https://en.wikipedia.org/wiki/Fractional_Brownian_motion "Fractional Brownian motion") scale at the level of 1-point densities (simple averages), but neither scales at the level of pair correlations or, correspondingly, the 2-point probability density.[_[clarification needed](https://en.wikipedia.org/wiki/Wikipedia:Please\_clarify "Wikipedia:Please clarify")_]
+116 : 770.
 
-An efficient market requires a [martingale](https://en.wikipedia.org/wiki/Martingale_(probability_theory) "Martingale (probability theory)") condition, and unless the variance is linear in the time this produces nonstationary increments, _x_(_t_+_T_) − _x_(_t_) ≠ _x_(_T_) − _x_(0). Martingales are Markovian at the level of pair correlations, meaning that pair correlations cannot be used to beat a martingale market. Stationary increments with nonlinear variance, on the other hand, induce the longtime pair memory of [fractional Brownian motion](https://en.wikipedia.org/wiki/Fractional_Brownian_motion "Fractional Brownian motion") that would make the market beatable at the level of pair correlations. Such a market would necessarily be far from "efficient".
+doi : 10.1061/TACEAT.0006518 .
 
-An analysis of economic time series by means of the Hurst exponent using [rescaled range](https://en.wikipedia.org/wiki/Rescaled_range "Rescaled range") and [Detrended fluctuation analysis](https://en.wikipedia.org/wiki/Detrended_fluctuation_analysis "Detrended fluctuation analysis") is conducted by econophysicist A.F. Bariviera.[[25]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-25) This paper studies the time varying character of [Long-range dependency](https://en.wikipedia.org/wiki/Long-range_dependency "Long-range dependency") and, thus of informational efficiency.
+^ Hurst, H.E.; Black, R.P.; Simaika, Y.M. (1965).
 
-Hurst exponent has also been applied to the investigation of [long-range dependency](https://en.wikipedia.org/wiki/Long-range_dependency "Long-range dependency") in [DNA](https://en.wikipedia.org/wiki/DNA "DNA"),[[26]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-26) and photonic [band gap](https://en.wikipedia.org/wiki/Band_gap "Band gap") materials.[[27]](https://en.wikipedia.org/wiki/Hurst_exponent#cite_note-27)
+Long-term storage: an experimental study . London: Constable.
 
-*   [Long-range dependency](https://en.wikipedia.org/wiki/Long-range_dependency "Long-range dependency")– Phenomenon in linguistics and data analysis
-*   [Anomalous diffusion](https://en.wikipedia.org/wiki/Anomalous_diffusion "Anomalous diffusion")– Diffusion process with a non-linear relationship to time
-*   [Rescaled range](https://en.wikipedia.org/wiki/Rescaled_range "Rescaled range")– Statistical measure of time series variability
-*   [Detrended fluctuation analysis](https://en.wikipedia.org/wiki/Detrended_fluctuation_analysis "Detrended fluctuation analysis")– Method to detect power-law scaling in time series
+^ a b Mandelbrot, B.B.; Wallis, J.R. (1968). "Noah, Joseph, and operational hydrology".
 
-*   Matlab code for computing R/S, DFA, periodogram regression and wavelet estimates of the Hurst exponent and their corresponding confidence intervals is available from RePEc: [https://ideas.repec.org/s/wuu/hscode.html](https://ideas.repec.org/s/wuu/hscode.html)
-*   Implementation of R/S in Python: [https://github.com/Mottl/hurst](https://github.com/Mottl/hurst) and of DFA and MFDFA in Python: [https://github.com/LRydin/MFDFA](https://github.com/LRydin/MFDFA)
-*   Matlab code for computing real Hurst and complex Hurst: [https://www.mathworks.com/matlabcentral/fileexchange/49803-calculate-complex-hurst](https://www.mathworks.com/matlabcentral/fileexchange/49803-calculate-complex-hurst)
-*   Excel sheet can also be used to do so: [https://www.researchgate.net/publication/272792633_Excel_Hurst_Calculator](https://www.researchgate.net/publication/272792633_Excel_Hurst_Calculator)
+Water Resour. Res .
 
-1.   ^ [_**a**_](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-:0_1-0)[_**b**_](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-:0_1-1)Hurst, H.E. (1951). "Long-term storage capacity of reservoirs". _Transactions of the American Society of Civil Engineers_. **116**: 770. [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1061/TACEAT.0006518](https://doi.org/10.1061%2FTACEAT.0006518).
-2.   **[^](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-2)**Hurst, H.E.; Black, R.P.; Simaika, Y.M. (1965). _Long-term storage: an experimental study_. London: Constable.
-3.   ^ [_**a**_](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-:1_3-0)[_**b**_](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-:1_3-1)Mandelbrot, B.B.; Wallis, J.R. (1968). "Noah, Joseph, and operational hydrology". _Water Resour. Res_. **4** (5): 909–918. [Bibcode](https://en.wikipedia.org/wiki/Bibcode_(identifier) "Bibcode (identifier)"):[1968WRR.....4..909M](https://ui.adsabs.harvard.edu/abs/1968WRR.....4..909M). [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1029/wr004i005p00909](https://doi.org/10.1029%2Fwr004i005p00909).
-4.   **[^](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-4)**Mandelbrot, Benoît B. (2006). "The (Mis)Behavior of Markets". _Journal of Statistical Physics_. **122** (2): 187. [Bibcode](https://en.wikipedia.org/wiki/Bibcode_(identifier) "Bibcode (identifier)"):[2006JSP...122..373P](https://ui.adsabs.harvard.edu/abs/2006JSP...122..373P). [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1007/s10955-005-8004-Z](https://doi.org/10.1007%2Fs10955-005-8004-Z). [S2CID](https://en.wikipedia.org/wiki/S2CID_(identifier) "S2CID (identifier)")[119634845](https://api.semanticscholar.org/CorpusID:119634845).
-5.   **[^](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-5)**Torsten Kleinow (2002)[Testing Continuous Time Models in Financial Markets](http://edoc.hu-berlin.de/dissertationen/kleinow-torsten-2002-07-04/PDF/Kleinow.pdf), Doctoral thesis, Berlin [_[page needed](https://en.wikipedia.org/wiki/Wikipedia:Citing\_sources "Wikipedia:Citing sources")_]
-6.   ^ [_**a**_](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-Qian_6-0)[_**b**_](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-Qian_6-1)Qian, Bo; Rasheed, Khaled (2004). _HURST EXPONENT AND FINANCIAL MARKET PREDICTABILITY_. IASTED conference on Financial Engineering and Applications (FEA 2004). pp.203–209. [CiteSeerX](https://en.wikipedia.org/wiki/CiteSeerX_(identifier) "CiteSeerX (identifier)")[10.1.1.137.207](https://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.137.207).
-7.   ^ [_**a**_](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-Feder_7-0)[_**b**_](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-Feder_7-1)[_**c**_](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-Feder_7-2)Feder, Jens (1988). [_Fractals_](https://archive.org/details/fractals0000fede). New York: Plenum Press. [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) "ISBN (identifier)")[978-0-306-42851-7](https://en.wikipedia.org/wiki/Special:BookSources/978-0-306-42851-7 "Special:BookSources/978-0-306-42851-7").
-8.   **[^](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-8)**Mandelbrot, Benoit B. (1985). ["Self-affinity and fractal dimension"](http://users.math.yale.edu/~bbm3/web_pdfs/112selfAffinity.pdf)(PDF). _Physica Scripta_. **32** (4): 257–260. [Bibcode](https://en.wikipedia.org/wiki/Bibcode_(identifier) "Bibcode (identifier)"):[1985PhyS...32..257M](https://ui.adsabs.harvard.edu/abs/1985PhyS...32..257M). [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1088/0031-8949/32/4/001](https://doi.org/10.1088%2F0031-8949%2F32%2F4%2F001).
-9.   **[^](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-9)**Gneiting, Tilmann; Schlather, Martin (2004). "Stochastic Models That Separate Fractal Dimension and the Hurst Effect". _SIAM Review_. **46** (2): 269–282. [arXiv](https://en.wikipedia.org/wiki/ArXiv_(identifier) "ArXiv (identifier)"):[physics/0109031](https://arxiv.org/abs/physics/0109031). [Bibcode](https://en.wikipedia.org/wiki/Bibcode_(identifier) "Bibcode (identifier)"):[2004SIAMR..46..269G](https://ui.adsabs.harvard.edu/abs/2004SIAMR..46..269G). [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1137/s0036144501394387](https://doi.org/10.1137%2Fs0036144501394387). [S2CID](https://en.wikipedia.org/wiki/S2CID_(identifier) "S2CID (identifier)")[15409721](https://api.semanticscholar.org/CorpusID:15409721).
-10.   **[^](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-10)**Mandelbrot, Benoit B.; Wallis, James R. (1969-10-01). "Robustness of the rescaled range R/S in the measurement of noncyclic long run statistical dependence". _Water Resources Research_. **5** (5): 967–988. [Bibcode](https://en.wikipedia.org/wiki/Bibcode_(identifier) "Bibcode (identifier)"):[1969WRR.....5..967M](https://ui.adsabs.harvard.edu/abs/1969WRR.....5..967M). [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1029/WR005i005p00967](https://doi.org/10.1029%2FWR005i005p00967). [ISSN](https://en.wikipedia.org/wiki/ISSN_(identifier) "ISSN (identifier)")[1944-7973](https://search.worldcat.org/issn/1944-7973).
-11.   **[^](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-11)**Geweke, J.; Porter-Hudak, S. (1983). "The Estimation and Application of Long Memory Time Series Models". _J. Time Ser. Anal_. **4** (4): 221–238. [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1111/j.1467-9892.1983.tb00371.x](https://doi.org/10.1111%2Fj.1467-9892.1983.tb00371.x).
-12.   **[^](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-12)**J. Beran. Statistics For Long-Memory Processes. Chapman and Hall, 1994.
-13.   **[^](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-13)**Robinson, P. M. (1995). ["Gaussian semiparametric estimation of long-range dependence"](https://doi.org/10.1214%2Faos%2F1176324317). _The Annals of Statistics_. **23** (5): 1630–1661. [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1214/aos/1176324317](https://doi.org/10.1214%2Faos%2F1176324317).
-14.   **[^](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-14)**Simonsen, Ingve; Hansen, Alex; Nes, Olav Magnar (1998-09-01). "Determination of the Hurst exponent by use of wavelet transforms". _Physical Review E_. **58** (3): 2779–2787. [arXiv](https://en.wikipedia.org/wiki/ArXiv_(identifier) "ArXiv (identifier)"):[cond-mat/9707153](https://arxiv.org/abs/cond-mat/9707153). [Bibcode](https://en.wikipedia.org/wiki/Bibcode_(identifier) "Bibcode (identifier)"):[1998PhRvE..58.2779S](https://ui.adsabs.harvard.edu/abs/1998PhRvE..58.2779S). [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1103/PhysRevE.58.2779](https://doi.org/10.1103%2FPhysRevE.58.2779). [S2CID](https://en.wikipedia.org/wiki/S2CID_(identifier) "S2CID (identifier)")[55110202](https://api.semanticscholar.org/CorpusID:55110202).
-15.   **[^](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-15)**R. H. Riedi. Multifractal processes. In P. Doukhan, G. Oppenheim, and M. S. Taqqu, editors, The- ory And Applications Of Long-Range Dependence, pages 625–716. Birkh¨auser, 2003.
-16.   **[^](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-16)**Aaron Clauset; Cosma Rohilla Shalizi; M. E. J. Newman (2009). "Power-law distributions in empirical data". _SIAM Review_. **51** (4): 661–703. [arXiv](https://en.wikipedia.org/wiki/ArXiv_(identifier) "ArXiv (identifier)"):[0706.1062](https://arxiv.org/abs/0706.1062). [Bibcode](https://en.wikipedia.org/wiki/Bibcode_(identifier) "Bibcode (identifier)"):[2009SIAMR..51..661C](https://ui.adsabs.harvard.edu/abs/2009SIAMR..51..661C). [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1137/070710111](https://doi.org/10.1137%2F070710111). [S2CID](https://en.wikipedia.org/wiki/S2CID_(identifier) "S2CID (identifier)")[9155618](https://api.semanticscholar.org/CorpusID:9155618).
-17.   ^ [_**a**_](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-:2_17-0)[_**b**_](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-:2_17-1)Annis, A. A.; Lloyd, E. H. (1976-01-01). "The expected value of the adjusted rescaled Hurst range of independent normal summands". _Biometrika_. **63** (1): 111–116. [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1093/biomet/63.1.111](https://doi.org/10.1093%2Fbiomet%2F63.1.111). [ISSN](https://en.wikipedia.org/wiki/ISSN_(identifier) "ISSN (identifier)")[0006-3444](https://search.worldcat.org/issn/0006-3444).
-18.   **[^](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-18)**Weron, Rafał (2002-09-01). "Estimating long-range dependence: finite sample properties and confidence intervals". _Physica A: Statistical Mechanics and Its Applications_. **312** (1–2): 285–299. [arXiv](https://en.wikipedia.org/wiki/ArXiv_(identifier) "ArXiv (identifier)"):[cond-mat/0103510](https://arxiv.org/abs/cond-mat/0103510). [Bibcode](https://en.wikipedia.org/wiki/Bibcode_(identifier) "Bibcode (identifier)"):[2002PhyA..312..285W](https://ui.adsabs.harvard.edu/abs/2002PhyA..312..285W). [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1016/S0378-4371(02)00961-5](https://doi.org/10.1016%2FS0378-4371%2802%2900961-5). [S2CID](https://en.wikipedia.org/wiki/S2CID_(identifier) "S2CID (identifier)")[3272761](https://api.semanticscholar.org/CorpusID:3272761).
-19.   **[^](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-19)**Preis, T.; et al. (2009). ["Accelerated fluctuation analysis by graphic cards and complex pattern formation in financial markets"](http://www.iop.org/EJ/abstract/1367-2630/11/9/093024/). _New J. Phys_. **11** (9): 093024. [Bibcode](https://en.wikipedia.org/wiki/Bibcode_(identifier) "Bibcode (identifier)"):[2009NJPh...11i3024P](https://ui.adsabs.harvard.edu/abs/2009NJPh...11i3024P). [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1088/1367-2630/11/9/093024](https://doi.org/10.1088%2F1367-2630%2F11%2F9%2F093024).
-20.   **[^](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-20)**Gorski, A.Z.; et al. (2002). "Financial multifractality and its subtleties: an example of DAX". _Physica_. **316** (1): 496–510. [arXiv](https://en.wikipedia.org/wiki/ArXiv_(identifier) "ArXiv (identifier)"):[cond-mat/0205482](https://arxiv.org/abs/cond-mat/0205482). [Bibcode](https://en.wikipedia.org/wiki/Bibcode_(identifier) "Bibcode (identifier)"):[2002PhyA..316..496G](https://ui.adsabs.harvard.edu/abs/2002PhyA..316..496G). [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1016/s0378-4371(02)01021-x](https://doi.org/10.1016%2Fs0378-4371%2802%2901021-x). [S2CID](https://en.wikipedia.org/wiki/S2CID_(identifier) "S2CID (identifier)")[16889851](https://api.semanticscholar.org/CorpusID:16889851).
-21.   **[^](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-21)**[Mandelbrot, Benoît B.](https://en.wikipedia.org/wiki/Beno%C3%AEt_Mandelbrot "Benoît Mandelbrot"), _The (Mis)Behavior of Markets, A Fractal View of Risk, Ruin and Reward_ (Basic Books, 2004), pp. 186-195
-22.   **[^](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-22)**Alex Hansen; Jean Schmittbuhl; G. George Batrouni (2001). "Distinguishing fractional and white noise in one and two dimensions". _Phys. Rev. E_. **63** (6): 062102. [arXiv](https://en.wikipedia.org/wiki/ArXiv_(identifier) "ArXiv (identifier)"):[cond-mat/0007011](https://arxiv.org/abs/cond-mat/0007011). [Bibcode](https://en.wikipedia.org/wiki/Bibcode_(identifier) "Bibcode (identifier)"):[2001PhRvE..63f2102H](https://ui.adsabs.harvard.edu/abs/2001PhRvE..63f2102H). [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1103/PhysRevE.63.062102](https://doi.org/10.1103%2FPhysRevE.63.062102). [PMID](https://en.wikipedia.org/wiki/PMID_(identifier) "PMID (identifier)")[11415147](https://pubmed.ncbi.nlm.nih.gov/11415147). [S2CID](https://en.wikipedia.org/wiki/S2CID_(identifier) "S2CID (identifier)")[13608683](https://api.semanticscholar.org/CorpusID:13608683).
-23.   **[^](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-23)**J.W. Kantelhardt; S.A. Zschiegner; E. Koscielny-Bunde; S. Havlin; A. Bunde; H.E. Stanley (2002). ["Multifractal detrended fluctuation analysis of nonstationary time series"](https://www.sciencedirect.com/science/article/pii/S0378437102013833). _Physica A: Statistical Mechanics and Its Applications_. **87** (1): 87–114. [arXiv](https://en.wikipedia.org/wiki/ArXiv_(identifier) "ArXiv (identifier)"):[physics/0202070](https://arxiv.org/abs/physics/0202070). [Bibcode](https://en.wikipedia.org/wiki/Bibcode_(identifier) "Bibcode (identifier)"):[2002PhyA..316...87K](https://ui.adsabs.harvard.edu/abs/2002PhyA..316...87K). [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1016/s0378-4371(02)01383-3](https://doi.org/10.1016%2Fs0378-4371%2802%2901383-3). [S2CID](https://en.wikipedia.org/wiki/S2CID_(identifier) "S2CID (identifier)")[18417413](https://api.semanticscholar.org/CorpusID:18417413).
-24.   **[^](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-24)**[Joseph L McCauley](http://www.uh.edu/~jmccaul2/), [Kevin E Bassler](http://complex.phys.uh.edu/), and Gemunu H. Gunaratne (2008) "Martingales, Detrending Data, and the Efficient Market Hypothesis", _Physica_, A37, 202, Open access preprint: [arXiv:0710.2583](https://arxiv.org/abs/0710.2583)
-25.   **[^](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-25)**Bariviera, A.F. (2011). "The influence of liquidity on informational efficiency: The case of the Thai Stock Market". _Physica A: Statistical Mechanics and Its Applications_. **390** (23): 4426–4432. [Bibcode](https://en.wikipedia.org/wiki/Bibcode_(identifier) "Bibcode (identifier)"):[2011PhyA..390.4426B](https://ui.adsabs.harvard.edu/abs/2011PhyA..390.4426B). [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1016/j.physa.2011.07.032](https://doi.org/10.1016%2Fj.physa.2011.07.032). [S2CID](https://en.wikipedia.org/wiki/S2CID_(identifier) "S2CID (identifier)")[120377241](https://api.semanticscholar.org/CorpusID:120377241).
-26.   **[^](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-26)**Roche, Stephan; Bicout, Dominique; Maciá, Enrique; Kats, Efim (2003-11-26). "Long Range Correlations in DNA: Scaling Properties and Charge Transfer Efficiency". _Physical Review Letters_. **91** (22): 228101. [arXiv](https://en.wikipedia.org/wiki/ArXiv_(identifier) "ArXiv (identifier)"):[cond-mat/0309463](https://arxiv.org/abs/cond-mat/0309463). [Bibcode](https://en.wikipedia.org/wiki/Bibcode_(identifier) "Bibcode (identifier)"):[2003PhRvL..91v8101R](https://ui.adsabs.harvard.edu/abs/2003PhRvL..91v8101R). [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1103/PhysRevLett.91.228101](https://doi.org/10.1103%2FPhysRevLett.91.228101). [PMID](https://en.wikipedia.org/wiki/PMID_(identifier) "PMID (identifier)")[14683275](https://pubmed.ncbi.nlm.nih.gov/14683275). [S2CID](https://en.wikipedia.org/wiki/S2CID_(identifier) "S2CID (identifier)")[14067237](https://api.semanticscholar.org/CorpusID:14067237).
-27.   **[^](https://en.wikipedia.org/wiki/Hurst_exponent#cite_ref-27)**Yu, Sunkyu; Piao, Xianji; Hong, Jiho; Park, Namkyoo (2015-09-16). ["Bloch-like waves in random-walk potentials based on supersymmetry"](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4595658). _Nature Communications_. **6**: 8269. [arXiv](https://en.wikipedia.org/wiki/ArXiv_(identifier) "ArXiv (identifier)"):[1501.02591](https://arxiv.org/abs/1501.02591). [Bibcode](https://en.wikipedia.org/wiki/Bibcode_(identifier) "Bibcode (identifier)"):[2015NatCo...6.8269Y](https://ui.adsabs.harvard.edu/abs/2015NatCo...6.8269Y). [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1038/ncomms9269](https://doi.org/10.1038%2Fncomms9269). [PMC](https://en.wikipedia.org/wiki/PMC_(identifier) "PMC (identifier)")[4595658](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4595658). [PMID](https://en.wikipedia.org/wiki/PMID_(identifier) "PMID (identifier)")[26373616](https://pubmed.ncbi.nlm.nih.gov/26373616).
+4 (5): 909– 918.
+
+Bibcode : 1968WRR.....4..909M .
+
+doi : 10.1029/wr004i005p00909 .
+
+^ Mandelbrot, Benoît B. (2006). "The (Mis)Behavior of Markets".
+
+Journal of Statistical Physics .
+
+122 (2): 187.
+
+Bibcode : 2006JSP...122..373P .
+
+doi : 10.1007/s10955-005-8004-Z .
+
+S2CID 119634845 .
+
+^ Torsten Kleinow (2002) Testing Continuous Time Models in Financial Markets , Doctoral thesis, Berlin [ page needed ] ^ a b Qian, Bo; Rasheed, Khaled (2004).
+
+HURST EXPONENT AND FINANCIAL MARKET PREDICTABILITY . IASTED conference on Financial Engineering and Applications (FEA 2004). pp.
+
+203– 209.
+
+CiteSeerX 10.1.1.137.207 .
+
+^ a b c Feder, Jens (1988).
+
+Fractals . New York: Plenum Press.
+
+ISBN 978-0-306-42851-7 .
+
+^ Mandelbrot, Benoit B. (1985).
+
+"Self-affinity and fractal dimension" (PDF) .
+
+Physica Scripta .
+
+32 (4): 257– 260.
+
+Bibcode : 1985PhyS...32..257M .
+
+doi : 10.1088/0031-8949/32/4/001 .
+
+^ Gneiting, Tilmann; Schlather, Martin (2004). "Stochastic Models That Separate Fractal Dimension and the Hurst Effect".
+
+SIAM Review .
+
+46 (2): 269– 282.
+
+arXiv : physics/0109031 .
+
+Bibcode : 2004SIAMR..46..269G .
+
+doi : 10.1137/s0036144501394387 .
+
+S2CID 15409721 .
+
+^ Mandelbrot, Benoit B.; Wallis, James R. (1969-10-01). "Robustness of the rescaled range R/S in the measurement of noncyclic long run statistical dependence".
+
+Water Resources Research .
+
+5 (5): 967– 988.
+
+Bibcode : 1969WRR.....5..967M .
+
+doi : 10.1029/WR005i005p00967 .
+
+ISSN 1944-7973 .
+
+^ Geweke, J.; Porter-Hudak, S. (1983). "The Estimation and Application of Long Memory Time Series Models".
+
+J. Time Ser. Anal .
+
+4 (4): 221– 238.
+
+doi : 10.1111/j.1467-9892.1983.tb00371.x .
+
+^ J. Beran. Statistics For Long-Memory Processes. Chapman and Hall, 1994.
+
+^ Robinson, P. M. (1995).
+
+"Gaussian semiparametric estimation of long-range dependence" .
+
+The Annals of Statistics .
+
+23 (5): 1630– 1661.
+
+doi : 10.1214/aos/1176324317 .
+
+^ Simonsen, Ingve; Hansen, Alex; Nes, Olav Magnar (1998-09-01). "Determination of the Hurst exponent by use of wavelet transforms".
+
+Physical Review E .
+
+58 (3): 2779– 2787.
+
+arXiv : cond-mat/9707153 .
+
+Bibcode : 1998PhRvE..58.2779S .
+
+doi : 10.1103/PhysRevE.58.2779 .
+
+S2CID 55110202 .
+
+^ R. H. Riedi. Multifractal processes. In P. Doukhan, G. Oppenheim, and M. S. Taqqu, editors, The- ory And Applications Of Long-Range Dependence, pages 625–716. Birkh¨auser, 2003.
+
+^ Aaron Clauset; Cosma Rohilla Shalizi; M. E. J. Newman (2009). "Power-law distributions in empirical data".
+
+SIAM Review .
+
+51 (4): 661– 703.
+
+arXiv : 0706.1062 .
+
+Bibcode : 2009SIAMR..51..661C .
+
+doi : 10.1137/070710111 .
+
+S2CID 9155618 .
+
+^ a b Annis, A. A.; Lloyd, E. H. (1976-01-01). "The expected value of the adjusted rescaled Hurst range of independent normal summands".
+
+Biometrika .
+
+63 (1): 111– 116.
+
+doi : 10.1093/biomet/63.1.111 .
+
+ISSN 0006-3444 .
+
+^ Weron, Rafał (2002-09-01). "Estimating long-range dependence: finite sample properties and confidence intervals".
+
+Physica A: Statistical Mechanics and Its Applications .
+
+312 ( 1– 2): 285– 299.
+
+arXiv : cond-mat/0103510 .
+
+Bibcode : 2002PhyA..312..285W .
+
+doi : 10.1016/S0378-4371(02)00961-5 .
+
+S2CID 3272761 .
+
+^ Preis, T.; et al. (2009).
+
+"Accelerated fluctuation analysis by graphic cards and complex pattern formation in financial markets" .
+
+New J. Phys .
+
+11 (9): 093024.
+
+Bibcode : 2009NJPh...11i3024P .
+
+doi : 10.1088/1367-2630/11/9/093024 .
+
+^ Gorski, A.Z.; et al. (2002). "Financial multifractality and its subtleties: an example of DAX".
+
+Physica .
+
+316 (1): 496– 510.
+
+arXiv : cond-mat/0205482 .
+
+Bibcode : 2002PhyA..316..496G .
+
+doi : 10.1016/s0378-4371(02)01021-x .
+
+S2CID 16889851 .
+
+^ Mandelbrot, Benoît B.
+
+, The (Mis)Behavior of Markets, A Fractal View of Risk, Ruin and Reward (Basic Books, 2004), pp. 186-195 ^ Alex Hansen; Jean Schmittbuhl; G. George Batrouni (2001). "Distinguishing fractional and white noise in one and two dimensions".
+
+Phys. Rev. E .
+
+63 (6): 062102.
+
+arXiv : cond-mat/0007011 .
+
+Bibcode : 2001PhRvE..63f2102H .
+
+doi : 10.1103/PhysRevE.63.062102 .
+
+PMID 11415147 .
+
+S2CID 13608683 .
+
+^ J.W. Kantelhardt; S.A. Zschiegner; E. Koscielny-Bunde; S. Havlin; A. Bunde; H.E. Stanley (2002).
+
+"Multifractal detrended fluctuation analysis of nonstationary time series" .
+
+Physica A: Statistical Mechanics and Its Applications .
+
+87 (1): 87– 114.
+
+arXiv : physics/0202070 .
+
+Bibcode : 2002PhyA..316...87K .
+
+doi : 10.1016/s0378-4371(02)01383-3 .
+
+S2CID 18417413 .
+
+^ Joseph L McCauley , Kevin E Bassler , and Gemunu H. Gunaratne (2008) "Martingales, Detrending Data, and the Efficient Market Hypothesis", Physica , A37, 202, Open access preprint: arXiv:0710.2583 ^ Bariviera, A.F. (2011). "The influence of liquidity on informational efficiency: The case of the Thai Stock Market".
+
+Physica A: Statistical Mechanics and Its Applications .
+
+390 (23): 4426– 4432.
+
+Bibcode : 2011PhyA..390.4426B .
+
+doi : 10.1016/j.physa.2011.07.032 .
+
+S2CID 120377241 .
+
+^ Roche, Stephan; Bicout, Dominique; Maciá, Enrique; Kats, Efim (2003-11-26). "Long Range Correlations in DNA: Scaling Properties and Charge Transfer Efficiency".
+
+Physical Review Letters .
+
+91 (22): 228101.
+
+arXiv : cond-mat/0309463 .
+
+Bibcode : 2003PhRvL..91v8101R .
+
+doi : 10.1103/PhysRevLett.91.228101 .
+
+PMID 14683275 .
+
+S2CID 14067237 .
+
+^ Yu, Sunkyu; Piao, Xianji; Hong, Jiho; Park, Namkyoo (2015-09-16).
+
+"Bloch-like waves in random-walk potentials based on supersymmetry" .
+
+Nature Communications .
+
+6 : 8269.
+
+arXiv : 1501.02591 .
+
+Bibcode : 2015NatCo...6.8269Y .
+
+doi : 10.1038/ncomms9269 .
+
+PMC 4595658 .
+
+PMID 26373616 .
+
+Retrieved from " https://en.wikipedia.org/w/index.php?title=Hurst_exponent&oldid=1296531667 " Categories : Autocorrelation Fractals Hidden categories: Wikipedia articles needing page number citations from September 2010 Articles with short description Short description matches Wikidata Wikipedia articles needing clarification from October 2023 Wikipedia articles needing clarification from August 2011 Pages displaying short descriptions of redirect targets via Module:Annotated link This page was last edited on 20 June 2025, at 14:51 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Hurst exponent 5 languages Add topic
+

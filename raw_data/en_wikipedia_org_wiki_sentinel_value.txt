@@ -1,0 +1,55 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Examples 2 Variants Toggle Variants subsection 2.1 Examples 2.1.1 Array 3 See also 4 References Toggle the table of contents Sentinel value 1 language Français Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia In-band data value that must be handled specially by computer code Not to be confused with sentinel node or canary value .
+
+In computer programming , a sentinel value (also referred to as a flag value , trip value , rogue value , signal value , or dummy data ) is a special value in the context of an algorithm which uses its presence as a condition of termination, typically in a loop or recursive algorithm.
+
+The sentinel value is a form of in-band data that makes it possible to detect the end of the data when no out-of-band data (such as an explicit size indication) is provided. The value should be selected in such a way that it is guaranteed to be distinct from all legal data values since otherwise, the presence of such values would prematurely signal the end of the data (the semipredicate problem ). A sentinel value is sometimes known as an " Elephant in Cairo ", due to a joke where this is used as a physical sentinel. In safe languages, most sentinel values could be replaced with option types , which enforce explicit handling of the exceptional case.
+
+Examples [ edit ] Some examples of common sentinel values and their uses: Null character for indicating the end of a null-terminated string .
+
+Null pointer for indicating the end of a linked list or a tree .
+
+A set most significant bit in a stream of equally spaced data values, for example, a set 8th bit in a stream of 7-bit ASCII characters stored in 8-bit bytes indicating a special property (like inverse video , boldface or italics ) or the end of the stream.
+
+A negative integer for indicating the end of a sequence of non-negative integers.
+
+Variants [ edit ] A related practice, used in slightly different circumstances, is to place some specific value at the end of the data, in order to avoid the need for an explicit test for termination in some processing loop, because the value will trigger termination by the tests already present for other reasons. Unlike the above uses, this is not how the data is naturally stored or processed, but is instead an optimization, compared to the straightforward algorithm that checks for termination. This is typically used in searching.
+
+[ 1 ] [ 2 ] For instance, when searching for a particular value in an unsorted list , every element will be compared against this value, with the loop terminating when equality is found; however, to deal with the case that the value should be absent, one must also test after each step for having completed the search unsuccessfully. By appending the value searched for to the end of the list, an unsuccessful search is no longer possible, and no explicit termination test is required in the inner loop .  After the search, one must decide whether a true match was found, but this test needs to be performed only once rather than at each iteration.
+
+[ 3 ] Knuth calls the value so placed at the end of the data, a dummy value rather than a sentinel.
+
+Examples [ edit ] Array [ edit ] For example, if searching for a value in an array in C, a straightforward implementation is as follows; note the use of a negative number (invalid index) to solve the semipredicate problem of returning "no result": int find ( int arr [], size_t len , int val ) { for ( int i = 0 ; i < len ; i ++ ) if ( arr [ i ] == val ) return i ; return -1 ; // not found } However, this does two tests at each iteration of the loop: whether the value has been found and whether the end of the array has been reached. This latter test is what is avoided by using a sentinel value. Assuming the array can be extended by one element (without memory allocation or cleanup; this is more realistic for a linked list, as below), this can be rewritten as: int find ( int arr [], size_t len , int val ) { int i ; arr [ len ] = val ; // add sentinel value for ( i = 0 ;; i ++ ) if ( arr [ i ] == val ) break ; if ( i < len ) return i ; else return -1 ; // not found } The test for i < len is still present, but it has been moved outside the loop, which now contains only a single test (for the value), and is guaranteed to terminate due to the sentinel value. There is a single check on termination if the sentinel value has been hit, which replaces a test for each iteration.
+
+It is also possible to temporarily replace the last element of the array by a sentinel and handle it, especially if it is reached: int find ( int arr [], size_t len , int val ) { int last ; if ( len == 0 ) return -1 ; last = arr [ len - 1 ]; arr [ len - 1 ] = val ; // add sentinel value int i ; for ( i = 0 ;; i ++ ) if ( arr [ i ] == val ) break ; arr [ len - 1 ] = last ; if ( arr [ i ] == val ) return i ; else return -1 ; // not found } See also [ edit ] Canary value Sentinel node Semipredicate problem Elephant in Cairo Magic number (programming) Magic string Null object pattern Time formatting and storage bugs References [ edit ] ^ Mehlhorn, Kurt ; Sanders, Peter (2008).
+
+"3. Representing Sequences by Arrays and Linked Lists" (PDF) .
+
+Algorithms and Data Structures: The Basic Toolbox . Springer. p. 63.
+
+ISBN 978-3-540-77977-3 .
+
+^ McConnell, Steve (2004).
+
+Code Complete (2nd ed.). Redmond: Microsoft Press. p. 621.
+
+ISBN 0-7356-1967-0 .
+
+^ Knuth, Donald (1973).
+
+Sorting and searching .
+
+The Art of Computer Programming . Vol. 3.
+
+Addison-Wesley . p. 395.
+
+ISBN 0-201-03803-X .
+
+Retrieved from " https://en.wikipedia.org/w/index.php?title=Sentinel_value&oldid=1273553828 " Categories : Linked lists Trees (data structures) Hidden categories: Articles with short description Short description matches Wikidata This page was last edited on 2 February 2025, at 22:24 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Sentinel value 1 language Add topic
+

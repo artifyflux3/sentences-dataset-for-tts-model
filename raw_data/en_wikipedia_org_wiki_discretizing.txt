@@ -1,0 +1,138 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Discretization of linear state space models Toggle Discretization of linear state space models subsection 1.1 Discretization of process noise 1.2 Derivation 1.3 Approximations 2 Discretization of continuous features 3 Discretization of smooth functions 4 See also 5 References 6 Further reading 7 External links Toggle the table of contents Discretization 14 languages العربية Català Čeština Deutsch Español فارسی Français 한국어 Latina 日本語 Polski Português 粵語 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia (Redirected from Discretizing ) Conversion of continuous functions into discrete counterparts A solution to a discretized partial differential equation, obtained with the finite element method .
+
+In applied mathematics , discretization is the process of transferring continuous functions, models, variables, and equations into discrete counterparts.  This process is usually carried out as a first step toward making them suitable for numerical evaluation and implementation on digital computers.
+
+Dichotomization is the special case of discretization in which the number of discrete classes is 2, which can approximate a continuous variable as a binary variable (creating a dichotomy for modeling purposes, as in binary classification ).
+
+Discretization is also related to discrete mathematics , and is an important component of granular computing .  In this context, discretization may also refer to modification of variable or category granularity , as when multiple discrete variables are aggregated or multiple discrete categories fused.
+
+Whenever continuous data is discretized , there is always some amount of discretization error . The goal is to reduce the amount to a level considered negligible for the modeling purposes at hand.
+
+The terms discretization and quantization often have the same denotation but not always identical connotations . (Specifically, the two terms share a semantic field .) The same is true of discretization error and quantization error .
+
+Mathematical methods relating to discretization include the Euler–Maruyama method and the zero-order hold .
+
+Discretization of linear state space models [ edit ] Discretization is also concerned with the transformation of continuous differential equations into discrete difference equations , suitable for numerical computing .
+
+The following continuous-time state space model x ˙ ˙ ( t ) = A x ( t ) + B u ( t ) + w ( t ) y ( t ) = C x ( t ) + D u ( t ) + v ( t ) {\displaystyle {\begin{aligned}{\dot {\mathbf {x} }}(t)&=\mathbf {Ax} (t)+\mathbf {Bu} (t)+\mathbf {w} (t)\\[2pt]\mathbf {y} (t)&=\mathbf {Cx} (t)+\mathbf {Du} (t)+\mathbf {v} (t)\end{aligned}}} where v and w are continuous zero-mean white noise sources with power spectral densities w ( t ) ∼ ∼ N ( 0 , Q ) v ( t ) ∼ ∼ N ( 0 , R ) {\displaystyle {\begin{aligned}\mathbf {w} (t)&\sim N(0,\mathbf {Q} )\\[2pt]\mathbf {v} (t)&\sim N(0,\mathbf {R} )\end{aligned}}} can be discretized, assuming zero-order hold for the input u and continuous integration for the noise v , to x [ k + 1 ] = A d x [ k ] + B d u [ k ] + w [ k ] y [ k ] = C d x [ k ] + D d u [ k ] + v [ k ] {\displaystyle {\begin{aligned}\mathbf {x} [k+1]&=\mathbf {A_{d}x} [k]+\mathbf {B_{d}u} [k]+\mathbf {w} [k]\\[2pt]\mathbf {y} [k]&=\mathbf {C_{d}x} [k]+\mathbf {D_{d}u} [k]+\mathbf {v} [k]\end{aligned}}} with covariances w [ k ] ∼ ∼ N ( 0 , Q d ) v [ k ] ∼ ∼ N ( 0 , R d ) {\displaystyle {\begin{aligned}\mathbf {w} [k]&\sim N(0,\mathbf {Q_{d}} )\\[2pt]\mathbf {v} [k]&\sim N(0,\mathbf {R_{d}} )\end{aligned}}} where A d = e A T = L − − 1 { ( s I − − A ) − − 1 } t = T B d = ( ∫ ∫ τ τ = 0 T e A τ τ d τ τ ) B C d = C D d = D Q d = ∫ ∫ τ τ = 0 T e A τ τ Q e A ⊤ ⊤ τ τ d τ τ R d = R 1 T {\displaystyle {\begin{aligned}\mathbf {A_{d}} &=e^{\mathbf {A} T}={\mathcal {L}}^{-1}{\Bigl \{}(s\mathbf {I} -\mathbf {A} )^{-1}{\Bigr \}}_{t=T}\\[4pt]\mathbf {B_{d}} &=\left(\int _{\tau =0}^{T}e^{\mathbf {A} \tau }d\tau \right)\mathbf {B} \\[4pt]\mathbf {C_{d}} &=\mathbf {C} \\[8pt]\mathbf {D_{d}} &=\mathbf {D} \\[2pt]\mathbf {Q_{d}} &=\int _{\tau =0}^{T}e^{\mathbf {A} \tau }\mathbf {Q} e^{\mathbf {A} ^{\top }\tau }d\tau \\[2pt]\mathbf {R_{d}} &=\mathbf {R} {\frac {1}{T}}\end{aligned}}} and T is the sample time . If A is nonsingular , B d = A − − 1 ( A d − − I ) B .
+
+{\displaystyle \mathbf {B_{d}} =\mathbf {A} ^{-1}(\mathbf {A_{d}} -\mathbf {I} )\mathbf {B} .} The equation for the discretized measurement noise is a consequence of the continuous measurement noise being defined with a power spectral density.
+
+[ 1 ] A clever trick to compute A d and B d in one step is by utilizing the following property: [ 2 ] : p. 215 e [ A B 0 0 ] T = [ A d B d 0 I ] {\displaystyle e^{{\begin{bmatrix}\mathbf {A} &\mathbf {B} \\\mathbf {0} &\mathbf {0} \end{bmatrix}}T}={\begin{bmatrix}\mathbf {A_{d}} &\mathbf {B_{d}} \\\mathbf {0} &\mathbf {I} \end{bmatrix}}} Where A d and B d are the discretized state-space matrices.
+
+Discretization of process noise [ edit ] Numerical evaluation of Q d is a bit trickier due to the matrix exponential integral. It can, however, be computed by first constructing a matrix, and computing the exponential of it [ 3 ] F = [ − − A Q 0 A ⊤ ⊤ ] T G = e F = [ … … A d − − 1 Q d 0 A d ⊤ ⊤ ] {\displaystyle {\begin{aligned}\mathbf {F} &={\begin{bmatrix}-\mathbf {A} &\mathbf {Q} \\\mathbf {0} &\mathbf {A} ^{\top }\end{bmatrix}}T\\[2pt]\mathbf {G} &=e^{\mathbf {F} }={\begin{bmatrix}\dots &\mathbf {A_{d}} ^{-1}\mathbf {Q_{d}} \\\mathbf {0} &\mathbf {A_{d}} ^{\top }\end{bmatrix}}\end{aligned}}} The discretized process noise is then evaluated by multiplying the transpose of the lower-right partition of G with the upper-right partition of G : Q d = ( A d ⊤ ⊤ ) ⊤ ⊤ ( A d − − 1 Q d ) = A d ( A d − − 1 Q d ) .
+
+{\displaystyle \mathbf {Q_{d}} =(\mathbf {A_{d}} ^{\top })^{\top }(\mathbf {A_{d}} ^{-1}\mathbf {Q_{d}} )=\mathbf {A_{d}} (\mathbf {A_{d}} ^{-1}\mathbf {Q_{d}} ).} Derivation [ edit ] Starting with the continuous model x ˙ ˙ ( t ) = A x ( t ) + B u ( t ) {\displaystyle \mathbf {\dot {x}} (t)=\mathbf {Ax} (t)+\mathbf {Bu} (t)} we know that the matrix exponential is d d t e A t = A e A t = e A t A {\displaystyle {\frac {d}{dt}}e^{\mathbf {A} t}=\mathbf {A} e^{\mathbf {A} t}=e^{\mathbf {A} t}\mathbf {A} } and by premultiplying the model we get e − − A t x ˙ ˙ ( t ) = e − − A t A x ( t ) + e − − A t B u ( t ) {\displaystyle e^{-\mathbf {A} t}\mathbf {\dot {x}} (t)=e^{-\mathbf {A} t}\mathbf {Ax} (t)+e^{-\mathbf {A} t}\mathbf {Bu} (t)} which we recognize as d d t [ e − − A t x ( t ) ] = e − − A t B u ( t ) {\displaystyle {\frac {d}{dt}}{\Bigl [}e^{-\mathbf {A} t}\mathbf {x} (t){\Bigr ]}=e^{-\mathbf {A} t}\mathbf {Bu} (t)} and by integrating, e − − A t x ( t ) − − e 0 x ( 0 ) = ∫ ∫ 0 t e − − A τ τ B u ( τ τ ) d τ τ x ( t ) = e A t x ( 0 ) + ∫ ∫ 0 t e A ( t − − τ τ ) B u ( τ τ ) d τ τ {\displaystyle {\begin{aligned}e^{-\mathbf {A} t}\mathbf {x} (t)-e^{0}\mathbf {x} (0)&=\int _{0}^{t}e^{-\mathbf {A} \tau }\mathbf {Bu} (\tau )d\tau \\[2pt]\mathbf {x} (t)&=e^{\mathbf {A} t}\mathbf {x} (0)+\int _{0}^{t}e^{\mathbf {A} (t-\tau )}\mathbf {Bu} (\tau )d\tau \end{aligned}}} which is an analytical solution to the continuous model.
+
+Now we want to discretise the above expression. We assume that u is constant during each timestep.
+
+x [ k ] = d e f x ( k T ) x [ k ] = e A k T x ( 0 ) + ∫ ∫ 0 k T e A ( k T − − τ τ ) B u ( τ τ ) d τ τ x [ k + 1 ] = e A ( k + 1 ) T x ( 0 ) + ∫ ∫ 0 ( k + 1 ) T e A [ ( k + 1 ) T − − τ τ ] B u ( τ τ ) d τ τ x [ k + 1 ] = e A T [ e A k T x ( 0 ) + ∫ ∫ 0 k T e A ( k T − − τ τ ) B u ( τ τ ) d τ τ ] + ∫ ∫ k T ( k + 1 ) T e A ( k T + T − − τ τ ) B u ( τ τ ) d τ τ {\displaystyle {\begin{aligned}\mathbf {x} [k]&\,{\stackrel {\mathrm {def} }{=}}\ \mathbf {x} (kT)\\[6pt]\mathbf {x} [k]&=e^{\mathbf {A} kT}\mathbf {x} (0)+\int _{0}^{kT}e^{\mathbf {A} (kT-\tau )}\mathbf {Bu} (\tau )d\tau \\[4pt]\mathbf {x} [k+1]&=e^{\mathbf {A} (k+1)T}\mathbf {x} (0)+\int _{0}^{(k+1)T}e^{\mathbf {A} [(k+1)T-\tau ]}\mathbf {Bu} (\tau )d\tau \\[2pt]\mathbf {x} [k+1]&=e^{\mathbf {A} T}\left[e^{\mathbf {A} kT}\mathbf {x} (0)+\int _{0}^{kT}e^{\mathbf {A} (kT-\tau )}\mathbf {Bu} (\tau )d\tau \right]+\int _{kT}^{(k+1)T}e^{\mathbf {A} (kT+T-\tau )}\mathbf {B} \mathbf {u} (\tau )d\tau \end{aligned}}} We recognize the bracketed expression as x [ k ] {\displaystyle \mathbf {x} [k]} , and the second term can be simplified by substituting with the function v ( τ τ ) = k T + T − − τ τ {\displaystyle v(\tau )=kT+T-\tau } . Note that d τ τ = − − d v {\displaystyle d\tau =-dv} . We also assume that u is constant during the integral , which in turn yields x [ k + 1 ] = e A T x [ k ] − − ( ∫ ∫ v ( k T ) v ( ( k + 1 ) T ) e A v d v ) B u [ k ] = e A T x [ k ] − − ( ∫ ∫ T 0 e A v d v ) B u [ k ] = e A T x [ k ] + ( ∫ ∫ 0 T e A v d v ) B u [ k ] = e A T x [ k ] + A − − 1 ( e A T − − I ) B u [ k ] {\displaystyle {\begin{aligned}\mathbf {x} [k+1]&=e^{\mathbf {A} T}\mathbf {x} [k]-\left(\int _{v(kT)}^{v((k+1)T)}e^{\mathbf {A} v}dv\right)\mathbf {Bu} [k]\\[2pt]&=e^{\mathbf {A} T}\mathbf {x} [k]-\left(\int _{T}^{0}e^{\mathbf {A} v}dv\right)\mathbf {Bu} [k]\\[2pt]&=e^{\mathbf {A} T}\mathbf {x} [k]+\left(\int _{0}^{T}e^{\mathbf {A} v}dv\right)\mathbf {Bu} [k]\\[4pt]&=e^{\mathbf {A} T}\mathbf {x} [k]+\mathbf {A} ^{-1}\left(e^{\mathbf {A} T}-\mathbf {I} \right)\mathbf {Bu} [k]\end{aligned}}} which is an exact solution to the discretization problem.
+
+When A is singular, the latter expression can still be used by replacing e A T {\displaystyle e^{\mathbf {A} T}} by its Taylor expansion , e A T = ∑ ∑ k = 0 ∞ ∞ 1 k !
+
+( A T ) k .
+
+{\displaystyle e^{\mathbf {A} T}=\sum _{k=0}^{\infty }{\frac {1}{k!}}(\mathbf {A} T)^{k}.} This yields x [ k + 1 ] = e A T x [ k ] + ( ∫ ∫ 0 T e A v d v ) B u [ k ] = ( ∑ ∑ k = 0 ∞ ∞ 1 k !
+
+( A T ) k ) x [ k ] + ( ∑ ∑ k = 1 ∞ ∞ 1 k !
+
+A k − − 1 T k ) B u [ k ] , {\displaystyle {\begin{aligned}\mathbf {x} [k+1]&=e^{\mathbf {A} T}\mathbf {x} [k]+\left(\int _{0}^{T}e^{\mathbf {A} v}dv\right)\mathbf {Bu} [k]\\[2pt]&=\left(\sum _{k=0}^{\infty }{\frac {1}{k!}}(\mathbf {A} T)^{k}\right)\mathbf {x} [k]+\left(\sum _{k=1}^{\infty }{\frac {1}{k!}}\mathbf {A} ^{k-1}T^{k}\right)\mathbf {Bu} [k],\end{aligned}}} which is the form used in practice.
+
+Approximations [ edit ] Exact discretization may sometimes be intractable due to the heavy matrix exponential and integral operations involved. It is much easier to calculate an approximate discrete model, based on that for small timesteps e A T ≈ ≈ I + A T {\displaystyle e^{\mathbf {A} T}\approx \mathbf {I} +\mathbf {A} T} . The approximate solution then becomes: x [ k + 1 ] ≈ ≈ ( I + A T ) x [ k ] + T B u [ k ] {\displaystyle \mathbf {x} [k+1]\approx (\mathbf {I} +\mathbf {A} T)\mathbf {x} [k]+T\mathbf {Bu} [k]} This is also known as the Euler method , which is also known as the forward Euler method. Other possible approximations are e A T ≈ ≈ ( I − − A T ) − − 1 {\displaystyle e^{\mathbf {A} T}\approx (\mathbf {I} -\mathbf {A} T)^{-1}} , otherwise known as the backward Euler method and e A T ≈ ≈ ( I + 1 2 A T ) ( I − − 1 2 A T ) − − 1 {\displaystyle e^{\mathbf {A} T}\approx (\mathbf {I} +{\tfrac {1}{2}}\mathbf {A} T)(\mathbf {I} -{\tfrac {1}{2}}\mathbf {A} T)^{-1}} , which is known as the bilinear transform , or Tustin transform. Each of these approximations has different stability properties. The bilinear transform preserves the instability of the continuous-time system.
+
+Discretization of continuous features [ edit ] Main article: Discretization of continuous features In statistics and machine learning, discretization refers to the process of converting continuous features or variables to discretized or nominal features. This can be useful when creating probability mass functions.
+
+Discretization of smooth functions [ edit ] Main article: Distribution (mathematics) § Convolution_versus_Multiplication In generalized functions theory, discretization arises as a particular case of the Convolution Theorem on tempered distributions F { f ∗ ∗ III } = F { f } ⋅ ⋅ III {\displaystyle {\mathcal {F}}\{f*\operatorname {III} \}={\mathcal {F}}\{f\}\cdot \operatorname {III} } F { α α ⋅ ⋅ III } = F { α α } ∗ ∗ III {\displaystyle {\mathcal {F}}\{\alpha \cdot \operatorname {III} \}={\mathcal {F}}\{\alpha \}*\operatorname {III} } where III {\displaystyle \operatorname {III} } is the Dirac comb , ⋅ ⋅ III {\displaystyle \cdot \operatorname {III} } is discretization, ∗ ∗ III {\displaystyle *\operatorname {III} } is periodization , f {\displaystyle f} is a rapidly decreasing tempered distribution
+(e.g. a Dirac delta function δ δ {\displaystyle \delta } or any other compactly supported function), α α {\displaystyle \alpha } is a smooth , slowly growing ordinary function (e.g. the function that is constantly 1 {\displaystyle 1} or any other band-limited function)
+and F {\displaystyle {\mathcal {F}}} is the (unitary, ordinary frequency) Fourier transform .
+Functions α α {\displaystyle \alpha } which are not smooth can be made smooth using a mollifier prior to discretization.
+
+As an example, discretization of the function that is constantly 1 {\displaystyle 1} yields the sequence [ .
+
+.
+
+, 1 , 1 , 1 , .
+
+.
+
+] {\displaystyle [..,1,1,1,..]} which, interpreted as the coefficients of a linear combination of Dirac delta functions , forms a Dirac comb . If additionally truncation is applied, one obtains finite sequences, e.g.
+
+[ 1 , 1 , 1 , 1 ] {\displaystyle [1,1,1,1]} . They are discrete in both, time and frequency.
+
+See also [ edit ] Discrete event simulation Discrete space Discrete time and continuous time Finite difference method Finite volume method for unsteady flow Interpolation Smoothing Stochastic simulation Time-scale calculus References [ edit ] ^ Analytic Sciences Corporation. Technical Staff. (1974).
+
+Applied optimal estimation . Gelb, Arthur, 1937-. Cambridge, Mass.: M.I.T. Press. pp.
+
+121 .
+
+ISBN 0-262-20027-9 .
+
+OCLC 960061 .
+
+^ Raymond DeCarlo: Linear Systems: A State Variable Approach with Numerical Implementation , Prentice Hall, NJ, 1989 ^ Charles Van Loan: Computing integrals involving the matrix exponential , IEEE Transactions on Automatic Control. 23 (3): 395–404, 1978 Further reading [ edit ] Robert Grover Brown & Patrick Y. C. Hwang (1997).
+
+Introduction to random signals and applied Kalman filtering (3rd ed.).
+
+ISBN 978-0471128397 .
+
+Chi-Tsong Chen (1984).
+
+Linear System Theory and Design . Philadelphia, PA, USA: Saunders College Publishing.
+
+ISBN 978-0030716911 .
+
+C. Van Loan (Jun 1978).
+
+"Computing integrals involving the matrix exponential" (PDF) .
+
+IEEE Transactions on Automatic Control .
+
+23 (3): 395– 404.
+
+doi : 10.1109/TAC.1978.1101743 .
+
+hdl : 1813/7095 .
+
+R.H. Middleton & G.C. Goodwin (1990).
+
+Digital control and estimation: a unified approach . Prentice Hall. p. 33f.
+
+ISBN 978-0132116657 .
+
+External links [ edit ] Discretization in Geometry and Dynamics: research on the discretization of differential geometry and dynamics Discretization at Wikipedia's sister projects Definitions from Wiktionary Media from Commons News from Wikinews Quotations from Wikiquote Texts from Wikisource Textbooks from Wikibooks Resources from Wikiversity Authority control databases : National United States Israel NewPP limit report
+Parsed by mw‐web.codfw.main‐7c956d68b4‐hq9x6
+Cached time: 20250817153831
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.319 seconds
+Real time usage: 0.520 seconds
+Preprocessor visited node count: 1589/1000000
+Revision size: 14232/2097152 bytes
+Post‐expand include size: 20168/2097152 bytes
+Template argument size: 1554/2097152 bytes
+Highest expansion depth: 16/100
+Expensive parser function count: 3/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 23704/5000000 bytes
+Lua time usage: 0.191/10.000 seconds
+Lua memory usage: 5319646/52428800 bytes
+Number of Wikibase entities loaded: 1/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  333.531      1 -total
+ 24.44%   81.505      4 Template:Cite_book
+ 23.80%   79.369      1 Template:Reflist
+ 20.23%   67.474      1 Template:Short_description
+ 16.97%   56.609      1 Template:Authority_control
+ 13.97%   46.595      1 Template:Sisterlinks
+ 12.39%   41.316      2 Template:Pagetype
+  5.87%   19.562      2 Template:Main
+  5.38%   17.930      1 Template:Rp
+  5.03%   16.788     14 Template:Main_other Saved in parser cache with key enwiki:pcache:330017:|#|:idhash:canonical and timestamp 20250817153831 and revision id 1258515483. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Discretization&oldid=1258515483 " Categories : Numerical analysis Applied mathematics Functional analysis Iterative methods Control theory Hidden categories: Articles with short description Short description is different from Wikidata Pages using Sister project links with default search This page was last edited on 20 November 2024, at 04:27 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Discretization 14 languages Add topic
+

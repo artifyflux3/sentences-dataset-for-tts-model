@@ -1,0 +1,423 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 History 2 Standards 3 Format Toggle Format subsection 3.1 Variants 3.2 Versions of the OSF DCE variant 3.2.1 Versions 1 and 6 (date-time and MAC address) 3.2.2 Version 2 (date-time and MAC address, DCE security version) 3.2.3 Versions 3 and 5 (namespace name-based) 3.2.4 Version 4 (random) 3.2.5 Version 7 (timestamp and random) 3.2.6 Version 8 (custom) 3.3 Special values 3.3.1 Nil UUID 3.3.2 Max UUID 4 Encoding Toggle Encoding subsection 4.1 Binary representation 4.1.1 Endianness 4.2 Textual representation 5 Collisions 6 Uses Toggle Uses subsection 6.1 Filesystems 6.2 Partition tables 6.3 Remoting 6.4 Databases 6.4.1 Combined Time-GUID 7 See also 8 References 9 External links Toggle the table of contents Universally unique identifier 20 languages العربية Azərbaycanca Català Čeština Deutsch Eesti Español فارسی Français 한국어 Italiano עברית Nederlands 日本語 Norsk bokmål Português Русский Türkçe Українська 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia (Redirected from Globally Unique Identifier ) Label used for information in computer systems Universally Unique Identifier Acronym UUID Organisation Open Software Foundation (OSF), ISO / IEC , Internet Engineering Task Force (IETF) No.
+
+of digits 32 Example f81d4fae-7dec-11d0-a765-00a0c91e6bf6 Website RFC 9562 (obsoleted RFC 4122 ) A Universally Unique Identifier ( UUID ) is a 128-bit label used to uniquely identify objects in computer systems. The term Globally Unique Identifier ( GUID ) is also used, mostly in Microsoft systems.
+
+[ 1 ] [ 2 ] When generated according to the standard methods, UUIDs are, for practical purposes, unique. Their uniqueness does not depend on a central registration authority or coordination between the parties generating them, unlike most other numbering schemes. While the probability that a UUID will be duplicated is not zero, it is generally considered close enough to zero to be negligible.
+
+[ 3 ] [ 4 ] Thus, anyone can create a UUID and use it to identify something with near certainty that the identifier does not duplicate one that has already been, or will be, created to identify something else. Information labeled with UUIDs by independent parties can therefore be later combined into a single database or transmitted on the same channel, with a negligible probability of duplication.
+
+Adoption of UUIDs is widespread, with many computing platforms providing support for generating them and for parsing their textual representation.
+
+History [ edit ] In the 1980s, Apollo Computer originally used UUIDs in the Network Computing System (NCS). Later, the Open Software Foundation (OSF) used UUIDs for their Distributed Computing Environment (DCE). The design of the DCE UUIDs was partly based on the NCS UUIDs, [ 5 ] whose design was in turn inspired by the ( 64-bit ) unique identifiers defined and used pervasively in Domain/OS , an operating system designed by Apollo Computer.
+
+[ 6 ] Later, [ when?
+
+] the Microsoft Windows platforms adopted the DCE design as "Globally Unique IDentifiers" (GUIDs).
+
+RFC 4122 registered a URN namespace for UUIDs and recapitulated the earlier specifications, with the same technical content.
+
+[ 2 ] When in July 2005 RFC 4122 was published as a proposed IETF standard, the ITU had also standardized UUIDs, based on the previous standards and early versions of RFC 4122. On May 7, 2024, RFC 9562 [ 1 ] was published, introducing 3 new "versions" and clarifying some ambiguities.
+
+Standards [ edit ] UUIDs are standardized by the Open Software Foundation (OSF) as part of the Distributed Computing Environment (DCE).
+
+[ 7 ] [ 8 ] UUIDs are documented as part of ISO / IEC 11578:1996 " Information technology – Open Systems Interconnection – Remote Procedure Call (RPC)" and more recently in ITU-T Rec. X.667 | ISO / IEC 9834-8:2014.
+
+[ 9 ] The Internet Engineering Task Force (IETF) published the Standards-Track RFC 9562 [ 1 ] from the "Revise Universally Unique Identifier Definitions Working Group" [ 10 ] as revision for RFC 4122.
+
+[ 2 ] RFC 4122 is technically equivalent to ITU-T Rec. X.667 | ISO/IEC 9834-8, but is now obsolete.
+
+Format [ edit ] A UUID is 128 bits in size, in which 2 to 4 bits are used to indicate the format's variant. The most common variant in use, OSF DCE, additionally defines 4 bits for its version.
+
+The use of the remaining bits is governed by the variant/version selected.
+
+Variants [ edit ] The variant field indicates the format of the UUID (and in case of the legacy UUID also the address family used for the node field). The following variants are defined: The Apollo NCS variant (indicated by the one-bit pattern 0xxx 2 ) is for backwards compatibility with the now-obsolete Apollo Network Computing System 1.5 UUID format developed around 1988. Though different in detail, the similarity with modern UUIDv1 is evident. The variant bits in the current UUID specification coincide with the high bits of the address family octet in NCS UUIDs. Though the address family could hold values in the range 0..255, only the values 0..13 were ever defined. Accordingly, the bit pattern 0xxx avoids conflicts with historical NCS UUIDs, should any still exist in databases.
+
+[ 11 ] This variant defines "families" as subtype.
+
+The OSF DCE variant (10xx 2 ) are referred to as RFC 4122/DCE 1.1 UUIDs, or "Leach–Salz" UUIDs, after the authors of the original Internet Draft . This variant defines "versions" as subtype.
+
+The Microsoft COM/DCOM variant (110x 2 ) is characterized in the RFC as "reserved, Microsoft Corporation backward compatibility" and was used for early GUIDs on the Microsoft Windows platform.
+
+The Reserved variant space is not currently used by any specification.
+
+Versions of the OSF DCE variant [ edit ] The OSF DCE variant defines eight "versions" in the standard, and each version may be more appropriate than the others in specific use cases. The version is indicated by the value of the higher nibble (higher 4 bits, or higher hexadecimal digit) of the 7th byte of the UUID. In hex, this is the character after the second dash. For example, the UUID 9c5b94b1-35ad- 4 9bb-b118-8e8fc24abf80 is version 4, because of the digit after the second dash is 4 in ...- 4 9bb-...
+
+.
+
+Versions 1 and 6 (date-time and MAC address) [ edit ] Version 1 concatenates the 48-bit MAC address of the "node" (that is, the computer generating the UUID), with a 60-bit timestamp, being the number of 100- nanosecond intervals since midnight 15 October 1582 Coordinated Universal Time (UTC), the date on which the Gregorian calendar was first adopted by the bulk of Europe. RFC 4122 states that the time value rolls over around 3400 AD, [ 2 ] : 3 depending on the algorithm used, which implies that the 60-bit timestamp is a signed quantity. However some software, such as the libuuid library, treats the timestamp as unsigned, putting the rollover time in 5623 AD.
+
+[ 12 ] The rollover time as defined by ITU-T Rec. X.667 is 3603 AD.
+
+[ 13 ] : v A 13-bit or 14-bit "uniquifying" clock sequence extends the timestamp in order to handle cases where the processor clock does not advance fast enough, or where there are multiple processors and UUID generators per node. When UUIDs are generated faster than the system clock could advance, the lower bits of the timestamp fields can be generated by incrementing it every time a UUID is being generated, to simulate a high-resolution timestamp.  With each version 1 UUID corresponding to a single point in space (the node) and time (intervals and clock sequence), the chance of two properly generated version-1 UUIDs being unintentionally the same is practically nil.  Since the time and clock sequence total 74 bits, 2 74 (1.8 × 10 22 , or 18 sextillion) version-1 UUIDs can be generated per node ID, at a maximal average rate of 163 billion per second per node ID.
+
+[ 2 ] In contrast to other UUID versions, version-1 and -2 UUIDs based on MAC addresses from network cards rely for their uniqueness in part on an identifier issued by a central registration authority, namely the Organizationally Unique Identifier (OUI) part of the MAC address, which is issued by the IEEE to manufacturers of networking equipment.
+
+[ 14 ] The uniqueness of version-1 and version-2 UUIDs based on network-card MAC addresses also depends on network-card manufacturers properly assigning unique MAC addresses to their cards, which like other manufacturing processes is subject to error. Virtual machines receive a MAC address in a range that is configurable in the hypervisor.
+
+[ 15 ] Additionally some operating systems permit the end user to customise the MAC address, notably OpenWRT .
+
+[ 16 ] Usage of the node's network card MAC address for the node ID means that a version-1 UUID can be tracked back to the computer that created it. Documents can sometimes be traced to the computers where they were created or edited through UUIDs embedded into them by word processing software. This privacy hole was used when locating the creator of the Melissa virus .
+
+[ 17 ] RFC 9562 [ 1 ] does allow the MAC address in a version-1 (or 2) UUID to be replaced by a random 48-bit node ID, either because the node does not have a MAC address, or because it is not desirable to expose it. In that case, the RFC requires that the least significant bit of the first octet of the node ID should be set to 1.
+
+[ 2 ] This corresponds to the multicast bit in MAC addresses, and setting it serves to differentiate UUIDs where the node ID is randomly generated from UUIDs based on MAC addresses from network cards, which typically have unicast MAC addresses.
+
+[ 2 ] Version 6 is the same as version 1 except all timestamp bits are ordered from most significant to least significant. This allows systems to sort UUIDs in order of creation simply by sorting them lexically, whereas this is not possible with version 1.
+
+Version 2 (date-time and MAC address, DCE security version) [ edit ] RFC 9562 [ 1 ] reserves version 2 for "DCE security" UUIDs; but it does not provide any details. For this reason, many UUID implementations omit version 2. However, the specification of version-2 UUIDs is provided by the DCE 1.1 Authentication and Security Services specification.
+
+[ 8 ] Version-2 UUIDs are similar to version 1, except that the least significant 8 bits of the clock sequence are replaced by a "local domain" number, and the least significant 32 bits of the timestamp are replaced by an integer identifier meaningful within the specified local domain. On POSIX systems, local-domain numbers 0 and 1 are for user ids ( UIDs ) and group ids ( GIDs ) respectively, and other local-domain numbers are site-defined.
+
+[ 8 ] On non-POSIX systems, all local domain numbers are site-defined.
+
+The ability to include a 40-bit domain/identifier in the UUID comes with a tradeoff. On the one hand, 40 bits allow about 1 trillion domain/identifier values per node ID.  On the other hand, with the clock value truncated to the 28 most significant bits, compared to 60 bits in version 1, the clock in a version 2 UUID will "tick" only once every 429.49 seconds, a little more than 7 minutes, as opposed to every 100 nanoseconds for version 1.  And with a clock sequence of only 6 bits, compared to 14 bits in version 1, only 64 unique UUIDs per node/domain/identifier can be generated per 7-minute clock tick, compared to 16,384 clock sequence values for version 1.
+
+[ 18 ] Versions 3 and 5 (namespace name-based) [ edit ] Version-3 and version-5 UUIDs are generated by hashing a namespace identifier and name. Version 3 uses MD5 as the hashing algorithm, and version 5 uses SHA-1 .
+
+[ 1 ] The namespace identifier is itself a UUID. The specification provides constant UUIDs to represent the namespaces for URLs, fully qualified domain names, object identifiers, and X.500 distinguished names; but any desired UUID may be used as a namespace designator.
+
+To determine the version-3 UUID corresponding to a given namespace and name, the UUID of the namespace is transformed to a string of bytes, concatenated with the input name, then hashed with MD5, yielding 128 bits.  Then 6 or 7 bits are replaced by fixed values, the 4-bit version (e.g. 0011 2 for version 3), and the 2- or 3-bit UUID "variant" (e.g. 10 2 indicating an RFC 9562 [ 1 ] UUIDs, or 110 2 indicating a legacy Microsoft GUID). Since 6 or 7 bits are thus predetermined, only 121 or 122 bits contribute to the uniqueness of the UUID.
+
+Version-5 UUIDs are similar, but SHA-1 is used instead of MD5. Since SHA-1 generates 160-bit digests, the digest is truncated to 128 bits before the version and variant bits are replaced.
+
+Version-3 and version-5 UUIDs have the property that the same namespace and name will map to the same UUID. However, neither the namespace nor name can be determined from the UUID, even if one of them is specified, except by brute-force search. RFC 4122 recommends version 5 (SHA-1) over version 3 (MD5), and warns against use of UUIDs of either version as security credentials.
+
+[ 2 ] Version 4 (random) [ edit ] A version 4 UUID is randomly generated.  As in other UUIDs, 4 bits are used to indicate version 4, and 2 or 3 bits to indicate the variant (10 2 or 110 2 for variants 1 and 2 respectively). Thus, for variant 1 (that is, most UUIDs) a random version 4 UUID will have 6 predetermined variant and version bits, leaving 122 bits for the randomly generated part, for a total of 2 122 , or 5.3 × 10 36 (5.3 undecillion ) possible version-4 variant-1 UUIDs.  There are half as many possible version 4, variant 2 UUIDs (legacy GUIDs) because there is one less random bit available, 3 bits being consumed for the variant.
+
+Per RFC 9562 [ 1 ] , the seventh octet's most significant 4 bits indicate which version the UUID adheres to. This means that the first hexadecimal digit in the third group always starts with a 4 in UUIDv4s. Visually, this looks like this xxxxxxxx-xxxx-Mxxx-Nxxx-xxxxxxxxxxxx , where M is the UUID version field. The upper two or three bits of digit N encode the variant. Values are 8 , 9 , A or B for the 2 bit indication, values C or D for the 3 bit indication. For example, a random UUID version 4, variant 1 could be 8D8AC610-566D-4EF0-9C22-186B2A5ED793 .
+
+[ 19 ] Version 7 (timestamp and random) [ edit ] Version 7 UUIDs (UUIDv7) are designed for keys in high-load databases and distributed systems.
+
+UUIDv7 begins with a 48 bit big-endian Unix Epoch timestamp with approximately millisecond granularity. The timestamp can be shifted by any time shift value. Directly after the timestamp follows the version nibble, that must have a value of 7. The variant bits have to be 10x . The remaining 74 bits are random seeded counter (optional, at least 12 bits but no longer than 42 bits) and random.
+
+Two counter rollover handling methods can be used together: Zero seeded most significant, leftmost guard bit of the counter.
+
+Increment of the timestamp ahead of the actual time and reinitialize the counter when it overflows.
+
+In DBMS UUIDv7 generator can be shared between threads (tied to a table or to a DBMS instance) or can be thread-local (with worse monotonicity, locality and performance).
+
+Version 8 (custom) [ edit ] Version 8 only has two requirements: The variant bits have to be 10 , so the nibble containing the variant must be 8 ( 0b1000 ), 9 ( 0b1001 ), A ( 0b1010 ), or B ( 0b1011 ).
+
+The version nibble has to be the value of 8.
+
+Those requirements tell the system that it is a version 8 UUID. The remaining 122 bits are up to the vendor to customize. The difference with version 4 is that those 122 bits are random, but the 122 bits in UUID version 8 are not, because they follow vendor specific rules.
+
+Special values [ edit ] Nil UUID [ edit ] The "nil" UUID is the UUID 00000000-0000-0000-0000-000000000000 ; that is, all bits set to zero.
+
+[ 1 ] Max UUID [ edit ] The "max" UUID, sometimes also called the "omni" UUID, is the UUID FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF ; that is, all bits set to one.
+
+[ 1 ] Encoding [ edit ] Binary representation [ edit ] Initially, Apollo Computer designed the UUID with the following wire format: [ 5 ] [ 11 ] The legacy wire format Name Offset Length Description time_high 0x00 4 octets / 32 bits The first 6 octets are the number of four- microsecond (μs) units of time that have passed since 1980-01-01 00:00 UTC .
+
+The time 2 48 × 4 μs after 1980 started was 2015-09-05 05:58:26.84262 UTC.
+
+Thus, the last time at which UUIDs could be generated in this original format was in 2015.
+
+[ 20 ] time_low 0x04 2 octets / 16 bits reserved 0x06 2 octets / 16 bits These octets are reserved for future use.
+
+family 0x08 1 octet / 8 bits This octet is an address family.
+
+node 0x09 7 octets / 56 bits These octets are a host ID in the form allowed by the specified address family.
+
+Later, the UUID was extended by combining the legacy family field with the new variant field. Because the family field only had used the values ranging from 0 to 13 in the past, it was decided that a UUID with the most significant bit set to 0 was a legacy UUID. This gives the following table for the family group: Family / variant field MSB 0 MSB 1 MSB 2 Legacy family field value range In hex Description 0 x x 0–127 (Only 0–13 are used) 0x00–0x7f The legacy Apollo NCS UUID 1 0 x 128–191 0x80–0xbf OSF DCE UUID 1 1 0 192–223 0xc0–0xdf Microsoft COM / DCOM UUID 1 1 1 224–255 0xe0–0xff Reserved for future definition The legacy Apollo NCS UUID has the format described in the previous table. The OSF DCE UUID variant is described in RFC 9562 [ 1 ] . The Microsoft COM / DCOM UUID has its variant described in the Microsoft documentation.
+
+Endianness [ edit ] When saving UUIDs to binary format, they are sequentially encoded in big-endian . For example, 00112233-4455-6677-8899-aabbccddeeff is encoded as the bytes 00 11 22 33 44 55 66 77 88 99 aa bb cc dd ee ff .
+
+[ 21 ] [ 22 ] An exception to this are Microsoft's variant 2 UUIDs ("GUID"): historically used in COM/OLE libraries , they use a little-endian format, but appear mixed-endian with the first three components of the UUID as little-endian and last two big-endian . Microsoft's GUID structure defines the last eight bytes as an 8-byte array, which are serialized in ascending order, which makes the byte representation appear mixed-endian.
+
+[ 23 ] For example, 00112233-4455-6677-8899-aabbccddeeff is encoded as the bytes 33 22 11 00 55 44 77 66 88 99 aa bb cc dd ee ff .
+
+[ 24 ] [ 25 ] Textual representation [ edit ] In most cases, UUIDs are represented as hexadecimal values. The most used format is the 8-4-4-4-12 format, xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx , where every x represents 4 bits. Other well-known formats are the 8-4-4-4-12 format with braces, {xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx} , like in Microsoft's systems, e.g. Windows, or xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx , where all hyphens are removed. In some cases, it is also possible to have xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx with the "0x" prefix or the "h" suffix to indicate hexadecimal values. The format with hyphens was introduced with the newer variant system. Before that, the legacy Apollo format used a slightly different format: 34dc23469000.0d.00.00.7c.5f.00.00.00 . The first part is the time (time_high and time_low combined). The reserved field is skipped. The family field comes directly after the first dot, so in this case 0d (13 in decimal) for DDS (Data Distribution Service) . The remaining parts, each separated with a dot, are the node bytes.
+
+The lowercase form of the hexadecimal values is the generally preferred format. Specifically in some contexts such as those defined in ITU-T Rec. X.667, lowercase is required when the text is generated, but the uppercase version must also be accepted.
+
+A UUID can be represented as a 128 bit integer. For example, the UUID 550e8400-e29b-41d4-a716-446655440000 can also be represented as 113059749145936325402354257176981405696. Note that it is possible to have both signed and unsigned values if the first bit of the UUID is set to 1.
+
+A UUID can be represented as a  128 bit binary number . For example, the UUID 550e8400-e29b-41d4-a716-446655440000 can also be represented as 0101010100001110 1000010000000000 1110001010011011 0100000111010100 1010011100010110 0100010001100110 0101010101000100 0000000000000000 .
+
+RFC 9562 [ 1 ] registers the "uuid" namespace. This makes it possible to make URNs out of UUIDs, like urn:uuid:550e8400-e29b-41d4-a716-446655440000 . The normal 8-4-4-4-12 format is used for this. It is also possible to make a OID URN out of UUIDs, like urn:oid:2.25.113059749145936325402354257176981405696 . In that case, the unsigned decimal format is used. The "uuid" URN is recommended over the "oid" URN.
+
+Collisions [ edit ] Collision occurs when the same UUID is generated more than once and assigned to different referents. In the case of standard version-1 and version-2 UUIDs using unique MAC addresses from network cards, collisions are unlikely to occur, with an increased possibility only when an implementation varies from the standards, either inadvertently or intentionally.
+
+In contrast to version-1 and version-2 UUIDs generated using MAC addresses, with version-1 and -2 UUIDs which use randomly generated node ids, hash-based version-3 and version-5 UUIDs, and random version-4 UUIDs, collisions can occur even without implementation problems, albeit with a probability so small that it can normally be ignored. This probability can be computed precisely based on analysis of the birthday problem .
+
+[ 26 ] For example, the number of random version-4 UUIDs which need to be generated in order to have a 50% probability of at least one collision is 2.71 quintillion, computed as follows: [ 27 ] n ≈ ≈ 1 2 + 1 4 + ln ⁡ ⁡ ( 2 ) × × 2 123 ≈ ≈ 2.71 × × 10 18 .
+
+{\displaystyle n\approx {\frac {1}{2}}+{\sqrt {{\frac {1}{4}}+\ln(2)\times 2^{123}}}\approx 2.71\times 10^{18}.} This number would be equivalent to generating 1 billion UUIDs per second for about 86 years. A file containing this many UUIDs, at 16 bytes per UUID, would be about 43.4 exabytes (37.7 EiB ).
+
+The smallest number of version-4 UUIDs which must be generated for the probability of finding a collision to be p is approximated by the formula 2 × × 2 122 × × ln ⁡ ⁡ 1 1 − − p .
+
+{\displaystyle {\sqrt {2\times 2^{122}\times \ln {\frac {1}{1-p}}}}.} Thus, the probability to find a duplicate within 103 trillion version-4 UUIDs is one in a billion.
+
+Collisions have occurred when manufacturers assign a default UUID to a product, such as a motherboard, and then fail to over-write the default UUID later in the manufacturing process. For example, UUID 03000200-0400-0500-0006-000700080009 occurs on many different units of Gigabyte -branded motherboards.
+
+[ 28 ] Uses [ edit ] Filesystems [ edit ] Significant uses include filesystem userspace tools [ 29 ] most of which are derived from the original implementation by Theodore Ts'o.
+
+[ 12 ] The "partition label" and the "partition UUID" are both stored in the superblock. They are both part of the file system rather than of the partition. For example, ext2–4 contain a UUID, while NTFS or FAT32 do not. The superblock is a part of the file system, thus fully contained within the partition, hence doing  leaves both sda1 and sdb1 with the same label and UUID.
+
+Partition tables [ edit ] The GUID Partition Table (GPT) is one example that utilised GUIDs to label partition types.
+
+Remoting [ edit ] There are several flavors of GUIDs used in Microsoft's Component Object Model (COM): IID – interface identifier; (The ones that are registered on a system are stored in the Windows Registry at [HKEY_CLASSES_ROOT\Interface] [ 30 ] ) CLSID – class identifier; (Stored at [HKEY_CLASSES_ROOT\CLSID] ). In practice it is not entirely separate from the IID space, because remoting the interface can require a proxy/stub object which some toolsets used to create with a CLSID equal to the interface's IID .
+
+LIBID – type library identifier; (Stored at [HKEY_CLASSES_ROOT\TypeLib] [ 31 ] ) CATID – category identifier; (its presence on a class identifies it as belonging to certain class categories, listed at [HKEY_CLASSES_ROOT\Component Categories] [ 32 ] ) Databases [ edit ] UUIDs are commonly used as a unique key in database tables. The NEWID function in Microsoft SQL Server version 4 Transact-SQL returns standard random version-4 UUIDs, while the NEWSEQUENTIALID function returns 128-bit identifiers similar to UUIDs which are committed to ascend in sequence until the next system reboot.
+
+[ 33 ] The Oracle Database SYS_GUID function does not return a standard GUID, despite the name.  Instead, it returns a 16-byte 128-bit RAW value based on a host identifier and a process or thread identifier, somewhat similar to a GUID.
+
+[ 34 ] PostgreSQL contains a UUID datatype [ 35 ] and can generate most versions of UUIDs through the use of functions from modules.
+
+[ 36 ] [ 37 ] MySQL provides a UUID function, which generates standard version-1 UUIDs.
+
+[ 38 ] Combined Time-GUID [ edit ] The random nature of standard UUIDs of versions 3, 4, and 5, and the ordering of the fields within standard versions 1 and 2 may create problems with database locality or performance when UUIDs are used as primary keys . For example, in 2002 Jimmy Nilsson reported a significant improvement in performance with Microsoft SQL Server when the version-4 UUIDs being used as keys were modified to include a non-random suffix based on system time. This so-called "COMB" (combined time-GUID) approach made the UUIDs significantly more likely to be duplicated, as Nilsson acknowledged, but Nilsson only required uniqueness within the application.
+
+[ 39 ] By reordering and encoding version 1 and 2 UUIDs so that the timestamp comes first, insertion performance loss can be averted.
+
+[ 40 ] COMB-like arrangements of UUID payloads were eventually standardized in RFC 9562 [ 1 ] as UUIDv6 and UUIDv7.
+
+See also [ edit ] Birthday attack Object identifier (OID) Uniform Resource Identifier (URI) Snowflake ID References [ edit ] ^ a b c d e f g h i j k l m Davis, K.; Peabody, B.; Leach, P. (2024).
+
+Universally Unique IDentifiers (UUIDs) .
+
+Internet Engineering Task Force .
+
+doi : 10.17487/RFC9562 .
+
+RFC 9562 . Retrieved 9 May 2024 .
+
+^ a b c d e f g h Leach, P.; Mealling, M.; Salz, R. (2005).
+
+A Universally Unique IDentifier (UUID) URN Namespace .
+
+Internet Engineering Task Force .
+
+doi : 10.17487/RFC4122 .
+
+RFC 4122 . Retrieved 17 January 2017 .
+
+^ "Universally Unique Identifiers (UUID)" .
+
+H2 . Retrieved 21 March 2021 .
+
+^ ITU-T Recommendation X.667 : Generation and registration of Universally Unique Identifiers (UUIDs) and their use as ASN.1 Object Identifier components . Standard. October 2012.
+
+^ a b Zahn, Lisa; Dineen, Terence; Leach, Paul; Martin, Elizabeth; Mishkin, Nathaniel; Pato, Joseph; Wyant, Geoffrey (1990).
+
+Network Computing Architecture .
+
+Prentice Hall . p. 10.
+
+ISBN 978-0-13-611674-5 .
+
+^ Leach, P. J.; Levine, P.H.; Hamilton, J. A.; Stumpf, B.L. (18–20 August 1982). "UIDs as internal names in a distributed file system".
+
+Proceedings of the first ACM SIGACT-SIGOPS symposium on Principles of distributed computing - PODC '82 . pp.
+
+34– 41.
+
+doi : 10.1145/800220.806679 .
+
+ISBN 0-89791-081-8 .
+
+^ "DCE 1.1: Remote Procedure Call" . The Open Group. 1997.
+
+^ a b c "DCE 1.1: Authentication and Security Services" . The Open Group. 1997.
+
+^ "ITU-T Study Group 17 - Object Identifiers (OID) and Registration Authorities Recommendations" .
+
+ITU.int . Retrieved 28 March 2023 .
+
+^ "Revise Universally Unique Identifier Definitions (uuidrev)" . Retrieved 30 May 2023 .
+
+^ a b "uuid.c" .
+
+opensource.apple.com . Archived from the original on 24 February 2021 . Retrieved 8 June 2017 .
+
+^ a b "ext2/e2fsprogs.git - Ext2/3/4 filesystem userspace utilities" .
+
+Kernel.org . Retrieved 9 January 2017 .
+
+^ "Recommendation ITU-T X.667" .
+
+www.itu.int . October 2012 . Retrieved 19 December 2020 .
+
+^ "Registration Authority" .
+
+IEEE Standards Association . Archived from the original on 4 April 2011.
+
+^ "MAC addresses for virtual machines" .
+
+Super User .
+
+^ "MAC Address Setup" .
+
+OpenWRT . 15 September 2021.
+
+^ Reiter, Luke (2 April 1999).
+
+"Tracking Melissa's Alter Egos" .
+
+ZDNet . Retrieved 16 January 2017 .
+
+^ Kuchling, A. M.
+
+"What's New in Python 2.5" .
+
+Python.org . Retrieved 23 January 2016 .
+
+^ "draft-ietf-uuidrev-rfc4122bis-14" .
+
+University of Washington . 6 November 2023.
+
+Archived from the original on 17 April 2024.
+
+^ But a bug in Domain/OS made only the first half of the timespace usable, so problems occurred on 1997-11-02.
+
+Jim Rees (1996).
+
+"Apollo Date Bug" .
+
+^ Steele, Nick.
+
+"Breaking Down UUIDs" .
+
+^ "UUID Versions Explained | UUIDTools.com" .
+
+www.uuidtools.com .
+
+^ Chen, Raymond (28 September 2022).
+
+"Why does COM express GUIDs in a mix of big-endian and little-endian? Why can't it just pick a side and stick with it?" .
+
+The Old New Thing . Retrieved 31 October 2022 .
+
+^ Leach, Paul.
+
+"UUIDs and GUIDs" .
+
+^ "Guid.ToByteArray Method (System)" .
+
+learn.microsoft.com .
+
+^ Jesus, Paulo; Baquero, Carlos; Almaeida, Paulo.
+
+"ID Generation in Mobile Environments" (PDF) .
+
+Repositorium.Sdum.Uminho.pt .
+
+^ Mathis, Frank H. (June 1991). "A Generalized Birthday Problem".
+
+SIAM Review .
+
+33 (2): 265– 270.
+
+CiteSeerX 10.1.1.5.5851 .
+
+doi : 10.1137/1033051 .
+
+ISSN 0036-1445 .
+
+JSTOR 2031144 .
+
+OCLC 37699182 .
+
+^ "Duplicate UUID (Universally Unique ID) - more common than expected - Pocketables" .
+
+pocketables.com . 27 August 2019.
+
+^ "Wayback Machine" .
+
+opensource.apple.com .
+
+^ "Interface Pointers and Interfaces" .
+
+Windows Dev Center - Desktop app technologies .
+
+Microsoft . Retrieved 15 December 2015 .
+
+You reference an interface at run time with a globally unique interface identifier ( IID ). This IID , which is a specific instance of a globally unique identifier ( GUID ) supported by COM, allows a client to ask an object precisely whether it supports the semantics of the interface, without unnecessary overhead and without the confusion that could arise in a system from having multiple versions of the same interface with the same name.
+
+^ "Registering a Type Library" .
+
+Microsoft Developer Network .
+
+Microsoft . Retrieved 15 December 2015 .
+
+^ "Categorizing by Component Capabilities" .
+
+Windows Dev Center - Desktop app technologies .
+
+Microsoft . Retrieved 15 December 2015 .
+
+A listing of the CATIDs and the human-readable names is stored in a well-known location in the registry.
+
+^ "NEWSEQUENTIALID (Transact-SQL)" .
+
+Microsoft Developer Network .
+
+Microsoft . 8 August 2015 . Retrieved 14 January 2017 .
+
+^ "Oracle Database SQL Reference" .
+
+Oracle .
+
+^ "Section 8.12 UUID Type" .
+
+PostgreSQL 9.4.10 Documentation . PostgreSQL Global Development Group. 13 February 2020.
+
+^ "uuid-ossp" .
+
+PostgreSQL: Documentation: 9.6 . PostgreSQL Global Development Group. 12 August 2021.
+
+^ "pgcrypto" .
+
+PostgreSQL: Documentation: 9.6 . PostgreSQL Global Development Group. 12 August 2021.
+
+^ "Section 13.20 Miscellaneous Functions" .
+
+MySQL 5.7 Reference Manual .
+
+Oracle Corporation .
+
+^ Nilsson, Jimmy (8 March 2002).
+
+"The Cost of GUIDs as Primary Keys" .
+
+InformIT . Retrieved 20 June 2012 .
+
+^ "Storing UUID Values in MySQL" . Percona. 19 December 2014. Archived from the original on 29 November 2020 . Retrieved 10 February 2021 .
+
+External links [ edit ] Recommendation ITU-T X.667 (Free access) ISO/IEC 9834-8:2014 (Paid) Technical Note TN2166 - Secrets of the GPT - Apple Developer UUID Documentation - Apache Commons Id CLSID Key - Microsoft Docs Universal Unique Identifier - The Open Group Library UUID Decoder tool A Brief History of the UUID Understanding How UUIDs Are Generated NewPP limit report
+Parsed by mw‐web.codfw.main‐7c956d68b4‐9b85n
+Cached time: 20250817043747
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.618 seconds
+Real time usage: 0.756 seconds
+Preprocessor visited node count: 6911/1000000
+Revision size: 39160/2097152 bytes
+Post‐expand include size: 84638/2097152 bytes
+Template argument size: 5375/2097152 bytes
+Highest expansion depth: 18/100
+Expensive parser function count: 8/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 148804/5000000 bytes
+Lua time usage: 0.347/10.000 seconds
+Lua memory usage: 10228022/52428800 bytes
+Number of Wikibase entities loaded: 1/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  650.186      1 -total
+ 44.35%  288.330      1 Template:Reflist
+ 22.74%  147.853     33 Template:Cite_web
+ 12.03%   78.215      2 Template:Cite_IETF
+ 10.49%   68.229      1 Template:Infobox_identifier
+ 10.22%   66.431      1 Template:Infobox
+  9.43%   61.297      1 Template:Short_description
+  7.36%   47.851     10 Template:R
+  6.71%   43.637      2 Template:E
+  6.24%   40.580     10 Template:R/ref Saved in parser cache with key enwiki:pcache:189937:|#|:idhash:canonical and timestamp 20250817043747 and revision id 1304656590. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Universally_unique_identifier&oldid=1304656590 " Categories : Unique identifiers Windows administration 1996 establishments Hidden categories: Articles with short description Short description is different from Wikidata All articles with vague or ambiguous time Vague or ambiguous time from June 2020 Use dmy dates from December 2021 This page was last edited on 7 August 2025, at 10:35 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Universally unique identifier 20 languages Add topic
+

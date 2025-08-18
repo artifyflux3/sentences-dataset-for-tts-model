@@ -1,0 +1,349 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Overview 2 Hardware Toggle Hardware subsection 2.1 Characterization 2.2 Calibration 3 Color profiles Toggle Color profiles subsection 3.1 Embedding 3.2 Working spaces 4 Color transformation Toggle Color transformation subsection 4.1 Profile connection space 4.2 Gamut mapping 4.2.1 Rendering intent 5 Implementation Toggle Implementation subsection 5.1 Color management module 5.2 Operating system level 5.2.1 Apple 5.2.2 Windows 5.2.3 Android 5.2.4 Others 5.3 File level 5.4 Creative software 5.5 Web browsers 6 See also 7 References 8 Further reading 9 External links Toggle the table of contents Color management 20 languages العربية Català Dansk Deutsch Español فارسی Français 한국어 Հայերեն हिन्दी Italiano 日本語 Norsk bokmål Polski Русский Svenska ไทย Türkçe Українська 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Controlled data conversion between the color representations of various devices Color management is the process of ensuring consistent and accurate colors across various devices, such as monitors , printers , and cameras . It involves the use of color profiles, which are standardized descriptions of how colors should be displayed or reproduced.
+
+Color management is necessary because different devices have different color capabilities and characteristics. For example, a monitor may display colors differently than a printer can reproduce them. Without color management, the same image may appear differently on different devices, leading to inconsistencies and inaccuracies.
+
+To achieve color management, a color profile is created for each device involved in the color workflow. This profile describes the device's color capabilities and characteristics, such as its color gamut (range of colors it can display or reproduce) and color temperature. These profiles are then used to translate colors between devices, ensuring consistent and accurate color reproduction.
+
+Color management is particularly important in industries such as graphic design, photography, and printing, where accurate color representation is crucial. It helps to maintain color consistency throughout the entire workflow, from capturing an image to displaying or printing it.
+
+Parts of color management are implemented in the operating system (OS), helper libraries, the application, and devices. The type of color profile that is typically used is called an ICC profile . A cross-platform view of color management is the use of an ICC-compatible color management system. The International Color Consortium (ICC) is an industry consortium that has defined: an open standard for a Color Matching Module (CMM) at the OS level color profiles for: devices, including DeviceLink profiles that transform one device profile (color space) to another device profile without passing through an intermediate color space, [ 1 ] such as L*A*B* , more accurately preserving color [ 1 ] working spaces , the color spaces in which color data is meant to be manipulated There are other approaches to color management besides using ICC profiles. This is partly due to history and partly because of other needs than the ICC standard covers. The film and broadcasting industries make use of some of the same concepts, but they frequently rely on more limited boutique solutions. The film industry, for instance, often uses 3D LUTs ( lookup table ) to represent a complete color transformation for a specific RGB encoding.
+
+At the consumer level, system wide color management is available in most of Apple's products (macOS, iOS, iPadOS, watchOS).
+
+[ 2 ] Microsoft Windows lacks system wide color management and virtually all applications do not employ color management.
+
+[ 3 ] Windows' media player API is not color space aware, and if applications want to color manage videos manually, they have to incur significant performance and power consumption penalties. Android supports system wide color management, [ 4 ] but most devices ship with color management disabled.
+
+[ 5 ] Overview [ edit ] Characterize. Every color-managed device requires a personalized table, or "color profile," which characterizes the color response of that particular device.
+
+Standardize. Each color profile describes these colors relative to a standardized set of reference colors (the "Profile Connection Space").
+
+Translate. Color-managed software then uses these standardized profiles to translate color from one device to another. This is usually performed by a color management module (CMM).
+
+[ 6 ] Hardware [ edit ] This section does not cite any sources .
+
+Please help improve this section by adding citations to reliable sources . Unsourced material may be challenged and removed .
+
+( May 2025 ) ( Learn how and when to remove this message ) Characterization [ edit ] See also: ICC profile To describe the behavior of various output devices, they must be compared (measured) in relation to a standard color space . Often a step called linearization is performed first, to undo the effect of gamma correction that was done to get the most out of limited 8-bit color paths. Instruments used for measuring device colors include colorimeters and spectrophotometers . As an intermediate result, the device gamut is described in the form of scattered measurement data.  The transformation of the scattered measurement data into a more regular form, usable by the application, is called profiling . Profiling is a complex process involving mathematics, intense computation, judgment, testing, and iteration. After the profiling is finished, an idealized color description of the device is created. This description is called a profile .
+
+Calibration [ edit ] Main article: Color calibration Calibration is like characterization, except that it can include the adjustment of the device, as opposed to just the measurement of the device.  Color management is sometimes sidestepped by calibrating devices to a common standard color space such as sRGB ; when such calibration is done well enough, no color translations are needed to get all devices to handle colors consistently.  This avoidance of the complexity of color management was one of the goals in the development of sRGB.
+
+Color profiles [ edit ] A 3D view of two ICC profiles Embedding [ edit ] Image formats themselves (such as TIFF , JPEG , PNG , EPS , PDF , and SVG ) may contain embedded color profiles but are not required to do so by the image format. The International Color Consortium standard was created to bring various developers and manufacturers together. The ICC standard permits the exchange of output device characteristics and color spaces in the form of metadata . This allows the embedding of color profiles into images as well as storing them in a database or a profile directory.
+
+Working spaces [ edit ] Working spaces, such as sRGB , Adobe RGB or ProPhoto are color spaces that facilitate good results while editing. For instance, pixels with equal values of R,G,B should appear neutral. Using a large (gamut) working space will lead to posterization , while using a small working space will lead to clipping .
+
+[ 7 ] This trade-off is a consideration for the critical image editor.
+
+Color transformation [ edit ] Color transformation, or color space conversion, is the transformation of the representation of a color from one color space to another. This calculation is required whenever data is exchanged inside a color-managed chain and carried out by a Color Matching Module . Transforming profiled color information to different output devices is achieved by referencing the profile data into a standard color space. It makes it easier to convert colors from one device to a selected standard color space and from that to the colors of another device. By ensuring that the reference color space covers the many possible colors that humans can see, this concept allows one to exchange colors between many different color output devices. Color transformations can be represented by two profiles (source profile and target profile) or by a devicelink profile. In this process there are approximations involved which make sure that the image keeps its important color qualities and also gives an opportunity to control on how the colors are being changed.
+
+[ 8 ] Profile connection space [ edit ] In the terminology of the International Color Consortium , a translation between two color spaces can go through a profile connection space (PCS): Color Space 1 → PCS ( CIELAB or CIEXYZ ) → Color space 2; conversions into and out of the PCS are each specified by a profile.
+
+[ 9 ] Gamut mapping [ edit ] In nearly every translation process, we have to deal with the fact that the color gamut of different devices vary in range which makes an accurate reproduction impossible.
+
+[ 8 ] They therefore need some rearrangement near the borders of the gamut. Some colors must be shifted to the inside of the gamut, as they otherwise cannot be represented on the output device and would simply be clipped. This so-called gamut mismatch occurs for example, when we translate from the RGB color space with a wider gamut into the CMYK color space with a narrower gamut range. In this example, the dark highly saturated purplish-blue color of a typical computer monitor's "blue" primary is impossible to print on paper with a typical CMYK printer. The nearest approximation within the printer's gamut will be much less saturated. Conversely, an inkjet printer's "cyan" primary, a saturated mid-brightness blue, is outside the gamut of a typical computer monitor. The color management system can utilize various methods to achieve desired results and give experienced users control of the gamut mapping behavior.
+
+Rendering intent [ edit ] When the gamut of source color space exceeds that of the destination, saturated colors are liable to become clipped (inaccurately represented), or more formally burned . The color management module can deal with this problem in several ways. The ICC specification includes four different rendering intents, listed below.
+
+[ 9 ] [ 10 ] [ 11 ] Before the actual rendering intent is carried out, one can temporarily simulate the rendering by soft proofing .
+
+[ 12 ] It is a useful tool as it predicts the outcome of the colors and is available as an application in many color management systems: Absolute colorimetric Absolute colorimetry and relative colorimetry actually use the same table but differ in the adjustment for the white point media.  If the output device has a much larger gamut than the source profile, i.e., all the colors in the source can be represented in the output, using the absolute colorimetry rendering intent would ideally (ignoring noise, precision, etc.) give an exact output of the specified CIELAB values.  Perceptually, the colors may appear incorrect, but instrument measurements of the resulting output would match the source. Colors outside of the proof print system's possible color are mapped to the boundary of the color gamut.
+
+Absolute colorimetry is useful to get an exact specified color (e.g., IBM blue), or to quantify the accuracy of mapping methods.
+
+Relative colorimetric The goal in relative colorimetry is to be truthful to the specified color, with only a correction for the media. Relative colorimetry is useful in proofing applications, since it can be used to get an idea of how a print on one device will appear on a different device.  Media differences are the only thing that one really should adjust for, although some gamut mapping also needs to be applied. Usually this is done in a way where hue and lightness are maintained at the cost of reduced saturation. By default, in-gamut colors are unchanged, while out-of-gamut colors are clamped.
+
+Relative colorimetric is the default rendering intent on many systems.
+
+Perceptual The perceptual intent smoothly moves out-of-gamut colors into gamut, preserving gradations, but distorts in-gamut colors in the process. Like the saturation intent, the results really depend upon the profile maker. This is even how some of the competitors in this market differentiate themselves. The profile maker tries to make results pleasing on this intent. Perceptual rendering is recommended for color separation.
+
+Saturation The saturation intent is designed to present eye-catching business graphics by preserving the saturation (colorfulness). It is most useful in charts and diagrams, where there is a discrete palette of colors that the designer wants saturated to make them intense, but where specific hue is less important.
+
+In practice, photographers almost always use relative or perceptual intent, as for natural images, absolute causes color cast , while saturation produces unnatural colors. If an entire image is in-gamut, relative is perfect, but when there are out of gamut colors, which is preferable depends on a case-by-case basis.  CMMs may offer options for BPC and partial chromatic adaptation.
+
+[ 13 ] A black point correction (BPC) is not applied for absolute colorimetric or devicelink profiles. For ICCv4, it is always applied to the perceptual intent.
+
+[ 14 ] : 17 ICCv2 sRGB profiles differ among each other in a number of ways, one of which being whether BPC is applied.
+
+[ 13 ] Implementation [ edit ] Color management module [ edit ] Color matching module (also - method or - system ) is a software algorithm that adjusts the numerical values that get sent to or received from different devices so that the perceived color they produce remains consistent. The key issue here is how to deal with a color that cannot be reproduced on a certain device in order to show it through a different device as if it were visually the same color, just as when the reproducible color range between color transparencies and printed matters are different. There is no common method for this process, and the performance depends on the capability of each color matching method.
+
+Some well known CMMs are ColorSync , Adobe CMM, Little CMS , and ArgyllCMS.
+
+Operating system level [ edit ] Color profile viewer on KDE Plasma 5 , showing an ICC color profile Apple [ edit ] Apple's classic Mac OS and macOS operating systems have provided OS-level color management APIs since 1993, through ColorSync .  macOS has added automatic color management (assuming sRGB for most things) automatically in the OS, but applications can explicitly target other color spaces if they wish to. System wide color management is used in iOS, iPadOS and watchOS as well.
+
+[ 15 ] Windows [ edit ] Since 1997 color management in Windows is available through an ICC color management system: ICM (Image Color Management).
+
+Beginning with Windows Vista , Microsoft introduced a new color architecture known as WCS ( Windows Color System ).
+
+[ 16 ] WCS supplements the ICM system in Windows 2000 and Windows XP , originally written by Heidelberg .
+
+[ 17 ] [ 18 ] Apps need to be aware of color management and tag the content appropriately to accurately display colors. Otherwise, (unlike macOS) Windows will display the colors to the maximum extent of the display's gamut, resulting in over-saturated colors on wide-gamut displays.
+
+[ 19 ] To fix this issue, Microsoft includes a new feature called "Auto Color Management" since Windows 11 2022.
+
+[ 20 ] Windows Photo Viewer from Windows 7 (also included in later Windows versions) performs proper color management, however, the newer Windows Photos app in Windows 8, 10, 11 does not perform color management [ 21 ] [ 22 ] [ 23 ] until version v2022.31070.26005.0.
+
+[ 24 ] Other Windows components, including Microsoft Paint , Snipping Tool , Windows Desktop , Windows Explorer , do not perform color management.
+
+[ 25 ] Unfortunately, the vast majority of applications do not use the Windows Color System.
+
+[ 3 ] For applications that do employ color management (typically web browsers ), color management tend to apply for only images and UI, but not videos. This is because Windows' media player API is not color space aware. Thus, browsers ( Chrome , Firefox , Edge ) are only able to do color management for images but not video.
+
+[ 26 ] For the same reason, virtually no video players on Windows support color management (including the default Movies & TV app and VLC ), with Media Player Classic Home Cinema being a rare exception.
+
+[ 27 ] [ 28 ] [ failed verification ] Android [ edit ] On Android, system wide color management is introduced in Android Oreo 8.1 .
+
+[ 4 ] However, most Android phones are shipped with color management disabled (ex: 'adaptive' color profile on Google Pixel , 'vivid' color profile on Samsung Galaxy [ 29 ] ). This oversaturates sRGB content to the native display gamut, typically DCI-P3 . Users need to manually select the 'natural' color profile to enable color management, enabling accurate display of sRGB and P3 wide color content.
+
+Others [ edit ] Operating systems that use the X Window System for graphics can use ICC profiles , and support for color management on Linux , still less mature than on other platforms, is coordinated through OpenICC at freedesktop.org and makes use of LittleCMS .
+
+File level [ edit ] Certain image filetypes ( TIFF and Photoshop ) include the notion of color channels for specifying the color mode of the file. The most commonly used channels are RGB (mainly for display (monitors) but also for some desktop printing) and CMYK (for commercial printing). An additional alpha channel may specify a transparency mask value. Some image software (such as Photoshop ) perform automatic color separation to maintain color information in CMYK mode using a specified ICC profile such as US Web Coated (SWOP) v2 .
+
+Creative software [ edit ] Adobe software includes its own color management engine - Adobe Color Engine. It is also available as a separate Color Management Module - Adobe CMM for use by non-Adobe applications that supports 3rd-party CMMs.
+
+[ 30 ] Web browsers [ edit ] As of 2005 [update] , most web browsers ignored color profiles.
+
+[ 31 ] Notable exceptions were Safari , starting with version 2.0, and Firefox starting with version 3. Although disabled by default in Firefox 3.0, ICC v2 and ICC v4 color management could be enabled by using an add-on [ 32 ] or setting a configuration option.
+
+[ 33 ] As of July 2019, Safari, Chrome and Firefox fully support color management.
+
+[ 34 ] However, it is important to note that most browsers only do color management for images and CSS elements, but not video.
+
+Firefox: version 3.5 (released in 2011) onwards supports ICC v2 tagged images, [ 35 ] and version 8.0 (released in 2011) adds ICC v4 profiles support.
+
+[ 36 ] Version 89 (released in 2021) and above apply color management to all untagged images and page elements by default.
+
+[ 37 ] Internet Explorer: support ICC profiles from version 9 onwards, but only converts non-sRGB images to the sRGB profile, regardless of the actual monitor colorspace.
+
+[ 34 ] Google Chrome : uses the system provided ICC v2 and v4 support on macOS , and from version 22 (released in 2012) supports ICC v2 profiles by default on other platforms.
+
+[ 38 ] macOS versions of Chrome correctly render video.
+
+Safari: has support starting with version 2.0 (released in 2005) [ citation needed ] . Supports v2 and v4 ICC profiles, and correctly renders video.
+
+Opera: has support since 12.10 (released in 2012) [ 39 ] for ICC v4.
+
+[ 40 ] Pale Moon supported ICC v2 from its first release, and v4 since Pale Moon 20.2 (released in 2013).
+
+[ 41 ] Regarding mobile browsers, Safari 13.1 (on iOS 13.4.1) recognizes the device color profile and can displays images accordingly.
+
+[ 42 ] Chrome 83 (on Android 9 ) ignores the display profile, simply converting all images to sRGB.
+
+[ 42 ] As of 2023, Chrome 114 , Android Browser 114 and Firefox for Android 115 support multiple colorspaces.
+
+[ 43 ] The same is valid for their desktop counterparts: Chrome 118, Edge 114, Safari 16.6, Firefox 117 and Opera 100.
+
+[ 43 ] See also [ edit ] Gamma correction Color chart Digital printing ICC profile International Color Consortium IT8 Adobe Photoshop References [ edit ] ^ a b von Seggern, Dietrich (February 28, 2019).
+
+"Why DeviceLink profiles should interest you" .
+
+pdfa.org .
+
+PDF Association . Retrieved January 20, 2023 .
+
+A DeviceLink profile is always between two color spaces and it does not pass through L*a*b*to do its conversion.
+
+^ "Technical Note TN2313: Best Practices for Color Management in OS X and iOS" .
+
+developer.apple.com . Retrieved August 23, 2022 .
+
+^ a b "Applying color profile from x-rite across Windows 10 (image included!): PC Talk Forum: Digital Photography Review" .
+
+www.dpreview.com . Retrieved August 23, 2022 .
+
+^ a b "Color Management" .
+
+Android Open Source Project . Retrieved August 23, 2022 .
+
+^ Frumusanu, Andrei.
+
+"The Samsung Galaxy S20+, S20 Ultra Exynos & Snapdragon Review: Megalomania Devices" .
+
+www.anandtech.com . Archived from the original on April 3, 2020 . Retrieved August 23, 2022 .
+
+^ Overview of Color Management,Camberidge in Colour,2016.1.23 http://www.cambridgeincolour.com/tutorials/color-management1.htm ^ Rodney, Andrew.
+
+"The role of working spaces in Adobe applications" (PDF) . Technical Paper. Adobe . Retrieved May 9, 2008 .
+
+^ a b "Color Management: Color Space Conversion" .
+
+www.cambridgeincolour.com .
+
+^ a b Rodney, Andrew (2005).
+
+Color Management for Photographers .
+
+Focal Press . pp.
+
+32 –33.
+
+ISBN 0-240-80649-2 .
+
+^ Color Management: Color Space Conversion , Cambridge in Color ^ https://www.color.org/specification/ICC1v43_2010-12.pdf ICC Specification ICC.1:2010 ^ "Soft Proofing: Matching On-Screen Photos with Prints" .
+
+www.cambridgeincolour.com .
+
+^ a b "Using the sRGB_v4_ICC_preference.icc profile" (PDF) .
+
+^ "Specification ICC.1:2022 (Profile version 4.4.0.0)" (PDF) .
+
+Perceptual transforms developed to meet ICC specifications prior to version 4.0 frequently use zero to represent the black point, and thus do not conform to this specification.
+
+^ "Technical Note TN2313: Best Practices for Color Management in OS X and iOS" .
+
+developer.apple.com . Retrieved August 23, 2022 .
+
+^ Upton, Steve (February 2008).
+
+Vista's New Color Management System: WCS .
+
+^ Microsoft (April 23, 1997).
+
+"Microsoft Licenses LinoColorCMM Technology To Improve Color Management in Windows" .
+
+Microsoft . Retrieved May 8, 2008 .
+
+^ The reader may verify this by examining the Properties of any ICM profile. The Profile Information tab should contain the entry "LinoColorCMM © by Heidelberger Druckmaschinen AG".
+
+^ "Windows Color Management, a Rant" .
+
+^ "Advancing the State of Color Management in Windows" .
+
+^ "Why do my colours look so different in Windows Photo Viewer?" .
+
+^ "You're Using Your Monitor WRONG! (Here's How to Fix It)" .
+
+YouTube .
+
+^ "3 Free Windows 10 Alternatives Color Managed Image Viewers! (Fix Windows 10 Color Issues)" .
+
+YouTube .
+
+^ "[Windows 11] Color Management - Common FAQs for "Microsoft Photos" " .
+
+^ "ICC Colour Profiles, AdobeRGB & sRGB, and "Colour Management" on Windows. "The Nightmare" Part 1" .
+
+^ "Windows color management" .
+
+DisplayCAL . Retrieved August 23, 2022 .
+
+^ "ICC color management in Media Player Classic Home Cinema" . September 20, 2010.
+
+^ "VLC for Mac 2019 - still not color managed! - The VideoLAN Forums" .
+
+forum.videolan.org . Retrieved August 23, 2022 .
+
+^ "Samsung Galaxy S10 Display Review: An ambassador that Android needs" .
+
+XDA . March 28, 2019 . Retrieved August 23, 2022 .
+
+^ "Download Adobe Color Management Module" .
+
+^ Smith, Colin; Kabili, Jan (2005).
+
+How to Wow: Photoshop CS2 for the Web . Berkeley, CA: Peachpit Press. p. 13.
+
+ISBN 0-321-39394-5 . Retrieved May 8, 2008 .
+
+Many designers choose not to include ICC Profiles with Web files because most Web browsers can't read them and they increase the size of a file.
+
+^ Color Management add-on Archived 2018-10-01 at the Wayback Machine by Sean Hayes.
+
+^ The value gfx.color_management.enabled can be set to "true" in the " about:config " file of Firefox since version 3.
+
+Firefox 3: Color profile support (oh the pretty, pretty colors) Archived 2008-05-01 at the Wayback Machine , Deb Richardson, Mozilla Corporation.
+
+^ a b "Web browser color management guide" .
+
+cameratico.com .
+
+^ "463221 - color reftesting" .
+
+bugzilla.mozilla.org .
+
+^ "679371 - Investigate color management test results" .
+
+bugzilla.mozilla.org .
+
+^ "How to configure Firefox color management" .
+
+cameratico.com .
+
+^ "143 - Handle color profiles in tagged images - chromium - Monorail" .
+
+bugs.chromium.org .
+
+^ http://www.opera.com/docs/changelogs/unified/1210/ Archived 2013-07-31 at the Wayback Machine Opera Changelog 12.10 stable ^ "Opera Developer News - What's new in Opera 12.10 beta" . October 4, 2012. Archived from the original on October 4, 2012.
+
+^ "Pale Moon - Release Notes for Archived Versions" .
+
+www.palemoon.org .
+
+^ a b "Color Management for Creators - Mobile Devices | EIZO" .
+
+www.eizoglobal.com .
+
+^ a b "CSS color() function | Can I use... Support tables for HTML5, CSS3, etc" .
+
+caniuse.com . Retrieved July 21, 2023 .
+
+Further reading [ edit ] Fraser, Bruce; Bunting, Fred; Murphy, Chris (2004).
+
+Real World Color Management . Berkeley, CA, USA: Peachpit Press.
+
+ISBN 0-201-77340-6 .
+
+Giorgianni, Edward J.; Madden, Thomas E. (1998).
+
+Digital Color Management . Addison-Wesley.
+
+ISBN 0-201-63426-0 .
+
+Swartz, Charles S. (2004).
+
+Understanding Digital Cinema: A Professional Handbook . Focal Press.
+
+ISBN 978-0-240-80617-4 .
+
+Morovic, Jan (2008).
+
+Color Gamut Mapping . Wiley.
+
+ISBN 978-0-470-03032-5 .
+
+External links [ edit ] Color management and color science: Introduction by Norman Koren v t e Photography Equipment Camera light-field digital field instant phone pinhole press rangefinder SLR still TLR toy view Darkroom enlarger safelight Film base format holder stock available films discontinued films Filter Flash beauty dish cucoloris gobo hot shoe lens hood monolight reflector snoot softbox Lens long-focus prime zoom wide-angle fisheye swivel telephoto Manufacturers Monopod Movie projector Slide projector Tripod head Zone plate Terminology 35 mm equivalent focal length Angle of view Aperture Backscatter Black-and-white Chromatic aberration Circle of confusion Clipping Color balance Color temperature Depth of field Depth of focus Exposure Exposure compensation Exposure value Zebra patterning F-number Film format large medium Film speed Focal length Guide number Hyperfocal distance Lens flare Metering mode Perspective distortion Photograph Photographic printing Albumen Photographic processes Reciprocity Red-eye effect Science of photography Shutter speed Sync Zone System Genres Abstract Aerial Aircraft Architectural Astrophotography Banquet Candid Conceptual Conservation Cloudscape Documentary Eclipse Ethnographic Erotic Fashion Fine-art Fire Forensic Glamour High-speed Landscape Monochrome Nature Neues Sehen Nude Photojournalism Pictorialism Pornography Portrait Post-mortem Ruins Selfie space selfie Social documentary Sports Still life Stock Straight photography Street Underwater Vernacular Wedding Wildlife Techniques Afocal Bokeh Brenizer Burst mode Contre-jour Crittercam ( Pigeon photography ) ETTR Fill flash Fireworks Hand-colouring Harris shutter High-speed Holography Infrared Intentional camera movement Kirlian Kite aerial Lo-fi photography Lomography Long-exposure Luminogram Macro Mordançage Multiple exposure Multi-exposure HDR capture Night Panning Panoramic Photogram Print toning Redscale Rephotography Rollout Scanography Schlieren photography Sabattier effect Slow motion Stereoscopy Stopping down Strip Slit-scan Sprocket hole Sun printing Tilt–shift Miniature faking Time-lapse Ultraviolet Vignetting Xerography Zoom burst Composition Diagonal method Framing Headroom Lead room Rule of thirds Simplicity Golden triangle (composition) History Timeline of photography technology Ambrotype Film photography Autochrome Lumière Box camera Calotype Camera obscura Daguerreotype Dufaycolor Heliography Lippmann plate Painted photography backdrops Photography and the law Glass plate Tintype Visual arts Regional Albania Bangladesh Canada China Denmark Greece India Japan Korea Luxembourg Norway Philippines Serbia Slovenia Sudan Taiwan Turkey Ukraine United States Uzbekistan Vietnam Digital photography Digital camera D-SLR comparison MILC camera back Digiscoping Comparison of digital and film photography Film scanner Image sensor CMOS APS CCD Three-CCD camera Foveon X3 sensor Image sharing Pixel Color photography Print film Chromogenic print Reversal film Color management color space primary color CMYK color model RGB color model Photographic processing Bleach bypass C-41 process Collodion process Cross processing Cyanotype Developer Digital image processing Dye coupler E-6 process Fixer Gelatin silver process Gum printing Instant film K-14 process Print permanence Push processing Stop bath Lists Largest photographs Most expensive photographs Museums devoted to one photographer Photographs considered the most important Photographers Norwegian Polish street women Photography periodicals Related Conservation and restoration of photographs film photographic plates Polaroid art Stereoscopy Say cheese v t e Color topics Color science Color physics Electromagnetic spectrum Light Rainbow Visible Spectral colors Chromophore Structural coloration Animal coloration Color of chemicals Water Spectral power distribution Colorimetry Color perception Chromesthesia Sonochromatism Color blindness Achromatopsia Dichromacy Color calibration Color constancy Color task Color code Color temperature Color vision test Evolution of color vision Impossible colors Metamerism Opponent process Afterimage Unique hues Tetrachromacy The dress Color psychology Color symbolism Color preferences Lüscher color test Kruithof curve Political color National colors Chromophobia Chromotherapy Color reproduction Color photography Color balance Color cast Digital image processing Color management Color printing Multi-primary color display Quattron Color model additive RGB subtractive CMYK Color space Color mapping Color philosophy Color scheme Color tool Monochromatic colors Black-and-white Grisaille Complementary colors Analogous colors Achromatic colors (Neutral) Polychromatic colors Light-on-dark Web colors Tinctures in heraldry Color theory Color mixing Primary color Secondary color Chromaticity Color solid Color wheel Color triangle Color analysis (fashion) Color realism (art style) On Vision and Colours (Schopenhauer) Theory of Colours (Goethe) Color terms Basic English terms Red Orange Yellow Green Blue Purple Pink Brown White Gray Black Cultural differences Linguistic relativity and the color naming debate Blue–green distinction in language Color history Black-and-white dualism Blue in culture Color in Chinese culture Traditional colors of Japan Human skin color Color dimensions Hue Dichromatism Colorfulness Pastel colors Luminance Lightness Darkness Brightness Iridescence Fluorescence Grayscale Tint, shade and tone Color organizations Pantone Color Marketing Group Color Association of the United States International Colour Authority International Commission on Illumination (CIE) International Color Consortium International Colour Association Names Lists List of colors: A–F List of colors: G–M List of colors: N–Z List of colors (compact) List of colors by shade List of color palettes List of color spaces List of Crayola crayon colors history Color chart List of RAL colors List of web colors Shades of: Red Orange Yellow Green Cyan Blue Violet Purple Magenta Pink Brown White Gray Black Related Vision Contrast Qualia Lighting Category Index NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐zlkss
+Cached time: 20250812021440
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.589 seconds
+Real time usage: 0.724 seconds
+Preprocessor visited node count: 3771/1000000
+Revision size: 30995/2097152 bytes
+Post‐expand include size: 150217/2097152 bytes
+Template argument size: 5407/2097152 bytes
+Highest expansion depth: 16/100
+Expensive parser function count: 9/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 149942/5000000 bytes
+Lua time usage: 0.331/10.000 seconds
+Lua memory usage: 7586473/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  563.813      1 -total
+ 41.56%  234.307      1 Template:Reflist
+ 33.01%  186.126     33 Template:Cite_web
+ 16.26%   91.679      6 Template:Navbox
+ 12.42%   70.014      1 Template:Photography
+ 10.34%   58.294      1 Template:Short_description
+  7.03%   39.639      1 Template:Unreferenced_section
+  6.71%   37.826      1 Template:Unreferenced
+  6.68%   37.636      2 Template:Pagetype
+  6.33%   35.662      1 Template:Ambox Saved in parser cache with key enwiki:pcache:186108:|#|:idhash:canonical and timestamp 20250812021440 and revision id 1304461644. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Color_management&oldid=1304461644 " Categories : Color Computer graphics Hidden categories: Webarchive template wayback links Articles with short description Short description is different from Wikidata Use American English from March 2021 All Wikipedia articles written in American English Use mdy dates from March 2021 Articles needing additional references from May 2025 All articles needing additional references All articles with failed verification Articles with failed verification from December 2022 Articles containing potentially dated statements from 2005 All articles containing potentially dated statements All articles with unsourced statements Articles with unsourced statements from August 2012 This page was last edited on 6 August 2025, at 05:32 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Color management 20 languages Add topic
+

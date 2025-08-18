@@ -1,0 +1,306 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Robbins–Monro algorithm Toggle Robbins–Monro algorithm subsection 1.1 Example 1.2 Complexity results 1.3 Subsequent developments and Polyak–Ruppert averaging 1.4 Application in stochastic optimization 1.4.1 Convergence of the algorithm 1.4.2 Example (where the stochastic gradient method is appropriate) [ 8 ] 2 Kiefer–Wolfowitz algorithm Toggle Kiefer–Wolfowitz algorithm subsection 2.1 Subsequent developments and important issues 3 Further developments 4 See also 5 References Toggle the table of contents Stochastic approximation 1 language Русский Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Family of iterative methods Stochastic approximation methods are a family of iterative methods typically used for root-finding problems or for optimization problems. The recursive update rules of stochastic approximation methods can be used, among other things, for solving linear systems when the collected data is corrupted by noise, or for approximating extreme values of functions which cannot be computed directly, but only estimated via noisy observations.
+
+In a nutshell, stochastic approximation algorithms deal with a function of the form f ( θ θ ) = E ξ ξ ⁡ ⁡ [ F ( θ θ , ξ ξ ) ] {\textstyle f(\theta )=\operatorname {E} _{\xi }[F(\theta ,\xi )]} which is the expected value of a function depending on a random variable ξ ξ {\textstyle \xi } . The goal is to recover properties of such a function f {\textstyle f} without evaluating it directly. Instead, stochastic approximation algorithms use random samples of F ( θ θ , ξ ξ ) {\textstyle F(\theta ,\xi )} to efficiently approximate properties of f {\textstyle f} such as zeros or extrema.
+
+Recently, stochastic approximations have found extensive applications in the  fields of statistics and machine learning, especially in settings with big data . These applications range from stochastic optimization methods and algorithms,  to online forms of the EM algorithm , reinforcement learning via temporal differences , and deep learning , and others.
+
+[ 1 ] Stochastic approximation algorithms have also been used in the social sciences to describe collective dynamics: fictitious play in learning theory and consensus algorithms can be studied using their theory.
+
+[ 2 ] The earliest, and prototypical, algorithms of this kind are the Robbins–Monro and Kiefer–Wolfowitz algorithms introduced respectively in 1951 and 1952.
+
+Robbins–Monro algorithm [ edit ] The Robbins–Monro algorithm, introduced in 1951 by Herbert Robbins and Sutton Monro , [ 3 ] presented a methodology for solving a root finding problem, where the function is represented as an expected value. Assume that we have a function M ( θ θ ) {\textstyle M(\theta )} , and a constant α α {\textstyle \alpha } , such that the equation M ( θ θ ) = α α {\textstyle M(\theta )=\alpha } has a unique root at θ θ ∗ ∗ .
+
+{\textstyle \theta ^{*}.} It is assumed that while we cannot directly observe the function M ( θ θ ) , {\textstyle M(\theta ),} we can instead obtain measurements of the random variable N ( θ θ ) {\textstyle N(\theta )} where E ⁡ ⁡ [ N ( θ θ ) ] = M ( θ θ ) {\textstyle \operatorname {E} [N(\theta )]=M(\theta )} . The structure of the algorithm is to then generate iterates of the form: θ θ n + 1 = θ θ n − − a n ( N ( θ θ n ) − − α α ) {\displaystyle \theta _{n+1}=\theta _{n}-a_{n}(N(\theta _{n})-\alpha )} Here, a 1 , a 2 , … … {\displaystyle a_{1},a_{2},\dots } is a sequence of positive step sizes.
+
+Robbins and Monro proved [ 3 ] , Theorem 2 that θ θ n {\displaystyle \theta _{n}} converges in L 2 {\displaystyle L^{2}} (and hence also in probability) to θ θ ∗ ∗ {\displaystyle \theta ^{*}} , and Blum [ 4 ] later proved the convergence is actually with probability one, provided that: N ( θ θ ) {\textstyle N(\theta )} is uniformly bounded, M ( θ θ ) {\textstyle M(\theta )} is nondecreasing, M ′ ( θ θ ∗ ∗ ) {\textstyle M'(\theta ^{*})} exists and is positive, and The sequence a n {\textstyle a_{n}} satisfies the following requirements: ∑ ∑ n = 0 ∞ ∞ a n = ∞ ∞ and ∑ ∑ n = 0 ∞ ∞ a n 2 < ∞ ∞ {\displaystyle \qquad \sum _{n=0}^{\infty }a_{n}=\infty \quad {\mbox{ and }}\quad \sum _{n=0}^{\infty }a_{n}^{2}<\infty \quad } A particular sequence of steps which satisfy these conditions, and was suggested by Robbins–Monro, have the form: a n = a / n {\textstyle a_{n}=a/n} , for a > 0 {\textstyle a>0} . Other series, such as a n = 1 n ln ⁡ ⁡ n , 1 n ln ⁡ ⁡ n ln ⁡ ⁡ ln ⁡ ⁡ n , … … {\displaystyle a_{n}={\frac {1}{n\ln n}},{\frac {1}{n\ln n\ln \ln n}},\dots } are possible but in order to average out the noise in N ( θ θ ) {\textstyle N(\theta )} , the above condition must be met.
+
+Example [ edit ] Consider the problem of estimating the mean θ θ ∗ ∗ {\displaystyle \theta ^{*}} of a probability distribution from a stream of independent samples X 1 , X 2 , … … {\displaystyle X_{1},X_{2},\dots } .
+
+Let N ( θ θ ) := θ θ − − X {\displaystyle N(\theta ):=\theta -X} , then the unique solution to E ⁡ ⁡ [ N ( θ θ ) ] = 0 {\textstyle \operatorname {E} [N(\theta )]=0} is the desired mean θ θ ∗ ∗ {\displaystyle \theta ^{*}} . The RM algorithm gives us θ θ n + 1 = θ θ n − − a n ( θ θ n − − X n ) {\displaystyle \theta _{n+1}=\theta _{n}-a_{n}(\theta _{n}-X_{n})} This is equivalent to stochastic gradient descent with loss function L ( θ θ ) = 1 2 ‖ ‖ X − − θ θ ‖ ‖ 2 {\displaystyle L(\theta )={\frac {1}{2}}\|X-\theta \|^{2}} . It is also equivalent to a weighted average: θ θ n + 1 = ( 1 − − a n ) θ θ n + a n X n {\displaystyle \theta _{n+1}=(1-a_{n})\theta _{n}+a_{n}X_{n}} In general, if there exists some function L {\displaystyle L} such that ∇ ∇ L ( θ θ ) = N ( θ θ ) − − α α {\displaystyle \nabla L(\theta )=N(\theta )-\alpha } , then the Robbins–Monro algorithm is equivalent to stochastic gradient descent with loss function L ( θ θ ) {\displaystyle L(\theta )} . However, the RM algorithm does not require L {\displaystyle L} to exist in order to converge.
+
+Complexity results [ edit ] If f ( θ θ ) {\textstyle f(\theta )} is twice continuously differentiable, and strongly convex, and the minimizer of f ( θ θ ) {\textstyle f(\theta )} belongs to the interior of Θ Θ {\textstyle \Theta } , then the Robbins–Monro algorithm will achieve the asymptotically optimal convergence rate, with respect to the objective function, being E ⁡ ⁡ [ f ( θ θ n ) − − f ∗ ∗ ] = O ( 1 / n ) {\textstyle \operatorname {E} [f(\theta _{n})-f^{*}]=O(1/n)} , where f ∗ ∗ {\textstyle f^{*}} is the minimal value of f ( θ θ ) {\textstyle f(\theta )} over θ θ ∈ ∈ Θ Θ {\textstyle \theta \in \Theta } .
+
+[ 5 ] [ 6 ] Conversely, in the general convex case, where we lack both the assumption of smoothness and strong convexity, Nemirovski and Yudin [ 7 ] have shown that the asymptotically optimal convergence rate, with respect to the objective function values, is O ( 1 / n ) {\textstyle O(1/{\sqrt {n}})} . They have also proven that this rate cannot be improved.
+
+Subsequent developments and Polyak–Ruppert averaging [ edit ] While the Robbins–Monro algorithm is theoretically able to achieve O ( 1 / n ) {\textstyle O(1/n)} under the assumption of twice continuous differentiability and strong convexity, it can perform quite poorly upon implementation. This is primarily due to the fact that the algorithm is very sensitive to the choice of the step size sequence, and the supposed asymptotically optimal step size policy can be quite harmful in the beginning.
+
+[ 6 ] [ 8 ] Chung (1954) [ 9 ] and Fabian (1968) [ 10 ] showed that we would achieve optimal convergence rate O ( 1 / n ) {\textstyle O(1/{\sqrt {n}})} with a n = ▽ ▽ 2 f ( θ θ ∗ ∗ ) − − 1 / n {\textstyle a_{n}=\bigtriangledown ^{2}f(\theta ^{*})^{-1}/n} (or a n = 1 ( n M ′ ( θ θ ∗ ∗ ) ) {\textstyle a_{n}={\frac {1}{(nM'(\theta ^{*}))}}} ). Lai and Robbins [ 11 ] [ 12 ] designed adaptive procedures to estimate M ′ ( θ θ ∗ ∗ ) {\textstyle M'(\theta ^{*})} such that θ θ n {\textstyle \theta _{n}} has minimal asymptotic variance. However the application of such optimal methods requires much a priori information which is hard to obtain in most situations. To overcome this shortfall, Polyak (1991) [ 13 ] and Ruppert (1988) [ 14 ] independently developed a new optimal algorithm based on the idea of averaging the trajectories. Polyak and Juditsky [ 15 ] also presented a method of accelerating Robbins–Monro for linear and non-linear root-searching problems through the use of longer steps, and averaging of the iterates. The algorithm would have the following structure: θ θ n + 1 − − θ θ n = a n ( α α − − N ( θ θ n ) ) , θ θ ¯ ¯ n = 1 n ∑ ∑ i = 0 n − − 1 θ θ i {\displaystyle \theta _{n+1}-\theta _{n}=a_{n}(\alpha -N(\theta _{n})),\qquad {\bar {\theta }}_{n}={\frac {1}{n}}\sum _{i=0}^{n-1}\theta _{i}} The convergence of θ θ ¯ ¯ n {\displaystyle {\bar {\theta }}_{n}} to the unique root θ θ ∗ ∗ {\displaystyle \theta ^{*}} relies on the condition that the step sequence { a n } {\displaystyle \{a_{n}\}} decreases sufficiently slowly. That is A1) a n → → 0 , a n − − a n + 1 a n = o ( a n ) {\displaystyle a_{n}\rightarrow 0,\qquad {\frac {a_{n}-a_{n+1}}{a_{n}}}=o(a_{n})} Therefore, the sequence a n = n − − α α {\textstyle a_{n}=n^{-\alpha }} with 0 < α α < 1 {\textstyle 0<\alpha <1} satisfies this restriction, but α α = 1 {\textstyle \alpha =1} does not, hence the longer steps. Under the assumptions outlined in the Robbins–Monro algorithm, the resulting modification will result in the same asymptotically optimal convergence rate O ( 1 / n ) {\textstyle O(1/{\sqrt {n}})} yet with a more robust step size policy.
+
+[ 15 ] Prior to this, the idea of using longer steps and averaging the iterates had already been proposed by Nemirovski and Yudin [ 16 ] for the cases of solving the stochastic optimization problem with continuous convex objectives and for convex-concave saddle point problems. These algorithms were observed to attain the nonasymptotic rate O ( 1 / n ) {\textstyle O(1/{\sqrt {n}})} .
+
+A more general result is given in Chapter 11 of Kushner and Yin [ 17 ] by defining interpolated time t n = ∑ ∑ i = 0 n − − 1 a i {\textstyle t_{n}=\sum _{i=0}^{n-1}a_{i}} , interpolated process θ θ n ( ⋅ ⋅ ) {\textstyle \theta ^{n}(\cdot )} and interpolated normalized process U n ( ⋅ ⋅ ) {\textstyle U^{n}(\cdot )} as θ θ n ( t ) = θ θ n + i , U n ( t ) = ( θ θ n + i − − θ θ ∗ ∗ ) / a n + i for t ∈ ∈ [ t n + i − − t n , t n + i + 1 − − t n ) , i ≥ ≥ 0 {\displaystyle \theta ^{n}(t)=\theta _{n+i},\quad U^{n}(t)=(\theta _{n+i}-\theta ^{*})/{\sqrt {a_{n+i}}}\quad {\mbox{for}}\quad t\in [t_{n+i}-t_{n},t_{n+i+1}-t_{n}),i\geq 0} Let the iterate average be Θ Θ n = a n t ∑ ∑ i = n n + t / a n − − 1 θ θ i {\displaystyle \Theta _{n}={\frac {a_{n}}{t}}\sum _{i=n}^{n+t/a_{n}-1}\theta _{i}} and the associate normalized error to be U ^ ^ n ( t ) = a n t ∑ ∑ i = n n + t / a n − − 1 ( θ θ i − − θ θ ∗ ∗ ) {\displaystyle {\hat {U}}^{n}(t)={\frac {\sqrt {a_{n}}}{t}}\sum _{i=n}^{n+t/a_{n}-1}(\theta _{i}-\theta ^{*})} .
+
+With assumption A1) and the following A2) A2) There is a Hurwitz matrix A {\textstyle A} and a symmetric and positive-definite matrix Σ Σ {\textstyle \Sigma } such that { U n ( ⋅ ⋅ ) } {\textstyle \{U^{n}(\cdot )\}} converges weakly to U ( ⋅ ⋅ ) {\textstyle U(\cdot )} , where U ( ⋅ ⋅ ) {\textstyle U(\cdot )} is the statisolution to d U = A U d t + Σ Σ 1 / 2 d w {\displaystyle dU=AU\,dt+\Sigma ^{1/2}\,dw} where w ( ⋅ ⋅ ) {\textstyle w(\cdot )} is a standard Wiener process.
+
+satisfied, and define V ¯ ¯ = ( A − − 1 ) ′ Σ Σ ( A ′ ) − − 1 {\textstyle {\bar {V}}=(A^{-1})'\Sigma (A')^{-1}} . Then for each t {\textstyle t} , U ^ ^ n ( t ) ⟶ ⟶ D N ( 0 , V t ) , where V t = V ¯ ¯ / t + O ( 1 / t 2 ) .
+
+{\displaystyle {\hat {U}}^{n}(t){\stackrel {\mathcal {D}}{\longrightarrow }}{\mathcal {N}}(0,V_{t}),\quad {\text{where}}\quad V_{t}={\bar {V}}/t+O(1/t^{2}).} The success of the averaging idea is because of the time scale separation of the original sequence { θ θ n } {\textstyle \{\theta _{n}\}} and the averaged sequence { Θ Θ n } {\textstyle \{\Theta _{n}\}} , with the time scale of the former one being faster.
+
+Application in stochastic optimization [ edit ] Suppose we want to solve the following stochastic optimization problem g ( θ θ ∗ ∗ ) = min θ θ ∈ ∈ Θ Θ E ⁡ ⁡ [ Q ( θ θ , X ) ] , {\displaystyle g(\theta ^{*})=\min _{\theta \in \Theta }\operatorname {E} [Q(\theta ,X)],} where g ( θ θ ) = E ⁡ ⁡ [ Q ( θ θ , X ) ] {\textstyle g(\theta )=\operatorname {E} [Q(\theta ,X)]} is differentiable and convex, then this problem is equivalent to find the root θ θ ∗ ∗ {\displaystyle \theta ^{*}} of ∇ ∇ g ( θ θ ) = 0 {\displaystyle \nabla g(\theta )=0} . Here Q ( θ θ , X ) {\displaystyle Q(\theta ,X)} can be interpreted as some "observed" cost as a function of the chosen θ θ {\displaystyle \theta } and random effects X {\displaystyle X} . In practice, it might be hard to get an analytical form of ∇ ∇ g ( θ θ ) {\displaystyle \nabla g(\theta )} , Robbins–Monro method manages to generate a sequence ( θ θ n ) n ≥ ≥ 0 {\displaystyle (\theta _{n})_{n\geq 0}} to approximate θ θ ∗ ∗ {\displaystyle \theta ^{*}} if one can generate ( X n ) n ≥ ≥ 0 {\displaystyle (X_{n})_{n\geq 0}} , in which the conditional expectation of X n {\displaystyle X_{n}} given θ θ n {\displaystyle \theta _{n}} is exactly ∇ ∇ g ( θ θ n ) {\displaystyle \nabla g(\theta _{n})} , i.e.
+
+X n {\displaystyle X_{n}} is simulated from a conditional distribution defined by E ⁡ ⁡ [ H ( θ θ , X ) | θ θ = θ θ n ] = ∇ ∇ g ( θ θ n ) .
+
+{\displaystyle \operatorname {E} [H(\theta ,X)|\theta =\theta _{n}]=\nabla g(\theta _{n}).} Here H ( θ θ , X ) {\displaystyle H(\theta ,X)} is an unbiased estimator of ∇ ∇ g ( θ θ ) {\displaystyle \nabla g(\theta )} . If X {\displaystyle X} depends on θ θ {\displaystyle \theta } , there is in general no natural way of generating a random outcome H ( θ θ , X ) {\displaystyle H(\theta ,X)} that is an unbiased estimator of the gradient. In some special cases when either IPA or likelihood ratio methods are applicable, then one is able to obtain an unbiased gradient estimator H ( θ θ , X ) {\displaystyle H(\theta ,X)} .  If X {\displaystyle X} is viewed as some "fundamental" underlying random process that is generated independently of θ θ {\displaystyle \theta } , and under some regularization conditions for derivative-integral interchange operations so that E ⁡ ⁡ [ ∂ ∂ ∂ ∂ θ θ Q ( θ θ , X ) ] = ∇ ∇ g ( θ θ ) {\displaystyle \operatorname {E} {\Big [}{\frac {\partial }{\partial \theta }}Q(\theta ,X){\Big ]}=\nabla g(\theta )} , then H ( θ θ , X ) = ∂ ∂ ∂ ∂ θ θ Q ( θ θ , X ) {\displaystyle H(\theta ,X)={\frac {\partial }{\partial \theta }}Q(\theta ,X)} gives the fundamental gradient unbiased estimate. However, for some applications we have to use finite-difference methods in which H ( θ θ , X ) {\displaystyle H(\theta ,X)} has a conditional expectation close to ∇ ∇ g ( θ θ ) {\displaystyle \nabla g(\theta )} but not exactly equal to it.
+
+We then define a recursion analogously to Newton's Method in the deterministic algorithm: θ θ n + 1 = θ θ n − − ε ε n H ( θ θ n , X n + 1 ) .
+
+{\displaystyle \theta _{n+1}=\theta _{n}-\varepsilon _{n}H(\theta _{n},X_{n+1}).} Convergence of the algorithm [ edit ] The following result gives sufficient conditions on θ θ n {\displaystyle \theta _{n}} for the algorithm to converge: [ 18 ] C1) ε ε n ≥ ≥ 0 , ∀ ∀ n ≥ ≥ 0.
+
+{\displaystyle \varepsilon _{n}\geq 0,\forall \;n\geq 0.} C2) ∑ ∑ n = 0 ∞ ∞ ε ε n = ∞ ∞ {\displaystyle \sum _{n=0}^{\infty }\varepsilon _{n}=\infty } C3) ∑ ∑ n = 0 ∞ ∞ ε ε n 2 < ∞ ∞ {\displaystyle \sum _{n=0}^{\infty }\varepsilon _{n}^{2}<\infty } C4) | X n | ≤ ≤ B , for a fixed bound B .
+
+{\displaystyle |X_{n}|\leq B,{\text{ for a fixed bound }}B.} C5) g ( θ θ ) is strictly convex, i.e.
+
+{\displaystyle g(\theta ){\text{ is strictly convex, i.e.}}} inf δ δ ≤ ≤ | θ θ − − θ θ ∗ ∗ | ≤ ≤ 1 / δ δ ⟨ ⟨ θ θ − − θ θ ∗ ∗ , ∇ ∇ g ( θ θ ) ⟩ ⟩ > 0 , for every 0 < δ δ < 1.
+
+{\displaystyle \inf _{\delta \leq |\theta -\theta ^{*}|\leq 1/\delta }\langle \theta -\theta ^{*},\nabla g(\theta )\rangle >0,{\text{ for every }}0<\delta <1.} Then θ θ n {\displaystyle \theta _{n}} converges to θ θ ∗ ∗ {\displaystyle \theta ^{*}} almost surely.
+
+Here are some intuitive explanations about these conditions. Suppose H ( θ θ n , X n + 1 ) {\displaystyle H(\theta _{n},X_{n+1})} is a uniformly bounded random variables. If C2) is not satisfied, i.e.
+
+∑ ∑ n = 0 ∞ ∞ ε ε n < ∞ ∞ {\displaystyle \sum _{n=0}^{\infty }\varepsilon _{n}<\infty } , then θ θ n − − θ θ 0 = − − ∑ ∑ i = 0 n − − 1 ε ε i H ( θ θ i , X i + 1 ) {\displaystyle \theta _{n}-\theta _{0}=-\sum _{i=0}^{n-1}\varepsilon _{i}H(\theta _{i},X_{i+1})} is a bounded sequence, so the iteration cannot converge to θ θ ∗ ∗ {\displaystyle \theta ^{*}} if the initial guess θ θ 0 {\displaystyle \theta _{0}} is too far away from θ θ ∗ ∗ {\displaystyle \theta ^{*}} . As for C3) note that if θ θ n {\displaystyle \theta _{n}} converges to θ θ ∗ ∗ {\displaystyle \theta ^{*}} then θ θ n + 1 − − θ θ n = − − ε ε n H ( θ θ n , X n + 1 ) → → 0 , as n → → ∞ ∞ .
+
+{\displaystyle \theta _{n+1}-\theta _{n}=-\varepsilon _{n}H(\theta _{n},X_{n+1})\rightarrow 0,{\text{ as }}n\rightarrow \infty .} so we must have ε ε n ↓ ↓ 0 {\displaystyle \varepsilon _{n}\downarrow 0} ，and the condition C3) ensures it. A natural choice would be ε ε n = 1 / n {\displaystyle \varepsilon _{n}=1/n} . Condition C5) is a fairly stringent condition on the shape of g ( θ θ ) {\displaystyle g(\theta )} ; it gives the search direction of the algorithm.
+
+Example (where the stochastic gradient method is appropriate) [ 8 ] [ edit ] Suppose Q ( θ θ , X ) = f ( θ θ ) + θ θ T X {\displaystyle Q(\theta ,X)=f(\theta )+\theta ^{T}X} , where f {\displaystyle f} is differentiable and X ∈ ∈ R p {\displaystyle X\in \mathbb {R} ^{p}} is a random variable independent of θ θ {\displaystyle \theta } . Then g ( θ θ ) = E ⁡ ⁡ [ Q ( θ θ , X ) ] = f ( θ θ ) + θ θ T E ⁡ ⁡ X {\displaystyle g(\theta )=\operatorname {E} [Q(\theta ,X)]=f(\theta )+\theta ^{T}\operatorname {E} X} depends on the mean of X {\displaystyle X} , and the stochastic gradient method would be appropriate in this problem. We can choose H ( θ θ , X ) = ∂ ∂ ∂ ∂ θ θ Q ( θ θ , X ) = ∂ ∂ ∂ ∂ θ θ f ( θ θ ) + X .
+
+{\displaystyle H(\theta ,X)={\frac {\partial }{\partial \theta }}Q(\theta ,X)={\frac {\partial }{\partial \theta }}f(\theta )+X.} Kiefer–Wolfowitz algorithm [ edit ] The Kiefer–Wolfowitz algorithm was introduced in 1952 by Jacob Wolfowitz and Jack Kiefer , [ 19 ] and was motivated by the publication of the Robbins–Monro algorithm. However, the algorithm was presented as a method which would stochastically estimate the maximum of a function.
+
+Let M ( x ) {\displaystyle M(x)} be a function which has a maximum at the point θ θ {\displaystyle \theta } . It is assumed that M ( x ) {\displaystyle M(x)} is unknown; however, certain observations N ( x ) {\displaystyle N(x)} , where E ⁡ ⁡ [ N ( x ) ] = M ( x ) {\displaystyle \operatorname {E} [N(x)]=M(x)} , can be made at any point x {\displaystyle x} . The structure of the algorithm follows a gradient-like method, with the iterates being generated as x n + 1 = x n + a n ⋅ ⋅ ( N ( x n + c n ) − − N ( x n − − c n ) 2 c n ) {\displaystyle x_{n+1}=x_{n}+a_{n}\cdot \left({\frac {N(x_{n}+c_{n})-N(x_{n}-c_{n})}{2c_{n}}}\right)} where N ( x n + c n ) {\displaystyle N(x_{n}+c_{n})} and N ( x n − − c n ) {\displaystyle N(x_{n}-c_{n})} are independent. At every step, the gradient of M ( x ) {\displaystyle M(x)} is approximated akin to a central difference method with h = 2 c n {\displaystyle h=2c_{n}} . So the sequence { c n } {\displaystyle \{c_{n}\}} specifies the sequence of finite difference widths used for the gradient approximation, while the sequence { a n } {\displaystyle \{a_{n}\}} specifies a sequence of positive step sizes taken along that direction.
+
+Kiefer and Wolfowitz proved that, if M ( x ) {\displaystyle M(x)} satisfied certain regularity conditions, then x n {\displaystyle x_{n}} will converge to θ θ {\displaystyle \theta } in probability as n → → ∞ ∞ {\displaystyle n\to \infty } , and later Blum [ 4 ] in 1954 showed x n {\displaystyle x_{n}} converges to θ θ {\displaystyle \theta } almost surely, provided that: Var ⁡ ⁡ ( N ( x ) ) ≤ ≤ S < ∞ ∞ {\displaystyle \operatorname {Var} (N(x))\leq S<\infty } for all x {\displaystyle x} .
+
+The function M ( x ) {\displaystyle M(x)} has a unique point of maximum (minimum) and is strong concave (convex) The algorithm was first presented with the requirement that the function M ( ⋅ ⋅ ) {\displaystyle M(\cdot )} maintains strong global convexity (concavity) over the entire feasible space. Given this condition is too restrictive to impose over the entire domain, Kiefer and Wolfowitz proposed that it is sufficient to impose the condition over a compact set C 0 ⊂ ⊂ R d {\displaystyle C_{0}\subset \mathbb {R} ^{d}} which is known to include the optimal solution.
+
+The function M ( x ) {\displaystyle M(x)} satisfies the regularity conditions as follows: There exists β β > 0 {\displaystyle \beta >0} and B > 0 {\displaystyle B>0} such that | x ′ − − θ θ | + | x ″ − − θ θ | < β β ⟹ ⟹ | M ( x ′ ) − − M ( x ″ ) | < B | x ′ − − x ″ | {\displaystyle |x'-\theta |+|x''-\theta |<\beta \quad \Longrightarrow \quad |M(x')-M(x'')|<B|x'-x''|} There exists ρ ρ > 0 {\displaystyle \rho >0} and R > 0 {\displaystyle R>0} such that | x ′ − − x ″ | < ρ ρ ⟹ ⟹ | M ( x ′ ) − − M ( x ″ ) | < R {\displaystyle |x'-x''|<\rho \quad \Longrightarrow \quad |M(x')-M(x'')|<R} For every δ δ > 0 {\displaystyle \delta >0} , there exists some π π ( δ δ ) > 0 {\displaystyle \pi (\delta )>0} such that | z − − θ θ | > δ δ ⟹ ⟹ inf δ δ / 2 > ε ε > 0 | M ( z + ε ε ) − − M ( z − − ε ε ) | ε ε > π π ( δ δ ) {\displaystyle |z-\theta |>\delta \quad \Longrightarrow \quad \inf _{\delta /2>\varepsilon >0}{\frac {|M(z+\varepsilon )-M(z-\varepsilon )|}{\varepsilon }}>\pi (\delta )} The selected sequences { a n } {\displaystyle \{a_{n}\}} and { c n } {\displaystyle \{c_{n}\}} must be infinite sequences of positive numbers such that c n → → 0 as n → → ∞ ∞ {\displaystyle \quad c_{n}\rightarrow 0\quad {\text{as}}\quad n\to \infty } ∑ ∑ n = 0 ∞ ∞ a n = ∞ ∞ {\displaystyle \sum _{n=0}^{\infty }a_{n}=\infty } ∑ ∑ n = 0 ∞ ∞ a n c n < ∞ ∞ {\displaystyle \sum _{n=0}^{\infty }a_{n}c_{n}<\infty } ∑ ∑ n = 0 ∞ ∞ a n 2 c n − − 2 < ∞ ∞ {\displaystyle \sum _{n=0}^{\infty }a_{n}^{2}c_{n}^{-2}<\infty } A suitable choice of sequences, as recommended by Kiefer and Wolfowitz, would be a n = 1 / n {\displaystyle a_{n}=1/n} and c n = n − − 1 / 3 {\displaystyle c_{n}=n^{-1/3}} .
+
+Subsequent developments and important issues [ edit ] The Kiefer Wolfowitz algorithm requires that for each gradient computation, at least d + 1 {\displaystyle d+1} different parameter values must be simulated for every iteration of the algorithm, where d {\displaystyle d} is the dimension of the search space. This means that when d {\displaystyle d} is large, the Kiefer–Wolfowitz algorithm will require substantial computational effort per iteration, leading to slow convergence.
+
+To address this problem, Spall proposed the use of simultaneous perturbations to estimate the gradient. This method would require only two simulations per iteration, regardless of the dimension d {\displaystyle d} .
+
+[ 20 ] In the conditions required for convergence, the ability to specify a predetermined compact set that fulfills strong convexity (or concavity) and contains the unique solution can be difficult to find. With respect to real world applications, if the domain is quite large, these assumptions can be fairly restrictive and highly unrealistic.
+
+Further developments [ edit ] An extensive theoretical literature has grown up around these algorithms, concerning conditions for convergence, rates of convergence,  multivariate and other generalizations, proper choice of step size, possible noise models, and so on.
+
+[ 21 ] [ 22 ] These methods are also applied in control theory , in which case the unknown function which we wish to optimize or find the zero of may vary in time. In this case, the step size a n {\displaystyle a_{n}} should not converge to zero but should be chosen so as to track the function.
+
+[ 21 ] , 2nd ed., chapter 3 C. Johan Masreliez and R. Douglas Martin were the first to apply 
+stochastic approximation to robust estimation .
+
+[ 23 ] The main tool for analyzing stochastic approximations algorithms (including the Robbins–Monro and the Kiefer–Wolfowitz algorithms) is a theorem by Aryeh Dvoretzky published in 1956.
+
+[ 24 ] See also [ edit ] Stochastic gradient descent Stochastic variance reduction References [ edit ] ^ Toulis, Panos; Airoldi, Edoardo (2015).
+
+"Scalable estimation strategies based on stochastic approximations: classical results and new insights" .
+
+Statistics and Computing .
+
+25 (4): 781– 795.
+
+doi : 10.1007/s11222-015-9560-y .
+
+PMC 4484776 .
+
+PMID 26139959 .
+
+^ Le Ny, Jerome.
+
+"Introduction to Stochastic Approximation Algorithms" (PDF) .
+
+Polytechnique Montreal . Teaching Notes . Retrieved 16 November 2016 .
+
+^ a b Robbins, H.
+
+; Monro, S. (1951).
+
+"A Stochastic Approximation Method" .
+
+The Annals of Mathematical Statistics .
+
+22 (3): 400.
+
+doi : 10.1214/aoms/1177729586 .
+
+^ a b Blum, Julius R. (1954-06-01).
+
+"Approximation Methods which Converge with Probability one" .
+
+The Annals of Mathematical Statistics .
+
+25 (2): 382– 386.
+
+doi : 10.1214/aoms/1177728794 .
+
+ISSN 0003-4851 .
+
+^ Sacks, J. (1958).
+
+"Asymptotic Distribution of Stochastic Approximation Procedures" .
+
+The Annals of Mathematical Statistics .
+
+29 (2): 373– 405.
+
+doi : 10.1214/aoms/1177706619 .
+
+JSTOR 2237335 .
+
+^ a b Nemirovski, A.
+
+; Juditsky, A.; Lan, G.; Shapiro, A. (2009). "Robust Stochastic Approximation Approach to Stochastic Programming".
+
+SIAM Journal on Optimization .
+
+19 (4): 1574.
+
+doi : 10.1137/070704277 .
+
+^ Problem Complexity and Method Efficiency in Optimization, A. Nemirovski and D. Yudin, Wiley -Intersci. Ser. Discrete Math 15 John Wiley New York (1983) .
+
+^ a b Introduction to Stochastic Search and Optimization: Estimation, Simulation and Control , J.C. Spall, John Wiley Hoboken, NJ , (2003).
+
+^ Chung, K. L. (1954-09-01).
+
+"On a Stochastic Approximation Method" .
+
+The Annals of Mathematical Statistics .
+
+25 (3): 463– 483.
+
+doi : 10.1214/aoms/1177728716 .
+
+ISSN 0003-4851 .
+
+^ Fabian, Vaclav (1968-08-01).
+
+"On Asymptotic Normality in Stochastic Approximation" .
+
+The Annals of Mathematical Statistics .
+
+39 (4): 1327– 1332.
+
+doi : 10.1214/aoms/1177698258 .
+
+ISSN 0003-4851 .
+
+^ Lai, T. L.; Robbins, Herbert (1979-11-01).
+
+"Adaptive Design and Stochastic Approximation" .
+
+The Annals of Statistics .
+
+7 (6): 1196– 1221.
+
+doi : 10.1214/aos/1176344840 .
+
+ISSN 0090-5364 .
+
+^ Lai, Tze Leung; Robbins, Herbert (1981-09-01).
+
+"Consistency and asymptotic efficiency of slope estimates in stochastic approximation schemes" .
+
+Zeitschrift für Wahrscheinlichkeitstheorie und Verwandte Gebiete .
+
+56 (3): 329– 360.
+
+doi : 10.1007/BF00536178 .
+
+ISSN 0044-3719 .
+
+S2CID 122109044 .
+
+^ Polyak, B T (1991).
+
+"New stochastic approximation type procedures. (In Russian.)" .
+
+Automation and Remote Control .
+
+7 (7).
+
+^ Ruppert, David (1988).
+
+Efficient estimators from a slowly converging robbins-monro process (Technical Report 781). Cornell University School of Operations Research and Industrial Engineering.
+
+^ a b Polyak, B. T.; Juditsky, A. B. (1992). "Acceleration of Stochastic Approximation by Averaging".
+
+SIAM Journal on Control and Optimization .
+
+30 (4): 838.
+
+doi : 10.1137/0330046 .
+
+^ On Cezari's convergence of the steepest descent method for approximating saddle points of convex-concave functions, A. Nemirovski and D. Yudin, Dokl. Akad. Nauk SSR 2939 , (1978 (Russian)), Soviet Math. Dokl.
+
+19 (1978 (English)).
+
+^ Kushner, Harold; George Yin, G. (2003-07-17).
+
+Stochastic Approximation and Recursive Algorithms and | Harold Kushner | Springer . www.springer.com.
+
+ISBN 9780387008943 . Retrieved 2016-05-16 .
+
+^ Bouleau, N.
+
+; Lepingle, D. (1994).
+
+Numerical Methods for stochastic Processes . New York: John Wiley.
+
+ISBN 9780471546412 .
+
+^ Kiefer, J.; Wolfowitz, J. (1952).
+
+"Stochastic Estimation of the Maximum of a Regression Function" .
+
+The Annals of Mathematical Statistics .
+
+23 (3): 462.
+
+doi : 10.1214/aoms/1177729392 .
+
+^ Spall, J. C. (2000). "Adaptive stochastic approximation by the simultaneous perturbation method".
+
+IEEE Transactions on Automatic Control .
+
+45 (10): 1839– 1853.
+
+doi : 10.1109/TAC.2000.880982 .
+
+^ a b Kushner, H. J.
+
+; Yin, G. G. (1997).
+
+Stochastic Approximation Algorithms and Applications .
+
+doi : 10.1007/978-1-4899-2696-8 .
+
+ISBN 978-1-4899-2698-2 .
+
+^ Stochastic Approximation and Recursive Estimation , Mikhail Borisovich Nevel'son and Rafail Zalmanovich Has'minskiĭ, translated by Israel Program for Scientific Translations and B. Silver, Providence, RI: American Mathematical Society, 1973, 1976.
+
+ISBN 0-8218-1597-0 .
+
+^ Martin, R.; Masreliez, C. (1975). "Robust estimation via stochastic approximation".
+
+IEEE Transactions on Information Theory .
+
+21 (3): 263.
+
+doi : 10.1109/TIT.1975.1055386 .
+
+^ Dvoretzky, Aryeh (1956).
+
+"On stochastic approximation" . In Neyman, Jerzy (ed.).
+
+Proceedings of the Third Berkeley Symposium on Mathematical Statistics and Probability, 1954–1955, vol. I . University of California Press. pp.
+
+39– 55.
+
+MR 0084911 .
+
+v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject Retrieved from " https://en.wikipedia.org/w/index.php?title=Stochastic_approximation&oldid=1272133306 " Categories : Stochastic optimization Statistical approximations Hidden categories: Articles with short description Short description matches Wikidata This page was last edited on 27 January 2025, at 08:32 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Stochastic approximation 1 language Add topic
+

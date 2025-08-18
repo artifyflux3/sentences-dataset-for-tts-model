@@ -1,0 +1,474 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Practical applications and uses 2 True vs. pseudo-random numbers 3 Generation methods Toggle Generation methods subsection 3.1 Physical methods 3.2 Computational methods 3.3 By humans 4 Post-processing and statistical checks 5 Other considerations Toggle Other considerations subsection 5.1 Reshaping the distribution 5.1.1 Uniform distributions 5.1.2 Other distributions 5.2 Whitening 6 Low-discrepancy sequences as an alternative 7 Activities and demonstrations 8 Backdoors 9 See also 10 References 11 Further reading 12 External links Toggle the table of contents Random number generation 22 languages العربية Azərbaycanca বাংলা 閩南語 / Bân-lâm-gí Català Čeština فارسی Français 한국어 हिन्दी Bahasa Indonesia Italiano 日本語 Русский Shqip Српски / srpski Tagalog Türkçe Українська اردو 粵語 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia (Redirected from Random number generator ) Producing a sequence that cannot be predicted better than by random chance Dice are an example of a hardware random number generator. When a cubical die is rolled, a random number from 1 to 6 is obtained.
+
+Random number generation is a process by which, often by means of a random number generator ( RNG ), a sequence of numbers or symbols is generated that cannot be reasonably predicted better than by random chance. This means that the particular outcome sequence will contain some patterns detectable in hindsight but impossible to foresee. True random number generators can be hardware random-number generators (HRNGs), wherein each generation is a function of the current value of a physical environment's attribute that is constantly changing in a manner that is practically impossible to model. This would be in contrast to so-called "random number generations" done by pseudorandom number generators (PRNGs), which generate numbers that only look random but are in fact predetermined—these generations can be reproduced simply by knowing the state of the PRNG.
+
+[ 1 ] Various applications of randomness have led to the development of different methods for generating random data. Some of these have existed since ancient times, including well-known examples like the rolling of dice , coin flipping , the shuffling of playing cards , the use of yarrow stalks (for divination ) in the I Ching , as well as countless other techniques. Because of the mechanical nature of these techniques, generating large quantities of sufficiently random numbers (important in statistics) required much work and time. Thus, results would sometimes be collected and distributed as random number tables .
+
+Several computational methods for pseudorandom number generation exist. All fall short of the goal of true randomness, although they may meet, with varying success, some of the statistical tests for randomness intended to measure how unpredictable their results are (that is, to what degree their patterns are discernible). This generally makes them unusable for applications such as cryptography . However, carefully designed cryptographically secure pseudorandom number generators (CSPRNGS) also exist, with special features specifically designed for use in cryptography.
+
+Practical applications and uses [ edit ] Main article: Applications of randomness Random number generators have applications in gambling , statistical sampling , computer simulation , cryptography , completely randomized design , and other areas where producing an unpredictable result is desirable.  Generally, in applications having unpredictability as the paramount feature, such as in security applications, hardware generators are generally preferred over pseudorandom algorithms, where feasible.
+
+Pseudorandom number generators are very useful in developing Monte Carlo-method simulations, as debugging is facilitated by the ability to run the same sequence of random numbers again by starting from the same random seed . They are also used in cryptography – so long as the seed is secret. The sender and receiver can generate the same set of numbers automatically to use as keys.
+
+The generation of pseudorandom numbers is an important and common task in computer programming. While cryptography and certain numerical algorithms require a very high degree of apparent randomness, many other operations only need a modest amount of unpredictability. Some simple examples might be presenting a user with a "random quote of the day", or determining which way a computer-controlled adversary might move in a computer game. Weaker forms of randomness are used in hash algorithms and in creating amortized searching and sorting algorithms .
+
+Some applications that appear at first sight to be suitable for randomization are in fact not quite so simple. For instance, a system that "randomly" selects music tracks for a background music system must only appear random, and may even have ways to control the selection of music: a truly random system would have no restriction on the same item appearing two or three times in succession.
+
+True vs. pseudo-random numbers [ edit ] Main articles: Pseudorandom number generator and Hardware random number generator See also: Cryptographically secure pseudorandom number generator There are two principal methods used to generate random numbers. The first method measures some physical phenomenon that is expected to be random and then compensates for possible biases in the measurement process. Example sources include measuring atmospheric noise , thermal noise, and other external electromagnetic and quantum phenomena. For example, cosmic background radiation or radioactive decay as measured over short timescales represent sources of natural entropy (as a measure of unpredictability or surprise of the number generation process).
+
+The speed at which entropy can be obtained from natural sources is dependent on the underlying physical phenomena being measured. Thus, sources of naturally occurring true entropy are said to be blocking –  they are rate-limited until enough entropy is harvested to meet the demand. On some Unix-like systems, including most Linux distributions , the pseudo device file /dev/random will block until sufficient entropy is harvested from the environment.
+
+[ 2 ] Due to this blocking behavior, large bulk reads from /dev/random , such as filling a hard disk drive with random bits, can often be slow on systems that use this type of entropy source.
+
+The second method uses computational algorithms that can produce long sequences of apparently random results, which are in fact completely determined by a shorter initial value, known as a seed value or key . As a result, the entire seemingly random sequence can be reproduced if the seed value is known. This type of random number generator is often called a pseudorandom number generator . This type of generator typically does not rely on sources of naturally occurring entropy, though it may be periodically seeded by natural sources. This generator type is non-blocking, so they are not rate-limited by an external event, making large bulk reads a possibility.
+
+Some systems take a hybrid approach, providing randomness harvested from natural sources when available, and falling back to periodically re-seeded software-based cryptographically secure pseudorandom number generators (CSPRNGs). The fallback occurs when the desired read rate of randomness exceeds the ability of the natural harvesting approach to keep up with the demand. This approach avoids the rate-limited blocking behavior of random number generators based on slower and purely environmental methods.
+
+While a pseudorandom number generator based solely on deterministic logic can never be regarded as a true random number source in the purest sense of the word, in practice they are generally sufficient even for demanding security-critical applications. Carefully designed and implemented pseudorandom number generators can be certified for security-critical cryptographic purposes, as is the case with the yarrow algorithm and fortuna . The former is the basis of the /dev/random source of entropy on FreeBSD , AIX , macOS , NetBSD , and others.
+
+OpenBSD uses a pseudorandom number algorithm known as arc4random .
+
+[ dubious – discuss ] [ 3 ] Generation methods [ edit ] Physical methods [ edit ] Main article: Hardware random number generator The earliest methods for generating random numbers, such as dice, coin flipping and roulette wheels, are still used today, mainly in games and gambling, as they tend to be too slow for most applications in statistics and cryptography.
+
+A hardware random number generator can be based on an essentially random atomic or subatomic physical phenomenon whose unpredictability can be traced to the laws of quantum mechanics .
+
+[ 4 ] [ 5 ] Sources of entropy include radioactive decay , thermal noise , shot noise , avalanche noise in Zener diodes , clock drift , the timing of actual movements of a hard disk read-write head, and radio noise .  However, physical phenomena and tools used to measure them generally feature asymmetries and systematic biases that make their outcomes not uniformly random.  A randomness extractor , such as a cryptographic hash function , can be used to approach a uniform distribution of bits from a non-uniformly random source, though at a lower bit rate.
+
+The appearance of wideband photonic entropy sources, such as optical chaos and amplified spontaneous emission noise, greatly aid the development of the physical random number generator. Among them, optical chaos [ 6 ] [ 7 ] has a high potential to physically produce high-speed random numbers due to its high bandwidth and large amplitude. A prototype of a high-speed, real-time physical random bit generator based on a chaotic laser was built in 2013.
+
+[ 8 ] Various imaginative ways of collecting this entropic information have been devised. One technique is to run a hash function against a frame of a video stream from an unpredictable source.
+
+Lavarand used this technique with images of a number of lava lamps .
+
+HotBits measured radioactive decay with Geiger–Muller tubes , [ 9 ] while Random.org uses variations in the amplitude of atmospheric noise recorded with a normal radio.
+
+Demonstration of a simple random number generator based on where and when a button is clicked Another common entropy source is the behavior of human users of the system. While people are not considered good randomness generators upon request, they generate random behavior quite well in the context of playing mixed strategy games.
+
+[ 10 ] Some security-related computer software requires the user to make a lengthy series of mouse movements or keyboard inputs to create sufficient entropy needed to generate random keys or to initialize pseudorandom number generators.
+
+[ 11 ] Computational methods [ edit ] Main article: Pseudorandom number generation Most computer-generated random numbers use PRNGs which are algorithms that can automatically create long runs of numbers with good random properties but eventually the sequence repeats (or the memory usage grows without bound). These random numbers are fine in many situations but are not as random as numbers generated from electromagnetic atmospheric noise used as a source of entropy.
+
+[ 12 ] The series of values generated by such algorithms is generally determined by a fixed number called a seed . One of the most common PRNG is the linear congruential generator , which uses the recurrence X n + 1 = ( a X n + b ) mod m {\displaystyle X_{n+1}=(aX_{n}+b)\,{\textrm {mod}}\,m} to generate numbers, where a , b and m are large integers, and X n + 1 {\displaystyle X_{n+1}} is the next in X as a series of pseudorandom numbers. The maximum number of numbers the formula can produce is the modulus , m . The recurrence relation can be extended to matrices to have much longer periods and better statistical properties
+.
+
+[ 13 ] To avoid certain non-random properties of a single linear congruential generator, several such random number generators with slightly different values of the multiplier coefficient, a , can be used in parallel, with a master random number generator that selects from among the several different generators.
+
+A simple pen-and-paper method for generating random numbers is the so-called middle-square method suggested by John von Neumann . While simple to implement, its output is of poor quality. It has a very short period and severe weaknesses, such as the output sequence almost always converging to zero.  A recent innovation is to combine the middle square with a Weyl sequence . This method produces high-quality output through a long period.
+
+[ 14 ] Most computer programming languages include functions or library routines that provide random number generators. They are often designed to provide a random byte or word, or a floating point number uniformly distributed between 0 and 1.
+
+The quality i.e. randomness of such library functions varies widely from completely predictable output to cryptographically secure. The default random number generator in many languages, including Python, Ruby, R, IDL and PHP is based on the Mersenne Twister algorithm and is not sufficient for cryptography purposes, as is explicitly stated in the language documentation. Such library functions often have poor statistical properties, and some will repeat patterns after only tens of thousands of trials.  They are often initialized using a computer's real-time clock as the seed, since such a clock is 64 bits and measures in nanoseconds, far beyond the person's precision . These functions may provide enough randomness for certain tasks (for example, video games) but are unsuitable where high-quality randomness is required, such as in cryptography applications or statistics.
+
+[ 15 ] Much higher quality random number sources are available on most operating systems; for example, /dev/random on various BSD flavors, Linux, Mac OS X, IRIX, and Solaris, or CryptGenRandom for Microsoft Windows. Most programming languages, including those mentioned above, provide a means to access these higher-quality sources.
+
+By humans [ edit ] Random number generation may also be performed by humans, in the form of collecting various inputs from end users and using them as a randomization source. However, most studies find that human subjects have some degree of non-randomness when attempting to produce a random sequence of e.g., digits or letters.  They may alternate too much between choices when compared to a good random generator; [ 16 ] thus, this approach is not widely used. However, for the very reason that humans perform poorly in this task, human random number generation can be used as a tool to gain insights into brain functions otherwise not accessible.
+
+[ 17 ] Post-processing and statistical checks [ edit ] See also: Randomness tests , Statistical randomness , and List of random number generators Even given a source of plausible random numbers (perhaps from a quantum mechanically based hardware generator), obtaining numbers which are completely unbiased takes care. In addition, behavior of these generators often changes with temperature, power supply voltage, the age of the device, or other outside interference.
+
+Generated random numbers are sometimes subjected to statistical tests before use to ensure that the underlying source is still working, and then post-processed to improve their statistical properties. An example would be the TRNG9803 [ 18 ] hardware random number generator, which uses an entropy measurement as a hardware test, and then post-processes the random sequence with a shift register stream cipher. It is generally hard to use statistical tests to validate the generated random numbers. Wang and Nicol [ 19 ] proposed a distance-based statistical testing technique that is used to identify the weaknesses of several random generators. Li and Wang [ 20 ] proposed a method of testing random numbers based on laser chaotic entropy sources using Brownian motion properties.
+
+Statistical tests are also used to give confidence that the post-processed final output from a random number generator is truly unbiased, with numerous randomness test suites being developed.
+
+Other considerations [ edit ] Reshaping the distribution [ edit ] Uniform distributions [ edit ] Most random number generators natively work with integers or individual bits, so an extra step is required to arrive at the canonical uniform distribution between 0 and 1. The implementation is not as trivial as dividing the integer by its maximum possible value. Specifically: [ 21 ] [ 22 ] The integer used in the transformation must provide enough bits for the intended precision.
+
+The nature of floating-point math itself means there exists more precision the closer the number is to zero. This extra precision is usually not used due to the sheer number of bits required.
+
+Rounding error in division may bias the result. At worst, a supposedly excluded bound may be drawn contrary to expectations based on real-number math.
+
+The mainstream algorithm, used by OpenJDK , Rust , and NumPy , is described in a proposal for C++ 's STL. It does not use the extra precision and suffers from bias only in the last bit due to round-to-even.
+
+[ 23 ] Other numeric concerns are warranted when shifting this canonical uniform distribution to a different range.
+
+[ 24 ] A proposed method for the Swift programming language claims to use the full precision everywhere.
+
+[ 25 ] Uniformly distributed integers are commonly used in algorithms such as the Fisher–Yates shuffle . Again, a naive implementation may induce a modulo bias into the result, so more involved algorithms must be used. A method that nearly never performs division was described in 2018 by Daniel Lemire, [ 26 ] with the current state-of-the-art being the arithmetic encoding-inspired 2021 "optimal algorithm" by Stephen Canon of Apple Inc.
+
+[ 27 ] Most 0 to 1 RNGs include 0 but exclude 1, while others include or exclude both.
+
+Other distributions [ edit ] Main article: Pseudo-random number sampling See also: cumulative distribution function and quantile function Given a source of uniform random numbers, there are a couple of methods to create a new random source that corresponds to a probability density function . One method called the inversion method , involves integrating up to an area greater than or equal to the random number (which should be generated between 0 and 1 for proper distributions). A second method called the acceptance-rejection method , involves choosing an x and y value and testing whether the function of x is greater than the y value.  If it is, the x value is accepted.  Otherwise, the x value is rejected and the algorithm tries again.
+
+[ 28 ] [ 29 ] As an example for rejection sampling, to generate a pair of statistically independent standard normally distributed random numbers ( x , y ), one may first generate the polar coordinates ( r , θ ), where r 2 ~ χ 2 2 and θ ~ UNIFORM(0,2π) (see Box–Muller transform ).
+
+Whitening [ edit ] The outputs of multiple independent RNGs can be combined (for example, using a bit-wise XOR operation) to provide a combined RNG at least as good as the best RNG used. This is referred to as software whitening .
+
+Computational and hardware random number generators are sometimes combined to reflect the benefits of both kinds. Computational random number generators can typically generate pseudorandom numbers much faster than physical generators, while physical generators can generate true randomness.
+
+Low-discrepancy sequences as an alternative [ edit ] Some computations making use of a random number generator can be summarized as the computation of a total or average value, such as the computation of integrals by the Monte Carlo method . For such problems, it may be possible to find a more accurate solution by the use of so-called low-discrepancy sequences , also called quasirandom numbers. Such sequences have a definite pattern that fills in gaps evenly, qualitatively speaking; a truly random sequence may, and usually does, leave larger gaps.
+
+Activities and demonstrations [ edit ] The following sites make available random number samples: The SOCR resource pages contain a number of hands-on interactive activities and demonstrations of random number generation using Java applets.
+
+The Quantum Optics Group at the ANU generates random numbers sourced from quantum vacuum. Samples of random numbers are available at their quantum random number generator research page.
+
+Random.org makes available random numbers that are sourced from the randomness of atmospheric noise.
+
+The Quantum Random Bit Generator Service at the Ruđer Bošković Institute harvests randomness from the quantum process of photonic emission in semiconductors. They supply a variety of ways of fetching the data, including libraries for several programming languages.
+
+The Group at the Taiyuan University of Technology generates random numbers sourced from a chaotic laser. Samples of random numbers are available at their physical random number generator service.
+
+Backdoors [ edit ] Main article: Random number generator attack Further information: Backdoor (computing) Since much cryptography depends on a cryptographically secure random number generator for key and cryptographic nonce generation, if a random number generator can be made predictable, it can be used as backdoor by an attacker to break the encryption.
+
+The NSA is reported to have inserted a backdoor into the NIST certified cryptographically secure pseudorandom number generator Dual EC DRBG . If for example an SSL connection is created using this random number generator, then according to Matthew Green it would allow NSA to determine the state of the random number generator, and thereby eventually be able to read all data sent over the SSL connection.
+
+[ 30 ] Even though it was apparent that Dual_EC_DRBG was a very poor and possibly backdoored pseudorandom number generator long before the NSA backdoor was confirmed in 2013, it had seen significant usage in practice until 2013, for example by the prominent security company RSA Security .
+
+[ 31 ] There have subsequently been accusations that RSA Security knowingly inserted a NSA backdoor into its products, possibly as part of the Bullrun program . RSA has denied knowingly inserting a backdoor into its products.
+
+[ 32 ] It has also been theorized that hardware RNGs could be secretly modified to have less entropy than stated, which would make encryption using the hardware RNG susceptible to attack. One such method that has been published works by modifying the dopant mask of the chip, which would be undetectable to optical reverse-engineering.
+
+[ 33 ] For example, for random number generation in Linux, it is seen as unacceptable to use Intel's RDRAND hardware RNG without mixing in the RDRAND output with other sources of entropy to counteract any backdoors in the hardware RNG, especially after the revelation of the NSA Bullrun program.
+
+[ 34 ] [ 35 ] In 2010, a U.S. lottery draw was rigged by the information security director of the Multi-State Lottery Association (MUSL), who surreptitiously installed backdoor malware on the MUSL's secure RNG computer during routine maintenance.
+
+[ 36 ] During the hacks the man won a total amount of $16,500,000 over multiple years.
+
+See also [ edit ] Flipism League of entropy List of random number generators PP (complexity) Procedural generation Randomized algorithm Random password generator Random variable , contains a chance-dependent value References [ edit ] ^ Lugrin, Thomas (2023), Mulder, Valentin; Mermoud, Alain; Lenders, Vincent; Tellenbach, Bernhard (eds.), "Random Number Generator", Trends in Data Protection and Encryption Technologies , Cham: Springer Nature Switzerland, pp.
+
+31– 34, doi : 10.1007/978-3-031-33386-6_7 , ISBN 978-3-031-33386-6 ^ random(4) – Linux Programmer's Manual – Special Files ^ arc4random(3) – OpenBSD Library Functions Manual ^ Herrero-Collantes, Miguel; Garcia-Escartin, Juan Carlos (2016). "Quantum random number generators".
+
+Reviews of Modern Physics .
+
+89 015004.
+
+arXiv : 1604.03304 .
+
+doi : 10.1103/RevModPhys.89.015004 .
+
+S2CID 118592321 .
+
+^ Jacak, Marcin M.; Jóźwiak, Piotr; Niemczuk, Jakub; Jacak, Janusz E. (2021).
+
+"Quantum generators of random numbers" .
+
+Scientific Reports .
+
+11 (1): 16108.
+
+Bibcode : 2021NatSR..1116108J .
+
+doi : 10.1038/s41598-021-95388-7 .
+
+PMC 8352985 .
+
+PMID 34373502 .
+
+^ Li, Pu; Wang, Yun-Cai; Zhang, Jian-Zhong (2010-09-13).
+
+"All-optical fast random number generator" .
+
+Optics Express .
+
+18 (19): 20360– 20369.
+
+Bibcode : 2010OExpr..1820360L .
+
+doi : 10.1364/OE.18.020360 .
+
+ISSN 1094-4087 .
+
+PMID 20940928 .
+
+^ Li, Pu; Sun, Yuanyuan; Liu, Xianglian; Yi, Xiaogang; Zhang, Jianguo; Guo, Xiaomin; Guo, Yanqiang; Wang, Yuncai (2016-07-15). "Fully photonics-based physical random bit generator".
+
+Optics Letters .
+
+41 (14): 3347– 3350.
+
+Bibcode : 2016OptL...41.3347L .
+
+doi : 10.1364/OL.41.003347 .
+
+ISSN 1539-4794 .
+
+PMID 27420532 .
+
+S2CID 2909061 .
+
+^ Wang, Anbang; Li, Pu; Zhang, Jianguo; Zhang, Jianzhong; Li, Lei; Wang, Yuncai (2013-08-26).
+
+"4.5 Gbps high-speed real-time physical random bit generator" .
+
+Optics Express .
+
+21 (17): 20452– 20462.
+
+Bibcode : 2013OExpr..2120452W .
+
+doi : 10.1364/OE.21.020452 .
+
+ISSN 1094-4087 .
+
+PMID 24105589 .
+
+S2CID 10397141 .
+
+^ Walker, John.
+
+"HotBits: Genuine Random Numbers" . Retrieved 2009-06-27 .
+
+^ Halprin, Ran; Naor, Moni .
+
+"Games for Extracting Randomness" (PDF) .
+
+Weizmann Institute of Science . Archived from the original (PDF) on 2011-08-07 . Retrieved 2009-06-27 .
+
+^ TrueCrypt Foundation.
+
+"TrueCrypt Beginner's Tutorial, Part 3" . Retrieved 2009-06-27 .
+
+^ "RANDOM.ORG – True Random Number Service" .
+
+www.random.org . Retrieved 2016-01-14 .
+
+^ "High Dimensionality Pseudo Random Number Generators" . Retrieved 2018-11-21 .
+
+^ Widynski, Bernard (19 May 2020). "Middle-Square Weyl Sequence RNG".
+
+arXiv : 1704.00358 [ cs.CR ].
+
+^ Matsumoto, M.; Nishimura, T. (1998). "MersenneTwister: A 623-dimensionally Equidistributed Uniform Pseudo-Random Number Generator".
+
+ACM Transactions on Modeling and Computer Simulation .
+
+8 (1): 3– 30.
+
+CiteSeerX 10.1.1.215.1141 .
+
+doi : 10.1145/272991.272995 .
+
+S2CID 3332028 .
+
+^ W. A. Wagenaar (1972). "Generation of random sequences by human subjects: a critical survey of the literature".
+
+Psychological Bulletin .
+
+77 (1): 65– 72.
+
+CiteSeerX 10.1.1.211.9085 .
+
+doi : 10.1037/h0032060 .
+
+^ W. A. Wagenaar (1972). "Generation of random sequences by human subjects: a critical survey of the literature".
+
+Psychological Bulletin .
+
+77 (1): 65– 72.
+
+CiteSeerX 10.1.1.211.9085 .
+
+doi : 10.1037/h0032060 .
+
+^ Dömstedt, B. (2009).
+
+"TRNG9803 True Random Number Generator" . Manufacturer: www.TRNG98.se.
+
+^ Wang, Yongge (2014). "Statistical Properties of Pseudo Random Sequences and Experiments with PHP and Debian OpenSSL".
+
+Computer Security - ESORICS 2014 . Lecture Notes in Computer Science. Vol. 8712. Heidelberg: Springer LNCS. pp.
+
+454– 471.
+
+doi : 10.1007/978-3-319-11203-9_26 .
+
+ISBN 978-3-319-11202-2 .
+
+^ Li, Pu; Yi, Xiaogang; Liu, Xianglian; Wang, Yuncai; Wang, Yongge (2016-07-11).
+
+"Brownian motion properties of optoelectronic random bit generators based on laser chaos" .
+
+Optics Express .
+
+24 (14): 15822– 15833.
+
+Bibcode : 2016OExpr..2415822L .
+
+doi : 10.1364/OE.24.015822 .
+
+ISSN 1094-4087 .
+
+PMID 27410852 .
+
+^ Goualard, F. (2020). "Generating Random Floating-Point Numbers by Dividing Integers: A Case Study".
+
+Computational Science – ICCS 2020 . ICCS. Lecture Notes in Computer Science. Vol. 12138. pp.
+
+15– 28.
+
+doi : 10.1007/978-3-030-50417-5_2 .
+
+ISBN 978-3-030-50416-8 .
+
+PMC 7302591 .
+
+S2CID 219889587 .
+
+^ Campbell, Taylor R. (2014).
+
+"Uniform random floats: How to generate a double-precision floating-point number in [0, 1] uniformly at random given a uniform random source of bits" . Retrieved 4 September 2021 .
+
+^ "A new specification for std::generate_canonical" .
+
+www.open-std.org .
+
+^ Goualard, Frédéric (July 2021).
+
+"Drawing random floating-point numbers from an interval" .
+
+HAL . Retrieved 4 September 2021 .
+
+^ NevinBR.
+
+"[stdlib] Floating-point random-number improvements by NevinBR · Pull Request #33560 · apple/swift" .
+
+GitHub .
+
+^ Lemire, Daniel (23 February 2019). "Fast Random Integer Generation in an Interval".
+
+ACM Transactions on Modeling and Computer Simulation .
+
+29 (1): 1– 12.
+
+arXiv : 1805.10941 .
+
+doi : 10.1145/3230636 .
+
+S2CID 44061046 .
+
+^ "An optimal algorithm for bounded random integers by stephentyrone · Pull Request #39143 · apple/swift" .
+
+GitHub .
+
+^ The MathWorks.
+
+"Common generation methods" . Retrieved 2024-09-08 .
+
+^ The Numerical Algorithms Group.
+
+"G05 – Random Number Generators" (PDF) .
+
+NAG Library Manual, Mark 23 . Retrieved 2012-02-09 .
+
+^ matthew Green (2013-09-18).
+
+"The Many Flaws of Dual_EC_DRBG" .
+
+^ Matthew Green (2013-09-20).
+
+"RSA warns developers not to use RSA products" .
+
+^ "We don't enable backdoors in our crypto products, RSA tells customers" .
+
+Ars Technica . 2013-09-20.
+
+^ "Researchers can slip an undetectable trojan into Intel's Ivy Bridge CPUs" .
+
+Ars Technica . 2013-09-18.
+
+^ Theodore Ts'o.
+
+"I am so glad I resisted pressure from Intel engineers to let /dev/random rely only on the RDRAND instruction" . Google Plus.
+
+^ Theodore Ts'o (17 September 2013).
+
+"Re: [PATCH] /dev/random: Insufficient of entropy on many architectures" . LWN.
+
+^ Nestel, M.L. (July 7, 2015).
+
+"Inside the Biggest Lottery Scam Ever" .
+
+The Daily Beast . Retrieved July 10, 2015 .
+
+Further reading [ edit ] Donald Knuth (1997). "Chapter 3 – Random Numbers".
+
+The Art of Computer Programming . Vol. 2: Seminumerical algorithms (3 ed.).
+
+L'Ecuyer, Pierre (2017).
+
+"History of Uniform Random Number Generation" (PDF) .
+
+Proceedings of the 2017 Winter Simulation Conference . IEEE Press. pp.
+
+202– 230.
+
+L'Ecuyer, Pierre (2012).
+
+"Random Number Generation" (PDF) . In J. E. Gentle; W. Haerdle; Y. Mori (eds.).
+
+Handbook of Computational Statistics: Concepts and Methods .
+
+Handbook of Computational Statistics (second ed.). Springer-Verlag. pp.
+
+35– 71.
+
+doi : 10.1007/978-3-642-21551-3_3 .
+
+hdl : 10419/22195 .
+
+ISBN 978-3-642-21550-6 .
+
+Kroese, D. P.
+
+; Taimre, T.; Botev, Z.I. (2011).
+
+"Chapter 1 – Uniform Random Number Generation" .
+
+Handbook of Monte Carlo Methods . New York: John Wiley & Sons. p. 772.
+
+ISBN 978-0-470-17793-8 .
+
+Press, WH; Teukolsky, SA; Vetterling, WT; Flannery, BP (2007).
+
+"Chapter 7. Random Numbers" .
+
+Numerical Recipes: The Art of Scientific Computing (3rd ed.). New York: Cambridge University Press.
+
+ISBN 978-0-521-88068-8 .
+
+NIST SP800-90A, B, C series on random number generation Archived 2017-09-12 at the Wayback Machine M. Tomassini; M. Sipper; M. Perrenoud (October 2000). "On the generation of high-quality random numbers by two-dimensional cellular automata".
+
+IEEE Transactions on Computers .
+
+49 (10): 1146– 1151.
+
+doi : 10.1109/12.888056 .
+
+S2CID 10139169 .
+
+External links [ edit ] RANDOM.ORG True Random Number Service Quantum random number generator at ANU Random and Pseudorandom on In Our Time at the BBC jRand a Java-based framework for the generation of simulation sequences, including pseudorandom sequences of numbers Random number generators in NAG Fortran Library Randomness Beacon at NIST , broadcasting full entropy bit-strings in blocks of 512 bits every 60 seconds. Designed to provide unpredictability, autonomy, and consistency.
+
+A system call for random numbers: getrandom() , a LWN.net article describing a dedicated Linux system call Statistical Properties of Pseudo Random Sequences and Experiments with PHP and Debian OpenSSL Random Sequence Generator based on Avalanche Noise Cryptographically Enhanced PRNG Random Number Generator Authority control databases National Germany United States Israel Other Yale LUX NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐bmnfr
+Cached time: 20250812032020
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.597 seconds
+Real time usage: 0.743 seconds
+Preprocessor visited node count: 3155/1000000
+Revision size: 37386/2097152 bytes
+Post‐expand include size: 94420/2097152 bytes
+Template argument size: 2731/2097152 bytes
+Highest expansion depth: 13/100
+Expensive parser function count: 16/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 146901/5000000 bytes
+Lua time usage: 0.393/10.000 seconds
+Lua memory usage: 6189703/52428800 bytes
+Number of Wikibase entities loaded: 1/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  620.359      1 -total
+ 49.90%  309.539      1 Template:Reflist
+ 14.64%   90.850     19 Template:Cite_web
+ 13.20%   81.864      1 Template:Citation
+ 13.16%   81.612      1 Template:Authority_control
+ 12.24%   75.938     11 Template:Cite_journal
+  9.68%   60.048      1 Template:Short_description
+  5.84%   36.202      2 Template:Pagetype
+  4.66%   28.902      1 Template:Dubious
+  4.50%   27.893      4 Template:Cite_book Saved in parser cache with key enwiki:pcache:2736939:|#|:idhash:canonical and timestamp 20250812032020 and revision id 1305446122. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Random_number_generation&oldid=1305446122 " Categories : Random number generation Information theory Hidden categories: Articles with short description Short description is different from Wikidata Use American English from March 2024 All Wikipedia articles written in American English All accuracy disputes Articles with disputed statements from August 2023 CS1: long volume value Webarchive template wayback links This page was last edited on 12 August 2025, at 03:20 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Random number generation 22 languages Add topic
+

@@ -1,0 +1,251 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 History 2 Content model Toggle Content model subsection 2.1 Content ID format 2.2 Record types 2.3 Content Records 2.4 Basic metadata 2.5 Deleted content records 2.6 Alternate ID 2.7 Relationships between objects 3 Use in standards and applications 4 Operations & Administrative Toggle Operations & Administrative subsection 4.1 Registration 4.2 Deduplication 5 Architecture Toggle Architecture subsection 5.1 Relation to DOI and Handle System 5.2 Digital Object Identifier (EIDR Aspects) 5.3 Handle System (EIDR Aspects) 6 See also 7 Further reading 8 External links 9 References Toggle the table of contents EIDR 1 language தமிழ் Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Identifier system for audiovisual objects Entertainment ID Registry Association Formation 2010 ; 15 years ago ( 2010 ) Type 501(c)(6) not-for-profit membership corporation Headquarters Redwood City, California , U.S.
+
+Executive Director Hollie Choi Website eidr .org The Entertainment Identifier Registry , or EIDR , is a global unique identifier system for a broad array of audiovisual objects, including motion pictures, television, and radio programs. The identification system resolves an identifier to a metadata record that is associated with top-level titles, edits, DVDs , encodings, clips, and mashups . EIDR also provides identifiers for video service providers, such as broadcast and cable networks.
+
+As of June 2020, EIDR contains over two million records, including almost 400 thousand movies and almost one million episodes from over 40,000 TV series.
+
+[ citation needed ] EIDR is an implementation of a digital object identifier (DOI).
+
+History [ edit ] Media asset identification systems have existed for decades. The common motivation for their creation is to enable the management of media assets through the assignment of a unique id to a set of metadata representing salient characteristics of each asset. Over time such systems tend to proliferate, with each arising to deal with a specific set of issues. As a result, there is considerable variation between systems in terms of which assets are categorized, which metadata is associated with each asset, and the very definition of an asset. To name a few examples, should a " director's cut " of a film be distinct from the original theatrical release? How should regional variations (e.g. translation of the title or dialog into foreign languages) be accounted for? Further complications include the procedures (and required credentials) for adding new assets, editing existing assets, and creating derivative assets.
+
+EIDR was created to address these issues, as well as others encountered in video asset workflows , both in a business-to-business context and the intramural post-production activities of content producers. EIDR has the following characteristics: A central registry available to all participants Ability to easily register new assets An asset ID that is immutable (and in particular with respect to changes in asset ownership or location of the metadata or the asset itself) Detection/prevention of duplicates of the same asset being created Ability to create a set of video assets derived from an abstract work (e.g. original theatrical release, director's cut, language variants) Ability to group video assets by more general relationships (e.g. episodes of a season of a TV series) A core set of metadata to differentiate assets, even when closely related Scalable, immutable, persistent EIDR is intended to supplement, not replace, existing asset identification systems. To the contrary, a key feature is to allow an EIDR record to include references to that asset's ID under other systems. This feature is particularly useful for film and television archives, making it easy for them to cross-reference their holdings with other sources for the work and metadata about it. By design, EIDR does not replicate features of other asset ID systems, e.g. commercial systems that seek to add value through enhanced metadata (e.g. plot summaries, production details). It is also a non-goal to track ownership and rights information, which can, however, be implemented as applications that use the EIDR ID.
+
+Content model [ edit ] EIDR is built on a collection of records (which are further sub-divided into fields) that are stored in a central registry. These records are referenced externally by DOIs, which are assigned when a record is created, and each identifier is immutable thereafter. The identifier resolution system underlying DOIs is the Handle System and so each native EIDR Content ID is a handle formatted, in increasing specificity, to handle, DOI and EIDR standards.
+
+Content ID format [ edit ] The canonical form of an EIDR Content ID is an instance of a handle and has the format: 10.5240/XXXX-XXXX-XXXX-XXXX-XXXX-C where 10.5240 is the DOI prefix for an EIDR asset. The "10" indicates the handle is a DOI; other prefixes are assigned to other asset types (e.g.
+
+academic publications ). The digits between the "." and "/" form the sub-prefix, which indicates which registration agency within the International DOI Foundation (IDF) has rights to manage these handles. "5240" is assigned to the EIDR Association.
+
+XXXX-XXXX-XXXX-XXXX-XXXX-C is the DOI suffix. Each "X" denotes a hexadecimal digit (A-F), and "C" is an ISO 7064 Mod 37,36 [ 1 ] check digit .
+
+There is also a 96-bit compact binary form that is intended for embedding in small payloads such as watermarks . This form is generated from the canonical format as follows: 16-bit sub-prefix: generated by interpreting the sub-prefix as a binary value, e.g. B'0001010001111000' 80-bit suffix: the non-checksum part of the suffix, represented as 10 bytes The Uniform Resource Name form for an EIDR ID is specified in RFC 7302 .
+
+For use on the web an EIDR content ID can be represented as a URI in one of these forms: https://doi.org/10.5240/XXXX-XXXX-XXXX-XXXX-XXXX-C : this is an EIDR ID represented as a DOI proxy reference (it will be redirected from DOI to the EIDR registry) info: doi : 10.5240/XXXX-XXXX-XXXX-XXXX-XXXX-C [deprecated] : this is an EIDR ID represented as an RFC 4452 compliant "info" URI (remembering that all EIDR IDs are also DOI IDs, but not the converse).
+
+Record types [ edit ] There are four types of content records, each associated with a reserved prefix: Content ID (10.5240/XXXX-XXXX-XXXX-XXXX-XXXX-C): is associated with an entertainment asset such as a movie or TV series. Content records are hierarchical, allowing relationships to be expressed such as a Series, whose children would be Seasons, whose children in turn would be individual episodes. Many other relationships are supported, as described below. Content records form the bulk of the data in the EIDR registry.
+
+Party ID (10.5237/XXXX-XXXX): identifies entities such as registrants, content producers, and distributors.
+
+Video Service ID (10.5239/XXXX-XXXX): Identifies a video service, colloquially known as a "channel" or "network": a (usually) linear sequence of content scheduled to be broadcast at specified times (e.g. the Service ID for the Cartoon Network is 10.5239/8BE5-E3F6). Video services are hierarchical: for example, a parent may have several children to account for regional or language variations).
+
+User ID (10.5238/[0-9a-zA-Z_.#()]{2-32}): Identifies a user using a string of 2–32 alphanumeric and selected special characters (illustrated here with Perl syntax). A User is primarily an administrative concept that is subordinate to Parties (from whom they inherit access rights). Unlike the other EIDR DOIs, the User ID can only be used within EIDR (e.g. programming APIs).
+
+The sub-prefixes 5237, 5238, 5239, and 5240 are all assigned to the EIDR Association.
+
+Content Records [ edit ] Content records are objects categorized by their types and relationships. Each has three different (orthogonal) kinds of type: Object Type : there are a total of 10 of these. First is the Basic Type, which has the minimal fields necessary to describe a content record. The other 9 are derived from the basic type, and contain extra fields for describing more complex objects.
+
+Structural Type : these distinguish representations of a work and are listed in increasing order of specificity: Abstraction : Used for objects having no reality, such as a series container or the most basic concept of the original work. This corresponds to the International Standard Musical Work Code (ISWC) for musical works, the International Standard Text Code (ISTC) for textual works, or the International Standard Audiovisual Number (ISAN) for audiovisual works.
+
+Performance : Used for items that are particular versions of a work, such as the original theatrical release or director's cut of a film or a locally censored version of a TV show. This roughly corresponds to the International Standard Recording Code (ISRC) for musical works and to some uses of the Version ISAN (V-ISAN) for audiovisual works.
+
+Digital : A particular digital representation of a work, such as an MPEG-2 encoding of a movie. This corresponds to some uses of the V-ISAN.
+
+Referent Type : the type of the content asset, independent of a particular manifestation (e.g. a movie shown on TV is still a movie): Series : An Abstraction that contains ordered or unordered individual items.
+
+Season : A second level of grouping below a Series, usually covering a time interval TV : Content that first appeared via broadcast.
+
+Movie : Long-form content that first appeared in a cinema or theater.
+
+Short : Loosely defined to cover a work that is 40 minutes or less, such as music videos , theatrical newsreels , or theatrical or DTV cartoon shorts.
+
+Web : Content that first appeared on the Web. This is different from content from elsewhere that has been made available on the Web.
+
+Interactive Material : Content that is not strictly audio-visual. It covers DVD menus, interactive TV overlays, customized players, etc.
+
+Compilation : Content composed of multiple other assets that cannot be more precisely described, such as a box set of a film franchise.
+
+Supplemental : This type is for secondary content whose primary purpose is to support, augment, or promote other content. Examples include trailers, outtakes, and promotion documentaries ("making of" pieces).
+
+Basic metadata [ edit ] The following fields (taken from a larger set) comprise the base object data of a content record: Structural Type : e.g. Abstraction Mode : e.g. AudioVisual (for a movie or TV program); "Audio" for a radio program; "Visual" for a silent work.
+
+Referent Type : e.g. Movie Title : the primary title. Titles and Alternate Titles are further distinguished by: Lang : the language of the title expressed as ISO 639-1 code Class : release or regional Alternate Title 1..N : one or more alternate titles (often regional or language variants) Original Language : the language of the original release expressed as ISO 639-1 code Associated Org 1..N : Party ID(s) of producer, studio, etc.
+
+Release Date : date title was originally released Country of Origin : ISO 3166-1 alpha 2 code, with extensions for defunct countries Approximate Length : expressed as XML Schema xs:duration [ 2 ] datatype Alternate ID 1..N : one or more equivalent IDs expressed in a different asset ID system (see discussion below).
+
+Credits : only skeletal credits are provided, typically restricted to the director and up to four of the main actors. As noted, it is a non-goal for EIDR to compete with proprietary systems with rich metadata (e.g. plot summaries).  The main goal is to assist with disambiguating the title, and helping with validation and de-duplication efforts.
+
+Registrant : the party that created this content record (e.g. "10.5237/superparty") Creation Date : date this content record was created Status : normally "valid" (there are special cases for deleted records) Last Modification Date : last time this content record was changed Deleted content records [ edit ] An EIDR ID must be always resolvable, thus under normal circumstances the corresponding Content Record will be permanent.  There are two mechanisms available to deal with errors or other unusual circumstances. The preferred one is aliasing, whereby an EIDR ID is transparently redirected to another content record. Aliasing is commonly employed to deal with an asset being registered twice.
+
+The other mechanism is the use of tombstone records. This is employed when the Content Record is corrupted, or an otherwise invalid asset was accidentally registered. In this case the ID will be aliased to a special tombstone record. The tombstone can be recognized by applications because its EIDR ID field will be set to the distinguished value " 10.5240/0000-0000-0000-0000-0000-X ". Note that "X" means the 24th letter of the Latin alphabet ( ASCII 0x58 or Unicode U+0058).
+
+Alternate ID [ edit ] Having a rich set of alternate IDs for content is one of the primary goals of EIDR. This allows EIDR IDs to be used everywhere in content workflows; if an alternate ID is needed it can be found in the metadata for the EIDR ID. EIDR supports the inclusion both proprietary and other standard (e.g. ISAN) ID references. Additional Alternate IDs can be added when needed (e.g. by parties wanting to support new workflows). Below is an example of alternate IDs for the EIDR asset 10.5240/EA73-79D7-1B2B-B378-3A73-M (the movie Blade Runner ). If an alternate ID is resolvable algorithmically, for example by placing it appropriately in a template URL, EIDR makes that link available.
+
+Alternate IDs for 10.5240/EA73-79D7-1B2B-B378-3A73-M Alternate ID 0000-0000-14A9-0000-K-0000-0000-E Type: ISAN Alternate ID #2 89 Type: IVA Alternate ID #3 B000SW4DLM Type: Proprietary Domain: amazon.com Alternate ID #4 12886 Type: Proprietary Domain: flixster.com Alternate ID #5 15042 Type: Proprietary Domain: thecinemasource.com Alternate ID #6 tt0083658 Type: IMDB Relation: IsSameAs Alternate ID #7 E0087486000 Type: Proprietary Domain: spe.sony.com/MPM Alternate ID #8 3929 Type: Proprietary Domain: spe.sony.com/ProductID Alternate ID #9 2002029 Type: Proprietary Domain: warnerbros.com/MPM Alternate ID #10 389785 Type: Proprietary Domain veronicamagazine.nl Alternate ID #11 B001EC2J1G Type: Proprietary Domain: amazon.com Alternate ID #12 150002645 Type: Proprietary Domain: bfi.org.uk Alternate IDs are partitioned into non-proprietary and proprietary. The former have distinguished, predefined types (e.g. those issued by ISAN, IMDb , and IVA), whereas proprietary IDs are all of type "Proprietary", and are further distinguished by an associated DNS domain. As of July 2017, there are over 2 million alternate IDs directly available through EIDR.
+
+[ citation needed ] Relationships between objects [ edit ] Content objects can be related to each other according to the following table. These relations are expressed as additional fields in the content record and are thus relative to that object. Note that the subject object is the child and the target is the parent (e.g. subject is<relation-type>Of parent). Additional constraints are noted in the table.
+
+Inheritance relationships : The object on which the relationship exists can inherit basic metadata fields from the object to which the relationship refers. Only one inheritance relationship may exist on an object. These relationships produce a tree structure rooted in the EIDR ID for an abstraction.
+
+isSeasonOf A group of series episodes released over a contiguous span of time (e.g. broadcast year) e.g.
+
+10.5240/AB95-8734-5D98-A282-2DF0-C ("Season 9") is a season of 10.5240/C272-DA64-E2B5-0A78-2AC3-Z ("The X-Files") isEpisodeOf e.g.
+
+10.5240/E008-224D-0397-0560-6300-8 ("Sunshine Days") is an episode of 10.5240/AB95-8734-5D98-A282-2DF0-C ("Season 9").
+
+isEditOf An instance of a title with unique characteristics that differentiate it from any other version. For example, 10.5240/7290-C8AD-12BA-4F93-3B07-7 ("Blade Runner: The Director's Cut") is an edit of 10.5240/EA73-79D7-1B2B-B378-3A73-M.
+
+isManifestationOf A manifestation is a more specific instance of a work that can be sold, transmitted, transferred or played. The parent of a manifestation should be an edit. For example, 10.5240/9CE1-DE39-5F3E-073D-4307-7 is the Ultraviolet Standard CFF (standard definition, English audio and subtitles) for "Blade Runner: The Director's Cut". It is a manifestation of the abstract work 10.5240/EA73-79D7-1B2B-B378-3A73-M .
+
+isClipOf One (and only one) contiguous fragment of an asset.
+
+Dependence relationships : The objects to which the relationship refers have a strong bearing on the basic nature of the object on which the relationship exists. This means that the objects referred to in the relationship must be taken into account when checking for duplicates when an object is created or modified. These relationships produce directed graphs within and across trees.
+
+isCompositeOf A single work composed of parts of multiple other records.
+
+isCompilationOf A collection of multiple whole works that is not more precisely describable.
+
+Lightweight relationships : There is no inheritance; the objects to which they refer do not influence the underlying nature of the object on which the relationship exists. These relationships are used primarily when moving around within the object tree and connecting object trees to each other, producing a directed graph across elements of those trees.
+
+isPackagingOf For creating a collection of assets that are released together e.g.
+
+10.5240/F219-975E-5990-4570-BA75-2 ("Hannah Montana and Miley...") is a packaging of 10.5240/9ABE-2BF1-ACE7-EBA2-8E57-N .
+
+isPromotionOf Promotional objects such as a trailer.
+
+isSupplementTo Ancillary material that might be found on a DVD, such as an outtake or behind-the-scenes feature.
+
+isAlternateContentFor Content that in synchronized to the main asset, such as audio or an alternate camera angle.
+
+Use in standards and applications [ edit ] EIDR has been incorporated into many standards. A few of the more significant ones are listed here: SMPTE /AMWA : SMPTE Recommended Practice RP 2079 [ 3 ] standardizes use of EIDR in MXF media containers, at the heart of professional content workflows, including AMWA AS-03 [ 4 ] and AS-11 [ 5 ] specifications. SMTPE Recommended Practice 2021-5 [ 6 ] allows an EIDR Identifier to be carried wherever BXF is used for exchange of data among broadcast systems.
+
+European Broadcasting Union (EBU) : EBUCore [ 7 ] is a common core set of descriptive and technical metadata that describe media resources (audio, video, still images, subtitling, etc.). EBU and EIDR staff have produced a mapping of EBUCore for base records to EIDR root objects: .. EIDR and EBU are working together in the SMPTE Core working group to define descriptive metadata for SMPTE-based specifications and workflows. EIDR is one of the standards supported by the EBU Core.
+
+DVB : EIDR is referenced in draft DVB specifications for companion screens [ 8 ] (tm-sm-css-0017r14).
+
+MPEG : EIDR has been proposed as a content identifier in the Multimedia Preservation Application Format [ 9 ] that is being defined for archival use.
+
+CableLabs (US) : EIDR is part of the CableLabs Metadata [ 10 ] standard for the distribution of video on demand assets. EIDR is one program identifier that can be present in an SCTE-35 2013 [ 11 ] segmentation descriptor, a standard used in IP distribution over cable. EIDR is also used in Dynamic Ad Insertion (DAI) products using the SCTE 130 [ 12 ] standard architecture.
+
+EIDR and Alternate IDs : In order to promote interoperability of EIDR with a wide variety of systems, EIDR includes an "AlternateID" field to cross-reference existing IDs systems. Alternate IDs may include, for example, CRID (RFC 4078), ISAN, ISRC, UPC , or URI , as well as commercial ID systems such as Ad-ID , Baseline, IMDb, etc. Currently about half of EIDR records carry an ID from at least one other system.
+
+Mapping from other Standard Metadata and Identifiers to EIDR : Other metadata and identifier systems can be directly mapped into EIDR: EN 15907 and EN 15744 : These standards are under the auspices of the European Committee for Standardization CEN/TC 372 and filmstandards.org.
+
+[ 13 ] Best practices and mappings are available for EN 15907 and EN 15744 root objects. EIDR is also working with film archives to extend interoperability with these standards to a more granular level of detail, including a project with the British Film Institute (BFI) to register their EN 15907-based records with EIDR.
+
+International Standard Audiovisual Number (ISAN) : ISAN is widely used in rights management and collection systems. A complete mapping of an ISAN registration to an EIDR registration is available. The UK Audio-Visual Registration Agency, a joint venture between EIDR and ISAN-UK provides joint registration services for both identifiers. Precursors to this service have been used to obtain EIDR IDs and ISANs for broadcast content from ITV (a commercial TV network in the United Kingdom).
+
+EIDR identifiers have found their way into an increasing number of commercial applications. The following are illustrative of some of the advantages of using EIDR: Warner Brothers-Xbox integration : EIDR was used to improve the implementation of an Electronic Sell Through (EST) system for delivering Warner Theatrical titles to Microsoft Xbox Live customers. The operation of an electronic storefront requires several groups within Warner Brothers to coordinate their activities with the Xbox team. The outbound side of the distribution chain included publishing "Avails" (titles available for sale) and tracking order fulfillment; the inbound side included placing orders. Other functions such as reports spanned both sides of the distribution chain. The original system required manual intervention and supervision, particularly at boundaries between organizations. An example of the need for manual processing would be verifying that the correct version of an asset (which can vary depending on subtitles or content) was delivered. In the new system Warner Brothers created a new EIDR ID for each content variant, and these were used for all subsequent processing stages. This eliminated ambiguity and facilitated the automation of the inbound, outbound stages. Another advantage was the ability to create reports on the fly.
+
+Swisscom EPG integration : Swisscom operates a Pay TV service in Switzerland. In 2014 it completed the rollout of an Electronic Programming Guide (EPG) for its customers based on EIDR.
+
+[ 14 ] This is an end-to-end system where EIDR IDs are used to represent the assets displayed in the EPG. A key element of the system was that EIDR IDs were also used in the guide metadata supplied to Swisscom by media-press.tv. This included setting up a system for assigning EIDR IDs to assets that were not already in the registry. A key advantage of using EIDR is not having to translate between different identifier systems.
+
+Operations & Administrative [ edit ] EIDR is administered by the non-profit EIDR Association, which was founded in October 2010 by MovieLabs , CableLabs , Comcast and Rovi . Membership has grown steadily since then: as of late-2014 it has 79 members divided between the Industry Promoters and Industry Contributor levels. The fastest growing category is non-US companies, which now accounts for about 20% of membership.
+The EIDR Association operates two EIDR registries: Production and Sandbox. The former is the official site, and the latter is reserved for test and development. Both systems are available publicly online, but the contents of the sandbox are not guaranteed to be correct, complete, or even to refer to assets that exist. Only members of the EIDR association may modify the registry.
+
+Registration [ edit ] Registration of new assets can be done individually or in bulk (up to 100,000 assets at a time). In either case, the workflow comprises a combination of automated (to perform well-defined but tedious tasks) and manual (where human judgment is called for) processes. It is also iterative, as the initial matching process may identify a variety of gaps and errors that need to be dealt with.
+
+Registering new assets is a complex process that requires some preparation, particularly in the case of bulk submission. The automated processes will check syntax, make sure that the basic metadata is supplied, and that any dependencies (e.g. series records created before constituent episodes) are honored. Manual steps include making sure the correct Parties are associated with the asset. One of the most important steps is ensuring that a new asset does not already exist in the registry: this is covered in the next section.
+
+In order to register a new asset a user must be associated with a party that has been granted the "Registrant" role by the EIDR operator.  A registrant may be a principal agent, such as a studio or an encoding house, but it may also be a Party doing bulk registration of back-catalogue items, or a Party acting on behalf of someone else.  It is also a requirement that a registrant be an EIDR member. In general, content ownership, metadata authority, and registration capability are separate and unrelated concepts.
+
+Deduplication [ edit ] This refers to flagging assets being submitted to the registry as falling into one of the following three categories: Candidate asset is unique (with respect to existing registry assets).
+
+Candidate asset is a duplicate of an existing record.
+
+Candidate asset has a high probability of being a duplicate.
+
+This assessment is based on applying a (large) set of rules to the candidate asset, which results a numerical score. Bucketing occurs as the result of comparing the score to two thresholds: Low Threshold : any asset with a score below this value is deemed not to be a duplicate. This is the only case when a proposed record addition or modification will succeed.
+
+High Threshold : any asset with a score above this value is deemed to (almost certainly) be a duplicate. The proposed record addition/modification will not proceed, and an error status will be returned. Registrants will generally use the pre-existing ID for the item they tried to register, and can add missing information and Alternate IDs to the existing record.
+
+Assets falling between the low and high threshold are deemed to have a high possibility of being a duplicate: the proposed record addition/modification will not proceed until manually reviewed by EIDR operations staff.
+
+Architecture [ edit ] The components of the EIDR system are shown below.
+
+EIDR Registry Architecture The principal functional blocks are as follows: Core Registry : This module is a customization and configuration of the CNRI Digital Object Repository. It performs various functions including registration, generation of unique identifiers, indexing, object storage management, and access control.
+
+Repository : This stores and provides access to registered objects; for EIDR, these objects are collections of metadata, not the media assets themselves. The metadata includes standard object information, relationships, and access control settings.
+
+REST AP I: A REST interface that provides access to the full set of non-administrative registry features. Services can make individual or batched calls, which can be dispatched synchronously or asynchronously. A general query syntax enables the retrieval (and in some cases modification) of registry records satisfying a set of criteria specified by the caller.
+
+EIDR SDK : this is provided to developers to facilitate the creation of third party applications (usually in support of a B2B or intramural workflow). It comprises a Java SDK, a .NET SDK, and sample programs built upon the two SDKs. Using the SDK is recommended over direct calls to the REST API.
+
+Command Line Tools : these are simple Java and .NET applications, built on the SDK, each of which provides a single function, such as resolve, query, match, and register.
+
+Web UI : a Web-based user interface primarily for search, lookup, and browsing the object hierarchy. It also supports simple registrations.
+
+DOI Proxy : Using the handle prefix, this forwards EIDR DOI resolution requests to the EIDR registry.
+
+Handle System : Provides distributed lookup and resolution services Relation to DOI and Handle System [ edit ] An EIDR ID is a specialized example of a Digital Object Identifier (DOI), which in turn is built on top of the Handle System developed by the Corporation for National Research Initiatives (CNRI). The EIDR-specific aspects of the lower layers are described in more detail below.
+
+Digital Object Identifier (EIDR Aspects) [ edit ] A Digital Object Identifier, standardized as ISO 26324, [ 15 ] seeks to uniquely identify a wide range of digital artifacts including books, recordings, research data, and other digital content. The goal is not just for the IDs to be unique, but persistent and immutable. As opposed to URLs, DOI identifiers stay the same even if the objects move to another location, or become owned by another organization. Here are some of the characteristics of DOI: The International DOI Foundation (IDF) enforces previously agreed rules on the constituent Registration Agencies (e.g. EIDR) to ensure continuity. In particular, if an RA ceases operation, the names it hosts will be taken over by another RA.
+
+The IDF defines rules to which all DOI names must adhere (what kinds of object may be named by a specific RA) The DOI system provides a data model, based on a data dictionary, to enable a structured means of expressing metadata (and inter-object relationships).
+
+The DOI system has its own highly redundant and distributed set of handle and proxy servers.
+
+All DOI prefixes are of the form "10.NNNN" where 10 is a directory indicator and "NNNN" is a registrant code in the range 1-65535 (e.g. EIDR content records use is 10.5240) The DOI data model provides the means to associate metadata with each object, as well as policies governing its use. In the words of the DOI Handbook, metadata may include "names, identifiers, descriptions, types, classifications, locations, times, measurements, relationships and any other kind of information related to [an object]." Metadata flows between the following entities: Resource Provider : usually the owner of media asset, which is responsible for inputting metadata to the system.
+
+Registration Agency : the entities that serves as the repository of the assets (and associated metadata). As noted DOI supports a federation of independent RA's, each responsible for a set of assets. EIDR is one such RA. Others include CrossRef for scholarly articles, DataCite for research data, and OPOCE for official publications of the European Union.
+
+Service User : the entities making queries to RA's retrieve metadata associated with assets. The DOI resolution framework is responsible for dispatching a query to the appropriate RA (the Service User doesn't need to know this).
+
+To foster interoperability between RAs, DOI has the concept of a metadata Kernel. This is a core set of metadata that all objects stored within the DOI framework should have. The full set may be found in the DOI handbook. Interoperability is a large topic extending beyond the scope of EIDR, but the following subset is particularly relevant to EIDR assets: referent : an object maintained in the DOI system.
+
+referentName : the name of the referent (e.g. the title of a movie) primaryReferentType : For EIDR, this includes creation (e.g. entertainment assets) and party (e.g. the creator thereof).
+
+structuralType : these are mutually exclusive categories that identify the form of an asset. Two particularly relevant to EIDR assets are an abstraction (an object such as a movie that may exist in multiple forms) and performance (a specific instance of an object such as Director's Cut).
+
+principalAgent : for creations, the entity principally responsible for its existence.
+
+registrationAuthorityCode : denotes the agency that issued the DOI. This would be the EIDR RA for EIDR assets.
+
+EIDR metadata is available in standard DOI kernel metadata format as well as EIDR-specific formats. The DOI for the DOI metadata schema is doi : 10.1000/276 .
+
+Handle System (EIDR Aspects) [ edit ] DOI is in turn implemented on top of the Handle System, a distributed, highly scalable, name resolution service. A handle is defined as: <Handle> ::= <Handle Naming Authority> "/" <Handle Local Name> The Naming Authority is globally unique and defines both an administrative space and the syntax of the Handle Local Name. For EIDR in the definition above, the "10.5240" is the EIDR Naming Authority, and is responsible for resolving the suffix (including that it conforms to the expected syntax for an EIDR asset). The range of allowable Naming Authorities is more general than is employed by DOI (or EIDR).
+
+The distributed nature of the Handle System allows each local namespace to be hosted on multiple geographically distributed service sites. This is a federated model where each local name space has complete control over the placement and operation of its service sites. Furthermore, each service site may contain multiple resolution servers: requests directed to a particular service site will be dispatched evenly across its constituent servers.
+
+The data model of the Handle System is simple but flexible. An arbitrary number of values may be associated with each handle. Over time, these values may be created, modified, and destroyed. Each such datum has the following attributes: index : an unsigned integer that identifies a data value from the others that may exist for this handle.
+
+type : a UTF-8 string identifying the type. The type system is extensible and common types are maintained as handles in the "0.TYPE" naming authority. There are no restrictions on the creation of new types, although using resolvable handles as type names is recommended best practice. Common types include URL for a single of indirection, "10320/loc" for a set of context-based resolution alternatives, and various administrative types for Handle System management, all of which are based on handle resolution.
+
+data : the value itself, represented as a sequence of octets which are interpreted in the context of the associated type permission : access rights to this particular value. Note that different data values of a handle may have different permissions TTL : an integer that specifies how long a value may be cached timestamp : an integer (expressed as milliseconds from the Unix epoch) that records the last time the value was updated reference : a list of references to other handle values. These are usually used to add credentials (e.g. a digital signature).
+
+Accessing the Handle System is done via a wire protocol defined in RFC 3652; EIDR applications don't have to be concerned with this because of the layering of protocols.
+
+See also [ edit ] Authority control Wikidata Property:P2704 Further reading [ edit ] R. Kroon, R. Drewry, A. Leigh, S. McConnachie. "Content Identification for Audiovisual Archives". International Association of Sound and Audiovisual Archives Journal, Summer 2015 (No. 45).
+
+R. Kroon. "Bringing Order to Digital Identifiers". Media and Entertainment Journal Winter 2014-2015: 148–150.
+
+R. Drewry, D. Dulchinos. "Transforming Entertainment Through Technology". Media and Entertainment Journal Winter 2013-2014: 81–88.
+
+D. Agranoff, W. Michel, T. Wakai. "Streamlined Content Metadata Integration and Management Using Entertainment ID Registry (EIDR)". SCTE Cable-Tec Expo 2012.
+
+External links [ edit ] Wikidata has the properties: EIDR content ID (P2704) (see uses ) EIDR party ID (P12142) (see uses ) EIDR official website EIDR search form EIDR ID Format Reuters article about EIDR References [ edit ] ^ ISO/IEC 7064:2003 : Information technology -- Security techniques -- Check character systems. 2002 ^ W3C XML Schema Part 2: Datatypes Second Edition ^ SMPTE RP 2079 Archived 2015-04-02 at the Wayback Machine . DOI Name and EIDR Identifier Representation.
+
+^ Advanced Media Workflow Association AS-03 MXF Program Delivery Specification .
+
+^ Advanced Media Workflow Association AS-11 MFX for Contribution Specification .
+
+^ SMPTE RP 2021-5:2013 . Using Ad-ID and EIDR as Alternate Identifiers in SMPTE BXF and ATSC PMCP.
+
+^ EBU TECH 3293 . EBU CORE METADATA SET Version 1.5.
+
+^ DVB Document A167-2 .Digital Video Broadcasting (DVB);
+Companion Screens and Streams; Part 2: Content Identification and Media Synchronisation, July, 2014. p. 52.
+
+^ ISO/IEC CD 23000-15 . Information technology - Multimedia application format (MPEG-A) -- Part 15: Multimedia preservation application format.
+
+^ MD-SP-AMIv3.0-I02-121210 Archived 2015-04-02 at the Wayback Machine . CableLabs Asset Management Interface 3.0 Specification.
+
+^ ANSI/SCTE 35 2013 Archived 2015-04-02 at the Wayback Machine . Digital Program Insertion Cueing Message for Cable.
+
+^ SCTE 130-10 2013 Archived 2015-09-24 at the Wayback Machine .  Digital Program Insertion – Advertising Systems Interfaces, Part 10.
+
+^ TC 372 Workshop Compendium . How EN 15744 and EN 15907 came into being.
+
+^ Press Release . Swisscom completes the first European deployment of the Entertainment ID Registry with media-press.tv.
+
+^ ISO 26324:2012 : Information and documentation -- Digital object identifier system, 2012.
+
+Retrieved from " https://en.wikipedia.org/w/index.php?title=EIDR&oldid=1304112194 " Categories : Film and video technology Identification Identifiers Unique identifiers Hidden categories: Webarchive template wayback links Articles with short description Short description is different from Wikidata All articles with unsourced statements Articles with unsourced statements from September 2024 This page was last edited on 4 August 2025, at 02:11 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents EIDR 1 language Add topic
+

@@ -1,448 +1,645 @@
-Title: Linear programming
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 History 2 Uses 3 Standard form Toggle Standard form subsection 3.1 Example 4 Augmented form (slack form) Toggle Augmented form (slack form) subsection 4.1 Example 5 Duality 6 Variations Toggle Variations subsection 6.1 Covering/packing dualities 6.1.1 Examples 7 Complementary slackness 8 Theory Toggle Theory subsection 8.1 Existence of optimal solutions 8.2 Optimal vertices (and rays) of polyhedra 9 Algorithms Toggle Algorithms subsection 9.1 Basis exchange algorithms 9.1.1 Simplex algorithm of Dantzig 9.1.2 Criss-cross algorithm 9.2 Interior point 9.2.1 Ellipsoid algorithm, following Khachiyan 9.2.2 Projective algorithm of Karmarkar 9.2.3 Vaidya's 87 algorithm 9.2.4 Vaidya's 89 algorithm 9.2.5 Input sparsity time algorithms 9.2.6 Current matrix multiplication time algorithm 9.3 Comparison of interior-point methods and simplex algorithms 10 Open problems and recent work 11 Integer unknowns 12 Integral linear programs 13 Solvers and scripting (programming) languages 14 See also 15 Notes 16 References 17 Further reading 18 External links Toggle the table of contents Linear programming 50 languages Afrikaans العربية Asturianu Azərbaycanca বাংলা Беларуская Bosanski Català Чӑвашла Čeština Deutsch Eesti Ελληνικά Español Euskara فارسی Français Galego 한국어 Հայերեն हिन्दी Bahasa Indonesia Italiano עברית Қазақша Magyar മലയാളം Nederlands 日本語 Norsk bokmål Norsk nynorsk Polski Português Română Русский Shqip Sicilianu Simple English Slovenščina کوردی Српски / srpski Srpskohrvatski / српскохрватски Svenska ไทย Türkçe Українська اردو Tiếng Việt 粵語 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikiquote Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Method to solve optimization problems For the retronym referring to television broadcasting, see Broadcast programming .
 
-URL Source: https://en.wikipedia.org/wiki/Linear_programming
+A pictorial representation of a simple linear program with two variables and six inequalities. The set of feasible solutions is depicted in yellow and forms a polygon , a 2-dimensional polytope . The optimum of the linear cost function is where the red line intersects the polygon. The red line is a level set of the cost function, and the arrow indicates the direction in which we are optimizing.
 
-Published Time: 2002-03-11T04:17:04Z
+A closed feasible region of a problem with three variables is a convex polyhedron . The surfaces giving a fixed value of the objective function are planes (not shown). The linear programming problem is to find a point on the polyhedron that is on the plane with the highest possible value.
 
-Markdown Content:
-[![Image 1](https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Linear_optimization_in_a_2-dimensional_polytope.svg/250px-Linear_optimization_in_a_2-dimensional_polytope.svg.png)](https://en.wikipedia.org/wiki/File:Linear_optimization_in_a_2-dimensional_polytope.svg)
+Linear programming ( LP ), also called linear optimization , is a method to achieve the best outcome (such as maximum profit or lowest cost) in a mathematical model whose requirements and objective are represented by linear relationships . Linear programming is a special case of mathematical programming (also known as mathematical optimization ).
 
-A pictorial representation of a simple linear program with two variables and six inequalities. The set of feasible solutions is depicted in yellow and forms a [polygon](https://en.wikipedia.org/wiki/Polygon "Polygon"), a 2-dimensional [polytope](https://en.wikipedia.org/wiki/Polytope "Polytope"). The optimum of the linear cost function is where the red line intersects the polygon. The red line is a [level set](https://en.wikipedia.org/wiki/Level_set "Level set") of the cost function, and the arrow indicates the direction in which we are optimizing.
+More formally, linear programming is a technique for the optimization of a linear objective function , subject to linear equality and linear inequality constraints . Its feasible region is a convex polytope , which is a set defined as the intersection of finitely many half spaces , each of which is defined by a linear inequality. Its objective function is a real -valued affine (linear) function defined on this polytope. A linear programming algorithm finds a point in the polytope where this function has the largest (or smallest) value if such a point exists.
 
-[![Image 2](https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/3dpoly.svg/250px-3dpoly.svg.png)](https://en.wikipedia.org/wiki/File:3dpoly.svg)
+Linear programs are problems that can be expressed in standard form as: Find a vector x that maximizes c T x subject to A x ≤ ≤ b and x ≥ ≥ 0 .
 
-A closed feasible region of a problem with three variables is a convex [polyhedron](https://en.wikipedia.org/wiki/Polyhedron "Polyhedron"). The surfaces giving a fixed value of the objective function are [planes](https://en.wikipedia.org/wiki/Plane_(geometry) "Plane (geometry)") (not shown). The linear programming problem is to find a point on the polyhedron that is on the plane with the highest possible value.
+{\displaystyle {\begin{aligned}&{\text{Find a vector}}&&\mathbf {x} \\&{\text{that maximizes}}&&\mathbf {c} ^{\mathsf {T}}\mathbf {x} \\&{\text{subject to}}&&A\mathbf {x} \leq \mathbf {b} \\&{\text{and}}&&\mathbf {x} \geq \mathbf {0} .\end{aligned}}} Here the components of x {\displaystyle \mathbf {x} } are the variables to be determined, c {\displaystyle \mathbf {c} } and b {\displaystyle \mathbf {b} } are given vectors , and A {\displaystyle A} is a given matrix . The function whose value is to be maximized ( x ↦ ↦ c T x {\displaystyle \mathbf {x} \mapsto \mathbf {c} ^{\mathsf {T}}\mathbf {x} } in this case) is called the objective function . The constraints A x ≤ ≤ b {\displaystyle A\mathbf {x} \leq \mathbf {b} } and x ≥ ≥ 0 {\displaystyle \mathbf {x} \geq \mathbf {0} } specify a convex polytope over which the objective function is to be optimized.
 
-**Linear programming** (**LP**), also called **linear optimization**, is a method to achieve the best outcome (such as maximum profit or lowest cost) in a [mathematical model](https://en.wikipedia.org/wiki/Mathematical_model "Mathematical model") whose requirements and objective are represented by [linear relationships](https://en.wikipedia.org/wiki/Linear_function#As_a_polynomial_function "Linear function"). Linear programming is a special case of mathematical programming (also known as [mathematical optimization](https://en.wikipedia.org/wiki/Mathematical_optimization "Mathematical optimization")).
+Linear programming can be applied to various fields of study. It is widely used in mathematics and, to a lesser extent, in business, economics , and some engineering problems. There is a close connection between linear programs, eigenequations, John von Neumann 's general equilibrium model, and structural equilibrium models (see dual linear program for details).
 
-More formally, linear programming is a technique for the [optimization](https://en.wikipedia.org/wiki/Mathematical_optimization "Mathematical optimization") of a [linear](https://en.wikipedia.org/wiki/Linear "Linear")[objective function](https://en.wikipedia.org/wiki/Objective_function "Objective function"), subject to [linear equality](https://en.wikipedia.org/wiki/Linear_equality "Linear equality") and [linear inequality](https://en.wikipedia.org/wiki/Linear_inequality "Linear inequality")[constraints](https://en.wikipedia.org/wiki/Constraint_(mathematics) "Constraint (mathematics)"). Its [feasible region](https://en.wikipedia.org/wiki/Feasible_region "Feasible region") is a [convex polytope](https://en.wikipedia.org/wiki/Convex_polytope "Convex polytope"), which is a set defined as the [intersection](https://en.wikipedia.org/wiki/Intersection_(mathematics) "Intersection (mathematics)") of finitely many [half spaces](https://en.wikipedia.org/wiki/Half-space_(geometry) "Half-space (geometry)"), each of which is defined by a linear inequality. Its objective function is a [real](https://en.wikipedia.org/wiki/Real_number "Real number")-valued [affine (linear) function](https://en.wikipedia.org/wiki/Affine_function "Affine function") defined on this polytope. A linear programming [algorithm](https://en.wikipedia.org/wiki/Algorithm "Algorithm") finds a point in the [polytope](https://en.wikipedia.org/wiki/Polytope "Polytope") where this function has the largest (or smallest) value if such a point exists.
+[ 1 ] [ 2 ] [ 3 ] Industries that use linear programming models include transportation, energy, telecommunications, and manufacturing. It has proven useful in modeling diverse types of problems in planning , routing , scheduling , assignment , and design.
 
-Linear programs are problems that can be expressed in [standard form](https://en.wikipedia.org/wiki/Canonical_form "Canonical form") as:
+History [ edit ] Leonid Kantorovich John von Neumann The problem of solving a system of linear inequalities dates back at least as far as Fourier , who in 1827 published a method for solving them, [ 4 ] and after whom the method of Fourier–Motzkin elimination is named.
 
-![Image 3: {\displaystyle {\begin{aligned}&{\text{Find a vector}}&&\mathbf {x} \\&{\text{that maximizes}}&&\mathbf {c} ^{\mathsf {T}}\mathbf {x} \\&{\text{subject to}}&&A\mathbf {x} \leq \mathbf {b} \\&{\text{and}}&&\mathbf {x} \geq \mathbf {0} .\end{aligned}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/2cc3fcf5b820bf2341c5f8d69bb086bc9a7ffc75)
-Here the components of ![Image 4: {\displaystyle \mathbf {x} }](https://wikimedia.org/api/rest_v1/media/math/render/svg/32adf004df5eb0a8c7fd8c0b6b7405183c5a5ef2) are the variables to be determined, ![Image 5: {\displaystyle \mathbf {c} }](https://wikimedia.org/api/rest_v1/media/math/render/svg/8798d172f59e21f2ce193a3118d4063d19353ded) and ![Image 6: {\displaystyle \mathbf {b} }](https://wikimedia.org/api/rest_v1/media/math/render/svg/13ebf4628a1adf07133a6009e4a78bdd990c6eb9) are given [vectors](https://en.wikipedia.org/wiki/Vector_space "Vector space"), and ![Image 7: {\displaystyle A}](https://wikimedia.org/api/rest_v1/media/math/render/svg/7daff47fa58cdfd29dc333def748ff5fa4c923e3) is a given [matrix](https://en.wikipedia.org/wiki/Matrix_(mathematics) "Matrix (mathematics)"). The function whose value is to be maximized (![Image 8: {\displaystyle \mathbf {x} \mapsto \mathbf {c} ^{\mathsf {T}}\mathbf {x} }](https://wikimedia.org/api/rest_v1/media/math/render/svg/3cf441d5722c9264b7cef14c7dddbaeb9763a592) in this case) is called the [objective function](https://en.wikipedia.org/wiki/Objective_function "Objective function"). The constraints ![Image 9: {\displaystyle A\mathbf {x} \leq \mathbf {b} }](https://wikimedia.org/api/rest_v1/media/math/render/svg/f8eb555d2593e4022e59e054e47c0068ba054ad9) and ![Image 10: {\displaystyle \mathbf {x} \geq \mathbf {0} }](https://wikimedia.org/api/rest_v1/media/math/render/svg/84b30854ccebf5cdee24f1863ecf9c65bc6b8975) specify a [convex polytope](https://en.wikipedia.org/wiki/Convex_polytope "Convex polytope") over which the objective function is to be optimized.
-
-Linear programming can be applied to various fields of study. It is widely used in mathematics and, to a lesser extent, in business, [economics](https://en.wikipedia.org/wiki/Economics "Economics"), and some engineering problems. There is a close connection between linear programs, eigenequations, [John von Neumann](https://en.wikipedia.org/wiki/John_von_Neumann "John von Neumann")'s general equilibrium model, and structural equilibrium models (see [dual linear program](https://en.wikipedia.org/wiki/Dual_linear_program "Dual linear program") for details).[[1]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-1)[[2]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-2)[[3]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-3) Industries that use linear programming models include transportation, energy, telecommunications, and manufacturing. It has proven useful in modeling diverse types of problems in [planning](https://en.wikipedia.org/wiki/Automated_planning_and_scheduling "Automated planning and scheduling"), [routing](https://en.wikipedia.org/wiki/Routing "Routing"), [scheduling](https://en.wikipedia.org/wiki/Scheduling_(production_processes) "Scheduling (production processes)"), [assignment](https://en.wikipedia.org/wiki/Assignment_problem "Assignment problem"), and design.
-
-[![Image 11](https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Leonid_Kantorovich_1975.jpg/250px-Leonid_Kantorovich_1975.jpg)](https://en.wikipedia.org/wiki/File:Leonid_Kantorovich_1975.jpg)
-
-[Leonid Kantorovich](https://en.wikipedia.org/wiki/Leonid_Kantorovich "Leonid Kantorovich")
-
-[![Image 12](https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/JohnvonNeumann-LosAlamos.gif/250px-JohnvonNeumann-LosAlamos.gif)](https://en.wikipedia.org/wiki/File:JohnvonNeumann-LosAlamos.gif)
-
-[John von Neumann](https://en.wikipedia.org/wiki/John_von_Neumann "John von Neumann")
-
-The problem of solving a system of linear inequalities dates back at least as far as [Fourier](https://en.wikipedia.org/wiki/Joseph_Fourier "Joseph Fourier"), who in 1827 published a method for solving them,[[4]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-SierksmaZwols2015-4) and after whom the method of [Fourier–Motzkin elimination](https://en.wikipedia.org/wiki/Fourier%E2%80%93Motzkin_elimination "Fourier–Motzkin elimination") is named.
-
-In the late 1930s, Soviet mathematician [Leonid Kantorovich](https://en.wikipedia.org/wiki/Leonid_Kantorovich "Leonid Kantorovich") and American economist [Wassily Leontief](https://en.wikipedia.org/wiki/Wassily_Leontief "Wassily Leontief") independently delved into the practical applications of linear programming. Kantorovich focused on manufacturing schedules, while Leontief explored economic applications. Their groundbreaking work was largely overlooked for decades.
+In the late 1930s, Soviet mathematician Leonid Kantorovich and American economist Wassily Leontief independently delved into the practical applications of linear programming. Kantorovich focused on manufacturing schedules, while Leontief explored economic applications. Their groundbreaking work was largely overlooked for decades.
 
 The turning point came during World War II when linear programming emerged as a vital tool. It found extensive use in addressing complex wartime challenges, including transportation logistics, scheduling, and resource allocation. Linear programming proved invaluable in optimizing these processes while considering critical constraints such as costs and resource availability.
 
-Despite its initial obscurity, the wartime successes propelled linear programming into the spotlight. Post-WWII, the method gained widespread recognition and became a cornerstone in various fields, from operations research to economics. The overlooked contributions of Kantorovich and Leontief in the late 1930s eventually became foundational to the broader acceptance and utilization of linear programming in optimizing decision-making processes.[[5]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-5)
+Despite its initial obscurity, the wartime successes propelled linear programming into the spotlight. Post-WWII, the method gained widespread recognition and became a cornerstone in various fields, from operations research to economics. The overlooked contributions of Kantorovich and Leontief in the late 1930s eventually became foundational to the broader acceptance and utilization of linear programming in optimizing decision-making processes.
 
-Kantorovich's work was initially neglected in the [USSR](https://en.wikipedia.org/wiki/USSR "USSR").[[6]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-dantzig1982-6) About the same time as Kantorovich, the Dutch-American economist [T. C. Koopmans](https://en.wikipedia.org/wiki/Tjalling_Koopmans "Tjalling Koopmans") formulated classical economic problems as linear programs. Kantorovich and Koopmans later shared the 1975 [Nobel Memorial Prize in Economic Sciences](https://en.wikipedia.org/wiki/Nobel_Memorial_Prize_in_Economic_Sciences "Nobel Memorial Prize in Economic Sciences").[[4]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-SierksmaZwols2015-4) In 1941, [Frank Lauren Hitchcock](https://en.wikipedia.org/wiki/Frank_Lauren_Hitchcock "Frank Lauren Hitchcock") also formulated transportation problems as linear programs and gave a solution very similar to the later [simplex method](https://en.wikipedia.org/wiki/Simplex_method "Simplex method").[[7]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-Schrijver1998-7) Hitchcock had died in 1957, and the Nobel Memorial Prize is not awarded posthumously.
+[ 5 ] Kantorovich's work was initially neglected in the USSR .
 
-From 1946 to 1947 [George B. Dantzig](https://en.wikipedia.org/wiki/George_Dantzig "George Dantzig") independently developed general linear programming formulation to use for planning problems in the US Air Force.[[8]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-:0-8) In 1947, Dantzig also invented the [simplex method](https://en.wikipedia.org/wiki/Simplex_algorithm "Simplex algorithm") that, for the first time efficiently, tackled the linear programming problem in most cases.[[8]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-:0-8) When Dantzig arranged a meeting with [John von Neumann](https://en.wikipedia.org/wiki/John_von_Neumann "John von Neumann") to discuss his simplex method, von Neumann immediately conjectured the theory of [duality](https://en.wikipedia.org/wiki/Linear_programming#Duality) by realizing that the problem he had been working in [game theory](https://en.wikipedia.org/wiki/Game_theory "Game theory") was equivalent.[[8]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-:0-8) Dantzig provided formal proof in an unpublished report "A Theorem on Linear Inequalities" on January 5, 1948.[[6]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-dantzig1982-6) Dantzig's work was made available to public in 1951. In the post-war years, many industries applied it in their daily planning.
+[ 6 ] About the same time as Kantorovich, the Dutch-American economist T. C. Koopmans formulated classical economic problems as linear programs. Kantorovich and Koopmans later shared the 1975 Nobel Memorial Prize in Economic Sciences .
 
-Dantzig's original example was to find the best assignment of 70 people to 70 jobs. The computing power required to test all the permutations to select the best assignment is vast; the number of possible configurations exceeds the [number of particles](https://en.wikipedia.org/wiki/Abundance_of_the_chemical_elements "Abundance of the chemical elements") in the [observable universe](https://en.wikipedia.org/wiki/Observable_universe "Observable universe"). However, it takes only a moment to find the optimum solution by posing the problem as a linear program and applying the [simplex algorithm](https://en.wikipedia.org/wiki/Simplex_algorithm "Simplex algorithm"). The theory behind linear programming drastically reduces the number of possible solutions that must be checked.
+[ 4 ] In 1941, Frank Lauren Hitchcock also formulated transportation problems as linear programs and gave a solution very similar to the later simplex method .
 
-The linear programming problem was first shown to be solvable in polynomial time by [Leonid Khachiyan](https://en.wikipedia.org/wiki/Leonid_Khachiyan "Leonid Khachiyan") in 1979,[[9]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-khachiyan79-9) but a larger theoretical and practical breakthrough in the field came in 1984 when [Narendra Karmarkar](https://en.wikipedia.org/wiki/Narendra_Karmarkar "Narendra Karmarkar") introduced a new [interior-point method](https://en.wikipedia.org/wiki/Interior-point_method "Interior-point method") for solving linear-programming problems.[[10]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-karmarkar84-10)
+[ 7 ] Hitchcock had died in 1957, and the Nobel Memorial Prize is not awarded posthumously.
 
-Linear programming is a widely used field of optimization for several reasons. Many practical problems in [operations research](https://en.wikipedia.org/wiki/Operations_research "Operations research") can be expressed as linear programming problems.[[6]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-dantzig1982-6) Certain special cases of linear programming, such as _[network flow](https://en.wikipedia.org/wiki/Network\_flow\_problem "Network flow problem")_ problems and [_multicommodity flow_ problems](https://en.wikipedia.org/wiki/Multi-commodity_flow_problem "Multi-commodity flow problem"), are considered important enough to have much research on specialized algorithms. A number of algorithms for other types of optimization problems work by solving linear programming problems as sub-problems. Historically, ideas from linear programming have inspired many of the central concepts of optimization theory, such as _duality,_ _decomposition,_ and the importance of _convexity_ and its generalizations. Likewise, linear programming was heavily used in the early formation of [microeconomics](https://en.wikipedia.org/wiki/Microeconomics "Microeconomics"), and it is currently utilized in company management, such as planning, production, transportation, and technology. Although the modern management issues are ever-changing, most companies would like to [maximize profits](https://en.wikipedia.org/wiki/Profit_maximization "Profit maximization") and minimize costs with limited resources. Google also uses linear programming to stabilize YouTube videos.[[11]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-11)
+From 1946 to 1947 George B. Dantzig independently developed general linear programming formulation to use for planning problems in the US Air Force.
 
-_Standard form_ is the usual and most intuitive form of describing a linear programming problem. It consists of the following three parts:
+[ 8 ] In 1947, Dantzig also invented the simplex method that, for the first time efficiently, tackled the linear programming problem in most cases.
 
-*   A **linear (or affine) function to be maximized**
+[ 8 ] When Dantzig arranged a meeting with John von Neumann to discuss his simplex method, von Neumann immediately conjectured the theory of duality by realizing that the problem he had been working in game theory was equivalent.
 
-e.g. ![Image 13: {\displaystyle f(x_{1},x_{2})=c_{1}x_{1}+c_{2}x_{2}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/463c9f06754166ae47309046c312b4568a097ed1)
-*   **Problem constraints** of the following form
+[ 8 ] Dantzig provided formal proof in an unpublished report "A Theorem on Linear Inequalities" on January 5, 1948.
 
-e.g. ![Image 14: {\displaystyle {\begin{matrix}a_{11}x_{1}+a_{12}x_{2}&\leq b_{1}\\a_{21}x_{1}+a_{22}x_{2}&\leq b_{2}\\a_{31}x_{1}+a_{32}x_{2}&\leq b_{3}\\\end{matrix}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/28772e37b1aeb348f1a34b87d3c8d4a97d841d8b)
-*   **Non-negative variables**
+[ 6 ] Dantzig's work was made available to public in 1951. In the post-war years, many industries applied it in their daily planning.
 
-e.g. ![Image 15: {\displaystyle {\begin{matrix}x_{1}\geq 0\\x_{2}\geq 0\end{matrix}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/4de5f0757bee798b2cab81a6f605f047db5fd94d)
-The problem is usually expressed in _[matrix](https://en.wikipedia.org/wiki/Matrix\_(mathematics) "Matrix (mathematics)") form_, and then becomes:
+Dantzig's original example was to find the best assignment of 70 people to 70 jobs. The computing power required to test all the permutations to select the best assignment is vast; the number of possible configurations exceeds the number of particles in the observable universe . However, it takes only a moment to find the optimum solution by posing the problem as a linear program and applying the simplex algorithm . The theory behind linear programming drastically reduces the number of possible solutions that must be checked.
 
-![Image 16: {\displaystyle \max\{\,\mathbf {c} ^{\mathsf {T}}\mathbf {x} \mid \mathbf {x} \in \mathbb {R} ^{n}\land A\mathbf {x} \leq \mathbf {b} \land \mathbf {x} \geq 0\,\}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/3b12fffe269bf36fdec149de2f34cba54154777f)
-Other forms, such as minimization problems, problems with constraints on alternative forms, and problems involving negative [variables](https://en.wikipedia.org/wiki/Variable_(programming) "Variable (programming)") can always be rewritten into an equivalent problem in standard form.
+The linear programming problem was first shown to be solvable in polynomial time by Leonid Khachiyan in 1979, [ 9 ] but a larger theoretical and practical breakthrough in the field came in 1984 when Narendra Karmarkar introduced a new interior-point method for solving linear-programming problems.
 
-[![Image 17](https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Linear_programming_feasible_region_farmer_example.svg/250px-Linear_programming_feasible_region_farmer_example.svg.png)](https://en.wikipedia.org/wiki/File:Linear_programming_feasible_region_farmer_example.svg)
+[ 10 ] Uses [ edit ] Linear programming is a widely used field of optimization for several reasons. Many practical problems in operations research can be expressed as linear programming problems.
 
-Graphical solution to the farmer example – after shading regions violating the conditions, the vertex of the unshaded region with the dashed line farthest from the origin gives the optimal combination (its lying on the land and pesticide lines implies that revenue is limited by land and pesticide, not fertilizer)
+[ 6 ] Certain special cases of linear programming, such as network flow problems and multicommodity flow problems , are considered important enough to have much research on specialized algorithms. A number of algorithms for other types of optimization problems work by solving linear programming problems as sub-problems. Historically, ideas from linear programming have inspired many of the central concepts of optimization theory, such as duality, decomposition, and the importance of convexity and its generalizations. Likewise, linear programming was heavily used in the early formation of microeconomics , and it is currently utilized in company management, such as planning, production, transportation, and technology. Although the modern management issues are ever-changing, most companies would like to maximize profits and minimize costs with limited resources. Google also uses linear programming to stabilize YouTube videos.
 
-Suppose that a farmer has a piece of farm land, say _L_[hectares](https://en.wikipedia.org/wiki/Hectare "Hectare"), to be planted with either wheat or barley or some combination of the two. The farmer has _F_ kilograms of fertilizer and _P_ kilograms of pesticide. Every hectare of wheat requires _F_ 1 kilograms of fertilizer and _P_ 1 kilograms of pesticide, while every hectare of barley requires _F_ 2 kilograms of fertilizer and _P_ 2 kilograms of pesticide. Let S 1 be the selling price of wheat and S 2 be the selling price of barley, per hectare. If we denote the area of land planted with wheat and barley by _x_ 1 and _x_ 2 respectively, then profit can be maximized by choosing optimal values for _x_ 1 and _x_ 2. This problem can be expressed with the following linear programming problem in the standard form:
+[ 11 ] Standard form [ edit ] Standard form is the usual and most intuitive form of describing a linear programming problem. It consists of the following three parts: A linear (or affine) function to be maximized e.g.
 
-Maximize:![Image 18: {\displaystyle S_{1}\cdot x_{1}+S_{2}\cdot x_{2}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/7dec056bd019a7cb780aba29201b6e2e68f2b89c)(maximize the revenue (the total wheat sales plus the total barley sales) – revenue is the "objective function")
-Subject to:![Image 19: {\displaystyle x_{1}+x_{2}\leq L}](https://wikimedia.org/api/rest_v1/media/math/render/svg/6d67b19bb362ed9055a186d4480fa279ad37e6a7)(limit on total area)
-![Image 20: {\displaystyle F_{1}\cdot x_{1}+F_{2}\cdot x_{2}\leq F}](https://wikimedia.org/api/rest_v1/media/math/render/svg/4ac3bb61bc71ac8c41a5163964ca10ffc9eef9ce)(limit on fertilizer)
-![Image 21: {\displaystyle P_{1}\cdot x_{1}+P_{2}\cdot x_{2}\leq P}](https://wikimedia.org/api/rest_v1/media/math/render/svg/da5cc1437a98288e22b1af4f5502ceeeef4b54ac)(limit on pesticide)
-![Image 22: {\displaystyle x_{1}\geq 0,x_{2}\geq 0}](https://wikimedia.org/api/rest_v1/media/math/render/svg/9697ec736eb734f866bf36231f5126358d8d4c87)(cannot plant a negative area).
+f ( x 1 , x 2 ) = c 1 x 1 + c 2 x 2 {\displaystyle f(x_{1},x_{2})=c_{1}x_{1}+c_{2}x_{2}} Problem constraints of the following form e.g.
 
-In matrix form this becomes:
+a 11 x 1 + a 12 x 2 ≤ ≤ b 1 a 21 x 1 + a 22 x 2 ≤ ≤ b 2 a 31 x 1 + a 32 x 2 ≤ ≤ b 3 {\displaystyle {\begin{matrix}a_{11}x_{1}+a_{12}x_{2}&\leq b_{1}\\a_{21}x_{1}+a_{22}x_{2}&\leq b_{2}\\a_{31}x_{1}+a_{32}x_{2}&\leq b_{3}\\\end{matrix}}} Non-negative variables e.g.
 
-maximize ![Image 23: {\displaystyle {\begin{bmatrix}S_{1}&S_{2}\end{bmatrix}}{\begin{bmatrix}x_{1}\\x_{2}\end{bmatrix}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/9c476520119e4bf358d8ac36d1ebcd06f81fee69)subject to ![Image 24: {\displaystyle {\begin{bmatrix}1&1\\F_{1}&F_{2}\\P_{1}&P_{2}\end{bmatrix}}{\begin{bmatrix}x_{1}\\x_{2}\end{bmatrix}}\leq {\begin{bmatrix}L\\F\\P\end{bmatrix}},\,{\begin{bmatrix}x_{1}\\x_{2}\end{bmatrix}}\geq {\begin{bmatrix}0\\0\end{bmatrix}}.}](https://wikimedia.org/api/rest_v1/media/math/render/svg/6c9b6befef7460da6b47d4c1048e394879c08ee1)
+x 1 ≥ ≥ 0 x 2 ≥ ≥ 0 {\displaystyle {\begin{matrix}x_{1}\geq 0\\x_{2}\geq 0\end{matrix}}} The problem is usually expressed in matrix form , and then becomes: max { c T x ∣ ∣ x ∈ ∈ R n ∧ ∧ A x ≤ ≤ b ∧ ∧ x ≥ ≥ 0 } {\displaystyle \max\{\,\mathbf {c} ^{\mathsf {T}}\mathbf {x} \mid \mathbf {x} \in \mathbb {R} ^{n}\land A\mathbf {x} \leq \mathbf {b} \land \mathbf {x} \geq 0\,\}} Other forms, such as minimization problems, problems with constraints on alternative forms, and problems involving negative variables can always be rewritten into an equivalent problem in standard form.
 
-Augmented form (slack form)
----------------------------
+Example [ edit ] Graphical solution to the farmer example – after shading regions violating the conditions, the vertex of the unshaded region with the dashed line farthest from the origin gives the optimal combination (its lying on the land and pesticide lines implies that revenue is limited by land and pesticide, not fertilizer) Suppose that a farmer has a piece of farm land, say L hectares , to be planted with either wheat or barley or some combination of the two. The farmer has F kilograms of fertilizer and P kilograms of pesticide. Every hectare of wheat requires F 1 kilograms of fertilizer and P 1 kilograms of pesticide, while every hectare of barley requires F 2 kilograms of fertilizer and P 2 kilograms of pesticide. Let S 1 be the selling price of wheat and S 2 be the selling price of barley, per hectare. If we denote the area of land planted with wheat and barley by x 1 and x 2 respectively, then profit can be maximized by choosing optimal values for x 1 and x 2 . This problem can be expressed with the following linear programming problem in the standard form: Maximize: S 1 ⋅ ⋅ x 1 + S 2 ⋅ ⋅ x 2 {\displaystyle S_{1}\cdot x_{1}+S_{2}\cdot x_{2}} (maximize the revenue (the total wheat sales plus the total barley sales) – revenue is the "objective function") Subject to: x 1 + x 2 ≤ ≤ L {\displaystyle x_{1}+x_{2}\leq L} (limit on total area) F 1 ⋅ ⋅ x 1 + F 2 ⋅ ⋅ x 2 ≤ ≤ F {\displaystyle F_{1}\cdot x_{1}+F_{2}\cdot x_{2}\leq F} (limit on fertilizer) P 1 ⋅ ⋅ x 1 + P 2 ⋅ ⋅ x 2 ≤ ≤ P {\displaystyle P_{1}\cdot x_{1}+P_{2}\cdot x_{2}\leq P} (limit on pesticide) x 1 ≥ ≥ 0 , x 2 ≥ ≥ 0 {\displaystyle x_{1}\geq 0,x_{2}\geq 0} (cannot plant a negative area).
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Linear_programming&action=edit&section=5 "Edit section: Augmented form (slack form)")]
+In matrix form this becomes: maximize [ S 1 S 2 ] [ x 1 x 2 ] {\displaystyle {\begin{bmatrix}S_{1}&S_{2}\end{bmatrix}}{\begin{bmatrix}x_{1}\\x_{2}\end{bmatrix}}} subject to [ 1 1 F 1 F 2 P 1 P 2 ] [ x 1 x 2 ] ≤ ≤ [ L F P ] , [ x 1 x 2 ] ≥ ≥ [ 0 0 ] .
 
-Linear programming problems can be converted into an _augmented form_ in order to apply the common form of the [simplex algorithm](https://en.wikipedia.org/wiki/Simplex_algorithm "Simplex algorithm"). This form introduces non-negative _[slack variables](https://en.wikipedia.org/wiki/Slack\_variable "Slack variable")_ to replace inequalities with equalities in the constraints. The problems can then be written in the following [block matrix](https://en.wikipedia.org/wiki/Block_matrix "Block matrix") form:
+{\displaystyle {\begin{bmatrix}1&1\\F_{1}&F_{2}\\P_{1}&P_{2}\end{bmatrix}}{\begin{bmatrix}x_{1}\\x_{2}\end{bmatrix}}\leq {\begin{bmatrix}L\\F\\P\end{bmatrix}},\,{\begin{bmatrix}x_{1}\\x_{2}\end{bmatrix}}\geq {\begin{bmatrix}0\\0\end{bmatrix}}.} Augmented form (slack form) [ edit ] Linear programming problems can be converted into an augmented form in order to apply the common form of the simplex algorithm . This form introduces non-negative slack variables to replace inequalities with equalities in the constraints. The problems can then be written in the following block matrix form: Maximize z {\displaystyle z} : [ 1 − − c T 0 0 A I ] [ z x s ] = [ 0 b ] {\displaystyle {\begin{bmatrix}1&-\mathbf {c} ^{\mathsf {T}}&0\\0&\mathbf {A} &\mathbf {I} \end{bmatrix}}{\begin{bmatrix}z\\\mathbf {x} \\\mathbf {s} \end{bmatrix}}={\begin{bmatrix}0\\\mathbf {b} \end{bmatrix}}} x ≥ ≥ 0 , s ≥ ≥ 0 {\displaystyle \mathbf {x} \geq 0,\mathbf {s} \geq 0} where s {\displaystyle \mathbf {s} } are the newly introduced slack variables, x {\displaystyle \mathbf {x} } are the decision variables, and z {\displaystyle z} is the variable to be maximized.
 
-Maximize ![Image 25: {\displaystyle z}](https://wikimedia.org/api/rest_v1/media/math/render/svg/bf368e72c009decd9b6686ee84a375632e11de98):![Image 26: {\displaystyle {\begin{bmatrix}1&-\mathbf {c} ^{\mathsf {T}}&0\\0&\mathbf {A} &\mathbf {I} \end{bmatrix}}{\begin{bmatrix}z\\\mathbf {x} \\\mathbf {s} \end{bmatrix}}={\begin{bmatrix}0\\\mathbf {b} \end{bmatrix}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/4f7faea608d12cd6df93bb7a817328d4a5ec8eed)![Image 27: {\displaystyle \mathbf {x} \geq 0,\mathbf {s} \geq 0}](https://wikimedia.org/api/rest_v1/media/math/render/svg/27bae5d01bc43b5013d8c2e87e3584b222a4cc09)
-where ![Image 28: {\displaystyle \mathbf {s} }](https://wikimedia.org/api/rest_v1/media/math/render/svg/644ae690160e658898a141e568a7fb0ee6040004) are the newly introduced slack variables, ![Image 29: {\displaystyle \mathbf {x} }](https://wikimedia.org/api/rest_v1/media/math/render/svg/32adf004df5eb0a8c7fd8c0b6b7405183c5a5ef2) are the decision variables, and ![Image 30: {\displaystyle z}](https://wikimedia.org/api/rest_v1/media/math/render/svg/bf368e72c009decd9b6686ee84a375632e11de98) is the variable to be maximized.
+Example [ edit ] The example above is converted into the following augmented form: Maximize: S 1 ⋅ ⋅ x 1 + S 2 ⋅ ⋅ x 2 {\displaystyle S_{1}\cdot x_{1}+S_{2}\cdot x_{2}} (objective function) subject to: x 1 + x 2 + x 3 = L {\displaystyle x_{1}+x_{2}+x_{3}=L} (augmented constraint) F 1 ⋅ ⋅ x 1 + F 2 ⋅ ⋅ x 2 + x 4 = F {\displaystyle F_{1}\cdot x_{1}+F_{2}\cdot x_{2}+x_{4}=F} (augmented constraint) P 1 ⋅ ⋅ x 1 + P 2 ⋅ ⋅ x 2 + x 5 = P {\displaystyle P_{1}\cdot x_{1}+P_{2}\cdot x_{2}+x_{5}=P} (augmented constraint) x 1 , x 2 , x 3 , x 4 , x 5 ≥ ≥ 0.
 
-The example above is converted into the following augmented form:
+{\displaystyle x_{1},x_{2},x_{3},x_{4},x_{5}\geq 0.} where x 3 , x 4 , x 5 {\displaystyle x_{3},x_{4},x_{5}} are (non-negative) slack variables, representing in this example the unused area, the amount of unused fertilizer, and the amount of unused pesticide.
 
-Maximize: ![Image 31: {\displaystyle S_{1}\cdot x_{1}+S_{2}\cdot x_{2}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/7dec056bd019a7cb780aba29201b6e2e68f2b89c)(objective function)
-subject to:![Image 32: {\displaystyle x_{1}+x_{2}+x_{3}=L}](https://wikimedia.org/api/rest_v1/media/math/render/svg/a9e39fd387ea3ca20b6379cc678794c067146836)(augmented constraint)
-![Image 33: {\displaystyle F_{1}\cdot x_{1}+F_{2}\cdot x_{2}+x_{4}=F}](https://wikimedia.org/api/rest_v1/media/math/render/svg/29ba9b42deaad7b209eea515ae863b278e0d7237)(augmented constraint)
-![Image 34: {\displaystyle P_{1}\cdot x_{1}+P_{2}\cdot x_{2}+x_{5}=P}](https://wikimedia.org/api/rest_v1/media/math/render/svg/6acebda76368cc11ad2dae7c2fbaae2c3d993bf7)(augmented constraint)
-![Image 35: {\displaystyle x_{1},x_{2},x_{3},x_{4},x_{5}\geq 0.}](https://wikimedia.org/api/rest_v1/media/math/render/svg/3ab08e7d2cd117f25b841a243cba2764e91b231e)
+In matrix form this becomes: Maximize z {\displaystyle z} : [ 1 − − S 1 − − S 2 0 0 0 0 1 1 1 0 0 0 F 1 F 2 0 1 0 0 P 1 P 2 0 0 1 ] [ z x 1 x 2 x 3 x 4 x 5 ] = [ 0 L F P ] , [ x 1 x 2 x 3 x 4 x 5 ] ≥ ≥ 0.
 
-where ![Image 36: {\displaystyle x_{3},x_{4},x_{5}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/e7038fea54005cc397744a38f3787349cbe6cf49) are (non-negative) slack variables, representing in this example the unused area, the amount of unused fertilizer, and the amount of unused pesticide.
+{\displaystyle {\begin{bmatrix}1&-S_{1}&-S_{2}&0&0&0\\0&1&1&1&0&0\\0&F_{1}&F_{2}&0&1&0\\0&P_{1}&P_{2}&0&0&1\\\end{bmatrix}}{\begin{bmatrix}z\\x_{1}\\x_{2}\\x_{3}\\x_{4}\\x_{5}\end{bmatrix}}={\begin{bmatrix}0\\L\\F\\P\end{bmatrix}},\,{\begin{bmatrix}x_{1}\\x_{2}\\x_{3}\\x_{4}\\x_{5}\end{bmatrix}}\geq 0.} Duality [ edit ] Main article: Dual linear program Every linear programming problem, referred to as a primal problem, can be converted into a dual problem , which provides an upper bound to the optimal value of the primal problem. In matrix form, we can express the primal problem as: Maximize c T x subject to A x ≤ b , x ≥ 0; with the corresponding symmetric dual problem, Minimize b T y subject to A T y ≥ c , y ≥ 0.
 
-In matrix form this becomes:
+An alternative primal formulation is: Maximize c T x subject to A x ≤ b ; with the corresponding asymmetric dual problem, Minimize b T y subject to A T y = c , y ≥ 0.
 
-Maximize ![Image 37: {\displaystyle z}](https://wikimedia.org/api/rest_v1/media/math/render/svg/bf368e72c009decd9b6686ee84a375632e11de98):![Image 38: {\displaystyle {\begin{bmatrix}1&-S_{1}&-S_{2}&0&0&0\\0&1&1&1&0&0\\0&F_{1}&F_{2}&0&1&0\\0&P_{1}&P_{2}&0&0&1\\\end{bmatrix}}{\begin{bmatrix}z\\x_{1}\\x_{2}\\x_{3}\\x_{4}\\x_{5}\end{bmatrix}}={\begin{bmatrix}0\\L\\F\\P\end{bmatrix}},\,{\begin{bmatrix}x_{1}\\x_{2}\\x_{3}\\x_{4}\\x_{5}\end{bmatrix}}\geq 0.}](https://wikimedia.org/api/rest_v1/media/math/render/svg/1680b700dd3e88591b2dea0a779ca8eba5f5f619)
-Every linear programming problem, referred to as a _primal_ problem, can be converted into a [dual problem](https://en.wikipedia.org/wiki/Dual_problem "Dual problem"), which provides an upper bound to the optimal value of the primal problem. In matrix form, we can express the _primal_ problem as:
+There are two ideas fundamental to duality theory. One is the fact that (for the symmetric dual) the dual of a dual linear program is the original primal linear program. Additionally, every feasible solution for a linear program gives a bound on the optimal value of the objective function of its dual.  The weak duality theorem states that the objective function value of the dual at any feasible solution is always greater than or equal to the objective function value of the primal at any feasible solution. The strong duality theorem states that if the primal has an optimal solution, x * , then the dual also has an optimal solution, y * , and c T x * = b T y * .
 
-Maximize **c**T**x** subject to _A_**x** ≤ **b**, **x** ≥ 0; with the corresponding **symmetric** dual problem,Minimize **b**T**y** subject to _A_ T**y** ≥ **c**, **y** ≥ 0.
-An alternative primal formulation is:
+A linear program can also be unbounded or infeasible. Duality theory tells us that if the primal is unbounded then the dual is infeasible by the weak duality theorem. Likewise, if the dual is unbounded, then the primal must be infeasible. However, it is possible for both the dual and the primal to be infeasible.  See dual linear program for details and several more examples.
 
-Maximize **c**T**x** subject to _A_**x** ≤ **b**; with the corresponding **asymmetric** dual problem,Minimize **b**T**y** subject to _A_ T**y** = **c**, **y** ≥ 0.
-There are two ideas fundamental to duality theory. One is the fact that (for the symmetric dual) the dual of a dual linear program is the original primal linear program. Additionally, every feasible solution for a linear program gives a bound on the optimal value of the objective function of its dual. The [weak duality](https://en.wikipedia.org/wiki/Weak_duality "Weak duality") theorem states that the objective function value of the dual at any feasible solution is always greater than or equal to the objective function value of the primal at any feasible solution. The [strong duality](https://en.wikipedia.org/wiki/Strong_duality "Strong duality") theorem states that if the primal has an optimal solution, **x***, then the dual also has an optimal solution, **y***, and **c**T**x***=**b**T**y***.
+Variations [ edit ] Covering/packing dualities [ edit ] Covering/packing-problem pairs Covering problems Packing problems Minimum set cover Maximum set packing Minimum edge cover Maximum matching Minimum vertex cover Maximum independent set Bin covering Bin packing Polygon covering Rectangle packing v t e A covering LP is a linear program of the form: Minimize: b T y , subject to: A T y ≥ c , y ≥ 0 , such that the matrix A and the vectors b and c are non-negative.
 
-A linear program can also be unbounded or infeasible. Duality theory tells us that if the primal is unbounded then the dual is infeasible by the weak duality theorem. Likewise, if the dual is unbounded, then the primal must be infeasible. However, it is possible for both the dual and the primal to be infeasible. See [dual linear program](https://en.wikipedia.org/wiki/Dual_linear_program "Dual linear program") for details and several more examples.
+The dual of a covering LP is a packing LP , a linear program of the form: Maximize: c T x , subject to: A x ≤ b , x ≥ 0 , such that the matrix A and the vectors b and c are non-negative.
 
-### Covering/packing dualities
+Examples [ edit ] Covering and packing LPs commonly arise as a linear programming relaxation of a combinatorial problem and are important in the study of approximation algorithms .
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Linear_programming&action=edit&section=9 "Edit section: Covering/packing dualities")]
+[ 12 ] For example, the LP relaxations of the set packing problem , the independent set problem , and the matching problem are packing LPs. The LP relaxations of the set cover problem , the vertex cover problem , and the dominating set problem are also covering LPs.
 
-A [covering LP](https://en.wikipedia.org/wiki/Covering_problem "Covering problem") is a linear program of the form:
+Finding a fractional coloring of a graph is another example of a covering LP. In this case, there is one constraint for each vertex of the graph and one variable for each independent set of the graph.
 
-Minimize: **b**T**y**,subject to: _A_ T**y** ≥ **c**, **y** ≥ 0,
-such that the matrix _A_ and the vectors **b** and **c** are non-negative.
+Complementary slackness [ edit ] It is possible to obtain an optimal solution to the dual when only an optimal solution to the primal is known using the complementary slackness theorem. The theorem states: Suppose that x = ( x 1 , x 2 , ... , x n ) is primal feasible and that y = ( y 1 , y 2 , ... , y m ) is dual feasible. Let ( w 1 , w 2 , ..., w m ) denote the corresponding primal slack variables, and let ( z 1 , z 2 , ... , z n ) denote the corresponding dual slack variables. Then x and y are optimal for their respective problems if and only if x j z j = 0, for j = 1, 2, ... , n , and w i y i = 0, for i = 1, 2, ... , m .
 
-The dual of a covering LP is a [packing LP](https://en.wikipedia.org/wiki/Packing_problem "Packing problem"), a linear program of the form:
+So if the i -th slack variable of the primal is not zero, then the i -th variable of the dual is equal to zero. Likewise, if the j -th slack variable of the dual is not zero, then the j -th variable of the primal is equal to zero.
 
-Maximize: **c**T**x**,subject to: _A_**x** ≤ **b**, **x** ≥ 0,
-such that the matrix _A_ and the vectors **b** and **c** are non-negative.
+This necessary condition for optimality conveys a fairly simple economic principle.  In standard form (when maximizing), if there is slack in a constrained primal resource (i.e., there are "leftovers"), then additional quantities of that resource must have no value.  Likewise, if there is slack in the dual (shadow) price non-negativity constraint requirement, i.e., the price is not zero, then there must be scarce supplies (no "leftovers").
 
-Covering and packing LPs commonly arise as a [linear programming relaxation](https://en.wikipedia.org/wiki/Linear_programming_relaxation "Linear programming relaxation") of a combinatorial problem and are important in the study of [approximation algorithms](https://en.wikipedia.org/wiki/Approximation_algorithms "Approximation algorithms").[[12]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-12) For example, the LP relaxations of the [set packing problem](https://en.wikipedia.org/wiki/Set_packing "Set packing"), the [independent set problem](https://en.wikipedia.org/wiki/Independent_set_problem "Independent set problem"), and the [matching problem](https://en.wikipedia.org/wiki/Matching_(graph_theory) "Matching (graph theory)") are packing LPs. The LP relaxations of the [set cover problem](https://en.wikipedia.org/wiki/Set_cover_problem "Set cover problem"), the [vertex cover problem](https://en.wikipedia.org/wiki/Vertex_cover_problem "Vertex cover problem"), and the [dominating set problem](https://en.wikipedia.org/wiki/Dominating_set_problem "Dominating set problem") are also covering LPs.
+Theory [ edit ] Existence of optimal solutions [ edit ] Geometrically, the linear constraints define the feasible region , which is a convex polytope . A linear function is a convex function , which implies that every local minimum is a global minimum ; similarly, a linear function is a concave function , which implies that every local maximum is a global maximum .
 
-Finding a [fractional coloring](https://en.wikipedia.org/wiki/Fractional_coloring "Fractional coloring") of a [graph](https://en.wikipedia.org/wiki/Graph_(discrete_mathematics) "Graph (discrete mathematics)") is another example of a covering LP. In this case, there is one constraint for each vertex of the graph and one variable for each [independent set](https://en.wikipedia.org/wiki/Independent_set_(graph_theory) "Independent set (graph theory)") of the graph.
+An optimal solution need not exist, for two reasons. First, if the constraints are inconsistent, then no feasible solution exists: For instance, the constraints x ≥ 2 and x ≤ 1 cannot be satisfied jointly; in this case, we say that the LP is infeasible . Second, when the polytope is unbounded in the direction of the gradient of the objective function (where the gradient of the objective function is the vector of the coefficients of the objective function), then no optimal value is attained because it is always possible to do better than any finite value of the objective function.
 
-Complementary slackness
------------------------
+Optimal vertices (and rays) of polyhedra [ edit ] Otherwise, if a feasible solution exists and if the constraint set is bounded, then the optimum value is always attained on the boundary of the constraint set, by the maximum principle for convex functions (alternatively, by the minimum principle for concave functions ) since linear functions are both convex and concave. However, some problems have distinct optimal solutions; for example, the problem of finding a feasible solution to a system of linear inequalities is a linear programming problem in which the objective function is the zero function (i.e., the constant function taking the value zero everywhere). For this feasibility problem with the zero-function for its objective-function, if there are two distinct solutions, then every convex combination of the solutions is a solution.
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Linear_programming&action=edit&section=11 "Edit section: Complementary slackness")]
+The vertices of the polytope are also called basic feasible solutions . The reason for this choice of name is as follows. Let d denote the number of variables. Then the fundamental theorem of linear inequalities implies (for feasible problems) that for every vertex x * of the LP feasible region, there exists a set of d (or fewer) inequality constraints from the LP such that, when we treat those d constraints as equalities, the unique solution is x * . Thereby we can study these vertices by means of looking at certain subsets of the set of all constraints (a discrete set), rather than the continuum of LP solutions. This principle underlies the simplex algorithm for solving linear programs.
 
-It is possible to obtain an optimal solution to the dual when only an optimal solution to the primal is known using the complementary slackness theorem. The theorem states:
+Algorithms [ edit ] See also: List of numerical analysis topics § Linear programming In a linear programming problem, a series of linear constraints produces a convex feasible region of possible values for those variables. In the two-variable case this region is in the shape of a convex simple polygon .
 
-Suppose that **x**=(**x**1,**x**2,...,**x**_n_) is primal feasible and that **y**=(**y**1,**y**2,...,**y**_m_) is dual feasible. Let (**w**1,**w**2,...,**w**_m_) denote the corresponding primal slack variables, and let (**z**1,**z**2,...,**z**_n_) denote the corresponding dual slack variables. Then **x** and **y** are optimal for their respective problems if and only if
+Basis exchange algorithms [ edit ] Simplex algorithm of Dantzig [ edit ] The simplex algorithm , developed by George Dantzig in 1947, solves LP problems by constructing a feasible solution at a vertex of the polytope and then walking along a path on the edges of the polytope to vertices with non-decreasing values of the objective function until an optimum is reached for sure. In many practical problems, " stalling " occurs: many pivots are made with no increase in the objective function.
 
-*   **x**_j_**z**_j_=0, for _j_=1,2,...,_n_, and
-*   **w**_i_**y**_i_=0, for _i_=1,2,...,_m_.
+[ 13 ] [ 14 ] In rare practical problems, the usual versions of the simplex algorithm may actually "cycle".
 
-So if the _i_-th slack variable of the primal is not zero, then the _i_-th variable of the dual is equal to zero. Likewise, if the _j_-th slack variable of the dual is not zero, then the _j_-th variable of the primal is equal to zero.
+[ 14 ] To avoid cycles, researchers developed new pivoting rules.
 
-This necessary condition for optimality conveys a fairly simple economic principle. In standard form (when maximizing), if there is slack in a constrained primal resource (i.e., there are "leftovers"), then additional quantities of that resource must have no value. Likewise, if there is slack in the dual (shadow) price non-negativity constraint requirement, i.e., the price is not zero, then there must be scarce supplies (no "leftovers").
+[ 15 ] In practice, the simplex algorithm is quite efficient and can be guaranteed to find the global optimum if certain precautions against cycling are taken. The simplex algorithm has been proved to solve "random" problems efficiently, i.e. in a cubic number of steps, [ 16 ] which is similar to its behavior on practical problems.
 
-### Existence of optimal solutions
+[ 13 ] [ 17 ] However, the simplex algorithm has poor worst-case behavior: Klee and Minty constructed a family of linear programming problems for which the simplex method takes a number of steps exponential in the problem size.
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Linear_programming&action=edit&section=13 "Edit section: Existence of optimal solutions")]
+[ 13 ] [ 18 ] [ 19 ] In fact, for some time it was not known whether the linear programming problem was solvable in polynomial time , i.e. of complexity class P .
 
-Geometrically, the linear constraints define the [feasible region](https://en.wikipedia.org/wiki/Feasible_region "Feasible region"), which is a [convex polytope](https://en.wikipedia.org/wiki/Convex_polytope "Convex polytope"). A [linear function](https://en.wikipedia.org/wiki/Linear_functional "Linear functional") is a [convex function](https://en.wikipedia.org/wiki/Convex_function "Convex function"), which implies that every [local minimum](https://en.wikipedia.org/wiki/Local_minimum "Local minimum") is a [global minimum](https://en.wikipedia.org/wiki/Global_minimum "Global minimum"); similarly, a linear function is a [concave function](https://en.wikipedia.org/wiki/Concave_function "Concave function"), which implies that every [local maximum](https://en.wikipedia.org/wiki/Local_maximum "Local maximum") is a [global maximum](https://en.wikipedia.org/wiki/Global_maximum "Global maximum").
+Criss-cross algorithm [ edit ] Like the simplex algorithm of Dantzig, the criss-cross algorithm is a basis-exchange algorithm that pivots between bases. However, the criss-cross algorithm need not maintain feasibility, but can pivot rather from a feasible basis to an infeasible basis. The criss-cross algorithm does not have polynomial time-complexity for linear programming. Both algorithms visit all 2 D corners of a (perturbed) cube in dimension D , the Klee–Minty cube , in the worst case .
 
-An optimal solution need not exist, for two reasons. First, if the constraints are inconsistent, then no feasible solution exists: For instance, the constraints **x**≥2 and **x**≤1 cannot be satisfied jointly; in this case, we say that the LP is _infeasible_. Second, when the [polytope](https://en.wikipedia.org/wiki/Polytope "Polytope") is unbounded in the direction of the gradient of the objective function (where the gradient of the objective function is the vector of the coefficients of the objective function), then no optimal value is attained because it is always possible to do better than any finite value of the objective function.
+[ 15 ] [ 20 ] Interior point [ edit ] In contrast to the simplex algorithm, which finds an optimal solution by traversing the edges between vertices on a polyhedral set, interior-point methods move through the interior of the feasible region.
 
-### Optimal vertices (and rays) of polyhedra
+Ellipsoid algorithm, following Khachiyan [ edit ] This is the first worst-case polynomial-time algorithm ever found for linear programming.  To solve a problem which has n variables and can be encoded in L input bits, this algorithm runs in O ( n 6 L ) {\displaystyle O(n^{6}L)} time.
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Linear_programming&action=edit&section=14 "Edit section: Optimal vertices (and rays) of polyhedra")]
+[ 9 ] Leonid Khachiyan solved this long-standing complexity issue in 1979 with the introduction of the ellipsoid method . The convergence analysis has (real-number) predecessors, notably the iterative methods developed by Naum Z. Shor and the approximation algorithms by Arkadi Nemirovski and D. Yudin.
 
-Otherwise, if a feasible solution exists and if the constraint set is bounded, then the optimum value is always attained on the boundary of the constraint set, by the _[maximum principle](https://en.wikipedia.org/wiki/Maximum\_principle "Maximum principle")_ for _[convex functions](https://en.wikipedia.org/wiki/Convex\_function "Convex function")_ (alternatively, by the _minimum_ principle for _[concave functions](https://en.wikipedia.org/wiki/Concave\_function "Concave function")_) since linear functions are both convex and concave. However, some problems have distinct optimal solutions; for example, the problem of finding a feasible solution to a system of linear inequalities is a linear programming problem in which the objective function is the zero function (i.e., the constant function taking the value zero everywhere). For this feasibility problem with the zero-function for its objective-function, if there are two distinct solutions, then every convex combination of the solutions is a solution.
+Projective algorithm of Karmarkar [ edit ] Main article: Karmarkar's algorithm Khachiyan's algorithm was of landmark importance for establishing the polynomial-time solvability of linear programs.  The algorithm was not a computational break-through, as the simplex method is more efficient for all but specially constructed families of linear programs.
 
-The vertices of the polytope are also called _basic feasible solutions_. The reason for this choice of name is as follows. Let _d_ denote the number of variables. Then the fundamental theorem of linear inequalities implies (for feasible problems) that for every vertex **x*** of the LP feasible region, there exists a set of _d_ (or fewer) inequality constraints from the LP such that, when we treat those _d_ constraints as equalities, the unique solution is **x***. Thereby we can study these vertices by means of looking at certain subsets of the set of all constraints (a discrete set), rather than the continuum of LP solutions. This principle underlies the [simplex algorithm](https://en.wikipedia.org/wiki/Simplex_algorithm "Simplex algorithm") for solving linear programs.
+However, Khachiyan's algorithm inspired new lines of research in linear programming. In 1984, N. Karmarkar proposed a projective method for linear programming.  Karmarkar's algorithm [ 10 ] improved on Khachiyan's [ 9 ] worst-case polynomial bound (giving O ( n 3.5 L ) {\displaystyle O(n^{3.5}L)} ). Karmarkar claimed that his algorithm was much faster in practical LP than the simplex method, a claim that created great interest in interior-point methods.
 
-[![Image 39](https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Linear_Programming_Feasible_Region.svg/250px-Linear_Programming_Feasible_Region.svg.png)](https://en.wikipedia.org/wiki/File:Linear_Programming_Feasible_Region.svg)
+[ 21 ] Since Karmarkar's discovery, many interior-point methods have been proposed and analyzed.
 
-In a linear programming problem, a series of linear constraints produces a [convex](https://en.wikipedia.org/wiki/Convex_set "Convex set")[feasible region](https://en.wikipedia.org/wiki/Feasible_region "Feasible region") of possible values for those variables. In the two-variable case this region is in the shape of a convex [simple polygon](https://en.wikipedia.org/wiki/Simple_polygon "Simple polygon").
+Vaidya's 87 algorithm [ edit ] In 1987, Vaidya proposed an algorithm that runs in O ( n 3 ) {\displaystyle O(n^{3})} time.
 
-### Basis exchange algorithms
+[ 22 ] Vaidya's 89 algorithm [ edit ] In 1989, Vaidya developed an algorithm that runs in O ( n 2.5 ) {\displaystyle O(n^{2.5})} time.
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Linear_programming&action=edit&section=16 "Edit section: Basis exchange algorithms")]
+[ 23 ] Formally speaking, the algorithm takes O ( ( n + d ) 1.5 n L ) {\displaystyle O((n+d)^{1.5}nL)} arithmetic operations in the worst case, where d {\displaystyle d} is the number of constraints, n {\displaystyle n} is the number of variables, and L {\displaystyle L} is the number of bits.
 
-#### Simplex algorithm of Dantzig
+Input sparsity time algorithms [ edit ] In 2015, Lee and Sidford showed that linear programming can be solved in O ~ ~ ( ( n n z ( A ) + d 2 ) d L ) {\displaystyle {\tilde {O}}((nnz(A)+d^{2}){\sqrt {d}}L)} time, [ 24 ] where O ~ ~ {\displaystyle {\tilde {O}}} denotes the soft O notation , and n n z ( A ) {\displaystyle nnz(A)} represents the number of non-zero elements, and it remains taking O ( n 2.5 L ) {\displaystyle O(n^{2.5}L)} in the worst case.
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Linear_programming&action=edit&section=17 "Edit section: Simplex algorithm of Dantzig")]
+Current matrix multiplication time algorithm [ edit ] In 2019, Cohen, Lee and Song improved the running time to O ~ ~ ( ( n ω ω + n 2.5 − − α α / 2 + n 2 + 1 / 6 ) L ) {\displaystyle {\tilde {O}}((n^{\omega }+n^{2.5-\alpha /2}+n^{2+1/6})L)} time, ω ω {\displaystyle \omega } is the exponent of matrix multiplication and α α {\displaystyle \alpha } is the dual exponent of matrix multiplication .
 
-The [simplex algorithm](https://en.wikipedia.org/wiki/Simplex_algorithm "Simplex algorithm"), developed by [George Dantzig](https://en.wikipedia.org/wiki/George_Dantzig "George Dantzig") in 1947, solves LP problems by constructing a feasible solution at a vertex of the [polytope](https://en.wikipedia.org/wiki/Polytope "Polytope") and then walking along a path on the edges of the polytope to vertices with non-decreasing values of the objective function until an optimum is reached for sure. In many practical problems, "[stalling](https://en.wikipedia.org/wiki/Simplex_algorithm#Degeneracy:_stalling_and_cycling "Simplex algorithm")" occurs: many pivots are made with no increase in the objective function.[[13]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-DT03-13)[[14]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-Padberg-14) In rare practical problems, the usual versions of the simplex algorithm may actually "cycle".[[14]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-Padberg-14) To avoid cycles, researchers developed new pivoting rules.[[15]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-FukudaTerlaky-15)
+[ 25 ] α α {\displaystyle \alpha } is (roughly) defined to be the largest number such that one can multiply an n × × n {\displaystyle n\times n} matrix by a n × × n α α {\displaystyle n\times n^{\alpha }} matrix in O ( n 2 ) {\displaystyle O(n^{2})} time. In a followup work by Lee, Song and Zhang, they reproduce the same result via a different method.
 
-In practice, the simplex [algorithm](https://en.wikipedia.org/wiki/Algorithm "Algorithm") is quite efficient and can be guaranteed to find the global optimum if certain precautions against _cycling_ are taken. The simplex algorithm has been proved to solve "random" problems efficiently, i.e. in a cubic number of steps,[[16]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-16) which is similar to its behavior on practical problems.[[13]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-DT03-13)[[17]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-Todd-17)
+[ 26 ] These two algorithms remain O ~ ~ ( n 2 + 1 / 6 L ) {\displaystyle {\tilde {O}}(n^{2+1/6}L)} when ω ω = 2 {\displaystyle \omega =2} and α α = 1 {\displaystyle \alpha =1} . The result due to Jiang, Song, Weinstein and Zhang improved O ~ ~ ( n 2 + 1 / 6 L ) {\displaystyle {\tilde {O}}(n^{2+1/6}L)} to O ~ ~ ( n 2 + 1 / 18 L ) {\displaystyle {\tilde {O}}(n^{2+1/18}L)} .
 
-However, the simplex algorithm has poor worst-case behavior: Klee and Minty constructed a family of linear programming problems for which the simplex method takes a number of steps exponential in the problem size.[[13]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-DT03-13)[[18]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-Murty-18)[[19]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-PS-19) In fact, for some time it was not known whether the linear programming problem was solvable in [polynomial time](https://en.wikipedia.org/wiki/Polynomial_time "Polynomial time"), i.e. of [complexity class P](https://en.wikipedia.org/wiki/P_(complexity) "P (complexity)").
+[ 27 ] Comparison of interior-point methods and simplex algorithms [ edit ] The current opinion is that the efficiencies of good implementations of simplex-based methods and interior point methods are similar for routine applications of linear programming. However, for specific types of LP problems, it may be that one type of solver is better than another (sometimes much better), and that the structure of the solutions generated by interior point methods versus simplex-based methods are significantly different with the support set of active variables being typically smaller for the latter one.
 
-#### Criss-cross algorithm
+[ 28 ] Open problems and recent work [ edit ] Unsolved problem in computer science Does linear programming admit a strongly polynomial-time algorithm?
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Linear_programming&action=edit&section=18 "Edit section: Criss-cross algorithm")]
+More unsolved problems in computer science There are several open problems in the theory of linear programming, the solution of which would represent fundamental breakthroughs in mathematics and potentially major advances in our ability to solve large-scale linear programs.
 
-Like the simplex algorithm of Dantzig, the [criss-cross algorithm](https://en.wikipedia.org/wiki/Criss-cross_algorithm "Criss-cross algorithm") is a basis-exchange algorithm that pivots between bases. However, the criss-cross algorithm need not maintain feasibility, but can pivot rather from a feasible basis to an infeasible basis. The criss-cross algorithm does not have [polynomial time-complexity](https://en.wikipedia.org/wiki/Time_complexity "Time complexity") for linear programming. Both algorithms visit all 2 _D_ corners of a (perturbed) [cube](https://en.wikipedia.org/wiki/Unit_cube "Unit cube") in dimension _D_, the [Klee–Minty cube](https://en.wikipedia.org/wiki/Klee%E2%80%93Minty_cube "Klee–Minty cube"), in the [worst case](https://en.wikipedia.org/wiki/Worst-case_complexity "Worst-case complexity").[[15]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-FukudaTerlaky-15)[[20]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-Roos-20)
+Does LP admit a strongly polynomial -time algorithm?
 
-In contrast to the simplex algorithm, which finds an optimal solution by traversing the edges between vertices on a polyhedral set, interior-point methods move through the interior of the feasible region.
+Does LP admit a strongly polynomial-time algorithm to find a strictly complementary solution?
 
-#### Ellipsoid algorithm, following Khachiyan
+Does LP admit a polynomial-time algorithm in the real number (unit cost) model of computation?
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Linear_programming&action=edit&section=20 "Edit section: Ellipsoid algorithm, following Khachiyan")]
+This closely related set of problems has been cited by Stephen Smale as among the 18 greatest unsolved problems of the 21st century.  In Smale's words, the third version of the problem "is the main unsolved problem of linear programming theory."  While algorithms exist to solve linear programming in weakly polynomial time , such as the ellipsoid methods and interior-point techniques , no algorithms have yet been found that allow strongly polynomial-time performance in the number of constraints and the number of variables.  The development of such algorithms would be of great theoretical interest, and perhaps allow practical gains in solving large LPs as well.
 
-This is the first [worst-case](https://en.wikipedia.org/wiki/Worst-case_complexity "Worst-case complexity")[polynomial-time](https://en.wikipedia.org/wiki/Polynomial-time "Polynomial-time") algorithm ever found for linear programming. To solve a problem which has _n_ variables and can be encoded in _L_ input bits, this algorithm runs in ![Image 40: {\displaystyle O(n^{6}L)}](https://wikimedia.org/api/rest_v1/media/math/render/svg/8b415f36ac1c25ad1609e767279717826fc236fa) time.[[9]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-khachiyan79-9)[Leonid Khachiyan](https://en.wikipedia.org/wiki/Leonid_Khachiyan "Leonid Khachiyan") solved this long-standing complexity issue in 1979 with the introduction of the [ellipsoid method](https://en.wikipedia.org/wiki/Ellipsoid_method "Ellipsoid method"). The convergence analysis has (real-number) predecessors, notably the [iterative methods](https://en.wikipedia.org/wiki/Iterative_method "Iterative method") developed by [Naum Z. Shor](https://en.wikipedia.org/wiki/Naum_Z._Shor "Naum Z. Shor") and the [approximation algorithms](https://en.wikipedia.org/wiki/Approximation_algorithm "Approximation algorithm") by Arkadi Nemirovski and D. Yudin.
+Although the Hirsch conjecture was recently disproved for higher dimensions, it still leaves the following questions open.
 
-#### Projective algorithm of Karmarkar
+Are there pivot rules which lead to polynomial-time simplex variants?
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Linear_programming&action=edit&section=21 "Edit section: Projective algorithm of Karmarkar")]
+Do all polytopal graphs have polynomially bounded diameter?
 
-Khachiyan's algorithm was of landmark importance for establishing the polynomial-time solvability of linear programs. The algorithm was not a computational break-through, as the simplex method is more efficient for all but specially constructed families of linear programs.
+These questions relate to the performance analysis and development of simplex-like methods.  The immense efficiency of the simplex algorithm in practice despite its exponential-time theoretical performance hints that there may be variations of simplex that run in polynomial or even strongly polynomial time.  It would be of great practical and theoretical significance to know whether any such variants exist, particularly as an approach to deciding if LP can be solved in strongly polynomial time.
 
-However, Khachiyan's algorithm inspired new lines of research in linear programming. In 1984, [N. Karmarkar](https://en.wikipedia.org/wiki/Narendra_Karmarkar "Narendra Karmarkar") proposed a [projective method](https://en.wikipedia.org/wiki/Projective_method "Projective method") for linear programming. Karmarkar's algorithm[[10]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-karmarkar84-10) improved on Khachiyan's[[9]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-khachiyan79-9) worst-case polynomial bound (giving ![Image 41: {\displaystyle O(n^{3.5}L)}](https://wikimedia.org/api/rest_v1/media/math/render/svg/75bfa3b481f545e25ae3d8d60ef6ca14d51050ef)). Karmarkar claimed that his algorithm was much faster in practical LP than the simplex method, a claim that created great interest in interior-point methods.[[21]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-Strang-21) Since Karmarkar's discovery, many interior-point methods have been proposed and analyzed.
+The simplex algorithm and its variants fall in the family of edge-following algorithms, so named because they solve linear programming problems by moving from vertex to vertex along edges of a polytope.  This means that their theoretical performance is limited by the maximum number of edges between any two vertices on the LP polytope.  As a result, we are interested in knowing the maximum graph-theoretical diameter of polytopal graphs .  It has been proved that all polytopes have subexponential diameter. The recent disproof of the Hirsch conjecture is the first step to prove whether any polytope has superpolynomial diameter. If any such polytopes exist, then no edge-following variant can run in polynomial time. Questions about polytope diameter are of independent mathematical interest.
 
-#### Vaidya's 87 algorithm
+Simplex pivot methods preserve primal (or dual) feasibility.  On the other hand, criss-cross pivot methods do not preserve (primal or dual) feasibility – they may visit primal feasible, dual feasible or primal-and-dual infeasible bases in any order.  Pivot methods of this type have been studied since the 1970s.
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Linear_programming&action=edit&section=22 "Edit section: Vaidya's 87 algorithm")]
+[ 29 ] Essentially, these methods attempt to find the shortest pivot path on the arrangement polytope under the linear programming problem.  In contrast to polytopal graphs, graphs of arrangement polytopes are known to have small diameter, allowing the possibility of strongly polynomial-time criss-cross pivot algorithm without resolving questions about the diameter of general polytopes.
 
-In 1987, Vaidya proposed an algorithm that runs in ![Image 42: {\displaystyle O(n^{3})}](https://wikimedia.org/api/rest_v1/media/math/render/svg/6b04f5c5cfea38f43406d9442387ad28555e2609) time.[[22]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-22)
+[ 15 ] Integer unknowns [ edit ] If all of the unknown variables are required to be integers, then the problem is called an integer programming (IP) or integer linear programming (ILP) problem.  In contrast to linear programming, which can be solved efficiently in the worst case, integer programming problems are in many practical situations (those with bounded variables) NP-hard .
 
-#### Vaidya's 89 algorithm
+0–1 integer programming or binary integer programming (BIP) is the special case of integer programming where variables are required to be 0 or 1 (rather than arbitrary integers). This problem is also classified as NP-hard, and in fact the decision version was one of Karp's 21 NP-complete problems .
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Linear_programming&action=edit&section=23 "Edit section: Vaidya's 89 algorithm")]
+If only some of the unknown variables are required to be integers, then the problem is called a mixed integer (linear) programming (MIP or MILP) problem.  These are generally also NP-hard because they are even more general than ILP programs.
 
-In 1989, Vaidya developed an algorithm that runs in ![Image 43: {\displaystyle O(n^{2.5})}](https://wikimedia.org/api/rest_v1/media/math/render/svg/ace57227cac24373d5d91e9fbb5ef6ebdbaadce2) time.[[23]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-23) Formally speaking, the algorithm takes ![Image 44: {\displaystyle O((n+d)^{1.5}nL)}](https://wikimedia.org/api/rest_v1/media/math/render/svg/6874202657ad85e546419778c0fc3b42e0b4634b) arithmetic operations in the worst case, where ![Image 45: {\displaystyle d}](https://wikimedia.org/api/rest_v1/media/math/render/svg/e85ff03cbe0c7341af6b982e47e9f90d235c66ab) is the number of constraints, ![Image 46: {\displaystyle n}](https://wikimedia.org/api/rest_v1/media/math/render/svg/a601995d55609f2d9f5e233e36fbe9ea26011b3b) is the number of variables, and ![Image 47: {\displaystyle L}](https://wikimedia.org/api/rest_v1/media/math/render/svg/103168b86f781fe6e9a4a87b8ea1cebe0ad4ede8) is the number of bits.
+There are however some important subclasses of IP and MIP problems that are efficiently solvable, most notably problems where the constraint matrix is totally unimodular and the right-hand sides of the constraints are integers or – more general – where the system has the total dual integrality (TDI) property.
 
-#### Input sparsity time algorithms
+Advanced algorithms for solving integer linear programs include: cutting-plane method Branch and bound Branch and cut Branch and price if the problem has some extra structure, it may be possible to apply delayed column generation .
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Linear_programming&action=edit&section=24 "Edit section: Input sparsity time algorithms")]
+Such integer-programming algorithms are discussed by Padberg and in Beasley.
 
-In 2015, Lee and Sidford showed that linear programming can be solved in ![Image 48: {\displaystyle {\tilde {O}}((nnz(A)+d^{2}){\sqrt {d}}L)}](https://wikimedia.org/api/rest_v1/media/math/render/svg/b28f5af38de50f081b1763eb33c72e5feabb35f5) time,[[24]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-24) where ![Image 49: {\displaystyle {\tilde {O}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/838fcae65623915485e4245a38d787c4a99f9be6) denotes the [soft O notation](https://en.wikipedia.org/wiki/Soft_O_notation "Soft O notation"), and ![Image 50: {\displaystyle nnz(A)}](https://wikimedia.org/api/rest_v1/media/math/render/svg/487e860cf976f9010543f8d6655e2e1760ed1db6) represents the number of non-zero elements, and it remains taking ![Image 51: {\displaystyle O(n^{2.5}L)}](https://wikimedia.org/api/rest_v1/media/math/render/svg/5f3c8031399ff33ff9d8e02f4bf7349d1cbdca2f) in the worst case.
+Integral linear programs [ edit ] Further information: Integral polytope A linear program in real variables is said to be integral if it has at least one optimal solution which is integral, i.e., made of only integer values. Likewise, a polyhedron P = { x ∣ ∣ A x ≥ ≥ 0 } {\displaystyle P=\{x\mid Ax\geq 0\}} is said to be integral if for all bounded feasible objective functions c , the linear program { max c x ∣ ∣ x ∈ ∈ P } {\displaystyle \{\max cx\mid x\in P\}} has an optimum x ∗ ∗ {\displaystyle x^{*}} with integer coordinates. As observed by Edmonds and Giles in 1977, one can equivalently say that the polyhedron P {\displaystyle P} is integral if for every bounded feasible integral objective function c , the optimal value of the linear program { max c x ∣ ∣ x ∈ ∈ P } {\displaystyle \{\max cx\mid x\in P\}} is an integer.
 
-#### Current matrix multiplication time algorithm
+Integral linear programs are of central importance in the polyhedral aspect of combinatorial optimization since they provide an alternate characterization of a problem. Specifically, for any problem, the convex hull of the solutions is an integral polyhedron; if this polyhedron has a nice/compact description, then we can efficiently find the optimal feasible solution under any linear objective. Conversely, if we can prove that a linear programming relaxation is integral, then it is the desired description of the convex hull of feasible (integral) solutions.
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Linear_programming&action=edit&section=25 "Edit section: Current matrix multiplication time algorithm")]
+Terminology is not consistent throughout the literature, so one should be careful to distinguish the following two concepts, in an integer linear program, described in the previous section, variables are forcibly constrained to be integers, and this problem is NP-hard in general, in an integral linear program, described in this section, variables are not constrained to be integers but rather one has proven somehow that the continuous problem always has an integral optimal value (assuming c is integral), and this optimal value may be found efficiently since all polynomial-size linear programs can be solved in polynomial time.
 
-In 2019, Cohen, Lee and Song improved the running time to ![Image 52: {\displaystyle {\tilde {O}}((n^{\omega }+n^{2.5-\alpha /2}+n^{2+1/6})L)}](https://wikimedia.org/api/rest_v1/media/math/render/svg/76ecc5fab68418127b1e4ea0e9398b0ec4d6afca) time, ![Image 53: {\displaystyle \omega }](https://wikimedia.org/api/rest_v1/media/math/render/svg/48eff443f9de7a985bb94ca3bde20813ea737be8) is the exponent of [matrix multiplication](https://en.wikipedia.org/wiki/Matrix_multiplication "Matrix multiplication") and ![Image 54: {\displaystyle \alpha }](https://wikimedia.org/api/rest_v1/media/math/render/svg/b79333175c8b3f0840bfb4ec41b8072c83ea88d3) is the dual exponent of [matrix multiplication](https://en.wikipedia.org/wiki/Matrix_multiplication "Matrix multiplication").[[25]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-25)![Image 55: {\displaystyle \alpha }](https://wikimedia.org/api/rest_v1/media/math/render/svg/b79333175c8b3f0840bfb4ec41b8072c83ea88d3) is (roughly) defined to be the largest number such that one can multiply an ![Image 56: {\displaystyle n\times n}](https://wikimedia.org/api/rest_v1/media/math/render/svg/59d2b4cb72e304526cf5b5887147729ea259da78) matrix by a ![Image 57: {\displaystyle n\times n^{\alpha }}](https://wikimedia.org/api/rest_v1/media/math/render/svg/8e4a40b0f0d07019fafc22a7dd163fc4732a8dc5) matrix in ![Image 58: {\displaystyle O(n^{2})}](https://wikimedia.org/api/rest_v1/media/math/render/svg/6cd9594a16cb898b8f2a2dff9227a385ec183392) time. In a followup work by Lee, Song and Zhang, they reproduce the same result via a different method.[[26]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-26) These two algorithms remain ![Image 59: {\displaystyle {\tilde {O}}(n^{2+1/6}L)}](https://wikimedia.org/api/rest_v1/media/math/render/svg/8450538557d72c8cfad1dcab89c3dcee0763bc81) when ![Image 60: {\displaystyle \omega =2}](https://wikimedia.org/api/rest_v1/media/math/render/svg/b636606fdbc7771698df48d99d6cd90cc60135f0) and ![Image 61: {\displaystyle \alpha =1}](https://wikimedia.org/api/rest_v1/media/math/render/svg/03d67a45a44be8b8f15e99b7def2b0cf0aba1717). The result due to Jiang, Song, Weinstein and Zhang improved ![Image 62: {\displaystyle {\tilde {O}}(n^{2+1/6}L)}](https://wikimedia.org/api/rest_v1/media/math/render/svg/8450538557d72c8cfad1dcab89c3dcee0763bc81) to ![Image 63: {\displaystyle {\tilde {O}}(n^{2+1/18}L)}](https://wikimedia.org/api/rest_v1/media/math/render/svg/a19071edfea2a00c4a765ba968b4421f9ebeab83).[[27]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-27)
+One common way of proving that a polyhedron is integral is to show that it is totally unimodular . There are other general methods including the integer decomposition property and total dual integrality . Other specific well-known integral LPs include the matching polytope, lattice polyhedra, submodular flow polyhedra, and the intersection of two generalized polymatroids/ g -polymatroids – e.g. see Schrijver 2003.
 
-### Comparison of interior-point methods and simplex algorithms
+Solvers and scripting (programming) languages [ edit ] Permissive licenses: Name License Brief info Gekko MIT License Open-source library for solving large-scale LP, QP , QCQP , NLP , and MIP optimization GLOP Apache v2 Google's open-source linear programming solver JuMP MPL License Open-source modeling language with solvers for large-scale LP, QP , QCQP , SDP , SOCP , NLP , and MIP optimization Pyomo BSD An open-source modeling language for large-scale linear, mixed integer and nonlinear optimization SCIP Apache v2 A general-purpose constraint integer programming solver with an emphasis on MIP. Compatible with Zimpl modelling language.
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Linear_programming&action=edit&section=26 "Edit section: Comparison of interior-point methods and simplex algorithms")]
+SuanShu Apache v2 An open-source suite of optimization algorithms to solve LP, QP , SOCP , SDP , SQP in Java Copyleft (reciprocal) licenses: Name License Brief info ALGLIB GPL 2+ An LP solver from ALGLIB project (C++, C#, Python) Cassowary constraint solver LGPL An incremental constraint solving toolkit that efficiently solves systems of linear equalities and inequalities CLP CPL An LP solver from COIN-OR glpk GPL GNU Linear Programming Kit, an LP/MILP solver with a native C API and numerous (15) third-party wrappers for other languages.  Specialist support for flow networks .  Bundles the AMPL -like GNU MathProg modelling language and translator.
 
-The current opinion is that the efficiencies of good implementations of simplex-based methods and interior point methods are similar for routine applications of linear programming. However, for specific types of LP problems, it may be that one type of solver is better than another (sometimes much better), and that the structure of the solutions generated by interior point methods versus simplex-based methods are significantly different with the support set of active variables being typically smaller for the latter one.[[28]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-28)
+lp solve LGPL v2.1 An LP and MIP solver featuring support for the MPS format and its own "lp" format, as well as custom formats through its "eXternal Language Interface" (XLI).
 
-Open problems and recent work
------------------------------
+[ 30 ] [ 31 ] Translating between model formats is also possible.
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Linear_programming&action=edit&section=27 "Edit section: Open problems and recent work")]
+[ 32 ] Qoca GPL A library for incrementally solving systems of linear equations with various goal functions R-Project GPL A programming language and software environment for statistical computing and graphics MINTO (Mixed Integer Optimizer, an integer programming solver which uses branch and bound algorithm) has publicly available source code [ 33 ] but is not open source.
 
-Unsolved problem in computer science
+Proprietary licenses: Name Brief info AIMMS A modeling language that allows to model linear, mixed integer, and nonlinear optimization models. It also offers a tool for constraint programming. Algorithm, in the forms of heuristics or exact methods, such as Branch-and-Cut or Column Generation, can also be implemented. The tool calls an appropriate solver such as CPLEX or similar, to solve the optimization problem at hand. Academic licenses are free of charge.
 
-Does linear programming admit a strongly polynomial-time algorithm?
+ALGLIB A commercial edition of the copyleft licensed library. C++, C#, Python.
 
-There are several open problems in the theory of linear programming, the solution of which would represent fundamental breakthroughs in mathematics and potentially major advances in our ability to solve large-scale linear programs.
+AMPL A popular modeling language for large-scale linear, mixed integer and nonlinear optimisation with a free student limited version available (500 variables and 500 constraints).
 
-*   Does LP admit a [strongly polynomial](https://en.wikipedia.org/wiki/Strongly-polynomial_time "Strongly-polynomial time")-time algorithm?
-*   Does LP admit a strongly polynomial-time algorithm to find a strictly complementary solution?
-*   Does LP admit a polynomial-time algorithm in the real number (unit cost) model of computation?
+Analytica A general modeling language and interactive development environment. Its influence diagrams enable users to formulate problems as graphs with nodes for decision variables, objectives, and constraints. Analytica Optimizer Edition includes linear, mixed integer, and nonlinear solvers and selects the solver to match the problem. It also accepts other engines as plug-ins, including XPRESS , Gurobi, Artelys Knitro , and MOSEK .
 
-This closely related set of problems has been cited by [Stephen Smale](https://en.wikipedia.org/wiki/Stephen_Smale "Stephen Smale") as among the [18 greatest unsolved problems](https://en.wikipedia.org/wiki/Smale%27s_problems "Smale's problems") of the 21st century. In Smale's words, the third version of the problem "is the main unsolved problem of linear programming theory." While algorithms exist to solve linear programming in [weakly polynomial time](https://en.wikipedia.org/wiki/Strongly-polynomial_time "Strongly-polynomial time"), such as the [ellipsoid methods](https://en.wikipedia.org/wiki/Ellipsoid_method "Ellipsoid method") and [interior-point techniques](https://en.wikipedia.org/wiki/Interior_point_method "Interior point method"), no algorithms have yet been found that allow strongly polynomial-time performance in the number of constraints and the number of variables. The development of such algorithms would be of great theoretical interest, and perhaps allow practical gains in solving large LPs as well.
+APMonitor API to MATLAB and Python. Solve example Linear Programming (LP) problems through MATLAB, Python, or a web-interface.
 
-Although the [Hirsch conjecture](https://en.wikipedia.org/wiki/Hirsch_conjecture "Hirsch conjecture") was recently disproved for higher dimensions, it still leaves the following questions open.
+CPLEX Popular solver with an API for several programming languages, and also has a modelling language and works with AIMMS, AMPL, GAMS , MPL, OpenOpt, OPL Development Studio, and TOMLAB . Free for academic use.
 
-*   Are there pivot rules which lead to polynomial-time simplex variants?
-*   Do all polytopal graphs have polynomially bounded diameter?
+Excel Solver Function A nonlinear solver adjusted to spreadsheets in which function evaluations are based on the recalculating cells. Basic version available as a standard add-on for Excel.
 
-These questions relate to the performance analysis and development of simplex-like methods. The immense efficiency of the simplex algorithm in practice despite its exponential-time theoretical performance hints that there may be variations of simplex that run in polynomial or even strongly polynomial time. It would be of great practical and theoretical significance to know whether any such variants exist, particularly as an approach to deciding if LP can be solved in strongly polynomial time.
+FortMP GAMS Gurobi Optimizer IMSL Numerical Libraries Collections of math and statistical algorithms available in C/C++, Fortran, Java and C#/.NET. Optimization routines in the IMSL Libraries include unconstrained, linearly and nonlinearly constrained minimizations, and linear programming algorithms.
 
-The simplex algorithm and its variants fall in the family of edge-following algorithms, so named because they solve linear programming problems by moving from vertex to vertex along edges of a polytope. This means that their theoretical performance is limited by the maximum number of edges between any two vertices on the LP polytope. As a result, we are interested in knowing the maximum [graph-theoretical diameter](https://en.wikipedia.org/wiki/Graph_diameter "Graph diameter") of polytopal [graphs](https://en.wikipedia.org/wiki/Graph_(discrete_mathematics) "Graph (discrete mathematics)"). It has been proved that all polytopes have subexponential diameter. The recent disproof of the Hirsch conjecture is the first step to prove whether any polytope has superpolynomial diameter. If any such polytopes exist, then no edge-following variant can run in polynomial time. Questions about polytope diameter are of independent mathematical interest.
+LINDO Solver with an API for large scale optimization of linear, integer, quadratic, conic and general nonlinear programs with stochastic programming extensions. It offers a global optimization procedure for finding guaranteed globally optimal solution to general nonlinear programs with continuous and discrete variables. It also has a statistical sampling API to integrate Monte-Carlo simulations into an optimization framework. It has an algebraic modeling language ( LINGO ) and allows modeling within a spreadsheet ( What'sBest ).
 
-Simplex pivot methods preserve primal (or dual) feasibility. On the other hand, criss-cross pivot methods do not preserve (primal or dual) feasibility– they may visit primal feasible, dual feasible or primal-and-dual infeasible bases in any order. Pivot methods of this type have been studied since the 1970s.[[29]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-29) Essentially, these methods attempt to find the shortest pivot path on the arrangement polytope under the linear programming problem. In contrast to polytopal graphs, graphs of arrangement polytopes are known to have small diameter, allowing the possibility of strongly polynomial-time criss-cross pivot algorithm without resolving questions about the diameter of general polytopes.[[15]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-FukudaTerlaky-15)
+Maple A general-purpose programming-language for symbolic and numerical computing.
 
-If all of the unknown variables are required to be integers, then the problem is called an [integer programming](https://en.wikipedia.org/wiki/Integer_programming "Integer programming") (IP) or **integer linear programming** (ILP) problem. In contrast to linear programming, which can be solved efficiently in the worst case, integer programming problems are in many practical situations (those with bounded variables) [NP-hard](https://en.wikipedia.org/wiki/NP-hard "NP-hard"). **0–1 integer programming** or **binary integer programming** (BIP) is the special case of integer programming where variables are required to be 0 or 1 (rather than arbitrary integers). This problem is also classified as NP-hard, and in fact the decision version was one of [Karp's 21 NP-complete problems](https://en.wikipedia.org/wiki/Karp%27s_21_NP-complete_problems "Karp's 21 NP-complete problems").
+MATLAB A general-purpose and matrix-oriented programming-language for numerical computing.  Linear programming in MATLAB requires the Optimization Toolbox in addition to the base MATLAB product; available routines include INTLINPROG and LINPROG Mathcad A WYSIWYG math editor. It has functions for solving both linear and nonlinear optimization problems.
 
-If only some of the unknown variables are required to be integers, then the problem is called a **mixed integer (linear) programming** (MIP or MILP) problem. These are generally also NP-hard because they are even more general than ILP programs.
+Mathematica A general-purpose programming-language for mathematics, including symbolic and numerical capabilities.
 
-There are however some important subclasses of IP and MIP problems that are efficiently solvable, most notably problems where the constraint matrix is [totally unimodular](https://en.wikipedia.org/wiki/Totally_unimodular "Totally unimodular") and the right-hand sides of the constraints are integers or – more general – where the system has the [total dual integrality](https://en.wikipedia.org/wiki/Total_dual_integrality "Total dual integrality") (TDI) property.
+MOSEK A solver for large scale optimization with API for several languages (C++, java, .net, Matlab and python).
 
-Advanced algorithms for solving integer linear programs include:
+NAG Numerical Library A collection of mathematical and statistical routines developed by the Numerical Algorithms Group for multiple programming languages (C, C++, Fortran, Visual Basic, Java and C#) and packages (MATLAB, Excel, R, LabVIEW). The Optimization chapter of the NAG Library includes routines for linear programming problems with both sparse and non-sparse linear constraint matrices, together with routines for the optimization of quadratic, nonlinear, sums of squares of linear or nonlinear functions with nonlinear, bounded or no constraints.  The NAG Library has routines for both local and global optimization, and for continuous or integer problems.
 
-*   [cutting-plane method](https://en.wikipedia.org/wiki/Cutting-plane_method "Cutting-plane method")
-*   [Branch and bound](https://en.wikipedia.org/wiki/Branch_and_bound "Branch and bound")
-*   [Branch and cut](https://en.wikipedia.org/wiki/Branch_and_cut "Branch and cut")
-*   [Branch and price](https://en.wikipedia.org/wiki/Branch_and_price "Branch and price")
-*   if the problem has some extra structure, it may be possible to apply [delayed column generation](https://en.wikipedia.org/wiki/Delayed_column_generation "Delayed column generation").
+OptimJ A Java-based modeling language for optimization with a free version available.
 
-Such integer-programming algorithms are discussed by [Padberg](https://en.wikipedia.org/wiki/Manfred_W._Padberg "Manfred W. Padberg") and in Beasley.
+[ 34 ] [ 35 ] SAS /OR A suite of solvers for Linear, Integer, Nonlinear, Derivative-Free, Network, Combinatorial and Constraint Optimization; the Algebraic modeling language OPTMODEL; and a variety of vertical solutions aimed at specific problems/markets, all of which are fully integrated with the SAS System .
 
-Integral linear programs
-------------------------
+XPRESS Solver for large-scale linear programs, quadratic programs, general nonlinear and mixed-integer programs. Has API for several programming languages, also has a modelling language Mosel and works with AMPL, GAMS . Free for academic use.
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Linear_programming&action=edit&section=29 "Edit section: Integral linear programs")]
+VisSim A visual block diagram language for simulation of dynamical systems .
 
-A linear program in real variables is said to be _**integral**_ if it has at least one optimal solution which is integral, i.e., made of only integer values. Likewise, a polyhedron ![Image 64: {\displaystyle P=\{x\mid Ax\geq 0\}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/a93eb6c51c5ee7e8f16d606914981c746c89426c) is said to be _**integral**_ if for all bounded feasible objective functions _c_, the linear program ![Image 65: {\displaystyle \{\max cx\mid x\in P\}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/08d3cb25b7596814b9233c836756ac16496e4e07) has an optimum ![Image 66: {\displaystyle x^{*}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/e5be23ee5d433f8b576e63bcb47518128ee0b6bb) with integer coordinates. As observed by Edmonds and Giles in 1977, one can equivalently say that the polyhedron ![Image 67: {\displaystyle P}](https://wikimedia.org/api/rest_v1/media/math/render/svg/b4dc73bf40314945ff376bd363916a738548d40a) is integral if for every bounded feasible integral objective function _c_, the optimal _value_ of the linear program ![Image 68: {\displaystyle \{\max cx\mid x\in P\}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/08d3cb25b7596814b9233c836756ac16496e4e07) is an integer.
+See also [ edit ] Convex programming Dynamic programming Expected shortfall § Optimization of expected shortfall Input–output model Job shop scheduling Least absolute deviations Least-squares spectral analysis Linear algebra Linear production game Linear-fractional programming (LFP) LP-type problem Mathematical programming Nonlinear programming Odds algorithm used to solve optimal stopping problems Oriented matroid Quadratic programming , a superset of linear programming Semidefinite programming Shadow price Simplex algorithm , used to solve LP problems Notes [ edit ] ^ von Neumann, J. (1945). "A Model of General Economic Equilibrium".
 
-Integral linear programs are of central importance in the polyhedral aspect of [combinatorial optimization](https://en.wikipedia.org/wiki/Combinatorial_optimization "Combinatorial optimization") since they provide an alternate characterization of a problem. Specifically, for any problem, the convex hull of the solutions is an integral polyhedron; if this polyhedron has a nice/compact description, then we can efficiently find the optimal feasible solution under any linear objective. Conversely, if we can prove that a [linear programming relaxation](https://en.wikipedia.org/wiki/Linear_programming_relaxation "Linear programming relaxation") is integral, then it is the desired description of the convex hull of feasible (integral) solutions.
+The Review of Economic Studies .
 
-Terminology is not consistent throughout the literature, so one should be careful to distinguish the following two concepts,
+13 (1): 1– 9.
 
-*   in an _integer linear program,_ described in the previous section, variables are forcibly constrained to be integers, and this problem is NP-hard in general,
-*   in an _integral linear program,_ described in this section, variables are not constrained to be integers but rather one has proven somehow that the continuous problem always has an integral optimal value (assuming _c_ is integral), and this optimal value may be found efficiently since all polynomial-size linear programs can be solved in polynomial time.
+doi : 10.2307/2296111 .
 
-One common way of proving that a polyhedron is integral is to show that it is [totally unimodular](https://en.wikipedia.org/wiki/Totally_unimodular_matrix "Totally unimodular matrix"). There are other general methods including the integer decomposition property and [total dual integrality](https://en.wikipedia.org/wiki/Total_dual_integrality "Total dual integrality"). Other specific well-known integral LPs include the matching polytope, lattice polyhedra, [submodular flow](https://en.wikipedia.org/wiki/Submodular_flow "Submodular flow") polyhedra, and the intersection of two generalized polymatroids/_g_-polymatroids – e.g. see Schrijver 2003.
+JSTOR 2296111 .
 
-Solvers and scripting (programming) languages
----------------------------------------------
+^ Kemeny, J. G.; Morgenstern, O.; Thompson, G. L. (1956). "A Generalization of the von Neumann Model of an Expanding Economy".
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Linear_programming&action=edit&section=30 "Edit section: Solvers and scripting (programming) languages")]
+Econometrica .
 
-**[Permissive](https://en.wikipedia.org/wiki/Permissive_free_software_licence "Permissive free software licence") licenses:**
+24 (2): 115– 135.
 
-| Name | License | Brief info |
-| --- | --- | --- |
-| [Gekko](https://en.wikipedia.org/wiki/Gekko_(optimization_software) "Gekko (optimization software)") | [MIT License](https://en.wikipedia.org/wiki/MIT_License "MIT License") | Open-source library for solving large-scale LP, [QP](https://en.wikipedia.org/wiki/Quadratic_programming "Quadratic programming"), [QCQP](https://en.wikipedia.org/wiki/Quadratically_constrained_quadratic_program "Quadratically constrained quadratic program"), [NLP](https://en.wikipedia.org/wiki/Nonlinear_programming "Nonlinear programming"), and [MIP](https://en.wikipedia.org/wiki/Mixed_integer_programming "Mixed integer programming") optimization |
-| [GLOP](https://en.wikipedia.org/wiki/GLOP "GLOP") | [Apache v2](https://en.wikipedia.org/wiki/Apache_License "Apache License") | Google's open-source linear programming solver |
-| [JuMP](https://en.wikipedia.org/wiki/JuMP "JuMP") | [MPL License](https://en.wikipedia.org/wiki/MPL_License "MPL License") | Open-source modeling language with solvers for large-scale LP, [QP](https://en.wikipedia.org/wiki/Quadratic_programming "Quadratic programming"), [QCQP](https://en.wikipedia.org/wiki/Quadratically_constrained_quadratic_program "Quadratically constrained quadratic program"), [SDP](https://en.wikipedia.org/wiki/Semidefinite_programming "Semidefinite programming"), [SOCP](https://en.wikipedia.org/wiki/Second-order_cone_programming "Second-order cone programming"), [NLP](https://en.wikipedia.org/wiki/Nonlinear_programming "Nonlinear programming"), and [MIP](https://en.wikipedia.org/wiki/Mixed_integer_programming "Mixed integer programming") optimization |
-| [Pyomo](https://en.wikipedia.org/wiki/Pyomo "Pyomo") | [BSD](https://en.wikipedia.org/wiki/BSD_licenses "BSD licenses") | An open-source modeling language for large-scale linear, mixed integer and nonlinear optimization |
-| [SCIP](https://en.wikipedia.org/wiki/SCIP_(optimization_software) "SCIP (optimization software)") | [Apache v2](https://en.wikipedia.org/wiki/Apache_License "Apache License") | A general-purpose constraint integer programming solver with an emphasis on MIP. Compatible with Zimpl modelling language. |
-| [SuanShu](https://en.wikipedia.org/wiki/SuanShu_numerical_library "SuanShu numerical library") | [Apache v2](https://en.wikipedia.org/wiki/Apache_License "Apache License") | An open-source suite of optimization algorithms to solve LP, [QP](https://en.wikipedia.org/wiki/Quadratic_programming "Quadratic programming"), [SOCP](https://en.wikipedia.org/wiki/SOCP "SOCP"), [SDP](https://en.wikipedia.org/wiki/Semidefinite_programming "Semidefinite programming"), [SQP](https://en.wikipedia.org/wiki/Sequential_quadratic_programming "Sequential quadratic programming") in Java |
+doi : 10.2307/1905746 .
 
-**[Copyleft (reciprocal)](https://en.wikipedia.org/wiki/Copyleft "Copyleft") licenses:**
+JSTOR 1905746 .
 
-| Name | License | Brief info |
-| --- | --- | --- |
-| [ALGLIB](https://en.wikipedia.org/wiki/ALGLIB "ALGLIB") | GPL 2+ | An LP solver from ALGLIB project (C++, C#, Python) |
-| [Cassowary constraint solver](https://en.wikipedia.org/wiki/Cassowary_constraint_solver "Cassowary constraint solver") | LGPL | An incremental constraint solving toolkit that efficiently solves systems of linear equalities and inequalities |
-| [CLP](https://en.wikipedia.org/wiki/COIN-OR_CLP "COIN-OR CLP") | CPL | An LP solver from COIN-OR |
-| [glpk](https://en.wikipedia.org/wiki/GNU_Linear_Programming_Kit "GNU Linear Programming Kit") | GPL | GNU Linear Programming Kit, an LP/MILP solver with a native C [API](https://en.wikipedia.org/wiki/API "API") and numerous (15) third-party wrappers for other languages. Specialist support for [flow networks](https://en.wikipedia.org/wiki/Flow_network "Flow network"). Bundles the [AMPL](https://en.wikipedia.org/wiki/AMPL "AMPL")-like [GNU MathProg](https://en.wikipedia.org/wiki/GNU_MathProg "GNU MathProg") modelling language and translator. |
-| [lp solve](https://en.wikipedia.org/wiki/Lp_solve "Lp solve") | LGPL v2.1 | An LP and [MIP](https://en.wikipedia.org/wiki/Mixed-integer_programming "Mixed-integer programming") solver featuring support for the [MPS format](https://en.wikipedia.org/wiki/MPS_(format) "MPS (format)") and its own "lp" format, as well as custom formats through its "eXternal Language Interface" (XLI).[[30]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-30)[[31]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-31) Translating between model formats is also possible.[[32]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-32) |
-| [Qoca](https://en.wikipedia.org/wiki/Qoca "Qoca") | GPL | A library for incrementally solving systems of linear equations with various goal functions |
-| [R-Project](https://en.wikipedia.org/wiki/R-Project "R-Project") | GPL | A programming language and software environment for statistical computing and graphics |
+^ Li, Wu (2019).
 
-[MINTO](https://en.wikipedia.org/wiki/MINTO "MINTO") (Mixed Integer Optimizer, an [integer programming](https://en.wikipedia.org/wiki/Integer_programming "Integer programming") solver which uses branch and bound algorithm) has publicly available source code[[33]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-33) but is not open source.
+General Equilibrium and Structural Dynamics: Perspectives of New Structural Economics (in Chinese). Beijing: Economic Science Press. pp.
 
-**[Proprietary](https://en.wikipedia.org/wiki/Proprietary_software "Proprietary software") licenses:**
+122– 125.
 
-| Name | Brief info |
-| --- | --- |
-| [AIMMS](https://en.wikipedia.org/wiki/AIMMS "AIMMS") | A modeling language that allows to model linear, mixed integer, and nonlinear optimization models. It also offers a tool for constraint programming. Algorithm, in the forms of heuristics or exact methods, such as Branch-and-Cut or Column Generation, can also be implemented. The tool calls an appropriate solver such as CPLEX or similar, to solve the optimization problem at hand. Academic licenses are free of charge. |
-| [ALGLIB](https://en.wikipedia.org/wiki/ALGLIB "ALGLIB") | A commercial edition of the copyleft licensed library. C++, C#, Python. |
-| [AMPL](https://en.wikipedia.org/wiki/AMPL "AMPL") | A popular modeling language for large-scale linear, mixed integer and nonlinear optimisation with a free student limited version available (500 variables and 500 constraints). |
-| [Analytica](https://en.wikipedia.org/wiki/Analytica_(software) "Analytica (software)") | A general modeling language and interactive development environment. Its influence diagrams enable users to formulate problems as graphs with nodes for decision variables, objectives, and constraints. Analytica Optimizer Edition includes linear, mixed integer, and nonlinear solvers and selects the solver to match the problem. It also accepts other engines as plug-ins, including [XPRESS](https://en.wikipedia.org/wiki/XPRESS "XPRESS"), Gurobi, [Artelys Knitro](https://en.wikipedia.org/wiki/Artelys_Knitro "Artelys Knitro"), and [MOSEK](https://en.wikipedia.org/wiki/MOSEK "MOSEK"). |
-| [APMonitor](https://en.wikipedia.org/wiki/APMonitor "APMonitor") | API to MATLAB and Python. Solve example Linear Programming (LP) problems through MATLAB, Python, or a web-interface. |
-| [CPLEX](https://en.wikipedia.org/wiki/CPLEX "CPLEX") | Popular solver with an API for several programming languages, and also has a modelling language and works with AIMMS, AMPL, [GAMS](https://en.wikipedia.org/wiki/General_Algebraic_Modeling_System "General Algebraic Modeling System"), MPL, OpenOpt, OPL Development Studio, and [TOMLAB](https://en.wikipedia.org/wiki/TOMLAB "TOMLAB"). Free for academic use. |
-| [Excel](https://en.wikipedia.org/wiki/Microsoft_Excel "Microsoft Excel") Solver Function | A nonlinear solver adjusted to spreadsheets in which function evaluations are based on the recalculating cells. Basic version available as a standard add-on for Excel. |
-| [FortMP](https://en.wikipedia.org/wiki/FortMP "FortMP") |  |
-| [GAMS](https://en.wikipedia.org/wiki/General_Algebraic_Modeling_System "General Algebraic Modeling System") |  |
-| [Gurobi Optimizer](https://en.wikipedia.org/wiki/Gurobi_Optimizer "Gurobi Optimizer") |  |
-| [IMSL Numerical Libraries](https://en.wikipedia.org/wiki/IMSL_Numerical_Libraries "IMSL Numerical Libraries") | Collections of math and statistical algorithms available in C/C++, Fortran, Java and C#/.NET. Optimization routines in the IMSL Libraries include unconstrained, linearly and nonlinearly constrained minimizations, and linear programming algorithms. |
-| [LINDO](https://en.wikipedia.org/wiki/LINDO "LINDO") | Solver with an API for large scale optimization of linear, integer, quadratic, conic and general nonlinear programs with stochastic programming extensions. It offers a global optimization procedure for finding guaranteed globally optimal solution to general nonlinear programs with continuous and discrete variables. It also has a statistical sampling API to integrate Monte-Carlo simulations into an optimization framework. It has an algebraic modeling language ([LINGO](https://en.wikipedia.org/wiki/Lingo_(programming_language) "Lingo (programming language)")) and allows modeling within a spreadsheet ([What'sBest](https://en.wikipedia.org/w/index.php?title=What%27sBest&action=edit&redlink=1 "What'sBest (page does not exist)")). |
-| [Maple](https://en.wikipedia.org/wiki/Maple_(software) "Maple (software)") | A general-purpose programming-language for symbolic and numerical computing. |
-| [MATLAB](https://en.wikipedia.org/wiki/MATLAB "MATLAB") | A general-purpose and matrix-oriented programming-language for numerical computing. Linear programming in MATLAB requires the [Optimization Toolbox](https://en.wikipedia.org/wiki/Optimization_Toolbox "Optimization Toolbox") in addition to the base MATLAB product; available routines include INTLINPROG and LINPROG |
-| [Mathcad](https://en.wikipedia.org/wiki/Mathcad "Mathcad") | A WYSIWYG math editor. It has functions for solving both linear and nonlinear optimization problems. |
-| [Mathematica](https://en.wikipedia.org/wiki/Mathematica "Mathematica") | A general-purpose programming-language for mathematics, including symbolic and numerical capabilities. |
-| [MOSEK](https://en.wikipedia.org/wiki/MOSEK "MOSEK") | A solver for large scale optimization with API for several languages (C++, java, .net, Matlab and python). |
-| [NAG Numerical Library](https://en.wikipedia.org/wiki/NAG_Numerical_Library "NAG Numerical Library") | A collection of mathematical and statistical routines developed by the [Numerical Algorithms Group](https://en.wikipedia.org/wiki/Numerical_Algorithms_Group "Numerical Algorithms Group") for multiple programming languages (C, C++, Fortran, Visual Basic, Java and C#) and packages (MATLAB, Excel, R, LabVIEW). The Optimization chapter of the NAG Library includes routines for linear programming problems with both sparse and non-sparse linear constraint matrices, together with routines for the optimization of quadratic, nonlinear, sums of squares of linear or nonlinear functions with nonlinear, bounded or no constraints. The NAG Library has routines for both local and global optimization, and for continuous or integer problems. |
-| [OptimJ](https://en.wikipedia.org/wiki/OptimJ "OptimJ") | A Java-based modeling language for optimization with a free version available.[[34]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-34)[[35]](https://en.wikipedia.org/wiki/Linear_programming#cite_note-35) |
-| [SAS](https://en.wikipedia.org/wiki/SAS_System "SAS System")/OR | A suite of solvers for Linear, Integer, Nonlinear, Derivative-Free, Network, Combinatorial and Constraint Optimization; the [Algebraic modeling language](https://en.wikipedia.org/wiki/Algebraic_modeling_language "Algebraic modeling language") OPTMODEL; and a variety of vertical solutions aimed at specific problems/markets, all of which are fully integrated with the [SAS System](https://en.wikipedia.org/wiki/SAS_System "SAS System"). |
-| [XPRESS](https://en.wikipedia.org/wiki/FICO_Xpress "FICO Xpress") | Solver for large-scale linear programs, quadratic programs, general nonlinear and mixed-integer programs. Has API for several programming languages, also has a modelling language Mosel and works with AMPL, [GAMS](https://en.wikipedia.org/wiki/General_Algebraic_Modeling_System "General Algebraic Modeling System"). Free for academic use. |
-| [VisSim](https://en.wikipedia.org/wiki/VisSim "VisSim") | A visual [block diagram](https://en.wikipedia.org/wiki/Block_diagram "Block diagram") language for simulation of [dynamical systems](https://en.wikipedia.org/wiki/Dynamical_system "Dynamical system"). |
+ISBN 978-7-5218-0422-5 .
 
-*   [Convex programming](https://en.wikipedia.org/wiki/Convex_programming "Convex programming")
-*   [Dynamic programming](https://en.wikipedia.org/wiki/Dynamic_programming "Dynamic programming")
-*   [Expected shortfall §Optimization of expected shortfall](https://en.wikipedia.org/wiki/Expected_shortfall#Optimization_of_expected_shortfall "Expected shortfall")
-*   [Input–output model](https://en.wikipedia.org/wiki/Input%E2%80%93output_model "Input–output model")
-*   [Job shop scheduling](https://en.wikipedia.org/wiki/Job_shop_scheduling "Job shop scheduling")
-*   [Least absolute deviations](https://en.wikipedia.org/wiki/Least_absolute_deviations "Least absolute deviations")
-*   [Least-squares spectral analysis](https://en.wikipedia.org/wiki/Least-squares_spectral_analysis "Least-squares spectral analysis")
-*   [Linear algebra](https://en.wikipedia.org/wiki/Linear_algebra "Linear algebra")
-*   [Linear production game](https://en.wikipedia.org/wiki/Linear_production_game "Linear production game")
-*   [Linear-fractional programming (LFP)](https://en.wikipedia.org/wiki/Linear-fractional_programming_(LFP) "Linear-fractional programming (LFP)")
-*   [LP-type problem](https://en.wikipedia.org/wiki/LP-type_problem "LP-type problem")
-*   [Mathematical programming](https://en.wikipedia.org/wiki/Mathematical_programming "Mathematical programming")
-*   [Nonlinear programming](https://en.wikipedia.org/wiki/Nonlinear_programming "Nonlinear programming")
-*   [Odds algorithm](https://en.wikipedia.org/wiki/Odds_algorithm "Odds algorithm") used to solve optimal stopping problems
-*   [Oriented matroid](https://en.wikipedia.org/wiki/Oriented_matroid "Oriented matroid")
-*   [Quadratic programming](https://en.wikipedia.org/wiki/Quadratic_programming "Quadratic programming"), a superset of linear programming
-*   [Semidefinite programming](https://en.wikipedia.org/wiki/Semidefinite_programming "Semidefinite programming")
-*   [Shadow price](https://en.wikipedia.org/wiki/Shadow_price "Shadow price")
-*   [Simplex algorithm](https://en.wikipedia.org/wiki/Simplex_algorithm "Simplex algorithm"), used to solve LP problems
+^ a b Gerard Sierksma; Yori Zwols (2015).
 
-1.   **[^](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-1)**von Neumann, J. (1945). "A Model of General Economic Equilibrium". _The Review of Economic Studies_. **13** (1): 1–9. [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.2307/2296111](https://doi.org/10.2307%2F2296111). [JSTOR](https://en.wikipedia.org/wiki/JSTOR_(identifier) "JSTOR (identifier)")[2296111](https://www.jstor.org/stable/2296111).
-2.   **[^](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-2)**Kemeny, J. G.; Morgenstern, O.; Thompson, G. L. (1956). "A Generalization of the von Neumann Model of an Expanding Economy". _Econometrica_. **24** (2): 115–135. [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.2307/1905746](https://doi.org/10.2307%2F1905746). [JSTOR](https://en.wikipedia.org/wiki/JSTOR_(identifier) "JSTOR (identifier)")[1905746](https://www.jstor.org/stable/1905746).
-3.   **[^](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-3)**Li, Wu (2019). _General Equilibrium and Structural Dynamics: Perspectives of New Structural Economics_ (in Chinese). Beijing: Economic Science Press. pp.122–125. [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) "ISBN (identifier)")[978-7-5218-0422-5](https://en.wikipedia.org/wiki/Special:BookSources/978-7-5218-0422-5 "Special:BookSources/978-7-5218-0422-5").
-4.   ^ [_**a**_](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-SierksmaZwols2015_4-0)[_**b**_](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-SierksmaZwols2015_4-1)Gerard Sierksma; Yori Zwols (2015). _Linear and Integer Optimization: Theory and Practice_ (3rd ed.). CRC Press. p.1. [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) "ISBN (identifier)")[978-1498710169](https://en.wikipedia.org/wiki/Special:BookSources/978-1498710169 "Special:BookSources/978-1498710169").
-5.   **[^](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-5)**["Linear programming | Definition & Facts | Britannica"](https://www.britannica.com/science/linear-programming-mathematics). _www.britannica.com_. Retrieved 2023-11-20.
-6.   ^ [_**a**_](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-dantzig1982_6-0)[_**b**_](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-dantzig1982_6-1)[_**c**_](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-dantzig1982_6-2)George B. Dantzig (April 1982). ["Reminiscences about the origins of linear programming"](https://apps.dtic.mil/sti/pdfs/ADA112060.pdf)(PDF). _Operations Research Letters_. **1** (2): 43–48. [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1016/0167-6377(82)90043-8](https://doi.org/10.1016%2F0167-6377%2882%2990043-8). [Archived](https://web.archive.org/web/20150520183722/http://www.dtic.mil/cgi-bin/GetTRDoc?Location=U2&doc=GetTRDoc.pdf&AD=ADA112060) from the original on May 20, 2015.
-7.   **[^](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-Schrijver1998_7-0)**Alexander Schrijver (1998). _Theory of Linear and Integer Programming_. John Wiley & Sons. pp.221–222. [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) "ISBN (identifier)")[978-0-471-98232-6](https://en.wikipedia.org/wiki/Special:BookSources/978-0-471-98232-6 "Special:BookSources/978-0-471-98232-6").
-8.   ^ [_**a**_](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-:0_8-0)[_**b**_](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-:0_8-1)[_**c**_](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-:0_8-2)Dantzig, George B.; Thapa, Mukund Narain (1997). _Linear programming_. New York: Springer. p.xxvii. [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) "ISBN (identifier)")[0387948333](https://en.wikipedia.org/wiki/Special:BookSources/0387948333 "Special:BookSources/0387948333"). [OCLC](https://en.wikipedia.org/wiki/OCLC_(identifier) "OCLC (identifier)")[35318475](https://search.worldcat.org/oclc/35318475).
-9.   ^ [_**a**_](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-khachiyan79_9-0)[_**b**_](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-khachiyan79_9-1)[_**c**_](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-khachiyan79_9-2)Leonid Khachiyan (1979). "A Polynomial Algorithm for Linear Programming". _Doklady Akademii Nauk SSSR_. **224** (5): 1093–1096.
-10.   ^ [_**a**_](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-karmarkar84_10-0)[_**b**_](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-karmarkar84_10-1)Narendra Karmarkar (1984). "A New Polynomial-Time Algorithm for Linear Programming". _Combinatorica_. **4** (4): 373–395. [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1007/BF02579150](https://doi.org/10.1007%2FBF02579150). [S2CID](https://en.wikipedia.org/wiki/S2CID_(identifier) "S2CID (identifier)")[7257867](https://api.semanticscholar.org/CorpusID:7257867).
-11.   **[^](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-11)**M. Grundmann; V. Kwatra; I. Essa (2011). "Auto-directed video stabilization with robust L1 optimal camera paths". [_CVPR 2011_](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/37041.pdf)(PDF). pp.225–232. [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1109/CVPR.2011.5995525](https://doi.org/10.1109%2FCVPR.2011.5995525). [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) "ISBN (identifier)")[978-1-4577-0394-2](https://en.wikipedia.org/wiki/Special:BookSources/978-1-4577-0394-2 "Special:BookSources/978-1-4577-0394-2"). [S2CID](https://en.wikipedia.org/wiki/S2CID_(identifier) "S2CID (identifier)")[17707171](https://api.semanticscholar.org/CorpusID:17707171).
-12.   **[^](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-12)**[Vazirani (2001](https://en.wikipedia.org/wiki/Linear_programming#CITEREFVazirani2001), p.112)
-13.   ^ [_**a**_](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-DT03_13-0)[_**b**_](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-DT03_13-1)[_**c**_](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-DT03_13-2)[Dantzig & Thapa (2003)](https://en.wikipedia.org/wiki/Linear_programming#CITEREFDantzigThapa2003)
-14.   ^ [_**a**_](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-Padberg_14-0)[_**b**_](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-Padberg_14-1)[Padberg (1999)](https://en.wikipedia.org/wiki/Linear_programming#CITEREFPadberg1999)
-15.   ^ [_**a**_](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-FukudaTerlaky_15-0)[_**b**_](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-FukudaTerlaky_15-1)[_**c**_](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-FukudaTerlaky_15-2)[Fukuda, Komei](https://en.wikipedia.org/wiki/Komei_Fukuda "Komei Fukuda"); [Terlaky, Tamás](https://en.wikipedia.org/wiki/Tam%C3%A1s_Terlaky "Tamás Terlaky") (1997). Thomas M. Liebling; Dominique de Werra (eds.). "Criss-cross methods: A fresh view on pivot algorithms". _Mathematical Programming, Series B_. **79** (1–3): 369–395. [CiteSeerX](https://en.wikipedia.org/wiki/CiteSeerX_(identifier) "CiteSeerX (identifier)")[10.1.1.36.9373](https://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.36.9373). [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1007/BF02614325](https://doi.org/10.1007%2FBF02614325). [MR](https://en.wikipedia.org/wiki/MR_(identifier) "MR (identifier)")[1464775](https://mathscinet.ams.org/mathscinet-getitem?mr=1464775). [S2CID](https://en.wikipedia.org/wiki/S2CID_(identifier) "S2CID (identifier)")[2794181](https://api.semanticscholar.org/CorpusID:2794181).
-16.   **[^](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-16)**[Borgwardt (1987)](https://en.wikipedia.org/wiki/Linear_programming#CITEREFBorgwardt1987)
-17.   **[^](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-Todd_17-0)**[Todd (2002)](https://en.wikipedia.org/wiki/Linear_programming#CITEREFTodd2002)
-18.   **[^](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-Murty_18-0)**[Murty (1983)](https://en.wikipedia.org/wiki/Linear_programming#CITEREFMurty1983)
-19.   **[^](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-PS_19-0)**[Papadimitriou & Steiglitz](https://en.wikipedia.org/wiki/Linear_programming#CITEREFPapadimitriouSteiglitz)
-20.   **[^](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-Roos_20-0)**Roos, C. (1990). "An exponential example for Terlaky's pivoting rule for the criss-cross simplex method". _Mathematical Programming_. Series A. **46** (1): 79–84. [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1007/BF01585729](https://doi.org/10.1007%2FBF01585729). [MR](https://en.wikipedia.org/wiki/MR_(identifier) "MR (identifier)")[1045573](https://mathscinet.ams.org/mathscinet-getitem?mr=1045573). [S2CID](https://en.wikipedia.org/wiki/S2CID_(identifier) "S2CID (identifier)")[33463483](https://api.semanticscholar.org/CorpusID:33463483).
-21.   **[^](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-Strang_21-0)**[Strang, Gilbert](https://en.wikipedia.org/wiki/Gilbert_Strang "Gilbert Strang") (1 June 1987). "Karmarkar's algorithm and its place in applied mathematics". _[The Mathematical Intelligencer](https://en.wikipedia.org/wiki/The\_Mathematical\_Intelligencer "The Mathematical Intelligencer")_. **9** (2): 4–10. [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1007/BF03025891](https://doi.org/10.1007%2FBF03025891). [ISSN](https://en.wikipedia.org/wiki/ISSN_(identifier) "ISSN (identifier)")[0343-6993](https://search.worldcat.org/issn/0343-6993). [MR](https://en.wikipedia.org/wiki/MR_(identifier) "MR (identifier)")[0883185](https://mathscinet.ams.org/mathscinet-getitem?mr=0883185). [S2CID](https://en.wikipedia.org/wiki/S2CID_(identifier) "S2CID (identifier)")[123541868](https://api.semanticscholar.org/CorpusID:123541868).
-22.   **[^](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-22)**Vaidya, Pravin M. (1987). _An algorithm for linear programming which requires ![Image 69: {\displaystyle {O}(((m+n)n^{2}+(m+n)^{1.5}n)L)}](https://wikimedia.org/api/rest\_v1/media/math/render/svg/7a3195ee797e060dbc7fd9f2f903fcb0d9a70318) arithmetic operations_. 28th Annual IEEE Symposium on Foundations of Computer Science. FOCS.
-23.   **[^](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-23)**Vaidya, Pravin M. (1989). "Speeding-up linear programming using fast matrix multiplication". _30th Annual Symposium on Foundations of Computer Science_. 30th Annual Symposium on Foundations of Computer Science. FOCS. pp.332–337. [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1109/SFCS.1989.63499](https://doi.org/10.1109%2FSFCS.1989.63499). [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) "ISBN (identifier)")[0-8186-1982-1](https://en.wikipedia.org/wiki/Special:BookSources/0-8186-1982-1 "Special:BookSources/0-8186-1982-1").
-24.   **[^](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-24)**Lee, Yin-Tat; Sidford, Aaron (2015). _Efficient inverse maintenance and faster algorithms for linear programming_. FOCS '15 Foundations of Computer Science. [arXiv](https://en.wikipedia.org/wiki/ArXiv_(identifier) "ArXiv (identifier)"):[1503.01752](https://arxiv.org/abs/1503.01752).
-25.   **[^](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-25)**Cohen, Michael B.; Lee, Yin-Tat; Song, Zhao (2018). _Solving Linear Programs in the Current Matrix Multiplication Time_. 51st Annual ACM Symposium on the Theory of Computing. STOC'19. [arXiv](https://en.wikipedia.org/wiki/ArXiv_(identifier) "ArXiv (identifier)"):[1810.07896](https://arxiv.org/abs/1810.07896).
-26.   **[^](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-26)**Lee, Yin-Tat; Song, Zhao; Zhang, Qiuyi (2019). _Solving Empirical Risk Minimization in the Current Matrix Multiplication Time_. Conference on Learning Theory. COLT'19. [arXiv](https://en.wikipedia.org/wiki/ArXiv_(identifier) "ArXiv (identifier)"):[1905.04447](https://arxiv.org/abs/1905.04447).
-27.   **[^](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-27)**Jiang, Shunhua; Song, Zhao; Weinstein, Omri; Zhang, Hengjie (2020). _Faster Dynamic Matrix Inverse for Faster LPs_. [arXiv](https://en.wikipedia.org/wiki/ArXiv_(identifier) "ArXiv (identifier)"):[2004.07470](https://arxiv.org/abs/2004.07470).
-28.   **[^](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-28)**Illés, Tibor; Terlaky, Tamás (2002). ["Pivot versus interior point methods: Pros and cons"](https://strathprints.strath.ac.uk/9200/). _European Journal of Operational Research_. **140** (2): 170. [CiteSeerX](https://en.wikipedia.org/wiki/CiteSeerX_(identifier) "CiteSeerX (identifier)")[10.1.1.646.3539](https://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.646.3539). [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1016/S0377-2217(02)00061-9](https://doi.org/10.1016%2FS0377-2217%2802%2900061-9).
-29.   **[^](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-29)**Anstreicher, Kurt M.; Terlaky, Tamás (1994). ["A Monotonic Build-Up Simplex Algorithm for Linear Programming"](https://doi.org/10.1287%2Fopre.42.3.556). _Operations Research_. **42** (3): 556–561. [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1287/opre.42.3.556](https://doi.org/10.1287%2Fopre.42.3.556). [ISSN](https://en.wikipedia.org/wiki/ISSN_(identifier) "ISSN (identifier)")[0030-364X](https://search.worldcat.org/issn/0030-364X). [JSTOR](https://en.wikipedia.org/wiki/JSTOR_(identifier) "JSTOR (identifier)")[171894](https://www.jstor.org/stable/171894).
-30.   **[^](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-30)**["lp_solve reference guide (5.5.2.5)"](https://web.mit.edu/lpsolve/doc/index.htm). _mit.edu_. Retrieved 2023-08-10.
-31.   **[^](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-31)**["External Language Interfaces"](https://lpsolve.sourceforge.net/5.5/XLI.htm). Retrieved 3 December 2021.
-32.   **[^](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-32)**["lp_solve command"](http://lpsolve.sourceforge.net/5.5/lp_solve.htm). Retrieved 3 December 2021.
-33.   **[^](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-33)**["COR@L – Computational Optimization Research At Lehigh"](http://coral.ie.lehigh.edu/~minto/download.html). _lehigh.edu_.
-34.   **[^](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-34)**[http://www.in-ter-trans.eu/resources/Zesch_Hellingrath_2010_Integrated+Production-Distribution+Planning.pdf](http://www.in-ter-trans.eu/resources/Zesch_Hellingrath_2010_Integrated+Production-Distribution+Planning.pdf) OptimJ used in an optimization model for mixed-model assembly lines, University of Münster
-35.   **[^](https://en.wikipedia.org/wiki/Linear_programming#cite_ref-35)**[http://www.aaai.org/ocs/index.php/AAAI/AAAI10/paper/viewFile/1769/2076](http://www.aaai.org/ocs/index.php/AAAI/AAAI10/paper/viewFile/1769/2076)[Archived](https://web.archive.org/web/20110629022829/http://www.aaai.org/ocs/index.php/AAAI/AAAI10/paper/viewFile/1769/2076) 2011-06-29 at the [Wayback Machine](https://en.wikipedia.org/wiki/Wayback_Machine "Wayback Machine") OptimJ used in an Approximate Subgame-Perfect Equilibrium Computation Technique for Repeated Games
+Linear and Integer Optimization: Theory and Practice (3rd ed.). CRC Press. p. 1.
 
-*   Kantorovich, L. V. (1940). "Об одном эффективном методе решения некоторых классов экстремальных проблем" [A new method of solving some classes of extremal problems]. _[Doklady Akad Sci SSSR](https://en.wikipedia.org/wiki/Proceedings\_of\_the\_USSR\_Academy\_of\_Sciences "Proceedings of the USSR Academy of Sciences")_. **28**: 211–214.
-*   F. L. Hitchcock: _[The distribution of a product from several sources to numerous localities](https://onlinelibrary.wiley.com/doi/abs/10.1002/sapm1941201224)_, Journal of Mathematics and Physics, 20, 1941, 224–230.
-*   G.B Dantzig: _[Maximization of a linear function of variables subject to linear inequalities](https://books.google.com/books?id=ZpYca36h464C&dq=%22Maximization+of+a+linear+function+of+variables+subject+to+linear+inequalities%22&pg=PA24)_, 1947. Published pp.339–347 in T.C. Koopmans (ed.):_Activity Analysis of Production and Allocation_, New York-London 1951 (Wiley & Chapman-Hall)
-*   J. E. Beasley, editor. _Advances in Linear and Integer Programming_. Oxford Science, 1996. (Collection of surveys)
-*   Bland, Robert G. (1977). "New Finite Pivoting Rules for the Simplex Method". _Mathematics of Operations Research_. **2** (2): 103–107. [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1287/moor.2.2.103](https://doi.org/10.1287%2Fmoor.2.2.103). [JSTOR](https://en.wikipedia.org/wiki/JSTOR_(identifier) "JSTOR (identifier)")[3689647](https://www.jstor.org/stable/3689647).
-*   Borgwardt, Karl-Heinz (1987). _The Simplex Algorithm: A Probabilistic Analysis_. Algorithms and Combinatorics. Vol.1. Springer-Verlag. (Average behavior on random problems)
-*   Richard W. Cottle, ed. _The Basic George B. Dantzig_. Stanford Business Books, Stanford University Press, Stanford, California, 2003. (Selected papers by [George B. Dantzig](https://en.wikipedia.org/wiki/George_B._Dantzig "George B. Dantzig"))
-*   George B. Dantzig and Mukund N. Thapa. 1997. _Linear programming 1: Introduction_. Springer-Verlag.
-*   Dantzig, George B.; Thapa, Mukund N. (2003). _Linear Programming 2: Theory and Extensions_. Springer-Verlag. (Comprehensive, covering e.g. [pivoting](https://en.wikipedia.org/wiki/Simplex_algorithm "Simplex algorithm") and interior-point algorithms, large-scale problems, [decomposition following Dantzig–Wolfe](https://en.wikipedia.org/wiki/Dantzig%E2%80%93Wolfe_decomposition "Dantzig–Wolfe decomposition") and [Benders](https://en.wikipedia.org/wiki/Benders%27_decomposition "Benders' decomposition"), and introducing [stochastic programming](https://en.wikipedia.org/wiki/Stochastic_programming "Stochastic programming").)
-*   Edmonds, Jack; Giles, Rick (1977). "A Min-Max Relation for Submodular Functions on Graphs". _Studies in Integer Programming_. Annals of Discrete Mathematics. Vol.1. pp.185–204. [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1016/S0167-5060(08)70734-9](https://doi.org/10.1016%2FS0167-5060%2808%2970734-9). [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) "ISBN (identifier)")[978-0-7204-0765-5](https://en.wikipedia.org/wiki/Special:BookSources/978-0-7204-0765-5 "Special:BookSources/978-0-7204-0765-5").
-*   Fukuda, Komei; Terlaky, Tamás (1997). Thomas M. Liebling; Dominique de Werra (eds.). "Criss-cross methods: A fresh view on pivot algorithms". _Mathematical Programming, Series B_. **79** (1–3): 369–395. [CiteSeerX](https://en.wikipedia.org/wiki/CiteSeerX_(identifier) "CiteSeerX (identifier)")[10.1.1.36.9373](https://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.36.9373). [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1007/BF02614325](https://doi.org/10.1007%2FBF02614325). [MR](https://en.wikipedia.org/wiki/MR_(identifier) "MR (identifier)")[1464775](https://mathscinet.ams.org/mathscinet-getitem?mr=1464775). [S2CID](https://en.wikipedia.org/wiki/S2CID_(identifier) "S2CID (identifier)")[2794181](https://api.semanticscholar.org/CorpusID:2794181).
-*   Gondzio, Jacek; Terlaky, Tamás (1996). ["3 A computational view of interior point methods"](http://www.maths.ed.ac.uk/~gondzio/CV/oxford.ps). In J. E. Beasley (ed.). _Advances in linear and integer programming_. Oxford Lecture Series in Mathematics and its Applications. Vol.4. New York: Oxford University Press. pp.103–144. [MR](https://en.wikipedia.org/wiki/MR_(identifier) "MR (identifier)")[1438311](https://mathscinet.ams.org/mathscinet-getitem?mr=1438311). [Postscript file at website of Gondzio](http://www.maths.ed.ac.uk/~gondzio/CV/oxford.ps) and [at McMaster University website of Terlaky](http://www.cas.mcmaster.ca/~terlaky/files/dut-twi-94-73.ps.gz).
-*   [Murty, Katta G.](https://en.wikipedia.org/w/index.php?title=Katta_G._Murty&action=edit&redlink=1 "Katta G. Murty (page does not exist)") (1983). _Linear programming_. New York: John Wiley & Sons, Inc. pp.xix+482. [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) "ISBN (identifier)")[978-0-471-09725-9](https://en.wikipedia.org/wiki/Special:BookSources/978-0-471-09725-9 "Special:BookSources/978-0-471-09725-9"). [MR](https://en.wikipedia.org/wiki/MR_(identifier) "MR (identifier)")[0720547](https://mathscinet.ams.org/mathscinet-getitem?mr=0720547). (comprehensive reference to classical approaches).
-*   Evar D. Nering and [Albert W. Tucker](https://en.wikipedia.org/wiki/Albert_W._Tucker "Albert W. Tucker"), 1993, _Linear Programs and Related Problems_, Academic Press. (elementary)
-*   Padberg, M. (1999). _Linear Optimization and Extensions, Second Edition_. Springer-Verlag. (carefully written account of primal and dual simplex algorithms and projective algorithms, with an introduction to integer linear programming – featuring the [traveling salesman problem](https://en.wikipedia.org/wiki/Traveling_salesman_problem "Traveling salesman problem") for [Odysseus](https://en.wikipedia.org/wiki/Odysseus "Odysseus").)
-*   [Papadimitriou, Christos H.](https://en.wikipedia.org/wiki/Christos_H._Papadimitriou "Christos H. Papadimitriou"); Steiglitz, Kenneth. _Combinatorial Optimization: Algorithms and Complexity_ (Corrected republication with a new preface ed.). Dover. (computer science)
-*   Todd, Michael J. (February 2002). "The many facets of linear programming". _Mathematical Programming_. **91** (3): 417–436. [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1007/s101070100261](https://doi.org/10.1007%2Fs101070100261). [S2CID](https://en.wikipedia.org/wiki/S2CID_(identifier) "S2CID (identifier)")[6464735](https://api.semanticscholar.org/CorpusID:6464735). (Invited survey, from the International Symposium on Mathematical Programming.)
-*   Vanderbei, Robert J. (2001). _Linear Programming: Foundations and Extensions_. Springer Verlag.
-*   [Vazirani, Vijay V.](https://en.wikipedia.org/wiki/Vijay_Vazirani "Vijay Vazirani") (2001). _Approximation Algorithms_. Springer-Verlag. [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) "ISBN (identifier)")[978-3-540-65367-7](https://en.wikipedia.org/wiki/Special:BookSources/978-3-540-65367-7 "Special:BookSources/978-3-540-65367-7"). (Computer science)
+ISBN 978-1498710169 .
 
-*   Dmitris Alevras and Manfred W. Padberg, _[Linear Optimization and Extensions: Problems and Solutions](https://books.google.com/books?id=RAUyB8NDHJwC)_, Universitext, Springer-Verlag, 2001. (Problems from Padberg with solutions.)
-*    Chapter 4: Linear Programming: pp.63–94. Describes a randomized half-plane intersection algorithm for linear programming.
-*   [Michael R. Garey](https://en.wikipedia.org/wiki/Michael_R._Garey "Michael R. Garey") and [David S. Johnson](https://en.wikipedia.org/wiki/David_S._Johnson "David S. Johnson") (1979). [_Computers and Intractability: A Guide to the Theory of NP-Completeness_](https://en.wikipedia.org/wiki/Computers_and_Intractability:_A_Guide_to_the_Theory_of_NP-Completeness "Computers and Intractability: A Guide to the Theory of NP-Completeness"). W.H. Freeman. [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) "ISBN (identifier)")[978-0-7167-1045-5](https://en.wikipedia.org/wiki/Special:BookSources/978-0-7167-1045-5 "Special:BookSources/978-0-7167-1045-5"). A6: MP1: INTEGER PROGRAMMING, pg.245. (computer science, complexity theory)
-*   Gärtner, Bernd; [Matoušek, Jiří](https://en.wikipedia.org/wiki/Ji%C5%99%C3%AD_Matou%C5%A1ek_(mathematician) "Jiří Matoušek (mathematician)") (2006). _Understanding and Using Linear Programming_. Berlin: Springer. [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) "ISBN (identifier)")[3-540-30697-8](https://en.wikipedia.org/wiki/Special:BookSources/3-540-30697-8 "Special:BookSources/3-540-30697-8"). (elementary introduction for mathematicians and computer scientists)
-*   Cornelis Roos, Tamás Terlaky, Jean-Philippe Vial, _Interior Point Methods for Linear Optimization_, Second Edition, Springer-Verlag, 2006. (Graduate level)
-*   Alexander Schrijver (2003). _Combinatorial optimization: polyhedra and efficiency_. Springer.
-*   Alexander Schrijver, _Theory of Linear and Integer Programming_. John Wiley & sons, 1998, [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) "ISBN (identifier)")[0-471-98232-6](https://en.wikipedia.org/wiki/Special:BookSources/0-471-98232-6 "Special:BookSources/0-471-98232-6") (mathematical)
-*   Gerard Sierksma; Yori Zwols (2015). _Linear and Integer Optimization: Theory and Practice_. CRC Press. [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) "ISBN (identifier)")[978-1-498-71016-9](https://en.wikipedia.org/wiki/Special:BookSources/978-1-498-71016-9 "Special:BookSources/978-1-498-71016-9").; with online solver: [https://online-optimizer.appspot.com/](https://online-optimizer.appspot.com/)
-*   Gerard Sierksma; Diptesh Ghosh (2010). _Networks in Action; Text and Computer Exercises in Network Optimization_. Springer. [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) "ISBN (identifier)")[978-1-4419-5512-8](https://en.wikipedia.org/wiki/Special:BookSources/978-1-4419-5512-8 "Special:BookSources/978-1-4419-5512-8"). (linear optimization modeling)
-*   H. P. Williams, _[Model Building in Mathematical Programming](https://books.google.com/books?id=YJRh0tOes7UC)_, Fifth Edition, 2013. (Modeling)
-*   Stephen J. Wright, 1997, _[Primal-Dual Interior-Point Methods](https://books.google.com/books?id=oQdBzXhZeUkC)_, SIAM. (Graduate level)
-*   [Yinyu Ye](https://en.wikipedia.org/wiki/Yinyu_Ye "Yinyu Ye"), 1997, _Interior Point Algorithms: Theory and Analysis_, Wiley. (Advanced graduate-level)
-*   [Ziegler, Günter M.](https://en.wikipedia.org/wiki/G%C3%BCnter_M._Ziegler "Günter M. Ziegler"), Chapters 1–3 and 6–7 in _Lectures on Polytopes_, Springer-Verlag, New York, 1994. (Geometry)
+^ "Linear programming | Definition & Facts | Britannica" .
 
-*   [Guidance On Formulating LP Problems](http://people.brunel.ac.uk/~mastjjb/jeb/or/lp.html)
-*   [Mathematical Programming Glossary](http://glossary.computing.society.informs.org/)
-*   [The Linear Programming FAQ](https://lpsolve.sourceforge.net/4.0/LinearProgrammingFAQ.htm)
-*   [Benchmarks For Optimisation Software](http://plato.asu.edu/bench.html)
+www.britannica.com . Retrieved 2023-11-20 .
+
+^ a b c George B. Dantzig (April 1982).
+
+"Reminiscences about the origins of linear programming" (PDF) .
+
+Operations Research Letters .
+
+1 (2): 43– 48.
+
+doi : 10.1016/0167-6377(82)90043-8 .
+
+Archived from the original on May 20, 2015.
+
+^ Alexander Schrijver (1998).
+
+Theory of Linear and Integer Programming . John Wiley & Sons. pp.
+
+221– 222.
+
+ISBN 978-0-471-98232-6 .
+
+^ a b c Dantzig, George B.; Thapa, Mukund Narain (1997).
+
+Linear programming . New York: Springer. p. xxvii.
+
+ISBN 0387948333 .
+
+OCLC 35318475 .
+
+^ a b c Leonid Khachiyan (1979). "A Polynomial Algorithm for Linear Programming".
+
+Doklady Akademii Nauk SSSR .
+
+224 (5): 1093– 1096.
+
+^ a b Narendra Karmarkar (1984). "A New Polynomial-Time Algorithm for Linear Programming".
+
+Combinatorica .
+
+4 (4): 373– 395.
+
+doi : 10.1007/BF02579150 .
+
+S2CID 7257867 .
+
+^ M. Grundmann; V. Kwatra; I. Essa (2011). "Auto-directed video stabilization with robust L1 optimal camera paths".
+
+CVPR 2011 (PDF) . pp.
+
+225– 232.
+
+doi : 10.1109/CVPR.2011.5995525 .
+
+ISBN 978-1-4577-0394-2 .
+
+S2CID 17707171 .
+
+^ Vazirani (2001 , p. 112) ^ a b c Dantzig & Thapa (2003) ^ a b Padberg (1999) ^ a b c Fukuda, Komei ; Terlaky, Tamás (1997). Thomas M. Liebling; Dominique de Werra (eds.). "Criss-cross methods: A fresh view on pivot algorithms".
+
+Mathematical Programming, Series B .
+
+79 ( 1– 3): 369– 395.
+
+CiteSeerX 10.1.1.36.9373 .
+
+doi : 10.1007/BF02614325 .
+
+MR 1464775 .
+
+S2CID 2794181 .
+
+^ Borgwardt (1987) ^ Todd (2002) ^ Murty (1983) ^ Papadimitriou & Steiglitz ^ Roos, C. (1990). "An exponential example for Terlaky's pivoting rule for the criss-cross simplex method".
+
+Mathematical Programming . Series A.
+
+46 (1): 79– 84.
+
+doi : 10.1007/BF01585729 .
+
+MR 1045573 .
+
+S2CID 33463483 .
+
+^ Strang, Gilbert (1 June 1987). "Karmarkar's algorithm and its place in applied mathematics".
+
+The Mathematical Intelligencer .
+
+9 (2): 4– 10.
+
+doi : 10.1007/BF03025891 .
+
+ISSN 0343-6993 .
+
+MR 0883185 .
+
+S2CID 123541868 .
+
+^ Vaidya, Pravin M. (1987).
+
+An algorithm for linear programming which requires O ( ( ( m + n ) n 2 + ( m + n ) 1.5 n ) L ) {\displaystyle {O}(((m+n)n^{2}+(m+n)^{1.5}n)L)} arithmetic operations . 28th Annual IEEE Symposium on Foundations of Computer Science. FOCS.
+
+^ Vaidya, Pravin M. (1989). "Speeding-up linear programming using fast matrix multiplication".
+
+30th Annual Symposium on Foundations of Computer Science . 30th Annual Symposium on Foundations of Computer Science. FOCS. pp.
+
+332– 337.
+
+doi : 10.1109/SFCS.1989.63499 .
+
+ISBN 0-8186-1982-1 .
+
+^ Lee, Yin-Tat; Sidford, Aaron (2015).
+
+Efficient inverse maintenance and faster algorithms for linear programming . FOCS '15 Foundations of Computer Science.
+
+arXiv : 1503.01752 .
+
+^ Cohen, Michael B.; Lee, Yin-Tat; Song, Zhao (2018).
+
+Solving Linear Programs in the Current Matrix Multiplication Time . 51st Annual ACM Symposium on the Theory of Computing. STOC'19.
+
+arXiv : 1810.07896 .
+
+^ Lee, Yin-Tat; Song, Zhao; Zhang, Qiuyi (2019).
+
+Solving Empirical Risk Minimization in the Current Matrix Multiplication Time . Conference on Learning Theory. COLT'19.
+
+arXiv : 1905.04447 .
+
+^ Jiang, Shunhua; Song, Zhao; Weinstein, Omri; Zhang, Hengjie (2020).
+
+Faster Dynamic Matrix Inverse for Faster LPs .
+
+arXiv : 2004.07470 .
+
+^ Illés, Tibor; Terlaky, Tamás (2002).
+
+"Pivot versus interior point methods: Pros and cons" .
+
+European Journal of Operational Research .
+
+140 (2): 170.
+
+CiteSeerX 10.1.1.646.3539 .
+
+doi : 10.1016/S0377-2217(02)00061-9 .
+
+^ Anstreicher, Kurt M.; Terlaky, Tamás (1994).
+
+"A Monotonic Build-Up Simplex Algorithm for Linear Programming" .
+
+Operations Research .
+
+42 (3): 556– 561.
+
+doi : 10.1287/opre.42.3.556 .
+
+ISSN 0030-364X .
+
+JSTOR 171894 .
+
+^ "lp_solve reference guide (5.5.2.5)" .
+
+mit.edu . Retrieved 2023-08-10 .
+
+^ "External Language Interfaces" . Retrieved 3 December 2021 .
+
+^ "lp_solve command" . Retrieved 3 December 2021 .
+
+^ "COR@L – Computational Optimization Research At Lehigh" .
+
+lehigh.edu .
+
+^ http://www.in-ter-trans.eu/resources/Zesch_Hellingrath_2010_Integrated+Production-Distribution+Planning.pdf OptimJ used in an optimization model for mixed-model assembly lines, University of Münster ^ http://www.aaai.org/ocs/index.php/AAAI/AAAI10/paper/viewFile/1769/2076 Archived 2011-06-29 at the Wayback Machine OptimJ used in an Approximate Subgame-Perfect Equilibrium Computation Technique for Repeated Games References [ edit ] Kantorovich, L. V. (1940). "Об одном эффективном методе решения некоторых классов экстремальных проблем" [A new method of solving some classes of extremal problems].
+
+Doklady Akad Sci SSSR .
+
+28 : 211– 214.
+
+F. L. Hitchcock: The distribution of a product from several sources to numerous localities , Journal of Mathematics and Physics, 20, 1941, 224–230.
+
+G.B Dantzig: Maximization of a linear function of variables subject to linear inequalities , 1947. Published pp. 339–347 in T.C. Koopmans (ed.): Activity Analysis of Production and Allocation , New York-London 1951 (Wiley & Chapman-Hall) J. E. Beasley, editor.
+
+Advances in Linear and Integer Programming . Oxford Science, 1996. (Collection of surveys) Bland, Robert G. (1977). "New Finite Pivoting Rules for the Simplex Method".
+
+Mathematics of Operations Research .
+
+2 (2): 103– 107.
+
+doi : 10.1287/moor.2.2.103 .
+
+JSTOR 3689647 .
+
+Borgwardt, Karl-Heinz (1987).
+
+The Simplex Algorithm: A Probabilistic Analysis . Algorithms and Combinatorics. Vol. 1. Springer-Verlag.
+
+(Average behavior on random problems) Richard W. Cottle, ed.
+
+The Basic George B. Dantzig . Stanford Business Books, Stanford University Press, Stanford, California, 2003. (Selected papers by George B. Dantzig ) George B. Dantzig and Mukund N. Thapa. 1997.
+
+Linear programming 1: Introduction . Springer-Verlag.
+
+Dantzig, George B.; Thapa, Mukund N. (2003).
+
+Linear Programming 2: Theory and Extensions . Springer-Verlag.
+
+(Comprehensive, covering e.g.
+
+pivoting and interior-point algorithms, large-scale problems, decomposition following Dantzig–Wolfe and Benders , and introducing stochastic programming .) Edmonds, Jack; Giles, Rick (1977). "A Min-Max Relation for Submodular Functions on Graphs".
+
+Studies in Integer Programming . Annals of Discrete Mathematics. Vol. 1. pp.
+
+185– 204.
+
+doi : 10.1016/S0167-5060(08)70734-9 .
+
+ISBN 978-0-7204-0765-5 .
+
+Fukuda, Komei; Terlaky, Tamás (1997). Thomas M. Liebling; Dominique de Werra (eds.). "Criss-cross methods: A fresh view on pivot algorithms".
+
+Mathematical Programming, Series B .
+
+79 ( 1– 3): 369– 395.
+
+CiteSeerX 10.1.1.36.9373 .
+
+doi : 10.1007/BF02614325 .
+
+MR 1464775 .
+
+S2CID 2794181 .
+
+Gondzio, Jacek; Terlaky, Tamás (1996).
+
+"3 A computational view of interior point methods" . In J. E. Beasley (ed.).
+
+Advances in linear and integer programming . Oxford Lecture Series in Mathematics and its Applications. Vol. 4. New York: Oxford University Press. pp.
+
+103– 144.
+
+MR 1438311 .
+
+Postscript file at website of Gondzio and at McMaster University website of Terlaky .
+
+Murty, Katta G.
+
+(1983).
+
+Linear programming . New York: John Wiley & Sons, Inc. pp. xix+482.
+
+ISBN 978-0-471-09725-9 .
+
+MR 0720547 . (comprehensive reference to classical approaches).
+
+Evar D. Nering and Albert W. Tucker , 1993, Linear Programs and Related Problems , Academic Press. (elementary) Padberg, M. (1999).
+
+Linear Optimization and Extensions, Second Edition . Springer-Verlag.
+
+(carefully written account of primal and dual simplex algorithms and projective algorithms, with an introduction to integer linear programming – featuring the traveling salesman problem for Odysseus .) Papadimitriou, Christos H.
+
+; Steiglitz, Kenneth.
+
+Combinatorial Optimization: Algorithms and Complexity (Corrected republication with a new preface ed.). Dover.
+
+(computer science) Todd, Michael J. (February 2002). "The many facets of linear programming".
+
+Mathematical Programming .
+
+91 (3): 417– 436.
+
+doi : 10.1007/s101070100261 .
+
+S2CID 6464735 .
+
+(Invited survey, from the International Symposium on Mathematical Programming.) Vanderbei, Robert J. (2001).
+
+Linear Programming: Foundations and Extensions . Springer Verlag.
+
+Vazirani, Vijay V.
+
+(2001).
+
+Approximation Algorithms . Springer-Verlag.
+
+ISBN 978-3-540-65367-7 .
+
+(Computer science) Further reading [ edit ] Library resources about Linear programming Resources in your library Dmitris Alevras and Manfred W. Padberg, Linear Optimization and Extensions: Problems and Solutions , Universitext, Springer-Verlag, 2001. (Problems from Padberg with solutions.) de Berg, Mark; van Kreveld, Marc; Overmars, Mark ; Schwarzkopf, Otfried (2000).
+
+Computational Geometry (2nd revised ed.).
+
+Springer-Verlag .
+
+ISBN 978-3-540-65620-3 .
+
+Chapter 4: Linear Programming: pp. 63–94. Describes a randomized half-plane intersection algorithm for linear programming.
+
+Michael R. Garey and David S. Johnson (1979).
+
+Computers and Intractability: A Guide to the Theory of NP-Completeness . W.H. Freeman.
+
+ISBN 978-0-7167-1045-5 .
+
+A6: MP1: INTEGER PROGRAMMING, pg.245. (computer science, complexity theory) Gärtner, Bernd; Matoušek, Jiří (2006).
+
+Understanding and Using Linear Programming . Berlin: Springer.
+
+ISBN 3-540-30697-8 .
+
+(elementary introduction for mathematicians and computer scientists) Cornelis Roos, Tamás Terlaky, Jean-Philippe Vial, Interior Point Methods for Linear Optimization , Second Edition, Springer-Verlag, 2006. (Graduate level) Alexander Schrijver (2003).
+
+Combinatorial optimization: polyhedra and efficiency . Springer.
+
+Alexander Schrijver, Theory of Linear and Integer Programming . John Wiley & sons, 1998, ISBN 0-471-98232-6 (mathematical) Gerard Sierksma; Yori Zwols (2015).
+
+Linear and Integer Optimization: Theory and Practice . CRC Press.
+
+ISBN 978-1-498-71016-9 .
+
+; with online solver: https://online-optimizer.appspot.com/ Gerard Sierksma; Diptesh Ghosh (2010).
+
+Networks in Action; Text and Computer Exercises in Network Optimization . Springer.
+
+ISBN 978-1-4419-5512-8 .
+
+(linear optimization modeling) H. P. Williams, Model Building in Mathematical Programming , Fifth Edition, 2013. (Modeling) Stephen J. Wright, 1997, Primal-Dual Interior-Point Methods , SIAM. (Graduate level) Yinyu Ye , 1997, Interior Point Algorithms: Theory and Analysis , Wiley. (Advanced graduate-level) Ziegler, Günter M.
+
+, Chapters 1–3 and 6–7 in Lectures on Polytopes , Springer-Verlag, New York, 1994. (Geometry) External links [ edit ] Wikimedia Commons has media related to Linear programming .
+
+Guidance On Formulating LP Problems Mathematical Programming Glossary The Linear Programming FAQ Benchmarks For Optimisation Software v t e Optimization : Algorithms , methods , and heuristics Unconstrained nonlinear Functions Golden-section search Powell's method Line search Nelder–Mead method Successive parabolic interpolation Gradients Convergence Trust region Wolfe conditions Quasi–Newton Berndt–Hall–Hall–Hausman Broyden–Fletcher–Goldfarb–Shanno and L-BFGS Davidon–Fletcher–Powell Symmetric rank-one (SR1) Other methods Conjugate gradient Gauss–Newton Gradient Mirror Levenberg–Marquardt Powell's dog leg method Truncated Newton Hessians Newton's method Optimization computes maxima and minima.
+
+Constrained nonlinear General Barrier methods Penalty methods Differentiable Augmented Lagrangian methods Sequential quadratic programming Successive linear programming Convex optimization Convex minimization Cutting-plane method Reduced gradient (Frank–Wolfe) Subgradient method Linear and quadratic Interior point Affine scaling Ellipsoid algorithm of Khachiyan Projective algorithm of Karmarkar Basis- exchange Simplex algorithm of Dantzig Revised simplex algorithm Criss-cross algorithm Principal pivoting algorithm of Lemke Active-set method Combinatorial Paradigms Approximation algorithm Dynamic programming Greedy algorithm Integer programming Branch and bound / cut Graph algorithms Minimum spanning tree Borůvka Prim Kruskal Shortest path Bellman–Ford SPFA Dijkstra Floyd–Warshall Network flows Dinic Edmonds–Karp Ford–Fulkerson Push–relabel maximum flow Metaheuristics Evolutionary algorithm Hill climbing Local search Parallel metaheuristics Simulated annealing Spiral optimization algorithm Tabu search Software v t e Complementarity problems and algorithms Complementarity Problems Linear programming (LP) Quadratic programming (QP) Linear complementarity problem (LCP) Mixed linear (MLCP) Mixed (MCP) Nonlinear (NCP) Basis - exchange algorithms Simplex ( Dantzig ) Revised simplex Criss-cross Lemke Authority control databases National Germany United States France BnF data Japan Czech Republic Israel Other Yale LUX NewPP limit report
+Parsed by mw‐web.codfw.main‐597b4b5bbd‐ggg5l
+Cached time: 20250815044329
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.842 seconds
+Real time usage: 1.142 seconds
+Preprocessor visited node count: 4646/1000000
+Revision size: 62204/2097152 bytes
+Post‐expand include size: 168960/2097152 bytes
+Template argument size: 2220/2097152 bytes
+Highest expansion depth: 14/100
+Expensive parser function count: 6/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 185037/5000000 bytes
+Lua time usage: 0.498/10.000 seconds
+Lua memory usage: 8775283/52428800 bytes
+Number of Wikibase entities loaded: 1/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  771.062      1 -total
+ 36.81%  283.810      1 Template:Reflist
+ 19.60%  151.112     14 Template:Cite_journal
+ 13.20%  101.746     20 Template:Cite_book
+  9.96%   76.836      1 Template:Short_description
+  9.95%   76.693      1 Template:Covering/packing-problem_pairs
+  9.67%   74.538      1 Template:Sidebar
+  6.88%   53.085      2 Template:Side_box
+  6.05%   46.634      2 Template:Pagetype
+  5.84%   45.038      1 Template:Optimization_algorithms Saved in parser cache with key enwiki:pcache:43730:|#|:idhash:canonical and timestamp 20250815044329 and revision id 1305068868. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Linear_programming&oldid=1305068868 " Categories : Linear programming Convex optimization Geometric algorithms P-complete problems Hidden categories: CS1 Chinese-language sources (zh) Webarchive template wayback links Articles with short description Short description is different from Wikidata Commons category link from Wikidata This page was last edited on 9 August 2025, at 21:36 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Linear programming 50 languages Add topic
+

@@ -1,120 +1,67 @@
-Title: Linear interpolation
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Linear interpolation between two known points 2 Interpolation of a data set 3 Linear interpolation as an approximation 4 History and applications 5 Extensions Toggle Extensions subsection 5.1 Accuracy 5.2 Multivariate 6 Programming language support 7 See also 8 References 9 External links Toggle the table of contents Linear interpolation 20 languages العربية Čeština Deutsch Español Euskara فارسی Français 한국어 हिन्दी Italiano עברית Қазақша 日本語 Polski Português Русский Suomi Türkçe Українська 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikifunctions Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Method of curve fitting to construct new data points within the range of known data points Given the two red points, the blue line is the linear interpolant between the points, and the value y at x may be found by linear interpolation.
 
-URL Source: https://en.wikipedia.org/wiki/Linear_interpolation
+In mathematics, linear interpolation is a method of curve fitting using linear polynomials to construct new data points within the range of a discrete set of known data points.
 
-Published Time: 2002-12-20T21:14:01Z
+Linear interpolation between two known points [ edit ] In this geometric visualisation, the value at the green circle multiplied by the horizontal distance between the red and blue circles is equal to the sum of the value at the red circle multiplied by the horizontal distance between the green and blue circles, and the value at the blue circle multiplied by the horizontal distance between the green and red circles.
 
-Markdown Content:
-From Wikipedia, the free encyclopedia
+If the two known points are given by the coordinates ( x 0 , y 0 ) {\displaystyle (x_{0},y_{0})} and ( x 1 , y 1 ) {\displaystyle (x_{1},y_{1})} , the linear interpolant is the straight line between these points. For a value x {\displaystyle x} in the interval ( x 0 , x 1 ) {\displaystyle (x_{0},x_{1})} , the value y {\displaystyle y} along the straight line is given from the equation of slopes y − − y 0 x − − x 0 = y 1 − − y 0 x 1 − − x 0 , {\displaystyle {\frac {y-y_{0}}{x-x_{0}}}={\frac {y_{1}-y_{0}}{x_{1}-x_{0}}},} which can be derived geometrically from the figure on the right. It is a special case of polynomial interpolation with n = 1 {\displaystyle n=1} .
 
-[![Image 1](https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/LinearInterpolation.svg/300px-LinearInterpolation.svg.png)](https://en.wikipedia.org/wiki/File:LinearInterpolation.svg)
+Solving this equation for y {\displaystyle y} , which is the unknown value at x {\displaystyle x} , gives y = y 0 + ( x − − x 0 ) y 1 − − y 0 x 1 − − x 0 = y 0 ( x 1 − − x 0 ) x 1 − − x 0 + y 1 ( x − − x 0 ) − − y 0 ( x − − x 0 ) x 1 − − x 0 = y 1 x − − y 1 x 0 − − y 0 x + y 0 x 0 + y 0 x 1 − − y 0 x 0 x 1 − − x 0 = y 0 ( x 1 − − x ) + y 1 ( x − − x 0 ) x 1 − − x 0 , {\displaystyle {\begin{aligned}y&=y_{0}+(x-x_{0}){\frac {y_{1}-y_{0}}{x_{1}-x_{0}}}\\&={\frac {y_{0}(x_{1}-x_{0})}{x_{1}-x_{0}}}+{\frac {y_{1}(x-x_{0})-y_{0}(x-x_{0})}{x_{1}-x_{0}}}\\&={\frac {y_{1}x-y_{1}x_{0}-y_{0}x+y_{0}x_{0}+y_{0}x_{1}-y_{0}x_{0}}{x_{1}-x_{0}}}\\&={\frac {y_{0}(x_{1}-x)+y_{1}(x-x_{0})}{x_{1}-x_{0}}},\end{aligned}}} which is the formula for linear interpolation in the interval ( x 0 , x 1 ) {\displaystyle (x_{0},x_{1})} .
 
-Given the two red points, the blue line is the linear interpolant between the points, and the value y at x may be found by linear interpolation.
+Outside this interval, the formula is identical to linear extrapolation .
 
-In mathematics, **linear interpolation** is a method of [curve fitting](https://en.wikipedia.org/wiki/Curve_fitting "Curve fitting") using [linear polynomials](https://en.wikipedia.org/wiki/Linear_polynomial "Linear polynomial") to construct new data points within the range of a discrete set of known data points.
+This formula can also be understood as a weighted average.  The weights are inversely related to the distance from the end points to the unknown point; the closer point has more influence than the farther point.  Thus, the weights are 1 − − ( x − − x 0 ) / ( x 1 − − x 0 ) {\textstyle 1-(x-x_{0})/(x_{1}-x_{0})} and 1 − − ( x 1 − − x ) / ( x 1 − − x 0 ) {\textstyle 1-(x_{1}-x)/(x_{1}-x_{0})} , which are normalized distances between the unknown point and each of the end points. Because these sum to 1, y = y 0 ( 1 − − x − − x 0 x 1 − − x 0 ) + y 1 ( 1 − − x 1 − − x x 1 − − x 0 ) = y 0 ( 1 − − x − − x 0 x 1 − − x 0 ) + y 1 ( x − − x 0 x 1 − − x 0 ) = y 0 ( x 1 − − x x 1 − − x 0 ) + y 1 ( x − − x 0 x 1 − − x 0 ) {\displaystyle {\begin{aligned}y&=y_{0}\left(1-{\frac {x-x_{0}}{x_{1}-x_{0}}}\right)+y_{1}\left(1-{\frac {x_{1}-x}{x_{1}-x_{0}}}\right)\\&=y_{0}\left(1-{\frac {x-x_{0}}{x_{1}-x_{0}}}\right)+y_{1}\left({\frac {x-x_{0}}{x_{1}-x_{0}}}\right)\\&=y_{0}\left({\frac {x_{1}-x}{x_{1}-x_{0}}}\right)+y_{1}\left({\frac {x-x_{0}}{x_{1}-x_{0}}}\right)\end{aligned}}} yielding the formula for linear interpolation given above.
 
-Linear interpolation between two known points
----------------------------------------------
+Interpolation of a data set [ edit ] Linear interpolation on a data set (red points) consists of pieces of linear interpolants (blue lines).
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Linear_interpolation&action=edit&section=1 "Edit section: Linear interpolation between two known points")]
+Linear interpolation on a set of data points ( x 0 , y 0 ), ( x 1 , y 1 ), ..., ( x n , y n ) is defined as piecewise linear , resulting from the concatenation of linear segment interpolants between each pair of data points. This results in a continuous curve , with a discontinuous derivative (in general), thus of differentiability class C 0 {\displaystyle C^{0}} .
 
-[![Image 2](https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Linear_interpolation_visualisation.svg/250px-Linear_interpolation_visualisation.svg.png)](https://en.wikipedia.org/wiki/File:Linear_interpolation_visualisation.svg)
+Linear interpolation as an approximation [ edit ] Linear interpolation is often used to approximate a value of some function f using two known values of that function at other points. The error of this approximation is defined as R T = f ( x ) − − p ( x ) , {\displaystyle R_{T}=f(x)-p(x),} where p denotes the linear interpolation polynomial defined above: p ( x ) = f ( x 0 ) + f ( x 1 ) − − f ( x 0 ) x 1 − − x 0 ( x − − x 0 ) .
 
-In this geometric visualisation, the value at the green circle multiplied by the horizontal distance between the red and blue circles is equal to the sum of the value at the red circle multiplied by the horizontal distance between the green and blue circles, and the value at the blue circle multiplied by the horizontal distance between the green and red circles.
+{\displaystyle p(x)=f(x_{0})+{\frac {f(x_{1})-f(x_{0})}{x_{1}-x_{0}}}(x-x_{0}).} It can be proven using Rolle's theorem that if f has a continuous second derivative, then the error is bounded by | R T | ≤ ≤ ( x 1 − − x 0 ) 2 8 max x 0 ≤ ≤ x ≤ ≤ x 1 | f ″ ( x ) | .
 
-If the two known points are given by the coordinates ![Image 3: {\displaystyle (x_{0},y_{0})}](https://wikimedia.org/api/rest_v1/media/math/render/svg/29c296094af9a1c665425debeac5eaab99a37a04) and ![Image 4: {\displaystyle (x_{1},y_{1})}](https://wikimedia.org/api/rest_v1/media/math/render/svg/7fc74086e56542bd28b46a84faaee3cebdd4a899), the **linear interpolant** is the straight line between these points. For a value ![Image 5: {\displaystyle x}](https://wikimedia.org/api/rest_v1/media/math/render/svg/87f9e315fd7e2ba406057a97300593c4802b53e4) in the interval ![Image 6: {\displaystyle (x_{0},x_{1})}](https://wikimedia.org/api/rest_v1/media/math/render/svg/f900f90385eda503cb4ba0f61c583c03a61d007d), the value ![Image 7: {\displaystyle y}](https://wikimedia.org/api/rest_v1/media/math/render/svg/b8a6208ec717213d4317e666f1ae872e00620a0d) along the straight line is given from the equation of slopes ![Image 8: {\displaystyle {\frac {y-y_{0}}{x-x_{0}}}={\frac {y_{1}-y_{0}}{x_{1}-x_{0}}},}](https://wikimedia.org/api/rest_v1/media/math/render/svg/565bf8867a5246765be9e500c85e97b02497e544) which can be derived geometrically from the figure on the right. It is a special case of [polynomial interpolation](https://en.wikipedia.org/wiki/Polynomial_interpolation#Constructing_the_interpolation_polynomial "Polynomial interpolation") with ![Image 9: {\displaystyle n=1}](https://wikimedia.org/api/rest_v1/media/math/render/svg/d9ec7e1edc2e6d98f5aec2a39ae5f1c99d1e1425).
+{\displaystyle |R_{T}|\leq {\frac {(x_{1}-x_{0})^{2}}{8}}\max _{x_{0}\leq x\leq x_{1}}\left|f''(x)\right|.} That is, the approximation between two points on a given function gets worse with the second derivative of the function that is approximated. This is intuitively correct as well: the "curvier" the function is, the worse the approximations made with simple linear interpolation become.
 
-Solving this equation for ![Image 10: {\displaystyle y}](https://wikimedia.org/api/rest_v1/media/math/render/svg/b8a6208ec717213d4317e666f1ae872e00620a0d), which is the unknown value at ![Image 11: {\displaystyle x}](https://wikimedia.org/api/rest_v1/media/math/render/svg/87f9e315fd7e2ba406057a97300593c4802b53e4), gives ![Image 12: {\displaystyle {\begin{aligned}y&=y_{0}+(x-x_{0}){\frac {y_{1}-y_{0}}{x_{1}-x_{0}}}\\&={\frac {y_{0}(x_{1}-x_{0})}{x_{1}-x_{0}}}+{\frac {y_{1}(x-x_{0})-y_{0}(x-x_{0})}{x_{1}-x_{0}}}\\&={\frac {y_{1}x-y_{1}x_{0}-y_{0}x+y_{0}x_{0}+y_{0}x_{1}-y_{0}x_{0}}{x_{1}-x_{0}}}\\&={\frac {y_{0}(x_{1}-x)+y_{1}(x-x_{0})}{x_{1}-x_{0}}},\end{aligned}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/3cda663586086b90070f8f0ebfee8a09e24592b6) which is the formula for linear interpolation in the interval ![Image 13: {\displaystyle (x_{0},x_{1})}](https://wikimedia.org/api/rest_v1/media/math/render/svg/f900f90385eda503cb4ba0f61c583c03a61d007d). Outside this interval, the formula is identical to [linear extrapolation](https://en.wikipedia.org/wiki/Linear_extrapolation "Linear extrapolation").
+History and applications [ edit ] Linear interpolation has been used since antiquity for filling the gaps in tables. Suppose that one has a table listing the population of some country in 1970, 1980, 1990 and 2000, and that one wanted to estimate the population in 1994. Linear interpolation is an easy way to do this. It is believed that it was used in the Seleucid Empire (last three centuries BC) and by the Greek astronomer and mathematician Hipparchus (second century BC). A description of linear interpolation can be found in the ancient Chinese mathematical text called The Nine Chapters on the Mathematical Art ( 九章算術 ), [ 1 ] dated from 200 BC to AD 100 and the Almagest (2nd century AD) by Ptolemy .
 
-This formula can also be understood as a weighted average. The weights are inversely related to the distance from the end points to the unknown point; the closer point has more influence than the farther point. Thus, the weights are ![Image 14: {\textstyle 1-(x-x_{0})/(x_{1}-x_{0})}](https://wikimedia.org/api/rest_v1/media/math/render/svg/86d744a40c860ca734a638bebb3deec0057d9118) and ![Image 15: {\textstyle 1-(x_{1}-x)/(x_{1}-x_{0})}](https://wikimedia.org/api/rest_v1/media/math/render/svg/4e23addeb52bca3bd01825ea9705a98ce7742cb0), which are normalized distances between the unknown point and each of the end points. Because these sum to 1, ![Image 16: {\displaystyle {\begin{aligned}y&=y_{0}\left(1-{\frac {x-x_{0}}{x_{1}-x_{0}}}\right)+y_{1}\left(1-{\frac {x_{1}-x}{x_{1}-x_{0}}}\right)\\&=y_{0}\left(1-{\frac {x-x_{0}}{x_{1}-x_{0}}}\right)+y_{1}\left({\frac {x-x_{0}}{x_{1}-x_{0}}}\right)\\&=y_{0}\left({\frac {x_{1}-x}{x_{1}-x_{0}}}\right)+y_{1}\left({\frac {x-x_{0}}{x_{1}-x_{0}}}\right)\end{aligned}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/344b32a8a26cd114f8de0eba22afb2dd67f90b67) yielding the formula for linear interpolation given above.
+The basic operation of linear interpolation between two values is commonly used in computer graphics . In that field's jargon it is sometimes called a lerp (from l inear int erp olation). The term can be used as a verb or noun for the operation. e.g. " Bresenham's algorithm lerps incrementally between the two endpoints of the line." Lerp operations are built into the hardware of all modern computer graphics processors. They are often used as building blocks for more complex operations: for example, a bilinear interpolation can be accomplished in three lerps. Because this operation is cheap, it's also a good way to implement accurate lookup tables with quick lookup for smooth functions without having too many table entries.
 
-Interpolation of a data set
----------------------------
+Extensions [ edit ] Comparison of linear and bilinear interpolation some 1- and 2-dimensional interpolations.
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Linear_interpolation&action=edit&section=2 "Edit section: Interpolation of a data set")]
-
-[![Image 17](https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Interpolation_example_linear.svg/330px-Interpolation_example_linear.svg.png)](https://en.wikipedia.org/wiki/File:Interpolation_example_linear.svg)
-
-Linear interpolation on a data set (red points) consists of pieces of linear interpolants (blue lines).
-
-Linear interpolation on a set of data points (_x_ 0, _y_ 0), (_x_ 1, _y_ 1), ..., (_x_ n, _y_ n) is defined as [piecewise linear](https://en.wikipedia.org/wiki/Piecewise_linear_curve "Piecewise linear curve"), resulting from the concatenation of [linear segment](https://en.wikipedia.org/wiki/Linear_segment "Linear segment") interpolants between each pair of data points. This results in a [continuous curve](https://en.wikipedia.org/wiki/Continuous_function "Continuous function"), with a discontinuous derivative (in general), thus of [differentiability class](https://en.wikipedia.org/wiki/Differentiability_class "Differentiability class")![Image 18: {\displaystyle C^{0}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/7c14274cad45f7c22b662e7a4e56b1db052883d1).
-
-Linear interpolation as an approximation
-----------------------------------------
-
-[[edit](https://en.wikipedia.org/w/index.php?title=Linear_interpolation&action=edit&section=3 "Edit section: Linear interpolation as an approximation")]
-
-Linear interpolation is often used to approximate a value of some [function](https://en.wikipedia.org/wiki/Function_(mathematics) "Function (mathematics)")f using two known values of that function at other points. The _error_ of this approximation is defined as ![Image 19: {\displaystyle R_{T}=f(x)-p(x),}](https://wikimedia.org/api/rest_v1/media/math/render/svg/f500341e0127128585bc0d3645d6f9c94c139e83) where p denotes the linear interpolation [polynomial](https://en.wikipedia.org/wiki/Polynomial "Polynomial") defined above: ![Image 20: {\displaystyle p(x)=f(x_{0})+{\frac {f(x_{1})-f(x_{0})}{x_{1}-x_{0}}}(x-x_{0}).}](https://wikimedia.org/api/rest_v1/media/math/render/svg/e9b34ff22a3e530400569f1daa73a744544a7288)
-
-It can be proven using [Rolle's theorem](https://en.wikipedia.org/wiki/Rolle%27s_theorem "Rolle's theorem") that if f has a continuous second derivative, then the error is bounded by ![Image 21: {\displaystyle |R_{T}|\leq {\frac {(x_{1}-x_{0})^{2}}{8}}\max _{x_{0}\leq x\leq x_{1}}\left|f''(x)\right|.}](https://wikimedia.org/api/rest_v1/media/math/render/svg/7a8c62af40db67f2659fd956fc587a1713ce38a9)
-
-That is, the approximation between two points on a given function gets worse with the second derivative of the function that is approximated. This is intuitively correct as well: the "curvier" the function is, the worse the approximations made with simple linear interpolation become.
-
-History and applications
-------------------------
-
-[[edit](https://en.wikipedia.org/w/index.php?title=Linear_interpolation&action=edit&section=4 "Edit section: History and applications")]
-
-Linear interpolation has been used since antiquity for filling the gaps in tables. Suppose that one has a table listing the population of some country in 1970, 1980, 1990 and 2000, and that one wanted to estimate the population in 1994. Linear interpolation is an easy way to do this. It is believed that it was used in the [Seleucid Empire](https://en.wikipedia.org/wiki/Seleucid_Empire "Seleucid Empire") (last three centuries BC) and by the Greek astronomer and mathematician [Hipparchus](https://en.wikipedia.org/wiki/Hipparchus "Hipparchus") (second century BC). A description of linear interpolation can be found in the ancient [Chinese mathematical](https://en.wikipedia.org/wiki/Chinese_mathematics "Chinese mathematics") text called _[The Nine Chapters on the Mathematical Art](https://en.wikipedia.org/wiki/The\_Nine\_Chapters\_on\_the\_Mathematical\_Art "The Nine Chapters on the Mathematical Art")_ (九章算術),[[1]](https://en.wikipedia.org/wiki/Linear_interpolation#cite_note-Needham1959-1) dated from 200 BC to AD 100 and the _[Almagest](https://en.wikipedia.org/wiki/Almagest "Almagest")_ (2nd century AD) by [Ptolemy](https://en.wikipedia.org/wiki/Ptolemy "Ptolemy").
-
-The basic operation of linear interpolation between two values is commonly used in [computer graphics](https://en.wikipedia.org/wiki/Computer_graphics "Computer graphics"). In that field's jargon it is sometimes called a **lerp** (from **l**inear int**erp**olation). The term can be used as a [verb](https://en.wikipedia.org/wiki/Verb "Verb") or [noun](https://en.wikipedia.org/wiki/Noun "Noun") for the operation. e.g. "[Bresenham's algorithm](https://en.wikipedia.org/wiki/Bresenham%27s_algorithm "Bresenham's algorithm") lerps incrementally between the two endpoints of the line."
-
-Lerp operations are built into the hardware of all modern computer graphics processors. They are often used as building blocks for more complex operations: for example, a [bilinear interpolation](https://en.wikipedia.org/wiki/Bilinear_interpolation "Bilinear interpolation") can be accomplished in three lerps. Because this operation is cheap, it's also a good way to implement accurate [lookup tables](https://en.wikipedia.org/wiki/Lookup_table "Lookup table") with quick lookup for [smooth functions](https://en.wikipedia.org/wiki/Smooth_function "Smooth function") without having too many table entries.
-
-[![Image 22](https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Comparison_of_1D_and_2D_interpolation.svg/250px-Comparison_of_1D_and_2D_interpolation.svg.png)](https://en.wikipedia.org/wiki/File:Comparison_of_1D_and_2D_interpolation.svg)
-
-Comparison of linear and bilinear interpolation some 1- and 2-dimensional interpolations. 
-
-Black and red/yellow/green/blue dots correspond to the interpolated point and neighbouring samples, respectively. 
+Black and red / yellow / green / blue dots correspond to the interpolated point and neighbouring samples, respectively.
 
 Their heights above the ground correspond to their values.
 
-If a [_C_ 0](https://en.wikipedia.org/wiki/Differentiability_class "Differentiability class") function is insufficient, for example if the process that has produced the data points is known to be smoother than _C_ 0, it is common to replace linear interpolation with [spline interpolation](https://en.wikipedia.org/wiki/Spline_interpolation "Spline interpolation") or, in some cases, [polynomial interpolation](https://en.wikipedia.org/wiki/Polynomial_interpolation "Polynomial interpolation").
+Accuracy [ edit ] If a C 0 function is insufficient, for example if the process that has produced the data points is known to be smoother than C 0 , it is common to replace linear interpolation with spline interpolation or, in some cases, polynomial interpolation .
 
-Linear interpolation as described here is for data points in one spatial dimension. For two spatial dimensions, the extension of linear interpolation is called [bilinear interpolation](https://en.wikipedia.org/wiki/Bilinear_interpolation "Bilinear interpolation"), and in three dimensions, [trilinear interpolation](https://en.wikipedia.org/wiki/Trilinear_interpolation "Trilinear interpolation"). Notice, though, that these interpolants are no longer [linear functions](https://en.wikipedia.org/wiki/Linear_functions "Linear functions") of the spatial coordinates, rather products of linear functions; this is illustrated by the clearly non-linear example of [bilinear interpolation](https://en.wikipedia.org/wiki/Bilinear_interpolation "Bilinear interpolation") in the figure below. Other extensions of linear interpolation can be applied to other kinds of [mesh](https://en.wikipedia.org/wiki/Polygon_mesh "Polygon mesh") such as triangular and tetrahedral meshes, including [Bézier surfaces](https://en.wikipedia.org/wiki/B%C3%A9zier_surface "Bézier surface"). These may be defined as indeed higher-dimensional [piecewise linear functions](https://en.wikipedia.org/wiki/Piecewise_linear_function "Piecewise linear function") (see second figure below).
+Multivariate [ edit ] Linear interpolation as described here is for data points in one spatial dimension. For two spatial dimensions, the extension of linear interpolation is called bilinear interpolation , and in three dimensions, trilinear interpolation . Notice, though, that these interpolants are no longer linear functions of the spatial coordinates, rather products of linear functions; this is illustrated by the clearly non-linear example of bilinear interpolation in the figure below. Other extensions of linear interpolation can be applied to other kinds of mesh such as triangular and tetrahedral meshes, including Bézier surfaces . These may be defined as indeed higher-dimensional piecewise linear functions (see second figure below).
 
-[![Image 23](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Bilininterp.png/250px-Bilininterp.png)](https://en.wikipedia.org/wiki/File:Bilininterp.png)
+Example of bilinear interpolation on the unit square with the z values 0, 1, 1, and 0.5 as indicated. Interpolated values in between are represented by colour.
 
-Example of [bilinear interpolation](https://en.wikipedia.org/wiki/Bilinear_interpolation "Bilinear interpolation") on the unit square with the z values 0, 1, 1, and 0.5 as indicated. Interpolated values in between are represented by colour.
-
-[![Image 24](https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Piecewise_linear_function2D.svg/250px-Piecewise_linear_function2D.svg.png)](https://en.wikipedia.org/wiki/File:Piecewise_linear_function2D.svg)
-
-A piecewise linear function in two dimensions (top) and the convex polytopes on which it is linear (bottom)
-
-Programming language support
-----------------------------
-
-[[edit](https://en.wikipedia.org/w/index.php?title=Linear_interpolation&action=edit&section=8 "Edit section: Programming language support")]
-
-Many libraries and [shading languages](https://en.wikipedia.org/wiki/Shading_language "Shading language") have a "lerp" helper-function (in [GLSL](https://en.wikipedia.org/wiki/GLSL "GLSL") known instead as **mix**), returning an interpolation between two inputs `(v0, v1)` for a parameter `t` in the closed unit interval [0, 1]. Signatures between lerp functions are variously implemented in both the forms `(v0, v1, t)` and `(t, v0, v1)`.
+A piecewise linear function in two dimensions (top) and the convex polytopes on which it is linear (bottom) Programming language support [ edit ] Many libraries and shading languages have a "lerp" helper-function (in GLSL known instead as mix ), returning an interpolation between two inputs (v0, v1) for a parameter t in the closed unit interval [0, 1]. Signatures between lerp functions are variously implemented in both the forms (v0, v1, t) and (t, v0, v1) .
 
 // Imprecise method, which does not guarantee v = v1 when t = 1, due to floating-point arithmetic error.
+
 // This method is monotonic. This form may be used when the hardware has a native fused multiply-add instruction.
-float lerp(float v0, float v1, float t) {
- return v0 + t * (v1 - v0);
-}
 
-// Precise method, which guarantees v = v1 when t = 1. This method is monotonic only when v0 * v1 < 0.
-// Lerping between same values might not produce the same value
-float lerp(float v0, float v1, float t) {
- return (1 - t) * v0 + t * v1;
-}
+float lerp ( float v0 , float v1 , float t ) { return v0 + t * ( v1 - v0 ); } // Precise method, which guarantees v = v1 when t = 1. This method is monotonic only when v0 * v1 < 0.
 
-This lerp function is commonly used for [alpha blending](https://en.wikipedia.org/wiki/Alpha_blending "Alpha blending") (the parameter "t" is the "alpha value"), and the formula may be extended to blend multiple components of a vector (such as spatial _x_, _y_, _z_ axes or _r_, _g_, _b_ colour components) in parallel.
+// Lerping between same values might not produce the same value float lerp ( float v0 , float v1 , float t ) { return ( 1 - t ) * v0 + t * v1 ; } This lerp function is commonly used for alpha blending (the parameter " t " is the "alpha value"), and the formula may be extended to blend multiple components of a vector (such as spatial x , y , z axes or r , g , b colour components) in parallel.
 
-*   [Bilinear interpolation](https://en.wikipedia.org/wiki/Bilinear_interpolation "Bilinear interpolation")
-*   [Spline interpolation](https://en.wikipedia.org/wiki/Spline_interpolation "Spline interpolation")
-*   [Polynomial interpolation](https://en.wikipedia.org/wiki/Polynomial_interpolation "Polynomial interpolation")
-*   [de Casteljau's algorithm](https://en.wikipedia.org/wiki/De_Casteljau%27s_algorithm "De Casteljau's algorithm")
-*   [First-order hold](https://en.wikipedia.org/wiki/First-order_hold "First-order hold")
-*   [Bézier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve "Bézier curve")
+See also [ edit ] Bilinear interpolation Spline interpolation Polynomial interpolation de Casteljau's algorithm First-order hold Bézier curve References [ edit ] ^ Joseph Needham (1 January 1959).
 
-1.   **[^](https://en.wikipedia.org/wiki/Linear_interpolation#cite_ref-Needham1959_1-0)**Joseph Needham (1 January 1959). [_Science and Civilisation in China: Volume 3, Mathematics and the Sciences of the Heavens and the Earth_](https://books.google.com/books?id=jfQ9E0u4pLAC&pg=PA147). Cambridge University Press. pp.147–. [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) "ISBN (identifier)")[978-0-521-05801-8](https://en.wikipedia.org/wiki/Special:BookSources/978-0-521-05801-8 "Special:BookSources/978-0-521-05801-8").
+Science and Civilisation in China: Volume 3, Mathematics and the Sciences of the Heavens and the Earth . Cambridge University Press. pp. 147–.
 
-*   Meijering, Erik (2002), ["A chronology of interpolation: from ancient astronomy to modern signal and image processing"](http://infoscience.epfl.ch/record/63085), _Proceedings of the IEEE_, **90** (3): 319–342, [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1109/5.993400](https://doi.org/10.1109%2F5.993400).
+ISBN 978-0-521-05801-8 .
 
-*   [Equations of the Straight Line](http://www.cut-the-knot.org/Curriculum/Calculus/StraightLine.shtml) at [cut-the-knot](https://en.wikipedia.org/wiki/Cut-the-knot "Cut-the-knot")
-*   [Well-behaved interpolation for numbers and pointers](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/p0811r3.html)
-*   ["Linear interpolation"](https://www.encyclopediaofmath.org/index.php?title=Linear_interpolation), _[Encyclopedia of Mathematics](https://en.wikipedia.org/wiki/Encyclopedia\_of\_Mathematics "Encyclopedia of Mathematics")_, [EMS Press](https://en.wikipedia.org/wiki/European_Mathematical_Society "European Mathematical Society"), 2001 [1994]
-*   ["Finite-increments formula"](https://www.encyclopediaofmath.org/index.php?title=Finite-increments_formula), _[Encyclopedia of Mathematics](https://en.wikipedia.org/wiki/Encyclopedia\_of\_Mathematics "Encyclopedia of Mathematics")_, [EMS Press](https://en.wikipedia.org/wiki/European_Mathematical_Society "European Mathematical Society"), 2001 [1994]
-*   [Lerp smoothing is broken - a journey of decay and delta time](https://www.youtube.com/watch?v=LSNQuFEDOyQ)
+{{ cite book }} : ISBN / Date incompatibility ( help ) Meijering, Erik (2002), "A chronology of interpolation: from ancient astronomy to modern signal and image processing" , Proceedings of the IEEE , 90 (3): 319– 342, doi : 10.1109/5.993400 .
+
+External links [ edit ] Equations of the Straight Line at cut-the-knot Well-behaved interpolation for numbers and pointers "Linear interpolation" , Encyclopedia of Mathematics , EMS Press , 2001 [1994] "Finite-increments formula" , Encyclopedia of Mathematics , EMS Press , 2001 [1994] Lerp smoothing is broken - a journey of decay and delta time Retrieved from " https://en.wikipedia.org/w/index.php?title=Linear_interpolation&oldid=1286306558 " Category : Interpolation Hidden categories: CS1 errors: ISBN date Articles with short description Short description is different from Wikidata Articles containing Chinese-language text This page was last edited on 19 April 2025, at 01:51 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Linear interpolation 20 languages Add topic
+

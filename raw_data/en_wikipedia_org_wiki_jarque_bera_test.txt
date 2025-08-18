@@ -1,0 +1,98 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 History 2 Jarque–Bera test in regression analysis 3 Implementations 4 See also 5 References 6 Further reading Toggle the table of contents Jarque–Bera test 12 languages العربية Azərbaycanca Deutsch Español Français Italiano 日本語 Polski Русский Türkçe Tiếng Việt 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Normality test In statistics , the Jarque–Bera test is a goodness-of-fit test of whether sample data have the skewness and kurtosis matching a normal distribution . The test is named after Carlos Jarque and Anil K. Bera .
+The test statistic is always nonnegative. If it is far from zero, it signals the data do not have a normal distribution.
+
+The test statistic JB is defined as J B = n 6 ( S 2 + 1 4 ( K − − 3 ) 2 ) {\displaystyle {\mathit {JB}}={\frac {n}{6}}\left(S^{2}+{\frac {1}{4}}(K-3)^{2}\right)} where n is the number of observations (or degrees of freedom in general); S is the sample skewness , K is the sample kurtosis : S = μ μ ^ ^ 3 σ σ ^ ^ 3 = 1 n ∑ ∑ i = 1 n ( x i − − x ¯ ¯ ) 3 ( 1 n ∑ ∑ i = 1 n ( x i − − x ¯ ¯ ) 2 ) 3 / 2 , {\displaystyle S={\frac {{\hat {\mu }}_{3}}{{\hat {\sigma }}^{3}}}={\frac {{\frac {1}{n}}\sum _{i=1}^{n}(x_{i}-{\bar {x}})^{3}}{\left({\frac {1}{n}}\sum _{i=1}^{n}(x_{i}-{\bar {x}})^{2}\right)^{3/2}}},} K = μ μ ^ ^ 4 σ σ ^ ^ 4 = 1 n ∑ ∑ i = 1 n ( x i − − x ¯ ¯ ) 4 ( 1 n ∑ ∑ i = 1 n ( x i − − x ¯ ¯ ) 2 ) 2 , {\displaystyle K={\frac {{\hat {\mu }}_{4}}{{\hat {\sigma }}^{4}}}={\frac {{\frac {1}{n}}\sum _{i=1}^{n}(x_{i}-{\bar {x}})^{4}}{\left({\frac {1}{n}}\sum _{i=1}^{n}(x_{i}-{\bar {x}})^{2}\right)^{2}}},} where μ μ ^ ^ 3 {\displaystyle {\hat {\mu }}_{3}} and μ μ ^ ^ 4 {\displaystyle {\hat {\mu }}_{4}} are the estimates of third and fourth central moments , respectively, x ¯ ¯ {\displaystyle {\bar {x}}} is the sample mean , and σ σ ^ ^ 2 {\displaystyle {\hat {\sigma }}^{2}} is the estimate of the second central moment, the variance .
+
+If the data comes from a normal distribution, the JB statistic asymptotically has a chi-squared distribution with two degrees of freedom , so the statistic can be used to test the hypothesis that the data are from a normal distribution . The null hypothesis is a joint hypothesis of the skewness being zero and the excess kurtosis being zero. Samples from a normal distribution have an expected skewness of 0 and an expected excess kurtosis of 0 (which is the same as a kurtosis of 3). As the definition of JB shows, any deviation from this increases the JB statistic.
+
+For small samples the chi-squared approximation is overly sensitive, often rejecting the null hypothesis when it is true. Furthermore, the distribution of p -values departs from a uniform distribution and becomes a right-skewed unimodal distribution , especially for small p -values. This leads to a large Type I error rate. The table below shows some p -values approximated by a chi-squared distribution that differ from their true alpha levels for small samples.
+
+Calculated p -values equivalents to true alpha levels at given sample sizes True α level 20 30 50 70 100 0.1 0.307 0.252 0.201 0.183 0.1560 0.05 0.1461 0.109 0.079 0.067 0.062 0.025 0.051 0.0303 0.020 0.016 0.0168 0.01 0.0064 0.0033 0.0015 0.0012 0.002 (These values have been approximated using Monte Carlo simulation in Matlab ) In MATLAB 's implementation, the chi-squared approximation for the JB statistic's distribution is only used for large sample sizes (> 2000). For smaller samples, it uses a table derived from Monte Carlo simulations in order to interpolate p -values.
+
+[ 1 ] History [ edit ] The statistic was derived by Carlos M. Jarque and Anil K. Bera while working on their Ph.D. Thesis at the Australian National University.
+
+Jarque–Bera test in regression analysis [ edit ] According to Robert Hall, David Lilien, et al. (1995) when using this test along with multiple regression analysis the right estimate is: J B = n − − k 6 ( S 2 + 1 4 ( K − − 3 ) 2 ) {\displaystyle {\mathit {JB}}={\frac {n-k}{6}}\left(S^{2}+{\frac {1}{4}}(K-3)^{2}\right)} where n is the number of observations and k is the number of regressors when examining residuals to an equation.
+
+Implementations [ edit ] ALGLIB includes an implementation of the Jarque–Bera test in C++, C#, Delphi, Visual Basic, etc.
+
+gretl includes an implementation of the Jarque–Bera test Julia includes an implementation of the Jarque-Bera test JarqueBeraTest in the HypothesisTests package.
+
+[ 2 ] MATLAB includes an implementation of the Jarque–Bera test, the function "jbtest".
+
+Python statsmodels includes an implementation of the Jarque–Bera test, "statsmodels.stats.stattools.py".
+
+R includes implementations of the Jarque–Bera test: jarque.bera.test in the package tseries , [ 3 ] for example, and jarque.test in the package moments .
+
+[ 4 ] Wolfram includes a built in function called, JarqueBeraALMTest [ 5 ] and is not limited to testing against a Gaussian distribution.
+
+See also [ edit ] D'Agostino's K-squared test , another test based on kurtosis and skewness.
+
+References [ edit ] ^ "Analysis of the JB-Test in MATLAB" . MathWorks . Retrieved May 24, 2009 .
+
+^ "Time series tests" .
+
+juliastats.org . Retrieved 2020-02-04 .
+
+^ "tseries: Time Series Analysis and Computational Finance" .
+
+R Project .
+
+^ "moments: Moments, cumulants, skewness, kurtosis and related tests" .
+
+R Project .
+
+^ "JarqueBeraALMTest—Wolfram Language Documentation" .
+
+reference.wolfram.com . Retrieved 2017-10-26 .
+
+Further reading [ edit ] Jarque, Carlos M.
+
+; Bera, Anil K. (1980). "Efficient tests for normality, homoscedasticity and serial independence of regression residuals".
+
+Economics Letters .
+
+6 (3): 255– 259.
+
+doi : 10.1016/0165-1765(80)90024-5 .
+
+Jarque, Carlos M.
+
+; Bera, Anil K. (1981). "Efficient tests for normality, homoscedasticity and serial independence of regression residuals: Monte Carlo evidence".
+
+Economics Letters .
+
+7 (4): 313– 318.
+
+doi : 10.1016/0165-1765(81)90035-5 .
+
+Jarque, Carlos M.
+
+; Bera, Anil K. (1987). "A test for normality of observations and regression residuals".
+
+International Statistical Review .
+
+55 (2): 163– 172.
+
+doi : 10.2307/1403192 .
+
+JSTOR 1403192 .
+
+Judge; et al. (1988).
+
+Introduction and the theory and practice of econometrics (3rd ed.). pp.
+
+890– 892.
+
+Hall, Robert E.; Lilien, David M.; et al. (1995).
+
+EViews User Guide . p. 141.
+
+v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject Retrieved from " https://en.wikipedia.org/w/index.php?title=Jarque–Bera_test&oldid=1225407025 " Category : Normality tests Hidden categories: Articles with short description Short description matches Wikidata This page was last edited on 24 May 2024, at 07:42 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Jarque–Bera test 12 languages Add topic
+

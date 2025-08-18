@@ -1,0 +1,291 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Asymptotic rates of convergence for iterative methods Toggle Asymptotic rates of convergence for iterative methods subsection 1.1 Definitions 1.1.1 Q-convergence 1.1.2 R-convergence 1.2 Examples 1.3 Convergence rates to fixed points of recurrent sequences 1.4 Order estimation 1.5 Accelerating convergence rates 2 Asymptotic rates of convergence for discretization methods Toggle Asymptotic rates of convergence for discretization methods subsection 2.1 Definitions 2.2 Example 3 Comparing asymptotic rates of convergence Toggle Comparing asymptotic rates of convergence subsection 3.1 Definitions 3.2 Examples 4 Non-asymptotic rates of convergence 5 References Toggle the table of contents Rate of convergence 13 languages العربية Català Deutsch Español فارسی Français Bahasa Indonesia עברית Português Русский Українська Tiếng Việt 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Speed of convergence of a mathematical sequence In mathematical analysis , particularly numerical analysis , the rate of convergence and order of convergence of a sequence that converges to a limit are any of several characterizations of how quickly that sequence approaches its limit. These are broadly divided into rates and orders of convergence that describe how quickly a sequence further approaches its limit once it is already close to it, called asymptotic rates and orders of convergence, and those that describe how quickly sequences approach their limits from starting points that are not necessarily close to their limits, called non-asymptotic rates and orders of convergence.
+
+Asymptotic behavior is particularly useful for deciding when to stop a sequence of numerical computations, for instance once a target precision has been reached with an iterative root-finding algorithm , but pre-asymptotic behavior is often crucial for determining whether to begin a sequence of computations at all, since it may be impossible or impractical to ever reach a target precision with a poorly chosen approach. Asymptotic rates and orders of convergence are the focus of this article.
+
+In practical numerical computations, asymptotic rates and orders of convergence follow two common conventions for two types of sequences: the first for sequences of iterations of an iterative numerical method and the second for sequences of successively more accurate numerical discretizations of a target. In formal mathematics, rates of convergence and orders of convergence are often described comparatively using asymptotic notation commonly called " big O notation ," which can be used to encompass both of the prior conventions; this is an application of asymptotic analysis .
+
+For iterative methods, a sequence ( x k ) {\displaystyle (x_{k})} that converges to L {\displaystyle L} is said to have asymptotic order of convergence q ≥ ≥ 1 {\displaystyle q\geq 1} and asymptotic rate of convergence μ μ {\displaystyle \mu } if lim k → → ∞ ∞ | x k + 1 − − L | | x k − − L | q = μ μ .
+
+{\displaystyle \lim _{k\rightarrow \infty }{\frac {\left|x_{k+1}-L\right|}{\left|x_{k}-L\right|^{q}}}=\mu .} [ 1 ] Where methodological precision is required, these rates and orders of convergence are known specifically as the rates and orders of Q-convergence, short for quotient-convergence, since the limit in question is a quotient of error terms.
+
+[ 1 ] The rate of convergence μ μ {\displaystyle \mu } may also be called the asymptotic error constant , and some authors will use rate where this article uses order.
+
+[ 2 ] Series acceleration methods are techniques for improving the rate of convergence of the sequence of partial sums of a series and possibly its order of convergence, also.
+
+Similar concepts are used for sequences of discretizations. For instance, ideally the solution of a differential equation discretized via a regular grid will converge to the solution of the continuous equation as the grid spacing goes to zero, and if so the asymptotic rate and order of that convergence are important properties of the gridding method. A sequence of approximate grid solutions ( y k ) {\displaystyle (y_{k})} of some problem that converges to a true solution S {\displaystyle S} with a corresponding sequence of regular grid spacings ( h k ) {\displaystyle (h_{k})} that converge to 0 is said to have asymptotic order of convergence q {\displaystyle q} and asymptotic rate of convergence μ μ {\displaystyle \mu } if lim k → → ∞ ∞ | y k − − S | h k q = μ μ , {\displaystyle \lim _{k\rightarrow \infty }{\frac {\left|y_{k}-S\right|}{h_{k}^{q}}}=\mu ,} where the absolute value symbols stand for a metric for the space of solutions such as the uniform norm . Similar definitions also apply for non-grid discretization schemes such as the polygon meshes of a finite element method or the basis sets in computational chemistry : in general, the appropriate definition of the asymptotic rate μ μ {\displaystyle \mu } will involve the asymptotic limit of the ratio of an approximation error term above to an asymptotic order q {\displaystyle q} power of a discretization scale parameter below.
+
+In general, comparatively, one sequence ( a k ) {\displaystyle (a_{k})} that converges to a limit L a {\displaystyle L_{a}} is said to asymptotically converge more quickly than another sequence ( b k ) {\displaystyle (b_{k})} that converges to a limit L b {\displaystyle L_{b}} if lim k → → ∞ ∞ | a k − − L a | | b k − − L b | = 0 , {\displaystyle \lim _{k\rightarrow \infty }{\frac {\left|a_{k}-L_{a}\right|}{|b_{k}-L_{b}|}}=0,} and the two are said to asymptotically converge with the same order of convergence if the limit is any positive finite value. The two are said to be asymptotically equivalent if the limit is equal to one. These comparative definitions of rate and order of asymptotic convergence are fundamental in asymptotic analysis and find wide application in mathematical analysis as a whole, including numerical analysis, real analysis , complex analysis , and functional analysis .
+
+Asymptotic rates of convergence for iterative methods [ edit ] Definitions [ edit ] Q-convergence [ edit ] Suppose that the sequence ( x k ) {\displaystyle (x_{k})} of iterates of an iterative method converges to the limit number L {\displaystyle L} as k → → ∞ ∞ {\displaystyle k\rightarrow \infty } . The sequence is said to converge with order q {\displaystyle q} to L {\displaystyle L} and with a rate of convergence μ μ {\displaystyle \mu } if the k → → ∞ ∞ {\displaystyle k\rightarrow \infty } limit of quotients of absolute differences of sequential iterates x k , x k + 1 {\displaystyle x_{k},x_{k+1}} from their limit L {\displaystyle L} satisfies lim k → → ∞ ∞ | x k + 1 − − L | | x k − − L | q = μ μ {\displaystyle \lim _{k\to \infty }{\frac {|x_{k+1}-L|}{|x_{k}-L|^{q}}}=\mu } for some positive constant μ μ ∈ ∈ ( 0 , 1 ) {\displaystyle \mu \in (0,1)} if q = 1 {\displaystyle q=1} and μ μ ∈ ∈ ( 0 , ∞ ∞ ) {\displaystyle \mu \in (0,\infty )} if q > 1 {\displaystyle q>1} .
+
+[ 1 ] [ 3 ] [ 4 ] Other more technical rate definitions are needed if the sequence converges but lim k → → ∞ ∞ | x k + 1 − − L | | x k − − L | = 1 {\textstyle \lim _{k\to \infty }{\frac {|x_{k+1}-L|}{|x_{k}-L|}}=1} [ 5 ] or the limit does not exist.
+
+[ 1 ] This definition is technically called Q-convergence, short for quotient-convergence, and the rates and orders are called rates and orders of Q-convergence when that technical specificity is needed.
+
+§ R-convergence , below, is an appropriate alternative when this limit does not exist.
+
+Sequences with larger orders q {\displaystyle q} converge more quickly than those with smaller order, and those with smaller rates μ μ {\displaystyle \mu } converge more quickly than those with larger rates for a given order. This "smaller rates converge more quickly" behavior among sequences of the same order is standard but it can be counterintuitive. Therefore it is also common to define − − log 10 ⁡ ⁡ μ μ {\displaystyle -\log _{10}\mu } as the rate; this is the "number of extra decimals of precision per iterate" for sequences that converge with order 1.
+
+[ 1 ] Integer powers of q {\displaystyle q} are common and are given common names. Convergence with order q = 1 {\displaystyle q=1} and μ μ ∈ ∈ ( 0 , 1 ) {\displaystyle \mu \in (0,1)} is called linear convergence and the sequence is said to converge linearly to L {\displaystyle L} . Convergence with q = 2 {\displaystyle q=2} and any μ μ {\displaystyle \mu } is called quadratic convergence and the sequence is said to converge quadratically . Convergence with q = 3 {\displaystyle q=3} and any μ μ {\displaystyle \mu } is called cubic convergence . However, it is not necessary that q {\displaystyle q} be an integer. For example, the secant method , when converging to a regular, simple root , has an order of the golden ratio φ ≈ 1.618.
+
+[ 6 ] The common names for integer orders of convergence connect to asymptotic big O notation , where the convergence of the quotient implies | x k + 1 − − L | = O ( | x k − − L | q ) .
+
+{\textstyle |x_{k+1}-L|=O(|x_{k}-L|^{q}).} These are linear, quadratic, and cubic polynomial expressions when q {\displaystyle q} is 1, 2, and 3, respectively. More precisely, the limits imply the leading order error is exactly μ μ | x k − − L | q , {\textstyle \mu |x_{k}-L|^{q},} which can be expressed using asymptotic small o notation as | x k + 1 − − L | = μ μ | x k − − L | q + o ( | x k − − L | q ) .
+
+{\textstyle |x_{k+1}-L|=\mu |x_{k}-L|^{q}+o(|x_{k}-L|^{q}).} In general, when q > 1 {\displaystyle q>1} for a sequence or for any sequence that satisfies lim k → → ∞ ∞ | x k + 1 − − L | | x k − − L | = 0 , {\textstyle \lim _{k\to \infty }{\frac {|x_{k+1}-L|}{|x_{k}-L|}}=0,} those sequences are said to converge superlinearly (i.e., faster than linearly).
+
+[ 1 ] A sequence is said to converge sublinearly (i.e., slower than linearly) if it converges and lim k → → ∞ ∞ | x k + 1 − − L | | x k − − L | = 1.
+
+{\textstyle \lim _{k\to \infty }{\frac {|x_{k+1}-L|}{|x_{k}-L|}}=1.} Importantly, it is incorrect to say that these sublinear-order sequences converge linearly with an asymptotic rate of convergence of 1. A sequence ( x k ) {\displaystyle (x_{k})} converges logarithmically to L {\displaystyle L} if the sequence converges sublinearly and also lim k → → ∞ ∞ | x k + 1 − − x k | | x k − − x k − − 1 | = 1.
+
+{\textstyle \lim _{k\to \infty }{\frac {|x_{k+1}-x_{k}|}{|x_{k}-x_{k-1}|}}=1.} [ 5 ] R-convergence [ edit ] The definitions of Q-convergence rates have the shortcoming that they do not naturally capture the convergence behavior of sequences that do converge, but do not converge with an asymptotically constant rate with every step, so that the Q-convergence limit does not exist. One class of examples is the staggered geometric progressions that get closer to their limits only every other step or every several steps, for instance the example ( b k ) = 1 , 1 , 1 / 4 , 1 / 4 , 1 / 16 , 1 / 16 , … … , 1 / 4 ⌊ k 2 ⌋ , … … {\textstyle (b_{k})=1,1,1/4,1/4,1/16,1/16,\ldots ,1/4^{\left\lfloor {\frac {k}{2}}\right\rfloor },\ldots } detailed below (where ⌊ ⌊ x ⌋ ⌋ {\textstyle \lfloor x\rfloor } is the floor function applied to x {\displaystyle x} ). The defining Q-linear convergence limits do not exist for this sequence because one subsequence of error quotients starting from odd steps converges to 1 and another subsequence of quotients starting from even steps converges to 1/4. When two subsequences of a sequence converge to different limits, the sequence does not itself converge to a limit.
+
+In cases like these, a closely related but more technical definition of rate of convergence called R-convergence is more appropriate. The "R-" prefix stands for "root." [ 1 ] [ 7 ] : 620 A sequence ( x k ) {\displaystyle (x_{k})} that converges to L {\displaystyle L} is said to converge at least R-linearly if there exists an error-bounding sequence ( ε ε k ) {\displaystyle (\varepsilon _{k})} such that | x k − − L | ≤ ≤ ε ε k for all k {\textstyle |x_{k}-L|\leq \varepsilon _{k}\quad {\text{for all }}k} and ( ε ε k ) {\displaystyle (\varepsilon _{k})} converges Q-linearly to zero; analogous definitions hold for R-superlinear convergence, R-sublinear convergence, R-quadratic convergence, and so on.
+
+[ 1 ] Any error bounding sequence ( ε ε k ) {\displaystyle (\varepsilon _{k})} provides a lower bound on the rate and order of R-convergence and the greatest lower bound gives the exact rate and order of R-convergence. As for Q-convergence, sequences with larger orders q {\displaystyle q} converge more quickly and those with smaller rates μ μ {\displaystyle \mu } converge more quickly for a given order, so these greatest-rate-lower-bound error-upper-bound sequences are those that have the greatest possible q {\displaystyle q} and the smallest possible μ μ {\displaystyle \mu } given that q {\displaystyle q} .
+
+For the example ( b k ) {\textstyle (b_{k})} given above, the tight bounding sequence ( ε ε k ) = 2 , 1 , 1 / 2 , 1 / 4 , 1 / 8 , 1 / 16 , … … , 1 / 2 k − − 1 , … … {\textstyle (\varepsilon _{k})=2,1,1/2,1/4,1/8,1/16,\ldots ,1/2^{k-1},\ldots } converges Q-linearly with rate 1/2, so ( b k ) {\textstyle (b_{k})} converges R-linearly with rate 1/2. Generally, for any staggered geometric progression ( a r ⌊ ⌊ k / m ⌋ ⌋ ) {\displaystyle (ar^{\lfloor k/m\rfloor })} , the sequence will not converge Q-linearly but will converge R-linearly with rate | r | m .
+
+{\textstyle {\sqrt[{m}]{|r|}}.} These examples demonstrate why the "R" in R-linear convergence is short for "root." Examples [ edit ] The geometric progression ( a k ) = 1 , 1 2 , 1 4 , 1 8 , 1 16 , 1 32 , … … , 1 / 2 k , … … {\textstyle (a_{k})=1,{\frac {1}{2}},{\frac {1}{4}},{\frac {1}{8}},{\frac {1}{16}},{\frac {1}{32}},\ldots ,1/{2^{k}},\dots } converges to L = 0 {\displaystyle L=0} . Plugging the sequence into the definition of Q-linear convergence (i.e., order of convergence 1) shows that lim k → → ∞ ∞ | 1 / 2 k + 1 − − 0 | | 1 / 2 k − − 0 | = lim k → → ∞ ∞ 2 k 2 k + 1 = 1 2 .
+
+{\displaystyle \lim _{k\to \infty }{\frac {\left|1/2^{k+1}-0\right|}{\left|1/2^{k}-0\right|}}=\lim _{k\to \infty }{\frac {2^{k}}{2^{k+1}}}={\frac {1}{2}}.} Thus ( a k ) {\displaystyle (a_{k})} converges Q-linearly with a convergence rate of μ μ = 1 / 2 {\displaystyle \mu =1/2} ; see the first plot of the figure below.
+
+More generally, for any initial value a {\displaystyle a} in the real numbers and a real number common ratio r {\displaystyle r} between -1 and 1, a geometric progression ( a r k ) {\displaystyle (ar^{k})} converges linearly with rate | r | {\displaystyle |r|} and the sequence of partial sums of a geometric series ( ∑ ∑ n = 0 k a r n ) {\textstyle (\sum _{n=0}^{k}ar^{n})} also converges linearly with rate | r | {\displaystyle |r|} . The same holds also for geometric progressions and geometric series parameterized by any complex numbers a ∈ ∈ C , r ∈ ∈ C , | r | < 1.
+
+{\displaystyle a\in \mathbb {C} ,r\in \mathbb {C} ,|r|<1.} The staggered geometric progression ( b k ) = 1 , 1 , 1 4 , 1 4 , 1 16 , 1 16 , … … , 1 / 4 ⌊ k 2 ⌋ , … … , {\textstyle (b_{k})=1,1,{\frac {1}{4}},{\frac {1}{4}},{\frac {1}{16}},{\frac {1}{16}},\ldots ,1/4^{\left\lfloor {\frac {k}{2}}\right\rfloor },\ldots ,} using the floor function ⌊ ⌊ x ⌋ ⌋ {\textstyle \lfloor x\rfloor } that gives the largest integer that is less than or equal to x , {\displaystyle x,} converges R-linearly to 0 with rate 1/2, but it does not converge Q-linearly; see the second plot of the figure below. The defining Q-linear convergence limits do not exist for this sequence because one subsequence of error quotients starting from odd steps converges to 1 and another subsequence of quotients starting from even steps converges to 1/4. When two subsequences of a sequence converge to different limits, the sequence does not itself converge to a limit. Generally, for any staggered geometric progression ( a r ⌊ ⌊ k / m ⌋ ⌋ ) {\displaystyle (ar^{\lfloor k/m\rfloor })} , the sequence will not converge Q-linearly but will converge R-linearly with rate | r | m ; {\textstyle {\sqrt[{m}]{|r|}};} these examples demonstrate why the "R" in R-linear convergence is short for "root." The sequence ( c k ) = 1 2 , 1 4 , 1 16 , 1 256 , 1 65 , 536 , … … , 1 2 2 k , … … {\displaystyle (c_{k})={\frac {1}{2}},{\frac {1}{4}},{\frac {1}{16}},{\frac {1}{256}},{\frac {1}{65,\!536}},\ldots ,{\frac {1}{2^{2^{k}}}},\ldots } converges to zero Q-superlinearly. In fact, it is quadratically convergent with a quadratic convergence rate of 1. It is shown in the third plot of the figure below.
+
+Finally, the sequence ( d k ) = 1 , 1 2 , 1 3 , 1 4 , 1 5 , 1 6 , … … , 1 k + 1 , … … {\displaystyle (d_{k})=1,{\frac {1}{2}},{\frac {1}{3}},{\frac {1}{4}},{\frac {1}{5}},{\frac {1}{6}},\ldots ,{\frac {1}{k+1}},\ldots } converges to zero Q-sublinearly and logarithmically and its convergence is shown as the fourth plot of the figure below.
+
+Log-linear plots of the example sequences a k , b k , c k , and d k that exemplify linear, linear, superlinear (quadratic), and sublinear rates of convergence, respectively.
+
+Convergence rates to fixed points of recurrent sequences [ edit ] Recurrent sequences x k + 1 := f ( x k ) {\textstyle x_{k+1}:=f(x_{k})} , called fixed point iterations , define discrete time autonomous dynamical systems and have important general applications in mathematics through various fixed-point theorems about their convergence behavior. When f is continuously differentiable , given a fixed point p , f ( p ) = p , {\textstyle f(p)=p,} such that | f ′ ( p ) | < 1 {\textstyle |f'(p)|<1} , the fixed point is an attractive fixed point and the recurrent sequence will converge at least linearly to p for any starting value x 0 {\displaystyle x_{0}} sufficiently close to p . If | f ′ ( p ) | = 0 {\displaystyle |f'(p)|=0} and | f ″ ( p ) | < 1 {\textstyle |f''(p)|<1} , then the recurrent sequence will converge at least quadratically, and so on. If | f ′ ( p ) | > 1 {\displaystyle |f'(p)|>1} , then the fixed point is a repulsive fixed point and sequences cannot converge to p from its immediate neighborhoods , though they may still jump to p directly from outside of its local neighborhoods.
+
+Order estimation [ edit ] A practical method to calculate the order of convergence for a sequence generated by a fixed point iteration is to calculate the following sequence, which converges to the order q {\displaystyle q} : [ 8 ] q ≈ ≈ log ⁡ ⁡ | x k + 1 − − x k x k − − x k − − 1 | log ⁡ ⁡ | x k − − x k − − 1 x k − − 1 − − x k − − 2 | .
+
+{\displaystyle q\approx {\frac {\log \left|\displaystyle {\frac {x_{k+1}-x_{k}}{x_{k}-x_{k-1}}}\right|}{\log \left|\displaystyle {\frac {x_{k}-x_{k-1}}{x_{k-1}-x_{k-2}}}\right|}}.} For numerical approximation of an exact value through a numerical method of order q {\displaystyle q} see.
+
+[ 9 ] Accelerating convergence rates [ edit ] Main article: Series acceleration Many methods exist to accelerate the convergence of a given sequence, i.e., to transform one sequence into a second sequence that converges more quickly to the same limit. Such techniques are in general known as " series acceleration " methods. These may reduce the computational costs of approximating the limits of the original sequences. One example of series acceleration by sequence transformation is Aitken's delta-squared process . These methods in general, and in particular Aitken's method, do not typically increase the order of convergence and thus they are useful only if initially the convergence is not faster than linear: if ( x k ) {\displaystyle (x_{k})} converges linearly, Aitken's method transforms it into a sequence ( a k ) {\displaystyle (a_{k})} that still converges linearly (except for pathologically designed special cases), but faster in the sense that lim k → → ∞ ∞ ( a k − − L ) / ( x k − − L ) = 0 {\textstyle \lim _{k\rightarrow \infty }(a_{k}-L)/(x_{k}-L)=0} . On the other hand, if the convergence is already of order ≥ 2, Aitken's method will bring no improvement.
+
+Asymptotic rates of convergence for discretization methods [ edit ] This section needs additional citations for verification .
+
+Please help improve this article by adding citations to reliable sources in this section. Unsourced material may be challenged and removed.
+
+( August 2020 ) ( Learn how and when to remove this message ) Definitions [ edit ] A sequence of discretized approximations ( y k ) {\displaystyle (y_{k})} of some continuous-domain function S {\displaystyle S} that converges to this target, together with a corresponding sequence of discretization scale parameters ( h k ) {\displaystyle (h_{k})} that converge to 0, is said to have asymptotic order of convergence q {\displaystyle q} and asymptotic rate of convergence μ μ {\displaystyle \mu } if lim k → → ∞ ∞ | y k − − S | h k q = μ μ , {\displaystyle \lim _{k\rightarrow \infty }{\frac {\left|y_{k}-S\right|}{h_{k}^{q}}}=\mu ,} for some positive constants μ μ {\displaystyle \mu } and q {\displaystyle q} and using | x | {\displaystyle |x|} to stand for an appropriate distance metric on the space of solutions , most often either the uniform norm , the absolute difference , or the Euclidean distance . Discretization scale parameters may be spacings of a regular grid in space or in time, the inverse of the number of points of a grid in one dimension, an average or maximum distance between points in a polygon mesh , the single-dimension spacings of an irregular sparse grid , or a characteristic quantum of energy or momentum in a quantum mechanical basis set .
+
+When all the discretizations are generated using a single common method, it is common to discuss the asymptotic rate and order of convergence for the method itself rather than any particular discrete sequences of discretized solutions. In these cases one considers a single abstract discretized solution y h {\displaystyle y_{h}} generated using the method with a scale parameter h {\displaystyle h} and then the method is said to have asymptotic order of convergence q {\displaystyle q} and asymptotic rate of convergence μ μ {\displaystyle \mu } if lim h → → 0 | y h − − S | h q = μ μ , {\displaystyle \lim _{h\rightarrow 0}{\frac {\left|y_{h}-S\right|}{h^{q}}}=\mu ,} again for some positive constants μ μ {\displaystyle \mu } and q {\displaystyle q} and an appropriate metric | x | .
+
+{\displaystyle |x|.} This implies that the error of a discretization asymptotically scales like the discretization's scale parameter to the q {\displaystyle q} power, or | y h − − S | = O ( h q ) {\textstyle \left|y_{h}-S\right|=O(h^{q})} using asymptotic big O notation . More precisely, it implies the leading order error is μ μ h q , {\displaystyle \mu h^{q},} which can be expressed using asymptotic small o notation as | y h − − S | = μ μ h q + o ( h q ) .
+
+{\textstyle \left|y_{h}-S\right|=\mu h^{q}+o(h^{q}).} In some cases multiple rates and orders for the same method but with different choices of scale parameter may be important, for instance for finite difference methods based on multidimensional grids where the different dimensions have different grid spacings or for finite element methods based on polygon meshes where choosing either average distance between mesh points or maximum distance between mesh points as scale parameters may imply different orders of convergence. In some especially technical contexts, discretization methods' asymptotic rates and orders of convergence will be characterized by several scale parameters at once with the value of each scale parameter possibly affecting the asymptotic rate and order of convergence of the method with respect to the other scale parameters.
+
+Example [ edit ] Consider the ordinary differential equation d y d x = − − κ κ y {\displaystyle {\frac {dy}{dx}}=-\kappa y} with initial condition y ( 0 ) = y 0 {\displaystyle y(0)=y_{0}} . We can approximate a solution to this one-dimensional equation using a sequence ( y n ) {\displaystyle (y_{n})} applying the forward Euler method for numerical discretization using any regular grid spacing h {\displaystyle h} and grid points indexed by n {\displaystyle n} as follows: y n + 1 − − y n h = − − κ κ y n , {\displaystyle {\frac {y_{n+1}-y_{n}}{h}}=-\kappa y_{n},} which implies the first-order linear recurrence with constant coefficients y n + 1 = y n ( 1 − − h κ κ ) .
+
+{\displaystyle y_{n+1}=y_{n}(1-h\kappa ).} Given y ( 0 ) = y 0 {\displaystyle y(0)=y_{0}} , the sequence satisfying that recurrence is the geometric progression y n = y 0 ( 1 − − h κ κ ) n = y 0 ( 1 − − n h κ κ + n ( n − − 1 ) 2 h 2 κ κ 2 + .
+
+.
+
+.
+
+.
+
+) .
+
+{\displaystyle y_{n}=y_{0}(1-h\kappa )^{n}=y_{0}\left(1-nh\kappa +{\frac {n(n-1)}{2}}h^{2}\kappa ^{2}+....\right).} The exact analytical solution to the differential equation is y = f ( x ) = y 0 exp ⁡ ⁡ ( − − κ κ x ) {\displaystyle y=f(x)=y_{0}\exp(-\kappa x)} , corresponding to the following Taylor expansion in n h κ κ {\displaystyle nh\kappa } : f ( x n ) = f ( n h ) = y 0 exp ⁡ ⁡ ( − − κ κ n h ) = y 0 ( 1 − − n h κ κ + n 2 h 2 κ κ 2 2 + .
+
+.
+
+.
+
+) .
+
+{\displaystyle f(x_{n})=f(nh)=y_{0}\exp(-\kappa nh)=y_{0}\left(1-nh\kappa +{\frac {n^{2}h^{2}\kappa ^{2}}{2}}+...\right).} Therefore the error of the discrete approximation at each discrete point is | y n − − f ( x n ) | = n h 2 κ κ 2 2 + … … {\displaystyle |y_{n}-f(x_{n})|={\frac {nh^{2}\kappa ^{2}}{2}}+\ldots } For any specific x = p {\displaystyle x=p} , given a sequence of forward Euler approximations ( ( y n ) k ) {\displaystyle ((y_{n})_{k})} , each using grid spacings h k {\displaystyle h_{k}} that divide p {\displaystyle p} so that n p , k = p / h k {\displaystyle n_{p,k}=p/h_{k}} , one has lim h k → → 0 | y k ( p ) − − f ( p ) | h k = lim h k → → 0 | y k , n p , k − − f ( h k n p , k ) | h k = h k n p , k κ κ 2 2 = p κ κ 2 2 {\displaystyle \lim _{h_{k}\rightarrow 0}{\frac {|y_{k}(p)-f(p)|}{h_{k}}}=\lim _{h_{k}\rightarrow 0}{\frac {|y_{k,n_{p,k}}-f(h_{k}n_{p,k})|}{h_{k}}}={\frac {h_{k}n_{p,k}\kappa ^{2}}{2}}={\frac {p\kappa ^{2}}{2}}} for any sequence of grids with successively smaller grid spacings h k {\displaystyle h_{k}} . Thus ( ( y n ) k ) {\displaystyle ((y_{n})_{k})} converges to f ( x ) {\displaystyle f(x)} pointwise with a convergence order q = 1 {\displaystyle q=1} and asymptotic error constant p κ κ 2 / 2 {\displaystyle p\kappa ^{2}/2} at each point p > 0.
+
+{\displaystyle p>0.} Similarly, the sequence converges uniformly with the same order and with rate L κ κ 2 / 2 {\displaystyle L\kappa ^{2}/2} on any bounded interval of p ≤ ≤ L {\displaystyle p\leq L} , but it does not converge uniformly on the unbounded set of all positive real values, [ 0 , ∞ ∞ ) .
+
+{\displaystyle [0,\infty ).} Comparing asymptotic rates of convergence [ edit ] Definitions [ edit ] In asymptotic analysis in general, one sequence ( a k ) k ∈ ∈ N {\displaystyle (a_{k})_{k\in \mathbb {N} }} that converges to a limit L {\displaystyle L} is said to asymptotically converge to L {\displaystyle L} with a faster order of convergence than another sequence ( b k ) k ∈ ∈ N {\displaystyle (b_{k})_{k\in \mathbb {N} }} that converges to L {\displaystyle L} in a shared metric space with distance metric | ⋅ ⋅ | , {\displaystyle |\cdot |,} such as the real numbers or complex numbers with the ordinary absolute difference metrics, if lim k → → ∞ ∞ | a k − − L | | b k − − L | = 0 , {\displaystyle \lim _{k\rightarrow \infty }{\frac {\left|a_{k}-L\right|}{|b_{k}-L|}}=0,} the two are said to asymptotically converge to L {\displaystyle L} with the same order of convergence if lim k → → ∞ ∞ | a k − − L | | b k − − L | = μ μ {\displaystyle \lim _{k\rightarrow \infty }{\frac {\left|a_{k}-L\right|}{|b_{k}-L|}}=\mu } for some positive finite constant μ μ , {\displaystyle \mu ,} and the two are said to asymptotically converge to L {\displaystyle L} with the same rate and order of convergence if lim k → → ∞ ∞ | a k − − L | | b k − − L | = 1.
+
+{\displaystyle \lim _{k\rightarrow \infty }{\frac {\left|a_{k}-L\right|}{|b_{k}-L|}}=1.} These comparative definitions of rate and order of asymptotic convergence are fundamental in asymptotic analysis .
+
+[ 10 ] [ 11 ] For the first two of these there are associated expressions in asymptotic O notation : the first is that a k − − L = o ( b k − − L ) {\displaystyle a_{k}-L=o(b_{k}-L)} in small o notation [ 12 ] and the second is that a k − − L = Θ Θ ( b k − − L ) {\displaystyle a_{k}-L=\Theta (b_{k}-L)} in Knuth notation.
+
+[ 13 ] The third is also called asymptotic equivalence, expressed a k − − L ∼ ∼ b k − − L .
+
+{\displaystyle a_{k}-L\sim b_{k}-L.} [ 14 ] [ 15 ] Examples [ edit ] For any two geometric progressions ( a r k ) k ∈ ∈ N {\displaystyle (ar^{k})_{k\in \mathbb {N} }} and ( b s k ) k ∈ ∈ N , {\displaystyle (bs^{k})_{k\in \mathbb {N} },} with shared limit zero, the two sequences are asymptotically equivalent if and only if both a = b {\displaystyle a=b} and r = s .
+
+{\displaystyle r=s.} They converge with the same order if and only if r = s .
+
+{\displaystyle r=s.} ( a r k ) {\displaystyle (ar^{k})} converges with a faster order than ( b s k ) {\displaystyle (bs^{k})} if and only if r < s .
+
+{\displaystyle r<s.} The convergence of any geometric series to its limit has error terms that are equal to a geometric progression, so similar relationships hold among geometric series as well. Any sequence that is asymptotically equivalent to a convergent geometric sequence may be either be said to "converge geometrically" or "converge exponentially" with respect to the absolute difference from its limit, or it may be said to "converge linearly" relative to a logarithm of the absolute difference such as the "number of decimals of precision." The latter is standard in numerical analysis.
+
+For any two sequences of elements proportional to an inverse power of k , {\displaystyle k,} ( a k − − n ) k ∈ ∈ N {\displaystyle (ak^{-n})_{k\in \mathbb {N} }} and ( b k − − m ) k ∈ ∈ N , {\displaystyle (bk^{-m})_{k\in \mathbb {N} },} with shared limit zero, the two sequences are asymptotically equivalent if and only if both a = b {\displaystyle a=b} and n = m .
+
+{\displaystyle n=m.} They converge with the same order if and only if n = m .
+
+{\displaystyle n=m.} ( a k − − n ) {\displaystyle (ak^{-n})} converges with a faster order than ( b k − − m ) {\displaystyle (bk^{-m})} if and only if n > m .
+
+{\displaystyle n>m.} For any sequence ( a k ) k ∈ ∈ N {\displaystyle (a_{k})_{k\in \mathbb {N} }} with a limit of zero, its convergence can be compared to the convergence of the shifted sequence ( a k − − 1 ) k ∈ ∈ N , {\displaystyle (a_{k-1})_{k\in \mathbb {N} },} rescalings of the shifted sequence by a constant μ μ , {\displaystyle \mu ,} ( μ μ a k − − 1 ) k ∈ ∈ N , {\displaystyle (\mu a_{k-1})_{k\in \mathbb {N} },} and scaled q {\displaystyle q} -powers of the shifted sequence, ( μ μ a k − − 1 q ) k ∈ ∈ N .
+
+{\displaystyle (\mu a_{k-1}^{q})_{k\in \mathbb {N} }.} These comparisons are the basis for the Q-convergence classifications for iterative numerical methods as described above: when a sequence of iterate errors from a numerical method ( | x k − − L | ) k ∈ ∈ N {\displaystyle (|x_{k}-L|)_{k\in \mathbb {N} }} is asymptotically equivalent to the shifted, exponentiated, and rescaled sequence of iterate errors ( μ μ | x k − − 1 − − L | q ) k ∈ ∈ N , {\displaystyle (\mu |x_{k-1}-L|^{q})_{k\in \mathbb {N} },} it is said to converge with order q {\displaystyle q} and rate μ μ .
+
+{\displaystyle \mu .} Non-asymptotic rates of convergence [ edit ] This section needs additional citations for verification .
+
+Please help improve this article by adding citations to reliable sources in this section. Unsourced material may be challenged and removed.
+
+( October 2024 ) ( Learn how and when to remove this message ) Non-asymptotic rates of convergence do not have the common, standard definitions that asymptotic rates of convergence have. Among formal techniques, Lyapunov theory is one of the most powerful and widely applied frameworks for characterizing and analyzing non-asymptotic convergence behavior.
+
+For iterative methods , one common practical approach is to discuss these rates in terms of the number of iterates or the computer time required to reach close neighborhoods of a limit from starting points far from the limit. The non-asymptotic rate is then an inverse of that number of iterates or computer time. In practical applications, an iterative method that required fewer steps or less computer time than another to reach target accuracy will be said to have converged faster than the other, even if its asymptotic convergence is slower. These rates will generally be different for different starting points and different error thresholds for defining the neighborhoods. It is most common to discuss summaries of statistical distributions of these single point rates corresponding to distributions of possible starting points, such as the "average non-asymptotic rate," the "median non-asymptotic rate," or the "worst-case non-asymptotic rate" for some method applied to some problem with some fixed error threshold. These ensembles of starting points can be chosen according to parameters like initial distance from the eventual limit in order to define quantities like "average non-asymptotic rate of convergence from a given distance." For discretized approximation methods, similar approaches can be used with a discretization scale parameter such as an inverse of a number of grid or mesh points or a Fourier series cutoff frequency playing the role of inverse iterate number, though it is not especially common. For any problem, there is a greatest discretization scale parameter compatible with a desired accuracy of approximation, and it may not be as small as required for the asymptotic rate and order of convergence to provide accurate estimates of the error. In practical applications, when one discretization method gives a desired accuracy with a larger discretization scale parameter than another it will often be said to converge faster than the other, even if its eventual asymptotic convergence is slower.
+
+References [ edit ] ^ a b c d e f g h Nocedal, Jorge; Wright, Stephen J. (1999).
+
+Numerical Optimization (1st ed.). New York, NY: Springer. pp.
+
+28– 29.
+
+ISBN 978-0-387-98793-4 .
+
+^ Senning, Jonathan R.
+
+"Computing and Estimating the Rate of Convergence" (PDF) .
+
+gordon.edu . Retrieved 2020-08-07 .
+
+^ Hundley, Douglas.
+
+"Rate of Convergence" (PDF) .
+
+Whitman College . Retrieved 2020-12-13 .
+
+^ Porta, F. A. (1989).
+
+"On Q-Order and R-Order of Convergence" (PDF) .
+
+Journal of Optimization Theory and Applications .
+
+63 (3): 415– 431.
+
+doi : 10.1007/BF00939805 .
+
+S2CID 116192710 . Retrieved 2020-07-31 .
+
+^ a b Van Tuyl, Andrew H. (1994).
+
+"Acceleration of convergence of a family of logarithmically convergent sequences" (PDF) .
+
+Mathematics of Computation .
+
+63 (207): 229– 246.
+
+doi : 10.2307/2153571 .
+
+JSTOR 2153571 . Retrieved 2020-08-02 .
+
+^ Chanson, Jeffrey R. (October 3, 2024).
+
+"Order of Convergence" .
+
+LibreTexts Mathematics . Retrieved October 3, 2024 .
+
+^ Nocedal, Jorge; Wright, Stephen J. (2006).
+
+Numerical Optimization (2nd ed.). Berlin, New York: Springer-Verlag .
+
+ISBN 978-0-387-30303-1 .
+
+^ Senning, Jonathan R.
+
+"Computing and Estimating the Rate of Convergence" (PDF) .
+
+gordon.edu . Retrieved 2020-08-07 .
+
+^ Senning, Jonathan R.
+
+"Verifying Numerical Convergence Rates" (PDF) . Retrieved 2024-02-09 .
+
+^ Balcázar, José L.; Gabarró, Joaquim.
+
+"Nonuniform complexity classes specified by lower and upper bounds" (PDF) .
+
+RAIRO – Theoretical Informatics and Applications – Informatique Théorique et Applications .
+
+23 (2): 180.
+
+ISSN 0988-3754 .
+
+Archived (PDF) from the original on 14 March 2017 . Retrieved 14 March 2017 – via Numdam.
+
+^ Cucker, Felipe; Bürgisser, Peter (2013).
+
+"A.1 Big Oh, Little Oh, and Other Comparisons" .
+
+Condition: The Geometry of Numerical Algorithms . Berlin, Heidelberg: Springer. pp.
+
+467– 468.
+
+doi : 10.1007/978-3-642-38896-5 .
+
+ISBN 978-3-642-38896-5 .
+
+^ Apostol, Tom M.
+
+(1967).
+
+Calculus . Vol. 1 (2nd ed.). USA: John Wiley & Sons. p. 286.
+
+ISBN 0-471-00005-1 .
+
+^ Knuth, Donald (April–June 1976).
+
+"Big Omicron and big Omega and big Theta" .
+
+SIGACT News .
+
+8 (2): 18– 24.
+
+doi : 10.1145/1008328.1008329 .
+
+S2CID 5230246 .
+
+^ Apostol, Tom M. (1967).
+
+Calculus . Vol. 1 (2nd ed.). USA: John Wiley & Sons. p. 396.
+
+ISBN 0-471-00005-1 .
+
+^ "Asymptotic equality" , Encyclopedia of Mathematics , EMS Press , 2001 [1994] v t e Differential equations Classification Operations Differential operator Notation for differentiation Ordinary Partial Differential-algebraic Integro-differential Fractional Linear Non-linear Holonomic Attributes of variables Dependent and independent variables Homogeneous Nonhomogeneous Coupled Decoupled Order Degree Autonomous Exact differential equation On jet bundles Relation to processes Difference (discrete analogue) Stochastic Stochastic partial Delay Solutions Existence/uniqueness Picard–Lindelöf theorem Peano existence theorem Carathéodory's existence theorem Cauchy–Kowalevski theorem Solution topics Wronskian Phase portrait Phase space Lyapunov stability Asymptotic stability Exponential stability Rate of convergence Series solutions Integral solutions Numerical integration Dirac delta function Solution methods Inspection Substitution Separation of variables Method of undetermined coefficients Variation of parameters Integrating factor Integral transforms Euler method Finite difference method Crank–Nicolson method Runge–Kutta methods Finite element method Finite volume method Galerkin method Perturbation theory Examples List of named differential equations List of linear ordinary differential equations List of nonlinear ordinary differential equations List of nonlinear partial differential equations Mathematicians Isaac Newton Gottfried Wilhelm Leibniz Leonhard Euler Jacob Bernoulli Émile Picard Józef Maria Hoene-Wroński Ernst Lindelöf Rudolf Lipschitz Joseph-Louis Lagrange Augustin-Louis Cauchy John Crank Phyllis Nicolson Carl David Tolmé Runge Martin Kutta Sofya Kovalevskaya NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐cdm75
+Cached time: 20250812015421
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.541 seconds
+Real time usage: 0.729 seconds
+Preprocessor visited node count: 2766/1000000
+Revision size: 35117/2097152 bytes
+Post‐expand include size: 68372/2097152 bytes
+Template argument size: 959/2097152 bytes
+Highest expansion depth: 16/100
+Expensive parser function count: 4/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 75028/5000000 bytes
+Lua time usage: 0.272/10.000 seconds
+Lua memory usage: 6794367/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  423.264      1 -total
+ 40.08%  169.636      1 Template:Reflist
+ 22.57%   95.530      3 Template:Navbox
+ 21.14%   89.490      1 Template:Differential_equations_topics
+ 20.88%   88.375      5 Template:Cite_book
+ 16.90%   71.523      1 Template:Short_description
+ 10.99%   46.523      2 Template:Pagetype
+ 10.18%   43.080      2 Template:More_citations_needed_section
+  9.07%   38.394      2 Template:More_citations_needed
+  8.49%   35.934      2 Template:Ambox Saved in parser cache with key enwiki:pcache:999701:|#|:idhash:canonical and timestamp 20250812015421 and revision id 1297569215. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Rate_of_convergence&oldid=1297569215 " Categories : Numerical analysis Rates Hidden categories: Articles with short description Short description is different from Wikidata Articles needing additional references from August 2020 All articles needing additional references Articles needing additional references from October 2024 This page was last edited on 27 June 2025, at 01:46 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Rate of convergence 13 languages Add topic
+

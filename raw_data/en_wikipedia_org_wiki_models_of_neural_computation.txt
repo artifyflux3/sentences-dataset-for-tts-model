@@ -1,0 +1,345 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Introduction 2 General criteria for evaluating models Toggle General criteria for evaluating models subsection 2.1 Speed of information processing 2.2 Robustness 2.3 Gain control 2.4 Linearity versus nonlinearity 3 Examples Toggle Examples subsection 3.1 Models of information transfer in neurons 3.1.1 Hodgkin–Huxley model and its derivatives 3.1.2 Solitons 3.1.3 Transfer functions and linear filters 3.2 Models of computations in sensory systems 3.2.1 Lateral inhibition in the retina: Hartline–Ratliff equations 3.2.2 Cross-correlation in sound localization: Jeffress model 3.2.3 Cross-correlation for motion detection: Hassenstein–Reichardt model 3.2.4 Watson–Ahumada model for motion estimation in humans 3.3 Anti-Hebbian adaptation: spike-timing dependent plasticity 3.4 Models of sensory-motor coupling 3.4.1 Neurophysiological metronomes: neural circuits for pattern generation 3.4.2 Feedback and control: models of flight control in the fly 3.4.3 Cerebellum sensory motor control 4 Software modelling approaches and tools Toggle Software modelling approaches and tools subsection 4.1 Neural networks 4.2 Genetic algorithms 4.3 NEURON 5 Embodiment in electronic hardware Toggle Embodiment in electronic hardware subsection 5.1 Conductance-based silicon neurons 5.2 Retinomorphic chips 6 See also 7 References 8 External links Toggle the table of contents Models of neural computation 3 languages Català فارسی Bahasa Indonesia Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Models of neural computation are attempts to elucidate, in an abstract and mathematical fashion, the core principles that underlie information processing in biological nervous systems, or functional components thereof. This article aims to provide an overview of the most definitive models of neuro-biological computation as well as the tools commonly used to construct and analyze them.
+
+Introduction [ edit ] Due to the complexity of nervous system behavior, the associated experimental error bounds are ill-defined, but the relative merit of the different models of a particular subsystem can be compared according to how closely they reproduce real-world behaviors or respond to specific input signals. In the closely related field of computational neuroethology , the practice is to include the environment in the model in such a way that the loop is closed . In the cases where competing models are unavailable, or where only gross responses have been measured or quantified, a clearly formulated model can guide the scientist in designing experiments to probe biochemical mechanisms or network connectivity.
+
+In all but the simplest cases, the mathematical equations that form the basis of a model cannot be solved exactly. Nevertheless, computer technology, sometimes in the form of specialized software or hardware architectures, allow scientists to perform iterative calculations and search for plausible solutions. A computer chip or a robot that can interact with the natural environment in ways akin to the original organism is one embodiment of a useful model. The ultimate measure of success is however the ability to make testable predictions.
+
+General criteria for evaluating models [ edit ] Speed of information processing [ edit ] The rate of information processing in biological neural systems are constrained by the speed at which an action potential can propagate down a nerve fibre. This conduction velocity ranges from 1 m/s to over 100 m/s, and generally increases with the diameter of the neuronal process. Slow in the timescales of biologically-relevant events dictated by the speed of sound or the force of gravity, the nervous system overwhelmingly prefers parallel computations over serial ones in time-critical applications.
+
+Robustness [ edit ] A model is robust if it continues to produce the same computational results under variations in inputs or operating parameters introduced by noise. For example, the direction of motion as computed by a robust motion detector would not change under small changes of luminance , contrast or velocity jitter. For simple mathematical models of neuron, for example the dependence of spike patterns on signal delay is much weaker than the dependence on changes in "weights" of interneuronal connections.
+
+[ 1 ] Gain control [ edit ] This refers to the principle that the response of a nervous system should stay within certain bounds even as the inputs from the environment change drastically. For example, when adjusting between a sunny day and a moonless night, the retina changes the relationship between light level and neuronal output by a factor of more than 10 6 {\displaystyle 10^{6}} so that the signals sent to later stages of
+the visual system always remain within a much narrower range of amplitudes.
+
+[ 2 ] [ 3 ] [ 4 ] Linearity versus nonlinearity [ edit ] A linear system is one whose response in a specified unit of measure, to a set of inputs considered at once, is the sum of its responses due to the inputs considered individually.
+
+Linear systems are easier to analyze mathematically and are a persuasive assumption in many models including the McCulloch and Pitts neuron, population coding models, and the simple neurons often used in Artificial neural networks . Linearity may occur in the basic elements of a neural circuit such as the response of a postsynaptic neuron, or as an emergent property of a combination of nonlinear subcircuits.
+
+[ 5 ] Though linearity is often seen as incorrect, there has been recent work suggesting it may, in fact, be biophysically plausible in some cases.
+
+[ 6 ] [ 7 ] Examples [ edit ] A computational neural model may be constrained to the level of biochemical signalling in individual neurons or it may describe an entire organism in its environment. The examples here are grouped according to their scope.
+
+Models of information transfer in neurons [ edit ] Main article: biological neuron model The most widely used models of information transfer in biological neurons are based on analogies with electrical circuits. The equations to be solved are time-dependent differential equations with electro-dynamical variables such as current, conductance or resistance, capacitance and voltage.
+
+Hodgkin–Huxley model and its derivatives [ edit ] Main article: Hodgkin–Huxley model The Hodgkin–Huxley model, widely regarded as one of the great achievements of 20th-century biophysics, describes how action potentials in neurons are initiated and propagated in axons via voltage-gated ion channels . It is a set of nonlinear ordinary differential equations that were introduced by Alan Lloyd Hodgkin and Andrew Huxley in 1952 to explain the results of voltage clamp experiments on the squid giant axon . Analytic solutions do not exist, but the Levenberg–Marquardt algorithm , a modified Gauss–Newton algorithm , is often used to fit these equations to voltage-clamp data.
+
+The FitzHugh–Nagumo model is a simplication of the Hodgkin–Huxley model. The Hindmarsh–Rose model is an extension which describes neuronal spike bursts. The Morris–Lecar model is a modification which does not generate spikes, but describes slow-wave propagation, which is implicated in the inhibitory synaptic mechanisms of central pattern generators .
+
+Solitons [ edit ] Main article: Soliton model in neuroscience The soliton model is an alternative to the Hodgkin–Huxley model that claims to explain how action potentials are initiated and conducted in the form of certain kinds of solitary sound (or density ) pulses that can be modeled as solitons along axons , based on a thermodynamic theory of nerve pulse propagation.
+
+Transfer functions and linear filters [ edit ] This approach, influenced by control theory and signal processing , treats neurons and synapses as time-invariant entities that produce outputs that are linear combinations of input signals, often depicted as sine waves with a well-defined temporal or spatial frequencies.
+
+The entire behavior of a neuron or synapse are encoded in a transfer function , lack of knowledge concerning the exact underlying mechanism notwithstanding. This brings a highly developed mathematics to bear on the problem of information transfer.
+
+The accompanying taxonomy of linear filters turns out to be useful in characterizing neural circuitry. Both low- and high-pass filters are postulated to exist in some form in sensory systems, as they act to prevent information loss in high and low contrast environments, respectively.
+
+Indeed, measurements of the transfer functions of neurons in the horseshoe crab retina according to linear systems analysis show that they remove short-term fluctuations in input signals leaving only the long-term trends, in the manner of low-pass filters.  These animals are unable to see low-contrast objects without the help of optical distortions caused by underwater currents.
+
+[ 8 ] [ 9 ] Models of computations in sensory systems [ edit ] Lateral inhibition in the retina: Hartline–Ratliff equations [ edit ] In the retina, an excited neural receptor can suppress the activity of surrounding neurons within an area called the inhibitory field. This effect, known as lateral inhibition , increases the contrast and sharpness in visual response, but leads to the epiphenomenon of Mach bands . This is often illustrated by the optical illusion of light or dark stripes next to a sharp boundary between two regions in an image of different luminance.
+
+The Hartline-Ratliff model describes interactions within a group of p photoreceptor cells .
+
+[ 10 ] Assuming these interactions to be linear , they proposed the following relationship for the steady-state response rate r p {\displaystyle r_{p}} of the given p -th photoreceptor in terms of the steady-state response rates r j {\displaystyle r_{j}} of the j surrounding receptors: r p = | [ e p − − ∑ ∑ j = 1 , j ≠ ≠ p n k p j | r j − − r p j o | ] | {\displaystyle r_{p}=\left|\left[e_{p}-\sum _{j=1,j\neq p}^{n}k_{pj}\left|r_{j}-r_{pj}^{o}\right|\right]\right|} .
+
+Here, e p {\displaystyle e_{p}} is the excitation of the target p -th receptor from sensory transduction r p j o {\displaystyle r_{pj}^{o}} is the associated threshold of the firing cell, and k p j {\displaystyle k_{pj}} is the coefficient of inhibitory interaction between the p -th and the j th receptor. The inhibitory interaction decreases with distance from the target p -th receptor.
+
+Cross-correlation in sound localization: Jeffress model [ edit ] According to Jeffress , [ 11 ] in order to compute the location of a sound source in space from interaural time differences , an auditory system relies on delay lines : the induced signal from an ipsilateral auditory receptor to a particular neuron is delayed for the same time as it takes for the original sound to go in space from that ear to the other.  Each postsynaptic cell is differently delayed and thus specific for a particular inter-aural time difference. This theory is equivalent to the mathematical procedure of cross-correlation .
+
+Following Fischer and Anderson, [ 12 ] the response of the postsynaptic neuron to the signals from the left and right ears is given by y R ( t ) − − y L ( t ) {\displaystyle y_{R}\left(t\right)-y_{L}\left(t\right)} where y L ( t ) = ∫ ∫ 0 τ τ u L ( σ σ ) w ( t − − σ σ ) d σ σ {\displaystyle y_{L}\left(t\right)=\int _{0}^{\tau }u_{L}\left(\sigma \right)w\left(t-\sigma \right)d\sigma } y R ( t ) = ∫ ∫ 0 τ τ u R ( σ σ ) w ( t − − σ σ ) d σ σ {\displaystyle y_{R}\left(t\right)=\int _{0}^{\tau }u_{R}\left(\sigma \right)w\left(t-\sigma \right)d\sigma } and w ( t − − σ σ ) {\displaystyle w\left(t-\sigma \right)} represents the delay function. This is not entirely correct and a clear eye is needed to put the symbols in order.
+
+Structures have been located in the barn owl which are consistent with Jeffress-type mechanisms.
+
+[ 13 ] Cross-correlation for motion detection: Hassenstein–Reichardt model [ edit ] A motion detector needs to satisfy three general requirements: pair-inputs, asymmetry and nonlinearity.
+
+[ 14 ] The cross-correlation operation implemented asymmetrically on the responses from a pair of photoreceptors satisfies these minimal criteria, and furthermore, predicts features which have been observed in the response of neurons of the lobula plate in bi-wing insects.
+
+[ 15 ] The master equation for response is R = A 1 ( t − − τ τ ) B 2 ( t ) − − A 2 ( t − − τ τ ) B 1 ( t ) {\displaystyle R=A_{1}(t-\tau )B_{2}(t)-A_{2}(t-\tau )B_{1}(t)} The HR model predicts a peaking of the response at a particular input temporal frequency. The conceptually similar Barlow–Levick model is deficient in the sense that a stimulus presented to only one receptor of the pair is sufficient to generate a response. This is unlike the HR model, which requires two correlated signals delivered in a time ordered fashion. However the HR model does not show a saturation of response at high contrasts, which is observed in experiment. Extensions of the Barlow-Levick model can provide for this discrepancy.
+
+[ 16 ] Watson–Ahumada model for motion estimation in humans [ edit ] This uses a cross-correlation in both the spatial and temporal directions, and is related to the concept of optical flow .
+
+[ 17 ] Anti-Hebbian adaptation: spike-timing dependent plasticity [ edit ] Tzounopoulos, T; Kim, Y; Oertel, D; Trussell, LO (2004). "Cell-specific, spike timing-dependent plasticities in the dorsal cochlear nucleus".
+
+Nat Neurosci .
+
+7 (7): 719– 725.
+
+doi : 10.1038/nn1272 .
+
+PMID 15208632 .
+
+S2CID 17774457 .
+
+Roberts, Patrick D.; Portfors, Christine V. (2008). "Design principles of sensory processing in cerebellum-like structures".
+
+Biological Cybernetics .
+
+98 (6): 491– 507.
+
+doi : 10.1007/s00422-008-0217-1 .
+
+PMID 18491162 .
+
+S2CID 14393814 .
+
+Models of sensory-motor coupling [ edit ] Neurophysiological metronomes: neural circuits for pattern generation [ edit ] Mutually inhibitory processes are a unifying motif of all central pattern generators . This has been demonstrated in the stomatogastric (STG) nervous system of crayfish and lobsters.
+
+[ 18 ] Two and three-cell oscillating networks based on the STG have been constructed which are amenable to mathematical analysis, and which depend in a simple way on synaptic strengths and overall activity, presumably the knobs on these things.
+
+[ 19 ] The mathematics involved is the theory of dynamical systems .
+
+Feedback and control: models of flight control in the fly [ edit ] Flight control in the fly is believed to be mediated by inputs from the visual system and also the halteres , a pair of knob-like organs which measure angular velocity. Integrated computer models of Drosophila , short on neuronal circuitry but based on the general guidelines given by control theory and data from the tethered flights of flies, have been constructed to investigate the details of flight control.
+
+[ 20 ] [ 21 ] Cerebellum sensory motor control [ edit ] Tensor network theory is a theory of cerebellar function that provides a mathematical model of the transformation of sensory space-time coordinates into motor coordinates and vice versa by cerebellar neuronal networks . The theory was developed by Andras Pellionisz and Rodolfo Llinas in the 1980s as a geometrization of brain function (especially of the central nervous system ) using tensors .
+
+[ 22 ] [ 23 ] Software modelling approaches and tools [ edit ] Neural networks [ edit ] Main article: neural network In this approach the strength and type, excitatory or inhibitory, of synaptic connections are represented by the magnitude and sign of weights, that is, numerical coefficients w ′ {\displaystyle w'} in front of the inputs x {\displaystyle x} to a particular neuron. The response of the j {\displaystyle j} -th neuron is given by a sum of nonlinear, usually " sigmoidal " functions g {\displaystyle g} of the inputs as: f j = ∑ ∑ i g ( w j i ′ x i + b j ) {\displaystyle f_{j}=\sum _{i}g\left(w_{ji}'x_{i}+b_{j}\right)} .
+
+This response is then fed as input into other neurons and so on. The goal is to optimize the weights of the neurons to output a desired response at the output layer respective to a set given inputs at the input layer. This optimization of the neuron weights is often performed using the backpropagation algorithm and an optimization method such as gradient descent or Newton's method of optimization . Backpropagation compares the output of the network with the expected output from the training data, then updates the weights of each neuron to minimize the contribution of that individual neuron to the total error of the network.
+
+Genetic algorithms [ edit ] Genetic algorithms are used to evolve neural (and sometimes body) properties in a model brain-body-environment system so as to exhibit some desired behavioral performance. The evolved agents can then be subjected to a detailed analysis to uncover their principles of operation. Evolutionary approaches are particularly useful for exploring spaces of possible solutions to a given behavioral task because these approaches minimize a priori assumptions about how a given behavior ought to be instantiated. They can also be useful for exploring different ways to complete a computational neuroethology model when only partial neural circuitry is available for a biological system of interest.
+
+[ 24 ] NEURON [ edit ] The NEURON software, developed at Duke University, is a simulation environment for modeling individual neurons and networks of neurons.
+
+[ 25 ] The NEURON environment is a self-contained environment allowing interface through its GUI or via scripting with hoc or python . The NEURON simulation engine is based on a Hodgkin–Huxley type model using a Borg–Graham formulation. Several examples of models written in NEURON are available from the online database ModelDB.
+
+[ 26 ] Embodiment in electronic hardware [ edit ] Conductance-based silicon neurons [ edit ] Nervous systems differ from the majority of silicon-based computing devices in that they resemble analog computers (not digital data processors) and massively parallel processors, not sequential processors. To model nervous systems accurately, in real-time, alternative hardware is required.
+
+The most realistic circuits to date make use of analog properties of existing digital electronics (operated under non-standard conditions) to realize Hodgkin–Huxley-type models in silico .
+
+[ 27 ] [ 28 ] Retinomorphic chips [ edit ] [ 29 ] See also [ edit ] Cognitive architecture Cognitive map Computational neuroscience Motion perception Neural coding Neural correlate Neural decoding Neuroethology Neuroinformatics Quantitative models of the action potential Spiking neural network Systems neuroscience References [ edit ] ^ Cejnar, Pavel; Vyšata, Oldřich; Vališ, Martin; Procházka, Aleš (2019). "The Complex Behaviour of a Simple Neural Oscillator Model in the Human Cortex".
+
+IEEE Transactions on Neural Systems and Rehabilitation Engineering .
+
+27 (3): 337– 347.
+
+doi : 10.1109/TNSRE.2018.2883618 .
+
+PMID 30507514 .
+
+S2CID 54527064 .
+
+^ Nicholas J. Priebe & David Ferster (2002). "A New Mechanism for Neuronal Gain Control". Vol. 35, no. 4. Neuron. pp.
+
+602– 604.
+
+^ Klein, S. A., Carney, T., Barghout-Stein, L., & Tyler, C. W. (1997, June). Seven models of masking. In Electronic Imaging'97 (pp. 13–24). International Society for Optics and Photonics.
+
+^ Barghout-Stein, Lauren. On differences between peripheral and foveal pattern masking. Diss. University of California, Berkeley, 1999.
+
+^ Molnar, Alyosha; Hsueh, Hain-Ann; Roska, Botond; Werblin, Frank S. (2009).
+
+"Crossover inhibition in the retina: circuitry that compensates for nonlinear rectifying synaptic transmission" .
+
+Journal of Computational Neuroscience .
+
+27 (3): 569– 590.
+
+doi : 10.1007/s10827-009-0170-6 .
+
+ISSN 0929-5313 .
+
+PMC 2766457 .
+
+PMID 19636690 .
+
+^ Singh, Chandan; Levy, William B. (13 July 2017).
+
+"A consensus layer V pyramidal neuron can sustain interpulse-interval coding" .
+
+PLOS ONE .
+
+12 (7): e0180839.
+
+arXiv : 1609.08213 .
+
+Bibcode : 2017PLoSO..1280839S .
+
+doi : 10.1371/journal.pone.0180839 .
+
+ISSN 1932-6203 .
+
+PMC 5509228 .
+
+PMID 28704450 .
+
+^ Cash, Sydney; Yuste, Rafael (1 January 1998).
+
+"Input Summation by Cultured Pyramidal Neurons Is Linear and Position-Independent" .
+
+Journal of Neuroscience .
+
+18 (1): 10– 15.
+
+doi : 10.1523/JNEUROSCI.18-01-00010.1998 .
+
+ISSN 0270-6474 .
+
+PMC 6793421 .
+
+PMID 9412481 .
+
+^ Robert B. Barlow, Jr.; Ramkrishna Prakash; Eduardo Solessio (1993).
+
+"The Neural Network of the Limulus Retina: From Computer to Behavior" .
+
+American Zoologist .
+
+33 : 66– 78.
+
+doi : 10.1093/icb/33.1.66 .
+
+^ Robert B. Barlow, James M. Hitt and Frederick A. Dodge (2001). "Limulus Vision in the Marine Environment".
+
+The Biological Bulletin .
+
+200 (2): 169– 176.
+
+CiteSeerX 10.1.1.116.5190 .
+
+doi : 10.2307/1543311 .
+
+JSTOR 1543311 .
+
+PMID 11341579 .
+
+S2CID 18371282 .
+
+^ K. P. Hadeler & D. Kuhn (1987). "Stationary States of the Hartline–Ratliff Model".
+
+Biological Cybernetics .
+
+56 ( 5– 6): 411– 417.
+
+doi : 10.1007/BF00319520 .
+
+S2CID 8710876 .
+
+^ Jeffress, L.A. (1948). "A place theory of sound localization".
+
+Journal of Comparative and Physiological Psychology .
+
+41 (1): 35– 39.
+
+doi : 10.1037/h0061495 .
+
+PMID 18904764 .
+
+^ Fischer, Brian J.; Anderson, Charles H. (2004). "A computational model of sound localization in the barn owl".
+
+Neurocomputing .
+
+58– 60: 1007– 1012.
+
+doi : 10.1016/j.neucom.2004.01.159 .
+
+S2CID 31927198 .
+
+^ Catherine E. Carr, 1993. Delay Line Models of Sound Localization in the Barn Owl "American Zoologist" Vol. 33, No. 1 79–85 ^ Borst A, Egelhaaf M., 1989. Principles of visual motion detection. "Trends in Neurosciences"  12(8):297–306 ^ Joesch, M.; et al. (2008).
+
+"Response properties of motion-sensitive visual interneurons in the lobula plate of Drosophila melanogaster" .
+
+Curr. Biol .
+
+18 (5): 368– 374.
+
+Bibcode : 2008CBio...18..368J .
+
+doi : 10.1016/j.cub.2008.02.022 .
+
+PMID 18328703 .
+
+S2CID 18873331 .
+
+^ Gonzalo G. de Polavieja, 2006. Neuronal Algorithms That Detect the Temporal Order of Events "Neural Computation" 18 (2006) 2102–2121 ^ Andrew B. Watson and Albert J. Ahumada, Jr., 1985. Model of human visual-motion sensing "J. Opt. Soc. Am. A" 2(2) 322–341 ^ Michael P. Nusbaum and Mark P. Beenhakker, A small-systems approach to motor pattern generation, Nature 417, 343–350 (16 May 2002) ^ Cristina Soto-Treviño, Kurt A. Thoroughman and Eve Marder, L. F. Abbott, 2006. Activity-dependent modification of inhibitory synapses in models of rhythmic neural networks Nature Vol 4 No 3 2102–2121 ^ "the Grand Unified Fly (GUF) model" .
+
+^ http://www.mendeley.com/download/public/2464051/3652638122/d3bd7957efd2c8a011afb0687dfb6943731cb6d0/dl.pdf [ permanent dead link ] ^ Pellionisz, A., Llinás, R. (1980).
+
+"Tensorial Approach to the Geometry of Brain Function: Cerebellar Coordination Via A Metric Tensor" (PDF) .
+
+Neuroscience .
+
+5 (7): 1125––1136.
+
+doi : 10.1016/0306-4522(80)90191-8 .
+
+PMID 6967569 .
+
+S2CID 17303132 .
+
+{{ cite journal }} :  CS1 maint: multiple names: authors list ( link ) [ dead link ] ^ Pellionisz, A., Llinás, R. (1985). "Tensor Network Theory of the Metaorganization of Functional Geometries in the Central Nervous System".
+
+Neuroscience .
+
+16 (2): 245– 273.
+
+doi : 10.1016/0306-4522(85)90001-6 .
+
+PMID 4080158 .
+
+S2CID 10747593 .
+
+{{ cite journal }} :  CS1 maint: multiple names: authors list ( link ) ^ Beer, Randall; Chiel, Hillel (4 March 2008).
+
+"Computational neuroethology" .
+
+Scholarpedia .
+
+3 (3): 5307.
+
+Bibcode : 2008SchpJ...3.5307B .
+
+doi : 10.4249/scholarpedia.5307 .
+
+^ "NEURON - for empirically-based simulations of neurons and networks of neurons" .
+
+^ McDougal RA, Morse TM, Carnevale T, Marenco L, Wang R, Migliore M, Miller PL, Shepherd GM, Hines ML.
+Twenty years of ModelDB and beyond: building essential modeling tools for the future of neuroscience. J Comput Neurosci. 2017; 42(1):1–10.
+
+^ L. Alvadoa, J. Tomasa, S. Saghia, S. Renauda, T. Balb, A. Destexheb, G. Le Masson, 2004. Hardware computation of conductance-based neuron models. Neurocomputing 58–60 (2004) 109–115 ^ Indiveri, Giacomo; Douglas, Rodney; Smith, Leslie (29 March 2008).
+
+"Silicon neurons" .
+
+Scholarpedia .
+
+3 (3): 1887.
+
+Bibcode : 2008SchpJ...3.1887I .
+
+doi : 10.4249/scholarpedia.1887 .
+
+^ Kwabena Boahen, "A Retinomorphic Chip with Parallel Pathways: Encoding INCREASING, ON, DECREASING, and OFF Visual Signals", Analog Integrated Circuits and Signal Processing, 30, 121–135, 2002 External links [ edit ] Neural Dynamics at NSI – Web page of Patrick D Roberts at the Neurological Sciences Institute Dickinson Lab – Web page of the Dickinson group at Caltech which studies flight control in Drosophila v t e Neuroethology Concepts Feedforward Coincidence detector Umwelt Instinct Feature detection Central pattern generator (CPG) NMDA receptor Lateral inhibition Fixed action pattern Krogh's principle Hebbian theory Anti-Hebbian learning Sound localization Ultrasound avoidance in insects People Theodore Holmes Bullock Walter Heiligenberg Niko Tinbergen Konrad Lorenz Donald Griffin Donald Kennedy Karl von Frisch Erich von Holst Jörg-Peter Ewert Franz Huber Bernhard Hassenstein Werner E. Reichardt Eric Knudsen Eric Kandel Nobuo Suga Masakazu Konishi Fernando Nottebohm Methods Patch clamp Slice preparation Systems Animal echolocation Waggle dance Jamming avoidance response Vision in toads Frog hearing and communication Infrared sensing in snakes Caridoid escape reaction Vocal learning Surface wave detection Electroreception and electrogenesis Mechanoreception Lateral line Category Commons v t e Animal cognition Cognition Animal communication Animal consciousness Animal culture Animal language Great ape language Talking animal Talking bird Animal-made art Animal navigation Cognitive bias Cognitive ethology Comparative cognition Emotion Insect Mirror test Neuroethology Number sense Observational learning Primate archaeology Theory of mind Tool use sea otters Vocal learning Intelligence Bird Pigeon Cat Cephalopod Cetacean Dog Elephant Fish g factor in non-humans Primate Hominid Swarm Pain Pain in amphibians Pain in animals Pain in cephalopods Pain in crustaceans Pain in fish Pain in invertebrates Relation to brain Brain size Brain-to-body mass ratio Encephalization quotient Neuroscience and intelligence Number of neurons Category NewPP limit report
+Parsed by mw‐web.codfw.main‐755bbcf7ff‐kvhdd
+Cached time: 20250807012941
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.453 seconds
+Real time usage: 0.725 seconds
+Preprocessor visited node count: 2150/1000000
+Revision size: 25905/2097152 bytes
+Post‐expand include size: 74413/2097152 bytes
+Template argument size: 1830/2097152 bytes
+Highest expansion depth: 17/100
+Expensive parser function count: 8/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 97045/5000000 bytes
+Lua time usage: 0.263/10.000 seconds
+Lua memory usage: 5106711/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  423.956      1 -total
+ 40.88%  173.319     16 Template:Cite_journal
+ 39.40%  167.049      1 Template:Reflist
+ 21.15%   89.681      2 Template:Navbox
+ 20.72%   87.839      1 Template:Neuroethology
+  8.04%   34.086      2 Template:Dead_link
+  7.05%   29.910      2 Template:Fix
+  6.38%   27.041      1 Template:Use_dmy_dates
+  6.14%   26.019      4 Template:Category_handler
+  6.07%   25.719      4 Template:Main Saved in parser cache with key enwiki:pcache:25345530:|#|:idhash:canonical and timestamp 20250807012941 and revision id 1228746357. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Models_of_neural_computation&oldid=1228746357 " Categories : Ethology Computational neuroscience Neuroethology Hidden categories: CS1: long volume value All articles with dead external links Articles with dead external links from April 2020 Articles with permanently dead external links CS1 maint: multiple names: authors list Articles with dead external links from July 2022 Use dmy dates from October 2020 This page was last edited on 12 June 2024, at 23:29 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Models of neural computation 3 languages Add topic
+

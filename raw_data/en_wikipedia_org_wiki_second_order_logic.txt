@@ -1,0 +1,276 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Examples 2 Syntax and fragments 3 Semantics 4 Expressive power 5 Deductive systems 6 Non-reducibility to first-order logic 7 Metalogical results 8 History and disputed value 9 Relation to computational complexity 10 See also 11 Notes 12 References Toggle References subsection 12.1 Works cited 13 Further reading Toggle the table of contents Second-order logic 15 languages العربية Català Deutsch Ελληνικά Español Français 한국어 עברית 日本語 Polski Português Русский Svenska Українська 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Form of logic that allows quantification over predicates In logic and mathematics , second-order logic is an extension of first-order logic , which itself is an extension of propositional logic .
+
+[ a ] Second-order logic is in turn extended by higher-order logic and type theory .
+
+First-order logic quantifies only variables that range over individuals (elements of the domain of discourse ); second-order logic, in addition, quantifies over relations . For example, the second-order sentence ∀ ∀ P ∀ ∀ x ( P x ∨ ∨ ¬ ¬ P x ) {\displaystyle \forall P\,\forall x(Px\lor \neg Px)} says that for every formula P , and every individual x , either Px is true or not( Px ) is true (this is the law of excluded middle ). Second-order logic also includes quantification over sets , functions , and other variables (see section below ). Both first-order and second-order logic use the idea of a domain of discourse (often called simply the "domain" or the "universe"). The domain is a set over which individual elements may be quantified.
+
+Examples [ edit ] Graffiti in Neukölln (Berlin) showing the simplest second-order sentence admitting nontrivial models, “ ∃ φ φ ”.
+
+First-order logic can quantify over individuals, but not over properties. That is, we can take an atomic sentence like Cube( b ) and obtain a quantified sentence by replacing the name with a variable and attaching a quantifier: [ 1 ] ∃ ∃ x C u b e ( x ) {\displaystyle \exists x\,\mathrm {Cube} (x)} However, we cannot do the same with the predicate. That is, the following expression: ∃ ∃ P P ( b ) {\displaystyle \exists \mathrm {P} \,\mathrm {P} (b)} is not a sentence of first-order logic, but this is a legitimate sentence of second-order logic. Here, P is a predicate variable and is semantically a set of individuals.
+
+[ 1 ] As a result, second-order logic has greater expressive power than first-order logic. For example, there is no way in first-order logic to identify the set of all cubes and tetrahedrons. But the existence of this set can be asserted in second-order logic as: ∃ ∃ P ∀ ∀ x ( P x ↔ ↔ ( C u b e ( x ) ∨ ∨ T e t ( x ) ) ) .
+
+{\displaystyle \exists \mathrm {P} \,\forall x\,(\mathrm {P} x\leftrightarrow (\mathrm {Cube} (x)\vee \mathrm {Tet} (x))).} We can then assert properties of this set. For instance, the following says that the set of all cubes and tetrahedrons does not contain any dodecahedrons: ∀ ∀ P ( ∀ ∀ x ( P x ↔ ↔ ( C u b e ( x ) ∨ ∨ T e t ( x ) ) ) → → ¬ ¬ ∃ ∃ x ( P x ∧ ∧ D o d e c ( x ) ) ) .
+
+{\displaystyle \forall \mathrm {P} \,(\forall x\,(\mathrm {P} x\leftrightarrow (\mathrm {Cube} (x)\vee \mathrm {Tet} (x)))\rightarrow \lnot \exists x\,(\mathrm {P} x\wedge \mathrm {Dodec} (x))).} Second-order quantification is especially useful because it gives the ability to express reachability properties. For example, if Parent( x , y ) denotes that x is a parent of y , then first-order logic cannot express the property that x is an ancestor of y . In second-order logic we can express this by saying that every set of people containing y and closed under the Parent relation contains x : ∀ ∀ P ( ( P y ∧ ∧ ∀ ∀ a ∀ ∀ b ( ( P b ∧ ∧ P a r e n t ( a , b ) ) → → P a ) ) → → P x ) .
+
+{\displaystyle \forall \mathrm {P} \,((\mathrm {P} y\wedge \forall a\,\forall b\,((\mathrm {P} b\wedge \mathrm {Parent} (a,b))\rightarrow \mathrm {P} a))\rightarrow \mathrm {P} x).} It is notable that while we have variables for predicates in second-order-logic, we don't have variables for properties of predicates. We cannot say, for example, that there is a property Shape( P ) that is true for the predicates P Cube, Tet, and Dodec. This would require third-order logic .
+
+[ 2 ] Syntax and fragments [ edit ] The syntax of second-order logic tells which expressions are well formed formulas . In addition to the syntax of first-order logic , second-order logic includes many new sorts (sometimes called types ) of variables. These are: A sort of variables that range over sets of individuals. If S is a variable of this sort and t is a first-order term then the expression t ∈ S (also written S ( t ), or St to save parentheses) is an atomic formula . Sets of individuals can also be viewed as unary relations on the domain.
+
+For each natural number k there is a sort of variables that ranges over all k -ary relations on the individuals. If R is such a k -ary relation variable and t 1 ,..., t k are first-order terms then the expression R ( t 1 ,..., t k ) is an atomic formula.
+
+For each natural number k there is a sort of variables that ranges over all functions taking k elements of the domain and returning a single element of the domain. If f is such a k -ary function variable and t 1 ,..., t k are first-order terms then the expression f ( t 1 ,..., t k ) is a first-order term.
+
+Each of the variables just defined may be universally and/or existentially quantified over, to build up formulas. Thus there are many kinds of quantifiers, two for each sort of variables. A sentence in second-order logic, as in first-order logic, is a well-formed formula with no free variables (of any sort).
+
+It's possible to forgo the introduction of function variables in the definition given above (and some authors do this) because an n -ary function variable can be represented by a relation variable of arity n +1 and an appropriate formula for the uniqueness of the "result" in the n +1 argument of the relation. (Shapiro 2000, p. 63) Monadic second-order logic (MSO) is a restriction of second-order logic in which only quantification over unary relations (i.e. sets) is allowed. Quantification over functions, owing to the equivalence to relations as described above, is thus also not allowed. The second-order logic without these restrictions is sometimes called full second-order logic to distinguish it from the monadic version. Monadic second-order logic is particularly used in the context of Courcelle's theorem , an algorithmic meta-theorem in graph theory .  The MSO theory of the complete infinite binary tree ( S2S ) is decidable.  By contrast, full second order logic over any infinite set (or MSO logic over for example ( N {\displaystyle \mathbb {N} } ,+)) can interpret the true second-order arithmetic .
+
+Just as in first-order logic, second-order logic may include non-logical symbols in a particular second-order language. These are restricted, however, in that all terms that they form must be either first-order terms (which can be substituted for a first-order variable) or second-order terms (which can be substituted for a second-order variable of an appropriate sort).
+
+A formula in second-order logic is said to be of first-order (and sometimes denoted Σ Σ 0 1 {\displaystyle \Sigma _{0}^{1}} or Π Π 0 1 {\displaystyle \Pi _{0}^{1}} ) if its quantifiers (which may be universal or existential) range only over variables of first order, although it may have free variables of second order. A Σ Σ 1 1 {\displaystyle \Sigma _{1}^{1}} (existential second-order) formula is one additionally having some existential quantifiers over second order variables, i.e.
+
+∃ ∃ R 0 … … ∃ ∃ R m ϕ ϕ {\displaystyle \exists R_{0}\ldots \exists R_{m}\phi } , where ϕ ϕ {\displaystyle \phi } is a first-order formula. The fragment of second-order logic consisting only of existential second-order formulas is called existential second-order logic and abbreviated as ESO, as Σ Σ 1 1 {\displaystyle \Sigma _{1}^{1}} , or even as ∃SO. The fragment of Π Π 1 1 {\displaystyle \Pi _{1}^{1}} formulas is defined dually, it is called universal second-order logic. More expressive fragments are defined for any k > 0 by mutual recursion: Σ Σ k + 1 1 {\displaystyle \Sigma _{k+1}^{1}} has the form ∃ ∃ R 0 … … ∃ ∃ R m ϕ ϕ {\displaystyle \exists R_{0}\ldots \exists R_{m}\phi } , where ϕ ϕ {\displaystyle \phi } is a Π Π k 1 {\displaystyle \Pi _{k}^{1}} formula, and similar, Π Π k + 1 1 {\displaystyle \Pi _{k+1}^{1}} has the form ∀ ∀ R 0 … … ∀ ∀ R m ϕ ϕ {\displaystyle \forall R_{0}\ldots \forall R_{m}\phi } , where ϕ ϕ {\displaystyle \phi } is a Σ Σ k 1 {\displaystyle \Sigma _{k}^{1}} formula. (See analytical hierarchy for the analogous construction of second-order arithmetic .) Semantics [ edit ] The semantics of second-order logic establish the meaning of each sentence. Unlike first-order logic, which has only one standard semantics, there are two different semantics that are commonly used for second-order logic: standard semantics and Henkin semantics . In each of these semantics, the interpretations of the first-order quantifiers and the logical connectives are the same as in first-order logic. Only the ranges of quantifiers over second-order variables differ in the two types of semantics.
+
+[ 3 ] In standard semantics, also called full semantics, the quantifiers range over all sets or functions of the appropriate sort. A model with this condition is called a full model, and these are the same as models in which the range of the second-order quantifiers is the powerset of the model's first-order part.
+
+[ 3 ] Thus once the domain of the first-order variables is established, the meaning of the remaining quantifiers is fixed. It is these semantics that give second-order logic its expressive power, and they will be assumed for the remainder of this article.
+
+Leon Henkin (1950) defined an alternative kind of semantics for second-order and higher-order theories, in which the meaning of the higher-order domains is partly determined by an explicit axiomatisation, drawing on type theory , of the properties of the sets or functions ranged over. Henkin semantics is a kind of many-sorted first-order semantics, where there are a class of models of the axioms, instead of the semantics being fixed to just the standard model as in the standard semantics. A model in Henkin semantics will provide a set of sets or set of functions as the interpretation of higher-order domains, which may be a proper subset of all sets or functions of that sort. For his axiomatisation, Henkin proved that Gödel's completeness theorem and compactness theorem , which hold for first-order logic, carry over to second-order logic with Henkin semantics. Since also the Skolem–Löwenheim theorems hold for Henkin semantics, Lindström's theorem imports that Henkin models are just disguised first-order models .
+
+[ 4 ] For theories such as second-order arithmetic, the existence of non-standard interpretations of higher-order domains isn't just a deficiency of the particular axiomatisation derived from type theory that Henkin used, but a necessary consequence of Gödel's incompleteness theorem : Henkin's axioms can't be supplemented further to ensure the standard interpretation is the only possible model. Henkin semantics are commonly used in the study of second-order arithmetic .
+
+Jouko Väänänen argued that the distinction between Henkin semantics and full semantics for second-order logic is analogous to the distinction between provability in ZFC and truth in V , in that the former obeys model-theoretic properties like the Lowenheim-Skolem theorem and compactness, and the latter has categoricity phenomena.
+
+[ 3 ] For example, "we cannot meaningfully ask whether the V {\displaystyle V} as defined in Z F C {\displaystyle \mathrm {ZFC} } is the real V {\displaystyle V} . But if we reformalize Z F C {\displaystyle \mathrm {ZFC} } inside Z F C {\displaystyle \mathrm {ZFC} } , then we can note that the reformalized Z F C {\displaystyle \mathrm {ZFC} } ... has countable models and hence cannot be categorical." [ citation needed ] Expressive power [ edit ] Second-order logic is more expressive than first-order logic. For example, if the domain is the set of all real numbers , one can assert in first-order logic the existence of an additive inverse of each real number by writing ∀ ∀ x ∃ ∃ y ( x + y = 0 ) {\displaystyle \forall x\exists y(x+y=0)} but one needs second-order logic to assert the least-upper-bound property for sets of real numbers, which states that every bounded, nonempty set of real numbers has a supremum . If the domain is the set of all real numbers, the following second-order sentence (split over two lines) expresses the least upper bound property: ∀ ∀ A ( ( ∃ ∃ w ( w ∈ ∈ A ) ∧ ∧ ∃ ∃ z ∀ ∀ u ( u ∈ ∈ A → → u ≤ ≤ z ) ) → → ∃ ∃ x ( ∀ ∀ u ( u ∈ ∈ A → → u ≤ ≤ x ) ∧ ∧ ∀ ∀ y ∀ ∀ u ( ( u ∈ ∈ A → → u ≤ ≤ y ) → → x ≤ ≤ y ) ) ) {\displaystyle {\begin{aligned}\forall A{\biggl (}&{\bigl (}\exists w(w\in A)\wedge \exists z\forall u(u\in A\rightarrow u\leq z){\bigr )}\rightarrow \\&\exists x{\Bigl (}\forall u(u\in A\rightarrow u\leq x)\wedge \forall y\forall u{\bigl (}(u\in A\rightarrow u\leq y)\rightarrow x\leq y{\bigr )}{\Bigr )}{\biggr )}\\\end{aligned}}} Here, the part of the first line involving w {\displaystyle w} represents the assumption that A {\displaystyle A} is nonempty (it has an element, w {\displaystyle w} ). The rest of the first line represents the assumption that A {\displaystyle A} is bounded (there exists a number z {\displaystyle z} that is greater than equal to all elements u {\displaystyle u} of A {\displaystyle A} ). The second line expresses the existence of a least upper bound x {\displaystyle x} . It asserts that x {\displaystyle x} is an upper bound (it is greater than equal to any element u {\displaystyle u} in A {\displaystyle A} ) and that, if any number y {\displaystyle y} is also an upper bound, then x ≤ ≤ y {\displaystyle x\leq y} . Any ordered field that satisfies this property is isomorphic to the real number field. On the other hand, the set of first-order sentences valid in the reals has arbitrarily large models due to the compactness theorem. Thus the least-upper-bound property cannot be expressed by any set of sentences in first-order logic.  (In fact, every real-closed field satisfies the same first-order sentences in the signature ⟨ ⟨ + , ⋅ ⋅ , ≤ ≤ ⟩ ⟩ {\displaystyle \langle +,\cdot ,\leq \rangle } as the real numbers.) In second-order logic, it is possible to write formal sentences that say "the domain is finite " or "the domain is of countable cardinality ." To say that the domain is finite, use the sentence that says that every surjective function from the domain to itself is injective . To say that the domain has countable cardinality, use the sentence that says that there is a bijection between every two infinite subsets of the domain. It follows from the compactness theorem and the upward Löwenheim–Skolem theorem that it is not possible to characterize finiteness or countability, respectively, in first-order logic.
+
+Certain fragments of second-order logic like ESO are also more expressive than first-order logic even though they are strictly less expressive than the full second-order logic. ESO also enjoys translation equivalence with some extensions of first-order logic that allow non-linear ordering of quantifier dependencies, like first-order logic extended with Henkin quantifiers , Hintikka and Sandu's independence-friendly logic , and Väänänen's dependence logic .
+
+Deductive systems [ edit ] A deductive system for a logic is a set of inference rules and logical axioms that determine which sequences of formulas constitute valid proofs. Several deductive systems can be used for second-order logic, although none can be complete for the standard semantics (see below). Each of these systems is sound , which means any sentence they can be used to prove is logically valid in the appropriate semantics.
+
+The weakest deductive system that can be used consists of a standard deductive system for first-order logic (such as natural deduction ) augmented with substitution rules for second-order terms.
+
+[ b ] This deductive system is commonly used in the study of second-order arithmetic .
+
+The deductive systems considered by Shapiro (2000) and Henkin (1950) add to the augmented first-order deductive scheme both comprehension axioms and choice axioms. These axioms are sound for standard second-order semantics. They are sound for Henkin semantics restricted to Henkin models satisfying the comprehension and choice axioms.
+
+[ c ] Non-reducibility to first-order logic [ edit ] One might attempt to reduce the second-order theory of the real numbers, with full second-order semantics, to the first-order theory in the following way. First expand the domain from the set of all real numbers to a two-sorted domain, with the second sort containing all sets of real numbers. Add a new binary predicate to the language: the membership relation. Then sentences that were second-order become first-order, with the formerly second-order quantifiers ranging over the second sort instead. This reduction can be attempted in a one-sorted theory by adding unary predicates that tell whether an element is a number or a set, and taking the domain to be the union of the set of real numbers and the power set of the real numbers.
+
+But notice that the domain was asserted to include all sets of real numbers. That requirement cannot be reduced to a first-order sentence, as the Löwenheim–Skolem theorem shows. That theorem implies that there is some countably infinite subset of the real numbers, whose members we will call internal numbers , and some countably infinite collection of sets of internal numbers, whose members we will call "internal sets", such that the domain consisting of internal numbers and internal sets satisfies exactly the same first-order sentences as are satisfied by the domain of real numbers and sets of real numbers. In particular, it satisfies a sort of least-upper-bound axiom that says, in effect: Every nonempty internal set that has an internal upper bound has a least internal upper bound.
+
+Countability of the set of all internal numbers (in conjunction with the fact that those form a densely ordered set) implies that that set does not satisfy the full least-upper-bound axiom. Countability of the set of all internal sets implies that it is not the set of all subsets of the set of all internal numbers (since Cantor's theorem implies that the set of all subsets of a countably infinite set is an uncountably infinite set). This construction is closely related to Skolem's paradox .
+
+Thus the first-order theory of real numbers and sets of real numbers has many models, some of which are countable. The second-order theory of the real numbers has only one model, however.
+This follows from the classical theorem that there is only one Archimedean complete ordered field , along with the fact that all the axioms of an Archimedean complete ordered field are expressible in second-order logic. This shows that the second-order theory of the real numbers cannot be reduced to a first-order theory, in the sense that the second-order theory of the real numbers has only one model but the corresponding first-order theory has many models.
+
+There are more extreme examples showing that second-order logic with standard semantics is more expressive than first-order logic. There is a finite second-order theory whose only model is the real numbers if the continuum hypothesis holds and that has no model if the continuum hypothesis does not hold.
+
+[ 5 ] This theory consists of a finite theory characterizing the real numbers as a complete Archimedean ordered field plus an axiom saying that the domain is of the first uncountable cardinality. This example illustrates that the question of whether a sentence in second-order logic is consistent is extremely subtle.
+
+Additional limitations of second-order logic are described in the next section.
+
+Metalogical results [ edit ] It is a corollary of Gödel's incompleteness theorem that there is no deductive system (that is, no notion of provability ) for second-order formulas that simultaneously satisfies these three desired attributes: [ d ] ( Soundness ) Every provable second-order sentence is universally valid, i.e., true in all domains under standard semantics.
+
+( Completeness ) Every universally valid second-order formula, under standard semantics, is provable.
+
+( Effectiveness ) There is a proof-checking algorithm that can correctly decide whether a given sequence of symbols is a proof or not.
+
+This corollary is sometimes expressed by saying that second-order logic does not admit a complete proof theory . In this respect second-order logic with standard semantics differs from first-order logic; Quine pointed to the lack of a complete proof system as a reason for thinking of second-order logic as not logic , properly speaking.
+
+[ 6 ] As mentioned above, Henkin proved that the standard deductive system for first-order logic is sound, complete, and effective for second-order logic with Henkin semantics , and the deductive system with comprehension and choice principles is sound, complete, and effective for Henkin semantics using only models that satisfy these principles.
+
+The compactness theorem and the Löwenheim–Skolem theorem do not hold for full models of second-order logic. They do hold however for Henkin models.
+
+[ 7 ] History and disputed value [ edit ] Predicate logic was introduced to the mathematical community by C. S. Peirce , who coined the term second-order logic and whose notation is most similar to the modern form (Putnam 1982). However, today most students of logic are more familiar with the works of Frege , who published his work several years prior to Peirce but whose works remained less known until Bertrand Russell and Alfred North Whitehead made them famous.  Frege used different variables to distinguish quantification over objects from quantification over properties and sets; but he did not see himself as doing two different kinds of logic.  After the discovery of Russell's paradox it was realized that something was wrong with his system.  Eventually logicians found that restricting Frege's logic in various ways—to what is now called first-order logic —eliminated this problem: sets and properties cannot be quantified over in first-order logic alone.  The now-standard hierarchy of orders of logics dates from this time.
+
+It was found that set theory could be formulated as an axiomatized system within the apparatus of first-order logic (at the cost of several kinds of completeness , but nothing so bad as Russell's paradox), and this was done (see Zermelo–Fraenkel set theory ), as sets are vital for mathematics .
+
+Arithmetic , mereology , and a variety of other powerful logical theories could be formulated axiomatically without appeal to any more logical apparatus than first-order quantification, and this, along with Gödel and Skolem 's adherence to first-order logic, led to a general decline in work in second (or any higher) order logic.
+
+[ citation needed ] This rejection was actively advanced by some logicians, most notably W. V. Quine .  Quine advanced the view [ citation needed ] that in predicate-language sentences like Fx the " x " is to be thought of as a variable or name denoting an object and hence can be quantified over, as in "For all things, it is the case that . . ." but the " F " is to be thought of as an abbreviation for an incomplete sentence, not the name of an object (not even of an abstract object like a property).  For example, it might mean " . . . is a dog."  But it makes no sense to think we can quantify over something like this. (Such a position is quite consistent with Frege's own arguments on the concept-object distinction). So to use a predicate as a variable is to have it occupy the place of a name, which only individual variables should occupy. This reasoning has been rejected by George Boolos .
+
+[ citation needed ] In recent years [ when?
+
+] second-order logic has made something of a recovery, buoyed by Boolos' interpretation of second-order quantification as plural quantification over the same domain of objects as first-order quantification (Boolos 1984). Boolos furthermore points to the claimed nonfirstorderizability of sentences such as "Some critics admire only each other" and "Some of Fianchetto's men went into the warehouse unaccompanied by anyone else", which he argues can only be expressed by the full force of second-order quantification.  However, generalized quantification and partially ordered (or branching) quantification may suffice to express a certain class of purportedly nonfirstorderizable sentences as well and these do not appeal to second-order quantification.
+
+Relation to computational complexity [ edit ] The expressive power of various forms of second-order logic on finite structures is intimately tied to computational complexity theory . The field of descriptive complexity studies which computational complexity classes can be characterized by the power of the logic needed to express languages (sets of finite strings) in them. A string w = w 1 ··· w n in a finite alphabet A can be represented by a finite structure with domain D = {1,..., n }, unary predicates P a for each a ∈ A , satisfied by those indices i such that w i = a , and additional predicates that serve to uniquely identify which index is which (typically, one takes the graph of the successor function on D or the order relation <, possibly with other arithmetic predicates). Conversely, the Cayley tables of any finite structure (over a finite signature ) can be encoded by a finite string.
+
+This identification leads to the following characterizations of variants of second-order logic over finite structures: REG (the regular languages ) is the set of languages definable by monadic, second-order formulas ( Büchi-Elgot-Trakhtenbrot theorem , 1960).
+
+NP is the set of languages definable by existential, second-order formulas ( Fagin's theorem , 1974).
+
+co-NP is the set of languages definable by universal, second-order formulas.
+
+PH is the set of languages definable by second-order formulas.
+
+PSPACE is the set of languages definable by second-order formulas with an added transitive closure operator.
+
+EXPTIME is the set of languages definable by second-order formulas with an added least fixed point operator.
+
+Relationships among these classes directly impact the relative expressiveness of the logics over finite structures; for example, if PH = PSPACE , then adding a transitive closure operator to second-order logic would not make it any more expressive over finite structures.
+
+See also [ edit ] Philosophy portal First-order logic Higher-order logic Löwenheim number Omega language Second-order propositional logic Monadic second-order logic Notes [ edit ] ^ Shapiro (2000) and Hinman (2005) give complete introductions to the subject, with full definitions.
+
+^ Such a system is used without comment by Hinman (2005) .
+
+^ These are the models originally studied by Henkin (1950) .
+
+^ The proof of this corollary is that a sound, complete, and effective deduction system for standard semantics could be used to produce a recursively enumerable completion of Peano arithmetic , which Gödel's theorem shows cannot exist.
+
+References [ edit ] ^ a b Marc Cohen, S. (2007).
+
+"Second Order Logic" (PDF) .
+
+Philosophy 120A - Introduction to Logic .
+
+^ Väänänen, Jouko (2021), "Second-order and Higher-order Logic" , in Zalta, Edward N. (ed.), The Stanford Encyclopedia of Philosophy (Fall 2021 ed.), Metaphysics Research Lab, Stanford University , retrieved 2022-05-03 ^ a b c Väänänen 2001 .
+
+^ * Mendelson, Elliot (2009).
+
+Introduction to Mathematical Logic (hardcover). Discrete Mathematics and Its Applications (5th ed.). Boca Raton: Chapman and Hall/CRC. p. 387.
+
+ISBN 978-1-58488-876-5 .
+
+^ Shapiro 2000 , p. 105.
+
+^ Quine 1970 , p.
+
+90–91 .
+
+^ Manzano, M.
+
+, Model Theory , trans. Ruy J. G. B. de Queiroz ( Oxford : Clarendon Press , 1999), p. xi .
+
+Works cited [ edit ] Henkin, L. (1950). "Completeness in the theory of types".
+
+Journal of Symbolic Logic .
+
+15 (2): 81– 91.
+
+doi : 10.2307/2266967 .
+
+JSTOR 2266967 .
+
+S2CID 36309665 .
+
+Hinman, P. (2005).
+
+Fundamentals of Mathematical Logic . A K Peters.
+
+ISBN 1-56881-262-0 .
+
+Shapiro, S.
+
+(2000) [1991].
+
+Foundations without Foundationalism: A Case for Second-Order Logic . Oxford: Clarendon Press.
+
+ISBN 0-19-825029-0 .
+
+Väänänen, J. (2001).
+
+"Second-Order Logic and Foundations of Mathematics" (PDF) .
+
+Bulletin of Symbolic Logic .
+
+7 (4): 504– 520.
+
+CiteSeerX 10.1.1.25.5579 .
+
+doi : 10.2307/2687796 .
+
+JSTOR 2687796 .
+
+S2CID 7465054 . Archived from the original (PDF) on 8 October 2023.
+
+Quine, W. V. (1970).
+
+Philosophy of Logic .
+
+Prentice Hall .
+
+ISBN 9780674665637 .
+
+Further reading [ edit ] Andrews, Peter (2002).
+
+An Introduction to Mathematical Logic and Type Theory: To Truth Through Proof (2nd ed.). Kluwer Academic Publishers.
+
+Boolos, George (1984). "To Be Is To Be a Value of a Variable (or to Be Some Values of Some Variables)".
+
+Journal of Philosophy .
+
+81 (8): 430– 50.
+
+doi : 10.2307/2026308 .
+
+JSTOR 2026308 .
+
+. Reprinted in Boolos, Logic, Logic and Logic , 1998.
+
+Grädel, Erich; Kolaitis, Phokion G.; Libkin, Leonid ; Maarten, Marx; Spencer, Joel ; Vardi, Moshe Y.
+
+; Venema, Yde; Weinstein, Scott (2007).
+
+Finite model theory and its applications . Texts in Theoretical Computer Science. An EATCS Series. Berlin: Springer-Verlag .
+
+ISBN 978-3-540-00428-8 .
+
+Zbl 1133.03001 .
+
+Putnam, Hilary (1982).
+
+"Peirce the Logician" .
+
+Historia Mathematica .
+
+9 (3): 290– 301.
+
+doi : 10.1016/0315-0860(82)90123-9 .
+
+. Reprinted in Putnam, Hilary (1990), Realism with a Human Face , Harvard University Press , pp. 252–260 .
+
+Rossberg, M. (2004).
+
+"First-Order Logic, Second-Order Logic, and Completeness" (PDF) . In V. Hendricks; et al. (eds.).
+
+First-order logic revisited . Berlin: Logos-Verlag.
+
+v t e Mathematical logic General Axiom list Cardinality First-order logic Formal proof Formal semantics Foundations of mathematics Information theory Lemma Logical consequence Model Theorem Theory Type theory Theorems ( list ) and paradoxes Gödel's completeness and incompleteness theorems Tarski's undefinability Banach–Tarski paradox Cantor's theorem, paradox and diagonal argument Compactness Halting problem Lindström's Löwenheim–Skolem Russell's paradox Logics Traditional Classical logic Logical truth Tautology Proposition Inference Logical equivalence Consistency Equiconsistency Argument Soundness Validity Syllogism Square of opposition Venn diagram Propositional Boolean algebra Boolean functions Logical connectives Propositional calculus Propositional formula Truth tables Many-valued logic 3 finite ∞ Predicate First-order list Second-order Monadic Higher-order Fixed-point Free Quantifiers Predicate Monadic predicate calculus Set theory Set hereditary Class ( Ur- ) Element Ordinal number Extensionality Forcing Relation equivalence partition Set operations: intersection union complement Cartesian product power set identities Types of sets Countable Uncountable Empty Inhabited Singleton Finite Infinite Transitive Ultrafilter Recursive Fuzzy Universal Universe constructible Grothendieck Von Neumann Maps and cardinality Function / Map domain codomain image In / Sur / Bi -jection Schröder–Bernstein theorem Isomorphism Gödel numbering Enumeration Large cardinal inaccessible Aleph number Operation binary Set theories Zermelo–Fraenkel axiom of choice continuum hypothesis General Kripke–Platek Morse–Kelley Naive New Foundations Tarski–Grothendieck Von Neumann–Bernays–Gödel Ackermann Constructive Formal systems ( list ), language and syntax Alphabet Arity Automata Axiom schema Expression ground Extension by definition conservative Relation Formation rule Grammar Formula atomic closed ground open Free/bound variable Language Metalanguage Logical connective ¬ ∨ ∧ → ↔ = Predicate functional variable propositional variable Proof Quantifier ∃ !
+
+∀ rank Sentence atomic spectrum Signature String Substitution Symbol function logical/constant non-logical variable Term Theory list Example axiomatic systems ( list ) of arithmetic : Peano second-order elementary function primitive recursive Robinson Skolem of the real numbers Tarski's axiomatization of Boolean algebras canonical minimal axioms of geometry : Euclidean : Elements Hilbert's Tarski's non-Euclidean Principia Mathematica Proof theory Formal proof Natural deduction Logical consequence Rule of inference Sequent calculus Theorem Systems axiomatic deductive Hilbert list Complete theory Independence ( from ZFC ) Proof of impossibility Ordinal analysis Reverse mathematics Self-verifying theories Model theory Interpretation function of models Model equivalence finite saturated spectrum submodel Non-standard model of arithmetic Diagram elementary Categorical theory Model complete theory Satisfiability Semantics of logic Strength Theories of truth semantic Tarski's Kripke's T-schema Transfer principle Truth predicate Truth value Type Ultraproduct Validity Computability theory Church encoding Church–Turing thesis Computably enumerable Computable function Computable set Decision problem decidable undecidable P NP P versus NP problem Kolmogorov complexity Lambda calculus Primitive recursive function Recursion Recursive set Turing machine Type theory Related Abstract logic Algebraic logic Automated theorem proving Category theory Concrete / Abstract category Category of sets History of logic History of mathematical logic timeline Logicism Mathematical object Philosophy of mathematics Supertask Mathematics portal NewPP limit report
+Parsed by mw‐web.codfw.main‐7c956d68b4‐7d8s4
+Cached time: 20250816110826
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.479 seconds
+Real time usage: 0.647 seconds
+Preprocessor visited node count: 3168/1000000
+Revision size: 33328/2097152 bytes
+Post‐expand include size: 102280/2097152 bytes
+Template argument size: 5309/2097152 bytes
+Highest expansion depth: 15/100
+Expensive parser function count: 7/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 49997/5000000 bytes
+Lua time usage: 0.258/10.000 seconds
+Lua memory usage: 7648207/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  423.120      1 -total
+ 22.16%   93.758      2 Template:Reflist
+ 21.89%   92.610      4 Template:Navbox
+ 19.61%   82.961      1 Template:Mathematical_logic
+ 15.83%   66.975      1 Template:Cite_web
+ 13.08%   55.345      1 Template:Short_description
+ 10.48%   44.347      4 Template:Citation_needed
+  9.97%   42.204      5 Template:Fix
+  9.52%   40.267      4 Template:Efn
+  8.65%   36.583      6 Template:Harvtxt Saved in parser cache with key enwiki:pcache:341428:|#|:idhash:canonical and timestamp 20250816110826 and revision id 1306183858. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Second-order_logic&oldid=1306183858 " Categories : Systems of formal logic Charles Sanders Peirce Hidden categories: Articles with short description Short description is different from Wikidata All articles with unsourced statements Articles with unsourced statements from December 2024 Articles with unsourced statements from January 2010 Articles with unsourced statements from April 2020 All articles with vague or ambiguous time Vague or ambiguous time from October 2017 This page was last edited on 16 August 2025, at 11:07 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Second-order logic 15 languages Add topic
+

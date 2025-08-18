@@ -1,0 +1,201 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Equation Toggle Equation subsection 1.1 Derivation of deterministic and stochastic replicator dynamics 2 Analysis 3 Relationships to other equations 4 Discrete replicator equation 5 Generalizations 6 See also 7 References 8 Further reading Toggle the table of contents Replicator equation 1 language Deutsch Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Dynamical system In mathematics , the replicator equation is a type of dynamical system used in evolutionary game theory to model how the frequency of strategies in a population changes over time. It is a deterministic , monotone , non-linear , and non-innovative dynamic that captures the principle of natural selection in strategic interactions.
+
+[ 1 ] The replicator equation describes how strategies with higher-than-average fitness increase in frequency, while less successful strategies decline. Unlike other models of replication—such as the quasispecies model —the replicator equation allows the fitness of each type to depend dynamically on the distribution of population types, making the fitness function an endogenous component of the system. This allows it to model frequency-dependent selection , where the success of a strategy depends on its prevalence relative to others.
+
+Another key difference from the quasispecies model is that the replicator equation does not include mechanisms for mutation or the introduction of new strategies, and is thus considered non-innovative . It assumes all strategies are present from the outset and models only the relative growth or decline of their proportions over time.
+
+Replicator dynamics have been widely applied in fields such as biology (to study evolution and population dynamics), economics (to analyze bounded rationality and strategy evolution), and machine learning (particularly in multi-agent systems and reinforcement learning ).
+
+Equation [ edit ] The most general continuous form of the replicator equation is given by the differential equation : x i ˙ ˙ = x i [ f i ( x ) − − ϕ ϕ ( x ) ] , ϕ ϕ ( x ) = ∑ ∑ j = 1 n x j f j ( x ) {\displaystyle {\dot {x_{i}}}=x_{i}[f_{i}(x)-\phi (x)],\quad \phi (x)=\sum _{j=1}^{n}{x_{j}f_{j}(x)}} where x i {\displaystyle x_{i}} is the proportion of type i {\displaystyle i} in the population, x = ( x 1 , … … , x n ) {\displaystyle x=(x_{1},\ldots ,x_{n})} is the vector of the distribution of types in the population, f i ( x ) {\displaystyle f_{i}(x)} is the fitness of type i {\displaystyle i} (which is dependent on the population), and ϕ ϕ ( x ) {\displaystyle \phi (x)} is the average population fitness (given by the weighted average of the fitness of the n {\displaystyle n} types in the population). Since the elements of the population vector x {\displaystyle x} sum to unity by definition, the equation is defined on the n-dimensional simplex .
+
+The replicator equation assumes a uniform population distribution; that is, it does not incorporate population structure into the fitness. The fitness landscape does incorporate the population distribution of types, in contrast to other similar equations, such as the quasispecies equation.
+
+In application, populations are generally finite, making the discrete version more realistic. The analysis is more difficult and computationally intensive in the discrete formulation, so the continuous form is often used, although there are significant properties that are lost due to this smoothing. Note that the continuous form can be obtained from the discrete form by a limiting process.
+
+To simplify analysis, fitness is often assumed to depend linearly upon the population distribution, which allows the replicator equation to be written in the form: x i ˙ ˙ = x i ( ( A x ) i − − x T A x ) {\displaystyle {\dot {x_{i}}}=x_{i}\left(\left(Ax\right)_{i}-x^{T}Ax\right)} where the payoff matrix A {\displaystyle A} holds all the fitness information for the population: the expected payoff can be written as ( A x ) i {\displaystyle \left(Ax\right)_{i}} and the mean fitness of the population as a whole can be written as x T A x {\displaystyle x^{T}Ax} . It can be shown that the change in the ratio of two proportions x i / x j {\displaystyle x_{i}/x_{j}} with respect to time is: d d t ( x i x j ) = x i x j [ f i ( x ) − − f j ( x ) ] {\displaystyle {d \over {dt}}\left({x_{i} \over {x_{j}}}\right)={x_{i} \over {x_{j}}}\left[f_{i}(x)-f_{j}(x)\right]} In other words, the change in the ratio is driven entirely by the difference in fitness between types.
+
+Derivation of deterministic and stochastic replicator dynamics [ edit ] Suppose that the number of individuals of type i {\displaystyle i} is N i {\displaystyle N_{i}} and that the total number of individuals is N {\displaystyle N} . Define the proportion of each type to be x i = N i / N {\displaystyle x_{i}=N_{i}/N} . Assume that the change in each type is governed by geometric Brownian motion : d N i = f i N i d t + σ σ i N i d W i {\displaystyle dN_{i}=f_{i}N_{i}dt+\sigma _{i}N_{i}dW_{i}} where f i {\displaystyle f_{i}} is the fitness associated with type i {\displaystyle i} . The average fitness of the types ϕ ϕ = x T f {\displaystyle \phi =x^{T}f} . The Wiener processes are assumed to be uncorrelated. For x i ( N 1 , .
+
+.
+
+.
+
+, N m ) {\displaystyle x_{i}(N_{1},...,N_{m})} , Itô's lemma then gives us: d x i ( N 1 , .
+
+.
+
+.
+
+, N m ) = ∂ ∂ x i ∂ ∂ N j d N j + 1 2 ∂ ∂ 2 x i ∂ ∂ N j ∂ ∂ N k d N j d N k = ∂ ∂ x i ∂ ∂ N j d N j + 1 2 ∂ ∂ 2 x i ∂ ∂ N j 2 ( d N j ) 2 {\displaystyle {\begin{aligned}dx_{i}(N_{1},...,N_{m})&={\partial x_{i} \over {\partial N_{j}}}dN_{j}+{1 \over {2}}{\partial ^{2}x_{i} \over {\partial N_{j}\partial N_{k}}}dN_{j}dN_{k}\\&={\partial x_{i} \over {\partial N_{j}}}dN_{j}+{1 \over {2}}{\partial ^{2}x_{i} \over {\partial N_{j}^{2}}}(dN_{j})^{2}\end{aligned}}} The partial derivatives are then: ∂ ∂ x i ∂ ∂ N j = 1 N δ δ i j − − x i N ∂ ∂ 2 x i ∂ ∂ N j 2 = − − 2 N 2 δ δ i j + 2 x i N 2 {\displaystyle {\begin{aligned}{\partial x_{i} \over {\partial N_{j}}}&={1 \over {N}}\delta _{ij}-{x_{i} \over {N}}\\{\partial ^{2}x_{i} \over {\partial N_{j}^{2}}}&=-{2 \over {N^{2}}}\delta _{ij}+{2x_{i} \over {N^{2}}}\end{aligned}}} where δ δ i j {\displaystyle \delta _{ij}} is the Kronecker delta function . These relationships imply that: d x i = d N i N − − x i ∑ ∑ j d N j N − − ( d N i ) 2 N 2 + x i ∑ ∑ j ( d N j ) 2 N 2 {\displaystyle dx_{i}={dN_{i} \over {N}}-x_{i}\sum _{j}{dN_{j} \over {N}}-{(dN_{i})^{2} \over {N^{2}}}+x_{i}\sum _{j}{(dN_{j})^{2} \over {N^{2}}}} Each of the components in this equation may be calculated as: d N i N = f i x i d t + σ σ i x i d W i − − x i ∑ ∑ j d N j N = − − x i ( ϕ ϕ d t + ∑ ∑ j σ σ j x j d W j ) − − ( d N i ) 2 N 2 = − − σ σ i 2 x i 2 d t x i ∑ ∑ j ( d N j ) 2 N 2 = x i ( ∑ ∑ j σ σ j 2 x j 2 ) d t {\displaystyle {\begin{aligned}{dN_{i} \over {N}}&=f_{i}x_{i}dt+\sigma _{i}x_{i}dW_{i}\\-x_{i}\sum _{j}{dN_{j} \over {N}}&=-x_{i}\left(\phi dt+\sum _{j}\sigma _{j}x_{j}dW_{j}\right)\\-{(dN_{i})^{2} \over {N^{2}}}&=-\sigma _{i}^{2}x_{i}^{2}dt\\x_{i}\sum _{j}{(dN_{j})^{2} \over {N^{2}}}&=x_{i}\left(\sum _{j}\sigma _{j}^{2}x_{j}^{2}\right)dt\end{aligned}}} Then the stochastic replicator dynamics equation for each type is given by: d x i = x i ( f i − − ϕ ϕ − − σ σ i 2 x i + ∑ ∑ j σ σ j 2 x j 2 ) d t + x i ( σ σ i d W i − − ∑ ∑ j σ σ j x j d W j ) {\displaystyle dx_{i}=x_{i}\left(f_{i}-\phi -\sigma _{i}^{2}x_{i}+\sum _{j}\sigma _{j}^{2}x_{j}^{2}\right)dt+x_{i}\left(\sigma _{i}dW_{i}-\sum _{j}\sigma _{j}x_{j}dW_{j}\right)} Assuming that the σ σ i {\displaystyle \sigma _{i}} terms are identically zero, the deterministic replicator dynamics equation is recovered.
+
+Analysis [ edit ] Main article: Evolutionarily stable state The analysis differs in the continuous and discrete cases: in the former, methods from differential equations are utilized, whereas in the latter the methods tend to be stochastic. Since the replicator equation is non-linear, an exact solution is difficult to obtain (even in simple versions of the continuous form) so the equation is usually analyzed in terms of stability. The replicator equation (in its continuous and discrete forms) satisfies the folk theorem of evolutionary game theory which characterizes the stability of equilibria of the equation. The solution of the equation is often given by the set of evolutionarily stable states of the population.
+
+In general nondegenerate cases, there can be at most one interior evolutionary stable state (ESS), though there can be many equilibria on the boundary of the simplex. All the faces of the simplex are forward-invariant which corresponds to the lack of innovation in the replicator equation: once a strategy becomes extinct there is no way to revive it.
+
+Phase portrait solutions for the continuous linear-fitness replicator equation have been classified in the two and three dimensional cases. Classification is more difficult in higher dimensions because the number of distinct portraits increases rapidly.
+
+Relationships to other equations [ edit ] The continuous replicator equation on n {\displaystyle n} types is equivalent to the Generalized Lotka–Volterra equation in n − − 1 {\displaystyle n-1} dimensions.
+
+[ 2 ] [ 3 ] The transformation is made by the change of variables: x i = y i 1 + ∑ ∑ j = 1 n − − 1 y j i = 1 , … … , n − − 1 {\displaystyle x_{i}={\frac {y_{i}}{1+\sum _{j=1}^{n-1}{y_{j}}}}\quad i=1,\ldots ,n-1} x n = 1 1 + ∑ ∑ j = 1 n − − 1 y j , {\displaystyle x_{n}={\frac {1}{1+\sum _{j=1}^{n-1}{y_{j}}}},} where y i {\displaystyle y_{i}} is the Lotka–Volterra variable. The continuous replicator dynamic is also equivalent to the Price equation .
+
+[ 4 ] Discrete replicator equation [ edit ] When one considers an unstructured infinite population with non-overlapping generations, one should work with the discrete forms of the replicator equation. Mathematically, two simple phenomenological versions--- x i ′ = x i + x i [ ( A x ) i − − x T A x ] ( t y p e I ) , {\displaystyle x'_{i}=x_{i}+x_{i}\left[\left(Ax\right)_{i}-x^{T}Ax\right]\,({\rm {type~I),}}} x i ′ = x i [ ( A x ) i x T A x ] ( t y p e I I ) , {\displaystyle x'_{i}=x_{i}\left[{\frac {\left(Ax\right)_{i}}{x^{T}Ax}}\right]\,({\rm {type~II),}}} ---are consistent with the Darwinian tenet of natural selection or any analogous evolutionary phenomena. Here, prime stands for the next time step. However, the discrete nature of the equations puts bounds on the payoff-matrix elements.
+
+[ 5 ] Interestingly, for the simple case of two-player-two-strategy games, the type I replicator map is capable of showing period doubling bifurcation leading to chaos and it also gives a hint on how to generalize [ 6 ] the concept of the evolutionary stable state to accommodate the periodic solutions of the map.
+
+Generalizations [ edit ] A generalization of the replicator equation which incorporates mutation is given by the replicator-mutator equation, which takes the following form in the continuous version: [ 7 ] x i ˙ ˙ = ∑ ∑ j = 1 n x j f j ( x ) Q j i − − ϕ ϕ ( x ) x i , {\displaystyle {\dot {x_{i}}}=\sum _{j=1}^{n}{x_{j}f_{j}(x)Q_{ji}}-\phi (x)x_{i},} where the matrix Q {\displaystyle Q} gives the transition probabilities for the mutation of type j {\displaystyle j} to type i {\displaystyle i} , f i {\displaystyle f_{i}} is the fitness of the i t h {\displaystyle i^{th}} and ϕ ϕ {\displaystyle \phi } is the mean fitness of the population. This equation is a simultaneous generalization of the replicator equation and the quasispecies equation, and is used in the mathematical analysis of language.
+
+The discrete version of the replicator-mutator equation may have two simple types in line with the two replicator maps written above: x i ′ = x i + ∑ ∑ j = 1 n x j f j ( x ) Q j i − − ϕ ϕ ( x ) x i , {\displaystyle x'_{i}=x_{i}+\sum _{j=1}^{n}{x_{j}f_{j}(x)Q_{ji}}-\phi (x)x_{i},} and x i ′ = ∑ ∑ j = 1 n x j f j ( x ) Q j i ϕ ϕ ( x ) , {\displaystyle x'_{i}={\frac {\sum _{j=1}^{n}{x_{j}f_{j}(x)Q_{ji}}}{\phi (x)}},} respectively.
+
+The replicator equation or the replicator-mutator equation can be extended [ 8 ] to include the effect of delay that either corresponds to the delayed information about the population state or in realizing the effect of interaction among players. The replicator equation can also easily be generalized to asymmetric games . A recent generalization that incorporates population structure is used in evolutionary graph theory .
+
+[ 9 ] See also [ edit ] Nash equilibrium computation References [ edit ] ^ Hofbauer, Josef; Sigmund, Karl (2003).
+
+"Evolutionary game dynamics" .
+
+Bulletin of the American Mathematical Society .
+
+40 (4): 479– 519.
+
+doi : 10.1090/S0273-0979-03-00988-1 .
+
+ISSN 0273-0979 .
+
+^ Bomze, Immanuel M. (1983-10-01). "Lotka-Volterra equation and replicator dynamics: A two-dimensional classification".
+
+Biological Cybernetics .
+
+48 (3): 201– 211.
+
+doi : 10.1007/BF00318088 .
+
+ISSN 1432-0770 .
+
+S2CID 206774680 .
+
+^ Bomze, Immanuel M. (1995-04-01). "Lotka-Volterra equation and replicator dynamics: new issues in classification".
+
+Biological Cybernetics .
+
+72 (5): 447– 453.
+
+doi : 10.1007/BF00201420 .
+
+ISSN 1432-0770 .
+
+S2CID 18754189 .
+
+^ Page, KAREN M.; Nowak, MARTIN A. (2002-11-07).
+
+"Unifying Evolutionary Dynamics" .
+
+Journal of Theoretical Biology .
+
+219 (1): 93– 98.
+
+Bibcode : 2002JThBi.219...93P .
+
+doi : 10.1006/jtbi.2002.3112 .
+
+ISSN 0022-5193 .
+
+PMID 12392978 .
+
+^ Pandit, Varun; Mukhopadhyay, Archan; Chakraborty, Sagar (2018). "Weight of fitness deviation governs strict physical chaos in replicator dynamics".
+
+Chaos .
+
+28 (3): 033104.
+
+arXiv : 1703.10767 .
+
+Bibcode : 2018Chaos..28c3104P .
+
+doi : 10.1063/1.5011955 .
+
+PMID 29604653 .
+
+S2CID 4559066 .
+
+^ Mukhopadhyay, Archan; Chakraborty, Sagar (2020).
+
+"Periodic Orbit can be Evolutionarily Stable: Case Study of Discrete Replicator Dynamics" .
+
+Journal of Theoretical Biology .
+
+497 : 110288.
+
+arXiv : 2102.11034 .
+
+Bibcode : 2020JThBi.49710288M .
+
+doi : 10.1016/j.jtbi.2020.110288 .
+
+PMID 32315673 .
+
+S2CID 216073761 .
+
+^ Nowak, Martin A. (2006).
+
+Evolutionary Dynamics: Exploring the Equations of Life . Belknap Press. pp.
+
+272– 273.
+
+ISBN 978-0674023383 .
+
+^ Alboszta, Jan; Miękisz, Jacek (2004).
+
+"Stability of evolutionarily stable strategies in discrete replicator dynamicswithtimedelay" .
+
+Journal of Theoretical Biology .
+
+231 (2): 175– 179.
+
+arXiv : q-bio/0409024 .
+
+Bibcode : 2004JThBi.231..175A .
+
+doi : 10.1016/j.jtbi.2004.06.012 .
+
+PMID 15380382 .
+
+S2CID 15308310 .
+
+^ Lieberman, Erez; Hauert, Christoph; Nowak, Martin A. (2005).
+
+"Evolutionary dynamics on graphs" .
+
+Nature .
+
+433 (7023): 312– 316.
+
+Bibcode : 2005Natur.433..312L .
+
+doi : 10.1038/nature03204 .
+
+ISSN 1476-4687 .
+
+PMID 15662424 .
+
+S2CID 4386820 .
+
+Further reading [ edit ] Cressman, R. (2003).
+
+Evolutionary Dynamics and Extensive Form Games The MIT Press.
+
+Taylor, P.D.; Jonker, L. (1978). "Evolutionary Stable Strategies and Game Dynamics".
+
+Mathematical Biosciences , 40 : 145–156.
+
+Sandholm, William H. (2010).
+
+Population Games and Evolutionary Dynamics . Economic Learning and Social Evolution, The MIT Press.
+
+v t e Game theory Glossary Game theorists Games Traditional game theory Definitions Asynchrony Bayesian regret Best response Bounded rationality Cheap talk Coalition Complete contract Complete information Complete mixing Confrontation analysis Conjectural variation Contingent cooperator Coopetition Cooperative game theory Dynamic inconsistency Escalation of commitment Farsightedness Game semantics Hierarchy of beliefs Imperfect information Incomplete information Information set Move by nature Mutual knowledge Non-cooperative game theory Non-credible threat Outcome Perfect information Perfect recall Ply Preference Rationality Sequential game Simultaneous action selection Spite Strategic complements Strategic dominance Strategic form Strategic interaction Strategic move Strategy Subgame Succinct game Topological game Tragedy of the commons Uncorrelated asymmetry Equilibrium concepts Backward induction Bayes correlated equilibrium Bayesian efficiency Bayesian game Bayesian Nash equilibrium Berge equilibrium Bertrand–Edgeworth model Coalition-proof Nash equilibrium Core Correlated equilibrium Cursed equilibrium Edgeworth price cycle Epsilon-equilibrium Gibbs equilibrium Incomplete contracts Inequity aversion Individual rationality Iterated elimination of dominated strategies Markov perfect equilibrium Mertens-stable equilibrium Nash equilibrium Open-loop model Pareto efficiency Payoff dominance Perfect Bayesian equilibrium Price of anarchy Program equilibrium Proper equilibrium Quantal response equilibrium Quasi-perfect equilibrium Rational agent Rationalizability Rationalizable strategy Satisfaction equilibrium Self-confirming equilibrium Sequential equilibrium Shapley value Strong Nash equilibrium Subgame perfect equilibrium Trembling hand equilibrium Strategies Appeasement Bid shading Cheap talk Collusion Commitment device De-escalation Deterrence Escalation Fictitious play Focal point Grim trigger Hobbesian trap Markov strategy Max-dominated strategy Mixed strategy Pure strategy Tit for tat Win–stay, lose–switch Games All-pay auction Battle of the sexes Nash bargaining game Bertrand competition Blotto game Centipede game Coordination game Cournot competition Deadlock Dictator game Trust game Diner's dilemma Dollar auction El Farol Bar problem Electronic mail game Gift-exchange game Guess 2/3 of the average Keynesian beauty contest Kuhn poker Lewis signaling game Matching pennies Obligationes Optional prisoner's dilemma Pirate game Prisoner's dilemma Public goods game Rendezvous problem Rock paper scissors Stackelberg competition Stag hunt Traveler's dilemma Ultimatum game Volunteer's dilemma War of attrition Theorems Arrow's impossibility theorem Aumann's agreement theorem Brouwer fixed-point theorem Competitive altruism Folk theorem Gibbard–Satterthwaite theorem Gibbs lemma Glicksberg's theorem Kakutani fixed-point theorem Kuhn's theorem One-shot deviation principle Prim–Read theory Rational ignorance Rational irrationality Sperner's lemma Zermelo's theorem Subfields Algorithmic game theory Behavioral game theory Behavioral strategy Compositional game theory Contract theory Drama theory Graphical game theory Heresthetic Mean-field game theory Negotiation theory Quantum game theory Social software Key people Albert W. Tucker Alvin E. Roth Amos Tversky Antoine Augustin Cournot Ariel Rubinstein David Gale David K. Levine David M. Kreps Donald B. Gillies Drew Fudenberg Eric Maskin Harold W. Kuhn Herbert Simon Herbert Scarf Hervé Moulin Jean Tirole Jean-François Mertens Jennifer Tour Chayes Ken Binmore Kenneth Arrow Leonid Hurwicz Lloyd Shapley Martin Shubik Melvin Dresher Merrill M. Flood Olga Bondareva Oskar Morgenstern Paul Milgrom Peyton Young Reinhard Selten Robert Aumann Robert Axelrod Robert B. Wilson Roger Myerson Samuel Bowles Suzanne Scotchmer Thomas Schelling William Vickrey Combinatorial game theory Core concepts Combinatorial explosion Determinacy Disjunctive sum First-player and second-player win Game complexity Game tree Impartial game Misère Partisan game Solved game Sprague–Grundy theorem Strategy-stealing argument Zugzwang Games Chess Chomp Clobber Cram Domineering Hackenbush Nim Notakto Subtract a square Sylver coinage Toads and Frogs Mathematical tools Mex Nimber On Numbers and Games Star Surreal number Winning Ways for Your Mathematical Plays Search algorithms Alpha–beta pruning Expectiminimax Minimax Monte Carlo tree search Negamax Paranoid algorithm Principal variation search Key people Claude Shannon John Conway John von Neumann Evolutionary game theory Core concepts Bishop–Cannings theorem Evolution and the Theory of Games Evolutionarily stable set Evolutionarily stable state Evolutionarily stable strategy Replicator equation Risk dominance Stochastically stable equilibrium Weak evolutionarily stable strategy Games Chicken Stag hunt Applications Cultural group selection Fisher's principle Mobbing Terminal investment hypothesis Key people John Maynard Smith Robert Axelrod Mechanism design Core concepts Algorithmic mechanism design Bayesian-optimal mechanism Incentive compatibility Market design Monotonicity Participation constraint Revelation principle Strategyproofness Vickrey–Clarke–Groves mechanism Theorems Myerson–Satterthwaite theorem Revenue equivalence Applications Digital goods auction Knapsack auction Truthful cake-cutting Other topics Bertrand paradox Chainstore paradox Computational complexity of games Helly metric Multi-agent system PPAD-complete Mathematics portal Commons WikiProject Category Retrieved from " https://en.wikipedia.org/w/index.php?title=Replicator_equation&oldid=1303365581 " Categories : Differential equations Evolutionary game theory Evolutionary dynamics Mathematical and theoretical biology Mathematical economics Hidden categories: Articles with short description Short description is different from Wikidata This page was last edited on 30 July 2025, at 15:23 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Replicator equation 1 language Add topic
+

@@ -1,0 +1,411 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Standardization 2 Overview 3 Implementations Toggle Implementations subsection 3.1 Clients and libraries 3.2 Servers 3.3 Services 3.4 Content generators 3.5 Other 4 Supported players and servers Toggle Supported players and servers subsection 4.1 Clients 5 Patent holders 6 References 7 External links Toggle the table of contents Dynamic Adaptive Streaming over HTTP 11 languages Català Čeština Deutsch Euskara Français 한국어 Italiano Polski Português Русский 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia HTTP-based adaptive bitrate streaming technique Dynamic Adaptive Streaming over HTTP Filename extension .mpd Internet media type application/dash+xml [ 1 ] Magic number 12271982 41.27* Developed by Moving Picture Experts Group Initial release April 2012 Standard ISO/IEC 23009-1:2022 This article's lead section may be too long .
+
+Please read the length guidelines and help move details into the article's body .
+
+( April 2016 ) ( Learn how and when to remove this message ) Dynamic Adaptive Streaming over HTTP ( DASH ), also known as MPEG-DASH , is an adaptive bitrate streaming technique that enables high quality streaming of media content over the Internet delivered from conventional HTTP web servers. Similar to Apple's HTTP Live Streaming (HLS) solution, MPEG-DASH works by breaking the content into a sequence of small segments, which are served over HTTP . An early HTTP web server based streaming system called SProxy was developed and deployed in the Hewlett Packard Laboratories in 2006.
+
+[ 2 ] [ 3 ] It showed how to use HTTP range requests to break the content into small segments. SProxy shows the effectiveness of segment based streaming, gaining best Internet penetration due to the wide deployment of firewalls, and reducing the unnecessary traffic transmission if a user chooses to terminate the streaming session earlier before reaching the end. Each segment contains a short interval of playback time of content that is potentially many hours in duration, such as a movie or the live broadcast of a sport event. The content is made available at a variety of different bit rates, i.e., alternative segments encoded at different bit rates covering aligned short intervals of playback time. While the content is being played back by an MPEG-DASH client, the client uses a bit rate adaptation (ABR) algorithm [ 4 ] to automatically select the segment with the highest bit rate possible that can be downloaded in time for playback without causing stalls or re-buffering events in the playback.
+
+[ 5 ] The current MPEG-DASH reference client dash.js [ 6 ] offers both buffer-based (BOLA [ 7 ] ) and hybrid (DYNAMIC [ 5 ] ) bit rate adaptation algorithms. Thus, an MPEG-DASH client can seamlessly adapt to changing network conditions and provide high quality playback with few stalls or re-buffering events.
+
+MPEG-DASH is the first adaptive bit-rate HTTP-based streaming solution that is an international standard.
+
+[ 8 ] MPEG-DASH should not be confused with a transport protocol — the transport protocol that MPEG-DASH uses depends on which version of HTTP is used: TCP over HTTP and HTTP/2 , or UDP over HTTP/3 . MPEG-DASH uses existing HTTP web server infrastructure that is used for delivery of essentially all World Wide Web content. It allows devices like Internet-connected televisions, TV set-top boxes, desktop computers, smartphones, tablets, etc. to receive multimedia content (video, TV, radio, etc.) delivered via the Internet, coping with variable Internet receiving conditions. Standardizing an adaptive streaming solution is meant to provide confidence to the market that the solution can be adopted for universal deployment, compared to similar but more proprietary solutions like Smooth Streaming by Microsoft, or HDS by Adobe. Unlike HDS, or Smooth Streaming, DASH is codec-agnostic , which means it can use content encoded with any coding format , such as H.265 , H.264 , VP9 , etc.
+
+[ 9 ] Standardization [ edit ] MPEG-DASH technology was developed under MPEG . Work on DASH started in 2010; it became a Draft International Standard in January 2011, and an International Standard in November 2011.
+
+[ 8 ] [ 10 ] The MPEG-DASH standard was published in April, 2012 but has been revised in 2019 and then once more in 2022 as [1] .
+
+DASH is a technology related to Adobe Systems HTTP Dynamic Streaming , Apple Inc.
+
+HTTP Live Streaming (HLS) and Microsoft Smooth Streaming . DASH is based on Adaptive HTTP streaming (AHS) in 3GPP Release 9 and on HTTP Adaptive Streaming (HAS) in Open IPTV Forum Release 2.
+
+[ 11 ] [ 12 ] As part of their collaboration with MPEG, 3GPP Release 10 has adopted DASH (with specific codecs and operating modes) for use over wireless networks.
+
+[ 11 ] The DASH Industry Forum ( DASH-IF ) [ 13 ] further promotes and catalyzes the adoption of MPEG-DASH and helps transition it from a specification into a real business. It consists of major streaming and media companies, including Microsoft, Netflix, Google, Ericsson, Samsung, Adobe, etc. and creates guidelines on the usage of DASH for different use cases in practice.
+
+MPEG-DASH is integrated in other standards, e.g. MPEG-DASH is supported in HbbTV (as of Version 1.5).
+
+[ 14 ] Overview [ edit ] DASH is an adaptive bitrate streaming technology where a multimedia file is partitioned into one or more segments and delivered to a client using HTTP .
+
+[ 15 ] A media presentation description (MPD) describes segment information (timing, URL , media characteristics like video resolution and bit rates ), and can be organized in different ways such as SegmentList, SegmentTemplate, SegmentBase and SegmentTimeline, depending on the use case. Segments can contain any media data, however the specification provides specific guidance and formats for use with two types of containers: ISO base media file format (e.g. MP4 file format) or MPEG-2 Transport Stream .
+
+DASH is audio/video codec agnostic. One or more representations (i.e., versions at different resolutions or bit rates) of multimedia files are typically available, and selection can be made based on network conditions, device capabilities and user preferences, enabling adaptive bitrate streaming [ 16 ] and QoE (Quality of Experience) fairness .
+
+[ 17 ] DASH standard does not specify the adaptive bitrate streaming (ABR) logic.
+
+[ 18 ] DASH is also agnostic to the underlying application layer protocol. Thus, DASH can be used with any protocol, e.g., DASH over CCN .
+
+[ 19 ] On July 27, 2015, MPEG LA announced a call for MPEG-DASH-related patents in order to create a single patent pool for this technology.
+
+[ 20 ] MPEG LA  announced its MPEG-DASH patent portfolio licence. MPEG-LA claims that the included patents are essential to the MPEG Dynamic Adaptive Streaming over HTTP standard.
+
+[ 21 ] Implementations [ edit ] This section may contain information not important or relevant to the article's subject.
+
+Please help improve this section .
+
+( August 2016 ) ( Learn how and when to remove this message ) MPEG-DASH is available natively on Android through the ExoPlayer, [ 22 ] on Samsung Smart TVs 2012+, LG Smart TV 2012+, Sony TV 2012+, Philips NetTV 4.1+, Panasonic Viera 2013+ and Chromecast.
+
+[ 23 ] YouTube as well as Netflix already support MPEG-DASH, and different MPEG-DASH players are available.
+
+[ 24 ] While MPEG-DASH isn't directly supported in HTML5, there are JavaScript implementations of MPEG-DASH which allow using MPEG-DASH in web browsers using the HTML5 Media Source Extensions (MSE).
+
+[ 25 ] There are also JavaScript implementations such as the bitdash player [ 26 ] which support DRM for MPEG-DASH using the HTML5 Encrypted Media Extensions .
+
+[ 27 ] In combination with WebGL, the HTML5-based adaptive bitrate streaming of MPEG-DASH enables also the efficient streaming of 360° video for live and on-demand use cases.
+
+[ 28 ] Clients and libraries [ edit ] Shaka Player, is the open source DASH HTML5 video  player from Google for Low Bandwidth Connections.
+
+[ 29 ] [ 30 ] [ 31 ] [ 32 ] [ 33 ] VLC media player 3.0 shipped a new client plugin for MP4/MPEG and Live streams.
+
+[ 34 ] [ 35 ] [ 36 ] The cross-platform FOSS multimedia framework GStreamer has supported MPEG-DASH and WebM DASH since at least v1.4.
+
+[ 37 ] The open-source library libdash [ 38 ] is platform independent and runs on mobile platforms such as Android, iOS, Windows Phone.
+
+bitmovin provides the bitdash MPEG-DASH player for HTML5 and Flash.
+
+[ 39 ] VideoJS is an open-source HTML5 video player, supports HLS, DASH, WebM, and progressive MP4 for Live and VOD streaming.
+
+[ 29 ] [ 30 ] Clappr is an open-source HTML5 video player, uses HTMLVideoElement, supports DASH, HLS, progressive, ad insertion, dynamic overlays, picture-in-picture [ 30 ] [ 29 ] Servers [ edit ] Note that no specific support is required from the server for DASH content, with the exception of Live Streaming.
+
+Wowza Streaming Engine has support MPEG-DASH playback with DVR and provides DASH Stream Target publishing to Akamai.
+
+[ 40 ] Brightcove Zencoder has support for MPEG-DASH transmuxing/transcoding.
+
+[ 41 ] Elemental Technologies video processing solutions support DASH.
+
+Helix Universal Server has support for DASH in various modes.
+
+Nimble Streamer has live and VOD MPEG-DASH support. For VOD it supports both H.265 and H.264 codecs [ 42 ] Unified Origin supports MPEG-DASH.
+
+[ 43 ] [ 44 ] Services [ edit ] Akamai CDN supports DASH.
+
+[ 45 ] Amazon CloudFront CDN supports DASH.
+
+Amazon Web Services Elastic Transcoder has support for MPEG-DASH.
+
+[ 46 ] Azure Media Services platform has support for MPEG-DASH.
+
+[ 47 ] Bitmovin provides the cloud-based transcoding service bitcodin.com which supports MPEG-DASH.
+
+[ 48 ] CloudFlare Stream supports transcoding into DASH in VP9 before serving to the end user.
+
+Cloudinary provides automatic transcoding with support for MPEG-DASH.
+
+[ 49 ] Lumen CDN supports DASH.
+
+Limelight Networks CDN supports DASH.
+
+Project Shield CDN supports DASH.
+
+[ 50 ] Tata Communications CDN supports DASH.
+
+DogalZeka MS2 Alarm Monitoring, Transcoding and Recording DASH input/output support.
+
+[ citation needed ] Resi Live Stream Platform supports ingest, transcoding and CDN delivery of MPEG-DASH.
+
+[ citation needed ] Content generators [ edit ] ITEC's DASHEncoder.
+
+[ 34 ] [ 51 ] MP4Box and its multimedia framework from GPAC at Télécom Paris [ 52 ] dashcast from Télécom Paris supports MPEG-DASH live streaming [ 53 ] MediaGoom MPEG-DASH Packager [ 54 ] Bento4 opensource tools and SDK [ 55 ] Other [ edit ] ITEC offers a validation service for MPEG-DASH Media Presentation Description (MPD) files [ 34 ] Multiple DASH datasets [ 56 ] are offered by the Institute of Information Technology (ITEC) at Alpen-Adria University Klagenfurt, [ 51 ] [ 57 ] the GPAC group at Telecom ParisTech [ 52 ] and Digital TV Labs.
+
+[ 58 ] The BBC has DASH test streams, including DASH over HTTP/2.
+
+[ 59 ] Widevine DRM supports DASH and Encrypted Media Extensions .
+
+[ 60 ] Mividi provides software tool for analyzing and monitoring live MPEG-DASH streams.
+
+[ 61 ] Supported players and servers [ edit ] This list is incomplete ; you can help by adding missing items .
+
+( July 2018 ) Clients [ edit ] Windows 10 used to have native support for DASH streaming in EdgeHTML , a proprietary browser engine that was used in Microsoft Edge (now referred to as Edge Legacy) before the transition to the Chromium-based Blink browser engine. Edge Legacy was included in Windows 10 up till version 2004. It was replaced by Edge Chromium in version 20H2.
+
+DASH support on other browsers & operating systems is available via Media Source Extensions .
+
+Product Product type Platform Live streaming DRM-free As of version Editor Microsoft Edge Web browser Windows 10 Native support on Edge Legacy.
+
+Support via Media Source Extensions on Edge Chromium.
+
+No Supported natively on Edge Legacy's engine EdgeHTML from version 12 to 18.
+
+[ 62 ] No native support on Edge Chromium from version 79 to present.
+
+[ 63 ] Microsoft VLC media player Media player Windows, macOS, Linux, Android, iOS, Windows Phone Yes Yes v3.0 VideoLAN Media Player Classic - Home Cinema (MPC-HC) Media Player Classic - Black Edition (MPC-BE) Media player Windows Yes Yes v2.0.0 (MPC-HC) v1.5.0 (MPC-BE) [ 64 ] Support for playback of DASH streams may be unstable.
+
+MPC-HC Community Forum, Alexander Vodiannikov MX Player Media player Android Yes No v1.9.18 Support for playback of DASH streams is currently unstable.
+
+J2 Interactive NexPlayer SDK HTML5 (MSE Browsers), Android (mobile, TV, STB), iOS, Chromecast, Windows, Mac, Linux, Tizen, WebOS Yes No — NexStreaming Dash.js SDK HTML5 (MSE Browsers) Yes No — Dash Industry Forum Shaka Player SDK HTML5 (MSE Browsers) Yes No — Google Rx-Player SDK HTML5 (MSE Browsers) Yes No — Canal+ bitdash SDK HTML5 (MSE Browsers), Android, LG TVs, Samsung TVs, Xbox One, Universal Windows Platform Yes No — Bitmovin PRESTOplay SDK HTML5 (MSE Browsers), Android, iOS, Windows, Mac Yes No — castLabs THEOplayer SDK HTML5 (MSE Browsers), Android (mobile, TV, STB), iOS, Chromecast, Windows, Mac, Linux, Tizen, WebOS Yes No — THEO Technologies NV Viblast Player SDK HTML5 (MSE Browsers), Android, iOS Yes No — Viblast Team Radiant Media Player SDK HTML5 (MSE Browsers), Android, iOS, Windows, Mac, Linux Yes No — Radiant Media Player Videogular SDK HTML5 (MSE Browsers) Yes No — Fluid Player SDK HTML5 (MSE Browsers) Yes No — ExoClick GStreamer Multimedia framework — Yes No 1.4 GStreamer Team Libdash Multimedia framework — Yes No — bitmovin, ITEC Team GPAC Multimedia framework — Yes No — Telecom ParisTech inc.
+
+Patent holders [ edit ] Organization Patents [ 65 ] Maxell 15 The Netherlands Organisation for Applied Scientific Research (TNO) 8 Nippon Telegraph and Telephone (NTT) 5 Fraunhofer 4 Columbia University 4 Amotech Co., Ltd.
+
+2 AVerMedia Technologies, Inc.
+
+2 Cable Television Laboratories, Inc.
+
+2 Helios Streaming, LLC 2 JVC Kenwood 1 Lough Corrib Intellectual Property Limited 1 References [ edit ] ^ "DASH Adaptive Streaming for HTML 5 Video" . Retrieved 11 July 2024 .
+
+^ Chen, Songqing; Shen, Bo; Tan, Wai-tian; Wee, Susie; Zhang, Xiaodong (2006-07-09).
+
+"A Case for Internet Streaming via Web Servers" .
+
+2006 IEEE International Conference on Multimedia and Expo . pp.
+
+2145– 2148.
+
+doi : 10.1109/ICME.2006.262660 .
+
+eISSN 1945-788X .
+
+ISBN 1-4244-0367-7 .
+
+ISSN 1945-7871 .
+
+S2CID 9202042 .
+
+^ Chen, Songqing; Shen, Bo; Wee, Susie; Zhang, Xiaodong (2007-07-23).
+
+"SProxy: A Caching Infrastructure to Support Internet Streaming" .
+
+IEEE Transactions on Multimedia .
+
+9 (5): 1062– 1072.
+
+CiteSeerX 10.1.1.74.4838 .
+
+doi : 10.1109/TMM.2007.898943 .
+
+ISSN 1520-9210 .
+
+S2CID 870854 .
+
+^ "ABR Logic" .
+
+GitHub .
+
+^ a b "From Theory to Practice: Improving Bitrate Adaptation in the DASH Reference Player, by Spiteri, Sitaraman and Sparacio, ACM Multimedia Systems Conference, June 2018" (PDF) .
+
+^ "dash.js JavaScript Reference Client Landing Page" .
+
+reference.dashif.org . Retrieved 2020-08-28 .
+
+^ Spiteri, Kevin; Urgaonkar, Rahul; Sitaraman, Ramesh K. (2020). "BOLA: Near-optimal bitrate adaptation for online videos".
+
+IEEE/ACM Transactions on Networking .
+
+28 (4): 1698– 1711.
+
+arXiv : 1601.06748 .
+
+doi : 10.1109/TNET.2020.2996964 .
+
+S2CID 219792107 .
+
+^ a b "MPEG ratifies its draft standard for DASH" . MPEG. 2011-12-02. Archived from the original on 2012-08-20 . Retrieved 2012-08-26 .
+
+^ "MPEG-DASH vs. Apple HLS vs. Microsoft Smooth Streaming vs. Adobe HDS" . 2015-03-29 . Retrieved 3 June 2016 .
+
+^ "ISO/IEC 23009-1:2012" .
+
+ISO .
+
+^ a b ETSI 3GPP 3GPP TS 26.247; Transparent end-to-end packet-switched streaming service (PSS); Progressive Download and Dynamic Adaptive Streaming over HTTP (3GP-DASH) ^ Open IPTV Forum Solution Specification Volume 2a – HTTP Adaptive Streaming V2.1 Archived 2011-10-09 at the Wayback Machine ^ "DASH Industry Forum | Catalyzing the adoption of MPEG-DASH" .
+
+dashif.org .
+
+^ "HbbTV Specification 1.5" (PDF) . Archived from the original (PDF) on July 3, 2014.
+
+^ "Technologies | MPEG" .
+
+mpeg.chiariglione.org .
+
+^ 3GPP Dynamic Adaptive Streaming over HTTP – Standards and Design Principles Archived 2016-08-05 at the Wayback Machine by T. Stockhammer ^ "Towards Network-wide QoE Fairness using OpenFlow-assisted Adaptive Video Streaming" .
+
+scholar.google.com .
+
+^ Bentaleb, Abdelhak; Taani, Bayan; Begen, Ali C.; Timmerer, Christian; Zimmermann, Roger (January 21, 2019).
+
+"A Survey on Bitrate Adaptation Schemes for Streaming Media Over HTTP" .
+
+IEEE Communications Surveys & Tutorials .
+
+21 (1): 562– 585.
+
+doi : 10.1109/COMST.2018.2862938 .
+
+S2CID 67867085 .
+
+^ "DASH over ICN/CCN | ITEC – Dynamic Adaptive Streaming over HTTP" .
+
+^ "MPEG LA Announces Call for Patents to Organize Joint License for MPEG-DASH" (PDF) . Archived from the original (PDF) on August 7, 2015.
+
+^ "DASH Patent Portfolio License Briefing*" (PDF) .
+
+MPEG LA . 2019-03-04 . Retrieved 10 July 2019 .
+
+^ "ExoPlayer" .
+
+Android Developers . Retrieved 7 December 2021 .
+
+^ Device Compatibility ^ The Status of MPEG-DASH today, and why Youtube & Netflix use it in HTML5 ^ HTML5 Media Source Extensions ^ "Video Player SDKs for flawless viewing | HTML5 Player" .
+
+bitmovin.com . Archived from the original on July 3, 2015.
+
+^ "Encrypted Media Extensions" .
+
+w3c.github.io .
+
+^ "This demo shows the Bitmovin Player displaying a 360° video with VR" .
+
+bitmovin.com .
+
+^ a b c Vijayanagar, Krishna Rao (3 June 2021).
+
+"Top 13 HTML5 Video Players for the Web Reviewed [2021]" .
+
+OTTVerse . Retrieved 7 December 2021 .
+
+^ a b c "clappr dash.js hls.js rx-player shaka-player videojs-contrib-hls" .
+
+npm trends.com . Retrieved 7 December 2021 .
+
+^ Zhang, Bo; Teixeira, Thiago; Reznik, Yuriy (24 June 2021). "Performance of Low-Latency HTTP-based Streaming Players".
+
+Proceedings of the 12th ACM Multimedia Systems Conference . pp.
+
+356– 362.
+
+doi : 10.1145/3458305.3478442 .
+
+ISBN 9781450384346 .
+
+S2CID 237596948 .
+
+^ Cimpanu, Catalin (2015-08-24).
+
+"Meet Shaka Player, Google's HTML5 Video Player for Low Bandwidth Conditions" .
+
+Softpedia . Retrieved 2016-08-13 .
+
+^ "Ultimate HTML5 Video-Player Showdown: 12 Players Compared" .
+
+Cloudinary . 28 June 2020 . Retrieved 7 December 2021 .
+
+^ a b c DASH at ITEC, VLC Plugin, DASHEncoder and Dataset by C. Mueller, S. Lederer, C. Timmerer ^ "C. Müller and C. Timmerer, "A VLC Media Player Plugin enabling Dynamic Adaptive Streaming over HTTP", In Proceedings of the ACM Multimedia 2011 , Scottsdale, Arizona, November 28, 2011" (PDF) .
+
+^ "VLC 3.0 features" . Archived from the original on 2020-07-30 . Retrieved 2015-02-13 .
+
+^ "HTTP Adaptive Streaming with GStreamer – coaxion.net – slomo's blog" .
+
+^ libdash: Open-source DASH client library by bitmovin Gmbh ^ "Video Player SDKs for flawless viewing | HTML5 Player" .
+
+bitmovin.com .
+
+^ "Stream MPEG-DASH over HTTP with Wowza Streaming Engine" .
+
+Wowza Media Systems .
+
+^ "DASH Streaming and Playlists" . Archived from the original on 2017-08-31 . Retrieved 2016-07-05 .
+
+^ "MPEG-DASH streaming via Nimble Streamer - Softvelum" .
+
+wmspanel.com .
+
+^ "Netview and Unified Streaming streaming DASH" .
+
+Streaming Media Magazine .
+
+^ "USP Factsheet" . Archived from the original on 2015-04-21 . Retrieved 2015-04-17 .
+
+^ Akamai Announces Native MPEG-DASH and HDS Support for Live Video Workflows ^ "Amazon Elastic Transcoder Now Supports MPEG-DASH" .
+
+Amazon Web Services, Inc . Retrieved 2016-06-03 .
+
+^ "MPEG-DASH and streaming reference and resources" . 3 March 2016.
+
+^ "bitcodin.com Supported Formats" . Archived from the original on 2016-03-28 . Retrieved 2015-05-04 .
+
+^ "Deliver HLS and MPEG-DASH with the Cloudinary Video Player | Cloudinary" .
+
+cloudinary.com .
+
+^ "Engineering Broadcast: FM and Online" .
+
+Insanity Radio Tech . 26 July 2017 . Retrieved 7 December 2021 .
+
+^ a b "S. Lederer, C. Mueller and C. Timmerer, "Dynamic Adaptive Streaming over HTTP Dataset", In Proceedings of the ACM Multimedia Systems Conference 2012, Chapel Hill, North Carolina, February 22-24, 2012" (PDF) .
+
+^ a b "Fragmentation, segmentation, splitting and interleaving · gpac/gpac Wiki" .
+
+GitHub .
+
+^ "DashCast | GPAC" .
+
+^ "Media Goom. Essential Adaptive Web Streaming with MPEG-DASH and HLS" . Archived from the original on 2017-01-18.
+
+^ "Getting Started - Bento4" .
+
+www.bento4.com .
+
+^ MPEG DASH Dataset Overview ^ "Distributed DASH Datset | ITEC – Dynamic Adaptive Streaming over HTTP" .
+
+^ "MPEG DASH Test Suite" . Archived from the original on 2014-03-07 . Retrieved 2013-11-22 .
+
+^ "MPEG DASH Test Streams" .
+
+BBC R&D . 9 September 2013.
+
+^ "The Complete Guide to Widevine" . encoding.com. Archived from the original on 2021-12-29 . Retrieved 2018-01-11 .
+
+^ "MPEG-DASH Analysis and Monitoring Solution" .
+
+mividi.com . Retrieved 2019-09-15 .
+
+^ "Simplified Adaptive Video Streaming: Announcing support for HLS and DASH in Windows 10" .
+
+learn.microsoft.com . 29 January 2015.
+
+^ "Dynamic Adaptive Streaming over HTTP (MPEG-DASH) | Can I use... Support tables for HTML5, CSS3, etc" .
+
+caniuse.com .
+
+^ "MPC-BE Version History - VideoHelp" .
+
+^ "DASH Patent List" (PDF) .
+
+MPEG LA . Retrieved 10 July 2019 .
+
+External links [ edit ] MPEG-DASH Standard DASH subscription mailing list DASH research at Alpen-Adria Universität Klagenfurt Mailing list of the open-source DASH client library libdash v t e MPEG (Moving Picture Experts Group) MPEG-1 2 3 4 7 21 A B C D E G V M U H I 5 MPEG-1 Parts Part 1: Systems Program stream Part 2: Video based on H.261 Part 3: Audio Layer I Layer II Layer III MPEG-2 Parts Part 1: Systems (H.222.0) Transport stream Program stream Part 2: Video (H.262) Part 3: Audio Layer I Layer II Layer III MPEG Multichannel Part 6: DSM CC Part 7: Advanced Audio Coding MPEG-4 Parts Part 2: Video based on H.263 Part 3: Audio Part 6: DMIF Part 10: Advanced Video Coding (H.264) Part 11: Scene description Part 12: ISO base media file format Part 14: MP4 file format Part 17: Streaming text format Part 20: LASeR Part 22: Open Font Format Part 33: Internet Video Coding MPEG-7 Parts Part 2: Description definition language MPEG-21 Parts Parts 2, 3 and 9: Digital Item Part 5: Rights Expression Language MPEG-D Parts Part 1: MPEG Surround Part 3: Unified Speech and Audio Coding MPEG-G Parts Part 1: Transport and Storage of Genomic Information Part 2: Coding of Genomic Information Part 3: APIs Part 4: Reference Software Part 5: Conformance MPEG-H Parts Part 1: MPEG media transport Part 2: High Efficiency Video Coding (H.265) Part 3: MPEG-H 3D Audio Part 12: High Efficiency Image File Format MPEG-I Parts Part 3: Versatile Video Coding (H.266) MPEG-5 Parts Part 1: Essential Video Coding Part 2: Low Complexity Enhancement Video Coding Other MPEG-DASH NewPP limit report
+Parsed by mw‐web.codfw.main‐7c956d68b4‐6wvg9
+Cached time: 20250817054327
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.879 seconds
+Real time usage: 0.984 seconds
+Preprocessor visited node count: 3863/1000000
+Revision size: 30991/2097152 bytes
+Post‐expand include size: 128747/2097152 bytes
+Template argument size: 2815/2097152 bytes
+Highest expansion depth: 16/100
+Expensive parser function count: 5/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 207992/5000000 bytes
+Lua time usage: 0.573/10.000 seconds
+Lua memory usage: 6812359/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  869.299      1 -total
+ 59.25%  515.095      1 Template:Reflist
+ 43.18%  375.354     48 Template:Cite_web
+ 11.85%  102.978      1 Template:MPEG
+ 11.55%  100.416      1 Template:Navbox
+  8.72%   75.816      1 Template:Short_description
+  5.42%   47.118      2 Template:Pagetype
+  5.38%   46.745      1 Template:Lead_too_long
+  5.20%   45.186      3 Template:Ambox
+  5.06%   44.026      1 Template:Infobox_file_format Saved in parser cache with key enwiki:pcache:33066456:|#|:idhash:canonical and timestamp 20250817054327 and revision id 1303955155. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Dynamic_Adaptive_Streaming_over_HTTP&oldid=1303955155 " Categories : MPEG Hypertext Transfer Protocol Multimedia Network protocols Hidden categories: Webarchive template wayback links Articles with short description Short description is different from Wikidata Wikipedia introduction cleanup from April 2016 All pages needing cleanup Articles covered by WikiProject Wikify from April 2016 All articles covered by WikiProject Wikify All articles with unsourced statements Articles with unsourced statements from December 2021 Incomplete lists from July 2018 This page was last edited on 3 August 2025, at 02:06 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Dynamic Adaptive Streaming over HTTP 11 languages Add topic
+

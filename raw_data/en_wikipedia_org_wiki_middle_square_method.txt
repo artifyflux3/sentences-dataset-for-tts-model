@@ -1,0 +1,59 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 History Toggle History subsection 1.1 In mathematics 2 The method Toggle The method subsection 2.1 Example implementation 3 See also 4 References Toggle the table of contents Middle-square method 9 languages Čeština Deutsch Español Esperanto فارسی Français עברית Русский 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Pseudorandom number generator One iteration of the middle-square method, showing a 6-digit seed, which is then squared, and the resulting value has its middle 6 digits as the output value (and also as the next seed for the sequence).
+
+Directed graph of all 100 2-digit pseudorandom numbers obtained using the middle-square method with n = 2.
+
+In mathematics and computer science , the middle-square method is a method of generating pseudorandom numbers . In practice it is a highly flawed method for many practical purposes, since its period is usually very short and it has some severe weaknesses; repeated enough times, the middle-square method will either begin repeatedly generating the same number or cycle to a previous number in the sequence and loop indefinitely.
+
+History [ edit ] In mathematics [ edit ] The method was invented by John von Neumann , and was described by him at a conference in 1949.
+
+[ 1 ] In the 1949 talk, Von Neumann quipped that "Anyone who considers arithmetical methods of producing random digits is, of course, in a state of sin." What he meant, he elaborated, was that there were no true "random numbers", just means to produce them, and "a strict arithmetic procedure", like the middle-square method, "is not such a method". Nevertheless, he found these methods hundreds of times faster than reading "truly" random numbers off punch cards , which had practical importance for his ENIAC work. He found the "destruction" of middle-square sequences to be a factor in their favor, because it could be easily detected: "one always fears the appearance of undetected short cycles".
+
+[ 1 ] Nicholas Metropolis reported sequences of 750,000 digits before "destruction" by means of using 38-bit numbers with the "middle-square" method.
+
+[ 2 ] The book The Broken Dice by Ivar Ekeland gives an extended account of how the method was invented by a Franciscan friar known only as Brother Edvin sometime between 1240 and 1250.
+
+[ 3 ] Supposedly, the manuscript is now lost, but Jorge Luis Borges sent Ekeland a copy that he made at the Vatican Library .
+
+Modifying the middle-square algorithm with a Weyl sequence improves period and randomness.
+
+[ 4 ] [ 5 ] The method [ edit ] To generate a sequence of n -digit pseudorandom numbers, an n -digit starting value is created and squared, producing a 2 n -digit number. If the result has fewer than 2 n digits, leading zeroes are added to compensate. The middle n digits of the result would be the next number in the sequence and returned as the result. This process is then repeated to generate more numbers.
+
+The value of n must be even in order for the method to work –  if the value of n is odd, then there will not necessarily be a uniquely defined "middle n -digits" to select from. Consider the following: If a 3-digit number is squared, it can yield a 6-digit number (e.g. 540 2 = 291600). If there were to be middle 3 digits, that would leave 6 − 3 = 3 digits to be distributed to the left and right of the middle. It is impossible to evenly distribute these digits equally on both sides of the middle number, and therefore there are no "middle digits". It is acceptable to pad the seeds with zeros to the left in order to create an even valued n -digit number (e.g. 540 → 0540).
+
+For a generator of n -digit numbers, the period can be no longer than 8 n . If the middle n digits are all zeroes, the generator then outputs zeroes forever. If the first half of a number in the sequence is zeroes, the subsequent numbers will be decreasing to zero. While these runs of zero are easy to detect, they occur too frequently for this method to be of practical use. The middle-squared method can also get stuck on a number other than zero.  For n = 4, this occurs with the values 0100, 2500, 3792, and 7600. Other seed values form very short repeating cycles, e.g., 0540 → 2916 → 5030 → 3009. These phenomena are even more obvious when n = 2, as none of the 100 possible seeds generates more than 14 iterations without reverting to 0, 10, 50, 60, or a 24 ↔ 57 loop.
+
+Example implementation [ edit ] Here, the algorithm is rendered in Python 3.12 .
+
+seed_number = int ( input ( "Please enter a four-digit number: \n [####] " )) number = seed_number already_seen = set () counter = 0 while number not in already_seen : counter += 1 already_seen .
+
+add ( number ) number = int ( str ( number * number ) .
+
+zfill ( 8 )[ 2 : 6 ]) # zfill adds padding of zeroes print ( f "# { counter } : { number } " ) print ( f "We began with { seed_number } and" f " have repeated ourselves after { counter } steps" f " with { number } ." ) See also [ edit ] Linear congruential generator Blum Blum Shub middle-square hash function References [ edit ] ^ a b The 1949 papers were not reprinted until 1951. John von Neumann, “Various techniques used in connection with random digits”, in A. S. Householder, G. E. Forsythe, and H. H. Germond, eds., Monte Carlo Method, National Bureau of Standards Applied Mathematics Series , vol. 12 (Washington, D.C.: U.S. Government Printing Office, 1951): pp. 36–38.
+
+^ Donald E. Knuth, The art of computer programming, Vol. 2, Seminumerical algorithms , 2nd edn. (Reading, Mass.: Addison-Wesley, 1981), ch. 3, section 3.1.
+
+^ Ivar Ekeland (15 June 1996).
+
+The Broken Dice, and Other Mathematical Tales of Chance . University of Chicago Press.
+
+ISBN 978-0-226-19992-4 .
+
+^ Kneusel, Ron (2018).
+
+Random Numbers and Computers (1 ed.). Springer. pp.
+
+13– 14.
+
+^ Widynski, Bernard (April 2017). "Middle-Square Weyl Sequence RNG".
+
+arXiv : 1704.00358 [ cs.CR ].
+
+Retrieved from " https://en.wikipedia.org/w/index.php?title=Middle-square_method&oldid=1304760033 " Categories : Pseudorandom number generators John von Neumann Hidden categories: Articles with short description Short description matches Wikidata Articles with example C code Articles with example Python (programming language) code This page was last edited on 8 August 2025, at 00:52 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Middle-square method 9 languages Add topic
+

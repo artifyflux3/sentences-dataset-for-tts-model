@@ -1,0 +1,267 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Intuition 2 Overview 3 Model components Toggle Model components subsection 3.1 Probability distribution 3.2 Linear predictor 3.3 Link function 4 Fitting Toggle Fitting subsection 4.1 Maximum likelihood 4.2 Bayesian methods 5 Examples Toggle Examples subsection 5.1 General linear models 5.2 Linear regression 5.3 Binary data 5.3.1 Logit link function 5.3.2 Probit link function as popular choice of inverse cumulative distribution function 5.3.3 Complementary log-log (cloglog) 5.3.4 Identity link 5.3.5 Variance function 5.4 Multinomial regression 5.4.1 Ordered response 5.4.2 Unordered response 5.5 Count data 6 Extensions Toggle Extensions subsection 6.1 Correlated or clustered data 6.2 Generalized additive models 7 See also 8 References Toggle References subsection 8.1 Citations 8.2 Bibliography 9 Further reading 10 External links Toggle the table of contents Generalized linear model 19 languages العربية Català Deutsch Eesti Español فارسی Français 한국어 Italiano Magyar Bahasa Melayu 日本語 Polski Português Русский Suomi 吴语 粵語 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Class of statistical models Not to be confused with General linear model or Generalized least squares .
+
+Part of a series on Regression analysis Models Linear regression Simple regression Polynomial regression General linear model Generalized linear model Vector generalized linear model Discrete choice Binomial regression Binary regression Logistic regression Multinomial logistic regression Mixed logit Probit Multinomial probit Ordered logit Ordered probit Poisson Multilevel model Fixed effects Random effects Linear mixed-effects model Nonlinear mixed-effects model Nonlinear regression Nonparametric Semiparametric Robust Quantile Isotonic Principal components Least angle Local Segmented Errors-in-variables Estimation Least squares Linear Non-linear Ordinary Weighted Generalized Generalized estimating equation Partial Total Non-negative Ridge regression Regularized Least absolute deviations Iteratively reweighted Bayesian Bayesian multivariate Least-squares spectral analysis Background Regression validation Mean and predicted response Errors and residuals Goodness of fit Studentized residual Gauss–Markov theorem Mathematics portal v t e In statistics , a generalized linear model ( GLM ) is a flexible generalization of ordinary linear regression . The GLM generalizes linear regression by allowing the linear model to be related to the response variable via a link function and by allowing the magnitude of the variance of each measurement to be a function of its predicted value.
+
+Generalized linear models were formulated by John Nelder and Robert Wedderburn as a way of unifying various other statistical models, including linear regression , logistic regression and Poisson regression .
+
+[ 1 ] They proposed an iteratively reweighted least squares method for maximum likelihood estimation (MLE) of the model parameters. MLE remains popular and is the default method on many statistical computing packages. Other approaches, including Bayesian regression and least squares fitting to variance stabilized responses, have been developed.
+
+Intuition [ edit ] Ordinary linear regression predicts the expected value of a given unknown quantity (the response variable , a random variable ) as a linear combination of a set of observed values ( predictors ).  This implies that a constant change in a predictor leads to a constant change in the response variable (i.e. a linear-response model ).  This is appropriate when the response variable can vary, to a good approximation, indefinitely in either direction, or more generally for any quantity that only varies by a relatively small amount compared to the variation in the predictive variables, e.g. human heights.
+
+However, these assumptions are inappropriate for some types of response variables.  For example, in cases where the response variable is expected to be always positive and varying over a wide range, constant input changes lead to geometrically (i.e. exponentially) varying, rather than constantly varying, output changes. As an example, suppose a linear prediction model learns from some data (perhaps primarily drawn from large beaches) that a 10 degree temperature decrease would lead to 1,000 fewer people visiting the beach. This model is unlikely to generalize well over differently-sized beaches. More specifically, the problem is that if the model is used to predict the new attendance with a temperature drop of 10 for a beach that regularly receives 50 beachgoers, it would predict an impossible attendance value of −950. Logically, a more realistic model would instead predict a constant rate of increased beach attendance (e.g. an increase of 10 degrees leads to a doubling in beach attendance, and a drop of 10 degrees leads to a halving in attendance). Such a model is termed an exponential-response model (or log-linear model , since the logarithm of the response is predicted to vary linearly).
+
+Similarly, a model that predicts a probability of making a yes/no choice (a Bernoulli variable ) is even less suitable as a linear-response model, since probabilities are bounded on both ends (they must be between 0 and 1). Imagine, for example, a model that predicts the likelihood of a given person going to the beach as a function of temperature. A reasonable model might predict, for example, that a change in 10 degrees makes a person two times more or less likely to go to the beach. But what does "twice as likely" mean in terms of a probability? It cannot literally mean to double the probability value (e.g. 50% becomes 100%, 75% becomes 150%, etc.).  Rather, it is the odds that are doubling: from 2:1 odds, to 4:1 odds, to 8:1 odds, etc. Such a model is a log-odds or logistic model .
+
+Generalized linear models cover all these situations by allowing for response variables that have arbitrary distributions (rather than simply normal distributions ), and for an arbitrary function of the response variable (the link function ) to vary linearly with the predictors (rather than assuming that the response itself must vary linearly).  For example, the case above of predicted number of beach attendees would typically be modeled with a Poisson distribution and a log link, while the case of predicted probability of beach attendance would typically be modelled with a Bernoulli distribution (or binomial distribution , depending on exactly how the problem is phrased) and a log-odds (or logit ) link function.
+
+Overview [ edit ] In a generalized linear model (GLM), each outcome Y of the dependent variables is assumed to be generated from a particular distribution in an exponential family , a large class of probability distributions that includes the normal , binomial , Poisson and gamma distributions, among others. The conditional mean μ of the distribution depends on the independent variables X through: E ⁡ ⁡ ( Y ∣ ∣ X ) = μ μ = g − − 1 ( X β β ) , {\displaystyle \operatorname {E} (\mathbf {Y} \mid \mathbf {X} )={\boldsymbol {\mu }}=g^{-1}(\mathbf {X} {\boldsymbol {\beta }}),} where E( Y | X ) is the expected value of Y conditional on X ; X β is the linear predictor , a linear combination of unknown parameters β ; g is the link function.
+
+In this framework, the variance is typically a function, V , of the mean: Var ⁡ ⁡ ( Y ∣ ∣ X ) = V ⁡ ⁡ ( g − − 1 ( X β β ) ) .
+
+{\displaystyle \operatorname {Var} (\mathbf {Y} \mid \mathbf {X} )=\operatorname {V} (g^{-1}(\mathbf {X} {\boldsymbol {\beta }})).} It is convenient if V follows from an exponential family of distributions, but it may simply be that the variance is a function of the predicted value.
+
+The unknown parameters, β , are typically estimated with maximum likelihood , maximum quasi-likelihood , or Bayesian techniques.
+
+Model components [ edit ] The GLM consists of three elements: 1. A particular distribution for modeling Y {\displaystyle Y} from among those which are considered exponential families of probability distributions, 2. A linear predictor η η = X β β {\displaystyle \eta =X\beta } ,  and 3. A link function g {\displaystyle g} such that E ⁡ ⁡ ( Y ∣ ∣ X ) = μ μ = g − − 1 ( η η ) {\displaystyle \operatorname {E} (Y\mid X)=\mu =g^{-1}(\eta )} .
+
+Probability distribution [ edit ] An overdispersed exponential family of distributions is a generalization of an exponential family and the exponential dispersion model of distributions and includes those families of probability distributions, parameterized by θ θ {\displaystyle {\boldsymbol {\theta }}} and τ τ {\displaystyle \tau } , whose density functions f (or probability mass function , for the case of a discrete distribution ) can be expressed in the form f Y ( y ∣ ∣ θ θ , τ τ ) = h ( y , τ τ ) exp ⁡ ⁡ ( b ( θ θ ) T T ( y ) − − A ( θ θ ) d ( τ τ ) ) .
+
+{\displaystyle f_{Y}(\mathbf {y} \mid {\boldsymbol {\theta }},\tau )=h(\mathbf {y} ,\tau )\exp \left({\frac {\mathbf {b} ({\boldsymbol {\theta }})^{\rm {T}}\mathbf {T} (\mathbf {y} )-A({\boldsymbol {\theta }})}{d(\tau )}}\right).\,\!} The dispersion parameter , τ τ {\displaystyle \tau } , typically is known and is usually related to the variance of the distribution.  The functions h ( y , τ τ ) {\displaystyle h(\mathbf {y} ,\tau )} , b ( θ θ ) {\displaystyle \mathbf {b} ({\boldsymbol {\theta }})} , T ( y ) {\displaystyle \mathbf {T} (\mathbf {y} )} , A ( θ θ ) {\displaystyle A({\boldsymbol {\theta }})} , and d ( τ τ ) {\displaystyle d(\tau )} are known.  Many common distributions are in this family, including the normal, exponential, gamma, Poisson, Bernoulli, and (for fixed number of trials) binomial, multinomial, and negative binomial.
+
+For scalar y {\displaystyle \mathbf {y} } and θ θ {\displaystyle {\boldsymbol {\theta }}} (denoted y {\displaystyle y} and θ θ {\displaystyle \theta } in this case), this reduces to f Y ( y ∣ ∣ θ θ , τ τ ) = h ( y , τ τ ) exp ⁡ ⁡ ( b ( θ θ ) T ( y ) − − A ( θ θ ) d ( τ τ ) ) .
+
+{\displaystyle f_{Y}(y\mid \theta ,\tau )=h(y,\tau )\exp \left({\frac {b(\theta )T(y)-A(\theta )}{d(\tau )}}\right).\,\!} θ θ {\displaystyle {\boldsymbol {\theta }}} is related to the mean of the distribution.  If b ( θ θ ) {\displaystyle \mathbf {b} ({\boldsymbol {\theta }})} is the identity function, then the distribution is said to be in canonical form (or natural form ). Note that any distribution can be converted to canonical form by rewriting θ θ {\displaystyle {\boldsymbol {\theta }}} as θ θ ′ {\displaystyle {\boldsymbol {\theta }}'} and then applying the transformation θ θ = b ( θ θ ′ ) {\displaystyle {\boldsymbol {\theta }}=\mathbf {b} ({\boldsymbol {\theta }}')} .  It is always possible to convert A ( θ θ ) {\displaystyle A({\boldsymbol {\theta }})} in terms of the new parametrization, even if b ( θ θ ′ ) {\displaystyle \mathbf {b} ({\boldsymbol {\theta }}')} is not a one-to-one function ; see comments in the page on exponential families .
+
+If, in addition, T ( y ) {\displaystyle \mathbf {T} (\mathbf {y} )} and b ( θ θ ) {\displaystyle \mathbf {b} ({\boldsymbol {\theta }})} are the identity, then θ θ {\displaystyle {\boldsymbol {\theta }}} is called the canonical parameter (or natural parameter ) and is related to the mean through μ μ = E ⁡ ⁡ ( y ) = ∇ ∇ θ θ A ( θ θ ) .
+
+{\displaystyle {\boldsymbol {\mu }}=\operatorname {E} (\mathbf {y} )=\nabla _{\boldsymbol {\theta }}A({\boldsymbol {\theta }}).\,\!} For scalar y {\displaystyle \mathbf {y} } and θ θ {\displaystyle {\boldsymbol {\theta }}} , this reduces to μ μ = E ⁡ ⁡ ( y ) = A ′ ( θ θ ) .
+
+{\displaystyle \mu =\operatorname {E} (y)=A'(\theta ).} Under this scenario, the variance of the distribution can be shown to be [ 2 ] Var ⁡ ⁡ ( y ) = ∇ ∇ θ θ 2 A ( θ θ ) d ( τ τ ) .
+
+{\displaystyle \operatorname {Var} (\mathbf {y} )=\nabla _{\boldsymbol {\theta }}^{2}A({\boldsymbol {\theta }})d(\tau ).\,\!} For scalar y {\displaystyle \mathbf {y} } and θ θ {\displaystyle {\boldsymbol {\theta }}} , this reduces to Var ⁡ ⁡ ( y ) = A ″ ( θ θ ) d ( τ τ ) .
+
+{\displaystyle \operatorname {Var} (y)=A''(\theta )d(\tau ).\,\!} Linear predictor [ edit ] The linear predictor is the quantity which incorporates the information about the independent variables into the model.  The symbol η ( Greek " eta ") denotes a linear predictor.  It is related to the expected value of the data through the link function.
+
+η is expressed as linear combinations (thus, "linear") of unknown parameters β .  The coefficients of the linear combination are represented as the matrix of independent variables X .
+
+η can thus be expressed as η η = X β β .
+
+{\displaystyle \eta =\mathbf {X} {\boldsymbol {\beta }}.\,} Link function [ edit ] The link function provides the relationship between the linear predictor and the mean of the distribution function.  There are many commonly used link functions, and their choice is informed by several considerations. There is always a well-defined canonical link function which is derived from the exponential of the response's density function . However, in some cases it makes sense to try to match the domain of the link function to the range of the distribution function's mean, or use a non-canonical link function for algorithmic purposes, for example Bayesian probit regression .
+
+When using a distribution function with a canonical parameter θ θ , {\displaystyle \theta ,} the canonical link function is the function that expresses θ θ {\displaystyle \theta } in terms of μ μ , {\displaystyle \mu ,} i.e.
+
+θ θ = g ( μ μ ) .
+
+{\displaystyle \theta =g(\mu ).} For the most common distributions, the mean μ μ {\displaystyle \mu } is one of the parameters in the standard form of the distribution's density function , and then g ( μ μ ) {\displaystyle g(\mu )} is the function as defined above that maps the density function into its canonical form.  When using the canonical link function, g ( μ μ ) = θ θ = X β β , {\displaystyle g(\mu )=\theta =\mathbf {X} {\boldsymbol {\beta }},} which allows X T Y {\displaystyle \mathbf {X} ^{\rm {T}}\mathbf {Y} } to be a sufficient statistic for β β {\displaystyle {\boldsymbol {\beta }}} .
+
+Following is a table of several exponential-family distributions in common use and the data they are typically used for, along with the canonical link functions and their inverses (sometimes referred to as the mean function, as done here).
+
+Common distributions with typical uses and canonical link functions Distribution Support of distribution Typical uses Link name Link function, X β β = g ( μ μ ) {\displaystyle \mathbf {X} {\boldsymbol {\beta }}=g(\mu )\,\!} Mean function Normal real: ( − − ∞ ∞ , + ∞ ∞ ) {\displaystyle (-\infty ,+\infty )} Linear-response data Identity X β β = μ μ {\displaystyle \mathbf {X} {\boldsymbol {\beta }}=\mu \,\!} μ μ = X β β {\displaystyle \mu =\mathbf {X} {\boldsymbol {\beta }}\,\!} Laplace Exponential real: ( 0 , + ∞ ∞ ) {\displaystyle (0,+\infty )} Exponential-response data, scale parameters Negative inverse X β β = − − μ μ − − 1 {\displaystyle \mathbf {X} {\boldsymbol {\beta }}=-\mu ^{-1}\,\!} μ μ = − − ( X β β ) − − 1 {\displaystyle \mu =-(\mathbf {X} {\boldsymbol {\beta }})^{-1}\,\!} Gamma Inverse Gaussian real: ( 0 , + ∞ ∞ ) {\displaystyle (0,+\infty )} Inverse squared X β β = μ μ − − 2 {\displaystyle \mathbf {X} {\boldsymbol {\beta }}=\mu ^{-2}\,\!} μ μ = ( X β β ) − − 1 / 2 {\displaystyle \mu =(\mathbf {X} {\boldsymbol {\beta }})^{-1/2}\,\!} Poisson integer: 0 , 1 , 2 , … … {\displaystyle 0,1,2,\ldots } count of occurrences in fixed amount of time/space Log X β β = ln ⁡ ⁡ ( μ μ ) {\displaystyle \mathbf {X} {\boldsymbol {\beta }}=\ln(\mu )\,\!} μ μ = exp ⁡ ⁡ ( X β β ) {\displaystyle \mu =\exp(\mathbf {X} {\boldsymbol {\beta }})\,\!} Bernoulli integer: { 0 , 1 } {\displaystyle \{0,1\}} outcome of single yes/no occurrence Logit X β β = ln ⁡ ⁡ ( μ μ 1 − − μ μ ) {\displaystyle \mathbf {X} {\boldsymbol {\beta }}=\ln \left({\frac {\mu }{1-\mu }}\right)\,\!} μ μ = exp ⁡ ⁡ ( X β β ) 1 + exp ⁡ ⁡ ( X β β ) = 1 1 + exp ⁡ ⁡ ( − − X β β ) {\displaystyle \mu ={\frac {\exp(\mathbf {X} {\boldsymbol {\beta }})}{1+\exp(\mathbf {X} {\boldsymbol {\beta }})}}={\frac {1}{1+\exp(-\mathbf {X} {\boldsymbol {\beta }})}}\,\!} Binomial integer: 0 , 1 , … … , N {\displaystyle 0,1,\ldots ,N} count of # of "yes" occurrences out of N yes/no occurrences X β β = ln ⁡ ⁡ ( μ μ n − − μ μ ) {\displaystyle \mathbf {X} {\boldsymbol {\beta }}=\ln \left({\frac {\mu }{n-\mu }}\right)\,\!} Categorical integer: [ 0 , K ) {\displaystyle [0,K)} outcome of single K -way occurrence X β β = ln ⁡ ⁡ ( μ μ 1 − − μ μ ) {\displaystyle \mathbf {X} {\boldsymbol {\beta }}=\ln \left({\frac {\mu }{1-\mu }}\right)\,\!} K -vector of integer: [ 0 , 1 ] {\displaystyle [0,1]} , where exactly one element in the vector has the value 1 Multinomial K -vector of integer: [ 0 , N ] {\displaystyle [0,N]} count of occurrences of different types (1, ..., K ) out of N total K -way occurrences In the cases of the exponential and gamma distributions, the domain of the canonical link function is not the same as the permitted range of the mean. In particular, the linear predictor may be positive, which would give an impossible negative mean.  When maximizing the likelihood, precautions must be taken to avoid this.  An alternative is to use a noncanonical link function.
+
+In the case of the Bernoulli, binomial, categorical and multinomial distributions, the support of the distributions is not the same type of data as the parameter being predicted.  In all of these cases, the predicted parameter is one or more probabilities, i.e. real numbers in the range [ 0 , 1 ] {\displaystyle [0,1]} . The resulting model is known as logistic regression (or multinomial logistic regression in the case that K -way rather than binary values are being predicted).
+
+For the Bernoulli and binomial distributions, the parameter is a single probability, indicating the likelihood of occurrence of a single event.  The Bernoulli still satisfies the basic condition of the generalized linear model in that, even though a single outcome will always be either 0 or 1, the expected value will nonetheless be a real-valued probability, i.e. the probability of occurrence of a "yes" (or 1) outcome.  Similarly, in a binomial distribution, the expected value is Np , i.e. the expected proportion of "yes" outcomes will be the probability to be predicted.
+
+For categorical and multinomial distributions, the parameter to be predicted is a K -vector of probabilities, with the further restriction that all probabilities must add up to 1.  Each probability indicates the likelihood of occurrence of one of the K possible values. For the multinomial distribution, and for the vector form of the categorical distribution, the expected values of the elements of the vector can be related to the predicted probabilities similarly to the binomial and Bernoulli distributions.
+
+Fitting [ edit ] Maximum likelihood [ edit ] The maximum likelihood estimates can be found using an iteratively reweighted least squares algorithm or a Newton's method with updates of the form: β β ( t + 1 ) = β β ( t ) + J − − 1 ( β β ( t ) ) u ( β β ( t ) ) , {\displaystyle {\boldsymbol {\beta }}^{(t+1)}={\boldsymbol {\beta }}^{(t)}+{\mathcal {J}}^{-1}({\boldsymbol {\beta }}^{(t)})u({\boldsymbol {\beta }}^{(t)}),} where J ( β β ( t ) ) {\displaystyle {\mathcal {J}}({\boldsymbol {\beta }}^{(t)})} is the observed information matrix (the negative of the Hessian matrix ) and u ( β β ( t ) ) {\displaystyle u({\boldsymbol {\beta }}^{(t)})} is the score function ; or a Fisher's scoring method: β β ( t + 1 ) = β β ( t ) + I − − 1 ( β β ( t ) ) u ( β β ( t ) ) , {\displaystyle {\boldsymbol {\beta }}^{(t+1)}={\boldsymbol {\beta }}^{(t)}+{\mathcal {I}}^{-1}({\boldsymbol {\beta }}^{(t)})u({\boldsymbol {\beta }}^{(t)}),} where I ( β β ( t ) ) {\displaystyle {\mathcal {I}}({\boldsymbol {\beta }}^{(t)})} is the Fisher information matrix. Note that if the canonical link function is used, then they are the same.
+
+[ 3 ] Bayesian methods [ edit ] In general, the posterior distribution cannot be found in closed form and so must be approximated, usually using Laplace approximations or some type of Markov chain Monte Carlo method such as Gibbs sampling .
+
+Examples [ edit ] General linear models [ edit ] Further information: General linear model A possible point of confusion has to do with the distinction between generalized linear models and general linear models , two broad statistical models. Co-originator John Nelder has expressed regret over this terminology.
+
+[ 4 ] The general linear model may be viewed as a special case of the generalized linear model with identity link and responses normally distributed. As most exact results of interest are obtained only for the general linear model, the general linear model has undergone a somewhat longer historical development. Results for the generalized linear model with non-identity link are asymptotic (tending to work well with large samples).
+
+Linear regression [ edit ] A simple, very important example of a generalized linear model (also an example of a general linear model) is linear regression . In linear regression, the use of the least-squares estimator is justified by the Gauss–Markov theorem , which does not assume that the distribution is normal.
+
+From the perspective of generalized linear models, however, it is useful to suppose that the distribution function is the normal distribution with constant variance and the link function is the identity, which is the canonical link if the variance is known.  Under these assumptions, the least-squares estimator is obtained as the maximum-likelihood parameter estimate.
+
+For the normal distribution, the generalized linear model has a closed form expression for the maximum-likelihood estimates, which is convenient. Most other GLMs lack closed form estimates.
+
+Binary data [ edit ] See also: Binary regression When the response data, Y , are binary (taking on only values 0 and 1), the distribution function is generally chosen to be the Bernoulli distribution and the interpretation of μ i is then the probability, p , of Y i taking on the value one.
+
+There are several popular link functions for binomial functions.
+
+Logit link function [ edit ] The most typical link function is the canonical logit link: g ( p ) = logit ⁡ ⁡ p = ln ⁡ ⁡ ( p 1 − − p ) .
+
+{\displaystyle g(p)=\operatorname {logit} p=\ln \left({p \over 1-p}\right).} GLMs with this setup are logistic regression models (or logit models ).
+
+Probit link function as popular choice of inverse cumulative distribution function [ edit ] Alternatively, the inverse of any continuous cumulative distribution function (CDF) can be used for the link since the CDF's range is [ 0 , 1 ] {\displaystyle [0,1]} , the range of the binomial mean. The normal CDF Φ Φ {\displaystyle \Phi } is a popular choice and yields the probit model . Its link is g ( p ) = Φ Φ − − 1 ( p ) .
+
+{\displaystyle g(p)=\Phi ^{-1}(p).\,\!} The reason for the use of the probit model is that a constant scaling of the input variable to a normal CDF (which can be absorbed through equivalent scaling of all of the parameters) yields a function that is practically identical to the logit function, but probit models are more tractable in some situations than logit models. (In a Bayesian setting in which normally distributed prior distributions are placed on the parameters, the relationship between the normal priors and the normal CDF link function means that a probit model can be computed using Gibbs sampling , while a logit model generally cannot.) Complementary log-log (cloglog) [ edit ] The complementary log-log function may also be used: g ( p ) = log ⁡ ⁡ ( − − log ⁡ ⁡ ( 1 − − p ) ) .
+
+{\displaystyle g(p)=\log(-\log(1-p)).} This link function is asymmetric and will often produce different results from the logit and probit link functions.
+
+[ 5 ] The cloglog model corresponds to applications where we observe either zero events (e.g., defects) or one or more, where the number of events is assumed to follow the Poisson distribution .
+
+[ 6 ] The Poisson assumption means that Pr ( 0 ) = exp ⁡ ⁡ ( − − μ μ ) , {\displaystyle \Pr(0)=\exp(-\mu ),} where μ is a positive number denoting the expected number of events.  If p represents the proportion of observations with at least one event, its complement 1 − − p = Pr ( 0 ) = exp ⁡ ⁡ ( − − μ μ ) , {\displaystyle 1-p=\Pr(0)=\exp(-\mu ),} and then − − log ⁡ ⁡ ( 1 − − p ) = μ μ .
+
+{\displaystyle -\log(1-p)=\mu .} A linear model requires the response variable to take values over the entire real line. Since μ must be positive, we can enforce that by taking the logarithm, and letting log( μ ) be a linear model.  This produces the "cloglog" transformation log ⁡ ⁡ ( − − log ⁡ ⁡ ( 1 − − p ) ) = log ⁡ ⁡ ( μ μ ) .
+
+{\displaystyle \log(-\log(1-p))=\log(\mu ).} Identity link [ edit ] The identity link g(p) = p is also sometimes used for binomial data to yield a linear probability model .  However, the identity link can predict nonsense "probabilities" less than zero or greater than one.  This can be avoided by using a transformation like cloglog, probit or logit (or any inverse cumulative distribution function). A primary merit of the identity link is that it can be estimated using linear math—and other standard link functions are approximately linear matching the identity link near p = 0.5.
+
+Variance function [ edit ] The variance function for " quasibinomial " data is: Var ⁡ ⁡ ( Y i ) = τ τ μ μ i ( 1 − − μ μ i ) {\displaystyle \operatorname {Var} (Y_{i})=\tau \mu _{i}(1-\mu _{i})\,\!} where the dispersion parameter τ is exactly 1 for the binomial distribution. Indeed, the standard binomial likelihood omits τ .  When it is present, the model is called "quasibinomial", and the modified likelihood is called a quasi-likelihood , since it is not generally the likelihood corresponding to any real family of probability distributions.  If τ exceeds 1, the model is said to exhibit overdispersion .
+
+Multinomial regression [ edit ] The binomial case may be easily extended to allow for a multinomial distribution as the response (also, a Generalized Linear Model for counts, with a constrained total). There are two ways in which this is usually done: Ordered response [ edit ] If the response variable is ordinal , then one may fit a model function of the form: g ( μ μ m ) = η η m = β β 0 + X 1 β β 1 + ⋯ ⋯ + X p β β p + γ γ 2 + ⋯ ⋯ + γ γ m = η η 1 + γ γ 2 + ⋯ ⋯ + γ γ m where μ μ m = P ⁡ ⁡ ( Y ≤ ≤ m ) .
+
+{\displaystyle g(\mu _{m})=\eta _{m}=\beta _{0}+X_{1}\beta _{1}+\cdots +X_{p}\beta _{p}+\gamma _{2}+\cdots +\gamma _{m}=\eta _{1}+\gamma _{2}+\cdots +\gamma _{m}{\text{ where }}\mu _{m}=\operatorname {P} (Y\leq m).\,} for m > 2. Different links g lead to ordinal regression models like proportional odds models or ordered probit models.
+
+Unordered response [ edit ] If the response variable is a nominal measurement , or the data do not satisfy the assumptions of an ordered model, one may fit a model of the following form: g ( μ μ m ) = η η m = β β m , 0 + X 1 β β m , 1 + ⋯ ⋯ + X p β β m , p where μ μ m = P ( Y = m ∣ ∣ Y ∈ ∈ { 1 , m } ) .
+
+{\displaystyle g(\mu _{m})=\eta _{m}=\beta _{m,0}+X_{1}\beta _{m,1}+\cdots +X_{p}\beta _{m,p}{\text{ where }}\mu _{m}=\mathrm {P} (Y=m\mid Y\in \{1,m\}).\,} for m > 2. Different links g lead to multinomial logit or multinomial probit models.  These are more general than the ordered response models, and more parameters are estimated.
+
+Count data [ edit ] Another example of generalized linear models includes Poisson regression which models count data using the Poisson distribution .  The link is typically the logarithm, the canonical link.
+
+The variance function is proportional to the mean var ⁡ ⁡ ( Y i ) = τ τ μ μ i , {\displaystyle \operatorname {var} (Y_{i})=\tau \mu _{i},\,} where the dispersion parameter τ is typically fixed at exactly one. When it is not, the resulting quasi-likelihood model is often described as Poisson with overdispersion or quasi-Poisson .
+
+Extensions [ edit ] Correlated or clustered data [ edit ] The standard GLM assumes that the observations are uncorrelated . Extensions have been developed to allow for correlation between observations, as occurs for example in longitudinal studies and clustered designs: Generalized estimating equations (GEEs) allow for the correlation between observations without the use of an explicit probability model for the origin of the correlations, so there is no explicit likelihood . They are suitable when the random effects and their variances are not of inherent interest, as they allow for the correlation without explaining its origin. The focus is on estimating the average response over the population ("population-averaged" effects) rather than the regression parameters that would enable prediction of the effect of changing one or more components of X on a given individual. GEEs are usually used in conjunction with Huber–White standard errors .
+
+[ 7 ] [ 8 ] Generalized linear mixed models (GLMMs) are an extension to GLMs that includes random effects in the linear predictor, giving an explicit probability model that explains the origin of the correlations. The resulting "subject-specific" parameter estimates are suitable when the focus is on estimating the effect of changing one or more components of X on a given individual. GLMMs are also referred to as multilevel models and as mixed model . In general, fitting GLMMs is more computationally complex and intensive than fitting GEEs.
+
+Generalized additive models [ edit ] Generalized additive models (GAMs) are another extension to GLMs in which the linear predictor η is not restricted to be linear in the covariates X but is the sum of smoothing functions applied to the x i s: η η = β β 0 + f 1 ( x 1 ) + f 2 ( x 2 ) + ⋯ ⋯ {\displaystyle \eta =\beta _{0}+f_{1}(x_{1})+f_{2}(x_{2})+\cdots \,\!} The smoothing functions f i are estimated from the data. In general this requires a large number of data points and is computationally intensive.
+
+[ 9 ] [ 10 ] See also [ edit ] Response modeling methodology Comparison of general and generalized linear models – Statistical linear model Pages displaying short descriptions of redirect targets Fractional model Generalized linear array model GLIM (software) Quasi-variance Natural exponential family – Class of probability distributions Tweedie distribution – Family of probability distributions Variance functions – Smooth function in statistics Pages displaying short descriptions of redirect targets Vector generalized linear model (VGLM) Generalized estimating equation References [ edit ] Citations [ edit ] ^ Nelder, John ; Wedderburn, Robert (1972). "Generalized Linear Models".
+
+Journal of the Royal Statistical Society. Series A (General) .
+
+135 (3). Blackwell Publishing: 370– 384.
+
+doi : 10.2307/2344614 .
+
+JSTOR 2344614 .
+
+S2CID 14154576 .
+
+^ McCullagh & Nelder 1989 , Chapter 2.
+
+^ McCullagh & Nelder 1989 , p. 43.
+
+^ Senn, Stephen (2003).
+
+"A conversation with John Nelder" .
+
+Statistical Science .
+
+18 (1): 118– 131.
+
+doi : 10.1214/ss/1056397489 .
+
+I suspect we should have found some more fancy name for it that would have stuck and not been confused with the general linear model, although general and generalized are not quite the same. I can see why it might have been better to have thought of something else.
+
+^ "Complementary Log-log Model" (PDF) .
+
+^ "Which Link Function — Logit, Probit, or Cloglog?" .
+
+Bayesium Analytics . 2015-08-14 . Retrieved 2019-03-17 .
+
+^ Zeger, Scott L.
+
+; Liang, Kung-Yee ; Albert, Paul S. (1988). "Models for Longitudinal Data: A Generalized Estimating Equation Approach".
+
+Biometrics .
+
+44 (4). International Biometric Society: 1049– 1060.
+
+doi : 10.2307/2531734 .
+
+JSTOR 2531734 .
+
+PMID 3233245 .
+
+^ Hardin, James; Hilbe, Joseph (2003).
+
+Generalized Estimating Equations . London, England: Chapman and Hall/CRC.
+
+ISBN 1-58488-307-3 .
+
+^ Hastie & Tibshirani 1990 .
+
+^ Wood 2006 .
+
+Bibliography [ edit ] Hastie, T. J.
+
+; Tibshirani, R. J.
+
+(1990).
+
+Generalized Additive Models . Chapman & Hall/CRC.
+
+ISBN 978-0-412-34390-2 .
+
+Madsen, Henrik; Thyregod, Poul (2011).
+
+Introduction to General and Generalized Linear Models . Chapman & Hall/CRCC.
+
+ISBN 978-1-4200-9155-7 .
+
+McCullagh, Peter ; Nelder, John (1989).
+
+Generalized Linear Models (2nd ed.).
+
+Boca Raton , FL: Chapman and Hall/CRC.
+
+ISBN 0-412-31760-5 .
+
+Wood, Simon (2006).
+
+Generalized Additive Models: An Introduction with R . Chapman & Hall/CRC.
+
+ISBN 1-58488-474-6 .
+
+Further reading [ edit ] Dunn, P.K.; Smyth, G.K. (2018).
+
+Generalized Linear Models With Examples in R . New York: Springer.
+
+doi : 10.1007/978-1-4419-0118-7 .
+
+ISBN 978-1-4419-0118-7 .
+
+{{ cite book }} :  CS1 maint: publisher location ( link ) Dobson, A.J.; Barnett, A.G. (2008).
+
+Introduction to Generalized Linear Models (3rd ed.). Boca Raton, FL: Chapman and Hall/CRC.
+
+ISBN 978-1-58488-165-0 .
+
+Hardin, James; Hilbe, Joseph (2007).
+
+Generalized Linear Models and Extensions (2nd ed.). College Station: Stata Press.
+
+ISBN 978-1-59718-014-6 .
+
+{{ cite book }} :  CS1 maint: publisher location ( link ) External links [ edit ] Media related to Generalized linear models at Wikimedia Commons v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject Authority control databases : National France BnF data NewPP limit report
+Parsed by mw‐web.codfw.main‐597b4b5bbd‐br9p2
+Cached time: 20250815010908
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.822 seconds
+Real time usage: 1.329 seconds
+Preprocessor visited node count: 4230/1000000
+Revision size: 32132/2097152 bytes
+Post‐expand include size: 185553/2097152 bytes
+Template argument size: 2150/2097152 bytes
+Highest expansion depth: 15/100
+Expensive parser function count: 5/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 70001/5000000 bytes
+Lua time usage: 0.490/10.000 seconds
+Lua memory usage: 19925364/52428800 bytes
+Number of Wikibase entities loaded: 1/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  984.456      1 -total
+ 29.00%  285.537     10 Template:Annotated_link
+ 15.68%  154.350      1 Template:Regression_bar
+ 15.48%  152.407      1 Template:Sidebar
+ 14.41%  141.824      1 Template:Reflist
+ 11.55%  113.715      1 Template:Short_description
+ 11.06%  108.860      1 Template:Statistics
+ 10.80%  106.314      1 Template:Navbox_with_collapsible_groups
+ 10.68%  105.146      3 Template:Cite_journal
+  7.89%   77.689      2 Template:Pagetype Saved in parser cache with key enwiki:pcache:747122:|#|:idhash:canonical and timestamp 20250815010908 and revision id 1305675786. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Generalized_linear_model&oldid=1305675786 " Categories : Actuarial science Generalized linear models Regression models Hidden categories: Articles with short description Short description matches Wikidata Pages displaying short descriptions of redirect targets via Module:Annotated link CS1 maint: publisher location Commons category link is on Wikidata This page was last edited on 13 August 2025, at 12:41 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Generalized linear model 19 languages Add topic
+

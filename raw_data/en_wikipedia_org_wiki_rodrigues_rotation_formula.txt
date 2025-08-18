@@ -1,0 +1,123 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Statement 2 Derivation 3 Matrix notation 4 See also 5 References 6 External links Toggle the table of contents Rodrigues' rotation formula 9 languages Deutsch Ελληνικά Español Français Italiano 日本語 Русский Українська 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Vector formula for a rotation in space, given its axis Not to be confused with the Euler–Rodrigues parameters and The Euler–Rodrigues formula for 3D rotation .
+
+This article includes a list of general references , but it lacks sufficient corresponding inline citations .
+
+Please help to improve this article by introducing more precise citations.
+
+( May 2021 ) ( Learn how and when to remove this message ) In the theory of three-dimensional rotation , Rodrigues' rotation formula , named after Olinde Rodrigues , is an efficient algorithm for rotating a vector in space, given an axis and angle of rotation . By extension, this can be used to transform all three basis vectors to compute a rotation matrix in SO(3) , the group of all rotation matrices, from an axis–angle representation . In terms of Lie theory, the Rodrigues' formula provides an algorithm to compute the exponential map from the Lie algebra so (3) to its Lie group SO(3) .
+
+This formula is variously credited to Leonhard Euler , Olinde Rodrigues , or a combination of the two. A detailed historical analysis in 1989 concluded that the formula should be attributed to Euler, and recommended calling it "Euler's finite rotation formula." [ 1 ] This proposal has received notable support, [ 2 ] but some others have viewed the formula as just one of many variations of the Euler–Rodrigues formula , thereby crediting both.
+
+[ 3 ] Statement [ edit ] If v is a vector in ℝ 3 and k is a unit vector describing an axis of rotation about which v rotates by an angle θ according to the right hand rule , the Rodrigues formula for the rotated vector v rot is v r o t = v cos ⁡ ⁡ θ θ + ( k × × v ) sin ⁡ ⁡ θ θ + k ( k ⋅ ⋅ v ) ( 1 − − cos ⁡ ⁡ θ θ ) .
+
+{\displaystyle \mathbf {v} _{\mathrm {rot} }=\mathbf {v} \cos \theta +(\mathbf {k} \times \mathbf {v} )\sin \theta +\mathbf {k} ~(\mathbf {k} \cdot \mathbf {v} )(1-\cos \theta )\,.} The intuition of the above formula is that the first term scales the vector down, while the second skews it (via vector addition ) toward the new rotational position. The third term re-adds the height (relative to k {\displaystyle {\textbf {k}}} ) that was lost by the first term.
+
+An alternative statement is to write the axis vector as a cross product a × b of any two nonzero vectors a and b which define the plane of rotation, and the sense of the angle θ is measured away from a and towards b . Letting α denote the angle between these vectors, the two angles θ and α are not necessarily equal, but they are measured in the same sense. Then the unit axis vector can be written k = a × × b | a × × b | = a × × b | a | | b | sin ⁡ ⁡ α α .
+
+{\displaystyle \mathbf {k} ={\frac {\mathbf {a} \times \mathbf {b} }{|\mathbf {a} \times \mathbf {b} |}}={\frac {\mathbf {a} \times \mathbf {b} }{|\mathbf {a} ||\mathbf {b} |\sin \alpha }}\,.} This form may be more useful when two vectors defining a plane are involved. An example in physics is the Thomas precession which includes the rotation given by Rodrigues' formula, in terms of two non-collinear boost velocities, and the axis of rotation is perpendicular to their plane.
+
+Derivation [ edit ] Rodrigues' rotation formula rotates v by an angle θ around vector k by decomposing it into its components parallel and perpendicular to k , and rotating only the perpendicular component.
+
+Vector geometry of Rodrigues' rotation formula, as well as the decomposition into parallel and perpendicular components.
+
+Let k be a unit vector defining a rotation axis, and let v be any vector to rotate about k by angle θ ( right hand rule , anticlockwise in the figure), producing the rotated vector v rot {\displaystyle \mathbb {v} _{\text{rot}}} .
+
+Using the dot and cross products , the vector v can be decomposed into components parallel and perpendicular to the axis k , v = v ∥ ∥ + v ⊥ ⊥ , {\displaystyle \mathbf {v} =\mathbf {v} _{\parallel }+\mathbf {v} _{\perp }\,,} where the component parallel to k is called the vector projection of v on k , v ∥ ∥ = ( v ⋅ ⋅ k ) k {\displaystyle \mathbf {v} _{\parallel }=(\mathbf {v} \cdot \mathbf {k} )\mathbf {k} } , and the component perpendicular to k is called the vector rejection of v from k : v ⊥ ⊥ = v − − v ∥ ∥ = v − − ( k ⋅ ⋅ v ) k = − − k × × ( k × × v ) {\displaystyle \mathbf {v} _{\perp }=\mathbf {v} -\mathbf {v} _{\parallel }=\mathbf {v} -(\mathbf {k} \cdot \mathbf {v} )\mathbf {k} =-\mathbf {k} \times (\mathbf {k} \times \mathbf {v} )} , where the last equality follows from the vector triple product formula: a × × ( b × × c ) = ( a ⋅ ⋅ c ) b − − ( a ⋅ ⋅ b ) c {\textstyle \mathbf {a} \times (\mathbf {b} \times \mathbf {c} )=(\mathbf {a} \cdot \mathbf {c} )\mathbf {b} -(\mathbf {a} \cdot \mathbf {b} )\mathbf {c} } .  Finally, the vector k × × v ⊥ ⊥ = k × × v {\displaystyle \mathbf {k} \times \mathbf {v} _{\perp }=\mathbf {k} \times \mathbf {v} } is a copy of v ⊥ ⊥ {\displaystyle \mathbf {v} _{\perp }} rotated 90° around k {\displaystyle \mathbf {k} } . Thus the three vectors k , v ⊥ ⊥ , k × × v {\displaystyle \mathbf {k} \,,\ \mathbf {v} _{\perp }\,,\,\mathbf {k} \times \mathbf {v} } form a right-handed orthogonal basis of R 3 {\displaystyle \mathbb {R} ^{3}} , with the last two vectors of equal length.
+
+Under the rotation, the component v ∥ ∥ {\displaystyle \mathbf {v} _{\parallel }} parallel to the axis will not change magnitude nor direction: v ∥ ∥ r o t = v ∥ ∥ ; {\displaystyle \mathbf {v} _{\parallel \mathrm {rot} }=\mathbf {v} _{\parallel }\,;} while the perpendicular component will retain its magnitude but rotate its direction in the perpendicular plane spanned by v ⊥ ⊥ {\displaystyle \mathbf {v} _{\perp }} and k × × v {\displaystyle \mathbf {k} \times \mathbf {v} } , according to v ⊥ ⊥ r o t = cos ⁡ ⁡ ( θ θ ) v ⊥ ⊥ + sin ⁡ ⁡ ( θ θ ) k × × v ⊥ ⊥ = cos ⁡ ⁡ ( θ θ ) v ⊥ ⊥ + sin ⁡ ⁡ ( θ θ ) k × × v , {\displaystyle \mathbf {v} _{\perp \mathrm {rot} }=\cos(\theta )\mathbf {v} _{\perp }+\sin(\theta )\mathbf {k} \times \mathbf {v} _{\perp }=\cos(\theta )\mathbf {v} _{\perp }+\sin(\theta )\mathbf {k} \times \mathbf {v} \,,} in analogy with the planar polar coordinates ( r , θ ) in the Cartesian basis e x , e y : r = r cos ⁡ ⁡ ( θ θ ) e x + r sin ⁡ ⁡ ( θ θ ) e y .
+
+{\displaystyle \mathbf {r} =r\cos(\theta )\mathbf {e} _{x}+r\sin(\theta )\mathbf {e} _{y}\,.} Now the full rotated vector is: v r o t = v ∥ ∥ r o t + v ⊥ ⊥ r o t = v ∥ ∥ + cos ⁡ ⁡ ( θ θ ) v ⊥ ⊥ + sin ⁡ ⁡ ( θ θ ) k × × v .
+
+{\displaystyle \mathbf {v} _{\mathrm {rot} }=\mathbf {v} _{\parallel \mathrm {rot} }+\mathbf {v} _{\perp \mathrm {rot} }=\mathbf {v} _{\parallel }+\cos(\theta )\,\mathbf {v} _{\perp }+\sin(\theta )\mathbf {k} \times \mathbf {v} .} Substituting v ⊥ ⊥ = v − − v ‖ ‖ {\displaystyle \mathbf {v} _{\perp }=\mathbf {v} -\mathbf {v} _{\|}} or v ‖ ‖ = v − − v ⊥ ⊥ {\displaystyle \mathbf {v} _{\|}=\mathbf {v} -\mathbf {v} _{\perp }} in the last expression gives respectively: v rot = cos ⁡ ⁡ ( θ θ ) v + sin ⁡ ⁡ ( θ θ ) k × × v + ( 1 − − cos ⁡ ⁡ θ θ ) ( k ⋅ ⋅ v ) k {\displaystyle \mathbf {v} _{\text{rot}}=\cos(\theta )\,\mathbf {v} +\sin(\theta )\mathbf {k} \times \mathbf {v} +(1-\cos \theta )(\mathbf {k} \cdot \mathbf {v} )\mathbf {k} } v rot = v + sin ⁡ ⁡ ( θ θ ) k × × v + ( 1 − − cos ⁡ ⁡ θ θ ) k × × ( k × × v ) .
+
+{\displaystyle {\phantom {\mathbf {v} _{\text{rot}}}}=\mathbf {v} +\sin(\theta )\mathbf {k} \times \mathbf {v} +(1-\cos \theta )\mathbf {k} \times (\mathbf {k} \times \mathbf {v} ).} Matrix notation [ edit ] The linear transformation on v ∈ ∈ R 3 {\displaystyle \mathbf {v} \in \mathbb {R} ^{3}} defined by the cross product v ↦ ↦ k × × v {\displaystyle \mathbf {v} \mapsto \mathbf {k} \times \mathbf {v} } is given in coordinates by representing v and k × v as column matrices : [ ( k × × v ) x ( k × × v ) y ( k × × v ) z ] = [ k y v z − − k z v y k z v x − − k x v z k x v y − − k y v x ] = [ 0 − − k z k y k z 0 − − k x − − k y k x 0 ] [ v x v y v z ] .
+
+{\displaystyle {\begin{bmatrix}(\mathbf {k} \times \mathbf {v} )_{x}\\(\mathbf {k} \times \mathbf {v} )_{y}\\(\mathbf {k} \times \mathbf {v} )_{z}\end{bmatrix}}={\begin{bmatrix}k_{y}v_{z}-k_{z}v_{y}\\k_{z}v_{x}-k_{x}v_{z}\\k_{x}v_{y}-k_{y}v_{x}\end{bmatrix}}=\left[{\begin{array}{rrr}0\ \,&-k_{z}&k_{y}\\k_{z}&0\ \,&-k_{x}\\-k_{y}&k_{x}&0\ \,\end{array}}\right]{\begin{bmatrix}v_{x}\\v_{y}\\v_{z}\end{bmatrix}}\,.} That is, the matrix of this linear transformation (with respect to standard coordinates) is the cross-product matrix : K = [ 0 − − k z k y k z 0 − − k x − − k y k x 0 ] .
+
+{\displaystyle \mathbf {K} =\left[{\begin{array}{rrr}0\ \,&-k_{z}&k_{y}\\k_{z}&0\ \,&-k_{x}\\-k_{y}&k_{x}&0\ \,\end{array}}\right]\,.} That is to say, k × × v = K v , k × × ( k × × v ) = K ( K v ) = K 2 v .
+
+{\displaystyle \mathbf {k} \times \mathbf {v} =\mathbf {K} \mathbf {v} ,\qquad \qquad \mathbf {k} \times (\mathbf {k} \times \mathbf {v} )=\mathbf {K} (\mathbf {K} \mathbf {v} )=\mathbf {K} ^{2}\mathbf {v} \,.} The last formula in the previous section can therefore be written as: v r o t = v + ( sin ⁡ ⁡ θ θ ) K v + ( 1 − − cos ⁡ ⁡ θ θ ) K 2 v .
+
+{\displaystyle \mathbf {v} _{\mathrm {rot} }=\mathbf {v} +(\sin \theta )\mathbf {K} \mathbf {v} +(1-\cos \theta )\mathbf {K} ^{2}\mathbf {v} \,.} Collecting terms allows the compact expression v r o t = R v {\displaystyle \mathbf {v} _{\mathrm {rot} }=\mathbf {R} \mathbf {v} } where R = I + ( sin ⁡ ⁡ θ θ ) K + ( 1 − − cos ⁡ ⁡ θ θ ) K 2 {\displaystyle \mathbf {R} =\mathbf {I} +(\sin \theta )\mathbf {K} +(1-\cos \theta )\mathbf {K} ^{2}} is the rotation matrix through an angle θ counterclockwise about the axis k , and I the 3 × 3 identity matrix .
+
+[ 4 ] This matrix R is an element of the rotation group SO(3) of ℝ 3 , and K is an element of the Lie algebra s o ( 3 ) {\displaystyle {\mathfrak {so}}(3)} generating that Lie group (note that K is skew-symmetric, which characterizes s o ( 3 ) {\displaystyle {\mathfrak {so}}(3)} ).
+
+In terms of the matrix exponential, R = exp ⁡ ⁡ ( θ θ K ) .
+
+{\displaystyle \mathbf {R} =\exp(\theta \mathbf {K} )\,.} To see that the last identity holds, one notes that R ( θ θ ) R ( ϕ ϕ ) = R ( θ θ + ϕ ϕ ) , R ( 0 ) = I , {\displaystyle \mathbf {R} (\theta )\mathbf {R} (\phi )=\mathbf {R} (\theta +\phi ),\quad \mathbf {R} (0)=\mathbf {I} \,,} characteristic of a one-parameter subgroup , i.e. exponential, and that the formulas match for infinitesimal θ .
+
+For an alternative derivation based on this exponential relationship, see exponential map from s o ( 3 ) {\displaystyle {\mathfrak {so}}(3)} to SO(3) . For the inverse mapping, see log map from SO(3) to s o ( 3 ) {\displaystyle {\mathfrak {so}}(3)} .
+
+The above result can be written in index notation as follows. The elements of the matrix for an active rotation by an angle θ θ {\displaystyle \theta } about an axis n are given by R i j = cos ⁡ ⁡ θ θ δ δ i j + ( 1 − − cos ⁡ ⁡ θ θ ) n i n j − − sin ⁡ ⁡ θ θ ϵ ϵ i j k n k .
+
+{\displaystyle R_{ij}=\cos \theta \,\delta _{ij}+(1-\cos \theta )n_{i}n_{j}-\sin \theta \,\epsilon _{ijk}n_{k}.} Here, i, j, and k label the Cartesian components (x, y, z) or (1, 2, 3), δ δ i j {\displaystyle \delta _{ij}} and ϵ ϵ i j k {\displaystyle \epsilon _{ijk}} are the Kronecker and Levi-Civita symbols, and there is an implicit sum on repeated indices.
+
+The Hodge dual of the rotation R {\displaystyle \mathbf {R} } is just R ∗ ∗ = − − sin ⁡ ⁡ ( θ θ ) k {\displaystyle \mathbf {R} ^{*}=-\sin(\theta )\mathbf {k} } which  enables the extraction of both the axis of rotation and the sine of the angle of the rotation from the rotation matrix itself, with the usual ambiguity, sin ⁡ ⁡ ( θ θ ) = σ σ | R ∗ ∗ | k = − − σ σ R ∗ ∗ | R ∗ ∗ | {\displaystyle {\begin{aligned}\sin(\theta )&=\sigma \left|\mathbf {R} ^{*}\right|\\[3pt]\mathbf {k} &=-{\frac {\sigma \mathbf {R} ^{*}}{\left|\mathbf {R} ^{*}\right|}}\end{aligned}}} where σ σ = ± ± 1 {\displaystyle \sigma =\pm 1} . The above simple expression results from the fact that the Hodge duals of I {\displaystyle \mathbf {I} } and K 2 {\displaystyle \mathbf {K} ^{2}} are zero, and K ∗ ∗ = − − k {\displaystyle \mathbf {K} ^{*}=-\mathbf {k} } .
+
+See also [ edit ] Axis angle Rotation (mathematics) SO(3) and SO(4) Euler–Rodrigues formula References [ edit ] ^ Cheng, Hui; Gupta, K. C. (March 1989).
+
+"An Historical Note on Finite Rotations" (PDF) .
+
+Journal of Applied Mechanics .
+
+56 (1). American Society of Mechanical Engineers: 139– 145.
+
+Bibcode : 1989JAM....56..139C .
+
+doi : 10.1115/1.3176034 . Retrieved 2022-04-11 .
+
+^ Fraiture, Luc (2009).
+
+"A History of the Description of the Three-Dimensional Finite Rotation" .
+
+The Journal of the Astronautical Sciences .
+
+57 ( 1– 2). Springer: 207– 232.
+
+Bibcode : 2009JAnSc..57..207F .
+
+doi : 10.1007/BF03321502 . Retrieved 2022-04-15 .
+
+^ Dai, Jian S. (October 2015).
+
+"Euler–Rodrigues formula variations, quaternion conjugation and intrinsic connections" .
+
+Mechanism and Machine Theory .
+
+92 . Elsevier: 144– 152.
+
+doi : 10.1016/j.mechmachtheory.2015.03.004 .
+
+^ Belongie, Serge.
+
+"Rodrigues' Rotation Formula" .
+
+mathworld.wolfram.com . Retrieved 2021-04-07 .
+
+Leonhard Euler , "Problema algebraicum ob affectiones prorsus singulares memorabile", Commentatio 407 Indicis Enestoemiani, Novi Comm. Acad. Sci. Petropolitanae 15 (1770), 75–106.
+
+Olinde Rodrigues , "Des lois géométriques qui régissent les déplacements d'un système solide dans l'espace, et de la variation des coordonnées provenant de ces déplacements considérés indépendants des causes qui peuvent les produire", Journal de Mathématiques Pures et Appliquées 5 (1840), 380–440.
+
+online .
+
+Richard M. Friedberg (2022) " Rodrigues, Olinde: "Des lois géométriques qui régissent les déplacements d'un systéme solide...", translation and commentary ".
+
+arXiv:2211.07787 .
+
+Don Koks, (2006) Explorations in Mathematical Physics , Springer Science+Business Media, LLC.
+
+ISBN 0-387-30943-8 . Ch.4, pps 147 et seq.
+
+A Roundabout Route to Geometric Algebra External links [ edit ] Johan E. Mebius, Derivation of the Euler-Rodrigues formula for three-dimensional rotations from the general formula for four-dimensional rotations.
+
+, arXiv General Mathematics 2007.
+
+For another descriptive example see: http://chrishecker.com/Rigid_Body_Dynamics#Physics_Articles , Chris Hecker, physics section, part 4. "The Third Dimension" – on page 3, section Axis and Angle , http://chrishecker.com/images/b/bb/Gdmphys4.pdf Retrieved from " https://en.wikipedia.org/w/index.php?title=Rodrigues%27_rotation_formula&oldid=1304555586 " Categories : Rotation in three dimensions Euclidean geometry Orientation (geometry) Hidden categories: Articles with short description Short description matches Wikidata Articles lacking in-text citations from May 2021 All articles lacking in-text citations This page was last edited on 6 August 2025, at 19:09 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Rodrigues' rotation formula 9 languages Add topic
+

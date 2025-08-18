@@ -1,0 +1,837 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 History Toggle History subsection 1.1 Version differences 2 Overview 3 Uses Toggle Uses subsection 3.1 Platform integrity 3.2 Disk encryption 4 Implementations Toggle Implementations subsection 4.1 Laptops and notebooks 4.2 TPM 2.0 4.3 Open source 5 Reception 6 Security issues 7 Availability Toggle Availability subsection 7.1 Field upgrade 7.2 Virtual TPM 7.3 Operating systems 7.4 Platforms 7.5 Virtualization 7.6 Software 8 Endorsement keys 9 Software libraries 10 See also 11 References Toggle the table of contents Trusted Platform Module 21 languages العربية Català Čeština Deutsch Eesti Español Français 한국어 Hrvatski Bahasa Indonesia Italiano עברית Nederlands 日本語 Norsk bokmål Polski Português Русский தமிழ் Українська 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Type of standardized secure cryptoprocessors Trusted Platform Module An example Trusted Platform Module, the Infineon SLB9655TT12 Abbreviation TPM Status Published Year started 2009 ; 16 years ago ( 2009 ) Latest version ISO / IEC 11889:2015 2015 ; 10 years ago ( 2015 ) Organization Trusted Computing Group , ISO/IEC JTC 1 Domain Secure cryptoprocessor Website ISO/IEC 11889-1:2015 ISO/IEC 11889-2:2015 ISO/IEC 11889-3:2015 ISO/IEC 11889-4:2015 A Trusted Platform Module ( TPM ) is a secure cryptoprocessor that implements the ISO/IEC 11889 standard. Common uses are verifying that the boot process starts from a trusted combination of hardware and software and storing disk encryption keys.
+
+A TPM 2.0 implementation is part of the Windows 11 system requirements.
+
+[ 1 ] History [ edit ] The first TPM version that was deployed was 1.1b in 2003.
+
+[ 2 ] Trusted Platform Module (TPM) was conceived by a computer industry consortium called Trusted Computing Group (TCG). It evolved into TPM Main Specification Version 1.2 which was standardized by International Organization for Standardization (ISO) and International Electrotechnical Commission (IEC) in 2009 as ISO/IEC 11889:2009.
+
+[ 3 ] TPM Main Specification Version 1.2 was finalized on 3 March 2011 completing its revision.
+
+[ 4 ] [ 5 ] On April 9, 2014, the Trusted Computing Group announced a major upgrade to their specification entitled TPM Library Specification 2.0 .
+
+[ 6 ] The group continues work on the standard incorporating errata, algorithmic additions and new commands, with its most recent edition published as 2.0 in November 2019.
+
+[ 7 ] This version became ISO/IEC 11889:2015.
+
+When a new revision is released it is divided into multiple parts by the Trusted Computing Group. Each part consists of a document that makes up the whole of the new TPM specification.
+
+Part 1 Architecture (renamed from Design Principles) Part 2 Structures of the TPM Part 3 Commands Part 4 Supporting Routines (added in TPM 2.0) Version differences [ edit ] While TPM 2.0 addresses many of the same use cases and has similar features, the details are different. TPM 2.0 is not backward compatible with TPM 1.2.
+
+[ 8 ] [ 9 ] [ 10 ] Specification TPM 1.2 TPM 2.0 Architecture A complete specification is intended to consist of a platform-specific protection profile which references a common three part TPM 1.2 library.
+
+[ 5 ] In practice, only a PC Client protection profile was created for TPM 1.2. Protection profiles for PDA and cellular were intended to be defined, [ 5 ] but were never published.
+
+A complete specification consists of a platform-specific specification which references a common four-part TPM 2.0 library.
+
+[ 11 ] [ 7 ] Platform-specific specifications define what parts of the library are mandatory, optional, or banned for that platform; and detail other requirements for that platform.
+
+[ 11 ] Platform-specific specifications include PC Client, [ 12 ] mobile, [ 13 ] and Automotive-Thin.
+
+[ 14 ] Algorithms SHA-1 and RSA are required.
+
+[ 15 ] AES is optional.
+
+[ 15 ] Triple DES was once an optional algorithm in earlier versions of TPM 1.2, [ 16 ] but has been removed from TPM 1.2 version 103.
+
+[ 17 ] The MGF1 hash-based mask generation function that is defined in PKCS#1 is required.
+
+[ 15 ] The PC Client Platform TPM Profile (PTP) Specification requires SHA-1 and SHA-256 for hashes; RSA , ECC using the NIST P-256 curve for public-key cryptography and asymmetric digital signature generation and verification; HMAC for symmetric digital signature generation and verification; 128-bit AES for symmetric-key algorithm ; and the MGF1 hash-based mask generation function that is defined in PKCS#1 are required by the TCG PC Client Platform TPM Profile (PTP) Specification.
+
+[ 18 ] Many other algorithms are also defined but are optional.
+
+[ 19 ] Note that Triple DES was added into the TPM 2.0 library, but with restrictions to reject weak keys .
+
+[ 20 ] Also, elliptic cryptography Direct Anonymous Attestation (ECDAA) using Barreto-Naehrig ECC curves which was mandatory in earlier versions has been made optional in the PC Client profile version 1.59.
+
+[ 18 ] Crypto Primitives A random number generator , a public-key cryptographic algorithm , a cryptographic hash function , a mask generation function, digital signature generation and verification, and Direct Anonymous Attestation are required.
+
+[ 15 ] Symmetric-key algorithms and exclusive or are optional.
+
+[ 15 ] Key generation is also required.
+
+[ 21 ] A random number generator , public-key cryptographic algorithms , cryptographic hash functions , symmetric-key algorithms , digital signature generation and verification, mask generation functions, and exclusive or are required by the TCG PC Client Platform TPM Profile (PTP) Specification.
+
+[ 18 ] ECC -based Direct Anonymous Attestation using the Barreto–Naehrig 256-bit curve is optional for the TCG PC Client Platform TPM Profile (PTP) Specification.
+
+[ 18 ] The TPM 2.0 common library specification also requires key generation and key derivation functions .
+
+[ 22 ] Hierarchy One (storage) Three (platform, storage and endorsement) Root keys One (SRK RSA-2048) Multiple keys and algorithms per hierarchy Authorization HMAC , PCR, locality, physical presence Password, HMAC , and policy (which covers HMAC, PCR, locality, and physical presence).
+
+NVRAM Unstructured data Unstructured data, counter, bitmap, extend, PIN pass and fail The TPM 2.0 policy authorization includes the 1.2 HMAC, locality, physical presence, and PCR. It adds authorization based on an asymmetric digital signature, indirection to another authorization secret, counters and time limits, NVRAM values, a particular command or command parameters, and physical presence. It permits the ANDing and ORing of these authorization primitives to construct complex authorization policies.
+
+[ 23 ] Overview [ edit ] Components of a Trusted Platform Module complying with the TPM version 1.2 standard The Trusted Platform Module (TPM) provides: A hardware random number generator [ 24 ] [ 25 ] Facilities for the secure generation of cryptographic keys for limited uses.
+
+Remote attestation : Creates a nearly unforgeable hash key summary of the hardware and software configuration.  One could use the hash to verify that the hardware and software have not been changed. The software in charge of hashing the setup determines the extent of the summary.
+
+Binding : Data is encrypted using the TPM bind key, a unique RSA key descended from a storage key. Computers that incorporate a TPM can create cryptographic keys and encrypt them so that they can only be decrypted by the TPM. This process, often called wrapping or binding a key, can help protect the key from disclosure. Each TPM has a master wrapping key, called the storage root key, which is stored within the TPM itself. User-level RSA key containers are stored with the Windows user profile for a particular user and can be used to encrypt and decrypt information for applications that run under that specific user identity.
+
+[ 26 ] [ 27 ] Sealed storage : Specifies the TPM state [ 28 ] for the data to be decrypted (unsealed).
+
+[ 29 ] Other Trusted Computing functions for the data to be decrypted (unsealed).
+
+[ 30 ] Computer programs can use a TPM for the authentication of hardware devices, since each TPM chip has a unique and secret Endorsement Key (EK) burned in as it is produced. Security embedded in hardware provides more protection than a software-only solution.
+
+[ 31 ] Its use is restricted in some countries.
+
+[ 32 ] Uses [ edit ] Platform integrity [ edit ] Screenshot of tpm2-software showing the reading of Platform Configuration Registers (PCRs), the getrandom result taken from TPM device, and TPM version (2.0) The primary scope of TPM is to ensure the integrity of a platform during boot time. In this context, "integrity" means "behaves as intended", and a "platform" is any computer device regardless of its operating system . This is to ensure that the boot process starts from a trusted combination of hardware and software, and continues until the operating system has fully booted and applications are running.
+
+When TPM is used, the firmware and the operating system are responsible for ensuring integrity.
+
+For example, the Unified Extensible Firmware Interface (UEFI) can use TPM to form a root of trust : The TPM contains several Platform Configuration Registers (PCRs) that allow secure storage and reporting of security-relevant metrics. These metrics can be used to detect changes to previous configurations and decide how to proceed. Examples of such use can be found in Linux Unified Key Setup (LUKS), [ 33 ] BitLocker and PrivateCore vCage memory encryption. (See below.) Another example of platform integrity via TPM is in the use of Microsoft Office 365 licensing and Outlook Exchange.
+
+[ 34 ] Another example of TPM use for platform integrity is the Trusted Execution Technology (TXT), which creates a chain of trust. It could remotely attest that a computer is using the specified hardware and software.
+
+[ 35 ] Disk encryption [ edit ] Full disk encryption utilities, such as dm-crypt , can use this technology to protect the keys used to encrypt the computer's storage devices and provide integrity authentication for a trusted boot pathway that includes firmware and the boot sector .
+
+[ 36 ] Implementations [ edit ] Trusted Platform Module installed on a mainboard Laptops and notebooks [ edit ] In 2006 new laptops began being sold with a built-in TPM chip. In the future, this concept could be co-located on an existing motherboard chip in computers, or any other device where the TPM facilities could be employed, such as a cellphone . On a PC, either the Low Pin Count (LPC) bus or the Serial Peripheral Interface (SPI) bus is used to connect to the TPM chip.
+
+The Trusted Computing Group (TCG) has certified TPM chips manufactured by Infineon Technologies , Nuvoton , and STMicroelectronics , [ 37 ] having assigned TPM vendor IDs to Advanced Micro Devices , Atmel , Broadcom , IBM , Infineon, Intel , Lenovo , National Semiconductor , Nationz Technologies, Nuvoton, Qualcomm , Rockchip , Standard Microsystems Corporation , STMicroelectronics, Samsung , Sinosun, Texas Instruments , and Winbond .
+
+[ 38 ] TPM 2.0 [ edit ] There are five different types of TPM 2.0 implementations (listed in order from most to least secure): [ 39 ] [ 40 ] Discrete TPMs are dedicated chips that implement TPM functionality in their own tamper resistant semiconductor package. They are the most secure, certified to FIPS-140 with level 3 physical security [ 41 ] resistance to attack versus routines implemented in software, and their packages are required to implement some tamper resistance. For example, the TPM for the brake controller in a car is protected from hacking by sophisticated methods.
+
+[ 42 ] Integrated TPMs are part of another chip. While they use hardware that resists software bugs, they are not required to implement tamper resistance.
+
+Intel has integrated TPMs in some of its chipsets .
+
+Firmware TPMs (fTPMs) are firmware-based (e.g.
+
+UEFI ) solutions that run in a CPU's trusted execution environment . Intel, AMD and Qualcomm have implemented firmware TPMs.
+
+Virtual TPMs (vTPMs) are provided by and rely on hypervisors in isolated execution environments that are hidden from the software running inside virtual machines to secure their code from the software in the virtual machines. They can provide a security level comparable to a firmware TPM.
+
+Google Cloud Platform has implemented vTPM.
+
+[ 43 ] Software TPMs are software emulators of TPMs that run with no more protection than a regular program gets within an operating system. They depend entirely on the environment that they run in, so they provide no more security than what can be provided by the normal execution environment. They are useful for development purposes.
+
+Open source [ edit ] TPM 2.0 Reference Implementation Developer(s) Microsoft Repository github .com /Microsoft /ms-tpm-20-ref Written in C , C++ Type TPM implementation License BSD License Website trustedcomputinggroup .org /tpm-library-specification The official TCG reference implementation of the TPM 2.0 Specification has been developed by Microsoft . It is licensed under BSD License and the source code is available on GitHub .
+
+[ 44 ] In 2018 Intel open-sourced its Trusted Platform Module 2.0 (TPM2) software stack with support for Linux and Microsoft Windows.
+
+[ 45 ] The source code is hosted on GitHub and licensed under BSD License .
+
+[ 46 ] [ 47 ] Infineon funded the development of an open source TPM middleware that complies with the Software Stack (TSS) Enhanced System API (ESAPI) specification of the TCG.
+
+[ 48 ] It was developed by Fraunhofer Institute for Secure Information Technology (SIT).
+
+[ 49 ] IBM 's Software TPM 2.0 is an implementation of the TCG TPM 2.0 specification. It is based on the TPM specification Parts 3 and 4 and source code donated by Microsoft. It contains additional files to complete the implementation. The source code is hosted on SourceForge [ 50 ] and GitHub [ 51 ] and licensed under BSD License.
+
+In 2022, AMD announced that under certain circumstances their fTPM implementation causes performance problems. A fix is available in form of a BIOS -Update.
+
+[ 52 ] [ 53 ] Reception [ edit ] The Trusted Computing Group (TCG) has faced resistance to the deployment of this technology in some areas, where some authors see possible uses not specifically related to Trusted Computing , which may raise privacy concerns. The concerns include the abuse of remote validation of software decides what software is allowed to run and possible ways to follow actions taken by the user being recorded in a database, in a manner that is completely undetectable to the user.
+
+[ 54 ] The TrueCrypt disk encryption utility, as well as its derivative VeraCrypt , do not support TPM. The original TrueCrypt developers were of the opinion that the exclusive purpose of the TPM is "to protect against attacks that require the attacker to have administrator privileges, or physical access to the computer". The attacker who has physical or administrative access to a computer can circumvent TPM, e.g., by installing a hardware keystroke logger , by resetting TPM, or by capturing memory contents and retrieving TPM-issued keys. The condemning text goes so far as to claim that TPM is entirely redundant.
+
+[ 55 ] The VeraCrypt publisher has reproduced the original allegation with no changes other than replacing "TrueCrypt" with "VeraCrypt".
+
+[ 56 ] The author is right that, after achieving either unrestricted physical access or administrative privileges, it is only a matter of time before other security measures in place are bypassed.
+
+[ 57 ] [ 58 ] However, stopping an attacker in possession of administrative privileges has never been one of the goals of TPM (see § Uses for details), and TPM can stop some physical tampering .
+
+[ 33 ] [ 35 ] [ 59 ] [ 60 ] [ 61 ] In 2015 Richard Stallman suggested to replace the term "Trusted computing" with the term "Treacherous computing" due to the danger that the computer can be made to systematically disobey its owner if the cryptographical keys are kept secret from them. He also considers that TPMs available for PCs in 2015 are not currently [ timeframe?
+
+] dangerous and that there is no reason not to include one in a computer or support it in software due to failed attempts from the industry to use that technology for DRM , but that the TPM2 released in 2022 is precisely the " treacherous computing " threat he had warned of.
+
+[ 62 ] In August 2023, Linus Torvalds , who was frustrated with AMD fTPM's stuttering bugs opined, "Let's just disable the stupid fTPM hwrnd thing." He said the CPU-based random number generation, rdrand was equally suitable, despite having its share of bugs. Writing for Neowin , Sayan Sen quoted Torvalds' bitter comments and called him "a man with a strong opinion".
+
+[ 63 ] Security issues [ edit ] In 2010 Christopher Tarnovsky presented an attack against TPMs at Black Hat Briefings , where he claimed to be able to extract secrets from a single TPM. He was able to do this after 6 months of work by inserting a probe and spying on an internal bus for the Infineon SLE 66 CL PC.
+
+[ 64 ] [ 65 ] In case of physical access, computers with TPM 1.2 are vulnerable to cold boot attacks as long as the system is on or can be booted without a passphrase from shutdown, sleep or hibernation , which is the default setup for Windows computers with BitLocker full disk encryption.
+
+[ 66 ] A fix was proposed, which has been adopted in the specifications for TPM 2.0.
+
+In 2009, the concept of shared authorisation data in TPM 1.2 was found to be flawed. An adversary given access to the data could spoof responses from the TPM.
+
+[ 67 ] A fix was proposed, which has been adopted in the specifications for TPM 2.0.
+
+In 2015 as part of the Snowden revelations , it was revealed that in 2010 a US CIA team claimed at an internal conference to have carried out a differential power analysis attack against TPMs that was able to extract secrets.
+
+[ 68 ] [ 69 ] Main Trusted Boot (tboot) distributions before November 2017 are affected by a dynamic root of trust for measurement (DRTM) attack CVE - 2017-16837 , which affects computers running on Intel's Trusted eXecution Technology (TXT) for the boot-up routine.
+
+[ 70 ] In October 2017, it was reported that a code library developed by Infineon , which had been in widespread use in its TPMs, contained a vulnerability, known as ROCA , which generated weak RSA key pairs that allowed private keys to be inferred from public keys . As a result, all systems depending upon the privacy of such weak keys are vulnerable to compromise, such as identity theft or spoofing.
+
+[ 71 ] Cryptosystems that store encryption keys directly in the TPM without blinding could be at particular risk to these types of attacks, as passwords and other factors would be meaningless if the attacks can extract encryption secrets.
+
+[ 72 ] Infineon has released firmware updates for its TPMs to manufacturers who have used them.
+
+[ 73 ] In 2018, a design flaw in the TPM 2.0 specification for the static root of trust for measurement (SRTM) was reported ( CVE - 2018-6622 ). It allows an adversary to reset and forge platform configuration registers which are designed to securely hold measurements of software that are used for bootstrapping a computer.
+
+[ 74 ] Fixing it requires hardware-specific firmware patches.
+
+[ 74 ] An attacker abuses power interrupts and TPM state restores to trick TPM into thinking that it is running on non-tampered components.
+
+[ 70 ] In 2021, the Dolos Group showed an attack on a discrete TPM, where the TPM chip itself had some tamper resistance, but the other endpoints of its communication bus did not. They read a full-disk-encryption key as it was transmitted across the motherboard, and used it to decrypt the laptop's SSD.
+
+[ 75 ] Availability [ edit ] Currently, a TPM is provided by nearly all PC and notebook manufacturers in their products.
+
+Vendors include: Infineon provides both TPM chips and TPM software, which are delivered as OEM versions with new computers as well as separately by Infineon for products with TPM technology which comply with TCG standards. For example, Infineon licensed TPM management software to Broadcom Corp. in 2004.
+
+[ 76 ] Microchip (formerly Atmel) manufactured TPM devices that it claims to be compliant to the Trusted Platform Module specification version 1.2 revision 116 and offered with several interfaces (LPC, SPI, and I 2 C), modes (FIPS 140-2 certified and standard mode), temperature grades (commercial and industrial), and packages (TSSOP and QFN).
+
+[ 77 ] [ 78 ] [ 79 ] Its TPMs support PCs and embedded devices.
+
+[ 77 ] It also provides TPM development kits to support integration of its TPM devices into various embedded designs.
+
+[ 80 ] Nuvoton Technology Corporation provides TPM devices for PC applications. Nuvoton also provides TPM devices for embedded systems and Internet of Things (IoT) applications via I 2 C and SPI host interfaces. Nuvoton's TPM complies with Common Criteria (CC) with assurance level EAL 4 augmented with ALC_FLR.1, AVA_VAN.4 and ALC_DVS.2, FIPS 140-2 level 2 with Physical Security and EMI/EMC level 3 and Trusted Computing Group Compliance requirements, all supported within a single device. TPMs produced by Winbond are now part of Nuvoton.
+
+[ 81 ] STMicroelectronics has provided TPMs for PC platforms and embedded systems since 2005. The product offering [ 82 ] includes discrete devices with several interfaces supporting Serial Peripheral Interface (SPI) and I 2 C and different qualification grades (consumer, industrial and automotive). The TPM products are Common Criteria (CC) certified EAL4+ augmented with ALC_FLR.1 and AVA_VAN.5, FIPS 140-2 level 2 certified with physical security level 3 and also Trusted Computing Group (TCG) certified.
+
+There are also hybrid types; for example, TPM can be integrated into an Ethernet controller, thus eliminating the need for a separate motherboard component.
+
+[ 83 ] [ 84 ] Field upgrade [ edit ] Field upgrade is the TCG term for updating the TPM firmware. The update can be between TPM 1.2 and TPM 2.0, or between firmware versions. Some vendors limit the number of transitions between 1.2 and 2.0, and some restrict rollback to previous versions.
+
+[ citation needed ] Platform OEMs such as HP [ 85 ] supply an upgrade tool.
+
+Since July 28, 2016, all new Microsoft device models, lines, or series (or updating the hardware configuration of an existing model, line, or series with a major update, such as CPU, graphic cards) implement, and enable by default TPM 2.0.
+
+While TPM 1.2 parts are discrete silicon components, which are typically soldered on the motherboard, TPM 2.0 is available as a discrete (dTPM) silicon component in a single semiconductor package, an integrated component incorporated in one or more semiconductor packages - alongside other logic units in the same package(s), and as a firmware (fTPM) based component running in a trusted execution environment (TEE) on a general purpose System-on-a-chip (SoC).
+
+[ 86 ] Virtual TPM [ edit ] Google Compute Engine was the first major cloud provider offering virtualized TPMs (vTPMs) as part of Google Cloud 's Shielded VMs product.
+
+[ 87 ] Amazon Web Services followed in 2022, naming its vTPM offering "Nitro TPM".
+
+[ 88 ] The libtpms library provides software emulation of a Trusted Platform Module (TPM 1.2 and TPM 2.0). It targets the integration of TPM functionality into hypervisors, primarily into Qemu.
+
+[ 89 ] Operating systems [ edit ] Windows 11 requires TPM 2.0 support as a minimum system requirement.
+
+[ 90 ] [ 91 ] On many systems TPM is disabled by default which requires changing settings in the computer's UEFI to enable it.
+
+[ 92 ] Windows 8 and later have native support for TPM 2.0.
+
+Windows 7 can install an official patch to add TPM 2.0 support.
+
+[ 93 ] Windows Vista through Windows 10 have native support for TPM 1.2.
+
+The Trusted Platform Module 2.0 (TPM 2.0) has been supported by the Linux kernel since version 4.0 (2015) [ 94 ] [ 95 ] [ 96 ] [ 97 ] Platforms [ edit ] Google includes TPMs in Chromebooks as part of their security model.
+
+[ 98 ] Oracle ships TPMs in their X- and T-Series Systems such as T3 or T4 series of servers.
+
+[ 99 ] Support is included in Solaris 11 .
+
+[ 100 ] In 2006, with the introduction of first Macintosh models with Intel processors, Apple started to ship Macs with TPM. Apple never provided an official driver, but there was a port under GPL available.
+
+[ 101 ] Apple has not shipped a computer with TPM since 2006.
+
+[ 102 ] Starting in 2016, Apple products began adopting Apple's own trusted hardware component called "Secure Enclave", originally as a separate chip and later as an integrated part of Apple silicon CPUs. Apple Secure Enclave is not TPM-compatible.
+
+[ 103 ] In 2011, Taiwanese manufacturer MSI launched its Windpad 110W tablet featuring an AMD CPU and Infineon Security Platform TPM, which ships with controlling software version 3.7. The chip is disabled by default but can be enabled with the included, pre-installed software.
+
+[ 104 ] Virtualization [ edit ] VMware ESXi hypervisor has supported TPM since 4.x, and from 5.0 it is enabled by default.
+
+[ 105 ] [ 106 ] Xen hypervisor has support of virtualized TPMs. Each guest gets its own unique, emulated, software TPM.
+
+[ 107 ] KVM , combined with QEMU , has support for virtualized TPMs. As of 2012 [update] , it supports passing through the physical TPM chip to a single dedicated guest. QEMU 2.11 released in December 2017 also provides emulated TPMs to guests.
+
+[ 108 ] VirtualBox has support for virtual TPM 1.2 and 2.0 devices starting with version 7.0 released in October 2022.
+
+[ 109 ] Software [ edit ] Microsoft operating systems Windows Vista and later use the chip in conjunction with the included disk encryption component named BitLocker . Microsoft had announced that from January 1, 2015, all computers will have to be equipped with a TPM 2.0 module in order to pass Windows 8.1 hardware certification .
+
+[ 110 ] However, in a December 2014 review of the Windows Certification Program this was instead made an optional requirement. However, TPM 2.0 is required for connected standby systems.
+
+[ 111 ] Virtual machines running on Hyper-V can have their own virtual TPM module starting with Windows 10 1511 and Windows Server 2016.
+
+[ 112 ] Microsoft Windows includes two TPM related commands : tpmtool , a utility that can be used to retrieve information about the TPM, and tpmvscmgr , a command-line tool that allows creating and deleting TPM virtual smart cards on a computer.
+
+[ 113 ] [ 114 ] Endorsement keys [ edit ] TPM endorsement keys (EKs) are asymmetric key pairs unique to each TPM. They use the RSA and ECC algorithms. The TPM manufacturer usually provisions endorsement key certificates in TPM non-volatile memory . The certificates assert that the TPM is authentic. Starting with TPM 2.0, the certificates are in X.509 DER format.
+
+These manufacturers typically provide their certificate authority root (and sometimes intermediate) certificates on their web sites.
+
+AMD [ 115 ] [ 116 ] [ 117 ] [ 118 ] Infineon [ 119 ] Intel [ 120 ] [ 121 ] NationZ [ 122 ] [ 123 ] [ 124 ] [ 125 ] Nuvoton [ 126 ] [ 127 ] [ 128 ] [ 129 ] [ 130 ] ST Micro [ 131 ] [ 132 ] [ 133 ] [ 134 ] [ 135 ] [ 136 ] [ 137 ] [ 138 ] [ 139 ] [ 140 ] Software libraries [ edit ] To utilize a TPM, the user needs a software library that communicates with the TPM and provides a friendlier API than the raw TPM communication. Currently, there are several such open-source TPM 2.0 libraries. Some of them also support TPM 1.2, but mostly TPM 1.2 chips are now deprecated and modern development is focused on TPM 2.0.
+
+Typically, a TPM library provides an API with one-to-one mappings to TPM commands. The TCG specification calls this layer the System API (SAPI). This way, the user has more control over the TPM operations, but the complexity is high. To hide some of the complexity, most libraries also offer simpler ways to invoke complex TPM operations. The TCG specification call these two layers Enhanced System API (ESAPI) and Feature API (FAPI).
+
+There is currently only one stack that follows the TCG specification. All the other available open-source TPM libraries use their own form of richer API.
+
+Summary of the existing open-source TPM libraries TPM Libraries API TPM 2.0 TPM 1.2 Attestation server or example Microsoft Windows Linux Bare metal tpm2-tss [ 141 ] SAPI, ESAPI and FAPI from the TCG specification Yes No No, but there is a separate project [ a ] Yes Yes Maybe [ b ] ibmtss [ 144 ] [ 145 ] 1:1 mapping to TPM commands + rich API (mild layer on top) Yes Partial Yes, "IBM ACS" [ 146 ] [ 147 ] Yes Yes No go-tpm [ 148 ] 1:1 mapping to TPM commands + rich API (mild layer on top) Yes Partial Yes, "Go-attestation" [ 149 ] Yes Yes No wolfTPM [ 150 ] 1:1 mapping to TPM commands + rich API (wrappers) Yes No Yes, examples are inside the library Yes Yes Yes TSS.MSR [ 151 ] 1:1 mapping to TPM commands + rich API (wrappers) Yes No Yes, examples are inside the library Yes Yes [ c ] No ^ There is a separate project called "CHARRA" by Fraunhofer [ 142 ] that uses the tpm2-tss library for Remote Attestation. The other stacks have accompanying attestation servers or directly include examples for attestation. IBM offer their open-source Remote Attestation Server called "IBM ACS" on SourceForge and Google have "Go-Attestation" available on GitHub, while "wolfTPM" offers time and local attestation examples directly in its open-source code, also on GitHub.
+
+^ There is an application note [ 143 ] about an example project for the AURIX 32-bit SoC using the tpm2-tss library.
+
+^ Requires additional libraries (dotnet) to run on Linux.
+
+These TPM libraries are sometimes also called TPM stacks, because they provide the interface for the developer or user to interact with the TPM. As seen from the table, the TPM stacks abstract the operating system and transport layer, so the user could migrate one application between platforms. For example, by using TPM stack API the user would interact the same way with a TPM, regardless if the physical chip is connected over SPI, I 2 C or LPC interface to the Host system.
+
+See also [ edit ] AMD Platform Security Processor ARM TrustZone Crypto-shredding Hardware security Hardware security module Hengzhi chip Intel Management Engine Microsoft Pluton Next-Generation Secure Computing Base Secure Enclave Threat model References [ edit ] ^ Warren, Tom (2021-06-25).
+
+"Why Windows 11 is forcing everyone to use TPM chips" . The Verge.
+
+Archived from the original on 2023-12-07 . Retrieved 2021-11-13 .
+
+^ Arthur, Will; Challener, David; Goldman, Kenneth (2015), Arthur, Will; Challener, David; Goldman, Kenneth (eds.), "History of the TPM", A Practical Guide to TPM 2.0: Using the New Trusted Platform Module in the New Age of Security , Berkeley, CA: Apress, pp.
+
+1– 5, doi : 10.1007/978-1-4302-6584-9_1 , ISBN 978-1-4302-6584-9 ^ "ISO/IEC 11889-1:2009 – Information technology – Trusted Platform Module – Part 1: Overview" .
+
+ISO.org .
+
+International Organization for Standardization . May 2009.
+
+Archived from the original on January 28, 2017 . Retrieved November 30, 2013 .
+
+^ "TPM 1.2 Main Specification" .
+
+Trusted Computing Group .
+
+Archived from the original on 2024-06-11 . Retrieved 2021-11-08 .
+
+^ a b c "Trusted Platform Module (TPM) Specifications" .
+
+Trusted Computing Group . March 1, 2011.
+
+Archived from the original on October 22, 2017 . Retrieved October 30, 2016 .
+
+^ "Trusted Computing Group Releases TPM 2.0 Specification for Improved Platform and Device Security" . Trusted Computing Group. 2014-04-01.
+
+Archived from the original on 2025-03-06 . Retrieved 2021-11-08 .
+
+^ a b "TPM Library Specification 2.0" . Trusted Computing Group.
+
+Archived from the original on 29 October 2016 . Retrieved October 30, 2016 .
+
+^ "Part 1: Architecture" (PDF) , Trusted Platform Module Library , Trusted Computing Group, October 30, 2014, archived (PDF) from the original on October 28, 2016 , retrieved October 27, 2016 ^ "TPM 1.2 vs. 2.0 Features | Dell US" .
+
+^ "TPM 1.2, 2.0 and FTPM (Firmware-based TPM) Information" .
+
+Archived from the original on February 6, 2020 . Retrieved August 31, 2020 .
+
+^ a b Arthur, Will; Challener, David; Goldman, Kenneth (2015).
+
+A Practical Guide to TPM 2.0: Using the New Trusted Platform Module in the New Age of Security .
+
+New York City : Apress Media, LLC. p. 69.
+
+doi : 10.1007/978-1-4302-6584-9 .
+
+ISBN 978-1430265832 .
+
+S2CID 27168869 .
+
+^ "PC Client Protection Profile for TPM 2.0 – Trusted Computing Group" .
+
+trustedcomputinggroup.org .
+
+Archived from the original on October 31, 2016 . Retrieved October 30, 2016 .
+
+^ "TPM 2.0 Mobile Reference Architecture Specification – Trusted Computing Group" . trustedcomputinggroup.org.
+
+Archived from the original on November 1, 2016 . Retrieved October 31, 2016 .
+
+^ "TCG TPM 2.0 Library Profile for Automotive-Thin" .
+
+trustedcomputinggroup.org . 1 March 2015.
+
+Archived from the original on April 26, 2017 . Retrieved April 25, 2017 .
+
+^ a b c d e "Archived copy" (PDF) .
+
+Archived (PDF) from the original on October 30, 2016 . Retrieved October 29, 2016 .
+
+{{ cite web }} :  CS1 maint: archived copy as title ( link ) ^ "Archived copy" (PDF) .
+
+Archived (PDF) from the original on October 30, 2016 . Retrieved October 29, 2016 .
+
+{{ cite web }} :  CS1 maint: archived copy as title ( link ) ^ "TPM Main Specification Level 2 Version 1.2, Revision 103: Part 1 Design Principles" (PDF) . July 9, 2007 . Retrieved February 16, 2024 .
+
+^ a b c d "TCG Protection Profile for PC Client Specific TPM 2.0 Library Revision 1.59; Version 1.3" (PDF) . September 29, 2021.
+
+Archived (PDF) from the original on March 6, 2025 . Retrieved February 16, 2024 .
+
+^ "Archived copy" (PDF) .
+
+Archived (PDF) from the original on October 31, 2016 . Retrieved October 30, 2016 .
+
+{{ cite web }} :  CS1 maint: archived copy as title ( link ) ^ "Archived copy" (PDF) .
+
+Archived (PDF) from the original on January 23, 2019 . Retrieved January 23, 2019 .
+
+{{ cite web }} :  CS1 maint: archived copy as title ( link ) ^ "Archived copy" (PDF) .
+
+Archived (PDF) from the original on October 31, 2016 . Retrieved October 30, 2016 .
+
+{{ cite web }} :  CS1 maint: archived copy as title ( link ) ^ "Archived copy" (PDF) .
+
+Archived (PDF) from the original on October 28, 2016 . Retrieved October 27, 2016 .
+
+{{ cite web }} :  CS1 maint: archived copy as title ( link ) ^ "Section 23: Enhanced Authorization (EA) Commands", Trusted Platform Module Library; Part 3: Commands (PDF) , Trusted Computing Group, March 13, 2014, archived (PDF) from the original on September 3, 2014 , retrieved September 2, 2014 ^ Alin Suciu; Tudor Carean (2010). "Benchmarking the True Random Number Generator of TPM Chips".
+
+arXiv : 1008.2223 [ cs.CR ].
+
+^ TPM Main Specification Level 2 (PDF) , vol. Part 1 Design Principles (Version 1.2, Revision 116 ed.), archived (PDF) from the original on 24 February 2021 , retrieved 12 September 2017 ^ "Understanding Machine-Level and User-Level RSA Key Containers" . October 22, 2014.
+
+Archived from the original on June 2, 2022 . Retrieved June 2, 2022 .
+
+^ "tspi_data_bind(3) – Encrypts data blob" (Posix manual page) . Trusted Computing Group.
+
+Archived from the original on November 29, 2013 . Retrieved October 27, 2009 .
+
+^ Trusted Platform Module Library Specification, Family "2.0" (PDF) , vol. Part 1 – Architecture, Section 12, TPM Operational States (Level 00, Revision 01.59 ed.), Trusted Computing Group, archived (PDF) from the original on January 9, 2021 , retrieved January 17, 2021 ^ TPM Main Specification Level 2 (PDF) , vol. Part 3 – Commands (Version 1.2, Revision 116 ed.), Trusted Computing Group, archived (PDF) from the original on September 28, 2011 , retrieved June 22, 2011 ^ Microsoft Article on TPM , July 25, 2008, archived from the original on January 2, 2021 , retrieved April 1, 2021 ^ "TPM – Trusted Platform Module" .
+
+IBM . Archived from the original on August 3, 2016.
+
+^ "Windows 11 TPM 2.0 requirement has a special exception" .
+
+SlashGear . 2021-06-28.
+
+Archived from the original on June 28, 2021 . Retrieved 2021-06-29 .
+
+^ a b "LUKS support for storing keys in TPM NVRAM" .
+
+github.com . 2013.
+
+Archived from the original on September 16, 2013 . Retrieved December 19, 2013 .
+
+^ "Microsoft Office Outlook Exchange Error 80090016 After a System Board Replacement" .
+
+Archived from the original on June 28, 2021 . Retrieved December 23, 2020 .
+
+^ a b Greene, James (2012).
+
+"Intel Trusted Execution Technology" (PDF) (white paper). Intel.
+
+Archived (PDF) from the original on June 11, 2014 . Retrieved December 18, 2013 .
+
+^ "TPM Encryption" .
+
+Archived from the original on June 28, 2021 . Retrieved March 29, 2021 .
+
+^ "TPM Certified Products List" . Trusted Computing Group.
+
+Archived from the original on October 14, 2016 . Retrieved October 1, 2016 .
+
+^ "TCG Vendor ID Registry" (PDF) . 23 September 2015.
+
+Archived (PDF) from the original on 28 October 2016 . Retrieved 27 October 2016 .
+
+^ Lich, Brian; Browers, Nick; Hall, Justin; McIlhargey, Bill; Farag, Hany (27 October 2017).
+
+"TPM Recommendations" .
+
+Microsoft Docs .
+
+Microsoft .
+
+Archived from the original on 11 January 2018 . Retrieved 10 January 2018 .
+
+^ "Trusted Platform Module 2.0: A Brief Introduction" (PDF) . Trusted Computing Group. October 13, 2016.
+
+Archived (PDF) from the original on February 3, 2019 . Retrieved March 31, 2018 .
+
+^ "TPM Certified Products" .
+
+Archived from the original on 2025-03-06 . Retrieved 2022-09-06 .
+
+^ "Trusted Platform Module (TPM) - 2.0: A BRIEF INTRODUCTION" (PDF) .
+
+Archived (PDF) from the original on 2025-03-06 . Retrieved 2023-08-20 .
+
+^ "GCE Shielded VM - Virtual Trusted Platform Module (vTPM)" .
+
+Archived from the original on 2021-12-01 . Retrieved 2021-12-01 .
+
+^ "GitHub - microsoft/ms-tpm-20-ref: Reference implementation of the TCG Trusted Platform Module 2.0 specification" . GitHub.
+
+Archived from the original on October 27, 2020 . Retrieved April 5, 2020 .
+
+^ "Intel Open-Sources New TPM2 Software Stack - Phoronix" .
+
+Archived from the original on August 10, 2020 . Retrieved April 5, 2020 .
+
+^ "Linux TPM2 & TSS2 Software" .
+
+GitHub .
+
+Archived from the original on July 9, 2020 . Retrieved April 5, 2020 .
+
+^ "The TPM2 Software Stack: Introducing a Major Open Source Release Intel Software" .
+
+Archived from the original on April 9, 2020 . Retrieved April 5, 2020 .
+
+^ "Open source TPM 2.0 software stack eases security adoption" . August 17, 2018.
+
+Archived from the original on June 18, 2019 . Retrieved April 5, 2020 .
+
+^ "Infineon Enables Open Source Software Stack for TPM 2.0" . August 17, 2018.
+
+Archived from the original on February 3, 2021 . Retrieved April 5, 2020 .
+
+^ "IBM's Software TPM 2.0 download | SourceForge.net" .
+
+Archived from the original on June 12, 2019 . Retrieved April 5, 2020 .
+
+^ "IBM SW TPM 2.0" .
+
+GitHub .
+
+Archived from the original on September 18, 2020 . Retrieved June 2, 2021 .
+
+^ "Intermittent System Stutter Experienced with fTPM Enabled on Windows 10 and 11" . AMD. 2022-03-08.
+
+Archived from the original on 2024-03-25 . Retrieved 2022-07-02 .
+
+^ Paul Alcorn (2022-03-07).
+
+"AMD Issues Fix and Workaround for Ryzen's fTPM Stuttering Issues" .
+
+Tom's Hardware . Retrieved 2022-07-02 .
+
+^ Stallman, Richard Matthew.
+
+"Project GNU" . Free Software Foundation.
+
+Archived from the original on 29 June 2011 . Retrieved 21 July 2016 .
+
+^ "TrueCrypt User Guide" (PDF) .
+
+truecrypt.org . TrueCrypt Foundation. 7 February 2012. p. 129.
+
+Archived (PDF) from the original on 25 December 2019 . Retrieved 20 February 2018 – via grc.com.
+
+^ "FAQ" .
+
+veracrypt.fr . IDRIX. 2 July 2017.
+
+Archived from the original on 25 February 2025 . Retrieved 11 January 2018 .
+
+^ Culp, Scott (2000).
+
+"Ten Immutable Laws Of Security (Version 2.0)" .
+
+TechNet Magazine .
+
+Microsoft . Archived from the original on 9 December 2015 – via Microsoft TechNet .
+
+^ Johansson, Jesper M. (October 2008).
+
+"Security Watch Revisiting the 10 Immutable Laws of Security, Part 1" .
+
+TechNet Magazine .
+
+Microsoft . Archived from the original on 10 April 2017 – via Microsoft TechNet .
+
+^ Autonomic and Trusted Computing: 4th International Conference . ATC. 2007.
+
+ISBN 9783540735465 .
+
+^ Pearson, Siani; Balacheff, Boris (2002).
+
+Trusted computing platforms: TCPA technology in context . Prentice Hall.
+
+ISBN 9780130092205 .
+
+^ "SetPhysicalPresenceRequest Method of the Win32_Tpm Class" .
+
+Microsoft .
+
+Archived from the original on May 19, 2009 . Retrieved June 12, 2009 .
+
+^ "Can You Trust Your Computer? - GNU Project - Free Software Foundation" .
+
+www.gnu.org .
+
+Archived from the original on 2025-02-26 . Retrieved 2023-09-06 .
+
+^ Sen, Sayan (2024-10-23).
+
+"Linus Torvalds seems frustrated with AMD Ryzen fTPM bugs and issues, suggests disabling" .
+
+Neowin . Retrieved 2024-10-23 .
+
+^ "Black Hat: Researcher claims hack of processor used to secure Xbox 360, other products" . January 30, 2012. Archived from the original on January 30, 2012 . Retrieved August 10, 2017 .
+
+{{ cite web }} :  CS1 maint: bot: original URL status unknown ( link ) ^ Szczys, Mike (February 9, 2010).
+
+"TPM crytography cracked" .
+
+HACKADAY . Archived from the original on February 12, 2010.
+
+^ Melissa Michael (8 October 2018).
+
+"Episode 14 Reinventing the Cold Boot Attack: Modern Laptop Version" (Podcast). F-Secure Blog.
+
+Archived from the original on 28 September 2019 . Retrieved 28 September 2019 .
+
+^ Chen, Liqun; Ryan, Mark (2009).
+
+Attack, solution and verification for shared authorisation data in TCG TPM . Sixth International Workshop on Formal Aspects in Security and Trust (FAST'09). LNCS Springer.
+
+^ Scahill, Jeremy ScahillJosh BegleyJeremy; Begley, Josh (March 10, 2015).
+
+"The CIA Campaign to Steal Apple's Secrets" . The Intercept.
+
+Archived from the original on August 9, 2017 . Retrieved August 10, 2017 .
+
+^ "TPM Vulnerabilities to Power Analysis and An Exposed Exploit to Bitlocker – The Intercept" .
+
+The Intercept .
+
+Archived from the original on July 9, 2017 . Retrieved August 10, 2017 .
+
+^ a b Cimpanu, Catalin (August 29, 2018).
+
+"Researchers Detail Two New Attacks on TPM Chips" . Bleeping Computer.
+
+Archived from the original on 7 October 2018 . Retrieved 28 September 2019 .
+
+^ Goodin, Dan (October 16, 2017).
+
+"Millions of high-security crypto keys crippled by newly discovered flaw" . Ars Technica.
+
+Archived from the original on October 19, 2018 . Retrieved October 18, 2017 .
+
+^ "Can the NSA Break Microsoft's BitLocker? – Schneier on Security" .
+
+www.schneier.com .
+
+Archived from the original on August 10, 2017 . Retrieved August 10, 2017 .
+
+^ " "TPM Update - Infineon Technologies" " .
+
+Archived from the original on February 5, 2021 . Retrieved March 19, 2021 .
+
+^ a b Seunghun, Han; Wook, Shin; Jun-Hyeok, Park; HyoungChun, Kim (August 15–17, 2018).
+
+A Bad Dream: Subverting Trusted Platform Module While You Are Sleeping (PDF) . 27th USENIX Security Symposium. Baltimore, MD, USA: USENIX Association.
+
+ISBN 9781939133045 .
+
+Archived (PDF) from the original on 20 August 2018.
+
+^ "Trusted platform module security defeated in 30 minutes, no soldering required" . August 3, 2021.
+
+^ "Trusted Platform Module (TPM) im LAN-Adapter" . Heise Online. March 12, 2005.
+
+Archived from the original on January 7, 2019 . Retrieved January 7, 2019 .
+
+^ a b "Home – Microchip Technology" .
+
+www.atmel.com . Archived from the original on October 5, 2016 . Retrieved October 4, 2016 .
+
+^ "AN_8965 TPM Part Number Selection Guide – Application Notes – Microchip Technology Inc" (PDF) .
+
+www.atmel.com . Archived from the original (PDF) on October 5, 2016 . Retrieved October 4, 2016 .
+
+^ " "Trusted Platform Module" " . Microchip Technology.
+
+Archived from the original on 2025-02-14 . Retrieved 2024-02-14 .
+
+^ "Home – Microchip Technology" .
+
+www.atmel.com . Archived from the original on October 5, 2016 . Retrieved October 4, 2016 .
+
+^ "Nuvoton TPM" .
+
+Archived from the original on 2025-03-06 . Retrieved 2021-06-29 .
+
+^ "STSAFE-TPM" (PDF) .
+
+Archived (PDF) from the original on 2025-03-06 . Retrieved 2021-07-06 .
+
+^ "Replacing Vulnerable Software with Secure Hardware: The Trusted Platform Module (TPM) and How to Use It in the Enterprise" (PDF) . Trusted computing group. 2008.
+
+Archived (PDF) from the original on July 14, 2014 . Retrieved June 7, 2014 .
+
+^ "NetXtreme Gigabit Ethernet Controller with Integrated TPM1.2 for Desktops" . Broadcom. May 6, 2009.
+
+Archived from the original on June 14, 2014 . Retrieved June 7, 2014 .
+
+^ "HP TPM Configuration Utility" .
+
+^ "TPM vs PTT: What are the main differences between these technologies?" . August 9, 2021.
+
+Archived from the original on February 12, 2025 . Retrieved June 2, 2022 .
+
+^ "Shielded VMs" . Google Cloud.
+
+Archived from the original on April 12, 2019 . Retrieved April 12, 2019 .
+
+^ "Amazon EC2 Now Supports NitroTPM and UEFI Secure Boot" . AWS News Blog . Retrieved February 1, 2025 .
+
+^ "libtpms Virtual TPM" .
+
+GitHub . October 27, 2021.
+
+Archived from the original on January 4, 2025 . Retrieved June 29, 2021 .
+
+^ Microsoft.
+
+"Windows 11 Specs and System Requirements | Microsoft" .
+
+Windows .
+
+Archived from the original on 2022-05-31 . Retrieved 2021-10-02 .
+
+^ Chabaud, Florent (November 15–16, 2022).
+
+"Setting Hardware Root-of-Trust from Edge to Cloud, and How to Use it" (PDF) . In le Guernic, Gurvan (ed.).
+
+Proceedings of the 29th Computer & Electronics Security Application Rendezvous . Rennes, France: C&ESAR 2022. pp.
+
+115– 130.
+
+Archived (PDF) from the original on 2025-03-06 . Retrieved 2024-01-08 .
+
+Location: Université de Rennes 1, Campus de Beaulieu, IRISA/Inria Rennes, 263 avenue du Général Leclerc, 35042 RENNES cedex.
+
+^ "Windows 11 update: TPM 2.0 and PC Health Check confusion" .
+
+SlashGear . 2021-06-24.
+
+Archived from the original on June 24, 2021 . Retrieved 2021-06-24 .
+
+^ "Update to add support for TPM 2.0 in Windows 7 and Windows Server 2008 R2 - Microsoft Support" .
+
+Archived from the original on 2025-02-12 . Retrieved 2024-01-04 .
+
+^ "TPM 2.0 Support Sent In For The Linux 3.20 Kernel - Phoronix" .
+
+Archived from the original on February 28, 2021 . Retrieved April 5, 2020 .
+
+^ "Linux kernel turns over release odometer to 4.0" .
+
+ZDNET .
+
+Archived from the original on 2025-02-17 . Retrieved 2025-02-04 .
+
+^ "TPM 2.0 Support Continues Maturing In Linux 4.4 - Phoronix" .
+
+Archived from the original on March 5, 2021 . Retrieved April 5, 2020 .
+
+^ "With Linux 4.4, TPM 2.0 Gets Into Shape For Distributions - Phoronix" .
+
+Archived from the original on August 14, 2020 . Retrieved April 5, 2020 .
+
+^ "Chromebook security: browsing more securely" .
+
+Chrome Blog .
+
+Archived from the original on April 25, 2016 . Retrieved April 7, 2013 .
+
+^ "Oracle Solaris and Oracle SPARC T4 Servers— Engineered Together for Enterprise Cloud Deployments" (PDF) . Oracle.
+
+Archived (PDF) from the original on October 24, 2012 . Retrieved October 12, 2012 .
+
+^ "tpmadm" (manpage). Oracle.
+
+Archived from the original on November 14, 2012 . Retrieved October 12, 2012 .
+
+^ Singh, Amit, "Trusted Computing for Mac OS X" , OS X book , archived from the original on July 21, 2011 , retrieved August 2, 2011 .
+
+^ "Your Laptop Data Is Not Safe. So Fix It" .
+
+PC World . January 20, 2009.
+
+Archived from the original on November 4, 2013 . Retrieved August 22, 2013 .
+
+^ "A brief history of Mac enclaves and exclaves" .
+
+The Eclectic Light Company . Retrieved 1 February 2025 .
+
+^ "TPM. Complete protection for peace of mind" .
+
+Winpad 110W . MSI.
+
+Archived from the original on May 13, 2013 . Retrieved May 20, 2013 .
+
+^ Security and the Virtualization Layer , VMware, archived from the original on November 4, 2013 , retrieved May 21, 2013 .
+
+^ Enabling Intel TXT on Dell PowerEdge Servers with VMware ESXi , Dell, archived from the original on March 16, 2014 , retrieved May 21, 2013 .
+
+^ "XEN Virtual Trusted Platform Module (vTPM)" .
+
+Archived from the original on September 15, 2015 . Retrieved September 28, 2015 .
+
+^ "QEMU 2.11 Changelog" .
+
+qemu.org . December 12, 2017.
+
+Archived from the original on February 9, 2018 . Retrieved February 8, 2018 .
+
+^ "Changelog for VirtualBox 7.0" .
+
+virtualbox.org . October 10, 2022.
+
+Archived from the original on November 6, 2022 . Retrieved November 6, 2022 .
+
+^ "Windows Hardware Certification Requirements" . Microsoft.
+
+Archived from the original on June 29, 2021 . Retrieved July 23, 2013 .
+
+^ "Windows Hardware Certification Requirements for Client and Server Systems" . Microsoft.
+
+Archived from the original on July 1, 2015 . Retrieved June 5, 2015 .
+
+^ "What's new in Hyper-V on Windows Server 2016" . Microsoft.
+
+Archived from the original on March 25, 2017 . Retrieved March 24, 2017 .
+
+^ "tpmtool | Microsoft Docs" .
+
+Archived from the original on 2022-09-16 . Retrieved 2021-07-13 .
+
+^ "tpmvscmgr | Microsoft Docs" .
+
+Archived from the original on 2022-05-09 . Retrieved 2021-07-13 .
+
+^ AMD EK RSA Root Certificate , archived from the original on 2021-07-23 , retrieved 2021-07-23 ^ AMD EK ECC Root Certificate , archived from the original on 2021-07-23 , retrieved 2021-07-23 ^ AMD EK Ryzen 6000 RSA Intermediate Certificate , archived from the original on 2021-07-23 , retrieved 2021-07-23 ^ AMD EK Ryzen 6000 ECC Intermediate Certificate , archived from the original on 2021-07-23 , retrieved 2021-07-23 ^ Infineon Root Certificate ^ Intel EK Root Certificate ^ Intel EK Intermediate Certificate , archived from the original on 2021-07-23 , retrieved 2021-07-23 ^ NationZ EK Root Certificate , archived from the original on 2021-07-23 , retrieved 2021-07-23 ^ NationZ EK Intermediate Certificate ^ NationZ EK Intermediate Certificate ^ NationZ EK Intermediate Certificate , archived from the original on 2021-07-23 , retrieved 2021-07-23 ^ Nuvoton EK Root Certificate 1110 ^ Nuvoton EK Root Certificate 1111 , archived from the original on 2021-07-26 , retrieved 2021-07-26 ^ Nuvoton EK Root Certificate 2110 ^ Nuvoton EK Root Certificate 2111 ^ Nuvoton EK Root Certificate 2112 ^ ST Micro EK GlobalSign Certificate , archived from the original on 2021-07-23 , retrieved 2021-07-23 ^ ST Micro EK Root Certificate , archived from the original on 2021-07-23 , retrieved 2021-07-23 ^ ST Micro EK Intermediate Certificate ^ ST Micro EK Intermediate Certificate , archived from the original on 2021-07-23 , retrieved 2021-07-23 ^ ST Micro EK Intermediate Certificate ^ ST Micro EK Intermediate Certificate ^ ST Micro EK Intermediate Certificate , archived from the original on 2021-07-23 , retrieved 2021-07-23 ^ ST Micro EK GlobalSign ECC Certificate ^ ST Micro EK ECC Root Certificate ^ ST Micro EK ECC Intermediate Certificate ^ tpm2-software/tpm2-tss , Linux TPM2 & TSS2 Software, 2020-11-18, archived from the original on November 12, 2020 , retrieved 2020-11-20 ^ Fraunhofer-SIT/charra , Fraunhofer Institute for Secure Information Technology, 2020-08-26, archived from the original on October 29, 2020 , retrieved 2020-11-20 ^ AG, Infineon Technologies.
+
+"OPTIGA TPM SLI 9670 A-TPM board - Infineon Technologies" .
+
+www.infineon.com .
+
+Archived from the original on August 6, 2020 . Retrieved 2020-11-20 .
+
+^ "IBM TSS for TPM 2.0" .
+
+Archived from the original on June 29, 2021 . Retrieved June 2, 2021 .
+
+^ "IBM TSS for TPM 2.0" .
+
+GitHub .
+
+Archived from the original on June 29, 2021 . Retrieved June 2, 2021 .
+
+^ "IBM TPM Attestation Client Server" .
+
+Archived from the original on March 2, 2021 . Retrieved November 20, 2020 .
+
+^ "IBM TPM Attestation Client Server" .
+
+GitHub .
+
+Archived from the original on June 29, 2021 . Retrieved June 2, 2021 .
+
+^ google/go-tpm , 2020-11-18, archived from the original on December 14, 2020 , retrieved 2020-11-20 ^ google/go-attestation , 2020-11-19, archived from the original on November 19, 2020 , retrieved 2020-11-20 ^ wolfSSL/wolfTPM , wolfSSL, 2020-11-18, archived from the original on November 20, 2020 , retrieved 2020-11-20 ^ TSS.MSR , archived from the original on June 26, 2021 , retrieved June 17, 2021 v t e International Organization for Standardization (ISO) standards List of ISO standards – ISO romanizations – IEC standards 1–9999 1 2 3 4 6 7 9 16 17 31 -0 -1 -3 -4 -5 -6 -7 -8 -9 -10 -11 -12 -13 68-1 128 216 217 226 228 233 259 261 262 302 306 361 500 518 519 639 -1 -2 -3 -5 -6 646 657 668 690 704 732 764 838 843 860 898 965 999 1000 1004 1007 1073-1 1073-2 1155 1413 1538 1629 1745 1989 2014 2015 2022 2033 2047 2108 2145 2146 2240 2281 2533 2709 2711 2720 2788 2848 2852 2921 3029 3103 3166 -1 -2 -3 3297 3307 3601 3602 3864 3901 3950 3977 4031 4157 4165 4217 4909 5218 5426 5427 5428 5725 5775 5776 5800 5807 5964 6166 6344 6346 6373 6385 6425 6429 6438 6523 6709 6943 7001 7002 7010 7027 7064 7098 7185 7200 7498 -1 7637 7736 7810 7811 7812 7813 7816 7942 8000 8093 8178 8217 8373 8501-1 8571 8583 8601 8613 8632 8651 8652 8691 8805/8806 8807 8820-5 8859 -1 -2 -3 -4 -5 -6 -7 -8 -8-I -9 -10 -11 -12 -13 -14 -15 -16 8879 9000/9001 9036 9075 9126 9141 9227 9241 9293 9314 9362 9407 9496 9506 9529 9564 9592/9593 9594 9660 9797-1 9897 9899 9945 9984 9985 9995 10000–19999 10006 10007 10116 10118-3 10160 10161 10165 10179 10206 10218 10279 10303 -11 -21 -22 -28 -238 10383 10585 10589 10628 10646 10664 10746 10861 10957 10962 10967 11073 11170 11172 11179 11404 11544 11783 11784 11785 11801 11889 11898 11940 ( -2 ) 11941 11941 (TR) 11992 12006 12052 12182 12207 12234-2 12620 13211 -1 -2 13216 13250 13399 13406-2 13450 13485 13490 13567 13568 13584 13616 13816 13818 14000 14031 14224 14289 14396 14443 14496 -2 -3 -6 -10 -11 -12 -14 -17 -20 14617 14644 14649 14651 14698 14764 14882 14971 15022 15189 15288 15291 15398 15408 15444 -3 -9 15445 15438 15504 15511 15686 15693 15706 -2 15707 15897 15919 15924 15926 15926 WIP 15930 15938 16023 16262 16355-1 16485 16612-2 16750 16949 (TS) 17024 17025 17100 17203 17369 17442 17506 17799 18004 18014 18181 18245 18629 18760 18916 19005 19011 19092 -1 -2 19114 19115 19125 19136 19407 19439 19500 19501 19502 19503 19505 19506 19507 19508 19509 19510 19600 19752 19757 19770 19775-1 19794-5 19831 20000–29999 20000 20022 20121 20400 20802 20830 21000 21001 21047 21122 21500 21778 21827 22000 22275 22300 22301 22395 22537 23000 23003 23008 23009 23090-3 23092 23094-1 23094-2 23270 23271 23360 23941 24517 24613 24617 24707 24728 25178 25964 26000 26262 26300 26324 27000 series 27000 27001 27002 27005 27006 27729 28000 29110 29148 29199-2 29500 30000+ 30170 31000 32000 37001 38500 39075 40314 40500 42010 45001 50001 55000 56000 80000 Category v t e Firmware and booting Processes Windows 9x NT Linux Android Booting firmware Types Proprietary firmware Open-source firmware Custom firmware Interfaces UEFI BIOS Video BIOS Open Firmware ACPI MultiProcessor Specification APM Legacy Plug and Play AlphaBIOS SRM SFI Implementations SeaBIOS Award BIOS American Megatrends AMIBIOS AMI Aptio InsydeH2O Phoenix SecureCore UEFI TianoCore EDK II OpenBIOS Coreboot Libreboot LinuxBoot Kickstart Run-Time Abstraction Services Hybrid firmware bootloader Common Firmware Environment Das U-Boot Bootloaders Bootloader unlocking Comparison of bootloaders Implementations Acronis OS Selector Barebox BootManager BootX (Apple) BootX (Linux) GNU GRUB iBoot systemd-boot Limine loadlin MILO NTLDR OpeniBoot Plop Boot Manager RedBoot rEFInd rEFIt SYSLINUX Windows Boot Manager xOSL Yaboot Partition layouts GUID Partition Table Master boot record Apple Partition Map Partitions EFI system partition BIOS boot partition /boot/ Utilities Software flashrom fwupd UEFITool Odin Heimdall Hardware Bus Pirate Raspberry Pi ft2232 Network boot Preboot Execution Environment gPXE iPXE NetBoot Remote Initial Program Load Wake-on-LAN Wake-on-ring ROM variants ROM PROM EPROM EEPROM Related Boot ROM ROM hacking ROM image Execute in place Devicetree Fastboot Instant-on Power-on self-test EDL mode NewPP limit report
+Parsed by mw‐web.codfw.main‐7c956d68b4‐ghlgg
+Cached time: 20250817044653
+Cache expiry: 1278796
+Reduced expiry: true
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 1.455 seconds
+Real time usage: 1.692 seconds
+Preprocessor visited node count: 10112/1000000
+Revision size: 88387/2097152 bytes
+Post‐expand include size: 362957/2097152 bytes
+Template argument size: 10772/2097152 bytes
+Highest expansion depth: 17/100
+Expensive parser function count: 6/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 554039/5000000 bytes
+Lua time usage: 0.888/10.000 seconds
+Lua memory usage: 7517697/52428800 bytes
+Number of Wikibase entities loaded: 1/500 Transclusion expansion time report (%,ms,calls,template)
+100.00% 1423.349      1 -total
+ 61.68%  877.975      2 Template:Reflist
+ 34.09%  485.224     99 Template:Cite_web
+ 17.52%  249.401     42 Template:Citation
+  6.95%   98.886      3 Template:Efn
+  6.82%   97.036      5 Template:Navbox
+  6.68%   95.117      2 Template:R
+  6.43%   91.592      2 Template:Infobox
+  6.32%   89.941      2 Template:R/ref
+  6.04%   86.032      1 Template:ISO_standards Saved in parser cache with key enwiki:pcache:2936835:|#|:idhash:canonical and timestamp 20250817044653 and revision id 1303724970. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Trusted_Platform_Module&oldid=1303724970 " Categories : Computer hardware standards Computer security hardware Cryptographic hardware Cryptographic software Cryptography standards ISO standards Random number generation Trusted computing Hidden categories: CS1 maint: archived copy as title CS1: long volume value CS1 maint: bot: original URL status unknown Articles with short description Short description is different from Wikidata All articles with vague or ambiguous time Vague or ambiguous time from December 2022 All articles with unsourced statements Articles with unsourced statements from September 2021 Articles containing potentially dated statements from 2012 All articles containing potentially dated statements This page was last edited on 1 August 2025, at 18:15 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Trusted Platform Module 21 languages Add topic
+

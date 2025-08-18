@@ -1,0 +1,117 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Purpose Toggle Purpose subsection 1.1 Evolution of Complexity 2 Implementations Toggle Implementations subsection 2.1 Comparison of implementations 3 Practicality and computational cost 4 Animation gallery 5 See also 6 References 7 External links Toggle the table of contents Von Neumann universal constructor 3 languages Français Italiano Português Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Self-replicating cellular automaton The first implementation of von Neumann's self-reproducing universal constructor.
+
+[ 1 ] Three generations of machine are shown: the second has nearly finished constructing the third. The lines running to the right are the tapes of genetic instructions, which are copied along with the body of the machines. The machine shown runs in a 32-state version of von Neumann's cellular automata environment, not his original 29-state specification.
+
+John von Neumann 's universal constructor is a self-replicating machine in a cellular automaton (CA) environment. It was designed in the 1940s, without the use of a computer. The fundamental details of the machine were published in von Neumann's book Theory of Self-Reproducing Automata , completed in 1966 by Arthur W. Burks after von Neumann's death.
+
+[ 2 ] It is regarded as foundational for automata theory , complex systems , and artificial life .
+
+[ 3 ] [ 4 ] Indeed, Nobel Laureate Sydney Brenner considered von Neumann's work on self-reproducing automata (together with Turing 's work on computing machines) central to biological theory as well, allowing us to "discipline our thoughts about machines, both natural and artificial." [ 5 ] Von Neumann's goal, as specified in his lectures at the University of Illinois in 1949, [ 2 ] was to design a machine whose complexity could grow automatically akin to biological organisms under natural selection . He asked what is the threshold of complexity that must be crossed for machines to be able to evolve.
+
+[ 4 ] His answer was to specify an abstract machine which, when run, would replicate itself. In his design, the self-replicating machine consists of three parts: a "description" of ('blueprint' or program for) itself, a universal constructor mechanism that can read any description and construct the machine (sans description) encoded in that description, and a universal copy machine that can make copies of any description. After the universal constructor has been used to construct a new machine encoded in the description, the copy machine is used to create a copy of that description, and this copy is passed on to the new machine, resulting in a working replication of the original machine that can keep on reproducing. Some machines will do this backwards, copying the description and then building a machine. Crucially, the self-reproducing machine can evolve by accumulating mutations of the description, not the machine itself, thus gaining the ability to grow in complexity.
+
+[ 4 ] [ 5 ] To define his machine in more detail, von Neumann invented the concept of a cellular automaton . The one he used consists of a two-dimensional grid of cells, each of which can be in one of 29 states at any point in time. At each timestep, each cell updates its state depending on the states of the surrounding cells at the prior timestep. The rules governing these updates are identical for all cells.
+
+The universal constructor is a certain pattern of cell states in this cellular automaton. It contains one line of cells that serve as the description (akin to Turing's tape ), encoding a sequence of instructions that serve as a 'blueprint' for the machine. The machine reads these instructions one by one and performs the corresponding actions. The instructions direct the machine to use its 'construction arm' (another automaton that functions like an operating system [ 4 ] ) to build a copy of the machine, without the description tape, at some other location in the cell grid. The description cannot contain instructions to build an equally long description tape, just as a container cannot contain a container of the same size. Therefore, the machine includes the separate copy machine which reads the description tape and passes a copy to the newly constructed machine. The resulting new set of universal constructor and copy machines plus description tape is identical to the old one, and it proceeds to replicate again.
+
+Purpose [ edit ] Von Neumann's System of Self-Replication Automata with the ability to evolve (Figure adapted from Luis Rocha 's Lecture Notes at Binghamton University [ 6 ] ). i) the self-replicating system is composed of several automata plus a separate description (an encoding formalized as a Turing 'tape' ) of all the automata: Universal Constructor (A), Universal Copier (B), operating system (C), extra functions not involved with replication (D), and separate description Φ(A,B,C,D) encoding all automata. ii) (Top) Universal Constructor produces (decodes) automata from their description ( active mode of description); (Bottom) Universal Copier copies description of automata ( passive mode of description); Mutations Φ(D') to description Φ(D) (not changes in automaton D directly) propagate to the set of automata produced in next generation, allowing (automata + description) system to continue replicating and evolving (D → D').
+
+[ 4 ] The active process of construction from a description parallels DNA translation , the passive process of copying the description parallels DNA replication , and inheritance of mutated descriptions parallels Vertical inheritance of DNA mutations in Biology, [ 4 ] [ 5 ] and were proposed by Von Neumann before the discovery of the structure of the DNA molecule and how it is separately translated and replicated in the Cell.
+
+[ 6 ] Von Neumann's design has traditionally been understood to be a demonstration of the logical requirements for machine self-replication.
+
+[ 3 ] However, it is clear that far simpler machines can achieve self-replication. Examples include trivial crystal-like growth , template replication , and Langton's loops . But von Neumann was interested in something more profound: construction, universality, and evolution.
+
+[ 4 ] [ 5 ] Note that the simpler self-replicating CA structures (especially, Byl's loop and the Chou–Reggia loop ) cannot exist in a wide variety of forms and thus have very limited evolvability . Other CA structures such as the Evoloop are somewhat evolvable but still don't support open-ended evolution. Commonly, simple replicators do not fully contain the machinery of construction, there being a degree to which the replicator is information copied by its surrounding environment. Although the Von Neumann design is a logical construction, it is in principle a design that could be instantiated as a physical machine. Indeed, this universal constructor can be seen as an abstract simulation of a physical universal assembler . The issue of the environmental contribution to replication is somewhat open, since there are different conceptions of raw material and its availability.
+
+Von Neumann's crucial insight is that the description of the machine, which is copied and passed to offspring separately via the universal copier, has a double use; being both an active component of the construction mechanism in reproduction, and being the target of a passive copying process. This part is played by the description (akin to Turing 's tape of instructions ) in Von Neumann's combination of universal constructor and universal copier.
+
+[ 4 ] The combination of a universal constructor and copier, plus a tape of instructions conceptualizes and formalizes i) self-replication, and ii) open-ended evolution, or growth of complexity observed in biological organisms.
+
+[ 3 ] This insight is all the more remarkable because it preceded the discovery of the structure of the DNA molecule by Watson and Crick and how it is separately translated and replicated in the cell—though it followed the Avery–MacLeod–McCarty experiment which identified DNA as the molecular carrier of genetic information in living organisms.
+
+[ 6 ] The DNA molecule is processed by separate mechanisms that carry out its instructions ( translation ) and copy ( replicate ) the DNA for newly constructed cells. The ability to achieve open-ended evolution lies in the fact that, just as in nature, errors ( mutations ) in the copying of the genetic tape can lead to viable variants of the automaton, which can then evolve via natural selection .
+
+[ 4 ] As Brenner put it: Turing invented the stored-program computer, and von Neumann showed that the description is separate from the universal constructor. This is not trivial. Physicist Erwin Schrödinger confused the program and the constructor in his 1944 book What is Life?, in which he saw chromosomes as ″architect's plan and builder's craft in one″. This is wrong. The code script contains only a description of the executive function, not the function itself.
+
+[ 5 ] — Sydney Brenner Evolution of Complexity [ edit ] Von Neumann's goal, as specified in his lectures at the University of Illinois in 1949, [ 2 ] was to design a machine whose complexity could grow automatically akin to biological organisms under natural selection . He asked what is the threshold of complexity that must be crossed for machines to be able to evolve and grow in complexity.
+
+[ 4 ] [ 3 ] His “proof-of-principle” designs showed how it is logically possible. By using an architecture that separates a general purpose programmable (“universal”) constructor from a general purpose copier, he showed how the descriptions (tapes) of machines could accumulate mutations in self-replication and thus evolve more complex machines (the image below illustrates this possibility.). This is a very important result, as prior to that, it might have been conjectured that there is a fundamental logical barrier to the existence of such machines; in which case, biological organisms, which do evolve and grow in complexity, could not be “machines”, as conventionally understood. Von Neumann's insight was to think of life as a Turing Machine, which, is similarly defined by a state-determined machine "head" separated from a memory tape.
+
+[ 5 ] In practice, when we consider the particular automata implementation Von Neumann pursued, we conclude that it does not yield much evolutionary dynamics because the machines are too fragile - the vast majority of perturbations cause them effectively to disintegrate.
+
+[ 3 ] Thus, it is the conceptual model outlined in his Illinois lectures [ 2 ] that is of greater interest today because it shows how a machine can in principle evolve.
+
+[ 7 ] [ 4 ] This insight is all the more remarkable because the model preceded the discovery of the structure of the DNA molecule as discussed above.
+
+[ 6 ] It is also noteworthy that Von Neumann's design considers that mutations towards greater complexity need to occur in the (descriptions of) subsystems not involved in self-reproduction itself, as conceptualized by the additional automaton D he considered to perform all functions not directly involved in reproduction (see Figure above with Von Neumann's System of Self-Replication Automata with the ability to evolve.) Indeed, in biological organisms only very minor variations of the genetic code have been observed, which matches Von Neumann's rationale that the universal constructor ( A ) and Copier ( B ) would not themselves evolve, leaving all evolution (and growth of complexity) to automaton D .
+
+[ 4 ] In his unfinished work, Von Neumann also briefly considers conflict and interactions between his self-reproducing machines, towards understanding the evolution of ecological and social interactions from his theory of self-reproducing machines.
+
+[ 2 ] : 147 A demonstration of the ability of von Neumann's machine to support inheritable mutations. (1) At an earlier timestep, a mutation was manually added to the second generation machine's tape. (2) Later generations both display the phenotype of the mutation (a drawing of a flower) and pass the mutation on to their children, since the tape is copied each time. This example illustrates how von Neumann's design allows for complexity growth (in theory) since the tape could specify a machine that is more complex than the one making it.
+
+Implementations [ edit ] In automata theory, the concept of a universal constructor is non-trivial because of the existence of Garden of Eden patterns (configurations that have no predecessor). But a simple definition is that a universal constructor is able to construct any finite pattern of non-excited (quiescent) cells.
+
+Arthur Burks and others extended the work of von Neumann, giving a much clearer and complete set of details regarding the design and operation of von Neumann's self-replicator. The work of J. W. Thatcher is particularly noteworthy, for he greatly simplified the design. Still, their work did not yield a complete design, cell by cell, of a configuration capable of demonstrating self-replication.
+
+Renato Nobili and Umberto Pesavento published the first fully implemented self-reproducing cellular automaton in 1995, nearly fifty years after von Neumann's work.
+
+[ 1 ] [ 8 ] They used a 32-state cellular automaton instead of von Neumann's original 29-state specification , extending it to allow for easier signal-crossing, explicit memory function and a more compact design. They also published an implementation of a general constructor within the original 29-state CA but not one capable of complete replication - the configuration cannot duplicate its tape, nor can it trigger its offspring; the configuration can only construct.
+
+[ 8 ] [ 9 ] In 2004, D. Mange et al. reported an implementation of a self-replicator that is consistent with the designs of von Neumann.
+
+[ 10 ] In 2007, Nobili published a 32-state implementation that uses run-length encoding to greatly reduce the size of the tape.
+
+[ 11 ] In 2008, William R. Buckley published two configurations which are self-replicators within the original 29-state CA of von Neumann.
+
+[ 9 ] Buckley claims that the crossing of signal within von Neumann 29-state cellular automata is not necessary to the construction of self-replicators.
+
+[ 9 ] Buckley also points out that for the purposes of evolution, each replicator should return to its original configuration after replicating, in order to be capable (in theory) of making more than one copy. As published, the 1995 design of Nobili-Pesavento does not fulfill this requirement but the 2007 design of Nobili does; the same is true of Buckley's configurations.
+
+In 2009, Buckley published with Golly a third configuration for von Neumann 29-state cellular automata, which can perform either holistic self-replication, or self-replication by partial construction.  This configuration also demonstrates that signal crossing is not necessary to the construction of self-replicators within von Neumann 29-state cellular automata.
+
+C. L. Nehaniv in 2002, and also Y. Takada et al. in 2004, proposed a universal constructor directly implemented upon an asynchronous cellular automaton, rather than upon a synchronous cellular automaton.
+
+[ 12 ] [ 13 ] Comparison of implementations [ edit ] Implementation Source Ruleset Rectangular area Number of cells Length of tape Ratio Period Tape code compression Tape code length Tape code type Replication mechanism Replication type Growth rate Nobili-Pesavento, 1995 [ 1 ] .
+
+[ 1 ] Nobili 32-state 97 × 170 6,329 145,315 22.96 6.34 × 10 10 none 5 bits binary Holistic constructor non-repeatable linear Nobili, 2007 SR_CCN_AP.EVN [ 11 ] Nobili 32-state 97 × 100 5,313 56,325 10.60 9.59 × 10 9 run-length limited encoding 5 bits binary Holistic constructor repeatable super-linear Buckley, 2008 codon5.rle [ 14 ] Nobili 32-state 112 × 50 3,343 44,155 13.21 5.87 × 10 9 auto-retraction 5 bits binary Holistic constructor repeatable linear Buckley, 2008 [ 9 ] replicator.mc von Neumann 29-state 312 × 132 18,589 294,844 15.86 2.61 × 10 11 auto-retraction 5 bits binary Holistic constructor repeatable linear Buckley, 2008 codon4.rle [ 14 ] Nobili 32-state 109 × 59 3,574 37,780 10.57 4.31 × 10 9 auto-retraction bit generation 4 bits binary Holistic constructor repeatable linear Buckley, 2009 codon3.rle Nobili 32-state 116 × 95 4,855 23,577 4.86 1.63 × 10 9 auto-retraction bit generation code overlay 3 bits binary Holistic constructor repeatable super-linear Buckley, 2009 PartialReplicator.mc [ 14 ] von Neumann 29-state 2063 × 377 264,321 — — ≈ 1.12 × 10 14 none 4 bits binary Partial constructor repeatable linear Goucher & Buckley, 2012 phi9.rle [ 15 ] Nobili 32-state 122 × 60 3957 8920 2.25 1.8 × 10 8 auto-retraction bit generation code overlay run length limited 3+ bits ternary Holistic constructor repeatable super-linear As defined by von Neumann, universal construction entails the construction of passive configurations, only. As such, the concept of universal construction constituted nothing more than a literary (or, in this case, mathematical) device. It facilitated other proof, such as that a machine well constructed may engage in self-replication, while universal construction itself was simply assumed over a most minimal case. Universal construction under this standard is trivial. Hence, while all the configurations given here can construct any passive configuration, none can construct the real-time crossing organ devised by Gorman.
+
+[ 9 ] Practicality and computational cost [ edit ] All the implementations of von Neumann's self-reproducing machine require considerable resources to run on computer. For example, in the Nobili-Pesavento 32-state implementation shown above, while the body of the machine is just 6,329 non-empty cells (within a rectangle of size 97x170), it requires a tape that is 145,315 cells long, and takes 63 billion timesteps to replicate. A simulator running at 1,000 timesteps per second would take over 2 years to make the first copy. In 1995, when the first implementation was published, the authors had not seen their own machine replicate. However, in 2008, the hashlife algorithm was extended to support the 29-state and 32-state rulesets in Golly . On a modern desktop PC, replication now takes only a few minutes, although a significant amount of memory is required.
+
+Animation gallery [ edit ] Example of a 29-state read arm.
+
+See also [ edit ] Codd's cellular automaton Langton's loops Nobili cellular automata Quine , a program that produces itself as output Santa Claus machine Wireworld References [ edit ] ^ a b c d Pesavento, Umberto (1995), "An implementation of von Neumann's self-reproducing machine" (PDF) , Artificial Life , 2 (4), MIT Press: 337– 354, doi : 10.1162/artl.1995.2.337 , PMID 8942052 , archived from the original (PDF) on June 21, 2007 ^ a b c d e von Neumann, John; Burks, Arthur W. (1966), Theory of Self-Reproducing Automata.
+
+(Scanned book online) , University of Illinois Press , retrieved 2017-02-28 ^ a b c d e McMullin, B. (2000), "John von Neumann and the Evolutionary Growth of Complexity: Looking Backwards, Looking Forwards..." , Artificial Life , 6 (4): 347– 361, doi : 10.1162/106454600300103674 , PMID 11348586 , S2CID 5454783 ^ a b c d e f g h i j k l Rocha, Luis M. (1998), "Selected Self-Organization and the Semiotics of Evolutionary Systems", Evolutionary Systems , Springer, Dordrecht, pp.
+
+341– 358, doi : 10.1007/978-94-017-1510-2_25 , ISBN 978-90-481-5103-5 ^ a b c d e f Brenner, Sydney (2012), "Life's code script" , Nature , 482 (7386): 461, doi : 10.1038/482461a , PMID 22358811 , S2CID 205070101 ^ a b c d Rocha, Luis M. (2015), "Chapter 6. Von Neumann and Natural Selection." , Lecture Notes of SSIE-583-Biologically Inspired Computing and Evolutionary Systems Course, Binghamton University ^ Pattee, Howard, H. (2012), "Evolving Self-reference: Matter, Symbols, and Semantic Closure" , LAWS, LANGUAGE and LIFE , Biosemiotics, vol. 12, pp.
+
+9– 27, doi : 10.1007/978-94-007-5161-3_14 , ISBN 978-94-007-5160-6 {{ citation }} :  CS1 maint: multiple names: authors list ( link ) ^ a b Nobili, Renato; Pesavento, Umberto (1996), "Generalised von Neumann's Automata", in Besussi, E.; Cecchini, A. (eds.), Proc. Artificial Worlds and Urban Studies, Conference 1 (PDF) , Venice: DAEST ^ a b c d e Buckley, William R. (2008), "Signal Crossing Solutions in von Neumann Self-replicating Cellular Automata", in Andrew Adamatzky ; Ramon Alonso-Sanz; Anna Lawniczak ; Genaro Juarez Martinez; Kenichi Morita ; Thomas Worsch (eds.), Proc. Automata 2008 (PDF) , Luniver Press, pp.
+
+453– 503 ^ Mange, Daniel; Stauffer, A.; Peparaolo, L.; Tempesti, G. (2004), "A Macroscopic View of Self-replication", Proceedings of the IEEE , 92 (12): 1929– 1945, doi : 10.1109/JPROC.2004.837631 , S2CID 22500865 ^ a b Nobili, Renato (2007).
+
+"The Cellular Automata of John von Neumann" . Archived from the original on January 29, 2011 . Retrieved January 29, 2011 .
+
+^ Nehaniv, Chrystopher L. (2002), "Self-Reproduction in Asynchronous Cellular Automata", 2002 NASA/DoD Conference on Evolvable Hardware (15-18 July 2002, Alexandria, Virginia, USA) , IEEE Computer Society Press, pp.
+
+201– 209 ^ Takada, Yousuke; Isokawa, Teijiro; Peper, Ferdinand; Matsui, Nobuyuki (2004), "Universal Construction on Self-Timed Cellular Automata", in Sloot, P.M.A. (ed.), ACRI 2004, LNCS 3305 , pp.
+
+21– 30 ^ a b c andykt (18 July 2023).
+
+"Golly, a Game of Life simulator" .
+
+SourceForge .
+
+^ "Self-replication" .
+
+Complex Projective 4-Space . 12 November 2012.
+
+External links [ edit ] John von Neumann's 29 state Cellular Automata Implemented in OpenLaszlo by Don Hopkins Retrieved from " https://en.wikipedia.org/w/index.php?title=Von_Neumann_universal_constructor&oldid=1305282842 " Categories : Artificial life Cellular automaton patterns Self-replicating machines Hidden categories: CS1 maint: multiple names: authors list Articles with short description Short description is different from Wikidata This page was last edited on 11 August 2025, at 04:11 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Von Neumann universal constructor 3 languages Add topic
+

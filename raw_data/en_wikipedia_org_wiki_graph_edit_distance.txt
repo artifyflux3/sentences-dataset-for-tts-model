@@ -1,0 +1,261 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Formal definitions and properties 2 Applications 3 Algorithms and complexity 4 References Toggle the table of contents Graph edit distance 2 languages Русский 粵語 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia At first glance, the GED (graph edit distance) may appear to be 7, removing 3 edges, adding the white vertex, and adding edges between it and the 3 other vertices. However, the optimal set of operations would be to remove the edge between 2 colors of choice (for example, red and blue), change the third (green) to white, add a vertex of the now missing color (green), and connect it to the newly white vertex, for a GED of 4.
+
+In mathematics and computer science , graph edit distance ( GED ) is a measure of similarity (or dissimilarity) between two graphs .
+The concept of graph edit distance was first formalized mathematically by Alberto Sanfeliu and King-Sun Fu in 1983.
+
+[ 1 ] A major application of graph edit distance is in inexact graph matching , such
+as error-tolerant pattern recognition in machine learning .
+
+[ 2 ] The graph edit distance between two graphs is related to the string edit distance between strings .
+With the interpretation of strings as connected , directed acyclic graphs of maximum degree one, classical definitions
+of edit distance such as Levenshtein distance , [ 3 ] [ 4 ] Hamming distance [ 5 ] and Jaro–Winkler distance may be interpreted as graph edit distances
+between suitably constrained graphs.  Likewise, graph edit distance is
+also a generalization of tree edit distance between rooted trees .
+
+[ 6 ] [ 7 ] [ 8 ] [ 9 ] [ 10 ] Formal definitions and properties [ edit ] The mathematical definition of graph edit distance is dependent upon the definitions of
+the graphs over which it is defined, i.e. whether and how the vertices and edges of the
+graph are labeled and whether the edges are directed .
+Generally, given a set of graph edit operations (also known as elementary graph operations ), the graph edit distance between two graphs g 1 {\displaystyle g_{1}} and g 2 {\displaystyle g_{2}} , written as G E D ( g 1 , g 2 ) {\displaystyle GED(g_{1},g_{2})} can be defined as G E D ( g 1 , g 2 ) = min ( e 1 , .
+
+.
+
+.
+
+, e k ) ∈ ∈ P ( g 1 , g 2 ) ∑ ∑ i = 1 k c ( e i ) {\displaystyle GED(g_{1},g_{2})=\min _{(e_{1},...,e_{k})\in {\mathcal {P}}(g_{1},g_{2})}\sum _{i=1}^{k}c(e_{i})} where P ( g 1 , g 2 ) {\displaystyle {\mathcal {P}}(g_{1},g_{2})} denotes the set of edit paths transforming g 1 {\displaystyle g_{1}} into (a graph isomorphic to) g 2 {\displaystyle g_{2}} and c ( e ) ≥ ≥ 0 {\displaystyle c(e)\geq 0} is the cost of each graph edit operation e {\displaystyle e} .
+
+The set of elementary graph edit operators typically includes: vertex insertion to introduce a single new labeled vertex to a graph.
+
+vertex deletion to remove a single (often disconnected) vertex from a graph.
+
+vertex substitution to change the label (or color) of a given vertex.
+
+edge insertion to introduce a new colored edge between a pair of vertices.
+
+edge deletion to remove a single edge between a pair of vertices.
+
+edge substitution to change the label (or color) of a given edge.
+
+Additional, but less common operators, include operations such as edge splitting that introduces a new vertex into an edge (also creating a new edge), and edge contraction that eliminates vertices of degree two between edges (of the same color).  Although such complex edit operators can be defined in terms of more elementary transformations, their use allows finer parameterization of the cost function c {\displaystyle c} when the operator is cheaper than the sum of its constituents.
+
+A deep analysis of the elementary graph edit operators is presented in [ 11 ] [ 12 ] [ 13 ] And some methods have been presented to automatically deduce these elementary graph edit operators.
+
+[ 14 ] [ 15 ] [ 16 ] [ 17 ] [ 18 ] And some algorithms learn these costs online: [ 19 ] Applications [ edit ] Graph edit distance finds applications in handwriting recognition , [ 20 ] fingerprint recognition [ 21 ] and cheminformatics .
+
+[ 22 ] Algorithms and complexity [ edit ] Exact algorithms for computing the graph edit distance between a pair of graphs typically transform the problem into one of finding the minimum cost edit path between the two graphs.
+The computation of the optimal edit path is cast as a pathfinding search or shortest path problem , often implemented as an A* search algorithm .
+
+In addition to exact algorithms, a number of efficient approximation algorithms are also known. Most of them have cubic computational time [ 23 ] [ 24 ] [ 25 ] [ 26 ] [ 27 ] Moreover, there is an algorithm that deduces an approximation of the GED in linear time [ 28 ] Despite the above algorithms sometimes working well in practice, in general the problem of computing graph edit distance is NP-hard (for a proof that's available online, see Section 2 of Zeng et al.
+
+), and is even hard to approximate (formally, it is APX -hard [ 29 ] ).
+
+References [ edit ] ^ Sanfeliu, Alberto; Fu, King-Sun (1983). "A distance measure between attributed relational graphs for pattern recognition".
+
+IEEE Transactions on Systems, Man, and Cybernetics .
+
+13 (3): 353– 363.
+
+doi : 10.1109/TSMC.1983.6313167 .
+
+S2CID 1087693 .
+
+^ Gao, Xinbo; Xiao, Bing; Tao, Dacheng; Li, Xuelong (2010). "A survey of graph edit distance".
+
+Pattern Analysis and Applications .
+
+13 : 113– 129.
+
+doi : 10.1007/s10044-008-0141-y .
+
+^ Влади́мир И. Левенштейн (1965).
+
+Двоичные коды с исправлением выпадений, вставок и замещений символов [Binary codes capable of correcting deletions, insertions, and reversals].
+
+Доклады Академий Наук СССР (in Russian).
+
+163 (4): 845– 848.
+
+^ Levenshtein, Vladimir I. (February 1966). "Binary codes capable of correcting deletions, insertions, and reversals".
+
+Soviet Physics Doklady .
+
+10 (8): 707– 710.
+
+Bibcode : 1966SPhD...10..707L .
+
+^ Hamming, Richard W.
+
+(1950).
+
+"Error detecting and error correcting codes" (PDF) .
+
+Bell System Technical Journal .
+
+29 (2): 147– 160.
+
+doi : 10.1002/j.1538-7305.1950.tb00463.x .
+
+hdl : 10945/46756 .
+
+MR 0035935 .
+
+S2CID 61141773 . Archived from the original on 2006-05-25.
+
+{{ cite journal }} :  CS1 maint: bot: original URL status unknown ( link ) ^ Shasha, D; Zhang, K (1989). "Simple fast algorithms for the editing distance between trees and related problems".
+
+SIAM J. Comput.
+
+18 (6): 1245– 1262.
+
+CiteSeerX 10.1.1.460.5601 .
+
+doi : 10.1137/0218082 .
+
+S2CID 10970317 .
+
+^ Zhang, K (1996). "A constrained edit distance between unordered labeled trees".
+
+Algorithmica .
+
+15 (3): 205– 222.
+
+doi : 10.1007/BF01975866 .
+
+S2CID 20043881 .
+
+^ Bille, P (2005).
+
+"A survey on tree edit distance and related problems" .
+
+Theor. Comput. Sci.
+
+337 ( 1– 3): 22– 34.
+
+CiteSeerX 10.1.1.100.2577 .
+
+doi : 10.1016/j.tcs.2004.12.030 .
+
+^ Demaine, Erik D.
+
+; Mozes, Shay; Rossman, Benjamin; Weimann, Oren (2010). "An optimal decomposition algorithm for tree edit distance".
+
+ACM Transactions on Algorithms .
+
+6 (1): A2.
+
+arXiv : cs/0604037 .
+
+CiteSeerX 10.1.1.163.6937 .
+
+doi : 10.1145/1644015.1644017 .
+
+MR 2654906 .
+
+S2CID 7878119 .
+
+^ Fan, Dayi; Lee, Rubao; Zhang, Xiaodong (2024).
+
+"X-TED: Massive Parallelization of Tree Edit Distance" (PDF) .
+
+Proceedings of the VLDB Endowment .
+
+17 (7): 1683– 1696.
+
+doi : 10.14778/3654621.3654634 .
+
+^ Serratosa, Francesc (2021).
+
+Redefining the Graph Edit Distance . S. N. Computer Science, pp: 2-438.
+
+^ Serratosa, Francesc (2019).
+
+Graph edit distance: Restrictions to be a metric . Pattern Recognition, 90, pp: 250-256.
+
+^ Serratosa, Francesc; Cortés, Xavier (2015).
+
+Graph Edit Distance: moving from global to local structure to solve the graph-matching problem . Pattern Recognition Letters, 65, pp: 204-210.
+
+^ Santacruz, Pep; Serratosa, Francesc (2020).
+
+Learning the graph edit costs based on a learning model applied to sub-optimal graph matching . Neural Processing Letters, 51, pp: 881–904.
+
+^ Algabli, Shaima; Serratosa, Francesc (2018).
+
+Embedding the node-to-node mappings to learn the Graph edit distance parameters . Pattern Recognition Letters, 112, pp: 353-360.
+
+^ Xavier, Cortés; Serratosa, Francesc (2016).
+
+Learning Graph Matching Substitution Weights based on the Ground Truth Node Correspondence . International Journal of Pattern Recognition and Artificial Intelligence, 30(2), pp: 1650005 [22 pages].
+
+^ Xavier, Cortés; Serratosa, Francesc (2015).
+
+Learning Graph-Matching Edit-Costs based on the Optimality of the Oracle's Node Correspondences . Pattern Recognition Letters, 56, pp: 22 - 29.
+
+^ Conte, Donatello; Serratosa, Francesc (2020).
+
+Interactive Online Learning for Graph Matching using Active Strategies . Knowledge Based Systems, 105, pp: 106275.
+
+^ Rica, Elena; Álvarez, Susana; Serratosa, Francesc (2021).
+
+On-line learning the graph edit distance costs . Pattern Recognition Letters, 146, pp: 52-62.
+
+^ Fischer, Andreas; Suen, Ching Y.; Frinken, Volkmar; Riesen, Kaspar; Bunke, Horst (2013), "A Fast Matching Algorithm for Graph-Based Handwriting Recognition", Graph-Based Representations in Pattern Recognition , Lecture Notes in Computer Science , vol. 7877, pp.
+
+194– 203, doi : 10.1007/978-3-642-38221-5_21 , ISBN 978-3-642-38220-8 ^ Neuhaus, Michel; Bunke, Horst (2005), "A Graph Matching Based Approach to Fingerprint Classification using Directional Variance", Audio- and Video-Based Biometric Person Authentication , Lecture Notes in Computer Science , vol. 3546, pp.
+
+191– 200, doi : 10.1007/11527923_20 , ISBN 978-3-540-27887-0 ^ Birchall, Kristian; Gillet, Valerie J.; Harper, Gavin; Pickett, Stephen D. (Jan 2006). "Training Similarity Measures for Specific Activities: Application to Reduced Graphs".
+
+Journal of Chemical Information and Modeling .
+
+46 (2): 557– 586.
+
+doi : 10.1021/ci050465e .
+
+PMID 16562986 .
+
+^ Neuhaus, Michel; Bunke, Horst (Nov 2007).
+
+Bridging the Gap between Graph Edit Distance and Kernel Machines . Machine Perception and Artificial Intelligence. Vol. 68. World Scientific.
+
+ISBN 978-9812708175 .
+
+^ Riesen, Kaspar (Feb 2016).
+
+Structural Pattern Recognition with Graph Edit Distance: Approximation Algorithms and Applications . Advances in Computer Vision and Pattern Recognition. Springer.
+
+ISBN 978-3319272511 .
+
+^ Serratosa, Francesc (2014).
+
+Fast Computation of Bipartite Graph Matching . Pattern Recognition Letters, 45, pp: 244 - 250.
+
+^ Serratosa, Francesc (2015).
+
+Speeding up Fast Bipartite Graph Matching through a new cost matrix . International Journal of Pattern Recognition and Artificial Intelligence, 29 (2), 1550010, [17 pages].
+
+^ Serratosa, Francesc (2015).
+
+Computation of Graph Edit Distance: Reasoning about Optimality and Speed-up . Image and Vision Computing, 40, pp: 38-48.
+
+^ Santacruz, Pep; Serratosa, Francesc (2018).
+
+Error-tolerant graph matching in linear computational cost using an initial small partial matching . Pattern Recognition Letters.
+
+^ Lin, Chih-Long (1994-08-25). "Hardness of approximating graph transformation problem". In Du, Ding-Zhu; Zhang, Xiang-Sun (eds.).
+
+Algorithms and Computation . Lecture Notes in Computer Science. Vol. 834. Springer Berlin Heidelberg. pp.
+
+74– 82.
+
+doi : 10.1007/3-540-58325-4_168 .
+
+ISBN 9783540583257 .
+
+Retrieved from " https://en.wikipedia.org/w/index.php?title=Graph_edit_distance&oldid=1283852188 " Categories : Graph theory Graph algorithms Computational problems in graph theory Distance Hidden categories: CS1 uses Russian-language script (ru) CS1 Russian-language sources (ru) CS1 maint: bot: original URL status unknown This page was last edited on 4 April 2025, at 01:04 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Graph edit distance 2 languages Add topic
+

@@ -1,0 +1,285 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Overview 2 Techniques Toggle Techniques subsection 2.1 Parametric estimation 3 Frequency estimation Toggle Frequency estimation subsection 3.1 Single tone 3.2 Multiple tones 4 Example calculation 5 See also 6 References 7 Further reading Toggle the table of contents Spectral density estimation 4 languages Català Deutsch فارسی Français Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Signal processing technique For the statistical method, see Probability density estimation .
+
+For broader coverage of this topic, see Spectral density .
+
+This article needs editing to comply with Wikipedia's Manual of Style .
+
+In particular, it has problems with MOS:FORMULA - avoid mixing <math>...</math> and {{ math }} in the same expression.
+
+Please help improve the content .
+
+( July 2025 ) ( Learn how and when to remove this message ) In statistical signal processing , the goal of spectral density estimation ( SDE ) or simply spectral estimation is to estimate the spectral density (also known as the power spectral density ) of a signal from a sequence of time samples of the signal.
+
+[ 1 ] Intuitively speaking, the spectral density characterizes the frequency content of the signal. One purpose of estimating the spectral density is to detect any periodicities in the data, by observing peaks at the frequencies corresponding to these periodicities.
+
+Some SDE techniques assume that a signal is composed of a limited (usually small) number of generating frequencies plus noise and seek to find the location and intensity of the generated frequencies.  Others make no assumption on the number of components and seek to estimate the whole generating spectrum.
+
+Overview [ edit ] This article may need to be cleaned up.
+
+It has been merged from Frequency domain .
+
+Example of voice waveform and its frequency spectrum A periodic waveform ( triangle wave ) and its frequency spectrum, showing a "fundamental" frequency at 220 Hz followed by multiples (harmonics) of 220 Hz The power spectral density of a segment of music is estimated by two different methods, for comparison Spectrum analysis , also referred to as frequency domain analysis or spectral density estimation, is the technical process of decomposing a complex signal into simpler parts. As described above, many physical processes are best described as a sum of many individual frequency components.  Any process that quantifies the various amounts (e.g. amplitudes, powers, intensities) versus frequency (or phase ) can be called spectrum analysis .
+
+Spectrum analysis can be performed on the entire signal.  Alternatively, a signal can be broken into short segments (sometimes called frames ), and spectrum analysis may be applied to these individual segments.
+
+Periodic functions (such as sin ⁡ ⁡ ( t ) {\displaystyle \sin(t)} ) are particularly well-suited for this sub-division.  General mathematical techniques for analyzing non-periodic functions fall into the category of Fourier analysis .
+
+The Fourier transform of a function produces a frequency spectrum which contains all of the information about the original signal, but in a different form.  This means that the original function can be completely reconstructed ( synthesized ) by an inverse Fourier transform .  For perfect reconstruction, the spectrum analyzer must preserve both the amplitude and phase of each frequency component.  These two pieces of information can be represented as a 2-dimensional vector, as a complex number , or as magnitude (amplitude) and phase in polar coordinates (i.e., as a phasor ).  A common technique in signal processing is to consider the squared amplitude, or power ; in this case the resulting plot is referred to as a power spectrum .
+
+Because of reversibility, the Fourier transform is called a representation of the function, in terms of frequency instead of time; thus, it is a frequency domain representation.  Linear operations that could be performed in the time domain have counterparts that can often be performed more easily in the frequency domain.  Frequency analysis also simplifies the understanding and interpretation of the effects of various time-domain operations, both linear and non-linear.  For instance, only non-linear or time-variant operations can create new frequencies in the frequency spectrum.
+
+In practice, nearly all software and electronic devices that generate frequency spectra utilize a discrete Fourier transform (DFT), which operates on samples of the signal, and which provides a mathematical approximation to the full integral solution.  The DFT is almost invariably implemented by an efficient algorithm called fast Fourier transform (FFT).  The array of squared-magnitude components of a DFT is a type of power spectrum called periodogram , which is widely used for examining the frequency characteristics of noise-free functions such as filter impulse responses and window functions .  But the periodogram does not provide processing-gain when applied to noiselike signals or even sinusoids at low signal-to-noise ratios [ why?
+
+] . In other words, the variance of its spectral estimate at a given frequency does not decrease as the number of samples used in the computation increases.  This can be mitigated by averaging over time ( Welch's method [ 2 ] )  or over frequency ( smoothing ).  Welch's method is widely used for spectral density estimation (SDE).  However, periodogram-based techniques introduce small biases that are unacceptable in some applications.  So other alternatives are presented in the next section.
+
+Techniques [ edit ] Many other techniques for spectral estimation have been developed to mitigate the disadvantages of the basic periodogram.  These techniques can generally be divided into non-parametric , parametric , and more recently semi-parametric (also called sparse) methods.
+
+[ 3 ] The non-parametric approaches explicitly estimate the covariance or the spectrum of the process without assuming that the process has any particular structure.  Some of the most common estimators in use for basic applications (e.g.
+
+Welch's method ) are non-parametric estimators closely related to the periodogram.  By contrast, the parametric approaches assume that the underlying stationary stochastic process has a certain structure that can be described using a small number of parameters (for example, using an auto-regressive or moving-average model ). In these approaches, the task is to estimate the parameters of the model that describes the stochastic process. When using the semi-parametric methods, the underlying process is modeled using a non-parametric framework, with the additional assumption that the number of non-zero components of the model is small (i.e., the model is sparse). Similar approaches may also be used for missing data recovery [ 4 ] as well as signal reconstruction .
+
+Following is a partial list of spectral density estimation techniques: Non-parametric methods for which the signal samples can be unevenly spaced in time ( records can be incomplete ) Least-squares spectral analysis , based on least squares fitting to known frequencies Lomb–Scargle periodogram , an approximation of the Least-squares spectral analysis Non-uniform discrete Fourier transform Non-parametric methods for which the signal samples must be evenly spaced in time ( records must be complete ): Periodogram , the modulus squared of the discrete Fourier transform Bartlett's method is the average of the periodograms taken of multiple segments of the signal to reduce variance of the spectral density estimate Welch's method a windowed version of Bartlett's method that uses overlapping segments Multitaper is a periodogram-based method that uses multiple tapers, or windows, to form independent estimates of the spectral density to reduce variance of the spectral density estimate Singular spectrum analysis is a nonparametric method that uses a singular value decomposition of the covariance matrix to estimate the spectral density Short-time Fourier transform Critical filter is a nonparametric method based on information field theory that can deal with noise, incomplete data, and instrumental response functions Parametric techniques (an incomplete list): Autoregressive model (AR) estimation, which assumes that the n th sample is correlated with the previous p samples.
+
+Moving-average model (MA) estimation, which assumes that the n th sample is correlated with noise terms in the previous p samples.
+
+Autoregressive moving-average (ARMA) estimation, which generalizes the AR and MA models.
+
+MUltiple SIgnal Classification (MUSIC) is a popular superresolution method.
+
+Estimation of signal parameters via rotational invariance techniques (ESPRIT) is another superresolution method.
+
+Maximum entropy spectral estimation is an all-poles method useful for SDE when singular spectral features, such as sharp peaks, are expected.
+
+Semi-parametric techniques (an incomplete list): SParse Iterative Covariance-based Estimation (SPICE) estimation, [ 3 ] and the more generalized ( r , q ) {\displaystyle (r,q)} -SPICE.
+
+[ 5 ] Iterative Adaptive Approach (IAA) estimation.
+
+[ 6 ] Lasso , similar to least-squares spectral analysis but with a sparsity enforcing penalty.
+
+[ 7 ] Parametric estimation [ edit ] In parametric spectral estimation, one assumes that the signal is modeled by a stationary process which has a spectral density function (SDF) S ( f ; a 1 , … … , a p ) {\displaystyle S(f;a_{1},\ldots ,a_{p})} that is a function of the frequency f {\displaystyle f} and p {\displaystyle p} parameters a 1 , … … , a p {\displaystyle a_{1},\ldots ,a_{p}} .
+
+[ 8 ] The estimation problem then becomes one of estimating these parameters.
+
+The most common form of parametric SDF estimate uses as a model an autoregressive model AR ( p ) {\displaystyle {\text{AR}}(p)} of order p {\displaystyle p} .
+
+[ 8 ] : 392 A signal sequence { Y t } {\displaystyle \{Y_{t}\}} obeying a zero mean AR ( p ) {\displaystyle {\text{AR}}(p)} process satisfies the equation Y t = ϕ ϕ 1 Y t − − 1 + ϕ ϕ 2 Y t − − 2 + ⋯ ⋯ + ϕ ϕ p Y t − − p + ε ε t , {\displaystyle Y_{t}=\phi _{1}Y_{t-1}+\phi _{2}Y_{t-2}+\cdots +\phi _{p}Y_{t-p}+\varepsilon _{t},} where the ϕ ϕ 1 , … … , ϕ ϕ p {\displaystyle \phi _{1},\ldots ,\phi _{p}} are fixed coefficients and ε ε t {\displaystyle \varepsilon _{t}} is a white noise process with zero mean and innovation variance σ σ p 2 {\displaystyle \sigma _{p}^{2}} . The SDF for this process is S ( f ; ϕ ϕ 1 , … … , ϕ ϕ p , σ σ p 2 ) = σ σ p 2 Δ Δ t | 1 − − ∑ ∑ k = 1 p ϕ ϕ k e − − 2 π π i f k Δ Δ t | 2 , | f | < f N , {\displaystyle S(f;\phi _{1},\ldots ,\phi _{p},\sigma _{p}^{2})={\frac {\sigma _{p}^{2}\Delta t}{\left|1-\sum _{k=1}^{p}\phi _{k}e^{-2\pi ifk\Delta t}\right|^{2}}},\qquad |f|<f_{N},} with Δ Δ t {\displaystyle \Delta t} the sampling time interval and f N {\displaystyle f_{N}} the Nyquist frequency .
+
+There are a number of approaches to estimating the parameters ϕ ϕ 1 , … … , ϕ ϕ p , σ σ p 2 {\displaystyle \phi _{1},\ldots ,\phi _{p},\sigma _{p}^{2}} of the AR ( p ) {\displaystyle {\text{AR}}(p)} process and thus the spectral density: [ 8 ] : 452-453 The Yule–Walker estimators are found by recursively solving the Yule–Walker equations for an AR ( p ) {\displaystyle {\text{AR}}(p)} process The Burg estimators are found by treating the Yule–Walker equations as a form of ordinary least squares problem. The Burg estimators are generally considered superior to the Yule–Walker estimators.
+
+[ 8 ] : 452 Burg associated these with maximum entropy spectral estimation .
+
+[ 9 ] The forward-backward least-squares estimators treat the AR ( p ) {\displaystyle {\text{AR}}(p)} process as a regression problem and solves that problem using forward-backward method. They are competitive with the Burg estimators.
+
+The maximum likelihood estimators estimate the parameters using a maximum likelihood approach. This involves a nonlinear optimization and is more complex than the first three.
+
+Alternative parametric methods include fitting to a moving-average model (MA) and to a full autoregressive moving-average model (ARMA).
+
+Frequency estimation [ edit ] Frequency estimation is the process of estimating the frequency , amplitude, and phase-shift of a signal in the presence of noise given assumptions about the number of the components.
+
+[ 10 ] This contrasts with the general methods above, which do not make prior assumptions about the components.
+
+Single tone [ edit ] See also: Sinusoidal model If one only wants to estimate the frequency of the single loudest pure-tone signal , one can use a pitch detection algorithm .
+
+If the dominant frequency changes over time, then the problem becomes the estimation of the instantaneous frequency as defined in the time–frequency representation . Methods for instantaneous frequency estimation include those based on the Wigner–Ville distribution and higher order ambiguity functions .
+
+[ 11 ] If one wants to know all the (possibly complex) frequency components of a received signal (including transmitted signal and noise), one uses a multiple-tone approach.
+
+Multiple tones [ edit ] A typical model for a signal x ( n ) {\displaystyle x(n)} consists of a sum of p {\displaystyle p} complex exponentials in the presence of white noise , w ( n ) {\displaystyle w(n)} x ( n ) = ∑ ∑ k = 1 p A k e i n ω ω k + w ( n ) {\displaystyle x(n)=\sum _{k=1}^{p}A_{k}e^{in\omega _{k}}+w(n)} .
+
+The power spectral density of x ( n ) {\displaystyle x(n)} is composed of p {\displaystyle p} impulse functions in addition to the spectral density function due to noise.
+
+The most common methods for frequency estimation involve identifying the noise subspace to extract these components. These methods are based on eigendecomposition of the autocorrelation matrix into a signal subspace and a noise subspace. After these subspaces are identified, a frequency estimation function is used to find the component frequencies from the noise subspace. The most popular methods of noise subspace based frequency estimation are Pisarenko's method , the multiple signal classification (MUSIC) method, the eigenvector method, and the minimum norm method.
+
+Pisarenko's method P ^ ^ PHD ( e j ω ω ) = 1 | e H v min | 2 {\displaystyle {\hat {P}}_{\text{PHD}}\left(e^{j\omega }\right)={\frac {1}{\left|\mathbf {e} ^{H}\mathbf {v} _{\text{min}}\right|^{2}}}} MUSIC P ^ ^ MU ( e j ω ω ) = 1 ∑ ∑ i = p + 1 M | e H v i | 2 {\displaystyle {\hat {P}}_{\text{MU}}\left(e^{j\omega }\right)={\frac {1}{\sum _{i=p+1}^{M}\left|\mathbf {e} ^{H}\mathbf {v} _{i}\right|^{2}}}} Eigenvector method P ^ ^ EV ( e j ω ω ) = 1 ∑ ∑ i = p + 1 M 1 λ λ i | e H v i | 2 {\displaystyle {\hat {P}}_{\text{EV}}\left(e^{j\omega }\right)={\frac {1}{\sum _{i=p+1}^{M}{\frac {1}{\lambda _{i}}}\left|\mathbf {e} ^{H}\mathbf {v} _{i}\right|^{2}}}} Minimum norm method P ^ ^ MN ( e j ω ω ) = 1 | e H a | 2 ; a = λ λ P n u 1 {\displaystyle {\hat {P}}_{\text{MN}}\left(e^{j\omega }\right)={\frac {1}{\left|\mathbf {e} ^{H}\mathbf {a} \right|^{2}}};\ \mathbf {a} =\lambda \mathbf {P} _{n}\mathbf {u} _{1}} Example calculation [ edit ] Suppose x n {\displaystyle x_{n}} , from n = 0 {\displaystyle n=0} to N − − 1 {\displaystyle N-1} is a time series (discrete time) with zero mean. Suppose that it is a sum of a finite number of periodic components (all frequencies are positive): x n = ∑ ∑ k A k sin ⁡ ⁡ ( 2 π π ν ν k n + ϕ ϕ k ) = ∑ ∑ k A k [ sin ⁡ ⁡ ( ϕ ϕ k ) cos ⁡ ⁡ ( 2 π π ν ν k n ) + cos ⁡ ⁡ ( ϕ ϕ k ) sin ⁡ ⁡ ( 2 π π ν ν k n ) ] = ∑ ∑ k [ a k cos ⁡ ⁡ ( 2 π π ν ν k n ) + b k sin ⁡ ⁡ ( 2 π π ν ν k n ) ] {\displaystyle {\begin{aligned}x_{n}&=\sum _{k}A_{k}\sin(2\pi \nu _{k}n+\phi _{k})\\&=\sum _{k}A_{k}\left[\sin(\phi _{k})\cos(2\pi \nu _{k}n)+\cos(\phi _{k})\sin(2\pi \nu _{k}n)\right]\\&=\sum _{k}\left[a_{k}\cos(2\pi \nu _{k}n)+b_{k}\sin(2\pi \nu _{k}n)\right]\end{aligned}}} where a k = A k sin ⁡ ⁡ ( ϕ ϕ k ) , b k = A k cos ⁡ ⁡ ( ϕ ϕ k ) .
+
+{\displaystyle {\begin{aligned}a_{k}&=A_{k}\sin(\phi _{k}),&b_{k}&=A_{k}\cos(\phi _{k}).\end{aligned}}} The variance of x n {\displaystyle x_{n}} is, for a zero-mean function as above, given by 1 N ∑ ∑ n = 0 N − − 1 x n 2 .
+
+{\displaystyle {\frac {1}{N}}\sum _{n=0}^{N-1}x_{n}^{2}.} If these data were samples taken from an electrical signal, this would be its average power (power is energy per unit time, so it is analogous to variance if energy is analogous to the amplitude squared).
+
+Now, for simplicity, suppose the signal extends infinitely in time, so we pass to the limit as N → → ∞ ∞ .
+
+{\displaystyle N\to \infty .} If the average power is bounded, which is almost always the case in reality, then the following limit exists and is the variance of the data.
+
+lim N → → ∞ ∞ 1 N ∑ ∑ n = 0 N − − 1 x n 2 .
+
+{\displaystyle \lim _{N\to \infty }{\frac {1}{N}}\sum _{n=0}^{N-1}x_{n}^{2}.} Again, for simplicity, we will pass to continuous time, and assume that the signal extends infinitely in time in both directions. Then these two formulas become x ( t ) = ∑ ∑ k A k sin ⁡ ⁡ ( 2 π π ν ν k t + ϕ ϕ k ) {\displaystyle x(t)=\sum _{k}A_{k}\sin \left(2\pi \nu _{k}t+\phi _{k}\right)} and lim T → → ∞ ∞ 1 2 T ∫ ∫ − − T T x ( t ) 2 d t .
+
+{\displaystyle \lim _{T\to \infty }{\frac {1}{2T}}\int _{-T}^{T}x(t)^{2}\,dt.} The root mean square of sin {\displaystyle \sin } is 1 / 2 {\displaystyle 1/{\sqrt {2}}} , so the variance of A k sin ⁡ ⁡ ( 2 π π ν ν k t + ϕ ϕ k ) {\displaystyle A_{k}\sin(2\pi \nu _{k}t+\phi _{k})} is 1 2 A k 2 .
+
+{\displaystyle {\tfrac {1}{2}}A_{k}^{2}.} Hence, the contribution to the average power of x ( t ) {\displaystyle x(t)} coming from the component with frequency ν ν k {\displaystyle \nu _{k}} is 1 2 A k 2 .
+
+{\displaystyle {\tfrac {1}{2}}A_{k}^{2}.} All these contributions add up to the average power of x ( t ) .
+
+{\displaystyle x(t).} Then the power as a function of frequency is 1 2 A k 2 , {\displaystyle {\tfrac {1}{2}}A_{k}^{2},} and its statistical cumulative distribution function S ( ν ν ) {\displaystyle S(\nu )} will be S ( ν ν ) = 1 2 ∑ ∑ k : ν ν k < ν ν A k 2 .
+
+{\displaystyle S(\nu )={\frac {1}{2}}\sum _{k:\nu _{k}<\nu }A_{k}^{2}.} S {\displaystyle S} is a step function , monotonically non-decreasing. Its jumps occur at the frequencies of the periodic components of x {\displaystyle x} , and the value of each jump is the power or variance of that component.
+
+The variance is the covariance of the data with itself. If we now consider the same data but with a lag of τ τ {\displaystyle \tau } , we can take the covariance of x ( t ) {\displaystyle x(t)} with x ( t + τ τ ) {\displaystyle x(t+\tau )} , and define this to be the autocorrelation function c {\displaystyle c} of the signal (or data) x {\displaystyle x} : c ( τ τ ) = lim T → → ∞ ∞ 1 2 T ∫ ∫ − − T T x ( t ) x ( t + τ τ ) d t .
+
+{\displaystyle c(\tau )=\lim _{T\to \infty }{\frac {1}{2T}}\int _{-T}^{T}x(t)\,x(t+\tau )\,dt.} If it exists, it is an even function of τ τ .
+
+{\displaystyle \tau .} If the average power is bounded, then c {\displaystyle c} exists everywhere, is finite, and is bounded by c ( 0 ) {\displaystyle c(0)} , which is the average power or variance of the data.
+
+It can be shown that c {\displaystyle c} can be decomposed into periodic components with the same periods as x {\displaystyle x} : c ( τ τ ) = 1 2 ∑ ∑ k A k 2 cos ⁡ ⁡ ( 2 π π ν ν k τ τ ) .
+
+{\displaystyle c(\tau )={\tfrac {1}{2}}\sum _{k}A_{k}^{2}\cos(2\pi \nu _{k}\tau ).} This is in fact the spectral decomposition of c {\displaystyle c} over the different frequencies, and is related to the distribution of power of x {\displaystyle x} over the frequencies: the amplitude of a frequency component of c {\displaystyle c} is its contribution to the average power of the signal.
+
+The power spectrum of this example is not continuous, and therefore does not have a derivative, and therefore this signal does not have a power spectral density function. In general, the power spectrum will usually be the sum of two parts: a line spectrum such as in this example, which is not continuous and does not have a density function, and a residue, which is absolutely continuous and does have a density function.
+
+See also [ edit ] Multidimensional spectral estimation Periodogram SigSpec Spectrogram Time–frequency analysis Time–frequency representation Whittle likelihood Spectral power distribution References [ edit ] ^ P Stoica and R Moses, Spectral Analysis of Signals, Prentice Hall, 2005.
+
+^ Welch, P. D. (1967), "The use of Fast Fourier Transform for the estimation of power spectra: A method based on time averaging over short, modified periodograms", IEEE Transactions on Audio and Electroacoustics , AU-15 (2): 70– 73, Bibcode : 1967ITAE...15...70W , doi : 10.1109/TAU.1967.1161901 , S2CID 13900622 ^ a b Stoica, Petre; Babu, Prabhu; Li, Jian (January 2011). "New Method of Sparse Parameter Estimation in Separable Models and Its Use for Spectral Analysis of Irregularly Sampled Data".
+
+IEEE Transactions on Signal Processing .
+
+59 (1): 35– 47.
+
+Bibcode : 2011ITSP...59...35S .
+
+doi : 10.1109/TSP.2010.2086452 .
+
+ISSN 1053-587X .
+
+S2CID 15936187 .
+
+^ Stoica, Petre; Li, Jian; Ling, Jun; Cheng, Yubo (April 2009).
+
+"Missing data recovery via a nonparametric iterative adaptive approach" .
+
+2009 IEEE International Conference on Acoustics, Speech and Signal Processing . IEEE. pp.
+
+3369– 3372.
+
+doi : 10.1109/icassp.2009.4960347 .
+
+ISBN 978-1-4244-2353-8 .
+
+^ Sward, Johan; Adalbjornsson, Stefan Ingi; Jakobsson, Andreas (March 2017).
+
+"A generalization of the sparse iterative covariance-based estimator" .
+
+2017 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP) . IEEE. pp.
+
+3954– 3958.
+
+doi : 10.1109/icassp.2017.7952898 .
+
+ISBN 978-1-5090-4117-6 .
+
+S2CID 5640068 .
+
+^ Yardibi, Tarik; Li, Jian; Stoica, Petre; Xue, Ming; Baggeroer, Arthur B. (January 2010). "Source Localization and Sensing: A Nonparametric Iterative Adaptive Approach Based on Weighted Least Squares".
+
+IEEE Transactions on Aerospace and Electronic Systems .
+
+46 (1): 425– 443.
+
+Bibcode : 2010ITAES..46..425Y .
+
+doi : 10.1109/TAES.2010.5417172 .
+
+hdl : 1721.1/59588 .
+
+ISSN 0018-9251 .
+
+S2CID 18834345 .
+
+^ Panahi, Ashkan; Viberg, Mats (February 2011).
+
+"On the resolution of the LASSO-based DOA estimation method" .
+
+2011 International ITG Workshop on Smart Antennas . IEEE. pp.
+
+1– 5.
+
+doi : 10.1109/wsa.2011.5741938 .
+
+ISBN 978-1-61284-075-8 .
+
+S2CID 7013162 .
+
+^ a b c d Percival, Donald B.; Walden, Andrew T. (1992).
+
+Spectral Analysis for Physical Applications . Cambridge University Press.
+
+ISBN 9780521435413 .
+
+^ Burg, J.P. (1967) "Maximum Entropy Spectral Analysis", Proceedings of the 37th Meeting of the Society of Exploration Geophysicists , Oklahoma City, Oklahoma.
+
+^ Hayes, Monson H., Statistical Digital Signal Processing and Modeling , John Wiley & Sons, Inc., 1996.
+
+ISBN 0-471-59431-8 .
+
+^ Lerga, Jonatan.
+
+"Overview of Signal Instantaneous Frequency Estimation Methods" (PDF) . University of Rijeka . Retrieved 22 March 2014 .
+
+Further reading [ edit ] Porat, B. (1994).
+
+Digital Processing of Random Signals: Theory & Methods . Prentice Hall.
+
+ISBN 978-0-13-063751-2 .
+
+Priestley, M.B. (1991).
+
+Spectral Analysis and Time Series . Academic Press.
+
+ISBN 978-0-12-564922-3 .
+
+Stoica, P.; Moses, R. (2005).
+
+Spectral Analysis of Signals . Prentice Hall.
+
+ISBN 978-0-13-113956-5 .
+
+Thomson, D. J. (1982). "Spectrum estimation and harmonic analysis".
+
+Proceedings of the IEEE .
+
+70 (9): 1055– 1096.
+
+Bibcode : 1982IEEEP..70.1055T .
+
+CiteSeerX 10.1.1.471.1278 .
+
+doi : 10.1109/PROC.1982.12433 .
+
+S2CID 290772 .
+
+v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐jhdxf
+Cached time: 20250812021318
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.678 seconds
+Real time usage: 0.936 seconds
+Preprocessor visited node count: 3978/1000000
+Revision size: 24295/2097152 bytes
+Post‐expand include size: 184445/2097152 bytes
+Template argument size: 3299/2097152 bytes
+Highest expansion depth: 15/100
+Expensive parser function count: 7/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 64587/5000000 bytes
+Lua time usage: 0.342/10.000 seconds
+Lua memory usage: 7408360/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  621.460      1 -total
+ 28.98%  180.076      1 Template:Reflist
+ 23.12%  143.651      1 Template:Statistics
+ 22.65%  140.745      1 Template:Navbox_with_collapsible_groups
+ 13.96%   86.728      1 Template:Short_description
+ 13.79%   85.677      1 Template:Citation
+  9.78%   60.788      2 Template:Pagetype
+  9.34%   58.049     11 Template:Navbox
+  8.55%   53.132      7 Template:Cite_book
+  7.65%   47.536      1 Template:MOS Saved in parser cache with key enwiki:pcache:13070117:|#|:idhash:canonical and timestamp 20250812021318 and revision id 1303898846. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Spectral_density_estimation&oldid=1303898846 " Categories : Statistical signal processing Signal estimation Frequency-domain analysis Spectrum (physical sciences) Hidden categories: CS1: long volume value Articles with short description Short description is different from Wikidata Wikipedia articles with style issues from July 2025 All articles with style issues Wikipedia articles needing clarification from November 2024 This page was last edited on 2 August 2025, at 18:39 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Spectral density estimation 4 languages Add topic
+

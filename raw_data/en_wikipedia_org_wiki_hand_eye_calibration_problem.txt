@@ -1,0 +1,79 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Methods Toggle Methods subsection 1.1 Separable solutions 1.2 Simultaneous solutions 1.3 Iterative solutions 1.4 The AX=XB case 1.5 The 2D laser profile scanner case 2 References Toggle the table of contents Hand–eye calibration problem Add languages Add links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Robotics problem on coordinating two parts of a robot In robotics and mathematics , the hand–eye calibration problem (also called the robot–sensor or robot–world calibration problem ) is the problem of determining the transformation between a robot end-effector and a sensor or sensors (camera or laser scanner) or between a robot base and the world coordinate system.
+
+[ 1 ] It is conceptually analogous to biological hand–eye coordination (hence the name). It takes the form of AX=ZB , where A and B are two systems, usually a robot base and a camera, and X and Z are unknown transformation matrices. A highly studied special case of the problem occurs where X=Z , taking the form of the problem AX=XB . Solutions to the problem take the forms of several types of methods, including separable closed-form solutions, simultaneous closed-form solutions, and iterative solutions.
+
+[ 2 ] The covariance of X in the equation can be calculated for any randomly perturbed matrices A and B .
+
+[ 3 ] The problem is an important part of robot calibration , with efficiency and accuracy of the solutions determining the speed accuracy of the calibrations of robots.
+
+Methods [ edit ] Many different methods and solutions developed to solve the problem, broadly defined as either separable, simultaneous solutions. Each type of solution has specific advantages and disadvantages as well as formulations and applications to the problem. A common theme throughout all of the methods is the common use of quaternions to represent rotations.
+
+Separable solutions [ edit ] Given the equation AX=ZB , it is possible to decompose the equation into a purely rotational and translational part; methods utilizing this are referred to as separable methods. Where R A represents a 3×3 rotation matrix and t A a 3×1 translation vector, the equation can be broken into two parts: [ 4 ] R A R X = R Z R B R A t X + t A = R Z t B + t Z The second equation becomes linear if R Z is known. As such, the most frequent approach is to solve for R x and R z using the first equation, then using R z to solve for the variables in the second equation. Rotation is represented using quaternions , allowing for a linear solution to be found. While separable methods are useful, any error in the estimation for the rotation matrices is compounded when being applied to the translation vector.
+
+[ 5 ] Other solutions avoid this problem.
+
+Simultaneous solutions [ edit ] Simultaneous solutions are based on solving for both X and Z at the same time (rather than basing the solution of one part off of the other as in separable solutions), propagation of error is significantly reduced.
+
+[ 6 ] By formulating the matrices as dual quaternions , it is possible to get a linear equation by which X is solvable in a linear format.
+
+[ 5 ] An alternative way applies the least-squares method to the Kronecker product of the matrices A⊗B . As confirmed by experimental results, simultaneous solutions have less error than separable quaternion solutions.
+
+[ 6 ] Iterative solutions [ edit ] Iterative solutions are another method used to solve the problem of error propagation. One example of an iterative solution is a program based on minimizing ||AX−XB|| . As the program iterates, it will converge on a solution to X independent to the initial robot orientation of R B . Solutions can also be two-step iterative processes, and like simultaneous solutions can also decompose the equations into dual quaternions .
+
+[ 7 ] However, while iterative solutions to the problem are generally simultaneous and accurate, they can be computationally taxing to carry out and may not always converge on the optimal solution.
+
+[ 5 ] The AX=XB case [ edit ] The matrix equation AX=XB , where X is unknown, has an infinite number of solutions that can be easily studied by a geometrical approach.
+
+[ 8 ] To find X it is necessary to consider a simultaneous set of 2 equations A 1 X=XB 1 and A 2 X=XB 2 ; the matrices A 1 , A 2 , B 1 , B 2 have to be dermined by experiments to be performed in an optimized way.
+
+[ 9 ] The 2D laser profile scanner case [ edit ] [ p b 1 ] = [ R b T b 0 1 ] ⋅ ⋅ [ R s T s 0 1 ] ⋅ ⋅ [ p s 1 ] {\displaystyle {\begin{bmatrix}p_{b}\\1\end{bmatrix}}={\begin{bmatrix}R_{b}&T_{b}\\0&1\end{bmatrix}}\centerdot {\begin{bmatrix}R_{s}&T_{s}\\0&1\end{bmatrix}}\centerdot {\begin{bmatrix}p_{s}\\1\end{bmatrix}}} where p b {\displaystyle p_{b}} represents the unknown coordinate of the point p {\displaystyle p} in the robot base system, R b , T b {\displaystyle R_{b},T_{b}} represent the known relationship between the robot base system and end-effector, R s , T s {\displaystyle R_{s},T_{s}} are the unknown relationship between the end-effector and the scanner, and p s {\displaystyle p_{s}} is the known coordinate of the point p {\displaystyle p} in the local scanner system. Methods are as follows, Straight edges There is a method using straight edges for hand-eye calibration.
+
+[ 10 ] References [ edit ] ^ Amy Tabb, Khalil M. Ahmad Yousef.
+
+"Solving the Robot-World Hand-Eye(s) Calibration Problem with Iterative Methods." 29 Jul 2019.
+
+^ Mili I. Shah, Roger D. Eastman, Tsai Hong Hong.
+
+"An Overview of Robot-Sensor Calibration Methods for Evaluation of Perception Systems." 22 March 2012 ^ Huy Nguyen, Quang-Cuong Pham.
+
+"On the covariance of X in AX = XB." 12 June 2017.
+
+^ Amy Tabb, Khalil Yousef.
+
+"Solving the Robot-World Hand-Eye(s) Calibration Problem with Iterative Methods." Machine Vision and Applications, August 2017, Volume 28, Issue 5-6, pp 569-590.
+
+^ a b c Mili Shah, et al.
+
+"An Overview of Robot-Sensor Calibration Methods for Evaluation of Perception Systems." ^ a b Algo Li, et al.
+
+"Simultaneous robot-world and hand-eye calibration using dual-quaternions and Kronecker product." International Journal of the Physical Sciences Vol. 5(10), pp. 1530-1536, 4 September 2010.
+
+^ Zhiqiang Zhang, et al.
+
+"A computationally efficient method for hand–eye calibration." 19 July 2017.
+
+^ Irene Fassi, Giovanni Legnani "Hand to sensor calibration: A geometrical interpretation of the matrix equation AX =XB." Journal of Robotic Systems, 28 July 2005 ^ Giovanni Legnani.
+
+"Optimization of hand-to-camera calibration using geometrical interpretation of matrix equation AX = XB." International Journal of Robotics and Automation - January 2018.
+
+^ Xu, Jing; Hoo, Jian Li; Dritsas, Stylianos; Fernandez, Javier Gomez (2022-02-01).
+
+"Hand-eye calibration for 2D laser profile scanners using straight edges of common objects" .
+
+Robotics and Computer-Integrated Manufacturing .
+
+73 : 102221.
+
+doi : 10.1016/j.rcim.2021.102221 .
+
+ISSN 0736-5845 .
+
+Retrieved from " https://en.wikipedia.org/w/index.php?title=Hand–eye_calibration_problem&oldid=1291866802 " Category : Robot control Hidden categories: Articles with short description Short description matches Wikidata This page was last edited on 23 May 2025, at 21:27 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Hand–eye calibration problem Add languages Add topic
+

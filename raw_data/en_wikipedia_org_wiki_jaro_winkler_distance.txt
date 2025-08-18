@@ -1,0 +1,133 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Definition Toggle Definition subsection 1.1 Jaro similarity 1.2 Jaro–Winkler similarity 2 Relationship with other edit distance metrics 3 See also 4 Footnotes 5 References 6 External links Toggle the table of contents Jaro–Winkler distance 7 languages العربية Français 日本語 Português Русский ไทย Українська Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia String distance measure This article is about the measure. For other uses, see Jaro .
+
+In computer science and statistics , the Jaro–Winkler similarity is a string metric measuring an edit distance between two sequences. It is a variant of the Jaro distance metric [ 1 ] (1989, Matthew A. Jaro) proposed in 1990 by William E. Winkler .
+
+[ 2 ] The Jaro–Winkler distance uses a prefix scale p {\displaystyle p} which gives more favourable ratings to strings that match from the beginning for a set prefix length ℓ ℓ {\displaystyle \ell } .
+
+The higher the Jaro–Winkler distance for two strings is, the less similar the strings are. The score is normalized such that 0 means an exact match and 1 means there is no similarity. The original paper actually defined the metric in terms of similarity, so the distance is defined as the inversion of that value (distance = 1 − similarity).
+
+Although often referred to as a distance metric , the Jaro–Winkler distance is not a metric in the mathematical sense of that term because it does not obey the triangle inequality .
+
+Definition [ edit ] Jaro similarity [ edit ] The Jaro similarity s i m j {\displaystyle sim_{j}} of two given strings s 1 {\displaystyle s_{1}} and s 2 {\displaystyle s_{2}} is s i m j = { 0 if m = 0 1 3 ( m | s 1 | + m | s 2 | + m − − t m ) otherwise {\displaystyle sim_{j}=\left\{{\begin{array}{l l}0&{\text{if }}m=0\\{\frac {1}{3}}\left({\frac {m}{|s_{1}|}}+{\frac {m}{|s_{2}|}}+{\frac {m-t}{m}}\right)&{\text{otherwise}}\end{array}}\right.} Where: | s i | {\displaystyle |s_{i}|} is the length of the string s i {\displaystyle s_{i}} ; m {\displaystyle m} is the number of matching characters (see below); t {\displaystyle t} is the number of transpositions (see below).
+
+Jaro similarity score is 0 if the strings do not match at all, and 1 if they are an exact match. In the first step, each character of s 1 {\displaystyle s_{1}} is compared with all its matching characters in s 2 {\displaystyle s_{2}} . Two characters from s 1 {\displaystyle s_{1}} and s 2 {\displaystyle s_{2}} respectively, are considered matching only if they are the same and not farther than ⌊ max ( | s 1 | , | s 2 | ) 2 ⌋ − − 1 {\displaystyle \left\lfloor {\frac {\max(|s_{1}|,|s_{2}|)}{2}}\right\rfloor -1} characters apart. For example, the following two nine character long strings, FAREMVIEL and FARMVILLE, have 8 matching characters. 'F', 'A' and 'R' are in the same position in both strings. Also 'M', 'V', 'I', 'E' and 'L' are within three (result of ⌊ ⌊ max ( 9 , 9 ) 2 ⌋ ⌋ − − 1 {\displaystyle \lfloor {\tfrac {\max(9,9)}{2}}\rfloor -1} ) characters away.
+
+[ 3 ] If no matching characters are found then the strings are not similar and the algorithm terminates by returning Jaro similarity score 0.
+
+If non-zero matching characters are found, the next step is to find the number of transpositions. Transposition is the number of matching characters that are not in the right order divided by two. In the above example between FAREMVIEL and FARMVILLE, 'E' and 'L' are the matching characters that are not in the right order. So the number of transposition is one.
+
+Finally, plugging in the number of matching characters m {\displaystyle m} and number of transpositions t {\displaystyle t} the Jaro similarity of FAREMVIEL and FARMVILLE can be calculated, 1 3 ( 8 9 + 8 9 + 8 − − 1 8 ) = 0.88 {\displaystyle {\frac {1}{3}}\left({\frac {8}{9}}+{\frac {8}{9}}+{\frac {8-1}{8}}\right)=0.88} Jaro–Winkler similarity [ edit ] Jaro–Winkler similarity uses a prefix scale p {\displaystyle p} which gives more favorable ratings to strings that match from the beginning for a set prefix length ℓ ℓ {\displaystyle \ell } . Given two strings s 1 {\displaystyle s_{1}} and s 2 {\displaystyle s_{2}} , their Jaro–Winkler similarity s i m w {\displaystyle sim_{w}} is: s i m w = s i m j + ℓ ℓ p ( 1 − − s i m j ) , {\displaystyle sim_{w}=sim_{j}+\ell p(1-sim_{j}),} where: s i m j {\displaystyle sim_{j}} is the Jaro similarity for strings s 1 {\displaystyle s_{1}} and s 2 {\displaystyle s_{2}} ℓ ℓ {\displaystyle \ell } is the length of common prefix at the start of the string up to a maximum of 4 characters p {\displaystyle p} is a constant scaling factor for how much the score is adjusted upwards for having common prefixes.
+
+p {\displaystyle p} should not exceed 0.25 (i.e. 1/4, with 4 being the maximum length of the prefix being considered), otherwise the similarity could become larger than 1. The standard value for this constant in Winkler's work is p = 0.1 {\displaystyle p=0.1} The Jaro–Winkler distance d w {\displaystyle d_{w}} is defined as d w = 1 − − s i m w {\displaystyle d_{w}=1-sim_{w}} .
+
+Although often referred to as a distance metric , the Jaro–Winkler distance is not a metric in the mathematical sense of that term because it does not obey the triangle inequality .
+
+[ 4 ] The Jaro–Winkler distance also does not satisfy the identity axiom d ( x , y ) = 0 ↔ ↔ x = y {\displaystyle d(x,y)=0\leftrightarrow x=y} .
+
+Relationship with other edit distance metrics [ edit ] Main article: Edit distance There are other popular measures of edit distance , which are calculated using a different set of allowable edit operations. For instance, the Levenshtein distance allows deletion, insertion and substitution; the Damerau–Levenshtein distance allows insertion, deletion, substitution, and the transposition of two adjacent characters; the longest common subsequence (LCS) distance allows only insertion and deletion, not substitution; the Hamming distance allows only substitution, hence, it only applies to strings of the same length.
+
+Edit distance is usually defined as a parameterizable metric calculated with a specific set of allowed edit operations, and each operation is assigned a cost (possibly infinite). This is further generalized by DNA sequence alignment algorithms such as the Smith–Waterman algorithm , which make an operation's cost depend on where it is applied.
+
+See also [ edit ] Record linkage Census Footnotes [ edit ] ^ Jaro, Matthew A. (1 June 1989).
+
+"Advances in Record-Linkage Methodology as Applied to Matching the 1985 Census of Tampa, Florida" .
+
+Journal of the American Statistical Association . pp.
+
+414– 420.
+
+doi : 10.1080/01621459.1989.10478785 .
+
+^ Winkler, William E. (1990).
+
+"String Comparator Metrics and Enhanced Decision Rules in the Fellegi-Sunter Model of Record Linkage" .
+
+^ "What is Jaro-Winkler Similarity?" .
+
+www.baseclass.io . Archived from the original on 28 January 2024 . Retrieved 26 July 2012 .
+
+{{ cite web }} :  CS1 maint: bot: original URL status unknown ( link ) ^ "Jaro-Winkler «  Inviting Epiphany" .
+
+RichardMinerich.com . Retrieved 12 June 2017 .
+
+References [ edit ] Cohen, W. W.; Ravikumar, P.; Fienberg, S. E. (2003).
+
+"A comparison of string distance metrics for name-matching tasks" (PDF) .
+
+KDD Workshop on Data Cleaning and Object Consolidation .
+
+3 : 73– 8.
+
+Jaro, M. A.
+
+(1989). "Advances in record linkage methodology as applied to the 1985 census of Tampa Florida".
+
+Journal of the American Statistical Association .
+
+84 (406): 414– 20.
+
+doi : 10.1080/01621459.1989.10478785 .
+
+Jaro, M. A. (1995). "Probabilistic linkage of large public health data file".
+
+Statistics in Medicine .
+
+14 ( 5– 7): 491– 8.
+
+doi : 10.1002/sim.4780140510 .
+
+PMID 7792443 .
+
+Winkler, W. E.
+
+(1990).
+
+"String Comparator Metrics and Enhanced Decision Rules in the Fellegi-Sunter Model of Record Linkage" (PDF) .
+
+Proceedings of the Section on Survey Research Methods . American Statistical Association: 354– 359.
+
+Winkler, W. E.
+
+(2006).
+
+"Overview of Record Linkage and Current Research Directions" (PDF) .
+
+Research Report Series, RRS .
+
+External links [ edit ] strcmp.c - Original C implementation by the author of the algorithm nltk.metrics.distance module - Python implementation in the Natural Language Toolkit v t e Strings String metric Approximate string matching Bitap algorithm Damerau–Levenshtein distance Edit distance Gestalt pattern matching Hamming distance Jaro–Winkler distance Lee distance Levenshtein automaton Levenshtein distance Wagner–Fischer algorithm String-searching algorithm Apostolico–Giancarlo algorithm Boyer–Moore string-search algorithm Boyer–Moore–Horspool algorithm Knuth–Morris–Pratt algorithm Rabin–Karp algorithm Raita algorithm Trigram search Two-way string-matching algorithm Zhu–Takaoka string matching algorithm Multiple string searching Aho–Corasick Commentz-Walter algorithm Regular expression Comparison of regular-expression engines Regular grammar Thompson's construction Nondeterministic finite automaton Sequence alignment BLAST Hirschberg's algorithm Needleman–Wunsch algorithm Smith–Waterman algorithm Data structure DAFSA Substring index Suffix array Suffix automaton Suffix tree Compressed suffix array LCP array FM-index Generalized suffix tree Rope Ternary search tree Trie Other Parsing Pattern matching Compressed pattern matching Longest common subsequence Longest common substring Sequential pattern mining Sorting String rewriting systems String operations NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐r4wrx
+Cached time: 20250812004642
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.293 seconds
+Real time usage: 0.435 seconds
+Preprocessor visited node count: 874/1000000
+Revision size: 8819/2097152 bytes
+Post‐expand include size: 30269/2097152 bytes
+Template argument size: 416/2097152 bytes
+Highest expansion depth: 8/100
+Expensive parser function count: 3/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 35851/5000000 bytes
+Lua time usage: 0.194/10.000 seconds
+Lua memory usage: 5231739/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  303.072      1 -total
+ 33.76%  102.321      1 Template:Reflist
+ 29.85%   90.459      4 Template:Cite_web
+ 24.77%   75.058      1 Template:Strings
+ 24.15%   73.183      1 Template:Navbox
+ 20.95%   63.499      1 Template:Short_description
+ 12.84%   38.908      2 Template:Pagetype
+ 10.47%   31.721      5 Template:Cite_journal
+  7.02%   21.284      1 Template:About
+  4.89%   14.827      3 Template:Main_other Saved in parser cache with key enwiki:pcache:6782835:|#|:idhash:canonical and timestamp 20250812004642 and revision id 1248922016. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Jaro–Winkler_distance&oldid=1248922016 " Category : String metrics Hidden categories: CS1 maint: bot: original URL status unknown Articles with short description Short description matches Wikidata This page was last edited on 2 October 2024, at 06:10 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Jaro–Winkler distance 7 languages Add topic
+

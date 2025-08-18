@@ -1,0 +1,129 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Compatibility with Kronecker products 2 Compatibility with Hadamard products 3 Compatibility with inner products 4 Vectorization as a linear sum 5 Half-vectorization 6 Programming language 7 Applications 8 Notes 9 See also 10 References Toggle the table of contents Vectorization (mathematics) 5 languages Deutsch Ελληνικά 한국어 日本語 Română Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Conversion of a matrix or a tensor to a vector For other uses, see Vectorization .
+
+In mathematics , especially in linear algebra and matrix theory , the vectorization of a matrix is a linear transformation which converts the matrix into a vector . Specifically, the vectorization of a m × n matrix A , denoted vec( A ), is the mn × 1 column vector obtained by stacking the columns of the matrix A on top of one another: vec ⁡ ⁡ ( A ) = [ a 1 , 1 , … … , a m , 1 , a 1 , 2 , … … , a m , 2 , … … , a 1 , n , … … , a m , n ] T {\displaystyle \operatorname {vec} (A)=[a_{1,1},\ldots ,a_{m,1},a_{1,2},\ldots ,a_{m,2},\ldots ,a_{1,n},\ldots ,a_{m,n}]^{\mathrm {T} }} Here, a i , j {\displaystyle a_{i,j}} represents the element in the i -th row and j -th column of A , and the superscript T {\displaystyle {}^{\mathrm {T} }} denotes the transpose . Vectorization expresses, through coordinates, the isomorphism R m × × n := R m ⊗ ⊗ R n ≅ ≅ R m n {\displaystyle \mathbf {R} ^{m\times n}:=\mathbf {R} ^{m}\otimes \mathbf {R} ^{n}\cong \mathbf {R} ^{mn}} between these (i.e., of matrices and vectors) as vector spaces.
+
+For example, for the 2×2 matrix A = [ a b c d ] {\displaystyle A={\begin{bmatrix}a&b\\c&d\end{bmatrix}}} , the vectorization is vec ⁡ ⁡ ( A ) = [ a c b d ] {\displaystyle \operatorname {vec} (A)={\begin{bmatrix}a\\c\\b\\d\end{bmatrix}}} .
+
+The connection between the vectorization of A and the vectorization of its transpose is given by the commutation matrix .
+
+Compatibility with Kronecker products [ edit ] The vectorization is frequently used together with the Kronecker product to express matrix multiplication as a linear transformation on matrices. In particular, vec ⁡ ⁡ ( A B C ) = ( C T ⊗ ⊗ A ) vec ⁡ ⁡ ( B ) {\displaystyle \operatorname {vec} (ABC)=(C^{\mathrm {T} }\otimes A)\operatorname {vec} (B)} for matrices A , B , and C of dimensions k × l , l × m , and m × n .
+
+[ note 1 ] For example, if ad A ⁡ ⁡ ( X ) = A X − − X A {\displaystyle \operatorname {ad} _{A}(X)=AX-XA} (the adjoint endomorphism of the Lie algebra gl( n , C ) of all n × n matrices with complex entries), then vec ⁡ ⁡ ( ad A ⁡ ⁡ ( X ) ) = ( A ⊗ ⊗ I n − − I n ⊗ ⊗ A T ) vec ( X ) {\displaystyle \operatorname {vec} (\operatorname {ad} _{A}(X))=(A\otimes I_{n}-I_{n}\otimes A^{\mathrm {T} }){\text{vec}}(X)} , where I n {\displaystyle I_{n}} is the n × n identity matrix .
+
+There are two other useful formulations: vec ⁡ ⁡ ( A B C ) = ( I n ⊗ ⊗ A B ) vec ⁡ ⁡ ( C ) = ( C T B T ⊗ ⊗ I k ) vec ⁡ ⁡ ( A ) vec ⁡ ⁡ ( A B ) = ( I m ⊗ ⊗ A ) vec ⁡ ⁡ ( B ) = ( B T ⊗ ⊗ I k ) vec ⁡ ⁡ ( A ) {\displaystyle {\begin{aligned}\operatorname {vec} (ABC)&=(I_{n}\otimes AB)\operatorname {vec} (C)=(C^{\mathrm {T} }B^{\mathrm {T} }\otimes I_{k})\operatorname {vec} (A)\\\operatorname {vec} (AB)&=(I_{m}\otimes A)\operatorname {vec} (B)=(B^{\mathrm {T} }\otimes I_{k})\operatorname {vec} (A)\end{aligned}}} If B is a diagonal matrix (i.e., B = diag ⁡ ⁡ ( b 1 , … … , b n ) {\textstyle B=\operatorname {diag} (b_{1},\dots ,b_{n})} ), the vectorization can be written using the column-wise Kronecker product ∗ ∗ {\textstyle \ast } (see Khatri-Rao product ) and the main diagonal b = [ b 1 , … … , b n ] T {\textstyle b={\begin{bmatrix}b_{1},\dots ,b_{n}\end{bmatrix}}^{\mathrm {T} }} of B : vec ⁡ ⁡ ( A B C ) = ( C T ∗ ∗ A ) b {\displaystyle \operatorname {vec} (ABC)=(C^{\mathrm {T} }\ast A)b} More generally, it has been shown that vectorization is a self-adjunction in the monoidal closed structure of any category of matrices.
+
+[ 1 ] Compatibility with Hadamard products [ edit ] Vectorization is an algebra homomorphism from the space of n × n matrices with the Hadamard (entrywise) product to C n 2 with its Hadamard product: vec ⁡ ⁡ ( A ∘ ∘ B ) = vec ⁡ ⁡ ( A ) ∘ ∘ vec ⁡ ⁡ ( B ) .
+
+{\displaystyle \operatorname {vec} (A\circ B)=\operatorname {vec} (A)\circ \operatorname {vec} (B).} Compatibility with inner products [ edit ] Vectorization is a unitary transformation from the space of n × n matrices with the Frobenius (or Hilbert–Schmidt ) inner product to C n 2 : tr ⁡ ⁡ ( A † † B ) = vec ⁡ ⁡ ( A ) † † vec ⁡ ⁡ ( B ) , {\displaystyle \operatorname {tr} (A^{\dagger }B)=\operatorname {vec} (A)^{\dagger }\operatorname {vec} (B),} where the superscript † denotes the conjugate transpose .
+
+Vectorization as a linear sum [ edit ] The matrix vectorization operation can be written in terms of a linear sum. Let X be an m × n matrix that we want to vectorize, and let e i be the i -th canonical basis vector for the n -dimensional space, that is e i = [ 0 , … … , 0 , 1 , 0 , … … , 0 ] T {\textstyle \mathbf {e} _{i}=\left[0,\dots ,0,1,0,\dots ,0\right]^{\mathrm {T} }} . Let B i be a ( mn ) × m block matrix defined as follows: B i = [ 0 ⋮ ⋮ 0 I m 0 ⋮ ⋮ 0 ] = e i ⊗ ⊗ I m {\displaystyle \mathbf {B} _{i}={\begin{bmatrix}\mathbf {0} \\\vdots \\\mathbf {0} \\\mathbf {I} _{m}\\\mathbf {0} \\\vdots \\\mathbf {0} \end{bmatrix}}=\mathbf {e} _{i}\otimes \mathbf {I} _{m}} B i consists of n block matrices of size m × m , stacked column-wise, and all these matrices are all-zero except for the i -th one, which is a m × m identity matrix I m .
+
+Then the vectorized version of X can be expressed as follows: vec ⁡ ⁡ ( X ) = ∑ ∑ i = 1 n B i X e i {\displaystyle \operatorname {vec} (\mathbf {X} )=\sum _{i=1}^{n}\mathbf {B} _{i}\mathbf {X} \mathbf {e} _{i}} Multiplication of X by e i extracts the i -th column, while multiplication by B i puts it into the desired position in the final vector.
+
+Alternatively, the linear sum can be expressed using the Kronecker product : vec ⁡ ⁡ ( X ) = ∑ ∑ i = 1 n e i ⊗ ⊗ X e i {\displaystyle \operatorname {vec} (\mathbf {X} )=\sum _{i=1}^{n}\mathbf {e} _{i}\otimes \mathbf {X} \mathbf {e} _{i}} Half-vectorization [ edit ] For a symmetric matrix A , the vector vec( A ) contains more information than is strictly necessary, since the matrix is completely determined by the symmetry together with the lower triangular portion, that is, the n ( n + 1)/2 entries on and below the main diagonal . For such matrices, the half-vectorization is sometimes more useful than the vectorization. The half-vectorization, vech( A ), of a symmetric n × n matrix A is the n ( n + 1)/2 × 1 column vector obtained by vectorizing only the lower triangular part of A : vech ⁡ ⁡ ( A ) = [ A 1 , 1 , … … , A n , 1 , A 2 , 2 , … … , A n , 2 , … … , A n − − 1 , n − − 1 , A n , n − − 1 , A n , n ] T .
+
+{\displaystyle \operatorname {vech} (A)=[A_{1,1},\ldots ,A_{n,1},A_{2,2},\ldots ,A_{n,2},\ldots ,A_{n-1,n-1},A_{n,n-1},A_{n,n}]^{\mathrm {T} }.} For example, for the 2×2 matrix A = [ a b b d ] {\displaystyle A={\begin{bmatrix}a&b\\b&d\end{bmatrix}}} , the half-vectorization is vech ⁡ ⁡ ( A ) = [ a b d ] {\displaystyle \operatorname {vech} (A)={\begin{bmatrix}a\\b\\d\end{bmatrix}}} .
+
+There exist unique matrices transforming the half-vectorization of a matrix to its vectorization and vice versa called, respectively, the duplication matrix and the elimination matrix .
+
+Programming language [ edit ] Programming languages that implement matrices may have easy means for vectorization.
+In Matlab / GNU Octave a matrix A can be vectorized by A(:) .
+
+GNU Octave also allows vectorization and half-vectorization with vec(A) and vech(A) respectively.
+
+Julia has the vec(A) function as well.
+In Python NumPy arrays implement the flatten method, [ note 1 ] while in R the desired effect can be achieved via the c() or as.vector() functions or, more efficiently, by removing the dimensions attribute of a matrix A with dim(A) <- NULL . In R , function vec() of package 'ks' allows vectorization and function vech() implemented in both packages 'ks' and 'sn' allows half-vectorization.
+
+[ 2 ] [ 3 ] [ 4 ] Applications [ edit ] Vectorization is used in matrix calculus and its applications in establishing e.g., moments of random vectors and matrices, asymptotics, as well as Jacobian and Hessian matrices.
+
+[ 5 ] It is also used in local sensitivity and statistical diagnostics.
+
+[ 6 ] Notes [ edit ] ^ a b The identity for row-major vectorization is vec ⁡ ⁡ ( A B C ) = ( A ⊗ ⊗ C T ) vec ⁡ ⁡ ( B ) {\displaystyle \operatorname {vec} (ABC)=(A\otimes C^{\mathrm {T} })\operatorname {vec} (B)} .
+
+See also [ edit ] Duplication and elimination matrices Voigt notation Packed storage matrix Column-major order Matricization References [ edit ] ^ Macedo, H. D.; Oliveira, J. N. (2013). "Typing Linear Algebra: A Biproduct-oriented Approach".
+
+Science of Computer Programming .
+
+78 (11): 2160– 2191.
+
+arXiv : 1312.4818 .
+
+doi : 10.1016/j.scico.2012.07.012 .
+
+S2CID 9846072 .
+
+^ Duong, Tarn (2018).
+
+"ks: Kernel Smoothing" .
+
+R package version 1.11.0 .
+
+^ Azzalini, Adelchi (2017).
+
+"The R package 'sn': The Skew-Normal and Related Distributions such as the Skew-t" .
+
+R package version 1.5.1 .
+
+^ Vinod, Hrishikesh D. (2011).
+
+"Simultaneous Reduction and Vec Stacking" .
+
+Hands-on Matrix Algebra Using R: Active and Motivated Learning with Applications . Singapore: World Scientific. pp.
+
+233– 248.
+
+ISBN 978-981-4313-69-8 – via Google Books .
+
+^ Magnus, Jan; Neudecker, Heinz (2019).
+
+Matrix differential calculus with applications in statistics and econometrics . New York: John Wiley.
+
+ISBN 9781119541202 .
+
+^ Liu, Shuangzhe; Leiva, Victor; Zhuang, Dan; Ma, Tiefeng; Figueroa-Zúñiga, Jorge I. (March 2022).
+
+"Matrix differential calculus with applications in the multivariate linear model and its diagnostics" .
+
+Journal of Multivariate Analysis .
+
+188 : 104849.
+
+doi : 10.1016/j.jmva.2021.104849 .
+
+NewPP limit report
+Parsed by mw‐web.codfw.canary‐578f99f475‐tzqwc
+Cached time: 20250812025237
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.210 seconds
+Real time usage: 0.362 seconds
+Preprocessor visited node count: 859/1000000
+Revision size: 10411/2097152 bytes
+Post‐expand include size: 13890/2097152 bytes
+Template argument size: 888/2097152 bytes
+Highest expansion depth: 8/100
+Expensive parser function count: 2/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 25355/5000000 bytes
+Lua time usage: 0.122/10.000 seconds
+Lua memory usage: 4367185/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  218.630      1 -total
+ 55.36%  121.031      2 Template:Reflist
+ 36.86%   80.583      2 Template:Cite_journal
+ 32.35%   70.735      1 Template:Short_description
+ 17.95%   39.251      2 Template:Pagetype
+ 10.11%   22.110      4 Template:Main_other
+  9.21%   20.139      1 Template:Other_uses
+  9.21%   20.131      1 Template:SDcat
+  5.69%   12.431      2 Template:Cite_web
+  5.49%   11.994      2 Template:Cite_book Saved in parser cache with key enwiki:pcache:7136985:|#|:idhash:canonical and timestamp 20250812025237 and revision id 1295357058. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Vectorization_(mathematics)&oldid=1295357058 " Categories : Linear algebra Matrices (mathematics) Hidden categories: Articles with short description Short description is different from Wikidata This page was last edited on 13 June 2025, at 07:22 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Vectorization (mathematics) 5 languages Add topic
+

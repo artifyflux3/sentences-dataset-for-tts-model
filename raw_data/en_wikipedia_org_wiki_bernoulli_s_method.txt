@@ -1,0 +1,455 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 History 2 The method 3 Derivation of the method 4 Extensions 5 Example 6 Comparison with other methods Toggle Comparison with other methods subsection 6.1 Advantages 6.2 Limitations 7 Modern applications 8 Code 9 See also 10 References Toggle the table of contents Bernoulli's method Add languages Add links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Polynomial root-finding algorithm This article is about the root-finding algorithm . For an unrelated topic in ordinary differential equation , see Bernoulli differential equation . For an unrelated topic in fluid dynamics , see Bernoulli's principle .
+
+Excerpt from Observations Concerning Series by Daniel Bernoulli published in 1729.
+
+[ 1 ] In numerical analysis , Bernoulli's method , named after Daniel Bernoulli , is a root-finding algorithm which calculates the root of largest absolute value of a univariate polynomial .
+
+[ 2 ] [ 3 ] The method works under the condition that there is only one root (possibly multiple) of  maximal absolute value. The method computes the root of maximal absolute value as the limit of the quotients of two successive terms of a sequence defined by a linear recurrence whose coefficients are those of  the polynomial.
+
+Since the method converges with a linear order only, it is less efficient than other methods, such as Newton's method . However, it can be useful for finding an initial guess ensuring that these other methods converge to the root of maximal absolute value.
+
+[ 4 ] Bernoulli's method holds historical significance as an early approach to numerical root-finding and provides an elegant connection between recurrence relations and polynomial roots.
+
+History [ edit ] Lagrange on Bernoulli's method.
+
+[ 5 ] Bernoulli's method was first introduced by Swiss - French mathematician and physicist Daniel Bernoulli (1700-1782) in 1728.
+
+[ 1 ] [ 6 ] He noticed a trend from recurrent series created using polynomial coefficients growing by a ratio related to a root of the polynomial but did not prove why it worked.
+
+[ 6 ] In 1725, Bernoulli moved to Saint Petersburg with his brother Nicolaus II Bernoulli , who unfortunately died of fever in 1726.
+
+[ 7 ] While there, he worked closely with Leonhard Euler , a student of Johann Bernoulli , and made many advancements in harmonics , mathematical economics (see St. Petersburg paradox ), and hydrodynamics .
+
+[ 7 ] Euler called Bernoulli's method "frequently very useful" and gave a justification for why it works in 1748.
+
+[ 8 ] [ 3 ] The mathematician Joseph-Louis Lagrange expanded on this for the case of multiple roots in 1798.
+
+[ 5 ] [ 3 ] Bernoulli's method predates other root-finding algorithms like Graeffe's method (1826 to Dandelin) [ 9 ] [ 10 ] and is contemporary to Halley's method (1694).
+
+[ 11 ] [ 12 ] Since then, it has influenced the development of more modern algorithms such as the QD method.
+
+[ 13 ] [ 14 ] The method [ edit ] Given a polynomial p = a 0 z d + a 1 z d − − 1 + ⋯ ⋯ + a d {\displaystyle p=a_{0}z^{d}+a_{1}z^{d-1}+\dots +a_{d}} of degree d with complex coefficients . Choose d starting values x − − d + 1 , x − − d , … … , x − − 1 , x 0 , {\displaystyle x_{-d+1},x_{-d},\dots ,x_{-1},x_{0},} that are usually 0 , 0 , 0 , … … , 0 , 1 {\displaystyle 0,0,0,\dots ,0,1} .
+
+[ 15 ] Then, consider the sequence defined by the recurrence relation [ 2 ] x n = − − a 1 x n − − 1 + a 2 x n − − 2 + ⋯ ⋯ + a d x n − − d a 0 .
+
+{\displaystyle x_{n}=-{\frac {a_{1}x_{n-1}+a_{2}x_{n-2}+\dots +a_{d}x_{n-d}}{a_{0}}}.} Let q n = x n + 1 x n {\textstyle q_{n}={\frac {x_{n+1}}{x_{n}}}} be the ratio of successive terms of the sequence. If there is only one complex root of maximal absolute value, then the sequence of the ⁠ q n {\displaystyle q_{n}} ⁠ has a limit that is this root.
+
+[ 16 ] If the coefficients of the polynomial are real then, via the complex conjugate root theorem , each of the polynomial's roots must be either a real number or part of a complex conjugate pair. Therefore, if the polynomial contains a single dominant complex root, then the coefficients must include a complex number , and so the sequence generated using the coefficients will contain complex numbers. Bernoulli's method will work to find a single dominant root, regardless of whether it is real or complex.
+
+[ 2 ] If a root is part of a complex conjugate pair, then each root in the pair has the same maximal absolute value, and a modified form of Bernoulli's method is needed to calculate them.
+
+[ 3 ] Derivation of the method [ edit ] The solutions of the n -th order difference equation a d x m + a n − − 1 x m − − 1 + ⋯ ⋯ + a 0 x m − − d = 0 {\displaystyle a_{d}x_{m}+a_{n-1}x_{m-1}+\dots +a_{0}x_{m-d}=0} have the form x m = c 1 ( m ) r 1 m + c 2 ( m ) r 2 m + ⋯ ⋯ + c k ( m ) r k m , {\displaystyle x_{m}=c_{1}(m)r_{1}^{m}+c_{2}(m)r_{2}^{m}+\dots +c_{k}(m)r_{k}^{m},} where the r i {\displaystyle r_{i}} are the distinct complex  roots of p , and c i ( m ) {\displaystyle c_{i}(m)} is polynomial in m of degree less than the multiplicity of r i {\displaystyle r_{i}} . For simple roots, c i {\displaystyle c_{i}} is a constant. The coefficients c i {\displaystyle c_{i}} can be determined from the first d terms of the sequence x m {\displaystyle x_{m}} by solving a linear system of equations. This system has always a unique solution since its matrix is a Vandermonde matrix if the roots are simple, or a confluent Vandermonde matrix otherwise.
+
+[ 17 ] The quotient of two successive terms of the sequence is x m + 1 x m = c 1 ( m + 1 ) r 1 m + 1 + c 2 ( m + 1 ) r 2 m + 1 + ⋯ ⋯ + c k ( m + 1 ) r k m + 1 c 1 ( m ) r 1 m + c 2 ( m ) r 2 m + ⋯ ⋯ + c k ( m ) r k m .
+
+{\displaystyle {\frac {x_{m+1}}{x_{m}}}={\frac {c_{1}(m+1)r_{1}^{m+1}+c_{2}(m+1)r_{2}^{m+1}+\dots +c_{k}(m+1)r_{k}^{m+1}}{c_{1}(m)r_{1}^{m}+c_{2}(m)r_{2}^{m}+\dots +c_{k}(m)r_{k}^{m}}}.} Factoring out r 1 {\displaystyle r_{1}} gives x m + 1 x m = r 1 ⋅ ⋅ c 1 ( m + 1 ) + c 2 ( m + 1 ) ( r 2 r 1 ) m + 1 + ⋯ ⋯ + c k ( m + 1 ) ( r k r 1 ) m + 1 c 1 ( m ) + c 2 ( m ) ( r 2 r 1 ) m + ⋯ ⋯ + c k ( m ) ( r k r 1 ) m .
+
+{\displaystyle {\frac {x_{m+1}}{x_{m}}}=r_{1}\cdot {\frac {c_{1}(m+1)+c_{2}(m+1)\left({\frac {r_{2}}{r_{1}}}\right)^{m+1}+\dots +c_{k}(m+1)\left({\frac {r_{k}}{r_{1}}}\right)^{m+1}}{c_{1}(m)+c_{2}(m)\left({\frac {r_{2}}{r_{1}}}\right)^{m}+\dots +c_{k}(m)\left({\frac {r_{k}}{r_{1}}}\right)^{m}}}.} Assuming r 1 {\displaystyle r_{1}} is the dominant root, such that | r 1 | > | r i | {\displaystyle |r_{1}|>|r_{i}|} for ⁠ i > 1 {\displaystyle i>1} ⁠ , each ratio r i r 1 {\textstyle {\frac {r_{i}}{r_{1}}}} has an absolute value less than 1. Thus as m increases, ( r i r 1 ) m {\textstyle \left({\frac {r_{i}}{r_{1}}}\right)^{m}} approaches zero, so lim m → → ∞ ∞ c i ( m ) ( r i r 1 ) m = 0 , {\textstyle \lim _{m\to \infty }c_{i}(m)\left({\frac {r_{i}}{r_{1}}}\right)^{m}=0,} even for non-constant c i ( m ) {\textstyle c_{i}(m)} . Hence the limit of the fraction is the same as that of c 1 ( m + 1 ) c 1 ( m ) , {\textstyle {\frac {c_{1}(m+1)}{c_{1}(m)}},} which is 1 if ⁠ c i {\displaystyle c_{i}} ⁠ is a constant or a nonzero polynomial in m .
+
+Hence lim m → → ∞ ∞ x m + 1 x m = r 1 {\displaystyle \lim _{m\to \infty }{\frac {x_{m+1}}{x_{m}}}=r_{1}} in all cases where there is only one root of maximal absolute value.
+
+[ 18 ] This assumes c 1 ≠ ≠ 0 , {\displaystyle c_{1}\neq 0,} which is satisfied by using initial values of all zeros followed by a final 1.
+
+[ 15 ] Indeed, Cramer's rule implies that c 1 {\displaystyle c_{1}} is a signed quotient of two nonsingular Vandermonde matrices, if all roots are simple; in the case of multiple roots, the dominant coefficient of c 1 ( m ) {\displaystyle c_{1}(m)} is a signed quotient of two nonsingular confluent matrices.
+
+Extensions [ edit ] Excerpt by Aitken on his extension of Bernoulli's method.
+
+[ 19 ] Bernoulli's method converges to the root of largest modulus of a polynomial with a linear order of convergence .
+
+[ 3 ] It does not converge when there are two distinct complex roots of the same largest modulus, but there are extensions of the method that work in this case.
+
+[ 2 ] For finding the root of smallest absolute value, one can apply the method on the reciprocal polynomial (polynomial obtained by reversing the order of the coefficients), and inverting the result. When using root deflation with something like Horner's method , deflating from the smallest root is more stable .
+
+[ 20 ] To speed convergence, Alexander Aitken developed his Aitken delta-squared process as part of an improvement on his extension to Bernoulli's method, which also found all of the roots simultaneously.
+
+[ 19 ] [ 21 ] Another extension of Bernoulli's method is the Quotient-Difference (QD) method, which also finds all roots simultaneously, even though it can be unstable.
+
+[ 3 ] Given the slow convergence of Bernoulli's method, and the instability of QD method, they can instead be used as reliable ways to find starting values for other root-finding algorithms, rather than iterated until tolerance.
+
+[ 22 ] Example [ edit ] Plot of the example polynomial on a Cartesian plane showing the dominant root at ( 1 + 5 2 , 0 ) {\textstyle \left({\frac {1+{\sqrt {5}}}{2}},0\right)} .
+
+Bernoulli's method convergence on the root of p ( z ) = z 2 − − z − − 1 {\displaystyle p(z)=z^{2}-z-1} .
+
+The following example illustrates Bernoulli's method applied to a quadratic polynomial. Let p ( z ) = z 2 − − z − − 1 = 0 {\textstyle p(z)=z^{2}-z-1=0} . Then a 0 = 1 {\displaystyle a_{0}=1} , a 1 = − − 1 {\displaystyle a_{1}=-1} , and a 2 = − − 1 {\displaystyle a_{2}=-1} , so the recurrence becomes: x n = − − ( − − 1 ) x n − − 1 + ( − − 1 ) x n − − 2 1 = x n − − 1 + x n − − 2 {\displaystyle {\begin{aligned}x_{n}&=-{\frac {(-1)x_{n-1}+(-1)x_{n-2}}{1}}\\&=x_{n-1}+x_{n-2}\end{aligned}}} Using the recommended initial values x − − 1 = 0 {\displaystyle x_{-1}=0} , x 0 = 1 {\displaystyle x_{0}=1} generates the following table: n x n q n | q n - φ| order -1 0 − − − 0 1 1 0.618033989 − 1 1 2 0.381966011 2.44042009 2 2 1.5 0.118033989 0.766784227 3 3 1.666 0.047966011 1.086347793 4 5 1.6 0.018033989 0.972379866 5 8 1.625 0.006966011 1.016299341 6 13 1.61538461538 0.002649373 0.993860956 7 21 1.61904761905 0.00101363 1.002357448 8 34 1.61764705882 0.00038693 0.999101399 9 55 1.61818181818 0.000147829 1.000343479 This eventually converges on 1 + 5 2 ≈ ≈ 1.618034 {\textstyle {\frac {1+{\sqrt {5}}}{2}}\approx 1.618034} , also known as the Golden ratio , which is the largest root of the example polynomial. The sequence x n {\displaystyle {x_{n}}} is also the well-known Fibonacci sequence . Bernoulli's method works even if the sequence used different starting values instead of 0 and 1; the limit of the quotient q n {\displaystyle q_{n}} remains the same.
+
+The example also shows the absolute error approaching zero as the sequence continues. It is then possible to calculate the order of convergence using three contiguous errors. This example demonstrates that Bernoulli's method converged linearly as it approaches the dominant root of the polynomial.
+
+Comparison with other methods [ edit ] Compared to other root-finding algorithms, Bernoulli's method offers distinct advantages and limitations. The following table summarizes several important differences of Bernoulli's method in comparison with other methods: Method Convergence Order Initial Guess Multiple Roots Uses Derivatives Bernoulli's method Linear (1st) No No (largest) No Secant method Superlinear (1.618) Yes (2 points) No No Bairstow's method Quadratic (2nd) Yes (quadratic) Yes (pairs) No Durand–Kerner method Quadratic (2nd) Yes ( d points) Yes ( d roots) No Newton's method Quadratic (2nd) Yes (1 point) No Yes (1st) Halley's method Cubic (3rd) Yes (1 point) No Yes (1st & 2nd) Advantages [ edit ] No initial guess: Newton's method , Secant method , Halley's method , and other similar approaches, all require one or more starting values.
+
+[ 23 ] Bernoulli's method requires only the polynomial coefficients, eliminating the need for an initial guess.
+
+No derivatives: Although derivatives of polynomials are straightforward with the power rule , this is a computation that is not required in Bernoulli's method.
+
+Naturally finds a dominant root: Normally, finding large roots is considered less stable, but substituting z in p with ( 1 z ) {\textstyle \left({\frac {1}{z}}\right)} , which reverses the order of coefficients, and then inverting the result of Bernoulli's method gives the smallest root of p , which is more stable.
+
+[ 8 ] [ 20 ] Limitations [ edit ] Slow convergence: Fröberg writes "As a rule, Bernoulli's method converges slowly, so instead, one ought to use, for example, the Newton-Raphson method." [ 24 ] This is in contrast to Jennings, who writes "The approximate zeros obtained by the Bernoulli method can be further improved by applying, say, the Newton-Raphson method".
+
+[ 4 ] One author argues for instead-of while the other promotes in-conjunction-with, due to the linear order of convergence. It is important to note that the method's slow convergence can be improved with Aitken's delta-squared process .
+
+[ 19 ] Finds one root at a time: The standard version of Bernoulli's method finds a single root, requiring deflation to find another. When compared to algorithms such as Durand–Kerner method , Aberth method , Bairstow's method , and the "RPOLY" version of Jenkins–Traub algorithm they find multiple roots by default. One can overcome this limitation by applying an extension of Bernoulli's method such as the method by Aitken or QD method.
+
+[ 25 ] Issues with multiples: Multiplicity and multiple dominant roots, such as conjugate pairs, can exacerbate the slowness of Bernoulli's method, yet improvements can be made to counter this.
+
+[ 26 ] [ 27 ] Modern applications [ edit ] The Electronic Delay Storage Automatic Calculator ( EDSAC ) at the University of Cambridge Mathematical Laboratory in England, 1948 Bernoulli's method, despite its linear convergence, remains relevant in computational mathematics with finding initial values for Polynomial root-finding algorithms and extensions to more general mathematical domains.
+
+[ 4 ] It can also be used to find complex roots [ 2 ] yet the more sophisticated extensions of Bernoulli's method, such as the one by Aitken [ 19 ] and QD method, [ 2 ] are able to find complex roots while solving for all of the roots simultaneously. There are also variations on Bernoulli's method that improve stability and handle multiple roots.
+
+[ 26 ] [ 27 ] A 2025 analysis of the QD method included an implementation in C .
+
+[ 28 ] In related applications, Bernoulli's method has been shown to be equivalent to Power method on a companion matrix for finding eigenvalues .
+
+[ 29 ] Advancements in systolic arrays have led to a parallelized version of Bernoulli's method.
+
+[ 30 ] The method has also been generalized to find poles of rational functions , extending to the field of complex analysis .
+
+[ 31 ] An extension of Bernoulli's method was used for improving linear multistep methods .
+
+[ 32 ] Another development of a modified Bernoulli's method builds a supplemental function using Taylor and Laurent series expansions to then solve for roots.
+
+[ 33 ] [ 34 ] An implementation of Bernoulli's method is included with the CodeCogs open source numerical methods library.
+
+[ 35 ] The method was also programmed on the EDSAC , along with Graeffe's method , but Newton's method was preferred for being faster.
+
+[ 36 ] Code [ edit ] Bernoulli's method is implemented below in the Python programming language.
+
+def bernoulli_method ( c , eps = 1e-8 , max_iter = 60 ): """ Bernoulli's method for finding the dominant root of a polynomial.
+
+Parameters ---------- c : list List of polynomial coefficients in descending order of powers.
+
+For example, if p(x) = x^2 - x - 1, c = [1.0, -1.0, -1.0] eps : float, optional Convergence tolerance. Default is 1e-8.
+
+max_iter : int, optional Maximum number of iterations. Default is 60.
+
+Returns ------- float or complex The dominant root of the polynomial if found, otherwise float('nan').
+
+Examples -------- >>> bernoulli_method([1.0, -1.0, -1.0])  # Golden ratio example 1.6180339901755971 >>> bernoulli_method([1.0, -3.0, 2.0])   # x^2 - 3x + 2 = (x - 2)(x - 1) 2.0000000074505806 """ n = len ( c ) x = [ 0.0 ] * ( n - 2 ) + [ 1.0 ] # Initialize with zeros and a 1.0 q = [] for i in range ( n - 1 , max_iter + n ): # Apply the recurrence relation: x_n = -(a_1*x_{n-1} + ... + a_d*x_{n-d})/a_0 x .
+
+append ( - sum ( c [ k ] * x [ - k + i ] for k in range ( 1 , n )) / c [ 0 ]) q .
+
+append ( x [ - 1 ] / x [ - 2 ]) # Quotient of two successive x terms q_n = x_{n+1} / x_n # Check for convergence after two quotient values if len ( q ) >= 2 and abs ( q [ - 1 ] - q [ - 2 ]) <= eps : return q [ - 1 ] # Return the last computed quotient return float ( "nan" ) # No convergence within max_iter An efficiency improvement would be to normalize the coefficients by the leading coefficient at the beginning of the method ( c = [coef / c[0] for coef in c] ), eliminating the need for a division operation in the recurrence relation inside the main loop body ( x.append(-sum(c[k] * x[-k + i] for k in range(1, n))) ). This change does not impact the convergence order of the method. Implementing higher-order convergence would require Aitken's delta-squared process .
+
+See also [ edit ] Aitken's delta-squared process Graeffe's method Horner's method Lehmer-Schur algorithm List of things named after members of the Bernoulli family Polynomial root-finding References [ edit ] ^ a b Bernoulli, Daniel (1729).
+
+"Observations de Seriebus" .
+
+Commentarii Academiae Scientiarum Imperialis Petropolitanae .
+
+t.3 . Typis Academiae: 92.
+
+^ a b c d e f Henrici, Peter (1965).
+
+Elements Of Numerical Analysis . John Wiley & Sons. pp.
+
+146– 179.
+
+^ a b c d e f McNamee, J. M.; Pan, V. Y. (1 January 2013). "Chapter 10 - Bernoulli, Quotient-Difference, and Integral Methods".
+
+Studies in Computational Mathematics . Vol. 16. Elsevier. pp.
+
+381– 460.
+
+doi : 10.1016/B978-0-444-52730-1.00004-7 .
+
+ISBN 978-0-444-52730-1 .
+
+^ a b c Jennings, Walter (1964).
+
+First course in numerical methods . New York: Macmillan. p. 31.
+
+^ a b Lagrange, Joseph-Louis (1808). "Note VI".
+
+Traité de la résolution des équations numériques de tous les degrés , avec des notes sur plusieurs points de la théorie des équations algébriques ; par J.-L. Lagrange, de l'Institut des sciences... Nouvelle édition, revue et augmentée par l'auteur (in French). p. 136.
+
+^ a b Chabert, Jean-Luc, ed. (1999).
+
+A history of algorithms : from the pebble to the microchip . Berlin; New York: Springer. pp.
+
+223– 224.
+
+ISBN 978-3-540-63369-3 .
+
+^ a b O'Connor, J J; Robertson, E F.
+
+"Daniel Bernoulli - Biography" .
+
+Maths History . University of St. Andrews.
+
+^ a b Euler (1988).
+
+"Using Recurrent Series to Find Roots of Equations" .
+
+Introduction to Analysis of the Infinite: Book I . Springer. pp.
+
+283– 302.
+
+doi : 10.1007/978-1-4612-1021-4_17 .
+
+ISBN 978-1-4612-1021-4 .
+
+^ Dandelin, G. (1826).
+
+"Recherches sur la résolution des équations numériques" .
+
+Nouveaux mémoires de l'Académie Royale des Sciences et Belles-Lettres de Bruxelles .
+
+3 : 7– 37.
+
+^ Householder, Alston S. (1959).
+
+"Dandelin, Lobacevskii, or Graeffe" .
+
+The American Mathematical Monthly .
+
+66 (6): 464– 466.
+
+doi : 10.2307/2310626 .
+
+ISSN 0002-9890 .
+
+JSTOR 2310626 .
+
+^ Halley, Edmond (May 1694).
+
+"Methodus nova accurata & facilis inveniendi radices æqnationum quarumcumque generaliter, sine praviæ reductione" .
+
+Philosophical Transactions of the Royal Society of London .
+
+18 (210): 136– 148.
+
+doi : 10.1098/rstl.1694.0029 .
+
+^ Scavo, T. R.; Thoo, J. B. (May 1995).
+
+"On the Geometry of Halley's Method" .
+
+The American Mathematical Monthly .
+
+102 (5): 417– 426.
+
+doi : 10.1080/00029890.1995.12004594 .
+
+^ Rutishauser, Heinz (May 1954).
+
+"Der Quotienten-Differenzen-Algorithmus" .
+
+Zeitschrift für angewandte Mathematik und Physik .
+
+5 (3): 233– 251.
+
+Bibcode : 1954ZaMP....5..233R .
+
+doi : 10.1007/BF01600331 .
+
+^ Henrici, Peter (1983).
+
+"Topics in Computational Complex Analysis: II. New Developments Concerning the Quotient-Difference Algorithm" .
+
+Computational Aspects of Complex Analysis . pp.
+
+149– 168.
+
+doi : 10.1007/978-94-009-7121-9_6 .
+
+ISBN 978-94-009-7123-3 .
+
+^ a b Blum, E. K. (Edward K. ) (1972).
+
+Numerical analysis and computation theory and practice . Reading, Mass., Addison-Wesley Pub. Co. pp.
+
+210– 211.
+
+^ Weisstein, Eric W.
+
+"Bernoulli's Method" .
+
+mathworld.wolfram.com .
+
+^ Whittaker, E. T.; Robinson, G. (1924). "52. The Method of Daniel Bernoulli.".
+
+The Calculus Of Observations . Blackie and Son. pp.
+
+98– 99.
+
+^ "Bernoulli method" .
+
+encyclopediaofmath.org . Encyclopedia of Mathematics . Retrieved 20 April 2025 .
+
+^ a b c d Aitken, A. C. (January 1927).
+
+"XXV.—On Bernoulli's Numerical Solution of Algebraic Equations" .
+
+Proceedings of the Royal Society of Edinburgh .
+
+46 : 289– 305.
+
+doi : 10.1017/S0370164600022070 .
+
+^ a b Wilkinson, J. H. (James Hardy) (1963).
+
+Rounding errors in algebraic processes . Englewood Cliffs, N.J.: Prentice-Hall. pp.
+
+59– 62.
+
+^ Brezinski, Claude; Redivo–Zaglia, Michela (January 2019).
+
+"The genesis and early developments of Aitken's process, Shanks' transformation, the ε–algorithm, and related fixed point methods" .
+
+Numerical Algorithms .
+
+80 (1): 11– 133.
+
+doi : 10.1007/s11075-018-0567-2 .
+
+^ Henrici, P.; Watkins, Bruce O. (September 1965).
+
+"Finding zeros of a polynomial by the Q-D algorithm" .
+
+Communications of the ACM .
+
+8 (9): 570– 574.
+
+doi : 10.1145/365559.365619 .
+
+^ Qureshi, Sania; Soomro, Amanullah; Naseem, Amir; Gdawiec, Krzysztof; Argyros, Ioannis K.; Alshaery, Aisha A.; Secer, Aydin (15 May 2024).
+
+"From Halley to Secant: Redefining root finding with memory-based methods including convergence and stability" .
+
+Mathematical Methods in the Applied Sciences .
+
+47 (7): 5509– 5531.
+
+Bibcode : 2024MMAS...47.5509Q .
+
+doi : 10.1002/mma.9876 .
+
+^ Fröberg, Carl Erik (1965).
+
+Introduction to numerical analysis . Reading, Mass.: Addison-Wesley. pp.
+
+232– 233.
+
+^ Henrici, Peter (1958).
+
+"The quotient-difference algorithm" .
+
+Applied Mathematics Series .
+
+49 . U.S. Dept. of Commerce, National Bureau of Standards: 23– 46.
+
+hdl : 2027/uiug.30112007252650 .
+
+^ a b Dimsdale, Bernard (1948).
+
+"On Bernoulli's Method for Solving Algebraic Equations" .
+
+Quarterly of Applied Mathematics .
+
+6 (1): 77– 81.
+
+doi : 10.1090/qam/24237 .
+
+ISSN 0033-569X .
+
+JSTOR 43633641 .
+
+^ a b Dimsdale, Bernard (1956). "On Bernoulli's method for solving algebraic equations, II".
+
+Proceedings of the 1956 11th ACM national meeting on - ACM '56 . pp.
+
+21– 24.
+
+doi : 10.1145/800258.808939 .
+
+^ Debnath, G.; Vasu, B. (March 2025).
+
+"Quotient-Difference Algorithm and Code for Cubic Polynomials with Computational Implementation" .
+
+Numerical Analysis and Applications .
+
+18 (1): 44– 58.
+
+doi : 10.1134/s1995423924600093 .
+
+^ Young, David M. (1972).
+
+A survey of numerical mathematics . Reading, Mass.: Addison-Wesley. pp.
+
+219– 220.
+
+^ Margaritis, K; Evans, D.J (September 1990).
+
+"Systolic designs for Bernoulli's method" .
+
+Parallel Computing .
+
+15 ( 1– 3): 227– 240.
+
+doi : 10.1016/0167-8191(90)90045-B .
+
+^ Dózsa, Tamás; Schipp, Ferenc; Soumelidis, Alexandros (30 June 2024).
+
+"On Bernoulli's Method" .
+
+SIAM Journal on Numerical Analysis .
+
+62 (3): 1259– 1277.
+
+doi : 10.1137/22M1528501 .
+
+^ Kireev, I. V.; Novikov, A. E.; Novikov, E. A. (December 2022).
+
+"Stability Domains of Explicit Multistep Methods" .
+
+Numerical Analysis and Applications .
+
+15 (4): 343– 352.
+
+doi : 10.1134/S1995423922040073 .
+
+^ Lebedev, A. V.; Trubnikov, Yu. V.; Chernyavsky, M. M. (30 October 2023).
+
+"On the Bernoulli–Euler–Lagrange–Aitken numerical method for roots of polynomials" .
+
+Doklady of the National Academy of Sciences of Belarus .
+
+67 (5): 359– 365.
+
+doi : 10.29235/1561-8323-2023-67-359-365 .
+
+^ Lebedev, A. V.; Trubnikov, Yu. V.; Chernyavsky, M. M. (August 2024).
+
+"On the Hadamard and Vandermonde Determinants and the Bernoulli–Euler–Lagrange–Aitken Method for Calculating the Roots of Polynomials" .
+
+Mathematical Notes .
+
+116 ( 1– 2): 77– 92.
+
+doi : 10.1134/S0001434624070071 .
+
+^ Bentea, Lucian.
+
+"Bernoulli - Rootfinding - Maths in C, C++" .
+
+www.codecogs.com .
+
+^ Brooker, R. A. (April 1952).
+
+"The solution of algebraic equations on the EDSAC" .
+
+Mathematical Proceedings of the Cambridge Philosophical Society .
+
+48 (2): 255– 270.
+
+Bibcode : 1952PCPS...48..255B .
+
+doi : 10.1017/S0305004100027614 .
+
+v t e Root-finding algorithms Bracketing (no derivative) Bisection method Regula falsi ITP method Householder Newton's method Halley's method Quasi-Newton Broyden's method Secant method Newton–Krylov method Steffensen's method Hybrid methods Brent's method Ridders' method Polynomial methods Aberth method Bairstow's method Bernoulli's method Durand–Kerner method Graeffe's method Jenkins–Traub algorithm Lehmer–Schur algorithm Laguerre's method Splitting circle method Other methods Fixed-point iteration Inverse quadratic interpolation Muller's method Sidi's generalized secant method Retrieved from " https://en.wikipedia.org/w/index.php?title=Bernoulli%27s_method&oldid=1294237357 " Category : Polynomial factorization algorithms Hidden categories: CS1 French-language sources (fr) Articles with short description Short description matches Wikidata Articles with example Python (programming language) code This page was last edited on 6 June 2025, at 13:43 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Bernoulli's method Add languages Add topic
+

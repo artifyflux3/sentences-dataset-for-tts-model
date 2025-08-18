@@ -1,0 +1,133 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Domain name server Toggle Domain name server subsection 1.1 Types of name servers 1.2 Authoritative name server 1.2.1 Authoritative answer 1.3 Recursive Resolver 1.3.1 Recursive query 1.4 Caching name server 2 See also 3 References 4 External links Toggle the table of contents Name server 22 languages العربية Azərbaycanca বাংলা Беларуская (тарашкевіца) Deutsch Eesti Español Esperanto فارسی 한국어 Қазақша Lietuvių Bahasa Melayu 日本語 Русский Simple English کوردی Српски / srpski Türkçe Українська Tiếng Việt 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Computer hardware or software server For protocol NAMESERVER that has been replaced with DNS , see ARPA Host Name Server Protocol .
+
+A name server is a computer application that implements a network service for providing responses to queries against a directory service . It translates an often humanly meaningful, text-based identifier to a system-internal, often numeric identification or addressing component. This service is performed by the server in response to a service protocol request.
+
+An example of a name server is the server component of the Domain Name System (DNS), the core namespaces of the Internet . The most important function of DNS servers is the translation (resolution) of human-memorable domain names and hostnames into the corresponding numeric Internet Protocol (IP) addresses, which can be routed in the Internet.
+
+Domain name server [ edit ] Main article: Domain Name System The Internet maintains two principal namespaces : the domain name hierarchy [ 1 ] and the IP address system.
+
+[ 2 ] The Domain Name System maintains the domain namespace and provides translation services between these two namespaces. Internet name servers implement the Domain Name System.
+
+[ 3 ] The top hierarchy of the Domain Name System is served by the root name servers maintained by delegation by the Internet Corporation for Assigned Names and Numbers (ICANN). DNS servers, which are located all over the world, translate domain names into IP addresses, giving them control over which server a user may access via a given domain. Below the root, Internet resources are organized into a hierarchy of domains, administered by the respective registrars and domain name holders.  A DNS name server is a server that stores the DNS records , such as address (A, AAAA) records, name server (NS) records, and mail exchanger (MX) records for a domain name (see also List of DNS record types ) and responds with answers to queries against its database.
+
+Types of name servers [ edit ] Name servers are usually either authoritative or recursive , as described below.
+
+Although not the usual practice today, name servers can be both authoritative and recursive, if they are configured to give authoritative answers to queries in some zones, while acting as a caching name server for all other zones.
+
+[ 4 ] Authoritative name server [ edit ] An authoritative name server is a name server that is responsible for giving answers in response to questions asked about names in a zone . An authoritative-only name server returns answers only to queries about domain names for which it is responsible (as  specifically configured by its administrator).
+
+An authoritative name server can either be a primary server or a secondary server. A primary server for a zone is the server that stores the definitive versions of all records in that zone.  It is identified in the start-of-authority (SOA) resource record.  A secondary server for a zone uses an automatic updating mechanism to maintain an identical copy of the primary server's database for a zone. Examples of such mechanisms include DNS zone transfers and file transfer protocols. DNS provides a mechanism whereby the primary for a zone can notify all the known secondaries for that zone when the contents of the zone have changed. The contents of a zone are either manually configured by an administrator, or managed using Dynamic DNS .
+
+[ 5 ] Every domain name appears in a zone served by one or more authoritative name servers. The fully qualified domain names of the authoritative name servers of a zone are listed in the NS records of that zone. If the server for a zone is not also authoritative for its parent zone, the server for the parent zone must be configured with a delegation for the zone.
+
+[ 6 ] When a domain is registered with a domain name registrar , the zone administrator provides the list of name servers (typically at least two, for redundancy [ 7 ] ) that are authoritative for the zone that contains the domain. The registrar provides the names of these servers to the domain registry for the top-level domain containing the zone. The domain registry in turn configures the authoritative name servers for that top-level domain with delegations for each server for the zone. If the fully qualified domain name of any name server for a zone appears within that zone, the zone administrator provides IP addresses for that name server, which are installed in the parent zone as glue records ; otherwise, the delegation consists of the list of NS records for that zone.
+
+[ 8 ] Authoritative answer [ edit ] A name server indicates that its response is authoritative by setting the Authoritative Answer ( AA ) bit in the response to a query on a name for which it is authoritative. Name servers providing answers for which they are not authoritative (for example, name servers for parent zones) do not set the AA bit.
+
+[ 3 ] Recursive Resolver [ edit ] A Recursive Resolver (sometimes called a Recursive Name Server) is a DNS name server that accepts recursive queries (defined below) from clients (who are using a stub resolver), and then resolves those queries, either from a cache of prior results, or by asking one or more authoritative servers.
+
+Recursive query [ edit ] See also: Public recursive name server If a name server cannot answer a query because it does not contain an entry for the host in its DNS cache, it may recursively query name servers higher up in the hierarchy.
+
+[ 9 ] This is known as a recursive query or recursive lookup . A server providing recursive queries is known as a recursive name server or recursive DNS , sometimes abbreviated as recdns .
+
+[ 10 ] In principle, authoritative name servers suffice for the operation of the Internet. However, with only authoritative name-servers operating, every DNS query must start with recursive queries at the root zone of the Domain Name System and each user system must implement resolver software capable of recursive operation.
+
+[ clarification needed ] Caching name server [ edit ] Caching name servers ( DNS caches ) are usually recursive resolvers that store DNS query results for a period of time determined in the configuration (time-to-live) of each domain-name record. DNS caches improve the efficiency of the DNS by reducing DNS traffic across the Internet, and by reducing load on authoritative name-servers, particularly root name-servers. Because they can answer questions more quickly, they also increase the performance of end-user applications that use the DNS.
+
+Caching name servers are often also recursive name servers—they perform every step necessary to answer any DNS query they receive. To do this the name server queries each authoritative name-server in turn, starting from the DNS root zone. It continues until it reaches the authoritative server for the zone that contains the queried domain name. That server provides the answer to the question, or definitively says it can't be answered, and the caching resolver then returns this response to the client that asked the question.
+The authority, resolving and caching functions can all be present in a DNS server implementation, but this is not required: a DNS server can implement any one of these functions alone, without implementing the others.
+
+Internet service providers typically provide caching resolvers for their customers. In addition, many home-networking routers implement caching resolvers to improve efficiency in the local network.
+Some systems utilize nscd , which stands for the "name service caching daemon".
+
+[ 11 ] See also [ edit ] BIND Comparison of DNS server software Trojan.Win32.DNSChanger Domain Name System Security Extensions Lightweight Directory Access Protocol Network Information Service Name Service Switch (NSS) resolver , resolv.conf , resolvconf for Unix / Linux Open Root Server Network RealNames List of managed DNS providers Public recursive name servers References [ edit ] ^ RFC 1034, Domain Names—Concepts and Facilities , P. Mockapetris, The Internet Society (November 1987) ^ RFC 781, Internet Protocol—DARPA Internet Program Protocol Specification , Information Sciences Institute, J. Postel (Ed.), The Internet Society (September 1981) ^ a b RFC 1035, Domain Names — Implementation and Specification , P. Mockapetris, The Internet Society (November 1987) ^ Paul Hoffman; Andrew Sullivan; Kazunori Fujiwara (January 2019).
+
+DNS Terminology .
+
+IETF . BCP 219 . Retrieved 17 December 2015 .
+
+^ Yakov Rekhter; Susan Thomson; Jim Bound; Paul Vixie (April 1007).
+
+Dynamic Updates in the Domain Name System (DNS Update) .
+
+IETF .
+
+doi : 10.17487/RFC2136 .
+
+RFC 2136 . Retrieved 17 December 2015 .
+
+^ Robert Elz; Randy Bush (July 1997).
+
+Clarifications to the DNS Specification .
+
+IETF .
+
+doi : 10.17487/RFC2181 .
+
+RFC 2181 . Retrieved 17 December 2015 .
+
+^ "Name Server definition at techterms.com" .
+
+^ Paul Mockapetris (November 1987).
+
+"Technical considerations" .
+
+Domain Names - Domain Concepts and Facilities .
+
+IETF . sec. 4.2.1.
+
+doi : 10.17487/RFC1034 .
+
+RFC 1034 . Retrieved 17 December 2015 .
+
+^ "Composite Application Manager for Internet Service Monitoring, Reference Guide" . IBM . Retrieved 15 February 2012 .
+
+^ "Network setup for Cambridge's new DNS servers" . Retrieved 2018-02-05 .
+
+The recursive DNS server (aka recdns) ^ , though this is typically not used for caching DNS names.
+
+Nemeth, Evi ; Snyder, Garth; Heine, Tra. (2006).
+
+Linux administration handbook (2 ed.). Addison-Wesley Professional. p. 504e.
+
+ISBN 978-0-13-148004-9 . Retrieved 2012-02-14 .
+
+ncsd [.....] cache[s] the results of DNS lookups [...] but it also wraps the library routines that access information from the passwd and group files and their network database equivalents.
+
+[ permanent dead link ] External links [ edit ] Free and Public DNS Servers Archived 2016-10-15 at the Wayback Machine , article on about.com by Tim Fisher, retrieved on 2015-02-08 21-59 UTC DNS & BIND Resources Archived 2006-09-02 at the Wayback Machine NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐z2mj4
+Cached time: 20250812001748
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.238 seconds
+Real time usage: 0.321 seconds
+Preprocessor visited node count: 2222/1000000
+Revision size: 11888/2097152 bytes
+Post‐expand include size: 30123/2097152 bytes
+Template argument size: 2716/2097152 bytes
+Highest expansion depth: 18/100
+Expensive parser function count: 6/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 32001/5000000 bytes
+Lua time usage: 0.141/10.000 seconds
+Lua memory usage: 6071025/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  291.444      1 -total
+ 51.14%  149.057      1 Template:Reflist
+ 36.07%  105.137      4 Template:Cite_IETF
+ 23.71%   69.107      1 Template:Short_description
+ 14.92%   43.488      2 Template:Pagetype
+ 10.90%   31.761      1 Template:Clarify
+  9.53%   27.787      1 Template:Fix-span
+  7.34%   21.395      4 Template:Category_handler
+  6.99%   20.384      1 Template:For
+  5.26%   15.318      5 Template:Main_other Saved in parser cache with key enwiki:pcache:39241:|#|:idhash:canonical and timestamp 20250812001748 and revision id 1303969016. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Name_server&oldid=1303969016 " Categories : Internet Protocol based network software Domain Name System Hidden categories: All articles with dead external links Articles with dead external links from July 2025 Articles with permanently dead external links Articles with short description Short description is different from Wikidata Wikipedia articles needing clarification from May 2016 Webarchive template wayback links This page was last edited on 3 August 2025, at 04:23 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Name server 22 languages Add topic
+

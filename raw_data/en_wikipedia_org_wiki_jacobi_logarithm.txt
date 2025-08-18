@@ -1,0 +1,131 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Definition 2 Uses 3 Examples 4 See also 5 References 6 Further reading Toggle the table of contents Zech's logarithm 3 languages Ελληνικά Bahasa Indonesia Português Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia (Redirected from Jacobi logarithm ) Tool for a fast finite-field arithmetic Zech logarithms are used to implement addition in finite fields when elements are represented as powers of a generator α α {\displaystyle \alpha } .
+
+Zech logarithms are named after Julius Zech , [ 1 ] [ 2 ] [ 3 ] [ 4 ] and are also called Jacobi logarithms , [ 5 ] after Carl G. J. Jacobi who used them for number theoretic investigations.
+
+[ 6 ] Definition [ edit ] Given a primitive element α α {\displaystyle \alpha } of a finite field, the Zech logarithm relative to the base α α {\displaystyle \alpha } is defined by the equation α α Z α α ( n ) = 1 + α α n , {\displaystyle \alpha ^{Z_{\alpha }(n)}=1+\alpha ^{n},} which is often rewritten as Z α α ( n ) = log α α ⁡ ⁡ ( 1 + α α n ) .
+
+{\displaystyle Z_{\alpha }(n)=\log _{\alpha }(1+\alpha ^{n}).} The choice of base α α {\displaystyle \alpha } is usually dropped from the notation when it is clear from the context.
+
+To be more precise, Z α α {\displaystyle Z_{\alpha }} is a function on the integers modulo the multiplicative order of α α {\displaystyle \alpha } , and takes values in the same set. In order to describe every element, it is convenient to formally add a new symbol − − ∞ ∞ {\displaystyle -\infty } , along with the definitions α α − − ∞ ∞ = 0 {\displaystyle \alpha ^{-\infty }=0} n + ( − − ∞ ∞ ) = − − ∞ ∞ {\displaystyle n+(-\infty )=-\infty } Z α α ( − − ∞ ∞ ) = 0 {\displaystyle Z_{\alpha }(-\infty )=0} Z α α ( e ) = − − ∞ ∞ {\displaystyle Z_{\alpha }(e)=-\infty } where e {\displaystyle e} is an integer satisfying α α e = − − 1 {\displaystyle \alpha ^{e}=-1} , that is e = 0 {\displaystyle e=0} for a field of characteristic 2, and e = q − − 1 2 {\displaystyle e={\frac {q-1}{2}}} for a field of odd characteristic with q {\displaystyle q} elements.
+
+Using the Zech logarithm, finite field arithmetic can be done in the exponential representation: α α m + α α n = α α m ⋅ ⋅ ( 1 + α α n − − m ) = α α m ⋅ ⋅ α α Z ( n − − m ) = α α m + Z ( n − − m ) {\displaystyle \alpha ^{m}+\alpha ^{n}=\alpha ^{m}\cdot (1+\alpha ^{n-m})=\alpha ^{m}\cdot \alpha ^{Z(n-m)}=\alpha ^{m+Z(n-m)}} − − α α n = ( − − 1 ) ⋅ ⋅ α α n = α α e ⋅ ⋅ α α n = α α e + n {\displaystyle -\alpha ^{n}=(-1)\cdot \alpha ^{n}=\alpha ^{e}\cdot \alpha ^{n}=\alpha ^{e+n}} α α m − − α α n = α α m + ( − − α α n ) = α α m + Z ( e + n − − m ) {\displaystyle \alpha ^{m}-\alpha ^{n}=\alpha ^{m}+(-\alpha ^{n})=\alpha ^{m+Z(e+n-m)}} α α m ⋅ ⋅ α α n = α α m + n {\displaystyle \alpha ^{m}\cdot \alpha ^{n}=\alpha ^{m+n}} ( α α m ) − − 1 = α α − − m {\displaystyle \left(\alpha ^{m}\right)^{-1}=\alpha ^{-m}} α α m / α α n = α α m ⋅ ⋅ ( α α n ) − − 1 = α α m − − n {\displaystyle \alpha ^{m}/\alpha ^{n}=\alpha ^{m}\cdot \left(\alpha ^{n}\right)^{-1}=\alpha ^{m-n}} These formulas remain true with our conventions with the symbol − − ∞ ∞ {\displaystyle -\infty } , with the caveat that subtraction of − − ∞ ∞ {\displaystyle -\infty } is undefined. In particular, the addition and subtraction formulas need to treat m = − − ∞ ∞ {\displaystyle m=-\infty } as a special case.
+
+This can be extended to arithmetic of the projective line by introducing another symbol + ∞ ∞ {\displaystyle +\infty } satisfying α α + ∞ ∞ = ∞ ∞ {\displaystyle \alpha ^{+\infty }=\infty } and other rules as appropriate.
+
+For fields of characteristic 2, Z α α ( n ) = m ⟺ ⟺ Z α α ( m ) = n {\displaystyle Z_{\alpha }(n)=m\iff Z_{\alpha }(m)=n} .
+
+Uses [ edit ] For sufficiently small finite fields, a table of Zech logarithms allows an especially efficient implementation of  all finite field arithmetic in terms of a small number of integer addition/subtractions and table look-ups.
+
+The utility of this method diminishes for large fields where one cannot efficiently store the table. This method is also inefficient when doing very few operations in the finite field, because one spends more time computing the table than one does in actual calculation.
+
+Examples [ edit ] Let α ∈ GF(2 3 ) be a root of the primitive polynomial x 3 + x 2 + 1 .  The traditional representation of elements of this field is as polynomials in α of degree 2 or less.
+
+A table of Zech logarithms for this field are Z (−∞) = 0 , Z (0) = −∞ , Z (1) = 5 , Z (2) = 3 , Z (3) = 2 , Z (4) = 6 , Z (5) = 1 , and Z (6) = 4 . The multiplicative order of α is 7, so the exponential representation works with integers modulo 7.
+
+Since α is a root of x 3 + x 2 + 1 then that means α 3 + α 2 + 1 = 0 , or if we recall that since all coefficients are in GF(2), subtraction is the same as addition, we obtain α 3 = α 2 + 1 .
+
+The conversion from exponential to polynomial representations is given by α α 3 = α α 2 + 1 {\displaystyle \alpha ^{3}=\alpha ^{2}+1} (as shown above) α α 4 = α α 3 α α = ( α α 2 + 1 ) α α = α α 3 + α α = α α 2 + α α + 1 {\displaystyle \alpha ^{4}=\alpha ^{3}\alpha =(\alpha ^{2}+1)\alpha =\alpha ^{3}+\alpha =\alpha ^{2}+\alpha +1} α α 5 = α α 4 α α = ( α α 2 + α α + 1 ) α α = α α 3 + α α 2 + α α = α α 2 + 1 + α α 2 + α α = α α + 1 {\displaystyle \alpha ^{5}=\alpha ^{4}\alpha =(\alpha ^{2}+\alpha +1)\alpha =\alpha ^{3}+\alpha ^{2}+\alpha =\alpha ^{2}+1+\alpha ^{2}+\alpha =\alpha +1} α α 6 = α α 5 α α = ( α α + 1 ) α α = α α 2 + α α {\displaystyle \alpha ^{6}=\alpha ^{5}\alpha =(\alpha +1)\alpha =\alpha ^{2}+\alpha } Using Zech logarithms to compute α 6 + α 3 : α α 6 + α α 3 = α α 6 + Z ( − − 3 ) = α α 6 + Z ( 4 ) = α α 6 + 6 = α α 12 = α α 5 , {\displaystyle \alpha ^{6}+\alpha ^{3}=\alpha ^{6+Z(-3)}=\alpha ^{6+Z(4)}=\alpha ^{6+6}=\alpha ^{12}=\alpha ^{5},} or, more efficiently, α α 6 + α α 3 = α α 3 + Z ( 3 ) = α α 3 + 2 = α α 5 , {\displaystyle \alpha ^{6}+\alpha ^{3}=\alpha ^{3+Z(3)}=\alpha ^{3+2}=\alpha ^{5},} and verifying it in the polynomial representation: α α 6 + α α 3 = ( α α 2 + α α ) + ( α α 2 + 1 ) = α α + 1 = α α 5 .
+
+{\displaystyle \alpha ^{6}+\alpha ^{3}=(\alpha ^{2}+\alpha )+(\alpha ^{2}+1)=\alpha +1=\alpha ^{5}.} See also [ edit ] Gaussian logarithm Irish logarithm , a similar technique derived empirically by Percy Ludgate Finite field arithmetic Logarithm table References [ edit ] ^ Zech, Julius August Christoph (1849).
+
+Tafeln der Additions- und Subtractions-Logarithmen für sieben Stellen (in German) (Specially reprinted (from Vega–Hülße collection) 1st ed.). Leipzig: Weidmann'sche Buchhandlung .
+
+Archived from the original on 2018-07-14 . Retrieved 2018-07-14 .
+
+Also part of: Freiherr von Vega, Georg (1849).
+
+Hülße, Julius Ambrosius [in German] ; Zech, Julius August Christoph (eds.).
+
+Sammlung mathematischer Tafeln (in German) (Completely reworked ed.). Leipzig: Weidmann'sche Buchhandlung .
+
+Bibcode : 1849smt..book.....V .
+
+Archived from the original on 2018-07-14 . Retrieved 2018-07-14 .
+
+^ Zech, Julius August Christoph (1863) [1849].
+
+Tafeln der Additions- und Subtractions-Logarithmen für sieben Stellen (in German) (Specially reprinted (from Vega–Hülße collection) 2nd ed.). Berlin: Weidmann'sche Buchhandlung .
+
+Archived from the original on 2018-07-14 . Retrieved 2018-07-13 .
+
+^ Zech, Julius August Christoph (1892) [1849].
+
+Tafeln der Additions- und Subtractions-Logarithmen für sieben Stellen (in German) (Specially reprinted (from Vega–Hülße collection) 3rd ed.). Berlin: Weidmann'sche Buchhandlung .
+
+Archived from the original on 2018-07-14 . Retrieved 2018-07-13 .
+
+^ Zech, Julius August Christoph (1910) [1849].
+
+Tafeln der Additions- und Subtractions-Logarithmen für sieben Stellen (in German) (Specially reprinted (from Vega–Hülße collection) 4th ed.). Berlin: Weidmann'sche Buchhandlung .
+
+Archived from the original on 2018-07-14 . Retrieved 2018-07-13 .
+
+^ Lidl, Rudolf; Niederreiter, Harald (1997).
+
+Finite Fields (2nd ed.).
+
+Cambridge University Press .
+
+ISBN 978-0-521-39231-0 .
+
+^ Jacoby, Carl Gustav Jacob (1846).
+
+"Über die Kreistheilung und ihre Anwendung auf die Zahlentheorie" .
+
+Journal für die reine und angewandte Mathematik (in German).
+
+1846 (30): 166– 182.
+
+doi : 10.1515/crll.1846.30.166 .
+
+ISSN 0075-4102 .
+
+S2CID 120615565 .
+
+(NB. Also part of "Gesammelte Werke", Volume 6, pages 254–274.) Further reading [ edit ] Fletcher, Alan; Miller, Jeffrey Charles Percy ; Rosenhead, Louis (1946) [1943].
+
+An Index of Mathematical Tables (1 ed.).
+
+Blackwell Scientific Publications Ltd.
+
+, Oxford / McGraw-Hill , New York.
+
+Conway, John Horton (1968). Churchhouse, Robert F.; Herz, J.-C. (eds.). "A tabulation of some information concerning finite fields".
+
+Computers in Mathematical Research . Amsterdam: North-Holland Publishing Company : 37– 50.
+
+MR 0237467 .
+
+Lam, Clement Wing Hong ; McKay, John K. S.
+
+(1973-11-01).
+
+"Algorithm 469: Arithmetic over a finite field [A1]" .
+
+Communications of the ACM . Collected Algorithms of the ACM (CALGO).
+
+16 (11).
+
+Association for Computing Machinery (ACM): 699.
+
+doi : 10.1145/355611.362544 .
+
+ISSN 0001-0782 .
+
+S2CID 62794130 . toms/469.
+
+[1] [2] [3] Kühn, Klaus (2008).
+
+"C. F. Gauß und die Logarithmen" (PDF) (in German). Alling-Biburg, Germany.
+
+Archived (PDF) from the original on 2018-07-14 . Retrieved 2018-07-14 .
+
+Retrieved from " https://en.wikipedia.org/w/index.php?title=Zech%27s_logarithm&oldid=1301756678 " Categories : Linear algebra Finite fields Hidden categories: CS1 German-language sources (de) CS1 interwiki-linked names Articles with short description Short description is different from Wikidata Use dmy dates from May 2019 This page was last edited on 21 July 2025, at 13:57 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Zech's logarithm 3 languages Add topic
+

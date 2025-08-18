@@ -1,0 +1,101 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Definition 2 Asymptotic properties 3 Confidence intervals 4 Statistical implementation 5 See also 6 References 7 Further reading 8 External links Toggle the table of contents Empirical distribution function 17 languages Català Čeština Deutsch Eesti Español Esperanto Euskara فارسی Français 한국어 Italiano עברית Nederlands Русский Українська 粵語 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Distribution function associated with the empirical measure of a sample See also: Frequency distribution The green curve, which asymptotically approaches heights of 0 and 1 without reaching them, is the true cumulative distribution function of the standard normal distribution . The grey hash marks represent the observations in a particular sample drawn from that distribution, and the horizontal steps of the blue step function (including the leftmost point in each step but not including the rightmost point) form the empirical distribution function of that sample. ( Click here to load a new graph.
+
+) In statistics , an empirical distribution function ( a.k.a.
+
+an empirical cumulative distribution function , eCDF ) is the distribution function associated with the empirical measure of a sample .
+
+[ 1 ] This cumulative distribution function is a step function that jumps up by 1/ n at each of the n data points. Its value at any specified value of the measured variable is the fraction of observations of the measured variable that are less than or equal to the specified value.
+
+The empirical distribution function is an estimate of the cumulative distribution function that generated the points in the sample. It converges with probability 1 to that underlying distribution, according to the Glivenko–Cantelli theorem . A number of results exist to quantify the rate of convergence of the empirical distribution function to the underlying cumulative distribution function.
+
+Definition [ edit ] Let ( X 1 , …, X n ) be independent, identically distributed real random variables with the common cumulative distribution function F ( t ) . Then the empirical distribution function is defined as [ 2 ] F ^ ^ n ( t ) = number of elements in the sample ≤ ≤ t n = 1 n ∑ ∑ i = 1 n 1 X i ≤ ≤ t , {\displaystyle {\widehat {F}}_{n}(t)={\frac {{\mbox{number of elements in the sample}}\leq t}{n}}={\frac {1}{n}}\sum _{i=1}^{n}\mathbf {1} _{X_{i}\leq t},} where 1 A {\displaystyle \mathbf {1} _{A}} is the indicator of event A . For a fixed t , the indicator 1 X i ≤ ≤ t {\displaystyle \mathbf {1} _{X_{i}\leq t}} is a Bernoulli random variable with parameter p = F ( t ) ; hence n F ^ ^ n ( t ) {\displaystyle n{\widehat {F}}_{n}(t)} is a binomial random variable with mean nF ( t ) and variance nF ( t )(1 − F ( t )) . This implies that F ^ ^ n ( t ) {\displaystyle {\widehat {F}}_{n}(t)} is an unbiased estimator for F ( t ) .
+
+However, in some textbooks, the definition is given as F ^ ^ n ( t ) = 1 n + 1 ∑ ∑ i = 1 n 1 X i ≤ ≤ t {\displaystyle {\widehat {F}}_{n}(t)={\frac {1}{n+1}}\sum _{i=1}^{n}\mathbf {1} _{X_{i}\leq t}} [ 3 ] [ 4 ] Asymptotic properties [ edit ] Since the ratio ( n + 1)/ n approaches 1 as n goes to infinity, the asymptotic properties of the two definitions that are given above are the same.
+
+By the strong law of large numbers , the estimator F ^ ^ n ( t ) {\displaystyle \scriptstyle {\widehat {F}}_{n}(t)} converges to F ( t ) as n → ∞ almost surely , for every value of t : [ 2 ] F ^ ^ n ( t ) → a.s.
+
+F ( t ) ; {\displaystyle {\widehat {F}}_{n}(t)\ {\xrightarrow {\text{a.s.}}}\ F(t);} thus the estimator F ^ ^ n ( t ) {\displaystyle \scriptstyle {\widehat {F}}_{n}(t)} is consistent . This expression asserts the pointwise convergence of the empirical distribution function to the true cumulative distribution function. There is a stronger result, called the Glivenko–Cantelli theorem , which states that the convergence in fact happens uniformly over t : [ 5 ] ‖ ‖ F ^ ^ n − − F ‖ ‖ ∞ ∞ ≡ ≡ sup t ∈ ∈ R | F ^ ^ n ( t ) − − F ( t ) | → 0.
+
+{\displaystyle \|{\widehat {F}}_{n}-F\|_{\infty }\equiv \sup _{t\in \mathbb {R} }{\big |}{\widehat {F}}_{n}(t)-F(t){\big |}\ \xrightarrow {} \ 0.} The sup-norm in this expression is called the Kolmogorov–Smirnov statistic for testing the goodness-of-fit between the empirical distribution F ^ ^ n ( t ) {\displaystyle \scriptstyle {\widehat {F}}_{n}(t)} and the assumed true cumulative distribution function F . Other norm functions may be reasonably used here instead of the sup-norm. For example, the L 2 -norm gives rise to the Cramér–von Mises statistic .
+
+The asymptotic distribution can be further characterized in several different ways. First, the central limit theorem states that pointwise , F ^ ^ n ( t ) {\displaystyle \scriptstyle {\widehat {F}}_{n}(t)} has asymptotically normal distribution with the standard n {\displaystyle {\sqrt {n}}} rate of convergence: [ 2 ] n ( F ^ ^ n ( t ) − − F ( t ) ) → d N ( 0 , F ( t ) ( 1 − − F ( t ) ) ) .
+
+{\displaystyle {\sqrt {n}}{\big (}{\widehat {F}}_{n}(t)-F(t){\big )}\ \ {\xrightarrow {d}}\ \ {\mathcal {N}}{\Big (}0,F(t){\big (}1-F(t){\big )}{\Big )}.} This result is extended by the Donsker’s theorem , which asserts that the empirical process n ( F ^ ^ n − − F ) {\displaystyle \scriptstyle {\sqrt {n}}({\widehat {F}}_{n}-F)} , viewed as a function indexed by t ∈ ∈ R {\displaystyle \scriptstyle t\in \mathbb {R} } , converges in distribution in the Skorokhod space D [ − − ∞ ∞ , + ∞ ∞ ] {\displaystyle \scriptstyle D[-\infty ,+\infty ]} to the mean-zero Gaussian process G F = B ∘ ∘ F {\displaystyle \scriptstyle G_{F}=B\circ F} , where B is the standard Brownian bridge .
+
+[ 5 ] The covariance structure of this Gaussian process is E ⁡ ⁡ [ G F ( t 1 ) G F ( t 2 ) ] = F ( t 1 ∧ ∧ t 2 ) − − F ( t 1 ) F ( t 2 ) .
+
+{\displaystyle \operatorname {E} [\,G_{F}(t_{1})G_{F}(t_{2})\,]=F(t_{1}\wedge t_{2})-F(t_{1})F(t_{2}).} The uniform rate of convergence in Donsker’s theorem can be quantified by the result known as the Hungarian embedding : [ 6 ] lim sup n → → ∞ ∞ n ln 2 ⁡ ⁡ n ‖ n ( F ^ ^ n − − F ) − − G F , n ‖ ∞ ∞ < ∞ ∞ , a.s.
+
+{\displaystyle \limsup _{n\to \infty }{\frac {\sqrt {n}}{\ln ^{2}n}}{\big \|}{\sqrt {n}}({\widehat {F}}_{n}-F)-G_{F,n}{\big \|}_{\infty }<\infty ,\quad {\text{a.s.}}} Alternatively, the rate of convergence of n ( F ^ ^ n − − F ) {\displaystyle \scriptstyle {\sqrt {n}}({\widehat {F}}_{n}-F)} can also be quantified in terms of the asymptotic behavior of the sup-norm of this expression. Number of results exist in this venue, for example the Dvoretzky–Kiefer–Wolfowitz inequality provides bound on the tail probabilities of n ‖ ‖ F ^ ^ n − − F ‖ ‖ ∞ ∞ {\displaystyle \scriptstyle {\sqrt {n}}\|{\widehat {F}}_{n}-F\|_{\infty }} : [ 6 ] Pr ( n ‖ ‖ F ^ ^ n − − F ‖ ‖ ∞ ∞ > z ) ≤ ≤ 2 e − − 2 z 2 .
+
+{\displaystyle \Pr \!{\Big (}{\sqrt {n}}\|{\widehat {F}}_{n}-F\|_{\infty }>z{\Big )}\leq 2e^{-2z^{2}}.} In fact, Kolmogorov has shown that if the cumulative distribution function F is continuous, then the expression n ‖ ‖ F ^ ^ n − − F ‖ ‖ ∞ ∞ {\displaystyle \scriptstyle {\sqrt {n}}\|{\widehat {F}}_{n}-F\|_{\infty }} converges in distribution to ‖ ‖ B ‖ ‖ ∞ ∞ {\displaystyle \scriptstyle \|B\|_{\infty }} , which has the Kolmogorov distribution that does not depend on the form of F .
+
+Another result, which follows from the law of the iterated logarithm , is that [ 6 ] lim sup n → → ∞ ∞ n ‖ ‖ F ^ ^ n − − F ‖ ‖ ∞ ∞ 2 ln ⁡ ⁡ ln ⁡ ⁡ n ≤ ≤ 1 2 , a.s.
+
+{\displaystyle \limsup _{n\to \infty }{\frac {{\sqrt {n}}\|{\widehat {F}}_{n}-F\|_{\infty }}{\sqrt {2\ln \ln n}}}\leq {\frac {1}{2}},\quad {\text{a.s.}}} and lim inf n → → ∞ ∞ 2 n ln ⁡ ⁡ ln ⁡ ⁡ n ‖ ‖ F ^ ^ n − − F ‖ ‖ ∞ ∞ = π π 2 , a.s.
+
+{\displaystyle \liminf _{n\to \infty }{\sqrt {2n\ln \ln n}}\|{\widehat {F}}_{n}-F\|_{\infty }={\frac {\pi }{2}},\quad {\text{a.s.}}} Confidence intervals [ edit ] Empirical CDF, CDF and confidence interval plots for various sample sizes of normal distribution Empirical CDF, CDF and confidence interval plots for various sample sizes of Cauchy distribution Empirical CDF, CDF and confidence interval plots for various sample sizes of triangle distribution As per Dvoretzky–Kiefer–Wolfowitz inequality the interval that contains the true CDF, F ( x ) {\displaystyle F(x)} , with probability 1 − − α α {\displaystyle 1-\alpha } is specified as F n ( x ) − − ε ε ≤ ≤ F ( x ) ≤ ≤ F n ( x ) + ε ε where ε ε = ln ⁡ ⁡ 2 α α 2 n .
+
+{\displaystyle F_{n}(x)-\varepsilon \leq F(x)\leq F_{n}(x)+\varepsilon \;{\text{ where }}\varepsilon ={\sqrt {\frac {\ln {\frac {2}{\alpha }}}{2n}}}.} As per the above bounds, we can plot the Empirical CDF, CDF and confidence intervals for different distributions by using any one of the statistical implementations.
+
+Statistical implementation [ edit ] A non-exhaustive list of software implementations of Empirical Distribution function includes: In R software , we compute an empirical cumulative distribution function, with several methods for plotting, printing and computing with such an “ecdf” object.
+
+In MATLAB we can use Empirical cumulative distribution function (cdf) plot jmp from SAS , the CDF plot creates a plot of the empirical cumulative distribution function.
+
+Minitab , create an Empirical CDF Mathwave , we can fit probability distribution to our data Dataplot , we can plot Empirical CDF plot Scipy , we can use scipy.stats.ecdf Statsmodels , we can use statsmodels.distributions.empirical_distribution.ECDF Matplotlib , using the matplotlib.pyplot.ecdf function (new in version 3.8.0) [ 7 ] Seaborn , using the seaborn.ecdfplot function Plotly , using the plotly.express.ecdf function Excel , we can plot Empirical CDF plot ArviZ , using the az.plot_ecdf function See also [ edit ] Càdlàg functions Count data Distribution fitting Dvoretzky–Kiefer–Wolfowitz inequality Empirical probability Empirical process Estimating quantiles from a sample Frequency (statistics) Empirical likelihood Kaplan–Meier estimator for censored processes Survival function Q–Q plot References [ edit ] ^ A modern introduction to probability and statistics: Understanding why and how . Michel Dekking. London: Springer. 2005. p. 219.
+
+ISBN 978-1-85233-896-1 .
+
+OCLC 262680588 .
+
+{{ cite book }} :  CS1 maint: others ( link ) ^ a b c van der Vaart, A.W. (1998).
+
+Asymptotic statistics . Cambridge University Press. p.
+
+265 .
+
+ISBN 0-521-78450-6 .
+
+^ Coles, S. (2001) An Introduction to Statistical Modeling of Extreme Values . Springer, p. 36, Definition 2.4.
+
+ISBN 978-1-4471-3675-0 .
+
+^ Madsen, H.O., Krenk, S., Lind, S.C. (2006) Methods of Structural Safety . Dover Publications. p. 148-149.
+
+ISBN 0486445976 ^ a b van der Vaart, A.W. (1998).
+
+Asymptotic statistics . Cambridge University Press. p.
+
+266 .
+
+ISBN 0-521-78450-6 .
+
+^ a b c van der Vaart, A.W. (1998).
+
+Asymptotic statistics . Cambridge University Press. p.
+
+268 .
+
+ISBN 0-521-78450-6 .
+
+^ "What's new in Matplotlib 3.8.0 (Sept 13, 2023) — Matplotlib 3.8.3 documentation" .
+
+Further reading [ edit ] Shorack, G.R.
+
+; Wellner, J.A.
+
+(1986).
+
+Empirical Processes with Applications to Statistics . New York: Wiley.
+
+ISBN 0-471-86725-X .
+
+External links [ edit ] Media related to Empirical distribution functions at Wikimedia Commons v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject Retrieved from " https://en.wikipedia.org/w/index.php?title=Empirical_distribution_function&oldid=1300940691 " Categories : Nonparametric statistics Empirical process Hidden categories: CS1 maint: others Articles with short description Short description matches Wikidata Commons category link is on Wikidata This page was last edited on 17 July 2025, at 06:53 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Empirical distribution function 17 languages Add topic
+

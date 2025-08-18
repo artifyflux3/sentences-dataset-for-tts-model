@@ -1,0 +1,402 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Gauss–Legendre quadrature 2 Change of interval 3 Example of two-point Gauss quadrature rule 4 Other forms Toggle Other forms subsection 4.1 Fundamental theorem 4.1.1 General formula for the weights 4.1.2 Proof that the weights are positive 4.2 Computation of Gaussian quadrature rules 4.2.1 Recurrence relation 4.2.2 The Golub-Welsch algorithm 4.3 Error estimates 4.4 Gauss–Kronrod rules 4.5 Gauss–Lobatto rules 5 References Toggle References subsection 5.1 Citations 5.2 Bibliography 6 External links Toggle the table of contents Gaussian quadrature 19 languages العربية Català Чӑвашла Čeština Deutsch Español Français 한국어 Italiano עברית Magyar Nederlands 日本語 Polski Português Русский Sunda Українська 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Approximation of the definite integral of a function "Gaussian integration" redirects here. For the integral of a Gaussian function, see Gaussian integral .
+
+This article includes a list of general references , but it lacks sufficient corresponding inline citations .
+
+Please help to improve this article by introducing more precise citations.
+
+( September 2018 ) ( Learn how and when to remove this message ) Comparison between 2-point Gaussian and trapezoidal quadrature.
+
+The blue curve shows the function whose definite integral on the interval [−1, 1] is to be calculated (the integrand). The trapezoidal rule approximates the function with a linear function that coincides with the integrand at the endpoints of the interval and is represented by an orange dashed line. The approximation is apparently not good, so the error is large (the trapezoidal rule gives an approximation of the integral equal to y (−1) + y (1) = −10 , while the correct value is 2 ⁄ 3 ). To obtain a more accurate result, the interval must be partitioned into many subintervals and then the composite trapezoidal rule must be used, which requires many more calculations.
+
+The Gaussian quadrature chooses more suitable points instead, so even a linear function approximates the function better (the black dashed line). As the integrand is the third-degree polynomial y ( x ) = 7 x 3 − 8 x 2 − 3 x + 3 , the 2-point Gaussian quadrature rule even returns an exact result.
+
+In numerical analysis , an n -point Gaussian quadrature rule , named after Carl Friedrich Gauss , [ 1 ] is a quadrature rule constructed to yield an exact result for polynomials of degree 2 n − 1 or less by a suitable choice of the nodes x i and weights w i for i = 1, ..., n .
+
+The modern formulation using orthogonal polynomials was developed by Carl Gustav Jacobi in 1826.
+
+[ 2 ] The most common domain of integration for such a rule is taken as [−1, 1] , so the rule is stated as ∫ ∫ − − 1 1 f ( x ) d x ≈ ≈ ∑ ∑ i = 1 n w i f ( x i ) , {\displaystyle \int _{-1}^{1}f(x)\,dx\approx \sum _{i=1}^{n}w_{i}f(x_{i}),} which is exact for polynomials of degree 2 n − 1 or less. This exact rule is known as the Gauss–Legendre quadrature rule. The quadrature rule will only be an accurate approximation to the integral above if f ( x ) is well-approximated by a polynomial of degree 2 n − 1 or less on [−1, 1] .
+
+The Gauss– Legendre quadrature rule is not typically used for integrable functions with endpoint singularities . Instead, if the integrand can be written as f ( x ) = ( 1 − − x ) α α ( 1 + x ) β β g ( x ) , α α , β β > − − 1 , {\displaystyle f(x)=\left(1-x\right)^{\alpha }\left(1+x\right)^{\beta }g(x),\quad \alpha ,\beta >-1,} where g ( x ) is well-approximated by a low-degree polynomial, then alternative nodes x i ' and weights w i ' will usually give more accurate quadrature rules. These are known as Gauss–Jacobi quadrature rules, i.e., ∫ ∫ − − 1 1 f ( x ) d x = ∫ ∫ − − 1 1 ( 1 − − x ) α α ( 1 + x ) β β g ( x ) d x ≈ ≈ ∑ ∑ i = 1 n w i ′ g ( x i ′ ) .
+
+{\displaystyle \int _{-1}^{1}f(x)\,dx=\int _{-1}^{1}\left(1-x\right)^{\alpha }\left(1+x\right)^{\beta }g(x)\,dx\approx \sum _{i=1}^{n}w_{i}'g\left(x_{i}'\right).} Common weights include 1 1 − − x 2 {\textstyle {\frac {1}{\sqrt {1-x^{2}}}}} ( Chebyshev–Gauss ) and 1 − − x 2 {\textstyle {\sqrt {1-x^{2}}}} . One may also want to integrate over semi-infinite ( Gauss–Laguerre quadrature ) and infinite intervals ( Gauss–Hermite quadrature ).
+
+It can be shown (see Press et al., or Stoer and Bulirsch) that the quadrature nodes x i are the roots of a polynomial belonging to a class of orthogonal polynomials (the class orthogonal with respect to a weighted inner-product). This is a key observation for computing Gauss quadrature nodes and weights.
+
+Gauss–Legendre quadrature [ edit ] Further information: Gauss–Legendre quadrature Graphs of Legendre polynomials (up to n = 5) For the simplest integration problem stated above, i.e., f ( x ) is well-approximated by polynomials on [ − − 1 , 1 ] {\displaystyle [-1,1]} , the associated orthogonal polynomials are Legendre polynomials , denoted by P n ( x ) . With the n -th polynomial normalized to give P n (1) = 1 , the i -th Gauss node, x i , is the i -th root of P n and the weights are given by the formula [ 3 ] w i = 2 ( 1 − − x i 2 ) [ P n ′ ( x i ) ] 2 .
+
+{\displaystyle w_{i}={\frac {2}{\left(1-x_{i}^{2}\right)\left[P'_{n}(x_{i})\right]^{2}}}.} Some low-order quadrature rules are tabulated below (over interval [−1, 1] , see the section below for other intervals).
+
+Number of points, n Points, x i Weights, w i 1 0 2 2 ± ± 1 3 {\displaystyle \pm {\frac {1}{\sqrt {3}}}} ±0.57735...
+
+1 3 0 8 9 {\displaystyle {\frac {8}{9}}} 0.888889...
+
+± ± 3 5 {\displaystyle \pm {\sqrt {\frac {3}{5}}}} ±0.774597...
+
+5 9 {\displaystyle {\frac {5}{9}}} 0.555556...
+
+4 ± ± 3 7 − − 2 7 6 5 {\displaystyle \pm {\sqrt {{\frac {3}{7}}-{\frac {2}{7}}{\sqrt {\frac {6}{5}}}}}} ±0.339981...
+
+18 + 30 36 {\displaystyle {\frac {18+{\sqrt {30}}}{36}}} 0.652145...
+
+± ± 3 7 + 2 7 6 5 {\displaystyle \pm {\sqrt {{\frac {3}{7}}+{\frac {2}{7}}{\sqrt {\frac {6}{5}}}}}} ±0.861136...
+
+18 − − 30 36 {\displaystyle {\frac {18-{\sqrt {30}}}{36}}} 0.347855...
+
+5 0 128 225 {\displaystyle {\frac {128}{225}}} 0.568889...
+
+± ± 1 3 5 − − 2 10 7 {\displaystyle \pm {\frac {1}{3}}{\sqrt {5-2{\sqrt {\frac {10}{7}}}}}} ±0.538469...
+
+322 + 13 70 900 {\displaystyle {\frac {322+13{\sqrt {70}}}{900}}} 0.478629...
+
+± ± 1 3 5 + 2 10 7 {\displaystyle \pm {\frac {1}{3}}{\sqrt {5+2{\sqrt {\frac {10}{7}}}}}} ±0.90618...
+
+322 − − 13 70 900 {\displaystyle {\frac {322-13{\sqrt {70}}}{900}}} 0.236927...
+
+Change of interval [ edit ] An integral over [ a , b ] must be changed into an integral over [−1, 1] before applying the Gaussian quadrature rule. This change of interval can be done in the following way: ∫ ∫ a b f ( x ) d x = ∫ ∫ − − 1 1 f ( b − − a 2 ξ ξ + a + b 2 ) d x d ξ ξ d ξ ξ {\displaystyle \int _{a}^{b}f(x)\,dx=\int _{-1}^{1}f\left({\frac {b-a}{2}}\xi +{\frac {a+b}{2}}\right)\,{\frac {dx}{d\xi }}d\xi } with d x d ξ ξ = b − − a 2 {\displaystyle {\frac {dx}{d\xi }}={\frac {b-a}{2}}} Applying the n {\displaystyle n} point Gaussian quadrature ( ξ ξ , w ) {\displaystyle (\xi ,w)} rule then results in the following approximation: ∫ ∫ a b f ( x ) d x ≈ ≈ b − − a 2 ∑ ∑ i = 1 n w i f ( b − − a 2 ξ ξ i + a + b 2 ) .
+
+{\displaystyle \int _{a}^{b}f(x)\,dx\approx {\frac {b-a}{2}}\sum _{i=1}^{n}w_{i}f\left({\frac {b-a}{2}}\xi _{i}+{\frac {a+b}{2}}\right).} Example of two-point Gauss quadrature rule [ edit ] Use the two-point Gauss quadrature rule to approximate the distance in meters covered by a rocket from t = 8 s {\displaystyle t=8\mathrm {s} } to t = 30 s , {\displaystyle t=30\mathrm {s} ,} as given by s = ∫ ∫ 8 30 ( 2000 ln ⁡ ⁡ [ 140000 140000 − − 2100 t ] − − 9.8 t ) d t {\displaystyle s=\int _{8}^{30}{\left(2000\ln \left[{\frac {140000}{140000-2100t}}\right]-9.8t\right){dt}}} Change the limits so that one can use the weights and abscissae given in Table 1. Also, find the absolute relative true error. The true value is given as 11061.34 m.
+
+Solution First, changing the limits of integration from [ 8 , 30 ] {\displaystyle \left[8,30\right]} to [ − − 1 , 1 ] {\displaystyle \left[-1,1\right]} gives ∫ ∫ 8 30 f ( t ) d t = 30 − − 8 2 ∫ ∫ − − 1 1 f ( 30 − − 8 2 x + 30 + 8 2 ) d x = 11 ∫ ∫ − − 1 1 f ( 11 x + 19 ) d x {\displaystyle {\begin{aligned}\int _{8}^{30}{f(t)dt}&={\frac {30-8}{2}}\int _{-1}^{1}{f\left({\frac {30-8}{2}}x+{\frac {30+8}{2}}\right){dx}}\\&=11\int _{-1}^{1}{f\left(11x+19\right){dx}}\end{aligned}}} Next, get the weighting factors and function argument values from Table 1 for the two-point rule, c 1 = 1.000000000 {\displaystyle c_{1}=1.000000000} x 1 = − − 0.577350269 {\displaystyle x_{1}=-0.577350269} c 2 = 1.000000000 {\displaystyle c_{2}=1.000000000} x 2 = 0.577350269 {\displaystyle x_{2}=0.577350269} Now we can use the Gauss quadrature formula 11 ∫ ∫ − − 1 1 f ( 11 x + 19 ) d x ≈ ≈ 11 [ c 1 f ( 11 x 1 + 19 ) + c 2 f ( 11 x 2 + 19 ) ] = 11 [ f ( 11 ( − − 0.5773503 ) + 19 ) + f ( 11 ( 0.5773503 ) + 19 ) ] = 11 [ f ( 12.64915 ) + f ( 25.35085 ) ] = 11 [ ( 296.8317 ) + ( 708.4811 ) ] = 11058.44 {\displaystyle {\begin{aligned}11\int _{-1}^{1}{f\left(11x+19\right){dx}}&\approx 11\left[c_{1}f\left(11x_{1}+19\right)+c_{2}f\left(11x_{2}+19\right)\right]\\&=11\left[f\left(11(-0.5773503)+19\right)+f\left(11(0.5773503)+19\right)\right]\\&=11\left[f(12.64915)+f(25.35085)\right]\\&=11\left[(296.8317)+(708.4811)\right]\\&=11058.44\end{aligned}}} since f ( 12.64915 ) = 2000 ln ⁡ ⁡ [ 140000 140000 − − 2100 ( 12.64915 ) ] − − 9.8 ( 12.64915 ) = 296.8317 {\displaystyle {\begin{aligned}f(12.64915)&=2000\ln \left[{\frac {140000}{140000-2100(12.64915)}}\right]-9.8(12.64915)\\&=296.8317\end{aligned}}} f ( 25.35085 ) = 2000 ln ⁡ ⁡ [ 140000 140000 − − 2100 ( 25.35085 ) ] − − 9.8 ( 25.35085 ) = 708.4811 {\displaystyle {\begin{aligned}f(25.35085)&=2000\ln \left[{\frac {140000}{140000-2100(25.35085)}}\right]-9.8(25.35085)\\&=708.4811\end{aligned}}} Given that the true value is 11061.34 m, the absolute relative true error, | ε ε t | {\displaystyle \left|\varepsilon _{t}\right|} is | ε ε t | = | 11061.34 − − 11058.44 11061.34 | × × 100 % % = 0.0262 % % {\displaystyle \left|\varepsilon _{t}\right|=\left|{\frac {11061.34-11058.44}{11061.34}}\right|\times 100\%=0.0262\%} Other forms [ edit ] The integration problem can be expressed in a slightly more general way by introducing a positive weight function ω into the integrand, and allowing an interval other than [−1, 1] . That is, the problem is to calculate ∫ ∫ a b ω ω ( x ) f ( x ) d x {\displaystyle \int _{a}^{b}\omega (x)\,f(x)\,dx} for some choices of a , b , and ω . For a = −1 , b = 1 , and ω ( x ) = 1 , the problem is the same as that considered above. Other choices lead to other integration rules. Some of these are tabulated below. Equation numbers are given for Abramowitz and Stegun (A & S).
+
+Interval ω ( x ) Orthogonal polynomials A & S For more information, see ...
+
+[−1, 1] 1 Legendre polynomials 25.4.29 § Gauss–Legendre quadrature (−1, 1) ( 1 − − x ) α α ( 1 + x ) β β , α α , β β > − − 1 {\displaystyle \left(1-x\right)^{\alpha }\left(1+x\right)^{\beta },\quad \alpha ,\beta >-1} Jacobi polynomials 25.4.33 ( β = 0 ) Gauss–Jacobi quadrature (−1, 1) 1 1 − − x 2 {\displaystyle {\frac {1}{\sqrt {1-x^{2}}}}} Chebyshev polynomials (first kind) 25.4.38 Chebyshev–Gauss quadrature [−1, 1] 1 − − x 2 {\displaystyle {\sqrt {1-x^{2}}}} Chebyshev polynomials (second kind) 25.4.40 Chebyshev–Gauss quadrature [0, ∞) e − − x {\displaystyle e^{-x}\,} Laguerre polynomials 25.4.45 Gauss–Laguerre quadrature [0, ∞) x α α e − − x , α α > − − 1 {\displaystyle x^{\alpha }e^{-x},\quad \alpha >-1} Generalized Laguerre polynomials Gauss–Laguerre quadrature (−∞, ∞) e − − x 2 {\displaystyle e^{-x^{2}}} Hermite polynomials 25.4.46 Gauss–Hermite quadrature Fundamental theorem [ edit ] Let p n be a nontrivial polynomial of degree n such that ∫ ∫ a b ω ω ( x ) x k p n ( x ) d x = 0 , for all k = 0 , 1 , … … , n − − 1.
+
+{\displaystyle \int _{a}^{b}\omega (x)\,x^{k}p_{n}(x)\,dx=0,\quad {\text{for all }}k=0,1,\ldots ,n-1.} Note that this will be true for all the orthogonal polynomials above, because each p n is constructed to be orthogonal to the other polynomials p j for j < n , and x k is in the span of that set.
+
+If we pick the n nodes x i to be the zeros of p n , then there exist n weights w i which make the Gaussian quadrature computed integral exact for all polynomials h ( x ) of degree 2 n − 1 or less. Furthermore, all these nodes x i will lie in the open interval ( a , b ) .
+
+[ 4 ] To prove the first part of this claim, let h ( x ) be any polynomial of degree 2 n − 1 or less. Divide it by the orthogonal polynomial p n to get h ( x ) = p n ( x ) q ( x ) + r ( x ) .
+
+{\displaystyle h(x)=p_{n}(x)\,q(x)+r(x).} where q ( x ) is the quotient, of degree n − 1 or less (because the sum of its degree and that of the divisor p n must equal that of the dividend), and r ( x ) is the remainder, also of degree n − 1 or less (because the degree of the remainder is always less than that of the divisor). Since p n is by assumption orthogonal to all monomials of degree less than n , it must be orthogonal to the quotient q ( x ) . Therefore ∫ ∫ a b ω ω ( x ) h ( x ) d x = ∫ ∫ a b ω ω ( x ) ( p n ( x ) q ( x ) + r ( x ) ) d x = ∫ ∫ a b ω ω ( x ) r ( x ) d x .
+
+{\displaystyle \int _{a}^{b}\omega (x)\,h(x)\,dx=\int _{a}^{b}\omega (x)\,{\big (}\,p_{n}(x)q(x)+r(x)\,{\big )}\,dx=\int _{a}^{b}\omega (x)\,r(x)\,dx.} Since the remainder r ( x ) is of degree n − 1 or less, we can interpolate it exactly using n interpolation points with Lagrange polynomials l i ( x ) , where l i ( x ) = ∏ ∏ j ≠ ≠ i x − − x j x i − − x j .
+
+{\displaystyle l_{i}(x)=\prod _{j\neq i}{\frac {x-x_{j}}{x_{i}-x_{j}}}.} We have r ( x ) = ∑ ∑ i = 1 n l i ( x ) r ( x i ) .
+
+{\displaystyle r(x)=\sum _{i=1}^{n}l_{i}(x)\,r(x_{i}).} Then its integral will equal ∫ ∫ a b ω ω ( x ) r ( x ) d x = ∫ ∫ a b ω ω ( x ) ∑ ∑ i = 1 n l i ( x ) r ( x i ) d x = ∑ ∑ i = 1 n r ( x i ) ∫ ∫ a b ω ω ( x ) l i ( x ) d x = ∑ ∑ i = 1 n r ( x i ) w i , {\displaystyle \int _{a}^{b}\omega (x)\,r(x)\,dx=\int _{a}^{b}\omega (x)\,\sum _{i=1}^{n}l_{i}(x)\,r(x_{i})\,dx=\sum _{i=1}^{n}\,r(x_{i})\,\int _{a}^{b}\omega (x)\,l_{i}(x)\,dx=\sum _{i=1}^{n}\,r(x_{i})\,w_{i},} where w i , the weight associated with the node x i , is defined to equal the weighted integral of l i ( x ) (see below for other formulas for the weights). But all the x i are roots of p n , so the division formula above tells us that h ( x i ) = p n ( x i ) q ( x i ) + r ( x i ) = r ( x i ) , {\displaystyle h(x_{i})=p_{n}(x_{i})\,q(x_{i})+r(x_{i})=r(x_{i}),} for all i . Thus we finally have ∫ ∫ a b ω ω ( x ) h ( x ) d x = ∫ ∫ a b ω ω ( x ) r ( x ) d x = ∑ ∑ i = 1 n w i r ( x i ) = ∑ ∑ i = 1 n w i h ( x i ) .
+
+{\displaystyle \int _{a}^{b}\omega (x)\,h(x)\,dx=\int _{a}^{b}\omega (x)\,r(x)\,dx=\sum _{i=1}^{n}w_{i}\,r(x_{i})=\sum _{i=1}^{n}w_{i}\,h(x_{i}).} This proves that for any polynomial h ( x ) of degree 2 n − 1 or less, its integral is given exactly by the Gaussian quadrature sum.
+
+To prove the second part of the claim, consider the factored form of the polynomial p n . Any complex conjugate roots will yield a quadratic factor that is either strictly positive or strictly negative over the entire real line. Any factors for roots outside the interval from a to b will not change sign over that interval. Finally, for factors corresponding to roots x i inside the interval from a to b that are of odd multiplicity, multiply p n by one more factor to make a new polynomial p n ( x ) ∏ ∏ i ( x − − x i ) .
+
+{\displaystyle p_{n}(x)\,\prod _{i}(x-x_{i}).} This polynomial cannot change sign over the interval from a to b because all its roots there are now of even multiplicity. So the integral ∫ ∫ a b p n ( x ) ( ∏ ∏ i ( x − − x i ) ) ω ω ( x ) d x ≠ ≠ 0 , {\displaystyle \int _{a}^{b}p_{n}(x)\,\left(\prod _{i}(x-x_{i})\right)\,\omega (x)\,dx\neq 0,} since the weight function ω ( x ) is always non-negative. But p n is orthogonal to all polynomials of degree n − 1 or less, so the degree of the product ∏ ∏ i ( x − − x i ) {\displaystyle \prod _{i}(x-x_{i})} must be at least n . Therefore p n has n distinct roots, all real, in the interval from a to b .
+
+General formula for the weights [ edit ] The weights can be expressed as w i = a n a n − − 1 ∫ ∫ a b ω ω ( x ) p n − − 1 ( x ) 2 d x p n ′ ( x i ) p n − − 1 ( x i ) {\displaystyle w_{i}={\frac {a_{n}}{a_{n-1}}}{\frac {\int _{a}^{b}\omega (x)p_{n-1}(x)^{2}dx}{p'_{n}(x_{i})p_{n-1}(x_{i})}}} 1 where a k {\displaystyle a_{k}} is the coefficient of x k {\displaystyle x^{k}} in p k ( x ) {\displaystyle p_{k}(x)} . To prove this, note that using Lagrange interpolation one can express r ( x ) in terms of r ( x i ) {\displaystyle r(x_{i})} as r ( x ) = ∑ ∑ i = 1 n r ( x i ) ∏ ∏ 1 ≤ ≤ j ≤ ≤ n j ≠ ≠ i x − − x j x i − − x j {\displaystyle r(x)=\sum _{i=1}^{n}r(x_{i})\prod _{\begin{smallmatrix}1\leq j\leq n\\j\neq i\end{smallmatrix}}{\frac {x-x_{j}}{x_{i}-x_{j}}}} because r ( x ) has degree less than n and is thus fixed by the values it attains at n different points. Multiplying both sides by ω ( x ) and integrating from a to b yields ∫ ∫ a b ω ω ( x ) r ( x ) d x = ∑ ∑ i = 1 n r ( x i ) ∫ ∫ a b ω ω ( x ) ∏ ∏ 1 ≤ ≤ j ≤ ≤ n j ≠ ≠ i x − − x j x i − − x j d x {\displaystyle \int _{a}^{b}\omega (x)r(x)dx=\sum _{i=1}^{n}r(x_{i})\int _{a}^{b}\omega (x)\prod _{\begin{smallmatrix}1\leq j\leq n\\j\neq i\end{smallmatrix}}{\frac {x-x_{j}}{x_{i}-x_{j}}}dx} The weights w i are thus given by w i = ∫ ∫ a b ω ω ( x ) ∏ ∏ 1 ≤ ≤ j ≤ ≤ n j ≠ ≠ i x − − x j x i − − x j d x {\displaystyle w_{i}=\int _{a}^{b}\omega (x)\prod _{\begin{smallmatrix}1\leq j\leq n\\j\neq i\end{smallmatrix}}{\frac {x-x_{j}}{x_{i}-x_{j}}}dx} This integral expression for w i {\displaystyle w_{i}} can be expressed in terms of the orthogonal polynomials p n ( x ) {\displaystyle p_{n}(x)} and p n − − 1 ( x ) {\displaystyle p_{n-1}(x)} as follows.
+
+We can write ∏ ∏ 1 ≤ ≤ j ≤ ≤ n j ≠ ≠ i ( x − − x j ) = ∏ ∏ 1 ≤ ≤ j ≤ ≤ n ( x − − x j ) x − − x i = p n ( x ) a n ( x − − x i ) {\displaystyle \prod _{\begin{smallmatrix}1\leq j\leq n\\j\neq i\end{smallmatrix}}\left(x-x_{j}\right)={\frac {\prod _{1\leq j\leq n}\left(x-x_{j}\right)}{x-x_{i}}}={\frac {p_{n}(x)}{a_{n}\left(x-x_{i}\right)}}} where a n {\displaystyle a_{n}} is the coefficient of x n {\displaystyle x^{n}} in p n ( x ) {\displaystyle p_{n}(x)} . Taking the limit of x to x i {\displaystyle x_{i}} yields using L'Hôpital's rule ∏ ∏ 1 ≤ ≤ j ≤ ≤ n j ≠ ≠ i ( x i − − x j ) = p n ′ ( x i ) a n {\displaystyle \prod _{\begin{smallmatrix}1\leq j\leq n\\j\neq i\end{smallmatrix}}\left(x_{i}-x_{j}\right)={\frac {p'_{n}(x_{i})}{a_{n}}}} We can thus write the integral expression for the weights as w i = 1 p n ′ ( x i ) ∫ ∫ a b ω ω ( x ) p n ( x ) x − − x i d x {\displaystyle w_{i}={\frac {1}{p'_{n}(x_{i})}}\int _{a}^{b}\omega (x){\frac {p_{n}(x)}{x-x_{i}}}dx} 2 In the integrand, writing 1 x − − x i = 1 − − ( x x i ) k x − − x i + ( x x i ) k 1 x − − x i {\displaystyle {\frac {1}{x-x_{i}}}={\frac {1-\left({\frac {x}{x_{i}}}\right)^{k}}{x-x_{i}}}+\left({\frac {x}{x_{i}}}\right)^{k}{\frac {1}{x-x_{i}}}} yields ∫ ∫ a b ω ω ( x ) x k p n ( x ) x − − x i d x = x i k ∫ ∫ a b ω ω ( x ) p n ( x ) x − − x i d x {\displaystyle \int _{a}^{b}\omega (x){\frac {x^{k}p_{n}(x)}{x-x_{i}}}dx=x_{i}^{k}\int _{a}^{b}\omega (x){\frac {p_{n}(x)}{x-x_{i}}}dx} provided k ≤ ≤ n {\displaystyle k\leq n} , because 1 − − ( x x i ) k x − − x i {\displaystyle {\frac {1-\left({\frac {x}{x_{i}}}\right)^{k}}{x-x_{i}}}} is a polynomial of degree k − 1 which is then orthogonal to p n ( x ) {\displaystyle p_{n}(x)} . So, if q ( x ) is a polynomial of at most nth degree we have ∫ ∫ a b ω ω ( x ) p n ( x ) x − − x i d x = 1 q ( x i ) ∫ ∫ a b ω ω ( x ) q ( x ) p n ( x ) x − − x i d x {\displaystyle \int _{a}^{b}\omega (x){\frac {p_{n}(x)}{x-x_{i}}}dx={\frac {1}{q(x_{i})}}\int _{a}^{b}\omega (x){\frac {q(x)p_{n}(x)}{x-x_{i}}}dx} We can evaluate the integral on the right hand side for q ( x ) = p n − − 1 ( x ) {\displaystyle q(x)=p_{n-1}(x)} as follows. Because p n ( x ) x − − x i {\displaystyle {\frac {p_{n}(x)}{x-x_{i}}}} is a polynomial of degree n − 1 , we have p n ( x ) x − − x i = a n x n − − 1 + s ( x ) {\displaystyle {\frac {p_{n}(x)}{x-x_{i}}}=a_{n}x^{n-1}+s(x)} where s ( x ) is a polynomial of degree n − − 2 {\displaystyle n-2} . Since s ( x ) is orthogonal to p n − − 1 ( x ) {\displaystyle p_{n-1}(x)} we have ∫ ∫ a b ω ω ( x ) p n ( x ) x − − x i d x = a n p n − − 1 ( x i ) ∫ ∫ a b ω ω ( x ) p n − − 1 ( x ) x n − − 1 d x {\displaystyle \int _{a}^{b}\omega (x){\frac {p_{n}(x)}{x-x_{i}}}dx={\frac {a_{n}}{p_{n-1}(x_{i})}}\int _{a}^{b}\omega (x)p_{n-1}(x)x^{n-1}dx} We can then write x n − − 1 = ( x n − − 1 − − p n − − 1 ( x ) a n − − 1 ) + p n − − 1 ( x ) a n − − 1 {\displaystyle x^{n-1}=\left(x^{n-1}-{\frac {p_{n-1}(x)}{a_{n-1}}}\right)+{\frac {p_{n-1}(x)}{a_{n-1}}}} The term in the brackets is a polynomial of degree n − − 2 {\displaystyle n-2} , which is therefore orthogonal to p n − − 1 ( x ) {\displaystyle p_{n-1}(x)} . The integral can thus be written as ∫ ∫ a b ω ω ( x ) p n ( x ) x − − x i d x = a n a n − − 1 p n − − 1 ( x i ) ∫ ∫ a b ω ω ( x ) p n − − 1 ( x ) 2 d x {\displaystyle \int _{a}^{b}\omega (x){\frac {p_{n}(x)}{x-x_{i}}}dx={\frac {a_{n}}{a_{n-1}p_{n-1}(x_{i})}}\int _{a}^{b}\omega (x)p_{n-1}(x)^{2}dx} According to equation ( 2 ), the weights are obtained by dividing this by p n ′ ( x i ) {\displaystyle p'_{n}(x_{i})} and that yields the expression in equation ( 1 ).
+
+w i {\displaystyle w_{i}} can also be expressed in terms of the orthogonal polynomials p n ( x ) {\displaystyle p_{n}(x)} and now p n + 1 ( x ) {\displaystyle p_{n+1}(x)} . In the 3-term recurrence relation p n + 1 ( x i ) = ( a ) p n ( x i ) + ( b ) p n − − 1 ( x i ) {\displaystyle p_{n+1}(x_{i})=(a)p_{n}(x_{i})+(b)p_{n-1}(x_{i})} the term with p n ( x i ) {\displaystyle p_{n}(x_{i})} vanishes, so p n − − 1 ( x i ) {\displaystyle p_{n-1}(x_{i})} in Eq. (1) can be replaced by 1 b p n + 1 ( x i ) {\textstyle {\frac {1}{b}}p_{n+1}\left(x_{i}\right)} .
+
+Proof that the weights are positive [ edit ] Consider the following polynomial of degree 2 n − − 2 {\displaystyle 2n-2} f ( x ) = ∏ ∏ 1 ≤ ≤ j ≤ ≤ n j ≠ ≠ i ( x − − x j ) 2 ( x i − − x j ) 2 {\displaystyle f(x)=\prod _{\begin{smallmatrix}1\leq j\leq n\\j\neq i\end{smallmatrix}}{\frac {\left(x-x_{j}\right)^{2}}{\left(x_{i}-x_{j}\right)^{2}}}} where, as above, the x j are the roots of the polynomial p n ( x ) {\displaystyle p_{n}(x)} . 
+Clearly f ( x j ) = δ δ i j {\displaystyle f(x_{j})=\delta _{ij}} . Since the degree of f ( x ) {\displaystyle f(x)} is less than 2 n − − 1 {\displaystyle 2n-1} , the Gaussian quadrature formula involving the weights and nodes obtained from p n ( x ) {\displaystyle p_{n}(x)} applies. Since f ( x j ) = 0 {\displaystyle f(x_{j})=0} for j not equal to i , we have ∫ ∫ a b ω ω ( x ) f ( x ) d x = ∑ ∑ j = 1 n w j f ( x j ) = ∑ ∑ j = 1 n δ δ i j w j = w i > 0.
+
+{\displaystyle \int _{a}^{b}\omega (x)f(x)dx=\sum _{j=1}^{n}w_{j}f(x_{j})=\sum _{j=1}^{n}\delta _{ij}w_{j}=w_{i}>0.} Since both ω ω ( x ) {\displaystyle \omega (x)} and f ( x ) {\displaystyle f(x)} are non-negative functions, it follows that w i > 0 {\displaystyle w_{i}>0} .
+
+Computation of Gaussian quadrature rules [ edit ] There are many algorithms for computing the nodes x i and weights w i of Gaussian quadrature rules. The most popular are the Golub-Welsch algorithm requiring O ( n 2 ) operations, Newton's method for solving p n ( x ) = 0 {\displaystyle p_{n}(x)=0} using the three-term recurrence for evaluation requiring O ( n 2 ) operations, and asymptotic formulas for large n requiring O ( n ) operations.
+
+Recurrence relation [ edit ] Orthogonal polynomials p r {\displaystyle p_{r}} with ( p r , p s ) = 0 {\displaystyle (p_{r},p_{s})=0} for r ≠ ≠ s {\displaystyle r\neq s} for a scalar product ( ⋅ ⋅ , ⋅ ⋅ ) {\displaystyle (\cdot ,\cdot )} , degree ( p r ) = r {\displaystyle (p_{r})=r} and leading coefficient one (i.e.
+
+monic orthogonal polynomials) satisfy the recurrence relation p r + 1 ( x ) = ( x − − a r , r ) p r ( x ) − − a r , r − − 1 p r − − 1 ( x ) ⋯ ⋯ − − a r , 0 p 0 ( x ) {\displaystyle p_{r+1}(x)=(x-a_{r,r})p_{r}(x)-a_{r,r-1}p_{r-1}(x)\cdots -a_{r,0}p_{0}(x)} and scalar product defined ( f ( x ) , g ( x ) ) = ∫ ∫ a b ω ω ( x ) f ( x ) g ( x ) d x {\displaystyle (f(x),g(x))=\int _{a}^{b}\omega (x)f(x)g(x)dx} for r = 0 , 1 , … … , n − − 1 {\displaystyle r=0,1,\ldots ,n-1} where n is the maximal degree which can be taken to be infinity, and where a r , s = ( x p r , p s ) ( p s , p s ) {\textstyle a_{r,s}={\frac {\left(xp_{r},p_{s}\right)}{\left(p_{s},p_{s}\right)}}} . First of all, the polynomials defined by the recurrence relation starting with p 0 ( x ) = 1 {\displaystyle p_{0}(x)=1} have leading coefficient one and correct degree. Given the starting point by p 0 {\displaystyle p_{0}} , the orthogonality of p r {\displaystyle p_{r}} can be shown by induction. For r = s = 0 {\displaystyle r=s=0} one has ( p 1 , p 0 ) = ( x − − a 0 , 0 ) ( p 0 , p 0 ) = ( x p 0 , p 0 ) − − a 0 , 0 ( p 0 , p 0 ) = ( x p 0 , p 0 ) − − ( x p 0 , p 0 ) = 0.
+
+{\displaystyle (p_{1},p_{0})=(x-a_{0,0})(p_{0},p_{0})=(xp_{0},p_{0})-a_{0,0}(p_{0},p_{0})=(xp_{0},p_{0})-(xp_{0},p_{0})=0.} Now if p 0 , p 1 , … … , p r {\displaystyle p_{0},p_{1},\ldots ,p_{r}} are orthogonal, then also p r + 1 {\displaystyle p_{r+1}} , because in ( p r + 1 , p s ) = ( x p r , p s ) − − a r , r ( p r , p s ) − − a r , r − − 1 ( p r − − 1 , p s ) ⋯ ⋯ − − a r , 0 ( p 0 , p s ) {\displaystyle (p_{r+1},p_{s})=(xp_{r},p_{s})-a_{r,r}(p_{r},p_{s})-a_{r,r-1}(p_{r-1},p_{s})\cdots -a_{r,0}(p_{0},p_{s})} all scalar products vanish except for the first one and the one where p s {\displaystyle p_{s}} meets the same orthogonal polynomial. Therefore, ( p r + 1 , p s ) = ( x p r , p s ) − − a r , s ( p s , p s ) = ( x p r , p s ) − − ( x p r , p s ) = 0.
+
+{\displaystyle (p_{r+1},p_{s})=(xp_{r},p_{s})-a_{r,s}(p_{s},p_{s})=(xp_{r},p_{s})-(xp_{r},p_{s})=0.} However, if the scalar product satisfies ( x f , g ) = ( f , x g ) {\displaystyle (xf,g)=(f,xg)} (which is the case for Gaussian quadrature), the recurrence relation reduces to a three-term recurrence relation: For s < r − − 1 , x p s {\displaystyle s<r-1,xp_{s}} is a polynomial of degree less than or equal to r − 1 . On the other hand, p r {\displaystyle p_{r}} is orthogonal to every polynomial of degree less than or equal to r − 1 . Therefore, one has ( x p r , p s ) = ( p r , x p s ) = 0 {\displaystyle (xp_{r},p_{s})=(p_{r},xp_{s})=0} and a r , s = 0 {\displaystyle a_{r,s}=0} for s < r − 1 . The recurrence relation then simplifies to p r + 1 ( x ) = ( x − − a r , r ) p r ( x ) − − a r , r − − 1 p r − − 1 ( x ) {\displaystyle p_{r+1}(x)=(x-a_{r,r})p_{r}(x)-a_{r,r-1}p_{r-1}(x)} or p r + 1 ( x ) = ( x − − a r ) p r ( x ) − − b r p r − − 1 ( x ) {\displaystyle p_{r+1}(x)=(x-a_{r})p_{r}(x)-b_{r}p_{r-1}(x)} (with the convention p − − 1 ( x ) ≡ ≡ 0 {\displaystyle p_{-1}(x)\equiv 0} ) where a r := ( x p r , p r ) ( p r , p r ) , b r := ( x p r , p r − − 1 ) ( p r − − 1 , p r − − 1 ) = ( p r , p r ) ( p r − − 1 , p r − − 1 ) {\displaystyle a_{r}:={\frac {(xp_{r},p_{r})}{(p_{r},p_{r})}},\qquad b_{r}:={\frac {(xp_{r},p_{r-1})}{(p_{r-1},p_{r-1})}}={\frac {(p_{r},p_{r})}{(p_{r-1},p_{r-1})}}} (the last because of ( x p r , p r − − 1 ) = ( p r , x p r − − 1 ) = ( p r , p r ) {\displaystyle (xp_{r},p_{r-1})=(p_{r},xp_{r-1})=(p_{r},p_{r})} , since x p r − − 1 {\displaystyle xp_{r-1}} differs from p r {\displaystyle p_{r}} by a degree less than r ).
+
+The Golub-Welsch algorithm [ edit ] The three-term recurrence relation can be written in matrix form J P ~ ~ = x P ~ ~ − − p n ( x ) e n {\displaystyle J{\tilde {P}}=x{\tilde {P}}-p_{n}(x)\mathbf {e} _{n}} where P ~ ~ = [ p 0 ( x ) p 1 ( x ) ⋯ ⋯ p n − − 1 ( x ) ] T {\displaystyle {\tilde {P}}={\begin{bmatrix}p_{0}(x)&p_{1}(x)&\cdots &p_{n-1}(x)\end{bmatrix}}^{\mathsf {T}}} , e n {\displaystyle \mathbf {e} _{n}} is the n {\displaystyle n} th standard basis vector, i.e., e n = [ 0 ⋯ ⋯ 0 1 ] T {\displaystyle \mathbf {e} _{n}={\begin{bmatrix}0&\cdots &0&1\end{bmatrix}}^{\mathsf {T}}} , and J is the following tridiagonal matrix , called the Jacobi matrix: J = [ a 0 1 0 ⋯ ⋯ 0 b 1 a 1 1 ⋱ ⋱ ⋮ ⋮ 0 b 2 ⋱ ⋱ ⋱ ⋱ 0 ⋮ ⋮ ⋱ ⋱ ⋱ ⋱ a n − − 2 1 0 ⋯ ⋯ 0 b n − − 1 a n − − 1 ] .
+
+{\displaystyle \mathbf {J} ={\begin{bmatrix}a_{0}&1&0&\cdots &0\\b_{1}&a_{1}&1&\ddots &\vdots \\0&b_{2}&\ddots &\ddots &0\\\vdots &\ddots &\ddots &a_{n-2}&1\\0&\cdots &0&b_{n-1}&a_{n-1}\end{bmatrix}}.} The zeros x j {\displaystyle x_{j}} of the polynomials up to degree n , which are used as nodes for the Gaussian quadrature can be found by computing the eigenvalues of this matrix. This procedure is known as Golub–Welsch algorithm .
+
+For computing the weights and nodes, it is preferable to consider the symmetric tridiagonal matrix J {\displaystyle {\mathcal {J}}} with elements J k , i = J k , i = a k − − 1 k = 1 , 2 , … … , n J k − − 1 , i = J k , k − − 1 = J k , k − − 1 J k − − 1 , k = b k − − 1 k = 1 , 2 , … … , n .
+
+{\displaystyle {\begin{aligned}{\mathcal {J}}_{k,i}=J_{k,i}&=a_{k-1}&k&=1,2,\ldots ,n\\[2.1ex]{\mathcal {J}}_{k-1,i}={\mathcal {J}}_{k,k-1}={\sqrt {J_{k,k-1}J_{k-1,k}}}&={\sqrt {b_{k-1}}}&k&={\hphantom {1,\,}}2,\ldots ,n.\end{aligned}}} That is, J = [ a 0 b 1 0 ⋯ ⋯ 0 b 1 a 1 b 2 ⋱ ⋱ ⋮ ⋮ 0 b 2 ⋱ ⋱ ⋱ ⋱ 0 ⋮ ⋮ ⋱ ⋱ ⋱ ⋱ a n − − 2 b n − − 1 0 ⋯ ⋯ 0 b n − − 1 a n − − 1 ] .
+
+{\displaystyle {\mathcal {J}}={\begin{bmatrix}a_{0}&{\sqrt {b_{1}}}&0&\cdots &0\\{\sqrt {b_{1}}}&a_{1}&{\sqrt {b_{2}}}&\ddots &\vdots \\0&{\sqrt {b_{2}}}&\ddots &\ddots &0\\\vdots &\ddots &\ddots &a_{n-2}&{\sqrt {b_{n-1}}}\\0&\cdots &0&{\sqrt {b_{n-1}}}&a_{n-1}\end{bmatrix}}.} J and J {\displaystyle {\mathcal {J}}} are similar matrices and therefore have the same eigenvalues (the nodes). The weights can be computed from the corresponding eigenvectors: If ϕ ϕ ( j ) {\displaystyle \phi ^{(j)}} is a normalized eigenvector (i.e., an eigenvector with euclidean norm equal to one) associated with the eigenvalue x j , the corresponding weight can be computed from the first component of this eigenvector, namely: w j = μ μ 0 ( ϕ ϕ 1 ( j ) ) 2 {\displaystyle w_{j}=\mu _{0}\left(\phi _{1}^{(j)}\right)^{2}} where μ μ 0 {\displaystyle \mu _{0}} is the integral of the weight function μ μ 0 = ∫ ∫ a b ω ω ( x ) d x .
+
+{\displaystyle \mu _{0}=\int _{a}^{b}\omega (x)dx.} See, for instance, ( Gil, Segura & Temme 2007 ) for further details.
+
+Error estimates [ edit ] The error of a Gaussian quadrature rule can be stated as follows.
+
+[ 5 ] For an integrand which has 2 n continuous derivatives, ∫ ∫ a b ω ω ( x ) f ( x ) d x − − ∑ ∑ i = 1 n w i f ( x i ) = f ( 2 n ) ( ξ ξ ) ( 2 n ) !
+
+( p n , p n ) {\displaystyle \int _{a}^{b}\omega (x)\,f(x)\,dx-\sum _{i=1}^{n}w_{i}\,f(x_{i})={\frac {f^{(2n)}(\xi )}{(2n)!}}\,(p_{n},p_{n})} for some ξ in ( a , b ) , where p n is the monic (i.e. the leading coefficient is 1 ) orthogonal polynomial of degree n and where ( f , g ) = ∫ ∫ a b ω ω ( x ) f ( x ) g ( x ) d x .
+
+{\displaystyle (f,g)=\int _{a}^{b}\omega (x)f(x)g(x)\,dx.} In the important special case of ω ( x ) = 1 , we have the error estimate [ 6 ] ( b − − a ) 2 n + 1 ( n !
+
+) 4 ( 2 n + 1 ) [ ( 2 n ) !
+
+] 3 f ( 2 n ) ( ξ ξ ) , a < ξ ξ < b .
+
+{\displaystyle {\frac {\left(b-a\right)^{2n+1}\left(n!\right)^{4}}{(2n+1)\left[\left(2n\right)!\right]^{3}}}f^{(2n)}(\xi ),\qquad a<\xi <b.} Stoer and Bulirsch remark that this error estimate is inconvenient in practice, since it may be difficult to estimate the order 2 n derivative, and furthermore the actual error may be much less than a bound established by the derivative. Another approach is to use two Gaussian quadrature rules of different orders, and to estimate the error as the difference between the two results. For this purpose, Gauss–Kronrod quadrature rules can be useful.
+
+Gauss–Kronrod rules [ edit ] Main article: Gauss–Kronrod quadrature formula If the interval [ a , b ] is subdivided, the Gauss evaluation points of the new subintervals never coincide with the previous evaluation points (except at zero for odd numbers), and thus the integrand must be evaluated at every point.
+
+Gauss–Kronrod rules are extensions of Gauss quadrature rules generated by adding n + 1 points to an n -point rule in such a way that the resulting rule is of order 2 n + 1 . This allows for computing higher-order estimates while re-using the function values of a lower-order estimate. The difference between a Gauss quadrature rule and its Kronrod extension is often used as an estimate of the approximation error .
+
+Gauss–Lobatto rules [ edit ] In some applications, it is desirable to have quadrature rules that have the high accuracy of Gauss formulas, but that also include the end points of the interval among the evaluation points. Such rules are known as Gauss-Lobatto , or simply Lobatto quadrature , [ 7 ] named after Dutch mathematician Rehuel Lobatto . Because for an n point rule, one can no longer freely choose the locations of all quadrature points (2 of the points are fixed at the end points), one needs to expect that the rule is less accurate than regular Gaussian quadrature. Indeed, an n point Gauss-Lobatto rule is only accurate for polynomials up to degree 2 n − 3 .
+
+[ 8 ] Lobatto quadrature of function f ( x ) on interval [−1, 1] : ∫ ∫ − − 1 1 f ( x ) d x = 2 n ( n − − 1 ) [ f ( 1 ) + f ( − − 1 ) ] + ∑ ∑ i = 2 n − − 1 w i f ( x i ) + R n .
+
+{\displaystyle \int _{-1}^{1}{f(x)\,dx}={\frac {2}{n(n-1)}}[f(1)+f(-1)]+\sum _{i=2}^{n-1}{w_{i}f(x_{i})}+R_{n}.} Abscissas: x i is the ( i − − 1 ) {\displaystyle (i-1)} st zero of P n − − 1 ′ ( x ) {\displaystyle P'_{n-1}(x)} , here P m ( x ) {\displaystyle P_{m}(x)} denotes the standard Legendre polynomial of m -th degree and the dash denotes the derivative.
+
+Weights: w i = 2 n ( n − − 1 ) [ P n − − 1 ( x i ) ] 2 , x i ≠ ≠ ± ± 1.
+
+{\displaystyle w_{i}={\frac {2}{n(n-1)\left[P_{n-1}\left(x_{i}\right)\right]^{2}}},\qquad x_{i}\neq \pm 1.} Remainder: R n = − − n ( n − − 1 ) 3 2 2 n − − 1 [ ( n − − 2 ) !
+
+] 4 ( 2 n − − 1 ) [ ( 2 n − − 2 ) !
+
+] 3 f ( 2 n − − 2 ) ( ξ ξ ) , − − 1 < ξ ξ < 1.
+
+{\displaystyle R_{n}={\frac {-n\left(n-1\right)^{3}2^{2n-1}\left[\left(n-2\right)!\right]^{4}}{(2n-1)\left[\left(2n-2\right)!\right]^{3}}}f^{(2n-2)}(\xi ),\qquad -1<\xi <1.} Some of the weights are: Number of points, n Points, x i Weights, w i 3 {\displaystyle 3} 0 {\displaystyle 0} 4 3 {\displaystyle {\frac {4}{3}}} ± ± 1 {\displaystyle \pm 1} 1 3 {\displaystyle {\frac {1}{3}}} 4 {\displaystyle 4} ± ± 1 5 {\displaystyle \pm {\sqrt {\frac {1}{5}}}} 5 6 {\displaystyle {\frac {5}{6}}} ± ± 1 {\displaystyle \pm 1} 1 6 {\displaystyle {\frac {1}{6}}} 5 {\displaystyle 5} 0 {\displaystyle 0} 32 45 {\displaystyle {\frac {32}{45}}} ± ± 3 7 {\displaystyle \pm {\sqrt {\frac {3}{7}}}} 49 90 {\displaystyle {\frac {49}{90}}} ± ± 1 {\displaystyle \pm 1} 1 10 {\displaystyle {\frac {1}{10}}} 6 {\displaystyle 6} ± ± 1 3 − − 2 7 21 {\displaystyle \pm {\sqrt {{\frac {1}{3}}-{\frac {2{\sqrt {7}}}{21}}}}} 14 + 7 30 {\displaystyle {\frac {14+{\sqrt {7}}}{30}}} ± ± 1 3 + 2 7 21 {\displaystyle \pm {\sqrt {{\frac {1}{3}}+{\frac {2{\sqrt {7}}}{21}}}}} 14 − − 7 30 {\displaystyle {\frac {14-{\sqrt {7}}}{30}}} ± ± 1 {\displaystyle \pm 1} 1 15 {\displaystyle {\frac {1}{15}}} 7 {\displaystyle 7} 0 {\displaystyle 0} 256 525 {\displaystyle {\frac {256}{525}}} ± ± 5 11 − − 2 11 5 3 {\displaystyle \pm {\sqrt {{\frac {5}{11}}-{\frac {2}{11}}{\sqrt {\frac {5}{3}}}}}} 124 + 7 15 350 {\displaystyle {\frac {124+7{\sqrt {15}}}{350}}} ± ± 5 11 + 2 11 5 3 {\displaystyle \pm {\sqrt {{\frac {5}{11}}+{\frac {2}{11}}{\sqrt {\frac {5}{3}}}}}} 124 − − 7 15 350 {\displaystyle {\frac {124-7{\sqrt {15}}}{350}}} ± ± 1 {\displaystyle \pm 1} 1 21 {\displaystyle {\frac {1}{21}}} An adaptive variant of this algorithm with 2 interior nodes [ 9 ] is found in GNU Octave and MATLAB as quadl and integrate .
+
+[ 10 ] [ 11 ] References [ edit ] Citations [ edit ] ^ Gauss 1815 ^ Jacobi 1826 ^ Abramowitz & Stegun 1983 , p. 887 ^ Stoer & Bulirsch 2002 , pp. 172–175 ^ Stoer & Bulirsch 2002 , Thm 3.6.24 ^ Kahaner, Moler & Nash 1989 , §5.2 ^ Abramowitz & Stegun 1983 , p. 888 ^ Quarteroni, Sacco & Saleri 2000 ^ Gander & Gautschi 2000 ^ MathWorks 2012 ^ Eaton et al. 2018 Bibliography [ edit ] Abramowitz, Milton ; Stegun, Irene Ann , eds. (1983) [June 1964]. "Chapter  25.4, Integration".
+
+Handbook of Mathematical Functions with Formulas, Graphs, and Mathematical Tables . Applied Mathematics Series. Vol. 55 (Ninth reprint with additional corrections of tenth original printing with corrections (December 1972); first ed.). Washington D.C.; New York: United States Department of Commerce, National Bureau of Standards; Dover Publications.
+
+ISBN 978-0-486-61272-0 .
+
+LCCN 64-60036 .
+
+MR 0167642 .
+
+LCCN 65-12253 .
+
+Anderson, Donald G. (1965).
+
+"Gaussian quadrature formulae for ∫ ∫ 0 1 − − ln ⁡ ⁡ ( x ) f ( x ) d x {\displaystyle \int _{0}^{1}-\ln(x)f(x)dx} " .
+
+Math. Comp .
+
+19 (91): 477– 481.
+
+doi : 10.1090/s0025-5718-1965-0178569-1 .
+
+Danloy, Bernard (1973). "Numerical construction of Gaussian quadrature formulas for ∫ ∫ 0 1 ( − − log ⁡ ⁡ x ) x α α f ( x ) d x {\displaystyle \int _{0}^{1}(-\log x)x^{\alpha }f(x)dx} and ∫ ∫ 0 ∞ ∞ E m ( x ) f ( x ) d x {\displaystyle \int _{0}^{\infty }E_{m}(x)f(x)dx} ".
+
+Math. Comp .
+
+27 (124): 861– 869.
+
+doi : 10.1090/S0025-5718-1973-0331730-X .
+
+MR 0331730 .
+
+Eaton, John W.; Bateman, David; Hauberg, Søren; Wehbring, Rik (2018).
+
+"Functions of One Variable (GNU Octave)" . Retrieved 28 September 2018 .
+
+Gander, Walter; Gautschi, Walter (2000).
+
+"Adaptive Quadrature - Revisited" .
+
+BIT Numerical Mathematics .
+
+40 (1): 84– 101.
+
+doi : 10.1023/A:1022318402393 .
+
+Gauss, Carl Friedrich (1815).
+
+Methodus nova integralium valores per approximationem inveniendi . Comm. Soc. Sci. Göttingen Math. Vol. 3. S. 29–76.
+
+datiert 1814, auch in Werke, Band 3, 1876, S. 163–196.
+
+English Translation by Wikisource.
+
+Gautschi, Walter (1968). "Construction of Gauss–Christoffel Quadrature Formulas".
+
+Math. Comp .
+
+22 (102): 251– 270.
+
+doi : 10.1090/S0025-5718-1968-0228171-0 .
+
+MR 0228171 .
+
+Gautschi, Walter (1970). "On the construction of Gaussian quadrature rules from modified moments".
+
+Math. Comp .
+
+24 (110): 245– 260.
+
+doi : 10.1090/S0025-5718-1970-0285117-6 .
+
+MR 0285177 .
+
+Gautschi, Walter (2020).
+
+A Software Repository for Gaussian Quadratures and Christoffel Functions . SIAM.
+
+ISBN 978-1-611976-34-2 .
+
+Gil, Amparo; Segura, Javier; Temme, Nico M. (2007), "§5.3: Gauss quadrature", Numerical Methods for Special Functions , SIAM, ISBN 978-0-89871-634-4 Golub, Gene H.
+
+; Welsch, John H. (1969).
+
+"Calculation of Gauss Quadrature Rules" .
+
+Mathematics of Computation .
+
+23 (106): 221– 230.
+
+doi : 10.1090/S0025-5718-69-99647-1 .
+
+JSTOR 2004418 .
+
+Jacobi, C. G. J.
+
+(1826).
+
+"Ueber Gauß' neue Methode, die Werthe der Integrale näherungsweise zu finden" .
+
+Journal für die Reine und Angewandte Mathematik .
+
+1 . S. 301–308und Werke, Band 6.
+
+{{ cite journal }} :  CS1 maint: postscript ( link ) Kabir, Hossein; Matikolaei, Sayed Amir Hossein Hassanpour (2017). "Implementing an Accurate Generalized Gaussian Quadrature Solution to Find the Elastic Field in a Homogeneous Anisotropic Media".
+
+Journal of the Serbian Society for Computational Mechanics .
+
+11 (1): 11– 19.
+
+doi : 10.24874/jsscm.2017.11.01.02 .
+
+Kahaner, David; Moler, Cleve ; Nash, Stephen (1989).
+
+Numerical Methods and Software .
+
+Prentice-Hall .
+
+ISBN 978-0-13-627258-8 .
+
+Laudadio, Teresa; Mastronardi, Nicola; Van Dooren, Paul (2023).
+
+"Computing Gaussian quadrature rules with high relative accuracy" .
+
+Numerical Algorithms .
+
+92 : 767– 793.
+
+doi : 10.1007/s11075-022-01297-9 .
+
+hdl : 2078.1/272678 .
+
+Laurie, Dirk P. (1999), "Accurate recovery of recursion coefficients from Gaussian quadrature formulas", J. Comput. Appl. Math.
+
+, 112 ( 1– 2): 165– 180, doi : 10.1016/S0377-0427(99)00228-9 Laurie, Dirk P. (2001). "Computation of Gauss-type quadrature formulas".
+
+J. Comput. Appl. Math .
+
+127 ( 1– 2): 201– 217.
+
+Bibcode : 2001JCoAM.127..201L .
+
+doi : 10.1016/S0377-0427(00)00506-9 .
+
+MathWorks (2012).
+
+"Numerical integration - MATLAB integral" .
+
+Piessens, R. (1971). "Gaussian quadrature formulas for the numerical integration of Bromwich's integral and the inversion of the laplace transform".
+
+J. Eng. Math .
+
+5 (1): 1– 9.
+
+Bibcode : 1971JEnMa...5....1P .
+
+doi : 10.1007/BF01535429 .
+
+Press, WH ; Teukolsky, SA; Vetterling, WT; Flannery, BP (2007), "Section 4.6. Gaussian Quadratures and Orthogonal Polynomials" , Numerical Recipes: The Art of Scientific Computing (3rd ed.), New York: Cambridge University Press, ISBN 978-0-521-88068-8 , archived from the original on 2012-03-19 , retrieved 2011-08-08 Quarteroni, Alfio ; Sacco, Riccardo; Saleri, Fausto (2000).
+
+Numerical Mathematics . New York: Springer-Verlag . pp.
+
+425– 478.
+
+doi : 10.1007/978-3-540-49809-4_10 .
+
+ISBN 0-387-98959-5 .
+
+Riener, Cordian; Schweighofer, Markus (2018). "Optimization approaches to quadrature: New characterizations of Gaussian quadrature on the line and quadrature with few nodes on plane algebraic curves, on the plane and in higher dimensions".
+
+Journal of Complexity .
+
+45 : 22– 54.
+
+arXiv : 1607.08404 .
+
+doi : 10.1016/j.jco.2017.10.002 .
+
+Sagar, Robin P. (1991). "A Gaussian quadrature for the calculation of generalized Fermi-Dirac integrals".
+
+Comput. Phys. Commun .
+
+66 ( 2– 3): 271– 275.
+
+Bibcode : 1991CoPhC..66..271S .
+
+doi : 10.1016/0010-4655(91)90076-W .
+
+Stoer, Josef; Bulirsch, Roland (2002), Introduction to Numerical Analysis (3rd ed.), Springer , ISBN 978-0-387-95452-3 Temme, Nico M. (2010), "§3.5(v): Gauss Quadrature" , in Olver, Frank W. J.
+
+; Lozier, Daniel M.; Boisvert, Ronald F.; Clark, Charles W. (eds.), NIST Handbook of Mathematical Functions , Cambridge University Press, ISBN 978-0-521-19225-5 , MR 2723248 .
+
+Yakimiw, E. (1996). "Accurate computation of weights in classical Gauss–Christoffel quadrature rules".
+
+J. Comput. Phys .
+
+129 (2): 406– 430.
+
+Bibcode : 1996JCoPh.129..406Y .
+
+doi : 10.1006/jcph.1996.0258 .
+
+External links [ edit ] "Gauss quadrature formula" , Encyclopedia of Mathematics , EMS Press , 2001 [1994] ALGLIB contains a collection of algorithms for numerical integration (in C# / C++ / Delphi / Visual Basic / etc.) GNU Scientific Library — includes C version of QUADPACK algorithms (see also GNU Scientific Library ) From Lobatto Quadrature to the Euler constant e Gaussian Quadrature Rule of Integration – Notes, PPT, Matlab, Mathematica, Maple, Mathcad at Holistic Numerical Methods Institute Weisstein, Eric W.
+
+"Legendre-Gauss Quadrature" .
+
+MathWorld .
+
+Gaussian Quadrature by Chris Maes and Anton Antonov, Wolfram Demonstrations Project .
+
+Tabulated weights and abscissae with Mathematica source code , high precision (16 and 256 decimal places) Legendre-Gaussian quadrature weights and abscissas, for n =2 through n =64, with Mathematica source code.
+
+Mathematica source code distributed under the GNU LGPL for abscissas and weights generation for arbitrary weighting functions W(x), integration domains and precisions.
+
+Gaussian Quadrature in Boost.Math, for arbitrary precision and approximation order Gauss–Kronrod Quadrature in Boost.Math Nodes and Weights of Gaussian quadrature Archived 2021-04-14 at the Wayback Machine v t e Numerical integration Newton–Cotes formulas Trapezoidal rule Simpson's rule Simpson's 3/8 rule Adaptive Simpson's method Boole's rule Romberg's method Gaussian quadrature Gauss–Hermite quadrature Gauss–Jacobi quadrature Gauss–Kronrod quadrature formula Gauss–Laguerre quadrature Gauss–Legendre quadrature Chebyshev–Gauss quadrature Other Barnes–Hut simulation Bayesian quadrature Clenshaw–Curtis quadrature Filon quadrature Lebedev quadrature Tanh-sinh quadrature Related Numerical methods for ordinary differential equations Numerical methods for partial differential equations NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐d4s4k
+Cached time: 20250812013950
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.868 seconds
+Real time usage: 1.177 seconds
+Preprocessor visited node count: 7799/1000000
+Revision size: 43207/2097152 bytes
+Post‐expand include size: 99562/2097152 bytes
+Template argument size: 8396/2097152 bytes
+Highest expansion depth: 13/100
+Expensive parser function count: 6/500
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 90207/5000000 bytes
+Lua time usage: 0.429/10.000 seconds
+Lua memory usage: 8395704/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  691.590      1 -total
+ 14.96%  103.465      1 Template:Short_description
+ 14.11%   97.605      5 Template:Cite_book
+ 11.59%   80.152      1 Template:AS_ref
+ 11.58%   80.072     14 Template:Cite_journal
+ 11.41%   78.911      2 Template:Pagetype
+ 10.61%   73.404     85 Template:Math
+  9.11%   63.032      1 Template:Numerical_integration
+  8.92%   61.684      1 Template:Navbox
+  6.53%   45.193      1 Template:More_footnotes Saved in parser cache with key enwiki:pcache:50579:|#|:idhash:canonical and timestamp 20250812013950 and revision id 1304419179. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Gaussian_quadrature&oldid=1304419179 " Category : Numerical integration Hidden categories: Articles with short description Short description is different from Wikidata Articles lacking in-text citations from September 2018 All articles lacking in-text citations CS1 maint: postscript Webarchive template wayback links This page was last edited on 5 August 2025, at 23:19 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Gaussian quadrature 19 languages Add topic
+

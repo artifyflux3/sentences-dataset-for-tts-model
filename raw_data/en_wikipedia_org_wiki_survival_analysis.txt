@@ -1,0 +1,643 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Introduction to survival analysis Toggle Introduction to survival analysis subsection 1.1 Definitions of common terms in survival analysis 1.2 Example: Acute myelogenous leukemia survival data 1.2.1 Kaplan–Meier plot for the aml data 1.2.2 Life table for the aml data 1.2.3 Log-rank test: Testing for differences in survival in the aml data 1.3 Cox proportional hazards (PH) regression analysis 1.3.1 Example: Cox proportional hazards regression analysis for melanoma 1.3.2 Cox model using a covariate in the melanoma data 1.3.3 Extensions to Cox models 1.4 Tree-structured survival models 1.4.1 Example survival tree analysis 1.4.2 Survival random forests 1.5 Deep Learning survival models 2 General formulation Toggle General formulation subsection 2.1 Survival function 2.2 Lifetime distribution function and event density 2.3 Hazard function and cumulative hazard function 2.4 Quantities derived from the survival distribution 3 Censoring 4 Fitting parameters to data 5 Non-parametric estimation 6 Discrete-time survival models 7 Goodness of fit 8 Computer software for survival analysis 9 Distributions used in survival analysis 10 Applications 11 See also 12 References 13 Further reading 14 External links Toggle the table of contents Survival analysis 22 languages العربية Català Čeština Deutsch Español فارسی Français 한국어 Italiano עברית Magyar 日本語 Norsk bokmål Polski Português Русский Suomi Svenska Türkçe Українська 粵語 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Branch of statistics This article needs additional citations for verification .
+
+Please help improve this article by adding citations to reliable sources . Unsourced material may be challenged and removed.
+
+Find sources: "Survival analysis" – news · newspapers · books · scholar · JSTOR ( April 2021 ) ( Learn how and when to remove this message ) Survival analysis is a branch of statistics for analyzing the expected duration of time until one event occurs, such as death in biological organisms and failure in mechanical systems.
+
+[ 1 ] This topic is called reliability theory , reliability analysis or reliability engineering in engineering , duration analysis or duration modelling in economics , and event history analysis in sociology . Survival analysis attempts to answer certain questions, such as what is the proportion of a population which will survive past a certain time? Of those that survive, at what rate will they die or fail? Can multiple causes of death or failure be taken into account? How do particular circumstances or characteristics increase or decrease the probability of survival ?
+
+To answer such questions, it is necessary to define "lifetime". In the case of biological survival, death is unambiguous, but for mechanical reliability, failure may not be well-defined, for there may well be mechanical systems in which failure is partial, a matter of degree, or not otherwise localized in time . Even in biological problems, some events (for example, heart attack or other organ failure) may have the same ambiguity. The theory outlined below assumes well-defined events at specific times; other cases may be better treated by models which explicitly account for ambiguous events.
+
+More generally, survival analysis involves the modelling of time to event data; in this context, death or failure is considered an "event" in the survival analysis literature – traditionally only a single event occurs for each subject, after which the organism or mechanism is dead or broken [ 2 ] .
+
+Recurring event or repeated event models relax that assumption. The study of recurring events is relevant in systems reliability , and in many areas of social sciences and medical research.
+
+Introduction to survival analysis [ edit ] Survival analysis is used in several ways: To describe the survival times of members of a group Life tables Kaplan–Meier curves Survival function Hazard function To compare the survival times of two or more groups Log-rank test To describe the effect of categorical or quantitative variables on survival Cox proportional hazards regression Parametric survival models Survival trees Survival random forests Definitions of common terms in survival analysis [ edit ] The following terms are commonly used in survival analyses [ 3 ] : Event: Death, disease occurrence, disease recurrence, recovery, or other experience of interest Time: The time from the beginning of an observation period (such as surgery or beginning treatment) to (i) an event, or (ii) end of the study, or (iii) loss of contact or withdrawal from the study.
+
+Censoring / Censored observation: Censoring occurs when we have some information about individual survival time, but we do not know the survival time exactly. The subject is censored in the sense that nothing is observed or known about that subject after the time of censoring. A censored subject may or may not have an event after the end of observation time.
+
+Survival function S(t): The probability that a subject survives longer than time t.
+
+Example: Acute myelogenous leukemia survival data [ edit ] This example uses the Acute Myelogenous Leukemia survival data set "aml" from the "survival" package in R. The data set is from Miller (1997) [ 4 ] and the question is whether the standard course of chemotherapy should be extended ('maintained') for additional cycles.
+
+The aml data set sorted by survival time is shown in the box.
+
+Aml data set sorted by survival time observation time (weeks) status x 12 5 1 Nonmaintained 13 5 1 Nonmaintained 14 8 1 Nonmaintained 15 8 1 Nonmaintained 1 9 1 Maintained 16 12 1 Nonmaintained 2 13 1 Maintained 3 13 0 Maintained 17 16 0 Nonmaintained 4 18 1 Maintained 5 23 1 Maintained 18 23 1 Nonmaintained 19 27 1 Nonmaintained 6 28 0 Maintained 20 30 1 Nonmaintained 7 31 1 Maintained 21 33 1 Nonmaintained 8 34 1 Maintained 22 43 1 Nonmaintained 9 45 0 Maintained 23 45 1 Nonmaintained 10 48 1 Maintained 11 161 0 Maintained Time is indicated by the variable "time", which is the survival or censoring time Event (recurrence of aml cancer) is indicated by the variable "status". 0 = no event (censored), 1 = event (recurrence) Treatment group: the variable "x" indicates if maintenance chemotherapy was given The last observation (11), at 161 weeks, is censored. Censoring indicates that the patient did not have an event (no recurrence of aml cancer). Another subject, observation 3, was censored at 13 weeks (indicated by status=0). This subject was in the study for only 13 weeks, and the aml cancer did not recur during those 13 weeks. It is possible that this patient was enrolled near the end of the study, so that they could be observed for only 13 weeks. It is also possible that the patient was enrolled early in the study, but was lost to follow up or withdrew from the study. The table shows that other subjects were censored at 16, 28, and 45 weeks (observations 17, 6, and 9 with status=0). The remaining subjects all experienced events (recurrence of aml cancer) while in the study. The question of interest is whether recurrence occurs later in maintained patients than in non-maintained patients.
+
+Kaplan–Meier plot for the aml data [ edit ] The survival function S ( t ), is the probability that a subject survives longer than time t .
+
+S ( t ) is theoretically a smooth curve, but it is usually estimated using the Kaplan–Meier (KM) curve [ 5 ] . The graph shows the KM plot for the aml data and can be interpreted as follows: The x axis is time, from zero (when observation began) to the last observed time point.
+
+The y axis is the proportion of subjects surviving. At time zero, 100% of the subjects are alive without an event.
+
+The solid line (similar to a staircase) shows the progression of event occurrences.
+
+A vertical drop indicates an event. In the aml table shown above, two subjects had events at five weeks, two had events at eight weeks, one had an event at nine weeks, and so on. These events at five weeks, eight weeks and so on are indicated by the vertical drops in the KM plot at those time points.
+
+At the far right end of the KM plot there is a tick mark at 161 weeks. The vertical tick mark indicates that a patient was censored at this time. In the aml data table five subjects were censored, at 13, 16, 28, 45 and 161 weeks. There are five tick marks in the KM plot, corresponding to these censored observations.
+
+Life table for the aml data [ edit ] A life table summarizes survival data in terms of the number of events and the proportion surviving at each event time point. The life table for the aml data, created using the R software, is shown.
+
+Life Table for the aml Data time n.risk n.event survival std.err lower 95% CI upper 95% CI 5 23 2 0.913 0.0588 0.8049 1 8 21 2 0.8261 0.079 0.6848 0.996 9 19 1 0.7826 0.086 0.631 0.971 12 18 1 0.7391 0.0916 0.5798 0.942 13 17 1 0.6957 0.0959 0.5309 0.912 18 14 1 0.646 0.1011 0.4753 0.878 23 13 2 0.5466 0.1073 0.3721 0.803 27 11 1 0.4969 0.1084 0.324 0.762 30 9 1 0.4417 0.1095 0.2717 0.718 31 8 1 0.3865 0.1089 0.2225 0.671 33 7 1 0.3313 0.1064 0.1765 0.622 34 6 1 0.2761 0.102 0.1338 0.569 43 5 1 0.2208 0.0954 0.0947 0.515 45 4 1 0.1656 0.086 0.0598 0.458 48 2 1 0.0828 0.0727 0.0148 0.462 The life table summarizes the events and the proportion surviving at each event time point. The columns in the life table have the following interpretation: time gives the time points at which events occur.
+
+n.risk is the number of subjects at risk immediately before the time point, t. Being "at risk" means that the subject has not had an event before time t, and is not censored before or at time t.
+
+n.event is the number of subjects who have events at time t.
+
+survival is the proportion surviving, as determined using the Kaplan–Meier product-limit estimate.
+
+std.err is the standard error of the estimated survival. The standard error of the Kaplan–Meier product-limit estimate it is calculated using Greenwood's formula, and depends on the number at risk (n.risk in the table), the number of deaths (n.event in the table) and the proportion surviving (survival in the table).
+
+lower 95% CI and upper 95% CI are the lower and upper 95% confidence bounds for the proportion surviving.
+
+Log-rank test: Testing for differences in survival in the aml data [ edit ] The log-rank test compares the survival times of two or more groups [ 6 ] . This example uses a log-rank test for a difference in survival in the maintained versus non-maintained treatment groups in the aml data. The graph shows KM plots for the aml data broken out by treatment group, which is indicated by the variable "x" in the data.
+
+Kaplan–Meier graph by treatment group in aml The null hypothesis for a log-rank test is that the groups have the same survival. The expected number of subjects surviving at each time point in each is adjusted for the number of subjects at risk in the groups at each event time. The log-rank test determines if the observed number of events in each group is significantly different from the expected number [ 7 ] . The formal test is based on a chi-squared statistic. When the log-rank statistic is large, it is evidence for a difference in the survival times between the groups. The log-rank statistic approximately has a Chi-squared distribution with one degree of freedom, and the p-value is calculated using the Chi-squared test .
+
+For the example data, the log-rank test for difference in survival gives a p-value of p=0.0653, indicating that the treatment groups do not differ significantly in survival, assuming an alpha level of 0.05. The sample size of 23 subjects is modest, so there is little power to detect differences between the treatment groups. The chi-squared test is based on asymptotic approximation, so the p-value should be regarded with caution for small sample sizes [ 8 ] .
+
+Cox proportional hazards (PH) regression analysis [ edit ] Kaplan–Meier curves and log-rank tests are most useful when the predictor variable is categorical (e.g., drug vs. placebo), or takes a small number of values (e.g., drug doses 0, 20, 50, and 100 mg/day) that can be treated as categorical [ 9 ] . The log-rank test and KM curves don't work easily with quantitative predictors such as gene expression, white blood count, or age. For quantitative predictor variables, an alternative method is Cox proportional hazards regression analysis. Cox PH models work also with categorical predictor variables, which are encoded as {0,1} indicator or dummy variables. The log-rank test is a special case of a Cox PH analysis, and can be performed using Cox PH software.
+
+Example: Cox proportional hazards regression analysis for melanoma [ edit ] This example uses the melanoma data set from Dalgaard Chapter 14.
+
+[ 10 ] Data are in the R package ISwR. The Cox proportional hazards regression using R gives the results shown in the box.
+
+Cox proportional hazards regression output for melanoma data. Predictor variable is sex 1: female, 2: male.
+
+The Cox regression results are interpreted as follows.
+
+Sex is encoded as a numeric vector (1: female, 2: male). The R summary for the Cox model gives the hazard ratio (HR) for the second group relative to the first group, that is, male versus female.
+
+coef = 0.662 is the estimated logarithm of the hazard ratio for males versus females.
+
+exp(coef) = 1.94 = exp(0.662) - The log of the hazard ratio (coef= 0.662) is transformed to the hazard ratio using exp(coef). The summary for the Cox model gives the hazard ratio for the second group relative to the first group, that is, male versus female. The estimated hazard ratio of 1.94 indicates that males have higher risk of death (lower survival rates) than females, in these data.
+
+se(coef) = 0.265 is the standard error of the log hazard ratio.
+
+z = 2.5 = coef/se(coef) = 0.662/0.265. Dividing the coef by its standard error gives the z score.
+
+p=0.013. The p-value corresponding to z=2.5 for sex is p=0.013, indicating that there is a significant difference in survival as a function of sex.
+
+The summary output also gives upper and lower 95% confidence intervals for the hazard ratio: lower 95% bound = 1.15; upper 95% bound = 3.26.
+
+Finally, the output gives p-values for three alternative tests for overall significance of the model: Likelihood ratio test = 6.15 on 1 df, p=0.0131 Wald test = 6.24 on 1 df, p=0.0125 Score (log-rank) test = 6.47 on 1 df, p=0.0110 These three tests are asymptotically equivalent. For large enough N, they will give similar results. For small N, they may differ somewhat. The last row, "Score (logrank) test" is the result for the log-rank test, with p=0.011, the same result as the log-rank test, because the log-rank test is a special case of a Cox PH regression. The Likelihood ratio test has better behavior for small sample sizes, so it is generally preferred.
+
+Cox model using a covariate in the melanoma data [ edit ] The Cox model extends the log-rank test by allowing the inclusion of additional covariates.
+
+[ 11 ] This example use the melanoma data set where the predictor variables include a continuous covariate, the thickness of the tumor (variable name = "thick").
+
+Histograms of melanoma tumor thickness In the histograms, the thickness values are positively skewed and do not have a Gaussian -like, Symmetric probability distribution . Regression models, including the Cox model, generally give more reliable results with normally-distributed variables.
+
+[ citation needed ] For this example we may use a logarithmic transform. The log of the thickness of the tumor looks to be more normally distributed, so the Cox models will use log thickness. The Cox PH analysis gives the results in the box.
+
+Cox PH output for melanoma data set with covariate log tumor thickness The p-value for all three overall tests (likelihood, Wald, and score) are significant, indicating that the model is significant. The p-value for log(thick) is 6.9e-07, with a hazard ratio HR = exp(coef) = 2.18, indicating a strong relationship between the thickness of the tumor and increased risk of death.
+
+By contrast, the p-value for sex is now p=0.088. The hazard ratio HR = exp(coef) = 1.58, with a 95% confidence interval of 0.934 to 2.68. Because the confidence interval for HR includes 1, these results indicate that sex makes a smaller contribution to the difference in the HR after controlling for the thickness of the tumor, and only trend toward significance. Examination of graphs of log(thickness) by sex and a t-test of log(thickness) by sex both indicate that there is a significant difference between men and women in the thickness of the tumor when they first see the clinician.
+
+The Cox model assumes that the hazards are proportional. The proportional hazard assumption may be tested using the R function cox.zph(). A p-value which is less than 0.05 indicates that the hazards are not proportional. For the melanoma data we obtain p=0.222. Hence, we cannot reject the null hypothesis of the hazards being proportional. Additional tests and graphs for examining a Cox model are described in the textbooks cited.
+
+Extensions to Cox models [ edit ] Cox models can be extended to deal with variations on the simple analysis.
+
+Stratification. The subjects can be divided into strata, where subjects within a stratum are expected to be relatively more similar to each other than to randomly chosen subjects from other strata. The regression parameters are assumed to be the same across the strata, but a different baseline hazard may exist for each stratum. Stratification is useful for analyses using matched subjects, for dealing with patient subsets, such as different clinics, and for dealing with violations of the proportional hazard assumption.
+
+Time-varying covariates. Some variables, such as gender and treatment group, generally stay the same in a clinical trial. Other clinical variables, such as serum protein levels or dose of concomitant medications may change over the course of a study. Cox models may be extended for such time-varying covariates.
+
+Tree-structured survival models [ edit ] The Cox PH regression model is a linear model. It is similar to linear regression and logistic regression. Specifically, these methods assume that a single line, curve, plane, or surface is sufficient to separate groups (alive, dead) or to estimate a quantitative response (survival time).
+
+In some cases alternative partitions give more accurate classification or quantitative estimates. One set of alternative methods are tree-structured survival models, [ 12 ] [ 13 ] [ 14 ] including survival random forests.
+
+[ 15 ] Tree-structured survival models may give more accurate predictions than Cox models. Examining both types of models for a given data set is a reasonable strategy.
+
+Example survival tree analysis [ edit ] This example of a survival tree analysis uses the R package "rpart".
+
+[ 16 ] The example is based on 146 stage C prostate cancer patients in the data set stagec in rpart. Rpart and the stagec example are described in Atkinson and Therneau (1997), [ 17 ] which is also distributed as a vignette of the rpart package.
+
+[ 16 ] The variables in stages are: pgtime : time to progression, or last follow-up free of progression pgstat : status at last follow-up (1=progressed, 0=censored) age : age at diagnosis eet : early endocrine therapy (1=no, 0=yes) ploidy : diploid/tetraploid/aneuploid DNA pattern g2 : % of cells in G2 phase grade : tumor grade (1-4) gleason : Gleason grade (3-10) The survival tree produced by the analysis is shown in the figure.
+
+Survival tree for prostate cancer data set Each branch in the tree indicates a split on the value of a variable. For example, the root of the tree splits subjects with grade < 2.5 versus subjects with grade 2.5 or greater. The terminal nodes indicate the number of subjects in the node, the number of subjects who have events, and the relative event rate compared to the root. In the node on the far left, the values 1/33 indicate that one of the 33 subjects in the node had an event, and that the relative event rate is 0.122. In the node on the far right bottom, the values 11/15 indicate that 11 of 15 subjects in the node had an event, and the relative event rate is 2.7.
+
+Survival random forests [ edit ] An alternative to building a single survival tree is to build many survival trees, where each tree is constructed using a sample of the data, and average the trees to predict survival.
+
+[ 15 ] This is the method underlying the survival random forest models. Survival random forest analysis is available in the R package "randomForestSRC".
+
+[ 18 ] The randomForestSRC package includes an example survival random forest analysis using the data set pbc. This data is from the Mayo Clinic Primary Biliary Cirrhosis (PBC) trial of the liver conducted between 1974 and 1984. In the example, the random forest survival model gives more accurate predictions of survival than the Cox PH model. The prediction errors are estimated by bootstrap re-sampling .
+
+Deep Learning survival models [ edit ] Recent advancements in deep representation learning have been extended to survival estimation. The DeepSurv [ 19 ] model proposes to replace the log-linear parameterization of the CoxPH model with a multi-layer perceptron. Further extensions like Deep Survival Machines [ 20 ] and Deep Cox Mixtures [ 21 ] involve the use of latent variable mixture models to model the time-to-event distribution as a mixture of parametric or semi-parametric distributions while jointly learning representations of the input covariates. Deep learning approaches have shown superior performance especially on complex input data modalities such as images and clinical time-series.
+
+General formulation [ edit ] This section needs additional citations for verification .
+
+Please help improve this article by adding citations to reliable sources in this section. Unsourced material may be challenged and removed.
+
+Find sources: "Survival analysis" – news · newspapers · books · scholar · JSTOR ( August 2025 ) ( Learn how and when to remove this message ) Survival function [ edit ] Main article: Survival function The object of primary interest is the survival function , conventionally denoted S , which is defined as S ( t ) = Pr ( T > t ) {\displaystyle S(t)=\Pr(T>t)} where t is some time, T is a random variable denoting the time of death, and "Pr" stands for probability . That is, the survival function is the probability that the time of death is later than some specified time t .
+The survival function is also called the survivor function or survivorship function in problems of biological survival, and the reliability function in mechanical survival problems [ 22 ] . In the latter case, the reliability function is denoted R ( t ).
+
+Usually one assumes S (0) = 1, although it could be less than 1 if there is the possibility of immediate death or failure.
+
+The survival function must be non-increasing: S ( u ) ≤ S ( t ) if u ≥ t . This property follows directly because T > u implies T > t . This reflects the notion that survival to a later age is possible only if all younger ages are attained. Given this property, the lifetime distribution function and event density ( F and f below) are well-defined [ 2 ] .
+
+The survival function is usually assumed to approach zero as age increases without bound (i.e., S ( t ) → 0 as t → ∞), although the limit could be greater than zero if eternal life is possible. For instance, we could apply survival analysis to a mixture of stable and unstable carbon isotopes ; unstable isotopes would decay sooner or later, but the stable isotopes would last indefinitely.
+
+Lifetime distribution function and event density [ edit ] Related quantities are defined in terms of the survival function.
+
+The lifetime distribution function , conventionally denoted F , is defined as the complement of the survival function, F ( t ) = Pr ( T ≤ ≤ t ) = 1 − − S ( t ) .
+
+{\displaystyle F(t)=\Pr(T\leq t)=1-S(t).} If F is differentiable then the derivative, which is the density function of the lifetime distribution, is conventionally denoted f , f ( t ) = F ′ ( t ) = d d t F ( t ) .
+
+{\displaystyle f(t)=F'(t)={\frac {d}{dt}}F(t).} The function f is sometimes called the event density ; it is the rate of death or failure events per unit time.
+
+The survival function can be expressed in terms of probability distribution and probability density functions S ( t ) = Pr ( T > t ) = ∫ ∫ t ∞ ∞ f ( u ) d u = 1 − − F ( t ) .
+
+{\displaystyle S(t)=\Pr(T>t)=\int _{t}^{\infty }f(u)\,du=1-F(t).} Similarly, a survival event density function can be defined as s ( t ) = S ′ ( t ) = d d t S ( t ) = d d t ∫ ∫ t ∞ ∞ f ( u ) d u = d d t [ 1 − − F ( t ) ] = − − f ( t ) .
+
+{\displaystyle s(t)=S'(t)={\frac {d}{dt}}S(t)={\frac {d}{dt}}\int _{t}^{\infty }f(u)\,du={\frac {d}{dt}}[1-F(t)]=-f(t).} In other fields, such as statistical physics, the survival event density function is known as the first passage time density.
+
+Hazard function and cumulative hazard function [ edit ] The hazard function h {\displaystyle h} is defined as the event rate at time t , {\displaystyle t,} conditional on survival at time t .
+
+{\displaystyle t.} Synonyms for hazard function in different fields include hazard rate, force of mortality ( demography and actuarial science , denoted by μ μ {\displaystyle \mu } ), force of failure, or failure rate ( engineering , denoted λ λ {\displaystyle \lambda } ). For example, in actuarial science, μ μ ( x ) {\displaystyle \mu (x)} denotes rate of death for people aged x {\displaystyle x} , whereas in reliability engineering λ λ ( t ) {\displaystyle \lambda (t)} denotes rate of failure of components after operation for time t {\displaystyle t} .
+
+Suppose that an item has survived for a time t {\displaystyle t} and we desire the probability that it will not survive for an additional time d t {\displaystyle dt} : h ( t ) = lim d t → → 0 Pr ( t ≤ ≤ T < t + d t | T ≥ ≥ t ) d t = lim d t → → 0 Pr ( t ≤ ≤ T < t + d t ) d t ⋅ ⋅ S ( t ) = f ( t ) S ( t ) = − − S ′ ( t ) S ( t ) .
+
+{\displaystyle h(t)=\lim _{dt\rightarrow 0}{\frac {\Pr(t\leq T<t+dt|T\geq t)}{dt}}=\lim _{dt\rightarrow 0}{\frac {\Pr(t\leq T<t+dt)}{dt\cdot S(t)}}={\frac {f(t)}{S(t)}}=-{\frac {S'(t)}{S(t)}}.} Any function h {\displaystyle h} is a hazard function if and only if it satisfies the following properties: ∀ ∀ x ≥ ≥ 0 ( h ( x ) ≥ ≥ 0 ) {\displaystyle \forall x\geq 0\left(h(x)\geq 0\right)} , ∫ ∫ 0 ∞ ∞ h ( x ) d x = ∞ ∞ {\displaystyle \int _{0}^{\infty }h(x)dx=\infty } .
+
+In fact, the hazard rate is usually more informative about the underlying mechanism of failure than the other representations of a lifetime distribution.
+
+The hazard function must be non-negative, λ λ ( t ) ≥ ≥ 0 {\displaystyle \lambda (t)\geq 0} , and its integral over [ 0 , ∞ ∞ ] {\displaystyle [0,\infty ]} must be infinite, but is not otherwise constrained; it may be increasing or decreasing, non-monotonic, or discontinuous. An example is the bathtub curve hazard function, which is large for small values of t {\displaystyle t} , decreasing to some minimum, and thereafter increasing again; this can model the property of some mechanical systems to either fail soon after operation, or much later, as the system ages.
+
+The hazard function can alternatively be represented in terms of the cumulative hazard function , conventionally denoted Λ Λ {\displaystyle \Lambda } or H {\displaystyle H} : Λ Λ ( t ) = − − log ⁡ ⁡ S ( t ) {\displaystyle \,\Lambda (t)=-\log S(t)} so transposing signs and exponentiating S ( t ) = exp ⁡ ⁡ ( − − Λ Λ ( t ) ) {\displaystyle \,S(t)=\exp(-\Lambda (t))} or differentiating (with the chain rule) d d t Λ Λ ( t ) = − − S ′ ( t ) S ( t ) = λ λ ( t ) .
+
+{\displaystyle {\frac {d}{dt}}\Lambda (t)=-{\frac {S'(t)}{S(t)}}=\lambda (t).} The name "cumulative hazard function" is derived from the fact that Λ Λ ( t ) = ∫ ∫ 0 t λ λ ( u ) d u {\displaystyle \Lambda (t)=\int _{0}^{t}\lambda (u)\,du} which is the "accumulation" of the hazard over time.
+
+From the definition of Λ Λ ( t ) {\displaystyle \Lambda (t)} , we see that it increases without bound as t tends to infinity (assuming that S ( t ) {\displaystyle S(t)} tends to zero). This implies that λ λ ( t ) {\displaystyle \lambda (t)} must not decrease too quickly, since, by definition, the cumulative hazard has to diverge. For example, exp ⁡ ⁡ ( − − t ) {\displaystyle \exp(-t)} is not the hazard function of any survival distribution, because its integral converges to 1.
+
+The survival function S ( t ) {\displaystyle S(t)} , the cumulative hazard function Λ Λ ( t ) {\displaystyle \Lambda (t)} , the density f ( t ) {\displaystyle f(t)} , the hazard function λ λ ( t ) {\displaystyle \lambda (t)} , and the lifetime distribution function F ( t ) {\displaystyle F(t)} are related through S ( t ) = exp ⁡ ⁡ [ − − Λ Λ ( t ) ] = f ( t ) λ λ ( t ) = 1 − − F ( t ) , t > 0.
+
+{\displaystyle S(t)=\exp[-\Lambda (t)]={\frac {f(t)}{\lambda (t)}}=1-F(t),\quad t>0.} Quantities derived from the survival distribution [ edit ] Future lifetime at a given time t 0 {\displaystyle t_{0}} is the time remaining until death, given survival to age t 0 {\displaystyle t_{0}} . Thus, it is T − − t 0 {\displaystyle T-t_{0}} in the present notation. The expected future lifetime is the expected value of future lifetime. The probability of death at or before age t 0 + t {\displaystyle t_{0}+t} , given survival until age t 0 {\displaystyle t_{0}} , is just P ( T ≤ ≤ t 0 + t ∣ ∣ T > t 0 ) = P ( t 0 < T ≤ ≤ t 0 + t ) P ( T > t 0 ) = F ( t 0 + t ) − − F ( t 0 ) S ( t 0 ) .
+
+{\displaystyle P(T\leq t_{0}+t\mid T>t_{0})={\frac {P(t_{0}<T\leq t_{0}+t)}{P(T>t_{0})}}={\frac {F(t_{0}+t)-F(t_{0})}{S(t_{0})}}.} Therefore, the probability density of future lifetime is d d t F ( t 0 + t ) − − F ( t 0 ) S ( t 0 ) = f ( t 0 + t ) S ( t 0 ) {\displaystyle {\frac {d}{dt}}{\frac {F(t_{0}+t)-F(t_{0})}{S(t_{0})}}={\frac {f(t_{0}+t)}{S(t_{0})}}} and the expected future lifetime is 1 S ( t 0 ) ∫ ∫ 0 ∞ ∞ t f ( t 0 + t ) d t = 1 S ( t 0 ) ∫ ∫ t 0 ∞ ∞ S ( t ) d t , {\displaystyle {\frac {1}{S(t_{0})}}\int _{0}^{\infty }t\,f(t_{0}+t)\,dt={\frac {1}{S(t_{0})}}\int _{t_{0}}^{\infty }S(t)\,dt,} where the second expression is obtained using integration by parts .
+
+For t 0 = 0 {\displaystyle t_{0}=0} , that is, at birth, this reduces to the expected lifetime.
+
+In reliability problems, the expected lifetime is called the mean time to failure , and the expected future lifetime is called the mean residual lifetime .
+
+As the probability of an individual surviving until age t or later is S ( t ), by definition, the expected number of survivors at age t out of an initial population of n newborns is n × S ( t ), assuming the same survival function for all individuals. Thus the expected proportion of survivors is S ( t ).
+If the survival of different individuals is independent, the number of survivors at age t has a binomial distribution with parameters n and S ( t ), and the variance of the proportion of survivors is S ( t ) × (1- S ( t ))/ n .
+
+The age at which a specified proportion of survivors remain can be found by solving the equation S ( t ) = q for t , where q is the quantile in question. Typically one is interested in the median lifetime , for which q = 1/2, or other quantiles such as q = 0.90 or q = 0.99.
+
+Censoring [ edit ] Censoring is a form of missing data problem in which time to event is not observed for reasons such as termination of study before all recruited subjects have shown the event of interest or the subject has left the study prior to experiencing an event. Censoring is common in survival analysis.
+
+If only the lower limit l for the true event time T is known such that T > l , this is called right censoring . Right censoring will occur, for example, for those subjects whose birth date is known but who are still alive when they are lost to follow-up or when the study ends. We generally encounter right-censored data.
+
+If the event of interest has already happened before the subject is included in the study but it is not known when it occurred, the data is said to be left-censored .
+
+[ 23 ] When it can only be said that the event happened between two observations or examinations, this is interval censoring .
+
+Left censoring occurs for example when a permanent tooth has already emerged prior to the start of a dental study that aims to estimate its emergence distribution. In the same study, an emergence time is interval-censored when the permanent tooth is present in the mouth at the current examination but not yet at the previous examination. Interval censoring often occurs in HIV/AIDS studies. Indeed, time to HIV seroconversion can be determined only by a laboratory assessment which is usually initiated after a visit to the physician. Then one can only conclude that HIV seroconversion has happened between two examinations. The same is true for the diagnosis of AIDS, which is based on clinical symptoms and needs to be confirmed by a medical examination.
+
+It may also happen that subjects with a lifetime less than some threshold may not be observed at all: this is called truncation . Note that truncation is different from left censoring, since for a left censored datum, we know the subject exists, but for a truncated datum, we may be completely unaware of the subject. Truncation is also common. In a so-called delayed entry study, subjects are not observed at all until they have reached a certain age. For example, people may not be observed until they have reached the age to enter school. Any deceased subjects in the pre-school age group would be unknown. Left-truncated data are common in actuarial work for life insurance and pensions .
+
+[ 24 ] Left-censored data can occur when a person's survival time becomes incomplete on the left side of the follow-up period for the person. For example, in an epidemiological example, we may monitor a patient for an infectious disorder starting from the time when he or she is tested positive for the infection. Although we may know the right-hand side of the duration of interest, we may never know the exact time of exposure to the infectious agent.
+
+[ 25 ] Fitting parameters to data [ edit ] Survival models can be usefully viewed as ordinary regression models in which the response variable is time. However, computing the likelihood function (needed for fitting parameters or making other kinds of inferences) is complicated by the censoring. The likelihood function for a survival model, in the presence of censored data, is formulated as follows. By definition the likelihood function is the conditional probability of the data given the parameters of the model.
+It is customary to assume that the data are independent given the parameters. Then the likelihood function is the product of the likelihood of each datum. It is convenient to partition the data into four categories: uncensored, left censored, right censored, and interval censored. These are denoted "unc.", "l.c.", "r.c.", and "i.c." in the equation below.
+
+L ( θ θ ) = ∏ ∏ T i ∈ ∈ u n c .
+
+Pr ( T = T i ∣ ∣ θ θ ) ∏ ∏ i ∈ ∈ l .
+
+c .
+
+Pr ( T < T i ∣ ∣ θ θ ) ∏ ∏ i ∈ ∈ r .
+
+c .
+
+Pr ( T > T i ∣ ∣ θ θ ) ∏ ∏ i ∈ ∈ i .
+
+c .
+
+Pr ( T i , l < T < T i , r ∣ ∣ θ θ ) .
+
+{\displaystyle L(\theta )=\prod _{T_{i}\in unc.}\Pr(T=T_{i}\mid \theta )\prod _{i\in l.c.}\Pr(T<T_{i}\mid \theta )\prod _{i\in r.c.}\Pr(T>T_{i}\mid \theta )\prod _{i\in i.c.}\Pr(T_{i,l}<T<T_{i,r}\mid \theta ).} For uncensored data, with T i {\displaystyle T_{i}} equal to the age at death, we have Pr ( T = T i ∣ ∣ θ θ ) = f ( T i ∣ ∣ θ θ ) .
+
+{\displaystyle \Pr(T=T_{i}\mid \theta )=f(T_{i}\mid \theta ).} For left-censored data, such that the age at death is known to be less than T i {\displaystyle T_{i}} , we have Pr ( T < T i ∣ ∣ θ θ ) = F ( T i ∣ ∣ θ θ ) = 1 − − S ( T i ∣ ∣ θ θ ) .
+
+{\displaystyle \Pr(T<T_{i}\mid \theta )=F(T_{i}\mid \theta )=1-S(T_{i}\mid \theta ).} For right-censored data, such that the age at death is known to be greater than T i {\displaystyle T_{i}} , we have Pr ( T > T i ∣ ∣ θ θ ) = 1 − − F ( T i ∣ ∣ θ θ ) = S ( T i ∣ ∣ θ θ ) .
+
+{\displaystyle \Pr(T>T_{i}\mid \theta )=1-F(T_{i}\mid \theta )=S(T_{i}\mid \theta ).} For an interval censored datum, such that the age at death is known to be less than T i , r {\displaystyle T_{i,r}} and greater than T i , l {\displaystyle T_{i,l}} , we have Pr ( T i , l < T < T i , r ∣ ∣ θ θ ) = S ( T i , l ∣ ∣ θ θ ) − − S ( T i , r ∣ ∣ θ θ ) .
+
+{\displaystyle \Pr(T_{i,l}<T<T_{i,r}\mid \theta )=S(T_{i,l}\mid \theta )-S(T_{i,r}\mid \theta ).} An important application where interval-censored data arises is current status data, where an event T i {\displaystyle T_{i}} is known not to have occurred before an observation time and to have occurred before the next observation time.
+
+Non-parametric estimation [ edit ] The Kaplan–Meier estimator can be used to estimate the survival function. The Nelson–Aalen estimator can be used to provide a non-parametric estimate of the cumulative hazard rate function. These estimators require lifetime data. Periodic case (cohort) and death (and recovery) counts are statistically sufficient to make nonparametric maximum likelihood and least squares estimates of survival functions, without lifetime data.
+
+Discrete-time survival models [ edit ] While many parametric models assume a continuous-time, discrete-time survival models can be mapped to a binary classification problem. In a discrete-time survival model the survival period is artificially resampled in intervals where for each interval a binary target indicator is recorded if the event takes place in a certain time horizon.
+
+[ 26 ] If a binary classifier (potentially enhanced with a different likelihood to take more structure of the problem into account) is calibrated , then the classifier score is the hazard function (i.e. the conditional probability of failure).
+
+[ 26 ] Description of the transformation of continuous-time survival data to discrete-time survival data. Individual 4 is censored and for individual 5 the event happens outside the observation window 5.
+
+Discrete-time survival models are connected to empirical likelihood .
+
+[ 27 ] [ 28 ] Goodness of fit [ edit ] The goodness of fit of survival models can be assessed using scoring rules .
+
+[ 29 ] Computer software for survival analysis [ edit ] The textbook by Kleinbaum has examples of survival analyses using SAS, R, and other packages.
+
+[ 6 ] The textbooks by Brostrom, [ 30 ] Dalgaard [ 10 ] and Tableman and Kim [ 31 ] give examples of survival analyses using R (or using S, and which run in R).
+
+Distributions used in survival analysis [ edit ] Exponential distribution Exponential-logarithmic distribution Gamma distribution Generalized gamma distribution Hypertabastic distribution Lindley distribution Log-logistic distribution Weibull distribution Applications [ edit ] Credit risk [ 32 ] [ 33 ] False conviction rate of inmates sentenced to death [ 34 ] Lead times for metallic components in the aerospace industry [ 35 ] Predictors of criminal recidivism [ 36 ] Survival distribution of radio-tagged animals [ 37 ] Time-to-violent death of Roman emperors [ 38 ] Intertrade waiting times of electronically traded shares on a stock exchange [ 39 ] See also [ edit ] Accelerated failure time model Bayesian survival analysis Cell survival curve Censoring (statistics) Chance-constrained portfolio selection Failure rate Frequency of exceedance Kaplan–Meier estimator Logrank test Maximum likelihood Mortality rate MTBF Proportional hazards models Reliability theory Residence time (statistics) Sequence analysis in social sciences Survival function Survival rate Discrete-time proportional hazards References [ edit ] ^ Clark, T G; Bradburn, M J; Love, S B; Altman, D G (2003-07-15).
+
+"Survival Analysis Part I: Basic concepts and first analyses" .
+
+British Journal of Cancer .
+
+89 (2): 232– 238.
+
+doi : 10.1038/sj.bjc.6601118 .
+
+PMC 2394262 .
+
+PMID 12865907 .
+
+^ a b Kalbfleisch, John D.; Prentice, Ross L. (2002-08-26).
+
+The Statistical Analysis of Failure Time Data . Wiley Series in Probability and Statistics (1 ed.). Wiley.
+
+doi : 10.1002/9781118032985 .
+
+ISBN 978-0-471-36357-6 .
+
+^ Mills, Melinda (2011).
+
+Introducing survival and event history analysis . London Thousand Oaks, Calif: Sage.
+
+ISBN 978-1-84860-101-7 .
+
+^ Miller, Rupert G. (1997), Survival analysis , John Wiley & Sons, ISBN 0-471-25218-2 ^ Kaplan, E. L.; Meier, Paul (1958-06-01).
+
+"Nonparametric Estimation from Incomplete Observations" .
+
+Journal of the American Statistical Association .
+
+53 (282): 457– 481.
+
+doi : 10.1080/01621459.1958.10501452 .
+
+ISSN 0162-1459 .
+
+^ a b Kleinbaum, David G.; Klein, Mitchel (2012), Survival analysis: A Self-learning text (Third ed.), Springer, ISBN 978-1441966452 ^ Hosmer, David W.; Lemeshow, Stanley; May, Susanne (2008-02-26).
+
+Applied Survival Analysis . Wiley Series in Probability and Statistics. Wiley.
+
+doi : 10.1002/9780470258019 .
+
+ISBN 978-0-471-75499-2 .
+
+^ Agresti, Alan (2018).
+
+Statistical methods for the social sciences (Fifth edition, global ed.). Harlow: Pearson Education, Limited.
+
+ISBN 978-1-292-22034-5 .
+
+^ Therneau, Terry M.; Grambsch, Patricia M. (2000).
+
+Modeling survival data: extending the Cox model . Statistics for biology and health. New York: Springer.
+
+ISBN 978-0-387-98784-2 .
+
+^ a b Dalgaard, Peter (2008), Introductory Statistics with R (Second ed.), Springer, ISBN 978-0387790534 ^ Saegusa, Takumi; Di, Chongzhi; Chen, Ying Qing (September 2014).
+
+"Hypothesis testing for an extended cox model with time-varying coefficients" .
+
+Biometrics .
+
+70 (3): 619– 628.
+
+doi : 10.1111/biom.12185 .
+
+ISSN 0006-341X .
+
+PMC 4247822 .
+
+PMID 24888739 .
+
+^ Segal, Mark Robert (1988).
+
+"Regression Trees for Censored Data" .
+
+Biometrics .
+
+44 (1): 35– 47.
+
+doi : 10.2307/2531894 .
+
+JSTOR 2531894 .
+
+S2CID 60974957 .
+
+^ Leblanc, Michael; Crowley, John (1993).
+
+"Survival Trees by Goodness of Split" .
+
+Journal of the American Statistical Association .
+
+88 (422): 457– 467.
+
+doi : 10.1080/01621459.1993.10476296 .
+
+ISSN 0162-1459 .
+
+^ Ritschard, Gilbert; Gabadinho, Alexis; Muller, Nicolas S.; Studer, Matthias (2008).
+
+"Mining event histories: a social science perspective" .
+
+International Journal of Data Mining, Modelling and Management .
+
+1 (1): 68.
+
+doi : 10.1504/IJDMMM.2008.022538 .
+
+ISSN 1759-1163 .
+
+^ a b Ishwaran, Hemant; Kogalur, Udaya B.; Blackstone, Eugene H.; Lauer, Michael S. (2008-09-01).
+
+"Random survival forests" .
+
+The Annals of Applied Statistics .
+
+2 (3).
+
+arXiv : 0811.1645 .
+
+doi : 10.1214/08-AOAS169 .
+
+ISSN 1932-6157 .
+
+S2CID 2003897 .
+
+^ a b Therneau, Terry J.; Atkinson, Elizabeth J.
+
+"rpart: Recursive Partitioning and Regression Trees" .
+
+CRAN . Retrieved November 12, 2021 .
+
+^ Atkinson, Elizabeth J.; Therneau, Terry J. (1997).
+
+An introduction to recursive partitioning using the RPART routines . Mayo Foundation.
+
+^ Ishwaran, Hemant; Kogalur, Udaya B.
+
+"randomForestSRC: Fast Unified Random Forests for Survival, Regression, and Classification (RF-SRC)" .
+
+CRAN . Retrieved November 12, 2021 .
+
+^ Singh, Jared; Katzman, L. (2018). "DeepSurv: personalized treatment recommender system using a Cox proportional hazards deep neural network".
+
+BMC Medical Research Methodology .
+
+^ Nagpal, Chirag (2021). "Deep survival machines: Fully parametric survival regression and representation learning for censored data with competing risks".
+
+IEEE Journal of Biomedical and Health Informatics .
+
+25 (8): 3163– 3175.
+
+arXiv : 2003.01176 .
+
+Bibcode : 2021IJBHI..25.3163N .
+
+doi : 10.1109/JBHI.2021.3052441 .
+
+PMID 33460387 .
+
+S2CID 211817982 .
+
+^ Nagpal, Chirag (2021). "Deep Cox mixtures for survival regression".
+
+Machine Learning for Healthcare Conference .
+
+arXiv : 2101.06536 .
+
+^ Meeker, William Q.; Escobar, Luis A.; Pascual, Francis G. (2022).
+
+Statistical methods for reliability data . Wiley series in probability and statistics (Second ed.). Hoboken, NJ: Wiley.
+
+ISBN 978-1-118-59448-3 .
+
+^ Darity, William A. Jr., ed. (2008).
+
+"Censoring, Left and Right" .
+
+International Encyclopedia of the Social Sciences . Vol. 1 (2nd ed.). Macmillan. pp.
+
+473– 474 . Retrieved 6 November 2016 .
+
+^ Richards, S. J. (2012). "A handbook of parametric survival models for actuarial use".
+
+Scandinavian Actuarial Journal .
+
+2012 (4): 233– 257.
+
+doi : 10.1080/03461238.2010.506688 .
+
+S2CID 119577304 .
+
+^ Singh, R.; Mukhopadhyay, K. (2011).
+
+"Survival analysis in clinical trials: Basics and must know areas" .
+
+Perspect Clin Res .
+
+2 (4): 145– 148.
+
+doi : 10.4103/2229-3485.86872 .
+
+PMC 3227332 .
+
+PMID 22145125 .
+
+^ a b Suresh, K., Severn, C. & Ghosh, D. Survival prediction models: an introduction to discrete-time modeling. BMC Med Res Methodol 22, 207 (2022).
+
+https://doi.org/10.1186/s12874-022-01679-6 , https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/s12874-022-01679-6 ^ Empirical Likelihood in Survival Analysis, Gang Li (U.S.A.), Runze Li (U.S.A.), and Mai Zhou (U.S.A.), Contemporary Multivariate Analysis and Design of Experiments. March 2005, 337-349, https://www.ms.uky.edu/~mai/research/llz.pdf ^ The Empirical Distribution Function with Arbitrarily Grouped, Censored and Truncated Data, Bruce W. Turnbull, Journal of the Royal Statistical Society. Series B (Methodological)
+Vol. 38, No. 3 (1976), pp. 290-295 (6 pages), https://apps.dtic.mil/sti/tr/pdf/ADA030940.pdf ^ Proper Scoring Rules for Survival Analysis, Hiroki Yanagisawa, https://arxiv.org/abs/2305.00621v3 ^ Brostrom, Göran (2012), Event History Analysis with R (First ed.), Chapman & Hall/CRC, ISBN 978-1439831649 ^ Tableman, Mara; Kim, Jong Sung (2003), Survival Analysis Using S (First ed.), Chapman and Hall/CRC, ISBN 978-1584884088 ^ Stepanova, Maria; Thomas, Lyn (2002-04-01). "Survival Analysis Methods for Personal Loan Data".
+
+Operations Research .
+
+50 (2): 277– 289.
+
+doi : 10.1287/opre.50.2.277.426 .
+
+ISSN 0030-364X .
+
+^ Glennon, Dennis; Nigro, Peter (2005). "Measuring the Default Risk of Small Business Loans: A Survival Analysis Approach".
+
+Journal of Money, Credit and Banking .
+
+37 (5): 923– 947.
+
+doi : 10.1353/mcb.2005.0051 .
+
+ISSN 0022-2879 .
+
+JSTOR 3839153 .
+
+S2CID 154615623 .
+
+^ Kennedy, Edward H.; Hu, Chen; O’Brien, Barbara; Gross, Samuel R. (2014-05-20).
+
+"Rate of false conviction of criminal defendants who are sentenced to death" .
+
+Proceedings of the National Academy of Sciences .
+
+111 (20): 7230– 7235.
+
+Bibcode : 2014PNAS..111.7230G .
+
+doi : 10.1073/pnas.1306417111 .
+
+ISSN 0027-8424 .
+
+PMC 4034186 .
+
+PMID 24778209 .
+
+^ de Cos Juez, F. J.; García Nieto, P. J.; Martínez Torres, J.; Taboada Castro, J. (2010-10-01).
+
+"Analysis of lead times of metallic components in the aerospace industry through a supported vector machine model" .
+
+Mathematical and Computer Modelling . Mathematical Models in Medicine, Business & Engineering 2009.
+
+52 (7): 1177– 1184.
+
+doi : 10.1016/j.mcm.2010.03.017 .
+
+hdl : 10651/8288 .
+
+ISSN 0895-7177 .
+
+^ Spivak, Andrew L.; Damphousse, Kelly R. (2006). "Who Returns to Prison? A Survival Analysis of Recidivism among Adult Offenders Released in Oklahoma, 1985 – 2004".
+
+Justice Research and Policy .
+
+8 (2): 57– 88.
+
+doi : 10.3818/jrp.8.2.2006.57 .
+
+ISSN 1525-1071 .
+
+S2CID 144566819 .
+
+^ Pollock, Kenneth H.; Winterstein, Scott R.; Bunck, Christine M.; Curtis, Paul D. (1989).
+
+"Survival Analysis in Telemetry Studies: The Staggered Entry Design" .
+
+The Journal of Wildlife Management .
+
+53 (1): 7– 15.
+
+doi : 10.2307/3801296 .
+
+ISSN 0022-541X .
+
+JSTOR 3801296 .
+
+^ Saleh, Joseph Homer (2019-12-23).
+
+"Statistical reliability analysis for a most dangerous occupation: Roman emperor" .
+
+Palgrave Communications .
+
+5 (1) 155: 1– 7.
+
+doi : 10.1057/s41599-019-0366-y .
+
+ISSN 2055-1045 .
+
+^ Kreer, Markus; Kizilersu, Ayse; Thomas, Anthony W. (2022).
+
+"Censored expectation maximization algorithm for mixtures: Application to intertrade waiting times" .
+
+Physica A: Statistical Mechanics and Its Applications .
+
+587 (1): 126456.
+
+Bibcode : 2022PhyA..58726456K .
+
+doi : 10.1016/j.physa.2021.126456 .
+
+ISSN 0378-4371 .
+
+S2CID 244198364 .
+
+Further reading [ edit ] Collett, David (2003).
+
+Modelling Survival Data in Medical Research (Second ed.). Boca Raton: Chapman & Hall/CRC.
+
+ISBN 1584883251 .
+
+Elandt-Johnson, Regina; Johnson, Norman (1999).
+
+Survival Models and Data Analysis . New York: John Wiley & Sons.
+
+ISBN 0471349925 .
+
+Kalbfleisch, J. D.; Prentice, Ross L. (2002).
+
+The statistical analysis of failure time data . New York: John Wiley & Sons.
+
+ISBN 047136357X .
+
+Lawless, Jerald F. (2003).
+
+Statistical Models and Methods for Lifetime Data (2nd ed.). Hoboken: John Wiley and Sons.
+
+ISBN 0471372153 .
+
+Rausand, M.; Hoyland, A. (2004).
+
+System Reliability Theory: Models, Statistical Methods, and Applications . Hoboken: John Wiley & Sons.
+
+ISBN 047147133X .
+
+External links [ edit ] Therneau, Terry.
+
+"A Package for Survival Analysis in S" . Archived from the original on 2006-09-07.
+
+via Dr. Therneau's page on the Mayo Clinic website "Engineering Statistics Handbook" . NIST/SEMATEK.
+
+SOCR , Survival analysis applet and interactive learning activity .
+
+Survival/Failure Time Analysis @ Statistics ' Textbook Page Survival Analysis in R Lifelines, a Python package for survival analysis Survival Analysis in NAG Fortran Library v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject Portal : Mathematics NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐zqz9v
+Cached time: 20250812013904
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.868 seconds
+Real time usage: 1.119 seconds
+Preprocessor visited node count: 4244/1000000
+Revision size: 53364/2097152 bytes
+Post‐expand include size: 256200/2097152 bytes
+Template argument size: 3849/2097152 bytes
+Highest expansion depth: 15/100
+Expensive parser function count: 6/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 171696/5000000 bytes
+Lua time usage: 0.514/10.000 seconds
+Lua memory usage: 7013364/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  764.287      1 -total
+ 46.24%  353.438      1 Template:Reflist
+ 28.20%  215.509     20 Template:Cite_journal
+ 20.03%  153.084      1 Template:Statistics
+ 19.69%  150.465      1 Template:Navbox_with_collapsible_groups
+ 10.96%   83.785     13 Template:Cite_book
+  8.75%   66.912      2 Template:More_citations_needed
+  8.60%   65.741      1 Template:Short_description
+  8.12%   62.089      2 Template:Ambox
+  7.44%   56.888     11 Template:Navbox Saved in parser cache with key enwiki:pcache:419259:|#|:idhash:canonical and timestamp 20250812013904 and revision id 1305371840. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Survival_analysis&oldid=1305371840 " Categories : Survival analysis Senescence Mathematical and quantitative methods (economics) Mathematics in medicine Survival Reliability engineering Hidden categories: Articles with short description Short description is different from Wikidata Articles needing additional references from April 2021 All articles needing additional references All articles with unsourced statements Articles with unsourced statements from February 2023 Articles needing additional references from August 2025 This page was last edited on 11 August 2025, at 17:42 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Survival analysis 22 languages Add topic
+

@@ -1,0 +1,106 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Difference between pure and impure functional programming 2 Properties of purely functional programming Toggle Properties of purely functional programming subsection 2.1 Strict versus non-strict evaluation 2.2 Parallel computing 2.3 Data structures 3 Purely functional language 4 References Toggle the table of contents Purely functional programming 4 languages Deutsch Français Русский 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Programming paradigm entirely based on functions In computer science , purely functional programming usually designates a programming paradigm —a style of building the structure and elements of computer programs—that treats all computation as the evaluation of mathematical functions .
+
+Program state and mutable objects are usually modeled with temporal logic , as explicit variables that represent the program state at each step of a program execution: a variable state is passed as an input parameter of a state-transforming function, which returns the updated state as part of its return value. This style handles state changes without losing the referential transparency of the program expressions.
+
+Purely functional programming consists of ensuring that functions, inside the functional paradigm, will only depend on their arguments, regardless of any global or local state. A pure functional subroutine only has visibility of changes of state represented by state variables included in its scope.
+
+Difference between pure and impure functional programming [ edit ] The exact difference between pure and impure functional programming is a matter of controversy. Sabry's proposed definition of purity is that all common evaluation strategies (call-by-name, call-by-value, and call-by-need) produce the same result, ignoring strategies that error or diverge.
+
+[ 1 ] A program is usually said to be functional when it uses some concepts of functional programming , such as first-class functions and higher-order functions .
+
+[ 2 ] However, a first-class function need not be purely functional, as it may use techniques from the imperative paradigm, such as arrays or input/output methods that use mutable cells, which update their state as side effects. In fact, the earliest programming languages cited as being functional, IPL and Lisp , [ 3 ] [ 4 ] are both "impure" functional languages by Sabry's definition.
+
+Properties of purely functional programming [ edit ] Strict versus non-strict evaluation [ edit ] Main article: Evaluation strategy Each evaluation strategy which ends on a purely functional program returns the same result. In particular, it ensures that the programmer does not have to consider in which order programs are evaluated, since eager evaluation will return the same result as lazy evaluation . However, it is still possible that an eager evaluation may not terminate while the lazy evaluation of the same program halts.
+An advantage of this is that lazy evaluation can be implemented much more easily; as all expressions will return the same result at any moment (regardless of program state), their evaluation can be delayed as much as necessary.
+
+Parallel computing [ edit ] In a purely functional language, the only dependencies between computations are data dependencies, and computations are deterministic. Therefore, to program in parallel, the programmer need only specify the pieces that should be computed in parallel, and the runtime can handle all other details such as distributing tasks to processors, managing synchronization and communication, and collecting garbage in parallel. This style of programming avoids common issues such as race conditions and deadlocks, but has less control than an imperative language.
+
+[ 5 ] To ensure a speedup, the granularity of tasks must be carefully chosen to be neither too big nor too small. In theory, it is possible to use runtime profiling and compile-time analysis to judge whether introducing parallelism will speed up the program, and thus automatically parallelize purely functional programs. In practice, this has not been terribly successful, and fully automatic parallelization is not practical.
+
+[ 5 ] Data structures [ edit ] Main article: Purely functional data structure Purely functional data structures are persistent . Persistency is required for functional programming; without it, the same computation could return different results. Functional programming  may use persistent non-purely functional data structures , while those data structures may not be used in purely functional programs.
+
+Purely functional data structures are often represented in a different way than their imperative counterparts.
+
+[ 6 ] For example, array with constant-time access and update is a basic component of most imperative languages and many imperative data-structures, such as hash table and binary heap ,  are based on arrays. Arrays can be replaced by map or random access list , which admits purely functional implementation, but the  access and update time is logarithmic . Therefore, purely functional data structures can be used in languages which are non-functional, but they may not be the most efficient tool available, especially if persistency is not required.
+
+In general, conversion of an imperative program to a purely functional one also requires ensuring that the formerly-mutable structures are now explicitly returned from functions that update them, a program structure called store-passing style .
+
+Purely functional language [ edit ] For a more comprehensive list, see List of programming languages by type § Pure .
+
+A purely functional language is a language which only admits purely functional programming. Purely functional programs can however be written in languages which are not purely functional.
+
+References [ edit ] ^ Sabry, Amr (January 1993). "What is a purely functional language?".
+
+Journal of Functional Programming .
+
+8 (1): 1– 22.
+
+CiteSeerX 10.1.1.27.7800 .
+
+doi : 10.1017/S0956796897002943 .
+
+S2CID 30595712 .
+
+^ Atencio, Luis (18 June 2016).
+
+Functional Programming in Javascript . Manning Publications.
+
+ISBN 978-1617292828 .
+
+^ The memoir of Herbert A. Simon (1991), Models of My Life pp.189-190 ISBN 0-465-04640-1 claims that he, Al Newell, and Cliff Shaw are "commonly adjudged to be the parents of [the] artificial intelligence [field]", for writing Logic Theorist , a program which proved theorems from Principia Mathematica automatically. In order to accomplish this, they had to invent a language and a paradigm which, which viewed retrospectively, embeds functional programming.
+
+^ McCarthy, John (June 1978).
+
+"History of LISP" .
+
+The first ACM SIGPLAN conference on History of programming languages - HOPL-1 . pp.
+
+217– 223.
+
+doi : 10.1145/800025.808387 .
+
+^ a b Marlow, Simon (18 June 2013).
+
+Parallel and Concurrent Programming in Haskell: Techniques for Multicore and Multithreaded Programming . O'Reilly Media. pp.
+
+5– 6.
+
+ISBN 978-1449335946 .
+
+^ Purely functional data structures by Chris Okasaki , Cambridge University Press , 1998, ISBN 0-521-66350-4 v t e Programming paradigms ( Comparison by language ) Imperative Structured Jackson structures Block-structured Modular Non-structured Procedural Programming in the large and in the small Design by contract Invariant-based Nested function Object-oriented ( comparison , list ) Class-based , Prototype-based , Object-based Agent Immutable object Persistent Uniform function call syntax Declarative Functional ( comparison ) Recursive Anonymous function ( Partial application ) Higher-order Purely functional Total Strict GADTs Dependent types Functional logic Point-free style Expression-oriented Applicative , Concatenative Function-level , Value-level Dataflow Flow-based Reactive ( Functional reactive ) Signals Streams Synchronous Logic Abductive logic Answer set Constraint ( Constraint logic ) Inductive logic Nondeterministic Ontology Probabilistic logic Query Domain- specific language (DSL) Algebraic modeling Array Automata-based ( Action ) Command ( Spacecraft ) Differentiable End-user Grammar-oriented Interface description Language-oriented List comprehension Low-code Modeling Natural language Non-English-based Page description Pipes and filters Probabilistic Quantum Scientific Scripting Set-theoretic Simulation Stack-based System Tactile Templating Transformation ( Graph rewriting , Production , Pattern ) Visual Concurrent , distributed , parallel Actor-based Automatic mutual exclusion Choreographic programming Concurrent logic ( Concurrent constraint logic ) Concurrent OO Macroprogramming Multitier programming Organic computing Parallel programming models Partitioned global address space Process-oriented Relativistic programming Service-oriented Structured concurrency Metaprogramming Attribute-oriented Automatic ( Inductive ) Dynamic Extensible Generic Homoiconicity Interactive Macro ( Hygienic ) Metalinguistic abstraction Multi-stage Program synthesis ( Bayesian , Inferential , by demonstration , by example ) Reflective Self-modifying code Symbolic Template Separation of concerns Aspects Components Data-driven Data-oriented Event-driven Features Literate Roles Subjects v t e Types of programming languages Level Machine Assembly Compiled Interpreted Low-level High-level Very high-level Esoteric Generation First Second Third Fourth Fifth NewPP limit report
+Parsed by mw‐web.codfw.main‐7c956d68b4‐nchxs
+Cached time: 20250817054857
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.289 seconds
+Real time usage: 0.369 seconds
+Preprocessor visited node count: 697/1000000
+Revision size: 7747/2097152 bytes
+Post‐expand include size: 56175/2097152 bytes
+Template argument size: 638/2097152 bytes
+Highest expansion depth: 8/100
+Expensive parser function count: 4/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 39296/5000000 bytes
+Lua time usage: 0.187/10.000 seconds
+Lua memory usage: 4631388/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  309.460      1 -total
+ 38.68%  119.703      1 Template:Reflist
+ 28.33%   87.671      4 Template:Navbox
+ 26.94%   83.382      1 Template:Programming_paradigms_navbox
+ 25.40%   78.608      1 Template:Cite_journal
+ 21.84%   67.584      1 Template:Short_description
+ 11.96%   37.024      2 Template:Pagetype
+  6.87%   21.245      2 Template:Main
+  6.68%   20.673      3 Template:Main_other
+  6.48%   20.048      3 Template:Cite_book Saved in parser cache with key enwiki:pcache:51235010:|#|:idhash:canonical and timestamp 20250817054857 and revision id 1294163800. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Purely_functional_programming&oldid=1294163800 " Categories : Programming paradigms Functional programming Hidden categories: Articles with short description Short description is different from Wikidata This page was last edited on 6 June 2025, at 00:32 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Purely functional programming 4 languages Add topic
+

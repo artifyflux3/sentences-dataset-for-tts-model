@@ -1,0 +1,69 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 The Riemann problem in linearized gas dynamics 2 References 3 See also Toggle the table of contents Riemann problem 5 languages Deutsch Français Italiano Nederlands Русский Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Mathematical problem A Riemann problem , named after Bernhard Riemann , is a specific initial value problem composed of a conservation equation together with piecewise constant initial data which has a single discontinuity in the domain of interest. The Riemann problem is very useful for the understanding of equations like Euler conservation equations because all properties, such as shocks and rarefaction waves, appear as characteristics in the solution. It also gives an exact solution to some complex nonlinear equations, such as the Euler equations .
+
+In numerical analysis , Riemann problems appear in a natural way in finite volume methods for the solution of conservation law equations due to the discreteness of the grid. For that it is widely used in computational fluid dynamics and in computational magnetohydrodynamics simulations. In these fields, Riemann problems are calculated using Riemann solvers .
+
+The Riemann problem in linearized gas dynamics [ edit ] As a simple example, we investigate the properties of the one-dimensional Riemann problem 
+in gas dynamics (Toro, Eleuterio F. (1999). Riemann Solvers and Numerical Methods for Fluid Dynamics, Pg 44, Example 2.5) The initial conditions are given by [ ρ ρ u ] = [ ρ ρ L u L ] for x ≤ ≤ 0 and [ ρ ρ u ] = [ ρ ρ R u R ] for x > 0 {\displaystyle {\begin{bmatrix}\rho \\u\end{bmatrix}}={\begin{bmatrix}\rho _{L}\\u_{L}\end{bmatrix}}{\text{ for }}x\leq 0\qquad {\text{and}}\qquad {\begin{bmatrix}\rho \\u\end{bmatrix}}={\begin{bmatrix}\rho _{R}\\u_{R}\end{bmatrix}}{\text{ for }}x>0} where x = 0 separates two different states, together with the linearised gas dynamic equations (see gas dynamics for derivation).
+
+∂ ∂ ρ ρ ∂ ∂ t + ρ ρ 0 ∂ ∂ u ∂ ∂ x = 0 ∂ ∂ u ∂ ∂ t + a 2 ρ ρ 0 ∂ ∂ ρ ρ ∂ ∂ x = 0 {\displaystyle {\begin{aligned}{\frac {\partial \rho }{\partial t}}+\rho _{0}{\frac {\partial u}{\partial x}}&=0\\[8pt]{\frac {\partial u}{\partial t}}+{\frac {a^{2}}{\rho _{0}}}{\frac {\partial \rho }{\partial x}}&=0\end{aligned}}} where we can assume without loss of generality a ≥ ≥ 0 {\displaystyle a\geq 0} .
+We can now rewrite the above equations in a conservative form: U t + A ⋅ ⋅ U x = 0 {\displaystyle U_{t}+A\cdot U_{x}=0} : where U = [ ρ ρ u ] , A = [ 0 ρ ρ 0 a 2 ρ ρ 0 0 ] {\displaystyle U={\begin{bmatrix}\rho \\u\end{bmatrix}},\quad A={\begin{bmatrix}0&\rho _{0}\\{\frac {a^{2}}{\rho _{0}}}&0\end{bmatrix}}} and the index denotes the partial derivative with respect to the corresponding variable (i.e. x or t).
+
+The eigenvalues of the system are the characteristics of the system λ λ 1 = − − a , λ λ 2 = a {\displaystyle \lambda _{1}=-a,\lambda _{2}=a} . They give the propagation speed of the medium, including that of any discontinuity, which is the speed of sound here. The corresponding eigenvectors are e ( 1 ) = [ ρ ρ 0 − − a ] , e ( 2 ) = [ ρ ρ 0 a ] .
+
+{\displaystyle \mathbf {e} ^{(1)}={\begin{bmatrix}\rho _{0}\\-a\end{bmatrix}},\quad \mathbf {e} ^{(2)}={\begin{bmatrix}\rho _{0}\\a\end{bmatrix}}.} By decomposing the left state u L {\displaystyle u_{L}} in terms of the eigenvectors, we get for some α α 1 , α α 2 {\displaystyle \alpha _{1},\alpha _{2}} U L = [ ρ ρ L u L ] = α α 1 e ( 1 ) + α α 2 e ( 2 ) .
+
+{\displaystyle U_{L}={\begin{bmatrix}\rho _{L}\\u_{L}\end{bmatrix}}=\alpha _{1}\mathbf {e} ^{(1)}+\alpha _{2}\mathbf {e} ^{(2)}.} Now we can solve for α α 1 {\displaystyle \alpha _{1}} and α α 2 {\displaystyle \alpha _{2}} : α α 1 = a ρ ρ L − − ρ ρ 0 u L 2 a ρ ρ 0 α α 2 = a ρ ρ L + ρ ρ 0 u L 2 a ρ ρ 0 {\displaystyle {\begin{aligned}\alpha _{1}&={\frac {a\rho _{L}-\rho _{0}u_{L}}{2a\rho _{0}}}\\[8pt]\alpha _{2}&={\frac {a\rho _{L}+\rho _{0}u_{L}}{2a\rho _{0}}}\end{aligned}}} Analogously U R = [ ρ ρ R u R ] = β β 1 e ( 1 ) + β β 2 e ( 2 ) {\displaystyle U_{R}={\begin{bmatrix}\rho _{R}\\u_{R}\end{bmatrix}}=\beta _{1}\mathbf {e} ^{(1)}+\beta _{2}\mathbf {e} ^{(2)}} for β β 1 = a ρ ρ R − − ρ ρ 0 u R 2 a ρ ρ 0 β β 2 = a ρ ρ R + ρ ρ 0 u R 2 a ρ ρ 0 {\displaystyle {\begin{aligned}\beta _{1}&={\frac {a\rho _{R}-\rho _{0}u_{R}}{2a\rho _{0}}}\\[8pt]\beta _{2}&={\frac {a\rho _{R}+\rho _{0}u_{R}}{2a\rho _{0}}}\end{aligned}}} Using this, in the domain in between the two characteristics t = | x | / a {\displaystyle t=|x|/a} ,
+we get the final constant solution: U ∗ ∗ = [ ρ ρ ∗ ∗ u ∗ ∗ ] = β β 1 e ( 1 ) + α α 2 e ( 2 ) = β β 1 [ ρ ρ 0 − − a ] + α α 2 [ ρ ρ 0 a ] {\displaystyle U_{*}={\begin{bmatrix}\rho _{*}\\u_{*}\end{bmatrix}}=\beta _{1}\mathbf {e} ^{(1)}+\alpha _{2}\mathbf {e} ^{(2)}=\beta _{1}{\begin{bmatrix}\rho _{0}\\-a\end{bmatrix}}+\alpha _{2}{\begin{bmatrix}\rho _{0}\\a\end{bmatrix}}} and the (piecewise constant) solution in the entire domain t > 0 {\displaystyle t>0} : U ( t , x ) = [ ρ ρ ( t , x ) u ( t , x ) ] = { U L , 0 < t ≤ ≤ − − x / a U ∗ ∗ , 0 ≤ ≤ | x | / a < t U R , 0 < t ≤ ≤ x / a {\displaystyle U(t,x)={\begin{bmatrix}\rho (t,x)\\u(t,x)\end{bmatrix}}={\begin{cases}U_{L},&0<t\leq -x/a\\U_{*},&0\leq |x|/a<t\\U_{R},&0<t\leq x/a\end{cases}}} Although this is a simple example, it still shows the basic properties. Most notably, the characteristics decompose the solution into three domains. The propagation speed
+of these two equations is equivalent to the propagation speed of sound.
+
+The fastest characteristic defines the Courant–Friedrichs–Lewy (CFL) condition, which sets the restriction for the maximum time step for which an explicit numerical method is stable. Generally as more conservation equations are used, more characteristics are involved.
+
+References [ edit ] Toro, Eleuterio F. (1999).
+
+Riemann Solvers and Numerical Methods for Fluid Dynamics . Berlin: Springer Verlag.
+
+ISBN 3-540-65966-8 .
+
+LeVeque, Randall J. (2004).
+
+Finite-Volume Methods for Hyperbolic Problems . Cambridge: Cambridge University Press.
+
+ISBN 0-521-81087-6 .
+
+See also [ edit ] Computational fluid dynamics Computational magnetohydrodynamics Riemann solver v t e Bernhard Riemann Cauchy–Riemann equations Generalized Riemann hypothesis Grand Riemann hypothesis Grothendieck–Hirzebruch–Riemann–Roch theorem Hirzebruch–Riemann–Roch theorem Local zeta function Measurable Riemann mapping theorem Riemann (crater) Riemann Xi function Riemann curvature tensor Riemann hypothesis Riemann integral Riemann invariant Riemann mapping theorem Riemann form Riemann problem Riemann series theorem Riemann solver Riemann sphere Riemann sum Riemann surface Riemann zeta function Riemann's differential equation Riemann's minimal surface Riemannian circle Riemannian connection on a surface Riemannian geometry Riemann–Hilbert correspondence Riemann–Hilbert problems Riemann–Lebesgue lemma Riemann–Liouville integral Riemann–Roch theorem Riemann–Roch theorem for smooth manifolds Riemann–Siegel formula Riemann–Siegel theta function Riemann–Silberstein vector Riemann–Stieltjes integral Riemann–von Mangoldt formula Category NewPP limit report
+Parsed by mw‐web.codfw.main‐645954cd9f‐9rs82
+Cached time: 20250815182156
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1]
+CPU time usage: 0.190 seconds
+Real time usage: 0.280 seconds
+Preprocessor visited node count: 443/1000000
+Revision size: 5598/2097152 bytes
+Post‐expand include size: 12271/2097152 bytes
+Template argument size: 392/2097152 bytes
+Highest expansion depth: 8/100
+Expensive parser function count: 1/500
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 14297/5000000 bytes
+Lua time usage: 0.126/10.000 seconds
+Lua memory usage: 4124567/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  192.523      1 -total
+ 35.71%   68.759      1 Template:Bernhard_Riemann
+ 34.95%   67.296      1 Template:Navbox
+ 32.84%   63.218      2 Template:Cite_book
+ 26.06%   50.173      1 Template:Short_description
+ 16.23%   31.242      2 Template:Pagetype
+  5.69%   10.951      3 Template:Main_other
+  5.03%    9.680      1 Template:Reflist
+  4.89%    9.423      1 Template:SDcat
+  2.58%    4.976      1 Template:Icon Saved in parser cache with key enwiki:pcache:9461236:|#|:idhash:canonical and timestamp 20250815182156 and revision id 1279008254. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Riemann_problem&oldid=1279008254 " Categories : Conservation equations Fluid dynamics Computational fluid dynamics Bernhard Riemann Hidden categories: Articles with short description Short description matches Wikidata This page was last edited on 5 March 2025, at 23:34 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Riemann problem 5 languages Add topic
+

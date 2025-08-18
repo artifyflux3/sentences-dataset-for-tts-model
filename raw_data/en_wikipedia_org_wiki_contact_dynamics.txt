@@ -1,0 +1,76 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Modeling Toggle Modeling subsection 1.1 Non-smooth approach 2 Numerical integration Toggle Numerical integration subsection 2.1 Event-driven integrators 2.2 Time-stepping integrators 3 Examples Toggle Examples subsection 3.1 Granular materials 3.2 Billiard 3.3 Wheely of a motorbike 3.4 Motion of the woodpecker toy 4 See also 5 References 6 Further reading 7 External links Toggle the table of contents Contact dynamics 1 language العربية Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Motion of multibody systems Contact dynamics deals with the motion of multibody systems subjected to unilateral contacts and friction .
+
+[ 1 ] Such systems are omnipresent in many multibody dynamics applications. Consider for example Contacts between wheels and ground in vehicle dynamics Squealing of brakes due to friction induced oscillations Motion of many particles, spheres which fall in a funnel, mixing processes (granular media) Clockworks Walking machines Arbitrary machines with limit stops, friction.
+
+Anatomic tissues (skin, iris/lens, eyelids/anterior ocular surface, joint cartilages, vascular endothelium/blood cells, muscles/tendons, et cetera) In the following it is discussed how such mechanical systems with unilateral contacts and friction can be modeled and how the time evolution of such systems can be obtained by numerical integration . In addition, some examples are given.
+
+Modeling [ edit ] The two main approaches for modeling mechanical systems with unilateral contacts and friction are the regularized and the non-smooth approach. In the following, the two approaches are introduced using a simple example. Consider a block which can slide or stick on a table (see figure 1a). The motion of the block is described by the equation of motion, whereas the friction force is unknown (see figure 1b). In order to obtain the friction force, a separate force law must be specified which links the friction force to the associated velocity of the block.
+
+Figure 1: Block which can slide or stick on a table. Figure a) depicts the model, figure b) the equation of motion with unknown friction force Non-smooth approach [ edit ] A more sophisticated approach is the non-smooth approach , which uses set-valued force laws to model mechanical systems with unilateral contacts and friction. Consider again the block which slides or sticks on the table. The associated set-valued friction law of type Sgn is depicted in figure 3. Regarding the sliding case, the friction force is given. Regarding the sticking case, the friction force is set-valued and determined according to an additional algebraic constraint .
+
+Figure 3: Set-valued force law for friction To conclude, the non-smooth approach changes the underlying mathematical structure if required and leads to a proper description of mechanical systems with unilateral contacts and friction. As a consequence of the changing mathematical structure, impacts can occur, and the time evolutions of the positions and the velocities can not be assumed to be smooth anymore. As a consequence, additional impact equations and impact laws have to be defined. In order to handle the changing mathematical structure, the set-valued force laws are commonly written as inequality or inclusion problems. The evaluation of these inequalities/inclusions is commonly done by solving linear (or nonlinear) complementarity problems , by quadratic programming or by transforming the inequality/inclusion problems into projective equations which can be solved iteratively by Jacobi or Gauss–Seidel techniques.
+The non-smooth approach provides a new modeling approach for mechanical systems with unilateral contacts and friction, which incorporates also the whole classical mechanics subjected to bilateral constraints. The approach is associated to the classical DAE theory and leads to robust integration schemes.
+
+Numerical integration [ edit ] The integration of regularized models can be done by standard stiff solvers for ordinary differential equations. However, oscillations induced by the regularization can occur. Considering non-smooth models of mechanical systems with unilateral contacts and friction, two main classes of integrators exist, the event-driven and the so-called time-stepping integrators.
+
+Event-driven integrators [ edit ] Event-driven integrators distinguish between smooth parts of the motion in which the underlying structure of the differential equations does not change, and in events or so-called switching points at which this structure changes, i.e. time instants at which a unilateral contact closes or a stick slip transition occurs. At these switching points, the set-valued force (and additional impact) laws are evaluated in order to obtain a new underlying mathematical structure on which the integration can be continued.  Event-driven integrators are very accurate but are not suitable for systems with many contacts.
+
+Time-stepping integrators [ edit ] Time-stepping integrators are dedicated numerical schemes for mechanical systems with many contacts. The first time-stepping integrator was introduced by J.J. Moreau. The integrators do not aim at resolving switching points and are therefore very robust in application. As the integrators work with the integral of the contact forces and not with the forces itself, the methods can handle both motion and impulsive events like impacts. As a drawback, the accuracy of time-stepping integrators is low. This can be fixed by using a step-size refinement at switching points. Smooth parts of the motion are processed by larger step sizes, and higher order integration methods can be used to increase the integration order.
+
+Examples [ edit ] This section gives some examples of mechanical systems with unilateral contacts and friction. The results have been obtained by a non-smooth approach using time-stepping integrators.
+
+Granular materials [ edit ] Time-stepping methods are especially well suited for the simulation of granular materials. Figure 4 depicts the simulation of mixing 1000 disks.
+
+Figure 4: Mixing a thousand disks Billiard [ edit ] Consider two colliding spheres in a billiard play. Figure 5a shows some snapshots of two colliding spheres, figure 5b depicts the associated trajectories.
+
+Figure 5: a) Snapshot. b) Trajectories of the two spheres Wheely of a motorbike [ edit ] If a motorbike is accelerated too fast, it does a wheelie. Figure 6 shows some snapshots of a simulation.
+
+Figure 6: Wheely of a motorbike Motion of the woodpecker toy [ edit ] The woodpecker toy is a well known benchmark problem in contact dynamics. The toy consists of a pole, a sleeve with a hole that is slightly larger than the diameter of the pole, a spring and the woodpecker body. In operation, the woodpecker moves down the pole performing some kind of pitching motion, which is controlled by the sleeve. Figure 7 shows some snapshots of a simulation.
+
+Figure 7: Simulation of the woodpecker toy A simulation and visualization can be found at https://github.com/gabyx/Woodpecker .
+
+See also [ edit ] Multibody dynamics Contact mechanics : Applications with unilateral contacts and friction. Static applications (contact between deformable bodies) and dynamic applications (Contact dynamics).
+
+Lubachevsky-Stillinger algorithm of simulating compression of large assemblies of hard particles References [ edit ] ^ "Contact in multibody system" (PDF) .
+
+Further reading [ edit ] Acary V. and Brogliato, B. Numerical Methods for Nonsmooth Dynamical Systems. Applications in Mechanics and Electronics.
+
+Springer Verlag, LNACM 35, Heidelberg, 2008.
+
+Brogliato B. Nonsmooth Mechanics. Models, Dynamics and Control Communications and Control Engineering Series Springer-Verlag, London, 2016 (third Ed.) Drumwright, E. and Shell, D. Modeling Contact Friction and Joint Friction in Dynamic Robotic Simulation Using the Principle of Maximum Dissipation.
+
+Springer Tracks in Advanced Robotics: Algorithmic Foundations of Robotics IX , 2010 Glocker, Ch.
+
+Dynamik von Starrkoerpersystemen mit Reibung und Stoessen , volume 18/182 of VDI Fortschrittsberichte Mechanik/Bruchmechanik.
+
+VDI Verlag, Düsseldorf, 1995 Glocker Ch. and Studer C. Formulation and preparation for Numerical Evaluation of Linear Complementarity Systems.
+
+Multibody System Dynamics 13(4):447-463, 2005 Jean M. The non-smooth contact dynamics method.
+
+Computer Methods in Applied mechanics and Engineering 177(3-4):235-257, 1999 Moreau J.J.
+
+Unilateral Contact and Dry Friction in Finite Freedom Dynamics, volume 302 of Non-smooth Mechanics and Applications, CISM Courses and Lectures . Springer, Wien, 1988 Pfeiffer F., Foerg M. and Ulbrich H. Numerical aspects of non-smooth multibody dynamics.
+
+Comput. Methods Appl. Mech. Engrg 195(50-51):6891-6908, 2006 Potra F.A., Anitescu M., Gavrea B. and Trinkle J. A linearly implicit trapezoidal method for integrating stiff multibody dynamics with contacts, joints and friction.
+
+Int. J. Numer. Meth. Engng 66(7):1079-1124, 2006 Stewart D.E. and Trinkle J.C. An Implicit Time-Stepping Scheme for Rigid Body Dynamics with Inelastic Collisions and Coulomb Friction.
+
+Int. J. Numer. Methods Engineering 39(15):2673-2691, 1996 Studer C.
+
+Augmented time-stepping integration of non-smooth dynamical systems , PhD Thesis ETH Zurich, ETH E-Collection, to appear 2008 Studer C.
+
+Numerics of Unilateral Contacts and Friction—Modeling and Numerical Time Integration in Non-Smooth Dynamics , Lecture Notes in Applied and Computational Mechanics, Volume 47, Springer, Berlin, Heidelberg, 2009 External links [ edit ] Multibody research group , Center of Mechanics, ETH Zurich.
+
+Lehrstuhl für angewandte Mechanik TU Munich.
+
+BiPoP Team , INRIA Rhone-Alpes, France, Siconos software. An open-source  software dedicated to the modeling and the simulation or nonsmooth dynamical systems, especially mechanical systems with contact and Coulomb's friction Multibody dynamics , Rensselaer Polytechnic Institute.
+
+dynamY software LMGC90 software MigFlow software Solfec software GRSFramework Granular Rigid Body Simulation Framework developed at IMES in Ch. Glocker's group (High-Performance Computing with MPI),  2016 Chrono , an open source multi-physics simulation engine, see also project website 2017 Retrieved from " https://en.wikipedia.org/w/index.php?title=Contact_dynamics&oldid=1277266629 " Category : Dynamics (mechanics) Hidden categories: Articles with short description Short description matches Wikidata This page was last edited on 23 February 2025, at 17:33 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Contact dynamics 1 language Add topic
+

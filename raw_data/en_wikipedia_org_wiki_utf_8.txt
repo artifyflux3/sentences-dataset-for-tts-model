@@ -1,278 +1,547 @@
-Title: UTF-8
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 History 2 Description Toggle Description subsection 2.1 Overlong encodings 2.2 Byte map 2.3 Error handling 2.4 Surrogates 2.5 Byte-order mark 3 Comparison to UTF-16 4 Implementations and adoption 5 Standards 6 See also 7 References 8 External links Toggle the table of contents UTF-8 45 languages العربية Azərbaycanca বাংলা 閩南語 / Bân-lâm-gí Български Bosanski Català Чӑвашла Čeština Dansk Deutsch Ελληνικά Español Esperanto Euskara فارسی Français 한국어 Հայերեն Hrvatski Bahasa Indonesia Italiano עברית Latviešu Lietuvių Magyar മലയാളം Bahasa Melayu Nederlands 日本語 Norsk bokmål Norsk nynorsk Polski Português Русский Slovenčina Slovenščina Српски / srpski Suomi Svenska Türkçe Українська اردو Tiếng Việt 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia ASCII-compatible variable-width encoding of Unicode UTF-8 Standard Unicode Standard Classification Unicode Transformation Format , extended ASCII , variable-length encoding Extends ASCII Transforms / Encodes ISO/IEC 10646 ( Unicode ) Preceded by UTF-1 UTF-8 is a character encoding standard used for electronic communication. Defined by the Unicode Standard, the name is derived from Unicode Transformation Format –  8-bit .
 
-URL Source: https://en.wikipedia.org/wiki/UTF-8
+[ 1 ] As of July 2025, almost every webpage is transmitted as UTF-8.
 
-Published Time: 2001-11-22T18:22:36Z
+[ 2 ] UTF-8 supports all 1,112,064 [ 3 ] valid Unicode code points using a variable-width encoding of one to four one- byte (8-bit) code units.
 
-Markdown Content:
-UTF-8| Standard | [Unicode Standard](https://www.unicode.org/versions/latest/) |
-| --- |
-| Classification | [Unicode Transformation Format](https://en.wikipedia.org/wiki/Unicode_Transformation_Format "Unicode Transformation Format"), [extended ASCII](https://en.wikipedia.org/wiki/Extended_ASCII "Extended ASCII"), [variable-length encoding](https://en.wikipedia.org/wiki/Variable-width_encoding "Variable-width encoding") |
-| Extends | [ASCII](https://en.wikipedia.org/wiki/ASCII "ASCII") |
-| Transforms / Encodes | [ISO/IEC 10646](https://en.wikipedia.org/wiki/ISO/IEC_10646 "ISO/IEC 10646") ([Unicode](https://en.wikipedia.org/wiki/Unicode "Unicode")) |
-| Preceded by | [UTF-1](https://en.wikipedia.org/wiki/UTF-1 "UTF-1") |
+Code points with lower numerical values, which tend to occur more frequently, are encoded using fewer bytes. It was designed for backward compatibility with ASCII : the first 128 characters of Unicode, which correspond one-to-one with ASCII, are encoded using a single byte with the same binary value as ASCII, so that a UTF-8-encoded file using only those characters is identical to an ASCII file. Most software designed for any extended ASCII can read and write UTF-8, and this results in fewer internationalization issues than any alternative text encoding.
 
-**UTF-8** is a [character encoding](https://en.wikipedia.org/wiki/Character_encoding "Character encoding") standard used for electronic communication. Defined by the [Unicode](https://en.wikipedia.org/wiki/Unicode "Unicode") Standard, the name is derived from _Unicode Transformation Format– 8-bit_.[[1]](https://en.wikipedia.org/wiki/UTF-8#cite_note-:1-1) As of July 2025, almost every webpage is transmitted as UTF-8.[[2]](https://en.wikipedia.org/wiki/UTF-8#cite_note-W3TechsWebEncoding-2)
+[ 4 ] [ 5 ] UTF-8 is dominant for all countries/languages on the internet, with 99%  global average use, is used in most standards, often the only allowed encoding, and is supported by all modern operating systems and programming languages.
 
-UTF-8 supports all 1,112,064[[3]](https://en.wikipedia.org/wiki/UTF-8#cite_note-3) valid Unicode [code points](https://en.wikipedia.org/wiki/Code_point#In_Unicode "Code point") using a [variable-width encoding](https://en.wikipedia.org/wiki/Variable-width_encoding "Variable-width encoding") of one to four one-[byte](https://en.wikipedia.org/wiki/Byte "Byte") (8-bit) code units.
+History [ edit ] See also: Universal Coded Character Set § History The International Organization for Standardization (ISO) set out to compose a universal multi-byte character set in 1989. The draft ISO 10646 standard contained a non-required annex called UTF-1 that provided a byte stream encoding of its 32-bit code points. This encoding was not satisfactory on performance grounds, among other problems, and the biggest problem was probably that it did not have a clear separation between ASCII and non-ASCII: new UTF-1 tools would be backward compatible with ASCII-encoded text, but UTF-1-encoded text could confuse existing code expecting ASCII (or extended ASCII ), because it could contain continuation bytes in the range 0x21 – 0x7E that meant something else in ASCII, e.g., 0x2F for / , the Unix path directory separator.
 
-Code points with lower numerical values, which tend to occur more frequently, are encoded using fewer bytes. It was designed for [backward compatibility](https://en.wikipedia.org/wiki/Backward_compatibility "Backward compatibility") with [ASCII](https://en.wikipedia.org/wiki/ASCII "ASCII"): the first 128 characters of Unicode, which correspond one-to-one with ASCII, are encoded using a single byte with the same binary value as ASCII, so that a UTF-8-encoded file using only those characters is identical to an ASCII file. Most software designed for any [extended ASCII](https://en.wikipedia.org/wiki/Extended_ASCII "Extended ASCII") can read and write UTF-8, and this results in fewer internationalization issues than any alternative text encoding.[[4]](https://en.wikipedia.org/wiki/UTF-8#cite_note-Microsoft_GDK-4)[[5]](https://en.wikipedia.org/wiki/UTF-8#cite_note-whatwg-5)
+In July 1992, the X/Open committee XoJIG was looking for a better encoding. Dave Prosser of Unix System Laboratories submitted a proposal for one that had faster implementation characteristics and introduced the improvement that 7-bit ASCII characters would only represent themselves; multi-byte sequences would only include bytes with the high bit set. The name File System Safe UCS Transformation Format ( FSS-UTF ) [ 6 ] and most of the text of this proposal were later preserved in the final specification.
 
-UTF-8 is dominant for all countries/languages on the internet, with 99% global average use, is used in most standards, often the only allowed encoding, and is supported by all modern operating systems and programming languages.
+[ 7 ] [ 8 ] [ 9 ] In August 1992, this proposal was circulated by an IBM X/Open representative to interested parties. A modification by Ken Thompson of the Plan 9 operating system group at Bell Labs made it self-synchronizing , letting a reader start anywhere and immediately detect character boundaries, at the cost of being somewhat less bit-efficient than the previous proposal. It also abandoned the use of biases that prevented overlong encodings .
 
-The [International Organization for Standardization](https://en.wikipedia.org/wiki/International_Organization_for_Standardization "International Organization for Standardization") (ISO) set out to compose a universal multi-byte character set in 1989. The draft ISO 10646 standard contained a non-required [annex](https://en.wikipedia.org/wiki/Addendum "Addendum") called [UTF-1](https://en.wikipedia.org/wiki/UTF-1 "UTF-1") that provided a byte stream encoding of its [32-bit](https://en.wikipedia.org/wiki/32-bit_computing "32-bit computing") code points. This encoding was not satisfactory on performance grounds, among other problems, and the biggest problem was probably that it did not have a clear separation between ASCII and non-ASCII: new UTF-1 tools would be backward compatible with ASCII-encoded text, but UTF-1-encoded text could confuse existing code expecting ASCII (or [extended ASCII](https://en.wikipedia.org/wiki/Extended_ASCII "Extended ASCII")), because it could contain continuation bytes in the range 0x21–0x7E that meant something else in ASCII, e.g., 0x2F for `/`, the [Unix](https://en.wikipedia.org/wiki/Unix "Unix")[path](https://en.wikipedia.org/wiki/Path_(computing) "Path (computing)") directory separator.
+[ 9 ] [ 10 ] Thompson's design was outlined on September 2, 1992, on a placemat in a New Jersey diner with Rob Pike . In the following days, Pike and Thompson implemented it and updated Plan 9 to use it throughout, [ 11 ] and then communicated their success back to X/Open, which accepted it as the specification for FSS-UTF.
 
-In July 1992, the [X/Open](https://en.wikipedia.org/wiki/X/Open "X/Open") committee XoJIG was looking for a better encoding. Dave Prosser of [Unix System Laboratories](https://en.wikipedia.org/wiki/Unix_System_Laboratories "Unix System Laboratories") submitted a proposal for one that had faster implementation characteristics and introduced the improvement that 7-bit ASCII characters would _only_ represent themselves; multi-byte sequences would only include bytes with the high bit set. The name _File System Safe UCS Transformation Format_ (_FSS-UTF_)[[6]](https://en.wikipedia.org/wiki/UTF-8#cite_note-6) and most of the text of this proposal were later preserved in the final specification.[[7]](https://en.wikipedia.org/wiki/UTF-8#cite_note-FSS-UTF-7)[[8]](https://en.wikipedia.org/wiki/UTF-8#cite_note-Whistler_2001-8)[[9]](https://en.wikipedia.org/wiki/UTF-8#cite_note-pikeviacambridge-9) In August 1992, this proposal was circulated by an [IBM](https://en.wikipedia.org/wiki/IBM "IBM") X/Open representative to interested parties. A modification by [Ken Thompson](https://en.wikipedia.org/wiki/Ken_Thompson "Ken Thompson") of the [Plan 9 operating system](https://en.wikipedia.org/wiki/Plan_9_from_Bell_Labs "Plan 9 from Bell Labs") group at [Bell Labs](https://en.wikipedia.org/wiki/Bell_Labs "Bell Labs") made it [self-synchronizing](https://en.wikipedia.org/wiki/Self-synchronizing_code "Self-synchronizing code"), letting a reader start anywhere and immediately detect character boundaries, at the cost of being somewhat less bit-efficient than the previous proposal. It also abandoned the use of biases that prevented [overlong encodings](https://en.wikipedia.org/wiki/UTF-8#overlong_encodings).[[9]](https://en.wikipedia.org/wiki/UTF-8#cite_note-pikeviacambridge-9)[[10]](https://en.wikipedia.org/wiki/UTF-8#cite_note-10) Thompson's design was outlined on September 2, 1992, on a [placemat](https://en.wikipedia.org/wiki/Placemat "Placemat") in a New Jersey diner with [Rob Pike](https://en.wikipedia.org/wiki/Rob_Pike "Rob Pike"). In the following days, Pike and Thompson implemented it and updated [Plan 9](https://en.wikipedia.org/wiki/Plan_9_from_Bell_Labs "Plan 9 from Bell Labs") to use it throughout,[[11]](https://en.wikipedia.org/wiki/UTF-8#cite_note-11) and then communicated their success back to X/Open, which accepted it as the specification for FSS-UTF.[[9]](https://en.wikipedia.org/wiki/UTF-8#cite_note-pikeviacambridge-9)
+[ 9 ] UTF-8 was first officially presented at the USENIX conference in San Diego , from January 25 to 29, 1993.
 
-UTF-8 was first officially presented at the [USENIX](https://en.wikipedia.org/wiki/USENIX "USENIX") conference in [San Diego](https://en.wikipedia.org/wiki/San_Diego "San Diego"), from January 25 to 29, 1993.[[12]](https://en.wikipedia.org/wiki/UTF-8#cite_note-12) The [Internet Engineering Task Force](https://en.wikipedia.org/wiki/Internet_Engineering_Task_Force "Internet Engineering Task Force") adopted UTF-8 in its Policy on Character Sets and Languages in RFC 2277 ([BCP](https://en.wikipedia.org/wiki/Request_for_Comments#Best_Current_Practice "Request for Comments") 18) for future internet standards work in January 1998, replacing [Single Byte Character Sets](https://en.wikipedia.org/wiki/Single_Byte_Character_Set "Single Byte Character Set") such as [Latin-1](https://en.wikipedia.org/wiki/ISO/IEC_8859-1 "ISO/IEC 8859-1") in older RFCs.[[13]](https://en.wikipedia.org/wiki/UTF-8#cite_note-rfc2277-13)
+[ 12 ] The Internet Engineering Task Force adopted UTF-8 in its Policy on Character Sets and Languages in RFC 2277 ( BCP 18) for future internet standards work in January 1998, replacing Single Byte Character Sets such as Latin-1 in older RFCs.
 
-In November 2003, UTF-8 was restricted by [RFC](https://en.wikipedia.org/wiki/RFC_(identifier) "RFC (identifier)")[3629](https://www.rfc-editor.org/rfc/rfc3629) to match the constraints of the [UTF-16](https://en.wikipedia.org/wiki/UTF-16 "UTF-16") character encoding: explicitly prohibiting code points corresponding to the high and low surrogate characters removed more than 3% of the three-byte sequences, and ending at U+10FFFF removed more than 48% of the four-byte sequences and all five- and six-byte sequences.[[14]](https://en.wikipedia.org/wiki/UTF-8#cite_note-14)
+[ 13 ] In November 2003, UTF-8 was restricted by RFC 3629 to match the constraints of the UTF-16 character encoding: explicitly prohibiting code points corresponding to the high and low surrogate characters removed  more than 3% of the three-byte sequences, and ending at U+10FFFF removed  more than 48% of the four-byte sequences and all five- and six-byte sequences.
 
-UTF-8 encodes code points in one to four bytes, depending on the value of the code point. In the following table, the characters u to z are replaced by the bits of the code point, from the positions U+uvwxyz:
+[ 14 ] Description [ edit ] UTF-8 encodes code points in one to four bytes, depending on the value of the code point. In the following table, the characters u to z are replaced by the bits of the code point, from the positions U+uvwxyz : Code point ↔ UTF-8 conversion First code point Last code point Byte 1 Byte 2 Byte 3 Byte 4 U+0000 U+007F 0yyyzzzz U+0080 U+07FF 110xxxyy 10yyzzzz U+0800 U+FFFF 1110wwww 10xxxxyy 10yyzzzz U+010000 U+10FFFF 11110uvv 10vvwwww 10xxxxyy 10yyzzzz UTF-8 encoding example Character Binary code point Binary representation UTF-8 encoded bytes W U+0057 0000 0000 0 101 0111 0 101 0111 57 Β U+0392 0000 0 011 10 01 0010 110 0 1110 10 01 0010 CE 92 위 U+C704 1100 0111 00 00 0100 1110 1100 10 01 1100 10 00 0100 E C 9C 84 𐍅 U+10345 0 00 01 0000 0011 01 00 0101 1111 0 000 10 01 0000 10 00 1101 10 00 0101 F 0 90 8D 85 The first 128 code points (ASCII) need 1 byte. The next 1,920 code points need two bytes to encode, which covers the remainder of almost all Latin-script alphabets , and also IPA extensions , Greek , Cyrillic , Coptic , Armenian , Hebrew , Arabic , Syriac , Thaana and N'Ko alphabets, as well as Combining Diacritical Marks . Three bytes are needed for the remaining 61,440 codepoints of the Basic Multilingual Plane (BMP), including most Chinese, Japanese and Korean characters . Four bytes are needed for the 1,048,576 non-BMP code points, which include emoji , less common CJK characters , and other useful characters.
 
-Code point ↔ UTF-8 conversion | First code point | Last code point | Byte 1 | Byte 2 | Byte 3 | Byte 4 |
-| --- | --- | --- | --- | --- | --- |
-| U+0000 | U+007F | 0yyyzzzz |  |
-| U+0080 | U+07FF | 110xxxyy | 10yyzzzz |  |
-| U+0800 | U+FFFF | 1110wwww | 10xxxxyy | 10yyzzzz |  |
-| U+010000 | U+10FFFF | 11110uvv | 10vvwwww | 10xxxxyy | 10yyzzzz |
+[ 15 ] UTF-8 is a prefix code and it is unnecessary to read past the last byte of a code point to decode it. Unlike many earlier multi-byte text encodings such as Shift-JIS , it is self-synchronizing so searches for short strings or characters are possible; and the start of a code point can be found from a random position by backing up at most 3 bytes. The values chosen for the lead bytes means sorting a list of UTF-8 strings puts them in the same order as sorting UTF-32 strings.
 
-UTF-8 encoding example | Character | Binary code point | Binary representation | UTF-8 encoded bytes |
-| --- | --- | --- | --- |
-| [W](https://en.wikipedia.org/wiki/W "W") | `U+0057` | `0000 0000 0101 0111` | `0101 0111` | `57` |
-| [Β](https://en.wikipedia.org/wiki/%CE%92 "Β") | `U+0392` | `0000 0011 1001 0010` | `1100 1110 1001 0010` | `CE 92` |
-| [위](https://en.wiktionary.org/wiki/%EC%9C%84#Syllable "wikt:위") | `U+C704` | `1100 0111 0000 0100` | `1110 1100 1001 1100 1000 0100` | `EC 9C 84` |
-| [𐍅](https://en.wikipedia.org/wiki/%F0%90%8D%85 "𐍅") | `U+10345` | `0 0001 0000 0011 0100 0101` | `1111 0000 1001 0000 1000 1101 1000 0101` | `F0 90 8D 85` |
+Overlong encodings [ edit ] Using a row in the above table to encode a code point less than "First code point" (thus using more bytes than necessary) is termed an overlong encoding . These are a security problem because they allow character sequences such as malicious JavaScript and ../ to bypass security validations, which has been reported in numerous high-profile products such as Microsoft's IIS web server [ 16 ] and Apache's Tomcat servlet container.
 
-The first 128 code points (ASCII) need 1 byte. The next 1,920 code points need two bytes to encode, which covers the remainder of almost all [Latin-script alphabets](https://en.wikipedia.org/wiki/Latin-script_alphabet "Latin-script alphabet"), and also [IPA extensions](https://en.wikipedia.org/wiki/International_Phonetic_Alphabet "International Phonetic Alphabet"), [Greek](https://en.wikipedia.org/wiki/Greek_alphabet "Greek alphabet"), [Cyrillic](https://en.wikipedia.org/wiki/Cyrillic_script "Cyrillic script"), [Coptic](https://en.wikipedia.org/wiki/Coptic_alphabet "Coptic alphabet"), [Armenian](https://en.wikipedia.org/wiki/Armenian_alphabet "Armenian alphabet"), [Hebrew](https://en.wikipedia.org/wiki/Hebrew_alphabet "Hebrew alphabet"), [Arabic](https://en.wikipedia.org/wiki/Arabic_alphabet "Arabic alphabet"), [Syriac](https://en.wikipedia.org/wiki/Syriac_alphabet "Syriac alphabet"), [Thaana](https://en.wikipedia.org/wiki/Thaana "Thaana") and [N'Ko](https://en.wikipedia.org/wiki/N%27Ko_script "N'Ko script") alphabets, as well as [Combining Diacritical Marks](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks "Combining Diacritical Marks"). Three bytes are needed for the remaining 61,440 codepoints of the [Basic Multilingual Plane](https://en.wikipedia.org/wiki/Basic_Multilingual_Plane "Basic Multilingual Plane") (BMP), including most [Chinese, Japanese and Korean characters](https://en.wikipedia.org/wiki/CJK_characters "CJK characters"). Four bytes are needed for the 1,048,576 non-BMP code points, which include [emoji](https://en.wikipedia.org/wiki/Emoji "Emoji"), less common [CJK characters](https://en.wikipedia.org/wiki/CJK_characters "CJK characters"), and other useful characters.[[15]](https://en.wikipedia.org/wiki/UTF-8#cite_note-problems_of_only_BMP-15)
+[ 17 ] Overlong encodings should therefore be considered an error and never decoded.
 
-UTF-8 is a _[prefix code](https://en.wikipedia.org/wiki/Prefix\_code "Prefix code")_ and it is unnecessary to read past the last byte of a code point to decode it. Unlike many earlier multi-byte text encodings such as [Shift-JIS](https://en.wikipedia.org/wiki/Shift-JIS "Shift-JIS"), it is _[self-synchronizing](https://en.wikipedia.org/wiki/Self-synchronizing\_code "Self-synchronizing code")_ so searches for short strings or characters are possible; and the start of a code point can be found from a random position by backing up at most 3 bytes. The values chosen for the lead bytes means sorting a list of UTF-8 strings puts them in the same order as sorting [UTF-32](https://en.wikipedia.org/wiki/UTF-32 "UTF-32") strings.
+Modified UTF-8 allows an overlong encoding of U+0000 .
 
-Using a row in the above table to encode a code point less than "First code point" (thus using more bytes than necessary) is termed an _overlong encoding_. These are a security problem because they allow character sequences such as malicious JavaScript and `../` to bypass security validations, which has been reported in numerous high-profile products such as Microsoft's [IIS](https://en.wikipedia.org/wiki/Internet_Information_Services "Internet Information Services") web server[[16]](https://en.wikipedia.org/wiki/UTF-8#cite_note-MS00-078-16) and Apache's Tomcat servlet container.[[17]](https://en.wikipedia.org/wiki/UTF-8#cite_note-CVE-2008-2938-17) Overlong encodings should therefore be considered an error and never decoded. [Modified UTF-8](https://en.wikipedia.org/wiki/UTF-8#Modified_UTF-8) allows an overlong encoding of U+0000.
+Byte map [ edit ] The chart below gives the detailed meaning of each byte in a stream encoded in UTF-8.
 
-The chart below gives the detailed meaning of each byte in a stream encoded in UTF-8.
+0 1 2 3 4 5 6 7 8 9 A B C D E F 0 ␀ ␁ ␂ ␃ ␄ ␅ ␆ ␇ ␈ ␉ ␊ ␋ ␌ ␍ ␎ ␏ 1 ␐ ␑ ␒ ␓ ␔ ␕ ␖ ␗ ␘ ␙ ␚ ␛ ␜ ␝ ␞ ␟ 2 ␠ !
 
-|  | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | A | B | C | D | E | F |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0 | ␀ | ␁ | ␂ | ␃ | ␄ | ␅ | ␆ | ␇ | ␈ | ␉ | ␊ | ␋ | ␌ | ␍ | ␎ | ␏ |
-| 1 | ␐ | ␑ | ␒ | ␓ | ␔ | ␕ | ␖ | ␗ | ␘ | ␙ | ␚ | ␛ | ␜ | ␝ | ␞ | ␟ |
-| 2 | ␠ | ! | " | # | $ | % | & | ' | ( | ) | * | + | , | - | . | / |
-| 3 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | : | ; | < | = | > | ? |
-| 4 | @ | A | B | C | D | E | F | G | H | I | J | K | L | M | N | O |
-| 5 | P | Q | R | S | T | U | V | W | X | Y | Z | [ | \ | ] | ^ | _ |
-| 6 | ` | a | b | c | d | e | f | g | h | i | j | k | l | m | n | o |
-| 7 | p | q | r | s | t | u | v | w | x | y | z | { | | | } | ~ | ␡ |
-| 8 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 9 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| A |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| B |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| C | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 |
-| D | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 |
-| E | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 |
-| F | 4 | 4 | 4 | 4 | 4 | 4 | 4 | 4 | 5 | 5 | 5 | 5 | 6 | 6 |  |  |
+" # $ % & ' ( ) * + , - .
 
-ASCII control character
-ASCII character
-Continuation byte
-First byte of a 2-byte code unit sequence
-First byte of a 3-byte code unit sequence
-First byte of a 4-byte code unit sequence
-Unused
+/ 3 0 1 2 3 4 5 6 7 8 9 : ; < = > ?
 
-Not all sequences of bytes are valid UTF-8. A UTF-8 decoder should be prepared for:
+4 @ A B C D E F G H I J K L M N O 5 P Q R S T U V W X Y Z [ \ ] ^ _ 6 ` a b c d e f g h i j k l m n o 7 p q r s t u v w x y z { | } ~ ␡ 8 9 A B C 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 D 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 E 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 F 4 4 4 4 4 4 4 4 5 5 5 5 6 6 ASCII control character ASCII character Continuation byte First byte of a 2-byte code unit sequence First byte of a 3-byte code unit sequence First byte of a 4-byte code unit sequence Unused Error handling [ edit ] Not all sequences of bytes are valid UTF-8. A UTF-8 decoder should be prepared for: Bytes that never appear in UTF-8: 0xC0 , 0xC1 , 0xF5 – 0xFF A "continuation byte" ( 0x80 – 0xBF ) at the start of a character A non-continuation byte (or the string ending) before the end of a character An overlong encoding ( 0xE0 followed by less than 0xA0 , or 0xF0 followed by less than 0x90 ) A 4-byte sequence that decodes to a value greater than U+10FFFF ( 0xF4 followed by 0x90 or greater) Many of the first UTF-8 decoders would decode these, ignoring incorrect bits. Carefully crafted invalid UTF-8 could make them either skip or create ASCII characters such as NUL , slash, or quotes, leading to security vulnerabilities. It is also common to throw an exception or truncate the string at an error [ 18 ] but this turns what would otherwise be harmless errors (i.e. "file not found") into a denial of service , for instance early versions of Python 3.0 would exit immediately if the command line or environment variables contained invalid UTF-8.
 
-*   Bytes that never appear in UTF-8: 0xC0, 0xC1, 0xF5–0xFF
-*   A "continuation byte" (0x80–0xBF) at the start of a character
-*   A non-continuation byte (or the string ending) before the end of a character
-*   An overlong encoding (0xE0 followed by less than 0xA0, or 0xF0 followed by less than 0x90)
-*   A 4-byte sequence that decodes to a value greater than U+10FFFF (0xF4 followed by 0x90 or greater)
+[ 19 ] RFC 3629 states "Implementations of the decoding algorithm MUST protect against decoding invalid sequences." [ 20 ] The Unicode Standard requires decoders to: "... treat any ill-formed code unit sequence as an error condition. This guarantees that it will neither interpret nor emit an ill-formed code unit sequence." The standard now recommends replacing each error with the replacement character "�" ( U+FFFD ) and continue decoding.
 
-Many of the first UTF-8 decoders would decode these, ignoring incorrect bits. Carefully crafted invalid UTF-8 could make them either skip or create ASCII characters such as NUL, slash, or quotes, leading to security vulnerabilities. It is also common to throw an exception or truncate the string at an error[[18]](https://en.wikipedia.org/wiki/UTF-8#cite_note-18) but this turns what would otherwise be harmless errors (i.e. "file not found") into a [denial of service](https://en.wikipedia.org/wiki/Denial_of_service "Denial of service"), for instance early versions of Python 3.0 would exit immediately if the command line or [environment variables](https://en.wikipedia.org/wiki/Environment_variable "Environment variable") contained invalid UTF-8.[[19]](https://en.wikipedia.org/wiki/UTF-8#cite_note-PEP383-19)
+Some decoders consider the sequence E1,A0,20 (a truncated 3-byte code followed by a space) as a single error. This is not a good idea as a search for a space character would find the one hidden in the error. Since Unicode 6 (October 2010) [ 1 ] the standard (chapter 3) has recommended a "best practice" where the error is either one continuation byte, or ends at the first byte that is disallowed, so E1,A0,20 is a two-byte error followed by a space. This means an error is no more than three bytes long and never contains the start of a valid character, and there are 21,952 different possible errors. Technically this makes UTF-8 no longer a prefix code (the decoder has to read one byte past some errors to figure out if they are an error), but searching still works if the searched-for string does not contain any errors.
 
-RFC 3629 states "Implementations of the decoding algorithm MUST protect against decoding invalid sequences."[[20]](https://en.wikipedia.org/wiki/UTF-8#cite_note-rfc3629-20)_The Unicode Standard_ requires decoders to: "...treat any ill-formed code unit sequence as an error condition. This guarantees that it will neither interpret nor emit an ill-formed code unit sequence." The standard now recommends replacing each error with the [replacement character](https://en.wikipedia.org/wiki/Replacement_character "Replacement character") "�" (U+FFFD) and continue decoding.
+Making each byte be an error, in which case E1,A0,20 is two errors followed by a space, also still allows searching for a valid string. This means there are only 128 different errors which makes it practical to store the errors in the output string, [ 21 ] or replace them with characters from a legacy encoding.
 
-Some decoders consider the sequence E1,A0,20 (a truncated 3-byte code followed by a space) as a single error. This is not a good idea as a search for a space character would find the one hidden in the error. Since Unicode 6 (October 2010)[[1]](https://en.wikipedia.org/wiki/UTF-8#cite_note-:1-1) the standard (chapter 3) has recommended a "best practice" where the error is either one continuation byte, or ends at the first byte that is disallowed, so E1,A0,20 is a two-byte error followed by a space. This means an error is no more than three bytes long and never contains the start of a valid character, and there are 21,952 different possible errors. Technically this makes UTF-8 no longer a [prefix code](https://en.wikipedia.org/wiki/Prefix_code "Prefix code") (the decoder has to read one byte past some errors to figure out if they are an error), but searching still works if the searched-for string does not contain any errors.
+Only a small subset of possible byte strings are error-free UTF-8: several bytes cannot appear; a byte with the high bit set cannot be alone; and in a truly random string a byte with a high bit set has only a 1 ⁄ 15 chance of starting a valid UTF-8 character. This has the consequence of making it easy to detect if a legacy text encoding is accidentally used instead of UTF-8, making conversion of a system to UTF-8 easier and avoiding the need to require a Byte Order Mark or any other metadata.
 
-Making each byte be an error, in which case E1,A0,20 is _two_ errors followed by a space, also still allows searching for a valid string. This means there are only 128 different errors which makes it practical to store the errors in the output string,[[21]](https://en.wikipedia.org/wiki/UTF-8#cite_note-pep383-21) or replace them with characters from a legacy encoding.
+Surrogates [ edit ] Since RFC 3629 (November 2003), the high and low surrogates used by UTF-16 ( U+D800 through U+DFFF ) are not legal Unicode values, and their UTF-8 encodings must be treated as an invalid byte sequence.
 
-Only a small subset of possible byte strings are error-free UTF-8: several bytes cannot appear; a byte with the high bit set cannot be alone; and in a truly random string a byte with a high bit set has only a 1⁄15 chance of starting a valid UTF-8 character. This has the consequence of making it easy to detect if a legacy text encoding is accidentally used instead of UTF-8, making conversion of a system to UTF-8 easier and avoiding the need to require a Byte Order Mark or any other metadata.
+[ 20 ] These encodings all start with 0xED followed by 0xA0 or higher. This rule is often ignored as surrogates are allowed in Windows filenames and this means there must be a way to store them in a string.
 
-Since RFC 3629 (November 2003), the high and low surrogates used by [UTF-16](https://en.wikipedia.org/wiki/UTF-16 "UTF-16") (U+D800 through U+DFFF) are not legal Unicode values, and their UTF-8 encodings must be treated as an invalid byte sequence.[[20]](https://en.wikipedia.org/wiki/UTF-8#cite_note-rfc3629-20) These encodings all start with 0xED followed by 0xA0 or higher. This rule is often ignored as surrogates are allowed in Windows filenames and this means there must be a way to store them in a string.[[22]](https://en.wikipedia.org/wiki/UTF-8#cite_note-PEP_529-22) UTF-8 that allows these surrogate halves has been (informally) called _WTF-8_,[[23]](https://en.wikipedia.org/wiki/UTF-8#cite_note-wtf-8-23) while another variation that also encodes all non-BMP characters as two surrogates (6 bytes instead of 4) is called _[CESU-8](https://en.wikipedia.org/wiki/CESU-8 "CESU-8")_.
+[ 22 ] UTF-8 that allows these surrogate halves has been (informally) called WTF-8 , [ 23 ] while another variation that also encodes all non-BMP characters as two surrogates (6 bytes instead of 4) is called CESU-8 .
 
-If the Unicode [byte-order mark](https://en.wikipedia.org/wiki/Byte-order_mark "Byte-order mark")U+FEFF is at the start of a UTF-8 file, the first three bytes will be 0xEF, 0xBB, 0xBF.
+Byte-order mark [ edit ] If the Unicode byte-order mark U+FEFF is at the start of a UTF-8 file, the first three bytes will be 0xEF , 0xBB , 0xBF .
 
-The Unicode Standard neither requires nor recommends the use of the BOM for UTF-8, but warns that it may be encountered at the start of a file trans-coded from another encoding.[[24]](https://en.wikipedia.org/wiki/UTF-8#cite_note-24) While ASCII text encoded using UTF-8 is backward compatible with ASCII, this is not true when Unicode Standard recommendations are ignored and a BOM is added. A BOM can confuse software that isn't prepared for it but can otherwise accept UTF-8, e.g. programming languages that permit non-ASCII bytes in [string literals](https://en.wikipedia.org/wiki/String_literal "String literal") but not at the start of the file. Nevertheless, there was and still is software that always inserts a BOM when writing UTF-8, and refuses to correctly interpret UTF-8 unless the first character is a BOM (or the file only contains ASCII).[[25]](https://en.wikipedia.org/wiki/UTF-8#cite_note-25)
+The Unicode Standard neither requires nor recommends the use of the BOM for UTF-8, but warns that it may be encountered at the start of a file trans-coded from another encoding.
 
-Comparison to UTF-16
---------------------
+[ 24 ] While ASCII text encoded using UTF-8 is backward compatible with ASCII, this is not true when Unicode Standard recommendations are ignored and a BOM is added. A BOM can confuse software that isn't prepared for it but can otherwise accept UTF-8, e.g. programming languages that permit non-ASCII bytes in string literals but not at the start of the file. Nevertheless, there was and still is software that always inserts a BOM when writing UTF-8, and refuses to correctly interpret UTF-8 unless the first character is a BOM (or the file only contains ASCII).
 
-[[edit](https://en.wikipedia.org/w/index.php?title=UTF-8&action=edit&section=8 "Edit section: Comparison to UTF-16")]
+[ 25 ] Comparison to UTF-16 [ edit ] See also: Comparison of Unicode encodings This section does not cite any sources .
 
-For a long time there was considerable argument as to whether it was better to process text in [UTF-16](https://en.wikipedia.org/wiki/UTF-16 "UTF-16") or in UTF-8.
+Please help improve this section by adding citations to reliable sources . Unsourced material may be challenged and removed .
 
-The primary advantage of UTF-16 is that the [Windows API](https://en.wikipedia.org/wiki/Unicode_in_Microsoft_Windows "Unicode in Microsoft Windows") required it for access to all Unicode characters (UTF-8 was not fully supported in Windows until May 2019). This caused several libraries such as [Qt](https://en.wikipedia.org/wiki/Qt_(software) "Qt (software)") to also use UTF-16 strings which propagates this requirement to non-Windows platforms.
+Find sources: "UTF-8" comparison to UTF-16 – news · newspapers · books · scholar · JSTOR ( December 2024 ) ( Learn how and when to remove this message ) For a long time there was considerable argument as to whether it was better to process text in UTF-16 or in UTF-8.
 
-In the early days of Unicode there were no characters greater than U+FFFF and [combining characters](https://en.wikipedia.org/wiki/Combining_characters "Combining characters") were rarely used, so the 16-bit encoding was effectively fixed-size. Some believed fixed-size encoding could make processing more efficient, but any such advantages were lost as soon as UTF-16 became variable width as well.
+The primary advantage of UTF-16 is that the Windows API required it for access to all Unicode characters (UTF-8 was not fully supported in Windows until May 2019). This caused several libraries such as Qt to also use UTF-16 strings which propagates this requirement to non-Windows platforms.
 
-The code points U+0800–U+FFFF take 3 bytes in UTF-8 but only 2 in UTF-16. This led to the idea that text in Chinese and other languages would take more space in UTF-8. However, text is only larger if there are more of these code points than 1-byte ASCII code points, and this rarely happens in the real-world documents due to spaces, newlines, digits, punctuation, English words, and [markup](https://en.wikipedia.org/wiki/Markup_language "Markup language").
+In the early days of Unicode there were no characters greater than U+FFFF and combining characters were rarely used, so the 16-bit encoding was effectively fixed-size. Some believed fixed-size encoding could make processing more efficient, but any such advantages were lost as soon as UTF-16 became variable width as well.
 
-UTF-8 has the advantages of being trivial to retrofit to any system that could handle an [extended ASCII](https://en.wikipedia.org/wiki/Extended_ASCII "Extended ASCII"), not having byte-order problems, and taking about half the space for any language using mostly Latin letters.
+The code points U+0800 – U+FFFF take 3 bytes in UTF-8 but only 2 in UTF-16. This led to the idea that text in Chinese and other languages would take more space in UTF-8. However, text is only larger if there are more of these code points than 1-byte ASCII code points, and this rarely happens in the real-world documents due to spaces, newlines, digits, punctuation, English words, and markup .
 
-Implementations and adoption
-----------------------------
+UTF-8 has the advantages of being trivial to retrofit to any system that could handle an extended ASCII , not having byte-order problems, and taking about half the space for any language using mostly Latin letters.
 
-[[edit](https://en.wikipedia.org/w/index.php?title=UTF-8&action=edit&section=9 "Edit section: Implementations and adoption")]
+Implementations and adoption [ edit ] Declared character set for the 10 million most popular websites from 2010 to 2021 Use of the main encodings on the web from 2001 to 2012 as recorded by Google, [ 26 ] with UTF-8 overtaking all others in 2008 and over 60% of the web in 2012 (since then approaching 100%). UTF-8 is the only encoding of Unicode (explicitly) listed there, and the rest only provide subsets of Unicode. The ASCII-only figure includes all web pages that only contain ASCII characters, regardless of the declared header.
 
-[![Image 1](https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/UTF-8_takes_over.png/500px-UTF-8_takes_over.png)](https://en.wikipedia.org/wiki/File:UTF-8_takes_over.png)
+See also: Popularity of text encodings UTF-8 has been the most common encoding for the World Wide Web since 2008.
 
-Declared character set for the 10 million most popular websites from 2010 to 2021
+[ 27 ] As of July 2025 [update] , UTF-8 is used by 98.7% of surveyed web sites.
 
-[![Image 2](https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Unicode_Web_growth.svg/500px-Unicode_Web_growth.svg.png)](https://en.wikipedia.org/wiki/File:Unicode_Web_growth.svg)
+[ 2 ] Although many pages only use ASCII characters to display content, very few websites now declare their encoding to only be ASCII instead of UTF-8.
 
-Use of the main encodings on the web from 2001 to 2012 as recorded by Google,[[26]](https://en.wikipedia.org/wiki/UTF-8#cite_note-MarkDavis2012-26) with UTF-8 overtaking all others in 2008 and over 60% of the web in 2012 (since then approaching 100%). UTF-8 is the only encoding of Unicode (explicitly) listed there, and the rest only provide subsets of Unicode. The ASCII-only figure includes all web pages that only contain ASCII characters, regardless of the declared header.
+[ 28 ] Virtually all countries and  languages have 95% or more use of UTF-8 encodings on the web.
 
-UTF-8 has been the most common encoding for the [World Wide Web](https://en.wikipedia.org/wiki/World_Wide_Web "World Wide Web") since 2008.[[27]](https://en.wikipedia.org/wiki/UTF-8#cite_note-markdavis-27) As of July 2025, UTF-8 is used by 98.7% of surveyed web sites.[[2]](https://en.wikipedia.org/wiki/UTF-8#cite_note-W3TechsWebEncoding-2) Although many pages only use ASCII characters to display content, very few websites now declare their encoding to only be ASCII instead of UTF-8.[[28]](https://en.wikipedia.org/wiki/UTF-8#cite_note-28) Virtually all countries and languages have 95% or more use of UTF-8 encodings on the web.
+Many standards only support UTF-8, e.g.
 
-Many standards only support UTF-8, e.g. [JSON](https://en.wikipedia.org/wiki/JSON "JSON") exchange requires it (without a byte-order mark (BOM)).[[29]](https://en.wikipedia.org/wiki/UTF-8#cite_note-rfc8259-29) UTF-8 is also the recommendation from the [WHATWG](https://en.wikipedia.org/wiki/WHATWG "WHATWG") for HTML and [DOM](https://en.wikipedia.org/wiki/Document_Object_Model "Document Object Model") specifications, and stating "UTF-8 encoding is the most appropriate encoding for interchange of [Unicode](https://en.wikipedia.org/wiki/Unicode "Unicode")"[[5]](https://en.wikipedia.org/wiki/UTF-8#cite_note-whatwg-5) and the [Internet Mail Consortium](https://en.wikipedia.org/wiki/Internet_Mail_Consortium "Internet Mail Consortium") recommends that all e‑mail programs be able to display and create mail using UTF-8.[[30]](https://en.wikipedia.org/wiki/UTF-8#cite_note-IMC-30)[[31]](https://en.wikipedia.org/wiki/UTF-8#cite_note-mandatory-31) The [World Wide Web Consortium](https://en.wikipedia.org/wiki/World_Wide_Web_Consortium "World Wide Web Consortium") recommends UTF-8 as the default encoding in XML and HTML (and not just using UTF-8, also declaring it in metadata), "even when all characters are in the ASCII range ... Using non-UTF-8 encodings can have unexpected results".[[32]](https://en.wikipedia.org/wiki/UTF-8#cite_note-html5charset-32)
+JSON exchange requires it (without a byte-order mark (BOM)).
 
-Many software programs have the ability to read/write UTF-8. It may require the user to change options from the normal settings, or may require a BOM (byte-order mark) as the first character to read the file. Examples of software supporting UTF-8 include [Microsoft Word](https://en.wikipedia.org/wiki/Microsoft_Word "Microsoft Word"),[[33]](https://en.wikipedia.org/wiki/UTF-8#cite_note-33)[[34]](https://en.wikipedia.org/wiki/UTF-8#cite_note-34)[[35]](https://en.wikipedia.org/wiki/UTF-8#cite_note-35)[Microsoft Excel](https://en.wikipedia.org/wiki/Microsoft_Excel "Microsoft Excel") (2016 and later),[[36]](https://en.wikipedia.org/wiki/UTF-8#cite_note-36)[[37]](https://en.wikipedia.org/wiki/UTF-8#cite_note-37)[Google Drive](https://en.wikipedia.org/wiki/Google_Drive "Google Drive"), [LibreOffice](https://en.wikipedia.org/wiki/LibreOffice "LibreOffice"),[[38]](https://en.wikipedia.org/wiki/UTF-8#cite_note-38) and most databases.
+[ 29 ] UTF-8 is also the recommendation from the WHATWG for HTML and DOM specifications, and stating "UTF-8 encoding is the most appropriate encoding for interchange of Unicode " [ 5 ] and the Internet Mail Consortium recommends that all e‑mail programs be able to display and create mail using UTF-8.
 
-Software that "defaults" to UTF-8 (meaning it writes it without the user changing settings, and it reads it without a BOM) has become more common since 2010.[[39]](https://en.wikipedia.org/wiki/UTF-8#cite_note-39)[Windows Notepad](https://en.wikipedia.org/wiki/Windows_Notepad "Windows Notepad"), in all currently supported versions of Windows, defaults to writing UTF-8 without a BOM (a change from [Windows 7](https://en.wikipedia.org/wiki/Windows_7 "Windows 7")_Notepad_), bringing it into line with most other text editors.[[40]](https://en.wikipedia.org/wiki/UTF-8#cite_note-40) Some system files on [Windows 11](https://en.wikipedia.org/wiki/Windows_11 "Windows 11") require UTF-8[[41]](https://en.wikipedia.org/wiki/UTF-8#cite_note-41) with no requirement for a BOM, and almost all files on macOS and Linux are required to be UTF-8 without a BOM.[_[citation needed](https://en.wikipedia.org/wiki/Wikipedia:Citation\_needed "Wikipedia:Citation needed")_] Programming languages that default to UTF-8 for [I/O](https://en.wikipedia.org/wiki/Input/output "Input/output") include [Ruby](https://en.wikipedia.org/wiki/Ruby_(programming_language) "Ruby (programming language)")3.0,[[42]](https://en.wikipedia.org/wiki/UTF-8#cite_note-42)[[43]](https://en.wikipedia.org/wiki/UTF-8#cite_note-43)[R](https://en.wikipedia.org/wiki/R_(programming_language) "R (programming language)")4.2.2,[[44]](https://en.wikipedia.org/wiki/UTF-8#cite_note-44)[Raku](https://en.wikipedia.org/wiki/Raku_(programming_language) "Raku (programming language)") and [Java](https://en.wikipedia.org/wiki/Java_(programming_language) "Java (programming language)")18.[[45]](https://en.wikipedia.org/wiki/UTF-8#cite_note-Java_UTF-8_and_UTF-16-45) Although the current version of [Python](https://en.wikipedia.org/wiki/Python_(programming_language) "Python (programming language)") requires an option to `open()` to read/write UTF-8,[[46]](https://en.wikipedia.org/wiki/UTF-8#cite_note-46) plans exist to make UTF-8 I/O the default in Python 3.15.[[47]](https://en.wikipedia.org/wiki/UTF-8#cite_note-47)[C++23](https://en.wikipedia.org/wiki/C%2B%2B23 "C++23") adopts UTF-8 as the only portable source code file format.[[48]](https://en.wikipedia.org/wiki/UTF-8#cite_note-48)
+[ 30 ] [ 31 ] The World Wide Web Consortium recommends UTF-8 as the default encoding in XML and HTML (and not just using UTF-8, also declaring it in metadata), "even when all characters are in the ASCII range ... Using non-UTF-8 encodings can have unexpected results".
 
-Backwards compatibility is a serious impediment to changing code and APIs using [UTF-16](https://en.wikipedia.org/wiki/UTF-16 "UTF-16") to use UTF-8, but this is happening. As of May 2019, Microsoft [added the capability](https://en.wikipedia.org/wiki/Unicode_in_Microsoft_Windows#UTF-8 "Unicode in Microsoft Windows") for an application to set UTF-8 as the "code page" for the Windows API, removing the need to use UTF-16; and more recently has recommended programmers use UTF-8,[[49]](https://en.wikipedia.org/wiki/UTF-8#cite_note-Microsoft-UTF-8-49) and even states "UTF-16 [...] is a unique burden that Windows places on code that targets multiple platforms".[[4]](https://en.wikipedia.org/wiki/UTF-8#cite_note-Microsoft_GDK-4) The default string primitive in [Go](https://en.wikipedia.org/wiki/Go_(programming_language) "Go (programming language)"),[[50]](https://en.wikipedia.org/wiki/UTF-8#cite_note-50)[Julia](https://en.wikipedia.org/wiki/Julia_(programming_language) "Julia (programming language)"), [Rust](https://en.wikipedia.org/wiki/Rust_(programming_language) "Rust (programming language)"), [Swift](https://en.wikipedia.org/wiki/Swift_(programming_language)#String_support "Swift (programming language)") (since version 5),[[51]](https://en.wikipedia.org/wiki/UTF-8#cite_note-51) and [PyPy](https://en.wikipedia.org/wiki/PyPy "PyPy")[[52]](https://en.wikipedia.org/wiki/UTF-8#cite_note-52) uses UTF-8 internally in all cases. Python (since version 3.3) uses UTF-8 internally for Python C API extensions[[53]](https://en.wikipedia.org/wiki/UTF-8#cite_note-PEP393-53)[[54]](https://en.wikipedia.org/wiki/UTF-8#cite_note-54) and sometimes for strings[[53]](https://en.wikipedia.org/wiki/UTF-8#cite_note-PEP393-53)[[55]](https://en.wikipedia.org/wiki/UTF-8#cite_note-55) and a future version of Python is planned to store strings as UTF-8 by default.[[56]](https://en.wikipedia.org/wiki/UTF-8#cite_note-56)[[57]](https://en.wikipedia.org/wiki/UTF-8#cite_note-57) Modern versions of [Microsoft Visual Studio](https://en.wikipedia.org/wiki/Microsoft_Visual_Studio "Microsoft Visual Studio") use UTF-8 internally.[[58]](https://en.wikipedia.org/wiki/UTF-8#cite_note-58) Microsoft's SQL Server 2019 added support for UTF-8, and using it results in a 35% speed increase, and "nearly 50% reduction in storage requirements."[[59]](https://en.wikipedia.org/wiki/UTF-8#cite_note-59)
+[ 32 ] Many software programs have the ability to read/write UTF-8. It may require the user to change options from the normal settings, or may require a BOM (byte-order mark) as the first character to read the file. Examples of software supporting UTF-8 include Microsoft Word , [ 33 ] [ 34 ] [ 35 ] Microsoft Excel (2016 and later), [ 36 ] [ 37 ] Google Drive , LibreOffice , [ 38 ] and most databases.
 
-[Java](https://en.wikipedia.org/wiki/Java_(programming_language) "Java (programming language)") internally uses UTF-16 for the _char_ data type and, consequentially, the _Character_, _String_, and the _StringBuffer_ classes,[[60]](https://en.wikipedia.org/wiki/UTF-8#cite_note-60) but for I/O uses _Modified UTF-8_ (MUTF-8), in which the [null character](https://en.wikipedia.org/wiki/Null_character "Null character")U+0000 uses the two-byte overlong encoding 0xC0,0x80, instead of just 0x00.[[61]](https://en.wikipedia.org/wiki/UTF-8#cite_note-61) Modified UTF-8 strings never contain any actual null bytes but can contain all Unicode code points including U+0000,[[62]](https://en.wikipedia.org/wiki/UTF-8#cite_note-:0-62) which allows such strings (with a null byte appended) to be processed by traditional [null-terminated string](https://en.wikipedia.org/wiki/Null-terminated_string "Null-terminated string") functions. Java reads and writes normal UTF-8 to files and streams,[[63]](https://en.wikipedia.org/wiki/UTF-8#cite_note-63) but it uses Modified UTF-8 for object [serialization](https://en.wikipedia.org/wiki/Java_serialization "Java serialization"),[[64]](https://en.wikipedia.org/wiki/UTF-8#cite_note-64)[[65]](https://en.wikipedia.org/wiki/UTF-8#cite_note-65) for the [Java Native Interface](https://en.wikipedia.org/wiki/Java_Native_Interface "Java Native Interface"),[[66]](https://en.wikipedia.org/wiki/UTF-8#cite_note-66) and for embedding constant strings in [class files](https://en.wikipedia.org/wiki/Class_(file_format) "Class (file format)").[[62]](https://en.wikipedia.org/wiki/UTF-8#cite_note-:0-62) The dex format defined by [Dalvik](https://en.wikipedia.org/wiki/Dalvik_(software) "Dalvik (software)") also uses the same modified UTF-8 to represent string values.[[67]](https://en.wikipedia.org/wiki/UTF-8#cite_note-67)[Tcl](https://en.wikipedia.org/wiki/Tcl "Tcl") also uses the same modified UTF-8[[68]](https://en.wikipedia.org/wiki/UTF-8#cite_note-68) as Java for internal representation of Unicode data, but uses strict CESU-8 for external data. All known Modified UTF-8 implementations also treat the surrogate pairs as in [CESU-8](https://en.wikipedia.org/wiki/CESU-8 "CESU-8").
+Software that "defaults" to UTF-8 (meaning it writes it without the user changing settings, and it reads it without a BOM) has become more common since 2010.
 
-The [Raku](https://en.wikipedia.org/wiki/Raku_(programming_language) "Raku (programming language)") programming language (formerly Perl 6) uses `utf-8` encoding by default for I/O ([Perl](https://en.wikipedia.org/wiki/Perl "Perl") 5 also supports it); though that choice in Raku also implies "normalization into Unicode [NFC (normalization form canonical)](https://en.wikipedia.org/wiki/Unicode_equivalence#Normal_forms "Unicode equivalence"). In some cases the user will want to ensure no normalization is done; for this `utf8-c8`" can be used.[[69]](https://en.wikipedia.org/wiki/UTF-8#cite_note-69) That _UTF-8 Clean-8_ variant, implemented by Raku, is an encoder/decoder that preserves bytes as is (even illegal UTF-8 sequences) and allows for Normal Form Grapheme synthetics.[[70]](https://en.wikipedia.org/wiki/UTF-8#cite_note-70)
+[ 39 ] Windows Notepad , in all currently supported versions of Windows, defaults to writing UTF-8 without a BOM (a change from Windows 7 Notepad ), bringing it into line with most other text editors.
 
-Version 3 of the [Python](https://en.wikipedia.org/wiki/Python_(programming_language) "Python (programming language)") programming language treats each byte of an invalid UTF-8 bytestream as an error (see also changes with new UTF-8 mode in Python 3.7[[71]](https://en.wikipedia.org/wiki/UTF-8#cite_note-71)); this gives 128 different possible errors. Extensions have been created to allow any byte sequence that is assumed to be UTF-8 to be losslessly transformed to UTF-16 or UTF-32, by translating the 128 possible error bytes to 128 reserved code points, and transforming those code points back to error bytes to output UTF-8. The most common approach is to translate the codes to U+DC80...U+DCFF which are low (trailing) surrogate values and thus "invalid" UTF-16, as used by [Python](https://en.wikipedia.org/wiki/Python_(programming_language) "Python (programming language)")'s [PEP](https://en.wikipedia.org/wiki/Python_Enhancement_Proposal "Python Enhancement Proposal") 383 (or "surrogateescape") approach.[[21]](https://en.wikipedia.org/wiki/UTF-8#cite_note-pep383-21) Another encoding called [MirBSD](https://en.wikipedia.org/wiki/MirBSD "MirBSD") OPTU-8/16 converts them to U+EF80...U+EFFF in a [Private Use Area](https://en.wikipedia.org/wiki/Private_Use_Area "Private Use Area").[[72]](https://en.wikipedia.org/wiki/UTF-8#cite_note-72) In either approach, the byte value is encoded in the low eight bits of the output code point. These encodings are needed if invalid UTF-8 is to survive translation to and then back from the UTF-16 used internally by Python, and as Unix filenames can contain invalid UTF-8 it is necessary for this to work.[[73]](https://en.wikipedia.org/wiki/UTF-8#cite_note-davis383-73)
+[ 40 ] Some system files on Windows 11 require UTF-8 [ 41 ] with no requirement for a BOM, and almost all files on macOS and Linux are required to be UTF-8 without a BOM.
 
-The official name for the encoding is `UTF-8`, the spelling used in all Unicode Consortium documents. The [hyphen-minus](https://en.wikipedia.org/wiki/Hyphen-minus "Hyphen-minus") is required and no spaces are allowed. Some other names used are:
+[ citation needed ] Programming languages that default to UTF-8 for I/O include Ruby 3.0, [ 42 ] [ 43 ] R 4.2.2, [ 44 ] Raku and Java 18.
 
-*   Most standards are also case-insensitive and `utf-8` is often used.[_[citation needed](https://en.wikipedia.org/wiki/Wikipedia:Citation\_needed "Wikipedia:Citation needed")_]
-*   Web standards (which include [CSS](https://en.wikipedia.org/wiki/Cascading_Style_Sheets "Cascading Style Sheets"), [HTML](https://en.wikipedia.org/wiki/HTML "HTML"), [XML](https://en.wikipedia.org/wiki/XML "XML"), and [HTTP headers](https://en.wikipedia.org/wiki/HTTP_headers "HTTP headers")) also allow `utf8` and many other aliases.[[74]](https://en.wikipedia.org/wiki/UTF-8#cite_note-74)
-*   The official [Internet Assigned Numbers Authority](https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority "Internet Assigned Numbers Authority") lists `csUTF8` as the only alias,[[75]](https://en.wikipedia.org/wiki/UTF-8#cite_note-IANA_2013_CS-75) which is rarely used.
-*   In some locales `UTF-8N` means UTF-8 _without_ a [byte-order mark](https://en.wikipedia.org/wiki/Byte_order_mark "Byte order mark") (BOM), and in this case `UTF-8`_may_ imply there _is_ a BOM.[[76]](https://en.wikipedia.org/wiki/UTF-8#cite_note-76)[[77]](https://en.wikipedia.org/wiki/UTF-8#cite_note-77)
-*   In [Windows](https://en.wikipedia.org/wiki/Windows "Windows"), UTF-8 is [codepage](https://en.wikipedia.org/wiki/Windows_code_page "Windows code page")`65001`[[78]](https://en.wikipedia.org/wiki/UTF-8#cite_note-78) with the symbolic name `CP_UTF8` in source code.
-*   In [MySQL](https://en.wikipedia.org/wiki/MySQL "MySQL"), UTF-8 is called `utf8mb4`,[[79]](https://en.wikipedia.org/wiki/UTF-8#cite_note-79) while `utf8` and `utf8mb3` refer to the obsolete [CESU-8](https://en.wikipedia.org/wiki/CESU-8 "CESU-8") variant.[[80]](https://en.wikipedia.org/wiki/UTF-8#cite_note-mysql3-utf8mb3-80)
-*   In [Oracle Database](https://en.wikipedia.org/wiki/Oracle_Database "Oracle Database"), `AL32UTF8` means UTF-8 (since version 9.0), while `UTF8` means CESU-8 (since 8.0).[[81]](https://en.wikipedia.org/wiki/UTF-8#cite_note-81)
-*   In HP [PCL](https://en.wikipedia.org/wiki/Printer_Command_Language "Printer Command Language"), the Symbol-ID for UTF-8 is `18N`.[[82]](https://en.wikipedia.org/wiki/UTF-8#cite_note-82)
+[ 45 ] Although the current version of Python requires an option to open() to read/write UTF-8, [ 46 ] plans exist to make UTF-8 I/O the default in Python 3.15.
 
-There are several current definitions of UTF-8 in various standards documents:
+[ 47 ] C++23 adopts UTF-8 as the only portable source code file format.
 
-*   RFC[3629](https://www.rfc-editor.org/rfc/rfc3629) / STD 63 (2003), which establishes UTF-8 as a standard internet protocol element
-*   RFC[5198](https://www.rfc-editor.org/rfc/rfc5198) defines UTF-8 [NFC](https://en.wikipedia.org/wiki/Unicode_equivalence "Unicode equivalence") for Network Interchange (2008)
-*   ISO/IEC 10646:2020/Amd 1:2023[[83]](https://en.wikipedia.org/wiki/UTF-8#cite_note-83)
-*   _The Unicode Standard, Version 16.0.0_ (2024)[[84]](https://en.wikipedia.org/wiki/UTF-8#cite_note-84)
+[ 48 ] Backwards compatibility is a serious impediment to changing code and APIs using UTF-16 to use UTF-8, but this is happening. As of May 2019 [update] , Microsoft added the capability for an application to set UTF-8 as the "code page" for the Windows API, removing the need to use UTF-16; and more recently has recommended programmers use UTF-8, [ 49 ] and even states "UTF-16 [...] is a unique burden that Windows places on code that targets multiple platforms".
 
-They supersede the definitions given in the following obsolete works:
+[ 4 ] The default string primitive in Go , [ 50 ] Julia , Rust , Swift (since version 5), [ 51 ] and PyPy [ 52 ] uses UTF-8 internally in all cases. Python (since version 3.3) uses UTF-8 internally for Python C API extensions [ 53 ] [ 54 ] and sometimes for strings [ 53 ] [ 55 ] and a future version of Python is planned to store strings as UTF-8 by default.
 
-*   _The Unicode Standard, Version 2.0_, Appendix A (1996)
-*   ISO/IEC 10646-1:1993 Amendment 2 / Annex R (1996)
-*   RFC[2044](https://www.rfc-editor.org/rfc/rfc2044) (1996)
-*   RFC[2279](https://www.rfc-editor.org/rfc/rfc2279) (1998)
-*   _The Unicode Standard, Version 3.0_, §2.3 (2000) plus Corrigendum #1: UTF-8 Shortest Form (2000)
-*   _Unicode Standard Annex #27: Unicode 3.1_ (2001)[[85]](https://en.wikipedia.org/wiki/UTF-8#cite_note-85)
-*   _The Unicode Standard, Version 5.0_ (2006)[[86]](https://en.wikipedia.org/wiki/UTF-8#cite_note-86)
-*   _The Unicode Standard, Version 6.0_ (2010)[[1]](https://en.wikipedia.org/wiki/UTF-8#cite_note-:1-1)
+[ 56 ] [ 57 ] Modern versions of Microsoft Visual Studio use UTF-8 internally.
 
-They are all the same in their general mechanics, with the main differences being on issues such as allowed range of code point values and safe handling of invalid input.
+[ 58 ] Microsoft's SQL Server 2019 added support for UTF-8, and using it results in a 35% speed increase, and "nearly 50% reduction in storage requirements." [ 59 ] Java internally uses UTF-16 for the char data type and, consequentially, the Character , String , and the StringBuffer classes, [ 60 ] but for I/O uses Modified UTF-8 (MUTF-8), in which the null character U+0000 uses the two-byte overlong encoding 0xC0 , 0x80 , instead of just 0x00 .
 
-*   [Character encodings in HTML](https://en.wikipedia.org/wiki/Character_encodings_in_HTML "Character encodings in HTML")– Use of encoding systems for international characters in HTML
-*   [Comparison of Unicode encodings](https://en.wikipedia.org/wiki/Comparison_of_Unicode_encodings "Comparison of Unicode encodings")
-*   [GB 18030](https://en.wikipedia.org/wiki/GB_18030 "GB 18030")– Official Chinese character encoding
-*   [Iconv](https://en.wikipedia.org/wiki/Iconv "Iconv")– Standard UNIX utility
-*   [Unicode and email](https://en.wikipedia.org/wiki/Unicode_and_email "Unicode and email")– Relationship between Unicode and email
-*   [Unicode and HTML](https://en.wikipedia.org/wiki/Unicode_and_HTML "Unicode and HTML")– Relationship between Unicode characters and HTML
-*   [UTF-EBCDIC](https://en.wikipedia.org/wiki/UTF-EBCDIC "UTF-EBCDIC")– Character encoding for Unicode compatible with EBCDIC
+[ 61 ] Modified UTF-8 strings never contain any actual null bytes but can contain all Unicode code points including U+0000 , [ 62 ] which allows such strings (with a null byte appended) to be processed by traditional null-terminated string functions. Java reads and writes normal UTF-8 to files and streams, [ 63 ] but it uses Modified UTF-8 for object serialization , [ 64 ] [ 65 ] for the Java Native Interface , [ 66 ] and for embedding constant strings in class files .
 
-1.   ^ [_**a**_](https://en.wikipedia.org/wiki/UTF-8#cite_ref-:1_1-0)[_**b**_](https://en.wikipedia.org/wiki/UTF-8#cite_ref-:1_1-1)[_**c**_](https://en.wikipedia.org/wiki/UTF-8#cite_ref-:1_1-2)[_The Unicode Standard_](https://www.unicode.org/versions/Unicode6.0.0/) (6.0 ed.). Mountain View, California, US: [The Unicode Consortium](https://en.wikipedia.org/wiki/The_Unicode_Consortium "The Unicode Consortium"). [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) "ISBN (identifier)")[978-1-936213-01-6](https://en.wikipedia.org/wiki/Special:BookSources/978-1-936213-01-6 "Special:BookSources/978-1-936213-01-6").
-2.   ^ [_**a**_](https://en.wikipedia.org/wiki/UTF-8#cite_ref-W3TechsWebEncoding_2-0)[_**b**_](https://en.wikipedia.org/wiki/UTF-8#cite_ref-W3TechsWebEncoding_2-1)["Usage Survey of Character Encodings broken down by Ranking"](https://w3techs.com/technologies/cross/character_encoding/ranking). _W3Techs_. July 2025. Retrieved 2025-07-09.
-3.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-3)**["Conformance"](https://www.unicode.org/versions/Unicode16.0.0/core-spec/chapter-3/#G7404). _The Unicode Standard_ (6.0 ed.). Mountain View, California, US: [The Unicode Consortium](https://en.wikipedia.org/wiki/The_Unicode_Consortium "The Unicode Consortium"). 3.9 Unicode Encoding Forms. [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) "ISBN (identifier)")[978-1-936213-01-6](https://en.wikipedia.org/wiki/Special:BookSources/978-1-936213-01-6 "Special:BookSources/978-1-936213-01-6"). Each encoding form maps the Unicode code points U+0000..U+D7FF and U+E000..U+10FFFF
-4.   ^ [_**a**_](https://en.wikipedia.org/wiki/UTF-8#cite_ref-Microsoft_GDK_4-0)[_**b**_](https://en.wikipedia.org/wiki/UTF-8#cite_ref-Microsoft_GDK_4-1)["UTF-8 support in the Microsoft GDK"](https://learn.microsoft.com/en-us/gaming/gdk/_content/gc/system/overviews/utf-8). _[Microsoft Learn](https://en.wikipedia.org/wiki/Microsoft\_Learn "Microsoft Learn")_. Microsoft Game Development Kit (GDK). Retrieved 2023-03-05.
-5.   ^ [_**a**_](https://en.wikipedia.org/wiki/UTF-8#cite_ref-whatwg_5-0)[_**b**_](https://en.wikipedia.org/wiki/UTF-8#cite_ref-whatwg_5-1)["Encoding Standard"](https://encoding.spec.whatwg.org/#preface). _encoding.spec.whatwg.org_. Retrieved 2020-04-15.
-6.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-6)**["File System Safe UCS— Transformation Format (FSS-UTF) - X/Open Preliminary Specification"](https://www.unicode.org/L2/Historical/wg20-n193-fss-utf.pdf)(PDF). _unicode.org_.
-7.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-FSS-UTF_7-0)**["Appendix F. FSS-UTF / File System Safe UCS Transformation format"](https://www.unicode.org/versions/Unicode1.1.0/appF.pdf)(PDF). _The Unicode Standard 1.1_. [Archived](https://web.archive.org/web/20160607215950/https://www.unicode.org/versions/Unicode1.1.0/appF.pdf)(PDF) from the original on 2016-06-07. Retrieved 2016-06-07.
-8.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-Whistler_2001_8-0)**Whistler, Kenneth (2001-06-12). ["FSS-UTF, UTF-2, UTF-8, and UTF-16"](https://unicode.org/mail-arch/unicode-ml/y2001-m06/0318.html). [Archived](https://web.archive.org/web/20160607220249/https://unicode.org/mail-arch/unicode-ml/y2001-m06/0318.html) from the original on 2016-06-07. Retrieved 2006-06-07.
-9.   ^ [_**a**_](https://en.wikipedia.org/wiki/UTF-8#cite_ref-pikeviacambridge_9-0)[_**b**_](https://en.wikipedia.org/wiki/UTF-8#cite_ref-pikeviacambridge_9-1)[_**c**_](https://en.wikipedia.org/wiki/UTF-8#cite_ref-pikeviacambridge_9-2)[Pike, Rob](https://en.wikipedia.org/wiki/Rob_Pike "Rob Pike") (2003-04-30). ["UTF-8 history"](https://www.cl.cam.ac.uk/~mgk25/ucs/utf-8-history.txt). Retrieved 2012-09-07.
-10.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-10)**At that time subtraction was slower than bit logic on many computers, and speed was considered necessary for acceptance.[_[citation needed](https://en.wikipedia.org/wiki/Wikipedia:Citation\_needed "Wikipedia:Citation needed")_]
-11.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-11)**Pike, Rob; Thompson, Ken (1993). ["Hello World or Καλημέρα κόσμε or こんにちは 世界"](https://www.cl.cam.ac.uk/~mgk25/ucs/UTF-8-Plan9-paper.pdf)(PDF). _Proceedings of the Winter 1993 USENIX Conference_.
-12.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-12)**["USENIX Winter 1993 Conference Proceedings"](https://www.usenix.org/legacy/publications/library/proceedings/sd93/). _usenix.org_.
-13.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-rfc2277_13-0)**[Alvestrand, Harald T.](https://en.wikipedia.org/wiki/Harald_Alvestrand "Harald Alvestrand") (January 1998). [_IETF Policy on Character Sets and Languages_](https://datatracker.ietf.org/doc/html/rfc2277). [IETF](https://en.wikipedia.org/wiki/Internet_Engineering_Task_Force "Internet Engineering Task Force"). [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.17487/RFC2277](https://doi.org/10.17487%2FRFC2277). BCP 18. [RFC](https://en.wikipedia.org/wiki/Request_for_Comments "Request for Comments")[2277](https://datatracker.ietf.org/doc/html/rfc2277).
-14.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-14)**[Pike, Rob](https://en.wikipedia.org/wiki/Rob_Pike "Rob Pike") (2012-09-06). ["UTF-8 turned 20 years old yesterday"](https://web.archive.org/web/20121130120145/https://plus.google.com/u/0/101960720994009339267/posts/Rz1udTvtiMg). Archived from [the original](https://plus.google.com/u/0/101960720994009339267/posts/Rz1udTvtiMg) on 2012-11-30. Retrieved 2012-09-07.
-15.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-problems_of_only_BMP_15-0)**Lunde, Ken (2022-01-09). ["2022 Top Ten List: Why Support Beyond-BMP Code Points?"](https://ken-lunde.medium.com/2022-top-ten-list-why-support-beyond-bmp-code-points-6a946d7735f9). _Medium_. Retrieved 2024-01-07.
-16.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-MS00-078_16-0)**Marin, Marvin (2000-10-17). [Windows NT UNICODE vulnerability analysis](https://web.archive.org/web/20140827001204/http://www.sans.org/security-resources/malwarefaq/wnt-unicode.php). Web server folder traversal. _SANS Institute_ (Report). Malware FAQ. MS00-078. Archived from [the original](https://www.sans.org/resources/malwarefaq/wnt-unicode.php) on Aug 27, 2014.
-17.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-CVE-2008-2938_17-0)**["CVE-2008-2938"](https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2008-2938). _National Vulnerability Database (nvd.nist.gov)_. U.S. [National Institute of Standards and Technology](https://en.wikipedia.org/wiki/National_Institute_of_Standards_and_Technology "National Institute of Standards and Technology"). 2008.
-18.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-18)**["DataInput"](https://docs.oracle.com/javase/8/docs/api/java/io/DataInput.html). _docs.oracle.com_. Java Platform SE 8. Retrieved 2021-03-24.
-19.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-PEP383_19-0)**["Non-decodable bytes in system character interfaces"](https://www.python.org/dev/peps/pep-0383/). _python.org_. 2009-04-22. Retrieved 2014-08-13.
-20.   ^ [_**a**_](https://en.wikipedia.org/wiki/UTF-8#cite_ref-rfc3629_20-0)[_**b**_](https://en.wikipedia.org/wiki/UTF-8#cite_ref-rfc3629_20-1)Yergeau, F. (November 2003). [_UTF-8, a transformation format of ISO 10646_](https://datatracker.ietf.org/doc/html/rfc3629). [IETF](https://en.wikipedia.org/wiki/Internet_Engineering_Task_Force "Internet Engineering Task Force"). [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.17487/RFC3629](https://doi.org/10.17487%2FRFC3629). STD 63. [RFC](https://en.wikipedia.org/wiki/Request_for_Comments "Request for Comments")[3629](https://datatracker.ietf.org/doc/html/rfc3629). Retrieved August 20, 2020.
-21.   ^ [_**a**_](https://en.wikipedia.org/wiki/UTF-8#cite_ref-pep383_21-0)[_**b**_](https://en.wikipedia.org/wiki/UTF-8#cite_ref-pep383_21-1)von Löwis, Martin (2009-04-22). ["Non-decodable Bytes in System Character Interfaces"](https://www.python.org/dev/peps/pep-0383). [Python Software Foundation](https://en.wikipedia.org/wiki/Python_Software_Foundation "Python Software Foundation"). PEP 383.
-22.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-PEP_529_22-0)**["Change Windows filesystem encoding to UTF-8"](https://www.python.org/dev/peps/pep-0529/). _Python.org_. PEP 529. Retrieved 2022-05-10.
-23.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-wtf-8_23-0)**["The WTF-8 encoding"](https://simonsapin.github.io/wtf-8/).
-24.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-24)**["Chapter 2"](https://www.unicode.org/versions/Unicode15.0.0/ch02.pdf)(PDF), _The Unicode Standard— Version 15.0.0_, p.39
-25.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-25)**["UTF-8 and Unicode FAQ for Unix/Linux"](https://www.cl.cam.ac.uk/~mgk25/unicode.html).
-26.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-MarkDavis2012_26-0)**[Davis, Mark](https://en.wikipedia.org/wiki/Mark_Davis_(Unicode) "Mark Davis (Unicode)") (2012-02-03). ["Unicode over 60 percent of the web"](https://googleblog.blogspot.com/2012/02/unicode-over-60-percent-of-web.html). _Official Google blog_. [Archived](https://web.archive.org/web/20180809152828/https://googleblog.blogspot.com/2012/02/unicode-over-60-percent-of-web.html) from the original on 2018-08-09. Retrieved 2020-07-24.
-27.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-markdavis_27-0)**[Davis, Mark](https://en.wikipedia.org/wiki/Mark_Davis_(Unicode) "Mark Davis (Unicode)") (2008-05-05). ["Moving to Unicode 5.1"](https://googleblog.blogspot.com/2008/05/moving-to-unicode-51.html). _Official Google blog_. Retrieved 2023-03-13.
-28.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-28)**["Usage statistics and market share of ASCII for websites"](https://w3techs.com/technologies/details/en-usascii). _W3Techs_. January 2025. Retrieved 2025-01-07.
-29.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-rfc8259_29-0)**Bray, Tim (December 2017). Bray, Tim (ed.). [_The JavaScript Object Notation (JSON) Data Interchange Format_](https://datatracker.ietf.org/doc/html/rfc8259). IETF. [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.17487/RFC8259](https://doi.org/10.17487%2FRFC8259). [RFC](https://en.wikipedia.org/wiki/Request_for_Comments "Request for Comments")[8259](https://datatracker.ietf.org/doc/html/rfc8259). Retrieved 16 February 2018.
-30.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-IMC_30-0)**["Using International Characters in Internet Mail"](https://web.archive.org/web/20071026103104/https://www.imc.org/mail-i18n.html). Internet Mail Consortium. 1998-08-01. Archived from [the original](https://www.imc.org/mail-i18n.html) on 2007-10-26. Retrieved 2007-11-08.
-31.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-mandatory_31-0)**["Encoding Standard"](https://encoding.spec.whatwg.org/#security-background). _encoding.spec.whatwg.org_. Retrieved 2018-11-15.
-32.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-html5charset_32-0)**["Specifying the document's character encoding"](https://www.w3.org/TR/html5/document-metadata.html#charset). [HTML 5.2](https://www.w3.org/TR/html5/document-metadata.html) (Report). [World Wide Web Consortium](https://en.wikipedia.org/wiki/World_Wide_Web_Consortium "World Wide Web Consortium"). 14 December 2017. Retrieved 2018-06-03.
-33.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-33)**["Choose text encoding when you open and save files"](https://support.microsoft.com/en-us/office/choose-text-encoding-when-you-open-and-save-files-60d59c21-88b5-4006-831c-d536d42fd861). _Microsoft Support (support.microsoft.com)_. Retrieved 2021-11-01.
-34.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-34)**["UTF-8 - Character encoding of Microsoft _Word_`DOC` and `DOCX` files?"](https://stackoverflow.com/questions/28172022/character-encoding-of-microsoft-word-doc-and-docx-files). _Stack Overflow_. Retrieved 2021-11-01.
-35.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-35)**["Exporting a UTF-8 `.txt` file from _Word_"](https://support.3playmedia.com/hc/en-us/articles/227730088-Exporting-a-UTF-8-txt-file-from-Word). _support.3playmedia.com_. 14 March 2023.
-36.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-36)**["Are `XLSX` files UTF-8 encoded, by definition?"](https://stackoverflow.com/questions/45194771/are-xlsx-files-utf-8-encoded-by-definition). _Stack Overflow_. Excel. Retrieved 2021-11-01.
-37.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-37)**Abhinav, Ankit; Xu, Jazlyn (April 13, 2020). ["How to open UTF-8 `CSV` file in _Excel_ without mis-conversion of characters in Japanese and Chinese language for both Mac and Windows?"](https://answers.microsoft.com/en-us/msoffice/forum/all/how-to-open-utf-8-csv-file-in-excel-without-mis/1eb15700-d235-441e-8b99-db10fafff3c2). _Microsoft Support Community_. Retrieved 2021-11-01.
-38.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-38)**["Save a CSV file as UTF-8"](https://rolandd.com/documentation/ro-csvi/save-a-csv-file-as-utf-8). _RO CSVI_. LibreOffice. Retrieved 2025-05-20.
-39.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-39)**Galloway, Matt (October 2012). ["Character encoding for iOS developers; or, UTF-8 what now?"](https://www.galloway.me.uk/2012/10/character-encoding-for-ios-developers-utf8/). _www.galloway.me.uk_. Retrieved 2021-01-02. ...in reality, you usually just assume UTF-8 since that is by far the most common encoding.
-40.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-40)**["Windows 10 Notepad is getting better UTF-8 encoding support"](https://www.bleepingcomputer.com/news/microsoft/windows-10-notepad-is-getting-better-utf-8-encoding-support/). _BleepingComputer_. Retrieved 2021-03-24. Microsoft is now defaulting to saving new text files as UTF-8 without BOM, as shown below.
-41.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-41)**["Customize the Windows 11 _Start_ menu"](https://docs.microsoft.com/en-us/windows-hardware/customize/desktop/customize-the-windows-11-start-menu). _docs.microsoft.com_. Retrieved 2021-06-29. Make sure your LayoutModification.json uses UTF-8 encoding.
-42.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-42)**["Set default for Encoding.default_external to UTF-8 on Windows"](https://bugs.ruby-lang.org/issues/16604). _Ruby Issue Tracking System (bugs.ruby-lang.org)_. Ruby master. Feature#16604. Retrieved 2022-08-01.
-43.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-43)**["Feature #12650: Use UTF-8 encoding for ENV on Windows"](https://bugs.ruby-lang.org/issues/12650). _Ruby Issue Tracking System (bugs.ruby-lang.org)_. Ruby master. Retrieved 2022-08-01.
-44.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-44)**["New features in R 4.2.0"](https://www.r-bloggers.com/2022/04/new-features-in-r-4-2-0/). _R bloggers (r-bloggers.com)_. The Jumping Rivers Blog. 2022-04-01. Retrieved 2022-08-01.
-45.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-Java_UTF-8_and_UTF-16_45-0)**["UTF-8 by default"](https://openjdk.java.net/jeps/400). _openjdk.java.net_. JEP 400. Retrieved 2022-03-30.
-46.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-46)**["add a new UTF-8 mode"](https://peps.python.org/pep-0540/). _peps.python.org_. PEP 540. Retrieved 2022-09-23.
-47.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-47)**["Make UTF-8 mode default"](https://peps.python.org/pep-0686/). _peps.python.org_. PEP 686. Retrieved 2023-07-26.
-48.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-48)**[Support for UTF-8 as a portable source file encoding](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2022/p2295r6.pdf)(PDF). _open-std.org_ (Report). 2022. p2295r6.
-49.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-Microsoft-UTF-8_49-0)**["Use UTF-8 code pages in Windows apps"](https://learn.microsoft.com/en-us/windows/apps/design/globalizing/use-utf8-code-page). _[Microsoft Learn](https://en.wikipedia.org/wiki/Microsoft\_Learn "Microsoft Learn")_. 20 August 2024. Retrieved 2024-09-24.
-50.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-50)**["Source code representation"](https://golang.org/ref/spec#Source_code_representation). The _Go_ Programming Language Specification. _golang.org_ (Report). Retrieved 2021-02-10.
-51.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-51)**Tsai, Michael J. (21 March 2019). ["UTF-8 string in Swift 5"](https://mjtsai.com/blog/2019/03/21/utf-8-string-in-swift-5/) (blog post). Retrieved 2021-03-15.
-52.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-52)**["PyPy v7.1 released; now uses UTF-8 internally for Unicode strings"](https://morepypy.blogspot.com/2019/03/pypy-v71-released-now-uses-utf-8.html). Mattip. _PyPy status blog_. 2019-03-24. Retrieved 2020-11-21.
-53.   ^ [_**a**_](https://en.wikipedia.org/wiki/UTF-8#cite_ref-PEP393_53-0)[_**b**_](https://en.wikipedia.org/wiki/UTF-8#cite_ref-PEP393_53-1)["Flexible String Representation"](https://peps.python.org/pep-0393). _Python.org_. PEP 393. Retrieved 2022-05-18.
-54.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-54)**["Common Object Structures"](https://docs.python.org/3/c-api/structures.html). _Python documentation_. Retrieved 2024-05-29.
-55.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-55)**["Unicode objects and codecs"](https://docs.python.org/3/c-api/unicode.html). _Python documentation_. Retrieved 2023-08-19. UTF-8 representation is created on demand and cached in the Unicode object.
-56.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-56)**["PEP 623– remove wstr from Unicode"](https://www.python.org/dev/peps/pep-0623/). _Python.org_. Retrieved 2020-11-21.
-57.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-57)**Wouters, Thomas (2023-07-11). ["Python 3.12.0 beta 4 released"](https://pythoninsider.blogspot.com/2023/07/pleased-to-announce-release-of-python-3.html). _Python Insider (pythoninsider.blogspot.com)_ (blog post). Retrieved 2023-07-26. The deprecated `wstr` and `wstr_length` members of the C implementation of unicode objects were removed, per PEP 623.
-58.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-58)**["validate-charset (validate for compatible characters)"](https://docs.microsoft.com/en-us/cpp/build/reference/validate-charset-validate-for-compatible-characters). _docs.microsoft.com_. Retrieved 2021-07-19. Visual Studio uses UTF-8 as the internal character encoding during conversion between the source character set and the execution character set.
-59.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-59)**["Introducing UTF-8 support for SQL Server"](https://techcommunity.microsoft.com/t5/sql-server/introducing-utf-8-support-for-sql-server/ba-p/734928). _techcommunity.microsoft.com_. 2019-07-02. Retrieved 2021-08-24.
-60.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-60)**["Character (Java SE 24 & JDK 24)"](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/Character.html#unicode). [Oracle Corporation](https://en.wikipedia.org/wiki/Oracle_Corporation "Oracle Corporation"). 2025. Retrieved 2025-04-08.
-61.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-61)**["Java SE documentation for Interface java.io.DataInput, subsection on Modified UTF-8"](https://docs.oracle.com/javase/8/docs/api/java/io/DataInput.html#modified-utf-8). [Oracle Corporation](https://en.wikipedia.org/wiki/Oracle_Corporation "Oracle Corporation"). 2015. Retrieved 2015-10-16.
-62.   ^ [_**a**_](https://en.wikipedia.org/wiki/UTF-8#cite_ref-:0_62-0)[_**b**_](https://en.wikipedia.org/wiki/UTF-8#cite_ref-:0_62-1)["The Java Virtual Machine Specification, section 4.4.7: "The CONSTANT_Utf8_info Structure""](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.4.7). [Oracle Corporation](https://en.wikipedia.org/wiki/Oracle_Corporation "Oracle Corporation"). 2015. Retrieved 2015-10-16.
-63.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-63)**`InputStreamReader` and `OutputStreamWriter`
-64.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-64)**["Java Object Serialization Specification, chapter 6: Object Serialization Stream Protocol, section 2: Stream Elements"](https://docs.oracle.com/javase/8/docs/platform/serialization/spec/protocol.html#a8299). [Oracle Corporation](https://en.wikipedia.org/wiki/Oracle_Corporation "Oracle Corporation"). 2010. Retrieved 2015-10-16.
-65.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-65)**`DataInput` and `DataOutput`
-66.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-66)**["Java Native Interface Specification, chapter 3: JNI Types and Data Structures, section: Modified UTF-8 Strings"](https://docs.oracle.com/javase/8/docs/technotes/guides/jni/spec/types.html#modified_utf_8_strings). [Oracle Corporation](https://en.wikipedia.org/wiki/Oracle_Corporation "Oracle Corporation"). 2015. Retrieved 2015-10-16.
-67.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-67)**["ART and Dalvik"](https://web.archive.org/web/20130426010617/https://source.android.com/tech/dalvik/dex-format.html). _Android Open Source Project_. Archived from [the original](https://source.android.com/tech/dalvik/dex-format.html) on 2013-04-26. Retrieved 2013-04-09.
-68.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-68)**["UTF-8 bit by bit"](https://wiki.tcl-lang.org/page/UTF-8+bit+by+bit). _Tcler's Wiki_. 2001-02-28. Retrieved 2022-09-03.
-69.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-69)**["encoding | Raku Documentation"](https://docs.raku.org/routine/encoding). _docs.raku.org_. Retrieved 2024-10-06.
-70.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-70)**["Unicode | Raku Documentation"](https://docs.raku.org/language/unicode#UTF8-C8). _docs.raku.org_. Retrieved 2024-10-06.
-71.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-71)**["PEP 540 -- Add a new UTF-8 Mode"](https://www.python.org/dev/peps/pep-0540/). _Python.org_. Retrieved 2021-03-24.
-72.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-72)**["RTFM optu8to16(3), optu8to16vis(3)"](https://www.mirbsd.org/htman/i386/man3/optu8to16.htm). _www.mirbsd.org_.
-73.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-davis383_73-0)**[Davis, Mark](https://en.wikipedia.org/wiki/Mark_Davis_(Unicode) "Mark Davis (Unicode)"); Suignard, Michel (2014). ["3.7 Enabling Lossless Conversion"](https://www.unicode.org/reports/tr36/#EnablingLosslessConversion). _Unicode Security Considerations_. Unicode Technical Report #36.
-74.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-74)**["Encoding Standard § 4.2. Names and labels"](https://encoding.spec.whatwg.org/#names-and-labels). [WHATWG](https://en.wikipedia.org/wiki/WHATWG "WHATWG"). Retrieved 2018-04-29.
-75.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-IANA_2013_CS_75-0)**["Character Sets"](https://www.iana.org/assignments/character-sets). [Internet Assigned Numbers Authority](https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority "Internet Assigned Numbers Authority"). 2013-01-23. Retrieved 2013-02-08.
-76.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-76)**["BOM"](https://web.archive.org/web/20090117052232/https://suika.fam.cx/~wakaba/wiki/sw/n/BOM). _suikawiki_ (in Japanese). Archived from [the original](https://suika.fam.cx/~wakaba/wiki/sw/n/BOM) on 2009-01-17.
-77.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-77)**[Davis, Mark](https://en.wikipedia.org/wiki/Mark_Davis_(Unicode) "Mark Davis (Unicode)"). ["Forms of Unicode"](https://web.archive.org/web/20050506211548/https://www-128.ibm.com/developerworks/library/utfencodingforms/index.html). [IBM](https://en.wikipedia.org/wiki/IBM "IBM"). Archived from [the original](https://www-128.ibm.com/developerworks/library/utfencodingforms/index.html) on 2005-05-06. Retrieved 2013-09-18.
-78.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-78)**Liviu (2014-02-07). ["UTF-8 codepage 65001 in Windows 7 - part I"](https://www.dostips.com/forum/viewtopic.php?t=5357). Retrieved 2018-01-30. Previously under XP (and, unverified, but probably Vista, too) for loops simply did not work while codepage 65001 was active
-79.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-79)**["MySQL:: MySQL 8.0 Reference Manual:: 10.9.1 The utf8mb4 Character Set (4-Byte UTF-8 Unicode Encoding)"](https://dev.mysql.com/doc/refman/8.0/en/charset-unicode-utf8mb4.html). _MySQL 8.0 Reference Manual_. [Oracle Corporation](https://en.wikipedia.org/wiki/Oracle_Corporation "Oracle Corporation"). Retrieved 2023-03-14.
-80.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-mysql3-utf8mb3_80-0)**["MySQL:: MySQL 8.0 Reference Manual:: 10.9.2 The utf8mb3 Character Set (3-Byte UTF-8 Unicode Encoding)"](https://dev.mysql.com/doc/refman/8.0/en/charset-unicode-utf8mb3.html). _MySQL 8.0 Reference Manual_. [Oracle Corporation](https://en.wikipedia.org/wiki/Oracle_Corporation "Oracle Corporation"). Retrieved 2023-02-24.
-81.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-81)**["Database Globalization Support Guide"](https://docs.oracle.com/cd/E11882_01/server.112/e10729/ch6unicode.htm). _docs.oracle.com_. Retrieved 2023-03-16.
-82.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-82)**["HP PCL Symbol Sets | Printer Control Language (PCL & PXL) Support Blog"](https://web.archive.org/web/20150219212843/http://pclhelp.com/pcl-symbol-sets/). 2015-02-19. Archived from [the original](https://pclhelp.com/pcl-symbol-sets/) on 2015-02-19. Retrieved 2018-01-30.
-83.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-83)**[ISO/IEC 10646](https://www.iso.org/standard/83362.html).
-84.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-84)**_[The Unicode Standard, Version 16.0](https://www.unicode.org/versions/Unicode16.0.0/)_[§3.9 D92, §3.10 D95](https://www.unicode.org/versions/Unicode15.0.0/ch03.pdf#G31703), 2021.
-85.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-85)**[_Unicode Standard Annex #27: Unicode 3.1_](https://www.unicode.org/reports/tr27/tr27-3.html), 2001.
-86.   **[^](https://en.wikipedia.org/wiki/UTF-8#cite_ref-86)**[_The Unicode Standard, Version 5.0_](https://www.unicode.org/versions/Unicode5.0.0/)[§3.9–§3.10 ch. 3](https://www.unicode.org/versions/Unicode5.0.0/ch03.pdf), 2006.
+[ 62 ] The dex format defined by Dalvik also uses the same modified UTF-8 to represent string values.
 
-*   [Original UTF-8 paper](https://doc.cat-v.org/plan_9/4th_edition/papers/utf) ([or pdf](https://web.archive.org/web/20000917055036/http://plan9.bell-labs.com/sys/doc/utf.pdf)) for [Plan 9 from Bell Labs](https://en.wikipedia.org/wiki/Plan_9_from_Bell_Labs "Plan 9 from Bell Labs")
-*   [History of UTF-8 by Rob Pike](https://www.cl.cam.ac.uk/~mgk25/ucs/utf-8-history.txt)
-*   [Characters, Symbols and the Unicode Miracle](https://www.youtube.com/watch?v=MijmeoH9LT4) on [YouTube](https://en.wikipedia.org/wiki/YouTube_video_(identifier) "YouTube video (identifier)")
+[ 67 ] Tcl also uses the same modified UTF-8 [ 68 ] as Java for internal representation of Unicode data, but uses strict CESU-8 for external data. All known Modified UTF-8 implementations also treat the surrogate pairs as in CESU-8 .
+
+The Raku programming language (formerly Perl 6) uses utf-8 encoding by default for I/O ( Perl 5 also supports it); though that choice in Raku also implies "normalization into Unicode NFC (normalization form canonical) . In some cases the user will want to ensure no normalization is done; for this utf8-c8 " can be used.
+
+[ 69 ] That UTF-8 Clean-8 variant, implemented by Raku, is an encoder/decoder  that preserves bytes as is (even illegal UTF-8 sequences) and allows for Normal Form Grapheme synthetics.
+
+[ 70 ] Version 3 of the Python programming language treats each byte of an invalid UTF-8 bytestream as an error (see also changes with new UTF-8 mode in Python 3.7 [ 71 ] ); this gives 128 different possible errors. Extensions have been created to allow any byte sequence that is assumed to be UTF-8 to be losslessly transformed to UTF-16 or UTF-32, by translating the 128 possible error bytes to 128 reserved code points, and transforming those code points back to error bytes to output UTF-8. The most common approach is to translate the codes to U+DC80 ...
+
+U+DCFF which are low (trailing) surrogate values and thus "invalid" UTF-16, as used by Python 's PEP 383 (or "surrogateescape") approach.
+
+[ 21 ] Another encoding called MirBSD OPTU-8/16 converts them to U+EF80 ...
+
+U+EFFF in a Private Use Area .
+
+[ 72 ] In either approach, the byte value is encoded in the low eight bits of the output code point. These encodings are needed if invalid UTF-8 is to survive translation to and then back from the UTF-16 used internally by Python, and as Unix filenames can contain invalid UTF-8 it is necessary for this to work.
+
+[ 73 ] Standards [ edit ] The official name for the encoding is UTF-8 , the spelling used in all Unicode Consortium documents. The hyphen-minus is required and no spaces are allowed. Some other names used are: Most standards are also case-insensitive and utf-8 is often used.
+
+[ citation needed ] Web standards (which include CSS , HTML , XML , and HTTP headers ) also allow utf8 and many other aliases.
+
+[ 74 ] The official Internet Assigned Numbers Authority lists csUTF8 as the only alias, [ 75 ] which is rarely used.
+
+In some locales UTF-8N means UTF-8 without a byte-order mark (BOM), and in this case UTF-8 may imply there is a BOM.
+
+[ 76 ] [ 77 ] In Windows , UTF-8 is codepage 65001 [ 78 ] with the symbolic name CP_UTF8 in source code.
+
+In MySQL , UTF-8 is called utf8mb4 , [ 79 ] while utf8 and utf8mb3 refer to the obsolete CESU-8 variant.
+
+[ 80 ] In Oracle Database , AL32UTF8 means UTF-8 (since version 9.0), while UTF8 means CESU-8 (since 8.0).
+
+[ 81 ] In HP PCL , the Symbol-ID for UTF-8 is 18N .
+
+[ 82 ] There are several current definitions of UTF-8 in various standards documents: RFC 3629 / STD 63 (2003), which establishes UTF-8 as a standard internet protocol element RFC 5198 defines UTF-8 NFC for Network Interchange (2008) ISO/IEC 10646:2020/Amd 1:2023 [ 83 ] The Unicode Standard, Version 16.0.0 (2024) [ 84 ] They supersede the definitions given in the following obsolete works: The Unicode Standard, Version 2.0 , Appendix A (1996) ISO/IEC 10646-1:1993 Amendment 2 / Annex R (1996) RFC 2044 (1996) RFC 2279 (1998) The Unicode Standard, Version 3.0 , §2.3 (2000) plus Corrigendum #1 : UTF-8 Shortest Form (2000) Unicode Standard Annex #27: Unicode 3.1 (2001) [ 85 ] The Unicode Standard, Version 5.0 (2006) [ 86 ] The Unicode Standard, Version 6.0 (2010) [ 1 ] They are all the same in their general mechanics, with the main differences being on issues such as allowed range of code point values and safe handling of invalid input.
+
+See also [ edit ] Character encodings in HTML – Use of encoding systems for international characters in HTML Comparison of Unicode encodings GB 18030 – Official Chinese character encoding Iconv – Standard UNIX utility Unicode and email – Relationship between Unicode and email Unicode and HTML – Relationship between Unicode characters and HTML UTF-EBCDIC – Character encoding for Unicode compatible with EBCDIC References [ edit ] ^ a b c The Unicode Standard (6.0 ed.). Mountain View, California, US: The Unicode Consortium .
+
+ISBN 978-1-936213-01-6 .
+
+^ a b "Usage Survey of Character Encodings broken down by Ranking" .
+
+W3Techs . July 2025 . Retrieved 2025-07-09 .
+
+^ "Conformance" .
+
+The Unicode Standard (6.0 ed.). Mountain View, California, US: The Unicode Consortium . 3.9 Unicode Encoding Forms.
+
+ISBN 978-1-936213-01-6 .
+
+Each encoding form maps the Unicode code points U+0000..U+D7FF and U+E000..U+10FFFF ^ a b "UTF-8 support in the Microsoft GDK" .
+
+Microsoft Learn . Microsoft Game Development Kit (GDK) . Retrieved 2023-03-05 .
+
+^ a b "Encoding Standard" .
+
+encoding.spec.whatwg.org . Retrieved 2020-04-15 .
+
+^ "File System Safe UCS — Transformation Format (FSS-UTF) - X/Open Preliminary Specification" (PDF) .
+
+unicode.org .
+
+^ "Appendix F. FSS-UTF / File System Safe UCS Transformation format" (PDF) .
+
+The Unicode Standard 1.1 .
+
+Archived (PDF) from the original on 2016-06-07 . Retrieved 2016-06-07 .
+
+^ Whistler, Kenneth (2001-06-12).
+
+"FSS-UTF, UTF-2, UTF-8, and UTF-16" .
+
+Archived from the original on 2016-06-07 . Retrieved 2006-06-07 .
+
+^ a b c Pike, Rob (2003-04-30).
+
+"UTF-8 history" . Retrieved 2012-09-07 .
+
+^ At that time subtraction was slower than bit logic on many computers, and speed was considered necessary for acceptance.
+
+[ citation needed ] ^ Pike, Rob; Thompson, Ken (1993).
+
+"Hello World or Καλημέρα κόσμε or こんにちは 世界" (PDF) .
+
+Proceedings of the Winter 1993 USENIX Conference .
+
+^ "USENIX Winter 1993 Conference Proceedings" .
+
+usenix.org .
+
+^ Alvestrand, Harald T.
+
+(January 1998).
+
+IETF Policy on Character Sets and Languages .
+
+IETF .
+
+doi : 10.17487/RFC2277 . BCP 18.
+
+RFC 2277 .
+
+^ Pike, Rob (2012-09-06).
+
+"UTF-8 turned 20 years old yesterday" . Archived from the original on 2012-11-30 . Retrieved 2012-09-07 .
+
+^ Lunde, Ken (2022-01-09).
+
+"2022 Top Ten List: Why Support Beyond-BMP Code Points?" .
+
+Medium . Retrieved 2024-01-07 .
+
+^ Marin, Marvin (2000-10-17).
+
+Windows NT UNICODE vulnerability analysis . Web server folder traversal.
+
+SANS Institute (Report). Malware FAQ. MS00-078. Archived from the original on Aug 27, 2014.
+
+^ "CVE-2008-2938" .
+
+National Vulnerability Database (nvd.nist.gov) . U.S.
+
+National Institute of Standards and Technology . 2008.
+
+^ "DataInput" .
+
+docs.oracle.com . Java Platform SE 8 . Retrieved 2021-03-24 .
+
+^ "Non-decodable bytes in system character interfaces" .
+
+python.org . 2009-04-22 . Retrieved 2014-08-13 .
+
+^ a b Yergeau, F. (November 2003).
+
+UTF-8, a transformation format of ISO 10646 .
+
+IETF .
+
+doi : 10.17487/RFC3629 . STD 63.
+
+RFC 3629 . Retrieved August 20, 2020 .
+
+^ a b von Löwis, Martin (2009-04-22).
+
+"Non-decodable Bytes in System Character Interfaces" .
+
+Python Software Foundation . PEP 383.
+
+^ "Change Windows filesystem encoding to UTF-8" .
+
+Python.org . PEP 529 . Retrieved 2022-05-10 .
+
+^ "The WTF-8 encoding" .
+
+^ "Chapter 2" (PDF) , The Unicode Standard — Version 15.0.0 , p. 39 ^ "UTF-8 and Unicode FAQ for Unix/Linux" .
+
+^ Davis, Mark (2012-02-03).
+
+"Unicode over 60 percent of the web" .
+
+Official Google blog .
+
+Archived from the original on 2018-08-09 . Retrieved 2020-07-24 .
+
+^ Davis, Mark (2008-05-05).
+
+"Moving to Unicode 5.1" .
+
+Official Google blog . Retrieved 2023-03-13 .
+
+^ "Usage statistics and market share of ASCII for websites" .
+
+W3Techs . January 2025 . Retrieved 2025-01-07 .
+
+^ Bray, Tim (December 2017). Bray, Tim (ed.).
+
+The JavaScript Object Notation (JSON) Data Interchange Format . IETF.
+
+doi : 10.17487/RFC8259 .
+
+RFC 8259 . Retrieved 16 February 2018 .
+
+^ "Using International Characters in Internet Mail" . Internet Mail Consortium. 1998-08-01. Archived from the original on 2007-10-26 . Retrieved 2007-11-08 .
+
+^ "Encoding Standard" .
+
+encoding.spec.whatwg.org . Retrieved 2018-11-15 .
+
+^ "Specifying the document's character encoding" .
+
+HTML 5.2 (Report).
+
+World Wide Web Consortium . 14 December 2017 . Retrieved 2018-06-03 .
+
+^ "Choose text encoding when you open and save files" .
+
+Microsoft Support (support.microsoft.com) . Retrieved 2021-11-01 .
+
+^ "UTF-8 - Character encoding of Microsoft Word DOC and DOCX files?" .
+
+Stack Overflow . Retrieved 2021-11-01 .
+
+^ "Exporting a UTF-8 .txt file from Word " .
+
+support.3playmedia.com . 14 March 2023.
+
+^ "Are XLSX files UTF-8 encoded, by definition?" .
+
+Stack Overflow . Excel . Retrieved 2021-11-01 .
+
+^ Abhinav, Ankit; Xu, Jazlyn (April 13, 2020).
+
+"How to open UTF-8 CSV file in Excel without mis-conversion of characters in Japanese and Chinese language for both Mac and Windows?" .
+
+Microsoft Support Community . Retrieved 2021-11-01 .
+
+^ "Save a CSV file as UTF-8" .
+
+RO CSVI . LibreOffice . Retrieved 2025-05-20 .
+
+^ Galloway, Matt (October 2012).
+
+"Character encoding for iOS developers; or, UTF-8 what now?" .
+
+www.galloway.me.uk . Retrieved 2021-01-02 .
+
+... in reality, you usually just assume UTF-8 since that is by far the most common encoding.
+
+^ "Windows 10 Notepad is getting better UTF-8 encoding support" .
+
+BleepingComputer . Retrieved 2021-03-24 .
+
+Microsoft is now defaulting to saving new text files as UTF-8 without BOM, as shown below.
+
+^ "Customize the Windows 11 Start menu" .
+
+docs.microsoft.com . Retrieved 2021-06-29 .
+
+Make sure your LayoutModification.json uses UTF-8 encoding.
+
+^ "Set default for Encoding.default_external to UTF-8 on Windows" .
+
+Ruby Issue Tracking System (bugs.ruby-lang.org) . Ruby master. Feature #16604 . Retrieved 2022-08-01 .
+
+^ "Feature #12650: Use UTF-8 encoding for ENV on Windows" .
+
+Ruby Issue Tracking System (bugs.ruby-lang.org) . Ruby master . Retrieved 2022-08-01 .
+
+^ "New features in R 4.2.0" .
+
+R bloggers (r-bloggers.com) . The Jumping Rivers Blog. 2022-04-01 . Retrieved 2022-08-01 .
+
+^ "UTF-8 by default" .
+
+openjdk.java.net . JEP 400 . Retrieved 2022-03-30 .
+
+^ "add a new UTF-8 mode" .
+
+peps.python.org . PEP 540 . Retrieved 2022-09-23 .
+
+^ "Make UTF-8 mode default" .
+
+peps.python.org . PEP 686 . Retrieved 2023-07-26 .
+
+^ Support for UTF-8 as a portable source file encoding (PDF) .
+
+open-std.org (Report). 2022. p2295r6.
+
+^ "Use UTF-8 code pages in Windows apps" .
+
+Microsoft Learn . 20 August 2024 . Retrieved 2024-09-24 .
+
+^ "Source code representation" . The Go Programming Language Specification.
+
+golang.org (Report) . Retrieved 2021-02-10 .
+
+^ Tsai, Michael J. (21 March 2019).
+
+"UTF-8 string in Swift 5" (blog post) . Retrieved 2021-03-15 .
+
+^ "PyPy v7.1 released; now uses UTF-8 internally for Unicode strings" . Mattip.
+
+PyPy status blog . 2019-03-24 . Retrieved 2020-11-21 .
+
+^ a b "Flexible String Representation" .
+
+Python.org . PEP 393 . Retrieved 2022-05-18 .
+
+^ "Common Object Structures" .
+
+Python documentation . Retrieved 2024-05-29 .
+
+^ "Unicode objects and codecs" .
+
+Python documentation . Retrieved 2023-08-19 .
+
+UTF-8 representation is created on demand and cached in the Unicode object.
+
+^ "PEP 623 – remove wstr from Unicode" .
+
+Python.org . Retrieved 2020-11-21 .
+
+^ Wouters, Thomas (2023-07-11).
+
+"Python 3.12.0 beta 4 released" .
+
+Python Insider (pythoninsider.blogspot.com) (blog post) . Retrieved 2023-07-26 .
+
+The deprecated wstr and wstr_length members of the C implementation of unicode objects were removed, per PEP 623.
+
+^ "validate-charset (validate for compatible characters)" .
+
+docs.microsoft.com . Retrieved 2021-07-19 .
+
+Visual Studio uses UTF-8 as the internal character encoding during conversion between the source character set and the execution character set.
+
+^ "Introducing UTF-8 support for SQL Server" .
+
+techcommunity.microsoft.com . 2019-07-02 . Retrieved 2021-08-24 .
+
+^ "Character (Java SE 24 & JDK 24)" .
+
+Oracle Corporation . 2025 . Retrieved 2025-04-08 .
+
+^ "Java SE documentation for Interface java.io.DataInput, subsection on Modified UTF-8" .
+
+Oracle Corporation . 2015 . Retrieved 2015-10-16 .
+
+^ a b "The Java Virtual Machine Specification, section 4.4.7: "The CONSTANT_Utf8_info Structure" " .
+
+Oracle Corporation . 2015 . Retrieved 2015-10-16 .
+
+^ InputStreamReader and OutputStreamWriter ^ "Java Object Serialization Specification, chapter 6: Object Serialization Stream Protocol, section 2: Stream Elements" .
+
+Oracle Corporation . 2010 . Retrieved 2015-10-16 .
+
+^ DataInput and DataOutput ^ "Java Native Interface Specification, chapter 3: JNI Types and Data Structures, section: Modified UTF-8 Strings" .
+
+Oracle Corporation . 2015 . Retrieved 2015-10-16 .
+
+^ "ART and Dalvik" .
+
+Android Open Source Project . Archived from the original on 2013-04-26 . Retrieved 2013-04-09 .
+
+^ "UTF-8 bit by bit" .
+
+Tcler's Wiki . 2001-02-28 . Retrieved 2022-09-03 .
+
+^ "encoding | Raku Documentation" .
+
+docs.raku.org . Retrieved 2024-10-06 .
+
+^ "Unicode | Raku Documentation" .
+
+docs.raku.org . Retrieved 2024-10-06 .
+
+^ "PEP 540 -- Add a new UTF-8 Mode" .
+
+Python.org . Retrieved 2021-03-24 .
+
+^ "RTFM optu8to16(3), optu8to16vis(3)" .
+
+www.mirbsd.org .
+
+^ Davis, Mark ; Suignard, Michel (2014).
+
+"3.7 Enabling Lossless Conversion" .
+
+Unicode Security Considerations . Unicode Technical Report #36.
+
+^ "Encoding Standard § 4.2. Names and labels" .
+
+WHATWG . Retrieved 2018-04-29 .
+
+^ "Character Sets" .
+
+Internet Assigned Numbers Authority . 2013-01-23 . Retrieved 2013-02-08 .
+
+^ "BOM" .
+
+suikawiki (in Japanese). Archived from the original on 2009-01-17.
+
+^ Davis, Mark .
+
+"Forms of Unicode" .
+
+IBM . Archived from the original on 2005-05-06 . Retrieved 2013-09-18 .
+
+^ Liviu (2014-02-07).
+
+"UTF-8 codepage 65001 in Windows 7 - part I" . Retrieved 2018-01-30 .
+
+Previously under XP (and, unverified, but probably Vista, too) for loops simply did not work while codepage 65001 was active ^ "MySQL :: MySQL 8.0 Reference Manual :: 10.9.1 The utf8mb4 Character Set (4-Byte UTF-8 Unicode Encoding)" .
+
+MySQL 8.0 Reference Manual .
+
+Oracle Corporation . Retrieved 2023-03-14 .
+
+^ "MySQL :: MySQL 8.0 Reference Manual :: 10.9.2 The utf8mb3 Character Set (3-Byte UTF-8 Unicode Encoding)" .
+
+MySQL 8.0 Reference Manual .
+
+Oracle Corporation . Retrieved 2023-02-24 .
+
+^ "Database Globalization Support Guide" .
+
+docs.oracle.com . Retrieved 2023-03-16 .
+
+^ "HP PCL Symbol Sets | Printer Control Language (PCL & PXL) Support Blog" . 2015-02-19. Archived from the original on 2015-02-19 . Retrieved 2018-01-30 .
+
+^ ISO/IEC 10646 .
+
+^ The Unicode Standard, Version 16.0 §3.9 D92, §3.10 D95 , 2021.
+
+^ Unicode Standard Annex #27: Unicode 3.1 , 2001.
+
+^ The Unicode Standard, Version 5.0 §3.9–§3.10 ch. 3 , 2006.
+
+External links [ edit ] Original UTF-8 paper ( or pdf ) for Plan 9 from Bell Labs History of UTF-8 by Rob Pike Characters, Symbols and the Unicode Miracle on YouTube v t e Unicode Unicode Unicode Consortium ISO/IEC 10646 (Universal Character Set) Versions Code points Block List Universal Character Set Character charts Character property Plane Private Use Area Characters Special purpose BOM Combining grapheme joiner Left-to-right mark / Right-to-left mark Soft hyphen Variant form Word joiner Zero-width joiner Zero-width non-joiner Zero-width space Lists Characters CJK Unified Ideographs Combining character Duplicate characters Numerals Scripts Spaces Symbols Halfwidth and fullwidth Alias names and abbreviations Whitespace characters Processing Algorithms Bidirectional text Collation ISO/IEC 14651 Equivalence Variation sequences International Ideographs Core Comparison of encodings BOCU-1 CESU-8 Punycode SCSU UTF-1 UTF-7 UTF-8 UTF-16/UCS-2 UTF-32/UCS-4 UTF-EBCDIC On pairs of code points Combining character Compatibility characters Duplicate characters Equivalence Homoglyph Precomposed character list Z-variant Variation sequences Regional indicator symbol Emoji skin color Usage Domain names (IDN) Email Fonts HTML entity references numeric references Input International Ideographs Core Related standards Common Locale Data Repository (CLDR) GB 18030 ISO/IEC 8859 DIN 91379 ISO 15924 Related topics Anomalies ConScript Unicode Registry Ideographic Research Group International Components for Unicode People involved with Unicode Han unification Scripts and symbols in Unicode Common and inherited scripts Combining marks Diacritics Punctuation marks Spaces Numbers Modern scripts Adlam Arabic Armenian Balinese Bamum Batak Bengali Bopomofo Braille Buhid Burmese Canadian Aboriginal Chakma Cham Cherokee CJK Unified Ideographs (Han) Cyrillic Deseret Devanagari Garay Geʽez Georgian Greek Gujarati Gunjala Gondi Gurmukhi Gurung Khema Hangul Hanifi Rohingya Hanja Hanunuoo Hebrew Hiragana Javanese Kanji Kannada Katakana Kayah Li Khmer Kirat Rai Lao Latin Lepcha Limbu Lisu (Fraser) Lontara Malayalam Masaram Gondi Mende Kikakui Medefaidrin Miao (Pollard) Mongolian Mru N'Ko Nag Mundari New Tai Lue Nüshu Nyiakeng Puachue Hmong Odia Ol Chiki Ol Onal Osage Osmanya Pahawh Hmong Pau Cin Hau Pracalit (Newa) Ranjana Rejang Samaritan Saurashtra Shavian Sinhala Sorang Sompeng Sundanese Sunuwar Syriac Tagbanwa Tai Le Tai Tham Tai Viet Tamil Tangsa Telugu Thaana Thai Tibetan Tifinagh Tirhuta Toto Vai Wancho Warang Citi Yi Ancient and historic scripts Ahom Anatolian hieroglyphs Ancient North Arabian Avestan Bassa Vah Bhaiksuki Brāhmī Carian Caucasian Albanian Coptic Cuneiform Cypriot Cypro-Minoan Dives Akuru Dogra Egyptian hieroglyphs Elbasan Elymaic Glagolitic Gothic Grantha Hatran Imperial Aramaic Inscriptional Pahlavi Inscriptional Parthian Kaithi Kawi Kharosthi Khitan small script Khojki Khudawadi Khwarezmian (Chorasmian) Linear A Linear B Lycian Lydian Mahajani Makasar Mandaic Manichaean Marchen Meetei Mayek Meroitic Modi Multani Nabataean Nandinagari Ogham Old Hungarian Old Italic Old Permic Old Persian cuneiform Old Sogdian Old Turkic Old Uyghur Palmyrene ʼPhags-pa Phoenician Psalter Pahlavi Runic Sharada Siddham Sogdian South Arabian Soyombo Sylheti Nagri Tagalog (Baybayin) Takri Tangut Todhri Tulu Tigalari Ugaritic Vithkuqi Yezidi Zanabazar Square Notational scripts Duployan SignWriting Symbols, emojis Cultural, political, and religious symbols Currency Control Pictures Mathematical operators and symbols Glossary Phonetic symbols (including IPA) Emoji Category: Unicode Category: Unicode blocks v t e Character encodings Early telecommunications Telegraph code Needle Morse Non-Latin Wabun/Kana Chinese Cyrillic Baudot and Murray Fieldata ASCII ISO/IEC 646 BCDIC Teletex and Videotex / Teletext T.51/ISO/IEC 6937 ITU T.61 ITU T.101 World System Teletext background sets Transcode ISO/IEC 8859 Approved parts -1 (Western Europe) -2 (Central Europe) -3 (Maltese/Esperanto) -4 (North Europe) -5 (Cyrillic) -6 (Arabic) -7 (Greek) -8 (Hebrew) -9 (Turkish) -10 (Nordic) -11 (Thai) -13 (Baltic) -14 (Celtic) -15 (New Western Europe) -16 (Romanian) Abandoned parts -12 (Devanagari) Proposed but not approved KOI-8 Cyrillic Sámi Adaptations Welsh Estonian Ukrainian Cyrillic Bibliographic use MARC-8 ANSEL CCCII/EACC ISO 5426 5426-2 5427 5428 6438 6862 National standards ArmSCII Big5 BraSCII BSCII CNS 11643 DIN 66003 ELOT 927 GOST 10859 GB 2312 GB 12345 GB 12052 GB 18030 HKSCS ISCII JIS X 0201 JIS X 0208 JIS X 0212 JIS X 0213 KOI-7 KPS 9566 KS X 1001 KS X 1002 LST 1564 LST 1590-4 PASCII Shift JIS SI 960 TIS-620 TSCII VISCII VSCII YUSCII ISO/IEC 2022 ISO/IEC 8859 ISO/IEC 10367 Extended Unix Code / EUC Mac OS Code pages ("scripts") Armenian Arabic Barents Cyrillic Celtic Central European Croatian Cyrillic Devanagari Farsi (Persian) Font X (Kermit) Gaelic Georgian Greek Gujarati Gurmukhi Hebrew Iceland Inuit Keyboard Latin (Kermit) Maltese/Esperanto Ogham Roman Romanian Sámi Turkish Turkic Cyrillic Ukrainian VT100 DOS code pages 437 737 850 858 861 862 863 864 865 866 867 868 869 899 904 932 936 942 949 950 951 1040 1043 1046 1098 1115 1116 1117 1118 1127 ABICOMP CS Indic CSX Indic CSX+ Indic CWI-2 Iran System Kamenický Mazovia MIK IBM AIX code pages 895 896 912 915 921 922 1006 1008 1009 1010 1012 1013 1014 1015 1016 1017 1018 1019 1046 1133 Windows code pages CER-GS 932 936 ( GBK ) 950 Extended Latin-8 1250 1251 1252 1253 1254 1255 1256 1257 1258 1270 Cyrillic + French Cyrillic + German Polytonic Greek EBCDIC code pages Japanese language in EBCDIC DKOI DEC terminals ( VTx ) Multinational (MCS) National Replacement (NRCS) French Canadian Swiss Spanish United Kingdom Dutch Finnish French Norwegian and Danish Swedish Norwegian and Danish (alternative) 8-bit Greek 8-bit Turkish SI 960 Hebrew Special Graphics Technical (TCS) Platform specific 1052 1053 1054 1055 1058 Acorn RISC OS Amstrad CPC Apple II ATASCII Atari ST BICS Casio calculators CDC Compucolor 8001 Compucolor II CP/M+ DEC RADIX 50 DEC MCS / NRCS DG International Galaksija GEM GSM 03.38 HP Roman HP FOCAL HP RPL SQUOZE LICS LMBCS MSX NEC APC NeXT PETSCII PostScript Standard PostScript Latin 1 SAM Coupé Sega SC-3000 Sharp calculators Sharp MZ Sinclair QL Teletext TI calculators TRS-80 Ventura International WISCII XCCS ZX80 ZX81 ZX Spectrum Unicode / ISO/IEC 10646 UTF-1 UTF-7 UTF-8 UTF-16 UTF-32 UTF-EBCDIC GB 18030 DIN 91379 BOCU-1 CESU-8 SCSU TACE16 Comparison of Unicode encodings TeX typesetting system Cork LY1 OML OMS OT1 Miscellaneous code pages ABICOMP ASMO 449 Digital encoding of APL symbols ISO-IR-68 ARIB STD-B24 Fieldata HZ IEC-P27-1 INIS 7-bit 8-bit ISO-IR-169 ISO 2033 KOI KOI8-R KOI8-RU KOI8-U Mojikyō SEASCII Stanford/ITS Symbol TRON Unified Hangul Code Control character Morse prosigns C0 and C1 control codes ISO/IEC 6429 JIS X 0211 Unicode control, format and separator characters Whitespace characters Related topics CCSID Character encodings in HTML Charset detection Han unification Hardware code page MICR code Mojibake Variable-length encoding Character sets v t e Rob Pike Operating systems Plan 9 from Bell Labs Inferno Programming languages Newsqueak Limbo Sawzall Go Software acme Blit sam rio 8½ Publications The Practice of Programming The Unix Programming Environment Other Renée French Mark V. Shaney UTF-8 v t e Ken Thompson Operating systems Unix Plan 9 from Bell Labs Inferno Programming languages B Go Software Belle ed grep sam Space Travel Thompson shell Associated institutions Bell Labs Google Other UTF-8 Retrieved from " https://en.wikipedia.org/w/index.php?title=UTF-8&oldid=1304428518 " Categories : Character encoding Computer-related introductions in 1993 Encodings Unicode Transformation Formats Hidden categories: All articles with unsourced statements Articles with unsourced statements from October 2024 CS1 Japanese-language sources (ja) Articles with short description Short description is different from Wikidata Articles needing additional references from December 2024 All articles needing additional references Articles containing potentially dated statements from July 2025 All articles containing potentially dated statements Articles with unsourced statements from June 2021 Articles containing potentially dated statements from May 2019 Articles with unsourced statements from March 2023 This page was last edited on 6 August 2025, at 00:36 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents UTF-8 45 languages Add topic
+

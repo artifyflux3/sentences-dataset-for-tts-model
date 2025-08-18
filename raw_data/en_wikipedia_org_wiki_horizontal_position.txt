@@ -1,66 +1,83 @@
-Title: Horizontal position representation
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Latitude and longitude 2 n -vector 3 Local flat Earth approximation 4 Grid reference system Toggle Grid reference system subsection 4.1 UTM 5 Comparison 6 See also 7 References Toggle the table of contents Horizontal position representation 1 language Español Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia (Redirected from Horizontal position ) Geodesy Fundamentals Geodesy Geodynamics Geomatics History Concepts Geographical distance Geoid Figure of the Earth ( radius and circumference ) Geodetic coordinates Geodetic datum Geodesic Horizontal position representation Latitude / Longitude Map projection Reference ellipsoid Satellite geodesy Spatial reference system Spatial relations Vertical positions Technologies Global Nav. Sat. Systems (GNSSs) Global Pos. System (GPS) GLONASS (Russia) BeiDou (BDS) (China) Galileo (Europe) NAVIC (India) Quasi-Zenith Sat. Sys. (QZSS) (Japan) Discrete Global Grid and Geocoding Standards (history) NGVD 29 Sea Level Datum 1929 OSGB36 Ordnance Survey Great Britain 1936 SK-42 Systema Koordinat 1942 goda ED50 European Datum 1950 SAD69 South American Datum 1969 GRS 80 Geodetic Reference System 1980 ISO 6709 Geographic point coord. 1983 NAD 83 North American Datum 1983 WGS 84 World Geodetic System 1984 NAVD 88 N. American Vertical Datum 1988 ETRS89 European Terrestrial Ref. Sys. 1989 GCJ-02 Chinese obfuscated datum 2002 Geo URI Internet link to a point  2010 International Terrestrial Reference System Spatial Reference System Identifier (SRID) Universal Transverse Mercator (UTM) v t e A position representation is a set of parameters used to express a position relative to a reference frame . When representing positions relative to the Earth , it is often most convenient to represent vertical position (height or depth) separately, and to use some other parameters to represent horizontal position . 
+There are also several applications where only the horizontal position is of interest, this might e.g. be the case for ships and ground vehicles/cars.
+It is a type of geographic coordinate system .
 
-URL Source: https://en.wikipedia.org/wiki/Horizontal_position
+There are several options for horizontal position representations, each with different properties which makes them appropriate for different applications.
 
-Published Time: 2010-06-21T09:11:59Z
+Latitude / longitude and UTM are common horizontal position representations.
 
-Markdown Content:
-From Wikipedia, the free encyclopedia
+The horizontal position has two degrees of freedom , and thus two parameters are sufficient to uniquely describe such a position. However, similarly to the use of Euler angles as a formalism for representing rotations , using only the minimum number of parameters gives singularities , and thus three parameters are required for the horizontal position to avoid this.
 
-A _[position representation](https://en.wikipedia.org/wiki/Position\_representation "Position representation")_ is a set of parameters used to express a position relative to a [reference frame](https://en.wikipedia.org/wiki/Reference_frame "Reference frame"). When representing positions relative to the [Earth](https://en.wikipedia.org/wiki/Earth "Earth"), it is often most convenient to represent _[vertical position](https://en.wikipedia.org/wiki/Vertical\_position "Vertical position")_ (height or depth) separately, and to use some other parameters to represent **horizontal position**. There are also several applications where only the horizontal position is of interest, this might e.g. be the case for ships and ground vehicles/cars. It is a type of [geographic coordinate system](https://en.wikipedia.org/wiki/Geographic_coordinate_system "Geographic coordinate system").
+Latitude and longitude [ edit ] Main article: Geodetic coordinates Further information: Latitude and Longitude The most common horizontal position representation is latitude and longitude . The parameters are intuitive and well known, and are thus suited for communicating a position to humans, e.g. using a position plot.
 
-There are several options for horizontal position representations, each with different properties which makes them appropriate for different applications. [Latitude](https://en.wikipedia.org/wiki/Latitude "Latitude")/[longitude](https://en.wikipedia.org/wiki/Longitude "Longitude") and [UTM](https://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system "Universal Transverse Mercator coordinate system") are common horizontal position representations.
+However, latitude and longitude should be used with care in mathematical expressions (including calculations in computer programs). The main reason is the singularities at the Poles , which makes longitude undefined at these points. Also near the poles the latitude/longitude grid is highly non-linear, and several errors may occur in calculations that are sufficiently accurate on other locations.
 
-The horizontal position has two [degrees of freedom](https://en.wikipedia.org/wiki/Degrees_of_freedom_(mechanics) "Degrees of freedom (mechanics)"), and thus two parameters are sufficient to uniquely describe such a position. However, similarly to the use of [Euler angles](https://en.wikipedia.org/wiki/Euler_angles "Euler angles") as a [formalism for representing rotations](https://en.wikipedia.org/wiki/Rotation_formalisms_in_three_dimensions "Rotation formalisms in three dimensions"), using only the minimum number of parameters gives [singularities](https://en.wikipedia.org/wiki/Mathematical_singularity "Mathematical singularity"), and thus three parameters are required for the horizontal position to avoid this.
+[ 1 ] Another problematic area is the meridian at ± 180° longitude, where the longitude has a discontinuity , and hence specific program code must often be written to handle this. An example of the consequences of omitting such code is the crash of the navigation systems of twelve F-22 Raptor fighter aircraft while crossing this meridian.
 
-Latitude and longitude
-----------------------
+[ 2 ] n -vector [ edit ] Main article: n-vector n -vector is a three parameter non-singular horizontal position representation that can replace latitude and longitude. Geometrically, it is a unit vector which is normal to the reference ellipsoid . The vector is decomposed in an Earth centered earth fixed coordinate system . It behaves the same at all Earth positions, and it holds the mathematical one-to-one property. The vector formulation makes it possible to use standard 3D vector algebra , and thus n -vector is well-suited for mathematical calculations, e.g. adding, subtracting, interpolating and averaging positions.
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Horizontal_position_representation&action=edit&section=1 "Edit section: Latitude and longitude")]
+Using three parameters, n -vector is inconvenient for communicating a position directly to humans and before showing a position plot, a conversion to latitude/longitude might be needed.
 
-The most common horizontal position representation is [latitude](https://en.wikipedia.org/wiki/Latitude "Latitude") and [longitude](https://en.wikipedia.org/wiki/Longitude "Longitude"). The parameters are intuitive and well known, and are thus suited for communicating a position to humans, e.g. using a position plot.
+Local flat Earth approximation [ edit ] Main article: Local tangent plane When carrying out several calculations within a limited area, a Cartesian coordinate system might be defined with the origin at a specified Earth-fixed position. The origin is often selected at the surface of the reference ellipsoid, with the z -axis in the vertical direction. Hence (three dimensional) position vectors relative to this coordinate frame will have two horizontal and one vertical parameter. The axes are typically selected as North-East-Down or East-North-Up , and thus this system can be viewed as a linearization of the meridians and parallels .
 
-However, latitude and longitude should be used with care in mathematical expressions (including calculations in computer programs). The main reason is the [singularities](https://en.wikipedia.org/wiki/Mathematical_singularity "Mathematical singularity") at the [Poles](https://en.wikipedia.org/wiki/Geographical_pole "Geographical pole"), which makes longitude undefined at these points. Also near the poles the latitude/longitude grid is highly non-linear, and several errors may occur in calculations that are sufficiently accurate on other locations. [[1]](https://en.wikipedia.org/wiki/Horizontal_position#cite_note-1)
+For small areas a local coordinate system can be convenient for relative positioning, but with increasing (horizontal) distances, errors will increase and repositioning of the tangent point may be required. The alignment along the north and east directions is not possible at the Poles , and near the Poles these directions might have significant errors (here the linearization is valid only in a very small area).
 
-Another problematic area is the [meridian](https://en.wikipedia.org/wiki/Meridian_(geography) "Meridian (geography)") at ±[180°](https://en.wikipedia.org/wiki/180th_meridian "180th meridian") longitude, where the longitude has a [discontinuity](https://en.wikipedia.org/wiki/Discontinuity_(mathematics) "Discontinuity (mathematics)"), and hence specific program code must often be written to handle this. An example of the consequences of omitting such code is the crash of the navigation systems of twelve [F-22 Raptor](https://en.wikipedia.org/wiki/F-22_Raptor "F-22 Raptor") fighter aircraft while crossing this meridian.[[2]](https://en.wikipedia.org/wiki/Horizontal_position#cite_note-2)
+Grid reference system [ edit ] Main article: Grid reference system Instead of one local Cartesian grid, that needs to be repositioned as the position of interest moves, a fixed set of map projections covering the Earth can be defined.
 
-[_n_-vector](https://en.wikipedia.org/wiki/N-vector "N-vector") is a three parameter [non-singular](https://en.wikipedia.org/wiki/Mathematical_singularity "Mathematical singularity") horizontal position representation that can replace latitude and longitude. Geometrically, it is a [unit vector](https://en.wikipedia.org/wiki/Unit_vector "Unit vector") which is normal to the [reference ellipsoid](https://en.wikipedia.org/wiki/Reference_ellipsoid "Reference ellipsoid"). The vector is [decomposed](https://en.wikipedia.org/wiki/Vector_decomposition "Vector decomposition") in an [Earth centered earth fixed](https://en.wikipedia.org/wiki/ECEF "ECEF")[coordinate system](https://en.wikipedia.org/wiki/Coordinate_system "Coordinate system"). It behaves the same at all Earth positions, and it holds the mathematical [one-to-one](https://en.wikipedia.org/wiki/Injective_function "Injective function") property. The vector formulation makes it possible to use standard 3D [vector algebra](https://en.wikipedia.org/wiki/Vector_calculus "Vector calculus"), and thus _n_-vector is well-suited for mathematical calculations, e.g. adding, subtracting, interpolating and averaging positions.
+UTM [ edit ] Main article: Universal Transverse Mercator coordinate system UTM is one such system, dividing the Earth into 60 longitude zones (and with UPS covering the Polar regions ).
 
-Using three parameters, _n_-vector is inconvenient for communicating a position directly to humans and before showing a position plot, a [conversion to latitude/longitude](https://en.wikipedia.org/wiki/N-vector#Converting_n-vector_to_latitude/longitude "N-vector") might be needed.
+UTM is widely used, and the coordinates approximately corresponds to meters north and east. However, as a set of map-projections it has inherent distortions , and thus most calculations based on UTM will not be exact. The crossing of zones gives additional complexity.
 
-Local flat Earth approximation
-------------------------------
+Comparison [ edit ] When deciding which parameters to use for representing position in a specific application, there are several properties that should be considered. The following table gives a summary of what to consider.
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Horizontal_position_representation&action=edit&section=3 "Edit section: Local flat Earth approximation")]
+Comparison of horizontal position representations Representation Pros Cons Latitude and longitude Widely used Parameters are easy to recognize by humans (well-suited for plotting) Singularities at the Poles Complex behavior near the Poles Discontinuity at the ± 180° meridian n -vector Nonsingular Efficient in equations/calculations since standard 3D vector algebra can be used All Earth positions are treated equally Inconvenient for communicating a position to humans Uses three parameters Local Cartesian coordinate system Cartesian vectors in meters along the directions of north, east and down are obtained Can only be used for relative positioning (the tangent point must be represented by some other quantity) Errors increase with increasing horizontal distance from the tangent point (which may require repositioning of the tangent point) North and east directions are undefined at the Poles, and near the Poles these directions may change significantly within the area of interest UTM Widely used Approximate north and east directions One unit corresponds approximately to one meter Inherent distortion (due to the map projection ) gives only approximate answers for most calculations Calculations get complex when crossing the zones The Polar Regions are not covered See also [ edit ] Rotation formalisms in three dimensions Geodetic coordinates Geodetic system Plane coordinates References [ edit ] ^ Gade, Kenneth (2010).
 
-When carrying out several calculations within a limited area, a [Cartesian coordinate system](https://en.wikipedia.org/wiki/Cartesian_coordinate_system "Cartesian coordinate system") might be defined with the [origin](https://en.wikipedia.org/wiki/Origin_(mathematics) "Origin (mathematics)") at a specified Earth-fixed position. The origin is often selected at the surface of the reference ellipsoid, with the _z_-axis in the vertical direction. Hence (three dimensional) position vectors relative to this coordinate frame will have two horizontal and one vertical parameter. The axes are typically selected as [North-East-Down](https://en.wikipedia.org/wiki/North_East_Down "North East Down") or [East-North-Up](https://en.wikipedia.org/wiki/East_North_Up "East North Up"), and thus this system can be viewed as a [linearization](https://en.wikipedia.org/wiki/Linearization "Linearization") of the [meridians](https://en.wikipedia.org/wiki/Meridian_(geography) "Meridian (geography)") and [parallels](https://en.wikipedia.org/wiki/Circle_of_latitude "Circle of latitude").
+"A non-singular horizontal position representation" (PDF) .
 
-For small areas a local coordinate system can be convenient for relative positioning, but with increasing (horizontal) distances, errors will increase and repositioning of the [tangent point](https://en.wikipedia.org/wiki/Tangent_point "Tangent point") may be required. The alignment along the north and east directions is not possible at the [Poles](https://en.wikipedia.org/wiki/Geographical_pole "Geographical pole"), and near the Poles these directions might have significant errors (here the linearization is valid only in a very small area).
+The Journal of Navigation .
 
-Grid reference system
----------------------
+63 (3). Cambridge University Press: 395– 417.
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Horizontal_position_representation&action=edit&section=4 "Edit section: Grid reference system")]
+Bibcode : 2010JNav...63..395G .
 
-Instead of one local Cartesian grid, that needs to be repositioned as the position of interest moves, a fixed set of [map projections](https://en.wikipedia.org/wiki/Map_projections "Map projections") covering the Earth can be defined.
+doi : 10.1017/S0373463309990415 .
 
-[UTM](https://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system "Universal Transverse Mercator coordinate system") is one such system, dividing the Earth into 60 longitude zones (and with [UPS](https://en.wikipedia.org/wiki/Universal_Polar_Stereographic_coordinate_system "Universal Polar Stereographic coordinate system") covering the [Polar regions](https://en.wikipedia.org/wiki/Polar_regions "Polar regions")).
+^ "Stealth fighters hit by software crash" . 27 February 2007.
 
-UTM is widely used, and the coordinates approximately corresponds to meters north and east. However, as a set of map-projections it has inherent [distortions](https://en.wikipedia.org/wiki/Distortions "Distortions"), and thus most calculations based on UTM will not be exact. The crossing of zones gives additional complexity.
+NewPP limit report
+Parsed by mw‐web.codfw.main‐78686d86fc‐v2p87
+Cached time: 20250728175248
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.220 seconds
+Real time usage: 0.275 seconds
+Preprocessor visited node count: 760/1000000
+Revision size: 8203/2097152 bytes
+Post‐expand include size: 32340/2097152 bytes
+Template argument size: 751/2097152 bytes
+Highest expansion depth: 12/100
+Expensive parser function count: 9/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 20164/5000000 bytes
+Lua time usage: 0.136/10.000 seconds
+Lua memory usage: 3108514/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  230.599      1 -total
+ 38.69%   89.220      1 Template:Geodesy
+ 37.86%   87.311      1 Template:Sidebar_with_collapsible_lists
+ 37.70%   86.930      1 Template:Reflist
+ 27.73%   63.941      1 Template:Cite_journal
+ 10.59%   24.421      5 Template:Main
+ 10.19%   23.501      1 Template:Use_dmy_dates
+  3.57%    8.237      1 Template:DMCA
+  2.76%    6.361      1 Template:Dated_maintenance_category
+  2.49%    5.733      5 Template:Smaller Saved in parser cache with key enwiki:pcache:27782581:|#|:idhash:canonical and timestamp 20250728175248 and revision id 1239733208. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Horizontal_position_representation&oldid=1239733208 " Categories : Navigation Geodesy Geographic coordinate systems Geographic position Hidden category: Use dmy dates from February 2023 This page was last edited on 11 August 2024, at 05:26 (UTC) .
 
-When deciding which parameters to use for representing position in a specific application, there are several properties that should be considered. The following table gives a summary of what to consider.
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
 
-Comparison of horizontal position representations | Representation | Pros | Cons |
-| --- | --- | --- |
-| [Latitude](https://en.wikipedia.org/wiki/Latitude "Latitude") and [longitude](https://en.wikipedia.org/wiki/Longitude "Longitude") | * Widely used * Parameters are easy to recognize by humans (well-suited for plotting) | * [Singularities](https://en.wikipedia.org/wiki/Mathematical_singularity "Mathematical singularity") at the [Poles](https://en.wikipedia.org/wiki/Geographical_pole "Geographical pole") * Complex behavior near the Poles * Discontinuity at the ±[180° meridian](https://en.wikipedia.org/wiki/180th_meridian "180th meridian") |
-| [_n_-vector](https://en.wikipedia.org/wiki/N-vector "N-vector") | * [Nonsingular](https://en.wikipedia.org/wiki/Mathematical_singularity "Mathematical singularity") * Efficient in equations/calculations since standard 3D [vector algebra](https://en.wikipedia.org/wiki/Vector_calculus "Vector calculus") can be used * All Earth positions are treated equally | * Inconvenient for communicating a position to humans * Uses three parameters |
-| Local [Cartesian coordinate system](https://en.wikipedia.org/wiki/Cartesian_coordinate_system "Cartesian coordinate system") | * Cartesian vectors in meters along the directions of north, east and down are obtained | * Can only be used for relative positioning (the tangent point must be represented by some other quantity) * Errors increase with increasing horizontal distance from the tangent point (which may require repositioning of the tangent point) * North and east directions are undefined at the Poles, and near the Poles these directions may change significantly within the area of interest |
-| [UTM](https://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system "Universal Transverse Mercator coordinate system") | * Widely used * Approximate north and east directions * One unit corresponds approximately to one meter | * Inherent [distortion](https://en.wikipedia.org/wiki/Distortion "Distortion") (due to the [map projection](https://en.wikipedia.org/wiki/Map_projection "Map projection")) gives only approximate answers for most calculations * Calculations get complex when crossing the zones * The [Polar Regions](https://en.wikipedia.org/wiki/Polar_Regions "Polar Regions") are not covered |
+, a non-profit organization.
 
-*   [Rotation formalisms in three dimensions](https://en.wikipedia.org/wiki/Rotation_formalisms_in_three_dimensions "Rotation formalisms in three dimensions")
-*   [Geodetic coordinates](https://en.wikipedia.org/wiki/Geodetic_coordinates "Geodetic coordinates")
-*   [Geodetic system](https://en.wikipedia.org/wiki/Geodetic_system "Geodetic system")
-*   [Plane coordinates](https://en.wikipedia.org/wiki/Plane_coordinates "Plane coordinates")
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Horizontal position representation 1 language Add topic
 
-1.   **[^](https://en.wikipedia.org/wiki/Horizontal_position#cite_ref-1 "Jump up")**Gade, Kenneth (2010). ["A non-singular horizontal position representation"](http://www.navlab.net/Publications/A_Nonsingular_Horizontal_Position_Representation.pdf)(PDF). _The Journal of Navigation_. **63** (3). Cambridge University Press: 395–417. [Bibcode](https://en.wikipedia.org/wiki/Bibcode_(identifier) "Bibcode (identifier)"):[2010JNav...63..395G](https://ui.adsabs.harvard.edu/abs/2010JNav...63..395G). [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1017/S0373463309990415](https://doi.org/10.1017%2FS0373463309990415).
-2.   **[^](https://en.wikipedia.org/wiki/Horizontal_position#cite_ref-2 "Jump up")**["Stealth fighters hit by software crash"](http://www.itnews.com.au/News/74081,stealth-fighters-hit-by-software-crash.aspx). 27 February 2007.

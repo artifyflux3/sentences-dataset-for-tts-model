@@ -1,0 +1,531 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 History 2 Model definition Toggle Model definition subsection 2.1 Matrix representation of the local regression estimate 3 Selection issues: bandwidth, local model, fitting criteria Toggle Selection issues: bandwidth, local model, fitting criteria subsection 3.1 Localized subsets of data; Bandwidth 3.2 Degree of local polynomials 3.3 Weight function 3.4 Choice of fitting criterion 3.4.1 Local likelihood estimation 3.4.2 Robust local regression 4 Advantages 5 Disadvantages 6 Further reading 7 See also 8 References Toggle References subsection 8.1 Citations 8.2 Sources 9 External links Toggle the table of contents Local regression 9 languages Català Español فارسی Français עברית 日本語 Norsk bokmål Simple English Türkçe Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Moving average and polynomial regression method for smoothing data LOESS curve fitted to a population sampled from a sine wave with uniform noise added. The LOESS curve approximates the original sine wave.
+
+Part of a series on Regression analysis Models Linear regression Simple regression Polynomial regression General linear model Generalized linear model Vector generalized linear model Discrete choice Binomial regression Binary regression Logistic regression Multinomial logistic regression Mixed logit Probit Multinomial probit Ordered logit Ordered probit Poisson Multilevel model Fixed effects Random effects Linear mixed-effects model Nonlinear mixed-effects model Nonlinear regression Nonparametric Semiparametric Robust Quantile Isotonic Principal components Least angle Local Segmented Errors-in-variables Estimation Least squares Linear Non-linear Ordinary Weighted Generalized Generalized estimating equation Partial Total Non-negative Ridge regression Regularized Least absolute deviations Iteratively reweighted Bayesian Bayesian multivariate Least-squares spectral analysis Background Regression validation Mean and predicted response Errors and residuals Goodness of fit Studentized residual Gauss–Markov theorem Mathematics portal v t e Local regression or local polynomial regression , [ 1 ] also known as moving regression , [ 2 ] is a generalization of the moving average and polynomial regression .
+
+[ 3 ] Its most common methods, initially developed for scatterplot smoothing , are LOESS ( locally estimated scatterplot smoothing ) and LOWESS ( locally weighted scatterplot smoothing ), both pronounced / ˈ l oʊ ɛ s / LOH -ess . They are two strongly related non-parametric regression methods that combine multiple regression models in a k -nearest-neighbor -based meta-model.
+In some fields, LOESS is known and commonly referred to as Savitzky–Golay filter [ 4 ] [ 5 ] (proposed 15 years before LOESS).
+
+LOESS and LOWESS thus build on "classical" methods , such as linear and nonlinear least squares regression . They address situations in which the classical procedures do not perform well or cannot be effectively applied without undue labor. LOESS combines much of the simplicity of linear least squares regression with the flexibility of nonlinear regression . It does this by fitting simple models to localized subsets of the data to build up a function that describes the deterministic part of the variation in the data, point by point. In fact, one of the chief attractions of this method is that the data analyst is not required to specify a global function of any form to fit a model to the data, only to fit segments of the data.
+
+The trade-off for these features is increased computation. Because it is so computationally intensive, LOESS would have been practically impossible to use in the era when least squares regression was being developed. Most other modern methods for process modelling are similar to LOESS in this respect. These methods have been consciously designed to use our current computational ability to the fullest possible advantage to achieve goals not easily achieved by traditional approaches.
+
+A smooth curve through a set of data points obtained with this statistical technique is called a loess curve , particularly when each smoothed value is given by a weighted quadratic least squares regression over the span of values of the y -axis scattergram criterion variable. When each smoothed value is given by a weighted linear least squares regression over the span, this is known as a lowess curve.
+
+However, some authorities treat lowess and loess as synonyms.
+
+[ 6 ] [ 7 ] History [ edit ] Local regression and closely related procedures have a long and rich history, having been discovered and rediscovered in different fields on multiple occasions. An early work by Robert Henderson [ 8 ] studying the problem of graduation (a term for smoothing used in Actuarial literature) introduced local regression using cubic polynomials.
+
+Specifically, let Y j {\displaystyle Y_{j}} denote an ungraduated sequence of observations. Following Henderson, suppose that only the terms from Y − − h {\displaystyle Y_{-h}} to Y h {\displaystyle Y_{h}} are to be taken into account when computing the graduated value of Y 0 {\displaystyle Y_{0}} , and W j {\displaystyle W_{j}} is the weight to be assigned to Y j {\displaystyle Y_{j}} . Henderson then uses a local polynomial approximation a + b j + c j 2 + d j 3 {\displaystyle a+bj+cj^{2}+dj^{3}} , and sets up the following four equations for the coefficients: ∑ ∑ j = − − h h ( a + b j + c j 2 + d j 3 ) W j = ∑ ∑ j = − − h h W j Y j ∑ ∑ j = − − h h ( a j + b j 2 + c j 3 + d j 4 ) W j = ∑ ∑ j = − − h h j W j Y j ∑ ∑ j = − − h h ( a j 2 + b j 3 + c j 4 + d j 5 ) W j = ∑ ∑ j = − − h h j 2 W j Y j ∑ ∑ j = − − h h ( a j 3 + b j 4 + c j 5 + d j 6 ) W j = ∑ ∑ j = − − h h j 3 W j Y j {\displaystyle {\begin{aligned}\sum _{j=-h}^{h}(a+bj+cj^{2}+dj^{3})W_{j}&=\sum _{j=-h}^{h}W_{j}Y_{j}\\\sum _{j=-h}^{h}(aj+bj^{2}+cj^{3}+dj^{4})W_{j}&=\sum _{j=-h}^{h}jW_{j}Y_{j}\\\sum _{j=-h}^{h}(aj^{2}+bj^{3}+cj^{4}+dj^{5})W_{j}&=\sum _{j=-h}^{h}j^{2}W_{j}Y_{j}\\\sum _{j=-h}^{h}(aj^{3}+bj^{4}+cj^{5}+dj^{6})W_{j}&=\sum _{j=-h}^{h}j^{3}W_{j}Y_{j}\end{aligned}}} Solving these equations for the polynomial coefficients yields the graduated value, Y ^ ^ 0 = a {\displaystyle {\hat {Y}}_{0}=a} .
+
+Henderson went further. In preceding years, many 'summation formula' methods of graduation had been developed, which derived graduation rules based on summation formulae (convolution of the series of obeservations with a chosen set of weights). Two such rules are the 15-point and 21-point rules of Spencer (1904).
+
+[ 9 ] These graduation rules were carefully designed to have a quadratic-reproducing property: If the ungraduated values exactly follow a quadratic formula, then the graduated values equal the ungraduated values. This is an important property: a simple moving average, by contrast, cannot adequately model peaks and troughs in the data. Henderson's insight was to show that any such graduation rule can be represented as a local cubic (or quadratic) fit for an appropriate choice of weights.
+
+Further discussions of the historical work on graduation and local polynomial fitting can be found in Macaulay (1931), [ 10 ] Cleveland and Loader (1995); [ 11 ] and Murray and Bellhouse (2019).
+
+[ 12 ] The Savitzky-Golay filter , introduced by Abraham Savitzky and Marcel J. E. Golay (1964) [ 13 ] significantly expanded the method. Like the earlier graduation work, their focus was data with an equally-spaced predictor variable, where (excluding boundary effects) local regression can be represented as a convolution . Savitzky and Golay published extensive sets of convolution coefficients for different orders of polynomial and smoothing window widths.
+
+Local regression methods started to appear extensively in statistics literature in the 1970s; for example, Charles J. Stone (1977), [ 14 ] Vladimir Katkovnik (1979) [ 15 ] and William S. Cleveland (1979).
+
+[ 16 ] Katkovnik (1985) [ 17 ] is the earliest book devoted primarily to local regression methods.
+
+Theoretical work continued to appear throughout the 1990s. Important contributions include Jianqing Fan and Irène Gijbels (1992) [ 18 ] studying efficiency properties, and David Ruppert and Matthew P. Wand (1994) [ 19 ] developing an asymptotic distribution theory for multivariate local regression.
+
+An important extension of local regression is Local Likelihood Estimation, formulated by Robert Tibshirani and Trevor Hastie (1987).
+
+[ 20 ] This replaces the local least-squares criterion with a likelihood-based criterion, thereby extending the local regression method to the Generalized linear model setting; for example binary data, count data or censored data.
+
+Practical implementations of local regression began appearing in statistical software in the 1980s. Cleveland (1981) [ 21 ] introduces the LOWESS routines, intended for smoothing scatterplots. This implements local linear fitting with a single predictor variable, and also introduces robustness downweighting to make the procedure resistant to outliers. An entirely new implementation, LOESS, is described in Cleveland and Susan J. Devlin (1988).
+
+[ 22 ] LOESS is a multivariate smoother, able to handle spatial data with two (or more) predictor variables, and uses (by default) local quadratic fitting. Both LOWESS and LOESS are implemented in the S and R programming languages. See also Cleveland's Local Fitting Software.
+
+[ 23 ] While Local Regression, LOWESS and LOESS are sometimes used interchangeably, this usage should be considered incorrect. Local Regression is a general term for the fitting procedure; LOWESS and LOESS are two distinct implementations.
+
+Model definition [ edit ] Local regression uses a data set consisting of observations one or more ‘independent’ or ‘predictor’ variables, and a ‘dependent’ or ‘response’ variable. The dataset will consist of a number n {\displaystyle n} observations. The observations of the predictor variable can be denoted x 1 , … … , x n {\displaystyle x_{1},\ldots ,x_{n}} , and corresponding observations of the response variable by Y 1 , … … , Y n {\displaystyle Y_{1},\ldots ,Y_{n}} .
+
+For ease of presentation, the development below assumes a single predictor variable; the extension to multiple predictors (when the x i {\displaystyle x_{i}} are vectors) is conceptually straightforward. A functional relationship between the predictor and response variables is assumed: Y i = μ μ ( x i ) + ϵ ϵ i {\displaystyle Y_{i}=\mu (x_{i})+\epsilon _{i}} where μ μ ( x ) {\displaystyle \mu (x)} is the unknown ‘smooth’ regression function to be estimated, and represents the conditional expectation of the response, given a value of the predictor variables. In theoretical work, the ‘smoothness’ of this function can be formally characterized by placing bounds on higher order derivatives. The ϵ ϵ i {\displaystyle \epsilon _{i}} represents random error; for estimation purposes these are assumed to have mean zero. Stronger assumptions (e.g., independence and equal variance ) may be made when assessing properties of the estimates.
+
+Local regression then estimates the function μ μ ( x ) {\displaystyle \mu (x)} , for one value of x {\displaystyle x} at a time. Since the function is assumed to be smooth, the most informative data points are those whose x i {\displaystyle x_{i}} values are close to x {\displaystyle x} . This is formalized with a bandwidth h {\displaystyle h} and a kernel or weight function W ( ⋅ ⋅ ) {\displaystyle W(\cdot )} , with observations assigned weights w i ( x ) = W ( x i − − x h ) .
+
+{\displaystyle w_{i}(x)=W\left({\frac {x_{i}-x}{h}}\right).} A typical choice of W {\displaystyle W} , used by Cleveland in LOWESS, is W ( u ) = ( 1 − − | u | 3 ) 3 {\displaystyle W(u)=(1-|u|^{3})^{3}} for | u | < 1 {\displaystyle |u|<1} , although any similar function (peaked at u = 0 {\displaystyle u=0} and small or 0 for large values of u {\displaystyle u} ) can be used. Questions of bandwidth selection and specification (how large should h {\displaystyle h} be, and should it vary depending upon the fitting point x {\displaystyle x} ?) are deferred for now.
+
+A local model (usually a low-order polynomial with degree p ≤ ≤ 3 {\displaystyle p\leq 3} ), expressed as μ μ ( x i ) ≈ ≈ β β 0 + β β 1 ( x i − − x ) + … … + β β p ( x i − − x ) p {\displaystyle \mu (x_{i})\approx \beta _{0}+\beta _{1}(x_{i}-x)+\ldots +\beta _{p}(x_{i}-x)^{p}} is then fitted by weighted least squares : choose regression coefficients ( β β ^ ^ 0 , … … , β β ^ ^ p ) {\displaystyle ({\hat {\beta }}_{0},\ldots ,{\hat {\beta }}_{p})} to minimize ∑ ∑ i = 1 n w i ( x ) ( Y i − − β β 0 − − β β 1 ( x i − − x ) − − … … − − β β p ( x i − − x ) p ) 2 .
+
+{\displaystyle \sum _{i=1}^{n}w_{i}(x)\left(Y_{i}-\beta _{0}-\beta _{1}(x_{i}-x)-\ldots -\beta _{p}(x_{i}-x)^{p}\right)^{2}.} The local regression estimate of μ μ ( x ) {\displaystyle \mu (x)} is then simply the intercept estimate: μ μ ^ ^ ( x ) = β β ^ ^ 0 {\displaystyle {\hat {\mu }}(x)={\hat {\beta }}_{0}} while the remaining coefficients can be interpreted
+(up to a factor of p !
+
+{\displaystyle p!} ) as derivative estimates.
+
+It is to be emphasized that the above procedure produces the estimate μ μ ^ ^ ( x ) {\displaystyle {\hat {\mu }}(x)} for one value of x {\displaystyle x} . When considering a new value of x {\displaystyle x} , a new set of weights w i ( x ) {\displaystyle w_{i}(x)} must be computed, and the regression coefficient estimated afresh.
+
+Matrix representation of the local regression estimate [ edit ] As with all least squares estimates, the estimated regression coefficients can be expressed in closed form (see Weighted least squares for details): β β ^ ^ = ( X T W X ) − − 1 X T W y {\displaystyle {\hat {\boldsymbol {\beta }}}=(\mathbf {X^{\textsf {T}}WX} )^{-1}\mathbf {X^{\textsf {T}}W} \mathbf {y} } where β β ^ ^ {\displaystyle {\hat {\boldsymbol {\beta }}}} is a vector of the local regression coefficients; X {\displaystyle \mathbf {X} } is the n × × ( p + 1 ) {\displaystyle n\times (p+1)} design matrix with entries ( x i − − x ) j {\displaystyle (x_{i}-x)^{j}} ; W {\displaystyle \mathbf {W} } is a diagonal matrix of the smoothing weights w i ( x ) {\displaystyle w_{i}(x)} ; and y {\displaystyle \mathbf {y} } is a vector of the responses Y i {\displaystyle Y_{i}} .
+
+This matrix representation is crucial for studying the theoretical properties of local regression estimates. With appropriate definitions of the design and weight matrices, it immediately generalizes to the multiple-predictor setting.
+
+Selection issues: bandwidth, local model, fitting criteria [ edit ] Implementation of local regression requires specification and selection of several components: The bandwidth, and more generally the localized subsets of the data.
+
+The degree of local polynomial, or more generally, the form of the local model.
+
+The choice of weight function W ( ⋅ ⋅ ) {\displaystyle W(\cdot )} .
+
+The choice of fitting criterion (least squares or something else).
+
+Each of these components has been the subject of extensive study; a summary is provided below.
+
+Localized subsets of data; Bandwidth [ edit ] The bandwidth h {\displaystyle h} controls the resolution of the local regression estimate. If h is too small, the estimate may show high-resolution features that represent noise in the data, rather than any real structure in the mean function. Conversely, if h is too large, the estimate will only show low-resolution features, and important structure may be lost. This is the bias-variance tradeoff ; if h is too small, the estimate exhibits large variation; while at large h , the estimate exhibits large bias.
+
+Careful choice of bandwidth is therefore crucial when applying local regression. Mathematical methods for bandwidth selection require, firstly, formal criteria to assess the performance of an estimate. One such criterion is prediction error: if a new observation is made at x ~ ~ {\displaystyle {\tilde {x}}} , how well does the estimate μ μ ^ ^ ( x ~ ~ ) {\displaystyle {\hat {\mu }}({\tilde {x}})} predict the new response Y ~ ~ {\displaystyle {\tilde {Y}}} ?
+
+Performance is often assessed using a squared-error loss function. The mean squared prediction error is E ( Y ~ ~ − − μ μ ^ ^ ( x ~ ~ ) ) 2 = E ( Y ~ ~ − − μ μ ( x ) + μ μ ( x ) − − μ μ ^ ^ ( x ~ ~ ) ) 2 = E ( Y ~ ~ − − μ μ ( x ) ) 2 + E ( μ μ ( x ) − − μ μ ^ ^ ( x ~ ~ ) ) 2 .
+
+{\displaystyle {\begin{aligned}E\left({\tilde {Y}}-{\hat {\mu }}({\tilde {x}})\right)^{2}&=E\left({\tilde {Y}}-\mu (x)+\mu (x)-{\hat {\mu }}({\tilde {x}})\right)^{2}\\&=E\left({\tilde {Y}}-\mu (x)\right)^{2}+E\left(\mu (x)-{\hat {\mu }}({\tilde {x}})\right)^{2}.\end{aligned}}} The first term E ( Y ~ ~ − − μ μ ( x ) ) 2 {\displaystyle E\left({\tilde {Y}}-\mu (x)\right)^{2}} is the random variation of the observation; this is entirely independent of the local regression estimate. The second term, E ( μ μ ( x ) − − μ μ ^ ^ ( x ~ ~ ) ) 2 {\displaystyle E\left(\mu (x)-{\hat {\mu }}({\tilde {x}})\right)^{2}} is the mean squared estimation error. This relation shows that, for squared error loss, minimizing prediction error and estimation error are equivalent problems.
+
+In global bandwidth selection, these measures can be integrated over the x {\displaystyle x} space ("mean integrated squared error", often used in theoretical work), or averaged over the actual x i {\displaystyle x_{i}} (more useful for practical implementations). Some standard techniques from model selection can be readily adapted to local regression: Cross Validation , which estimates the mean-squared prediction error.
+
+Mallow's Cp and Akaike's Information Criterion , which estimate mean squared estimation error.
+
+Other  methods which attempt to estimate bias and variance variance components of the estimation error directly.
+
+Any of these criteria can be minimized to produce an automatic bandwidth selector. Cleveland and Devlin [ 22 ] prefer a graphical method (the M -plot) to visually display the bias-variance trade-off and guide bandwidth choice.
+
+One question not addressed above is, how should the bandwidth depend upon the fitting point x {\displaystyle x} ? Often a constant bandwidth is used, while LOWESS and LOESS prefer a nearest-neighbor bandwidth, meaning h is smaller in regions with many data points. Formally, the smoothing parameter, α α {\displaystyle \alpha } , is the fraction of the total number n of data points that are used in each local fit. The subset of data used in each weighted least squares fit thus comprises the n α α {\displaystyle n\alpha } points (rounded to the next largest integer) whose explanatory variables' values are closest to the point at which the response is being estimated.
+
+[ 7 ] More sophisticated methods attempt to choose the bandwidth adaptively ; that is, choose a bandwidth at each fitting point x {\displaystyle x} by applying criteria such as cross-validation locally within the smoothing window. An early example of this is Jerome H. Friedman 's [ 24 ] "supersmoother", which uses cross-validation to choose among local linear fits at different bandwidths.
+
+Degree of local polynomials [ edit ] Most sources, in both theoretical and computational work, use low-order polynomials as the local model, with polynomial degree ranging from 0 to 3.
+
+The degree 0 (local constant) model is equivalent to a kernel smoother ; usually credited to Èlizbar Nadaraya (1964) [ 25 ] and G. S. Watson (1964).
+
+[ 26 ] This is the simplest model to use, but can suffer from bias when fitting near boundaries of the dataset.
+
+Local linear (degree 1) fitting can substantially reduce the boundary bias.
+
+Local quadratic (degree 2) and local cubic (degree 3) can result in improved fits, particularly when the underlying mean function μ μ ( x ) {\displaystyle \mu (x)} has substantial curvature, or equivalently a large second derivative.
+
+In theory, higher orders of polynomial can lead to faster convergence of the estimate μ μ ^ ^ ( x ) {\displaystyle {\hat {\mu }}(x)} to the true mean μ μ ( x ) {\displaystyle \mu (x)} , provided that μ μ ( x ) {\displaystyle \mu (x)} has a sufficient number of derivatives . See C. J. Stone (1980).
+
+[ 27 ] Generally, it takes a large sample size for this faster convergence to be realized. There are also computational and stability issues that arise, particularly for multivariate smoothing. It is generally not recommended to use local polynomials with degree greater than 3.
+
+As with bandwidth selection, methods such as cross-validation can be used to compare the fits obtained with different degrees of polynomial.
+
+Weight function [ edit ] As mentioned above, the weight function gives the most weight to the data points nearest the point of estimation and the least weight to the data points that are furthest away. The use of the weights is based on the idea that points near each other in the explanatory variable space are more likely to be related to each other in a simple way than points that are further apart. Following this logic, points that are likely to follow the local model best influence the local model parameter estimates the most. Points that are less likely to actually conform to the local model have less influence on the local model parameter estimates .
+
+Cleveland (1979) [ 16 ] sets out four requirements for the weight function: Non-negative: W ( x ) > 0 {\displaystyle W(x)>0} for | x | < 1 {\displaystyle |x|<1} .
+
+Symmetry: W ( − − x ) = W ( x ) {\displaystyle W(-x)=W(x)} .
+
+Monotone: W ( x ) {\displaystyle W(x)} is a nonincreasing function for x ≥ ≥ 0 {\displaystyle x\geq 0} .
+
+Bounded support: W ( x ) = 0 {\displaystyle W(x)=0} for | x | ≥ ≥ 1 {\displaystyle |x|\geq 1} .
+
+Asymptotic efficiency of weight functions has been considered by V. A. Epanechnikov (1969) [ 28 ] in the context of kernel density estimation; J. Fan (1993) [ 29 ] has derived similar results for local regression. They conclude that the quadratic kernel, W ( x ) = 1 − − x 2 {\displaystyle W(x)=1-x^{2}} for | x | ≤ ≤ 1 {\displaystyle |x|\leq 1} has greatest efficiency under a mean-squared-error loss function. See "kernel functions in common use" for more discussion of different kernels and their efficiencies.
+
+Considerations other than MSE are also relevant to the choice of weight function. Smoothness properties of W ( x ) {\displaystyle W(x)} directly affect smoothness of the estimate μ μ ^ ^ ( x ) {\displaystyle {\hat {\mu }}(x)} . In particular, the quadaratic kernel is not differentiable at x = ± ± 1 {\displaystyle x=\pm 1} , and μ μ ^ ^ ( x ) {\displaystyle {\hat {\mu }}(x)} is not differentiable as a result.
+The tri-cube weight function , W ( x ) = ( 1 − − | x | 3 ) 3 ; | x | < 1 {\displaystyle W(x)=(1-|x|^{3})^{3};|x|<1} has been used in LOWESS and other local regression software; this combines higher-order differentiability with a high MSE efficiency.
+
+One criticism of weight functions with bounded support is that they can lead to numerical problems (i.e. an unstable or singular design matrix) when fitting in regions with sparse data. For this reason, some authors [ who?
+
+] choose to use the Gaussian kernel, or others with unbounded support.
+
+Choice of fitting criterion [ edit ] As described above, local regression uses a locally weighted least squares criterion to estimate the regression parameters. This inherits many of the advantages (ease of implementation and interpretation; good properties when errors are normally distributed) and disadvantages (sensitivity to extreme values and outliers; inefficiency when errors have unequal variance or are not normally distributed) usually associated with least squares regression.
+
+These disadvantages can be addressed by replacing the local least-squares estimation by something else. Two such ideas are presented here: local likelihood estimation, which applies local estimation to the generalized linear model , and robust local regression, which localizes methods from robust regression .
+
+Local likelihood estimation [ edit ] In local likelihood estimation, developed in Tibshirani and Hastie (1987), [ 20 ] the observations Y i {\displaystyle Y_{i}} are assumed to come from a parametric family of distributions, with a known probability density function (or mass function, for discrete data), Y i ∼ ∼ f ( y , θ θ ( x i ) ) , {\displaystyle Y_{i}\sim f(y,\theta (x_{i})),} where the parameter function θ θ ( x ) {\displaystyle \theta (x)} is the unknown quantity to be estimated. To estimate θ θ ( x ) {\displaystyle \theta (x)} at a particular point x {\displaystyle x} , the local likelihood criterion is ∑ ∑ i = 1 n w i ( x ) log ⁡ ⁡ ( f ( Y i , β β 0 + β β 1 ( x i − − x ) + … … + β β p ( x i − − x ) p ) .
+
+{\displaystyle \sum _{i=1}^{n}w_{i}(x)\log \left(f(Y_{i},\beta _{0}+\beta _{1}(x_{i}-x)+\ldots +\beta _{p}(x_{i}-x)^{p}\right).} Estimates of the regression coefficients (in, particular, β β ^ ^ 0 {\displaystyle {\hat {\beta }}_{0}} ) are obtained by maximizing the local likelihood criterion, and
+the local likelihood estimate is θ θ ^ ^ ( x ) = β β ^ ^ 0 .
+
+{\displaystyle {\hat {\theta }}(x)={\hat {\beta }}_{0}.} When f ( y , θ θ ( x ) ) {\displaystyle f(y,\theta (x))} is the normal distribution and θ θ ( x ) {\displaystyle \theta (x)} is the mean function, the local likelihood method reduces to the standard local least-squares regression. For other likelihood families, there is (usually) no closed-form solution for the local likelihood estimate, and iterative procedures such as iteratively reweighted least squares must be used to compute the estimate.
+
+Example (local logistic regression). All response observations are 0 or 1, and the mean function is the "success" probability, μ μ ( x i ) = Pr ( Y i = 1 | x i ) {\displaystyle \mu (x_{i})=\Pr(Y_{i}=1|x_{i})} . Since μ μ ( x i ) {\displaystyle \mu (x_{i})} must be between 0 and 1, a local polynomial model should not be used for μ μ ( x ) {\displaystyle \mu (x)} directly. Insead, the logistic transformation θ θ ( x ) = log ⁡ ⁡ ( μ μ ( x ) 1 − − μ μ ( x ) ) {\displaystyle \theta (x)=\log \left({\frac {\mu (x)}{1-\mu (x)}}\right)} can be used; equivalently, 1 − − μ μ ( x ) = 1 1 + e θ θ ( x ) ; μ μ ( x ) = e θ θ ( x ) 1 + e θ θ ( x ) {\displaystyle {\begin{aligned}1-\mu (x)&={\frac {1}{1+e^{\theta (x)}}};\\\mu (x)&={\frac {e^{\theta (x)}}{1+e^{\theta (x)}}}\end{aligned}}} and the mass function is f ( Y i , θ θ ( x i ) ) = e Y i θ θ ( x i ) 1 + e θ θ ( x i ) .
+
+{\displaystyle f(Y_{i},\theta (x_{i}))={\frac {e^{Y_{i}\theta (x_{i})}}{1+e^{\theta (x_{i})}}}.} An asymptotic theory for local likelihood estimation is developed in J. Fan, Nancy E. Heckman and M.P.Wand (1995); [ 30 ] the book Loader (1999) [ 31 ] discusses many more applications of local likelihood.
+
+Robust local regression [ edit ] To address the sensitivity to outliers, techniques from robust regression can be employed. In local M-estimation , the local least-squares criterion is replaced by a criterion of the form ∑ ∑ i = 1 n w i ( x ) ρ ρ ( Y i − − β β 0 − − … … − − β β p ( x i − − x ) p s ) {\displaystyle \sum _{i=1}^{n}w_{i}(x)\rho \left({\frac {Y_{i}-\beta _{0}-\ldots -\beta _{p}(x_{i}-x)^{p}}{s}}\right)} where ρ ρ ( ⋅ ⋅ ) {\displaystyle \rho (\cdot )} is a robustness function and s {\displaystyle s} is a scale parameter. Discussion of the merits of different choices of robustness function is best left to the robust regression literature. The scale parameter s {\displaystyle s} must also be estimated. References for local M-estimation include Katkovnik (1985) [ 17 ] and Alexandre Tsybakov (1986).
+
+[ 32 ] The robustness iterations in LOWESS and LOESS correspond to the robustness function defined by ρ ρ ′ ( u ) = u ( 1 − − u 2 / 6 ) 2 ; | u | < 1 {\displaystyle \rho '(u)=u(1-u^{2}/6)^{2};|u|<1} and a robust global estimate of the scale parameter.
+
+If ρ ρ ( u ) = | u | {\displaystyle \rho (u)=|u|} , the local L 1 {\displaystyle L_{1}} criterion ∑ ∑ i = 1 n w i ( x ) | Y i − − β β 0 − − … … − − β β p ( x i − − x ) p | {\displaystyle \sum _{i=1}^{n}w_{i}(x)\left|Y_{i}-\beta _{0}-\ldots -\beta _{p}(x_{i}-x)^{p}\right|} results; this does not require a scale parameter. When p = 0 {\displaystyle p=0} , this criterion is minimized by a locally weighted median; local L 1 {\displaystyle L_{1}} regression can be interpreted as estimating the median , rather than mean , response. If the loss function is skewed, this becomes local quantile regression. See Keming Yu and M.C. Jones (1998).
+
+[ 33 ] Advantages [ edit ] As discussed above, the biggest advantage LOESS has over many other methods is the process of fitting a model to the sample data does not begin with the specification of a function. Instead the analyst only has to provide a smoothing parameter value and the degree of the local polynomial. In addition, LOESS is very flexible, making it ideal for modeling complex processes for which no theoretical models exist. These two advantages, combined with the simplicity of the method, make LOESS one of the most attractive of the modern regression methods for applications that fit the general framework of least squares regression but which have a complex deterministic structure.
+
+Although it is less obvious than for some of the other methods related to linear least squares regression, LOESS also accrues most of the benefits typically shared by those procedures. The most important of those is the theory for computing uncertainties for prediction and calibration. Many other tests and procedures used for validation of least squares models can also be extended to LOESS models [ citation needed ] .
+
+Disadvantages [ edit ] LOESS makes less efficient use of data than other least squares methods. It requires fairly large, densely sampled data sets in order to produce good models. This is because LOESS relies on the local data structure when performing the local fitting. Thus, LOESS provides less complex data analysis in exchange for greater experimental costs.
+
+[ 7 ] Another disadvantage of LOESS is the fact that it does not produce a regression function that is easily represented by a mathematical formula. This can make it difficult to transfer the results of an analysis to other people. In order to transfer the regression function to another person, they would need the data set and software for LOESS calculations. In nonlinear regression , on the other hand, it is only necessary to write down a functional form in order to provide estimates of the unknown parameters and the estimated uncertainty. Depending on the application, this could be either a major or a minor drawback to using LOESS.  In particular, the simple form of LOESS can not be used for mechanistic modelling where fitted parameters specify particular physical properties of a system.
+
+Finally, as discussed above, LOESS is a computationally intensive method (with the exception of evenly spaced data, where the regression can then be phrased as a non-causal finite impulse response filter). LOESS is also prone to the effects of outliers in the data set, like other least squares methods. There is an iterative, robust version of LOESS [Cleveland (1979)] that can be used to reduce LOESS' sensitivity to outliers , but too many extreme outliers can still overcome even the robust method.
+
+Further reading [ edit ] Books substantially covering local regression and extensions: Macaulay (1931) "The Smoothing of Time Series", [ 10 ] discusses graduation methods with several chapters related to local polynomial fitting.
+
+Katkovnik (1985) "Nonparametric Identification and Smoothing of Data" [ 17 ] in Russian.
+
+Fan and Gijbels (1996) "Local Polynomial Modelling and Its Applications".
+
+[ 34 ] Loader (1999) "Local Regression and Likelihood".
+
+[ 31 ] Fotheringham, Brunsdon and Charlton (2002), "Geographically Weighted Regression" [ 35 ] (a development of local regression for spatial data).
+
+Book chapters, Reviews: "Smoothing by Local Regression: Principles and Methods" [ 11 ] "Local Regression and Likelihood", Chapter 13 of Observed Brain Dynamics , Mitra and Bokil (2007) [ 36 ] Rafael Irizarry , "Local Regression". Chapter 3 of "Applied Nonparametric and Modern Statistics".
+
+[ 37 ] See also [ edit ] Degrees of freedom (statistics)#In non-standard regression Kernel regression Moving least squares Moving average Multivariate adaptive regression splines Non-parametric statistics Savitzky–Golay filter Segmented regression References [ edit ] Citations [ edit ] ^ Fox & Weisberg 2018 , Appendix.
+
+^ Harrell 2015 , p. 29.
+
+^ Garimella 2017 .
+
+^ "Savitzky–Golay filtering – MATLAB sgolayfilt" .
+
+Mathworks.com .
+
+^ "scipy.signal.savgol_filter — SciPy v0.16.1 Reference Guide" .
+
+Docs.scipy.org .
+
+^ Kristen Pavlik, US Environmental Protection Agency, Loess (or Lowess) , Nutrient Steps , July 2016.
+
+^ a b c NIST, "LOESS (aka LOWESS)" , section 4.1.4.4, NIST/SEMATECH e-Handbook of Statistical Methods, (accessed 14 April 2017) ^ Henderson, R. Note on Graduation by Adjusted Average. Actuarial Society of America Transactions 17, 43--48.
+
+archive.org ^ John Spencer (April 1904). "On The Graduation of the Rates of Sickness and Mortality Presented by the Experience of the Manchester Unity of Oddfellows during the period 1893–97".
+
+Journal of the Institute of Actuaries .
+
+38 (4): 334– 343.
+
+doi : 10.1017/S0020268100008076 .
+
+ISSN 0020-2681 .
+
+JSTOR 41136340 .
+
+Wikidata Q127775139 .
+
+^ a b Frederick Macaulay (January 1931).
+
+The Smoothing of Time Series .
+
+National Bureau of Economic Research .
+
+ISBN 0-87014-018-3 .
+
+LCCN 31009133 .
+
+S2CID 121925426 .
+
+Wikidata Q134465853 .
+
+{{ cite book }} : ISBN / Date incompatibility ( help ) ^ a b William S. Cleveland ; Catherine Loader (1996). "Smoothing by Local Regression: Principles and Methods".
+
+Statistical Theory and Computational Aspects of Smoothing . Contributions to Statistics: 10– 49.
+
+doi : 10.1007/978-3-642-48425-4_2 .
+
+S2CID 14593932 .
+
+Wikidata Q132138257 .
+
+^ Lori Murray; David Richard Bellhouse (11 June 2019). "W.F. Sheppard's Smoothing Method: A Precursor to Local Polynomial Regression".
+
+International Statistical Review .
+
+87 (3): 604– 612.
+
+doi : 10.1111/INSR.12330 .
+
+ISSN 0306-7734 .
+
+JSTOR 48554897 .
+
+Wikidata Q127772934 .
+
+^ Abraham Savitzky ; Marcel J. E. Golay (July 1964). "Smoothing and Differentiation of Data by Simplified Least Squares Procedures".
+
+Analytical Chemistry .
+
+36 (8): 1627– 1639.
+
+doi : 10.1021/AC60214A047 .
+
+ISSN 0003-2700 .
+
+Wikidata Q56769732 .
+
+^ Charles J. Stone (July 1977). "Consistent Nonparametric Regression".
+
+Annals of Statistics .
+
+5 (4): 595– 620.
+
+doi : 10.1214/AOS/1176343886 .
+
+ISSN 0090-5364 .
+
+JSTOR 2958783 .
+
+MR 0443204 .
+
+Zbl 0366.62051 .
+
+Wikidata Q56533608 .
+
+^ Katkovnik, Vladimir (1979), "Linear and nonlinear methods of nonparametric regression analysis", Soviet Automatic Control , 12 (5): 25– 34 ^ a b William S. Cleveland (December 1979). "Robust Locally Weighted Regression and Smoothing Scatterplots".
+
+Journal of the American Statistical Association .
+
+74 (368): 829– 836.
+
+doi : 10.1080/01621459.1979.10481038 .
+
+ISSN 0162-1459 .
+
+JSTOR 2286407 .
+
+Zbl 0423.62029 .
+
+Wikidata Q30052922 .
+
+^ a b c Vladimir Katkovnik (1985), Непараметрическая идентификация и сглаживание данных. Метод Локальной Аппроксимации.
+
+(in Russian), Nauka , LCCN 86141102 , Zbl 0576.62050 , Wikidata Q132129931 ^ Jianqing Fan ; Irène Gijbels (December 1992). "Variable Bandwidth and Local Linear Regression Smoothers".
+
+Annals of Statistics .
+
+20 (4): 2008– 2036.
+
+doi : 10.1214/AOS/1176348900 .
+
+ISSN 0090-5364 .
+
+JSTOR 2242378 .
+
+S2CID 8309667 .
+
+Wikidata Q132202273 .
+
+^ David Ruppert; Matt Wand (September 1994).
+
+"Multivariate Locally Weighted Least Squares Regression" .
+
+Annals of Statistics .
+
+22 (3): 1346– 1370.
+
+doi : 10.1214/AOS/1176325632 .
+
+ISSN 0090-5364 .
+
+JSTOR 2242229 .
+
+MR 1311979 .
+
+Zbl 0821.62020 .
+
+Wikidata Q132202598 .
+
+^ a b Robert Tibshirani ; Trevor Hastie (1987). "Local Likelihood Estimation".
+
+Journal of the American Statistical Association .
+
+82 (398): 559– 567.
+
+doi : 10.1080/01621459.1987.10478466 .
+
+ISSN 0162-1459 .
+
+JSTOR 2289465 .
+
+Zbl 0626.62041 .
+
+Wikidata Q132187702 .
+
+^ William S. Cleveland (February 1981). "LOWESS: A Program for Smoothing Scatterplots by Robust Locally Weighted Regression".
+
+The American Statistician .
+
+35 (1): 54.
+
+doi : 10.2307/2683591 .
+
+ISSN 0003-1305 .
+
+JSTOR 2683591 .
+
+Wikidata Q29541549 .
+
+^ a b William S. Cleveland ; Susan J. Devlin (September 1988). "Locally Weighted Regression: An Approach to Regression Analysis by Local Fitting".
+
+Journal of the American Statistical Association .
+
+83 (403): 596– 610.
+
+doi : 10.1080/01621459.1988.10478639 .
+
+ISSN 0162-1459 .
+
+JSTOR 2289282 .
+
+Zbl 1248.62054 .
+
+Wikidata Q29393395 .
+
+^ Cleveland, William.
+
+"Local Fitting Software" . Archived from the original on 12 September 2005.
+
+^ Friedman, Jerome H. (October 1984), A Variable Span Smoother (PDF) , Technical report, Laboratory for Computational Statistics LCS 5; SLAC PUB-3466, doi : 10.2171/1447470 (inactive 1 July 2025) {{ citation }} :  CS1 maint: DOI inactive as of July 2025 ( link ) ^ Elizbar A. Nadaraya (January 1964). "On Estimating Regression".
+
+Theory of Probability and Its Applications (in English and Russian).
+
+9 (1): 141-142, 157-159.
+
+doi : 10.1137/1109020 .
+
+ISSN 0040-585X .
+
+Wikidata Q29303512 .
+
+^ Watson, G. S., "Smooth regression analysis", Sankhya Series A , 26 : 359– 372 ^ Charles J. Stone (November 1980). "Optimal Rates of Convergence for Nonparametric Estimators".
+
+Annals of Statistics .
+
+8 (6): 1348– 1360.
+
+doi : 10.1214/AOS/1176345206 .
+
+ISSN 0090-5364 .
+
+MR 0594650 .
+
+Zbl 0451.62033 .
+
+Wikidata Q132272803 .
+
+^ V. A. Epanechnikov (January 1969). "Non-Parametric Estimation of a Multivariate Probability Density".
+
+Theory of Probability and Its Applications (in English and Russian).
+
+14 (1): 153-158, 156-162.
+
+doi : 10.1137/1114019 .
+
+ISSN 0040-585X .
+
+Wikidata Q57308723 .
+
+^ Jianqing Fan (March 1993).
+
+"Local Linear Regression Smoothers and Their Minimax Efficiencies" .
+
+Annals of Statistics .
+
+21 (1): 196– 216.
+
+doi : 10.1214/AOS/1176349022 .
+
+ISSN 0090-5364 .
+
+Zbl 0773.62029 .
+
+Wikidata Q132691957 .
+
+^ Jianqing Fan ; Nancy E. Heckman ; Matt Wand (March 1995). "Local Polynomial Kernel Regression for Generalized Linear Models and Quasi-Likelihood Functions".
+
+Journal of the American Statistical Association .
+
+90 (429): 141– 150.
+
+doi : 10.2307/2291137 .
+
+ISSN 0162-1459 .
+
+JSTOR 2291137 .
+
+Zbl 0818.62036 .
+
+Wikidata Q132508409 .
+
+^ a b Catherine Loader (1999).
+
+Local Regression and Likelihood . Statistics and Computing.
+
+Springer Nature .
+
+doi : 10.1007/B98858 .
+
+ISBN 978-0-387-98775-0 .
+
+LCCN 99014732 .
+
+MR 1704236 .
+
+OL 14851039W .
+
+Zbl 0929.62046 .
+
+Wikidata Q59410587 .
+
+^ Tsybakov, Alexandre B., "Robust reconstruction of functions by the local-approximation method.", Problems of Information Transmission , 22 : 133– 146 ^ Yu, Keming; Jones, M.C. (1998), "Local Linear Quantile Regression", Journal of the American Statistical Association , 93 (441): 228– 237, doi : 10.1080/01621459.1998.10474104 ^ Jianqing Fan ; Irène Gijbels (1996), Local Polynomial Modelling and Its Applications , Monographs on Statistics and Applied Probability, Chapman & Hall , doi : 10.1201/9780203748725 , Wikidata Q134377589 ^ A. Stewart Fotheringham ; Chris Brunsdon; Martin Charlton (21 February 2003).
+
+Geographically Weighted Regression: The Analysis of Spatially Varying Relationships .
+
+Wiley .
+
+ISBN 978-0-470-85525-6 .
+
+LCCN 2003272388 .
+
+Wikidata Q133002722 .
+
+^ Partha Mitra ; Hemant Bokil (6 December 2007).
+
+Observed Brain Dynamics .
+
+Oxford University Press .
+
+doi : 10.1093/ACPROF:OSO/9780195178081.001.0001 .
+
+ISBN 978-0-19-986482-9 .
+
+LCCN 2007019012 .
+
+Wikidata Q57575432 .
+
+^ Irizarry, Rafael.
+
+"Applied Nonparametric and Modern Statistics" . Retrieved 2025-05-16 .
+
+Sources [ edit ] Fox, John; Weisberg, Sanford (2018).
+
+"Appendix: Nonparametric Regression in R" (PDF) .
+
+An R Companion to Applied Regression (3rd ed.). SAGE.
+
+ISBN 978-1-5443-3645-9 .
+
+Garimella, Rao Veerabhadra (22 June 2017). A Simple Introduction to Moving Least Squares and Local Regression Estimation (Report). Los Alamos National Laboratory.
+
+doi : 10.2172/1367799 .
+
+OSTI 1367799 .
+
+Harrell, Frank E. Jr. (2015).
+
+Regression Modeling Strategies: With Applications to Linear Models, Logistic and Ordinal Regression, and Survival Analysis . Springer.
+
+ISBN 978-3-319-19425-7 .
+
+External links [ edit ] This article's use of external links may not follow Wikipedia's policies or guidelines .
+
+Please improve this article by removing excessive or inappropriate external links, and converting useful links where appropriate into footnote references .
+
+( November 2021 ) ( Learn how and when to remove this message ) NIST Engineering Statistics Handbook Section on LOESS R: Local Polynomial Regression Fitting The Loess function in R R: Scatter Plot Smoothing The Lowess function in R The supsmu function (Friedman's SuperSmoother) in R Quantile LOESS – A method to perform Local regression on a ' Quantile moving window (with R code) Nate Silver, How Opinion on Same-Sex Marriage Is Changing, and What It Means – sample of LOESS versus linear regression This article incorporates public domain material from the National Institute of Standards and Technology Retrieved from " https://en.wikipedia.org/w/index.php?title=Local_regression&oldid=1300095420 " Category : Nonparametric regression Hidden categories: CS1 errors: ISBN date CS1 Russian-language sources (ru) CS1 maint: DOI inactive as of July 2025 Articles with short description Short description is different from Wikidata All articles with specifically marked weasel-worded phrases Articles with specifically marked weasel-worded phrases from April 2025 All articles with unsourced statements Articles with unsourced statements from July 2011 Wikipedia external links cleanup from November 2021 Wikipedia articles incorporating text from the National Institute of Standards and Technology This page was last edited on 12 July 2025, at 07:26 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Local regression 9 languages Add topic
+

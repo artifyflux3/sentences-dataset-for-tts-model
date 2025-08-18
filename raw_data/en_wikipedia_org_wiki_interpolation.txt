@@ -1,229 +1,261 @@
-Title: Interpolation
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Example Toggle Example subsection 1.1 Piecewise constant interpolation 1.2 Linear interpolation 1.3 Polynomial interpolation 1.4 Spline interpolation 1.5 Mimetic interpolation 2 Functional interpolation 3 Function approximation 4 Via Gaussian processes 5 Inverse Distance Weighting 6 Other forms 7 In higher dimensions 8 In digital signal processing 9 Related concepts 10 Generalization 11 See also 12 References 13 External links Toggle the table of contents Interpolation 49 languages Afrikaans العربية Azərbaycanca বাংলা Български Bosanski Català Čeština Dansk Deutsch Eesti Español Euskara فارسی Français Gaeilge 한국어 हिन्दी Hrvatski Bahasa Indonesia Italiano עברית ಕನ್ನಡ Қазақша Кыргызча Magyar Монгол Nederlands 日本語 Norsk bokmål Norsk nynorsk Oʻzbekcha / ўзбекча Polski Português Русский Shqip Simple English Slovenščina Српски / srpski Srpskohrvatski / српскохрватски Suomi Svenska தமிழ் Türkçe Українська اردو Tiếng Việt 粵語 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Method for estimating new data within known data points For other uses, see Interpolation (disambiguation) .
 
-URL Source: https://en.wikipedia.org/wiki/Interpolation
+Not to be confused with Interpellation .
 
-Published Time: 2001-03-21T18:13:00Z
+This article includes a list of general references , but it lacks sufficient corresponding inline citations .
 
-Markdown Content:
-From Wikipedia, the free encyclopedia
+Please help to improve this article by introducing more precise citations.
 
-In the [mathematical](https://en.wikipedia.org/wiki/Mathematics "Mathematics") field of [numerical analysis](https://en.wikipedia.org/wiki/Numerical_analysis "Numerical analysis"), **interpolation** is a type of [estimation](https://en.wikipedia.org/wiki/Estimation "Estimation"), a method of constructing (finding) new [data points](https://en.wikipedia.org/wiki/Data_points "Data points") based on the range of a [discrete set](https://en.wikipedia.org/wiki/Discrete_set "Discrete set") of known data points.[[1]](https://en.wikipedia.org/wiki/Interpolation#cite_note-1)[[2]](https://en.wikipedia.org/wiki/Interpolation#cite_note-2)
+( October 2016 ) ( Learn how and when to remove this message ) In the mathematical field of numerical analysis , interpolation is a type of estimation , a method of constructing (finding) new data points based on the range of a discrete set of known data points.
 
-In [engineering](https://en.wikipedia.org/wiki/Engineering "Engineering") and [science](https://en.wikipedia.org/wiki/Science "Science"), one often has a number of data points, obtained by [sampling](https://en.wikipedia.org/wiki/Sampling_(statistics) "Sampling (statistics)") or [experimentation](https://en.wikipedia.org/wiki/Experimentation "Experimentation"), which represent the values of a function for a limited number of values of the [independent variable](https://en.wikipedia.org/wiki/Dependent_and_independent_variables "Dependent and independent variables"). It is often required to **interpolate**; that is, estimate the value of that function for an intermediate value of the independent variable.
+[ 1 ] [ 2 ] In engineering and science , one often has a number of data points, obtained by sampling or experimentation , which represent the values of a function for a limited number of values of the independent variable . It is often required to interpolate ; that is, estimate the value of that function for an intermediate value of the independent variable.
 
-A closely related problem is the [approximation](https://en.wikipedia.org/wiki/Function_approximation "Function approximation") of a complicated function by a simple function. Suppose the formula for some given function is known, but too complicated to evaluate efficiently. A few data points from the original function can be interpolated to produce a simpler function which is still fairly close to the original. The resulting gain in simplicity may outweigh the loss from interpolation error and give better performance in calculation process.
+A closely related problem is the approximation of a complicated function by a simple function. Suppose the formula for some given function is known, but too complicated to evaluate efficiently. A few data points from the original function can be interpolated to produce a simpler function which is still fairly close to the original. The resulting gain in simplicity may outweigh the loss from interpolation error and give better performance in calculation process.
 
-[![Image 1](https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Splined_epitrochoid.svg/330px-Splined_epitrochoid.svg.png)](https://en.wikipedia.org/wiki/File:Splined_epitrochoid.svg)
+An interpolation of a finite set of points on an epitrochoid . The points in red are connected by blue interpolated spline curves deduced only from the red points. The interpolated curves have polynomial formulas much simpler than that of the original epitrochoid curve.
 
-An interpolation of a finite set of points on an [epitrochoid](https://en.wikipedia.org/wiki/Epitrochoid "Epitrochoid"). The points in red are connected by blue interpolated [spline curves](https://en.wikipedia.org/wiki/Spline_(mathematics) "Spline (mathematics)") deduced only from the red points. The interpolated curves have polynomial formulas much simpler than that of the original epitrochoid curve.
+Example [ edit ] This table gives some values of an unknown function f ( x ) {\displaystyle f(x)} .
 
-This table gives some values of an unknown function ![Image 2: {\displaystyle f(x)}](https://wikimedia.org/api/rest_v1/media/math/render/svg/202945cce41ecebb6f643f31d119c514bec7a074).
+Plot of the data points as given in the table x {\displaystyle x} f ( x ) {\displaystyle f(x)} 0 0 1 0 .
 
-[![Image 3](https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Interpolation_Data.svg/250px-Interpolation_Data.svg.png)](https://en.wikipedia.org/wiki/File:Interpolation_Data.svg)
+8415 2 0 .
 
-Plot of the data points as given in the table
+9093 3 0 .
 
-|  | ![Image 4: {\displaystyle x}](https://wikimedia.org/api/rest_v1/media/math/render/svg/87f9e315fd7e2ba406057a97300593c4802b53e4) |  | ![Image 5: {\displaystyle f(x)}](https://wikimedia.org/api/rest_v1/media/math/render/svg/202945cce41ecebb6f643f31d119c514bec7a074) |
-| --- | --- |
-|  | 0 |  | 0 |
-|  | 1 |  | 0 | . | 8415 |
-|  | 2 |  | 0 | . | 9093 |
-|  | 3 |  | 0 | . | 1411 |
-|  | 4 |  | −0 | . | 7568 |
-|  | 5 |  | −0 | . | 9589 |
-|  | 6 |  | −0 | . | 2794 |
+1411 4 −0 .
 
-Interpolation provides a means of estimating the function at intermediate points, such as ![Image 6: {\displaystyle x=2.5.}](https://wikimedia.org/api/rest_v1/media/math/render/svg/c40947c861536ed8260e1ad6b86bbc9ac712f477)
+7568 5 −0 .
 
-We describe some [methods](https://en.wikipedia.org/wiki/Algorithm "Algorithm") of interpolation, differing in such properties as: accuracy, cost, number of data points needed, and [smoothness](https://en.wikipedia.org/wiki/Smooth_function "Smooth function") of the resulting [interpolant](https://en.wikipedia.org/wiki/Interpolant "Interpolant") function.
+9589 6 −0 .
 
-### Piecewise constant interpolation
+2794 Interpolation provides a means of estimating the function at intermediate points, such as x = 2.5.
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Interpolation&action=edit&section=2 "Edit section: Piecewise constant interpolation")]
+{\displaystyle x=2.5.} We describe some methods of interpolation, differing in such properties as: accuracy, cost, number of data points needed, and smoothness of the resulting interpolant function.
 
-[![Image 7](https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Piecewise_constant.svg/250px-Piecewise_constant.svg.png)](https://en.wikipedia.org/wiki/File:Piecewise_constant.svg)
+Piecewise constant interpolation [ edit ] Piecewise constant interpolation, or nearest-neighbor interpolation Further information: Nearest-neighbor interpolation The simplest interpolation method is to locate the nearest data value, and assign the same value. In simple problems, this method is unlikely to be used, as linear interpolation (see below) is almost as easy, but in higher-dimensional multivariate interpolation , this could be a favourable choice for its speed and simplicity.
 
-Piecewise constant interpolation, or [nearest-neighbor interpolation](https://en.wikipedia.org/wiki/Nearest-neighbor_interpolation "Nearest-neighbor interpolation")
+Linear interpolation [ edit ] Plot of the data with linear interpolation superimposed Main article: Linear interpolation One of the simplest methods is linear interpolation (sometimes known as lerp). Consider the above example of estimating f (2.5). Since 2.5 is midway between 2 and 3, it is reasonable to take f (2.5) midway between f (2) = 0.9093 and f (3) = 0.1411, which yields 0.5252.
 
-The simplest interpolation method is to locate the nearest data value, and assign the same value. In simple problems, this method is unlikely to be used, as [linear](https://en.wikipedia.org/wiki/Linear "Linear") interpolation (see below) is almost as easy, but in higher-dimensional [multivariate interpolation](https://en.wikipedia.org/wiki/Multivariate_interpolation "Multivariate interpolation"), this could be a favourable choice for its speed and simplicity.
+Generally, linear interpolation takes two data points, say ( x a , y a ) and ( x b , y b ), and the interpolant is given by: y = y a + ( y b − − y a ) x − − x a x b − − x a at the point ( x , y ) {\displaystyle y=y_{a}+\left(y_{b}-y_{a}\right){\frac {x-x_{a}}{x_{b}-x_{a}}}{\text{ at the point }}\left(x,y\right)} y − − y a y b − − y a = x − − x a x b − − x a {\displaystyle {\frac {y-y_{a}}{y_{b}-y_{a}}}={\frac {x-x_{a}}{x_{b}-x_{a}}}} y − − y a x − − x a = y b − − y a x b − − x a {\displaystyle {\frac {y-y_{a}}{x-x_{a}}}={\frac {y_{b}-y_{a}}{x_{b}-x_{a}}}} This previous equation states that the slope of the new line between ( x a , y a ) {\displaystyle (x_{a},y_{a})} and ( x , y ) {\displaystyle (x,y)} is the same as the slope of the line between ( x a , y a ) {\displaystyle (x_{a},y_{a})} and ( x b , y b ) {\displaystyle (x_{b},y_{b})} Linear interpolation is quick and easy, but it is not very precise. Another disadvantage is that the interpolant is not differentiable at the point x k .
 
-### Linear interpolation
+The following error estimate shows that linear interpolation is not very precise. Denote the function which we want to interpolate by g , and suppose that x lies between x a and x b and that g is twice continuously differentiable. Then the linear interpolation error is | f ( x ) − − g ( x ) | ≤ ≤ C ( x b − − x a ) 2 where C = 1 8 max r ∈ ∈ [ x a , x b ] | g ″ ( r ) | .
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Interpolation&action=edit&section=3 "Edit section: Linear interpolation")]
+{\displaystyle |f(x)-g(x)|\leq C(x_{b}-x_{a})^{2}\quad {\text{where}}\quad C={\frac {1}{8}}\max _{r\in [x_{a},x_{b}]}|g''(r)|.} In words, the error is proportional to the square of the distance between the data points. The error in some other methods, including polynomial interpolation and spline interpolation (described below), is proportional to higher powers of the distance between the data points. These methods also produce smoother interpolants.
 
-[![Image 8](https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Interpolation_example_linear.svg/250px-Interpolation_example_linear.svg.png)](https://en.wikipedia.org/wiki/File:Interpolation_example_linear.svg)
+Polynomial interpolation [ edit ] Plot of the data with polynomial interpolation applied Main article: Polynomial interpolation Polynomial interpolation is a generalization of linear interpolation. Note that the linear interpolant is a linear function . We now replace this interpolant with a polynomial of higher degree .
 
-Plot of the data with linear interpolation superimposed
+Consider again the problem given above. The following sixth degree polynomial goes through all the seven points: f ( x ) = − − 0.0001521 x 6 − − 0.003130 x 5 + 0.07321 x 4 − − 0.3577 x 3 + 0.2255 x 2 + 0.9038 x .
 
-One of the simplest methods is linear interpolation (sometimes known as lerp). Consider the above example of estimating _f_(2.5). Since 2.5 is midway between 2 and 3, it is reasonable to take _f_(2.5) midway between _f_(2) = 0.9093 and _f_(3) = 0.1411, which yields 0.5252.
+{\displaystyle f(x)=-0.0001521x^{6}-0.003130x^{5}+0.07321x^{4}-0.3577x^{3}+0.2255x^{2}+0.9038x.} Substituting x = 2.5, we find that f (2.5) = ~0.59678.
 
-Generally, linear interpolation takes two data points, say (_x_ _a_,_y_ _a_) and (_x_ _b_,_y_ _b_), and the interpolant is given by:
+Generally, if we have n data points, there is exactly one polynomial of degree at most n −1 going through all the data points. The interpolation error is proportional to the distance between the data points to the power n . Furthermore, the interpolant is a polynomial and thus infinitely differentiable. So, we see that polynomial interpolation overcomes most of the problems of linear interpolation.
 
-![Image 9: {\displaystyle y=y_{a}+\left(y_{b}-y_{a}\right){\frac {x-x_{a}}{x_{b}-x_{a}}}{\text{ at the point }}\left(x,y\right)}](https://wikimedia.org/api/rest_v1/media/math/render/svg/0652c7d0af618c1364c13b07d33f587a6fdc470d)![Image 10: {\displaystyle {\frac {y-y_{a}}{y_{b}-y_{a}}}={\frac {x-x_{a}}{x_{b}-x_{a}}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/3e55d17ecae0318e02edeafcaf98e1882256632d)![Image 11: {\displaystyle {\frac {y-y_{a}}{x-x_{a}}}={\frac {y_{b}-y_{a}}{x_{b}-x_{a}}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/ec5c3dc04e28ecaedd5f9ad619078fd070037438)
-This previous equation states that the slope of the new line between ![Image 12: {\displaystyle (x_{a},y_{a})}](https://wikimedia.org/api/rest_v1/media/math/render/svg/45b8919b2ee98b99aaec922b0dec6450021068fe) and ![Image 13: {\displaystyle (x,y)}](https://wikimedia.org/api/rest_v1/media/math/render/svg/41cf50e4a314ca8e2c30964baa8d26e5be7a9386) is the same as the slope of the line between ![Image 14: {\displaystyle (x_{a},y_{a})}](https://wikimedia.org/api/rest_v1/media/math/render/svg/45b8919b2ee98b99aaec922b0dec6450021068fe) and ![Image 15: {\displaystyle (x_{b},y_{b})}](https://wikimedia.org/api/rest_v1/media/math/render/svg/1284e0931ddb72f0f3d3ce38612ca625c0e3432b)
+However, polynomial interpolation also has some disadvantages. Calculating the interpolating polynomial is computationally expensive (see computational complexity ) compared to linear interpolation. Furthermore, polynomial interpolation may exhibit oscillatory artifacts, especially at the end points (see Runge's phenomenon ).
 
-Linear interpolation is quick and easy, but it is not very precise. Another disadvantage is that the interpolant is not [differentiable](https://en.wikipedia.org/wiki/Derivative "Derivative") at the point _x_ _k_.
+Polynomial interpolation can estimate local maxima and minima that are outside the range of the samples, unlike linear interpolation. For example, the interpolant above has a local maximum at x ≈ 1.566, f ( x ) ≈ 1.003 and a local minimum at x ≈ 4.708, f ( x ) ≈ −1.003. However, these maxima and minima may exceed the theoretical range of the function; for example, a function that is always positive may have an interpolant with negative values, and whose inverse therefore contains false vertical asymptotes .
 
-The following error estimate shows that linear interpolation is not very precise. Denote the function which we want to interpolate by _g_, and suppose that _x_ lies between _x_ _a_ and _x_ _b_ and that _g_ is twice continuously differentiable. Then the linear interpolation error is
+More generally, the shape of the resulting curve, especially for very high or low values of the independent variable, may be contrary to commonsense; that is, to what is known about the experimental system which has generated the data points. These disadvantages can be reduced by using spline interpolation or restricting attention to Chebyshev polynomials .
 
-![Image 16: {\displaystyle |f(x)-g(x)|\leq C(x_{b}-x_{a})^{2}\quad {\text{where}}\quad C={\frac {1}{8}}\max _{r\in [x_{a},x_{b}]}|g''(r)|.}](https://wikimedia.org/api/rest_v1/media/math/render/svg/15e835bf7d5d64ca8fef6bd55cfd937460b4752e)
-In words, the error is proportional to the square of the distance between the data points. The error in some other methods, including [polynomial interpolation](https://en.wikipedia.org/wiki/Polynomial_interpolation "Polynomial interpolation") and spline interpolation (described below), is proportional to higher powers of the distance between the data points. These methods also produce smoother interpolants.
+Spline interpolation [ edit ] Plot of the data with spline interpolation applied Main article: Spline interpolation Linear interpolation uses a linear function for each of intervals [ x k , x k+1 ]. Spline interpolation uses low-degree polynomials in each of the intervals, and chooses the polynomial pieces such that they fit smoothly together. The resulting function is called a spline.
 
-### Polynomial interpolation
+For instance, the natural cubic spline is piecewise cubic and twice continuously differentiable. Furthermore, its second derivative is zero at the end points. The natural cubic spline interpolating the points in the table above is given by f ( x ) = { − − 0.1522 x 3 + 0.9937 x , if x ∈ ∈ [ 0 , 1 ] , − − 0.01258 x 3 − − 0.4189 x 2 + 1.4126 x − − 0.1396 , if x ∈ ∈ [ 1 , 2 ] , 0.1403 x 3 − − 1.3359 x 2 + 3.2467 x − − 1.3623 , if x ∈ ∈ [ 2 , 3 ] , 0.1579 x 3 − − 1.4945 x 2 + 3.7225 x − − 1.8381 , if x ∈ ∈ [ 3 , 4 ] , 0.05375 x 3 − − 0.2450 x 2 − − 1.2756 x + 4.8259 , if x ∈ ∈ [ 4 , 5 ] , − − 0.1871 x 3 + 3.3673 x 2 − − 19.3370 x + 34.9282 , if x ∈ ∈ [ 5 , 6 ] .
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Interpolation&action=edit&section=4 "Edit section: Polynomial interpolation")]
+{\displaystyle f(x)={\begin{cases}-0.1522x^{3}+0.9937x,&{\text{if }}x\in [0,1],\\-0.01258x^{3}-0.4189x^{2}+1.4126x-0.1396,&{\text{if }}x\in [1,2],\\0.1403x^{3}-1.3359x^{2}+3.2467x-1.3623,&{\text{if }}x\in [2,3],\\0.1579x^{3}-1.4945x^{2}+3.7225x-1.8381,&{\text{if }}x\in [3,4],\\0.05375x^{3}-0.2450x^{2}-1.2756x+4.8259,&{\text{if }}x\in [4,5],\\-0.1871x^{3}+3.3673x^{2}-19.3370x+34.9282,&{\text{if }}x\in [5,6].\end{cases}}} In this case we get f (2.5) = 0.5972.
 
-[![Image 17](https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Interpolation_example_polynomial.svg/250px-Interpolation_example_polynomial.svg.png)](https://en.wikipedia.org/wiki/File:Interpolation_example_polynomial.svg)
+Like polynomial interpolation, spline interpolation incurs a smaller error than linear interpolation, while the interpolant is smoother and easier to evaluate than the high-degree polynomials used in polynomial interpolation. However, the global nature of the basis functions leads to ill-conditioning. This is completely mitigated by using splines of compact support, such as are implemented in Boost.Math and discussed in Kress.
 
-Plot of the data with polynomial interpolation applied
+[ 3 ] Mimetic interpolation [ edit ] Main article: Mimetic interpolation Depending on the underlying discretisation of fields, different interpolants may be required. In contrast to other interpolation methods, which estimate functions on target points, mimetic interpolation evaluates the integral of fields on target lines, areas or volumes, depending on the type of field (scalar, vector, pseudo-vector or pseudo-scalar).
 
-Polynomial interpolation is a generalization of linear interpolation. Note that the linear interpolant is a [linear function](https://en.wikipedia.org/wiki/Linear_function "Linear function"). We now replace this interpolant with a [polynomial](https://en.wikipedia.org/wiki/Polynomial "Polynomial") of higher [degree](https://en.wikipedia.org/wiki/Degree_of_a_polynomial "Degree of a polynomial").
+A key feature of mimetic interpolation is that vector calculus identities are satisfied, including Stokes' theorem and the divergence theorem . As a result, mimetic interpolation conserves line, area and volume integrals.
 
-Consider again the problem given above. The following sixth degree polynomial goes through all the seven points:
+[ 4 ] Conservation of line integrals might be desirable when interpolating the electric field , for instance, since the line integral gives the electric potential difference at the endpoints of the integration path.
 
-![Image 18: {\displaystyle f(x)=-0.0001521x^{6}-0.003130x^{5}+0.07321x^{4}-0.3577x^{3}+0.2255x^{2}+0.9038x.}](https://wikimedia.org/api/rest_v1/media/math/render/svg/88f6a58be7d4ee9c8b93c5e167461765121ed1a5)
-Substituting _x_ = 2.5, we find that _f_(2.5) = ~0.59678.
+[ 5 ] Mimetic interpolation ensures that the error of estimating the line integral of an electric field is the same as the error obtained by interpolating the potential at the end points of the integration path, regardless of the length of the integration path.
 
-Generally, if we have _n_ data points, there is exactly one polynomial of degree at most _n_−1 going through all the data points. The interpolation error is proportional to the distance between the data points to the power _n_. Furthermore, the interpolant is a polynomial and thus infinitely differentiable. So, we see that polynomial interpolation overcomes most of the problems of linear interpolation.
+Linear , bilinear and trilinear interpolation are also considered mimetic, even if it is the field values that are conserved (not the integral of the field). Apart from linear interpolation, area weighted interpolation can be considered one of the first mimetic interpolation methods to have been developed.
 
-However, polynomial interpolation also has some disadvantages. Calculating the interpolating polynomial is computationally expensive (see [computational complexity](https://en.wikipedia.org/wiki/Computational_complexity_theory "Computational complexity theory")) compared to linear interpolation. Furthermore, polynomial interpolation may exhibit oscillatory artifacts, especially at the end points (see [Runge's phenomenon](https://en.wikipedia.org/wiki/Runge%27s_phenomenon "Runge's phenomenon")).
+[ 6 ] Functional interpolation [ edit ] The Theory of Functional Connections (TFC) is a mathematical framework specifically developed for functional interpolation . Given any interpolant that satisfies a set of constraints, TFC derives a functional that represents the entire family of interpolants satisfying those constraints, including those that are discontinuous or partially defined. These functionals identify the subspace of functions where the solution to a constrained optimization problem resides. Consequently, TFC transforms constrained optimization problems into equivalent unconstrained formulations. This transformation has proven highly effective in the solution of differential equations . TFC achieves this by constructing a constrained functional (a function of a free function), that inherently satisfies given constraints regardless of the expression of the free function. This simplifies solving various types of equations and significantly improves the efficiency and accuracy of methods like Physics-Informed Neural Networks (PINNs). TFC offers advantages over traditional methods like Lagrange multipliers and spectral methods by directly addressing constraints analytically and avoiding iterative procedures, although it cannot currently handle inequality constraints.
 
-Polynomial interpolation can estimate local maxima and minima that are outside the range of the samples, unlike linear interpolation. For example, the interpolant above has a local maximum at _x_ ≈ 1.566, _f_(_x_) ≈ 1.003 and a local minimum at _x_ ≈ 4.708, _f_(_x_) ≈ −1.003. However, these maxima and minima may exceed the theoretical range of the function; for example, a function that is always positive may have an interpolant with negative values, and whose inverse therefore contains false [vertical asymptotes](https://en.wikipedia.org/wiki/Division_by_zero "Division by zero").
+Function approximation [ edit ] Interpolation is a common way to approximate functions. Given a function f : [ a , b ] → → R {\displaystyle f:[a,b]\to \mathbb {R} } with a set of points x 1 , x 2 , … … , x n ∈ ∈ [ a , b ] {\displaystyle x_{1},x_{2},\dots ,x_{n}\in [a,b]} one can form a function s : [ a , b ] → → R {\displaystyle s:[a,b]\to \mathbb {R} } such that f ( x i ) = s ( x i ) {\displaystyle f(x_{i})=s(x_{i})} for i = 1 , 2 , … … , n {\displaystyle i=1,2,\dots ,n} (that is, that s {\displaystyle s} interpolates f {\displaystyle f} at these points). In general, an interpolant need not be a good approximation, but there are well known and often reasonable conditions where it will. For example, if f ∈ ∈ C 4 ( [ a , b ] ) {\displaystyle f\in C^{4}([a,b])} (four times continuously differentiable) then cubic spline interpolation has an error bound given by ‖ ‖ f − − s ‖ ‖ ∞ ∞ ≤ ≤ C ‖ ‖ f ( 4 ) ‖ ‖ ∞ ∞ h 4 {\displaystyle \|f-s\|_{\infty }\leq C\|f^{(4)}\|_{\infty }h^{4}} where h max i = 1 , 2 , … … , n − − 1 | x i + 1 − − x i | {\displaystyle h\max _{i=1,2,\dots ,n-1}|x_{i+1}-x_{i}|} and C {\displaystyle C} is a constant.
 
-More generally, the shape of the resulting curve, especially for very high or low values of the independent variable, may be contrary to commonsense; that is, to what is known about the experimental system which has generated the data points. These disadvantages can be reduced by using spline interpolation or restricting attention to [Chebyshev polynomials](https://en.wikipedia.org/wiki/Chebyshev_polynomials "Chebyshev polynomials").
+[ 7 ] Via Gaussian processes [ edit ] Gaussian process is a powerful non-linear interpolation tool. Many popular interpolation tools are actually equivalent to particular Gaussian processes. Gaussian processes can be used not only for fitting an interpolant that passes exactly through the given data points but also for regression; that is, for fitting a curve through noisy data. In the geostatistics community Gaussian process regression is also known as Kriging .
 
-### Spline interpolation
+Inverse Distance Weighting [ edit ] Inverse Distance Weighting (IDW) is a spatial interpolation method that estimates values based on nearby data points, with closer points having more influence.
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Interpolation&action=edit&section=5 "Edit section: Spline interpolation")]
+[ 8 ] It uses an inverse power law for weighting, where higher power values emphasize local effects, while lower values create a smoother surface. IDW is widely used in GIS , meteorology , and environmental modeling for its simplicity but may produce artifacts in clustered or uneven data.
 
-[![Image 19](https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Interpolation_example_spline.svg/250px-Interpolation_example_spline.svg.png)](https://en.wikipedia.org/wiki/File:Interpolation_example_spline.svg)
+[ 9 ] Other forms [ edit ] Other forms of interpolation can be constructed by picking a different class of interpolants. For instance, rational interpolation is interpolation by rational functions using Padé approximant , and trigonometric interpolation is interpolation by trigonometric polynomials using Fourier series . Another possibility is to use wavelets .
 
-Plot of the data with spline interpolation applied
+The Whittaker–Shannon interpolation formula can be used if the number of data points is infinite or if the function to be interpolated has compact support.
 
-Linear interpolation uses a linear function for each of intervals [_x_ _k_,_x_ _k+1_]. Spline interpolation uses low-degree polynomials in each of the intervals, and chooses the polynomial pieces such that they fit smoothly together. The resulting function is called a spline.
+Sometimes, we know not only the value of the function that we want to interpolate, at some points, but also its derivative. This leads to Hermite interpolation problems.
 
-For instance, the [natural cubic spline](https://en.wikipedia.org/wiki/Natural_cubic_spline "Natural cubic spline") is [piecewise](https://en.wikipedia.org/wiki/Piecewise "Piecewise") cubic and twice continuously differentiable. Furthermore, its second derivative is zero at the end points. The natural cubic spline interpolating the points in the table above is given by
+When each data point is itself a function, it can be useful to see the interpolation problem as a partial advection problem between each data point. This idea leads to the displacement interpolation problem used in transportation theory .
 
-![Image 20: {\displaystyle f(x)={\begin{cases}-0.1522x^{3}+0.9937x,&{\text{if }}x\in [0,1],\\-0.01258x^{3}-0.4189x^{2}+1.4126x-0.1396,&{\text{if }}x\in [1,2],\\0.1403x^{3}-1.3359x^{2}+3.2467x-1.3623,&{\text{if }}x\in [2,3],\\0.1579x^{3}-1.4945x^{2}+3.7225x-1.8381,&{\text{if }}x\in [3,4],\\0.05375x^{3}-0.2450x^{2}-1.2756x+4.8259,&{\text{if }}x\in [4,5],\\-0.1871x^{3}+3.3673x^{2}-19.3370x+34.9282,&{\text{if }}x\in [5,6].\end{cases}}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/3cd654c9f03b663dc277263ec988f010e0d934e1)
-In this case we get _f_(2.5)=0.5972.
+In higher dimensions [ edit ] Comparison of  some 1- and 2-dimensional interpolations.
 
-Like polynomial interpolation, spline interpolation incurs a smaller error than linear interpolation, while the interpolant is smoother and easier to evaluate than the high-degree polynomials used in polynomial interpolation. However, the global nature of the basis functions leads to ill-conditioning. This is completely mitigated by using splines of compact support, such as are implemented in Boost.Math and discussed in Kress.[[3]](https://en.wikipedia.org/wiki/Interpolation#cite_note-3)
-
-### Mimetic interpolation
-
-[[edit](https://en.wikipedia.org/w/index.php?title=Interpolation&action=edit&section=6 "Edit section: Mimetic interpolation")]
-
-Depending on the underlying discretisation of fields, different interpolants may be required. In contrast to other interpolation methods, which estimate functions on target points, mimetic interpolation evaluates the integral of fields on target lines, areas or volumes, depending on the type of field (scalar, vector, pseudo-vector or pseudo-scalar).
-
-A key feature of mimetic interpolation is that [vector calculus identities](https://en.wikipedia.org/wiki/Vector_calculus_identities "Vector calculus identities") are satisfied, including [Stokes' theorem](https://en.wikipedia.org/wiki/Stokes%27_theorem "Stokes' theorem") and the [divergence theorem](https://en.wikipedia.org/wiki/Divergence_theorem "Divergence theorem"). As a result, mimetic interpolation conserves line, area and volume integrals.[[4]](https://en.wikipedia.org/wiki/Interpolation#cite_note-4) Conservation of line integrals might be desirable when interpolating the [electric field](https://en.wikipedia.org/wiki/Electric_field "Electric field"), for instance, since the line integral gives the [electric potential](https://en.wikipedia.org/wiki/Electric_potential "Electric potential") difference at the endpoints of the integration path.[[5]](https://en.wikipedia.org/wiki/Interpolation#cite_note-5) Mimetic interpolation ensures that the error of estimating the line integral of an electric field is the same as the error obtained by interpolating the potential at the end points of the integration path, regardless of the length of the integration path.
-
-[Linear](https://en.wikipedia.org/wiki/Linear_interpolation "Linear interpolation"), [bilinear](https://en.wikipedia.org/wiki/Bilinear_interpolation "Bilinear interpolation") and [trilinear interpolation](https://en.wikipedia.org/wiki/Trilinear_interpolation "Trilinear interpolation") are also considered mimetic, even if it is the field values that are conserved (not the integral of the field). Apart from linear interpolation, area weighted interpolation can be considered one of the first mimetic interpolation methods to have been developed.[[6]](https://en.wikipedia.org/wiki/Interpolation#cite_note-6)
-
-Functional interpolation
-------------------------
-
-[[edit](https://en.wikipedia.org/w/index.php?title=Interpolation&action=edit&section=7 "Edit section: Functional interpolation")]
-
-The [Theory of Functional Connections](https://en.wikipedia.org/wiki/Theory_of_functional_connections "Theory of functional connections") (TFC) is a mathematical framework specifically developed for [functional interpolation](https://www.mdpi.com/journal/mathematics/sections/functional_interpolation). Given any interpolant that satisfies a set of constraints, TFC derives a functional that represents the entire family of interpolants satisfying those constraints, including those that are discontinuous or partially defined. These functionals identify the subspace of functions where the solution to a constrained optimization problem resides. Consequently, TFC transforms constrained optimization problems into equivalent unconstrained formulations. This transformation has proven highly effective in the solution of [differential equations](https://en.wikipedia.org/wiki/Differential_equation "Differential equation"). TFC achieves this by constructing a constrained functional (a function of a free function), that inherently satisfies given constraints regardless of the expression of the free function. This simplifies solving various types of equations and significantly improves the efficiency and accuracy of methods like [Physics-Informed Neural Networks](https://en.wikipedia.org/wiki/Physics-informed_neural_networks "Physics-informed neural networks") (PINNs). TFC offers advantages over traditional methods like [Lagrange multipliers](https://en.wikipedia.org/wiki/Lagrange_multiplier "Lagrange multiplier") and [spectral methods](https://en.wikipedia.org/wiki/Spectral_method "Spectral method") by directly addressing constraints analytically and avoiding iterative procedures, although it cannot currently handle inequality constraints.
-
-Function approximation
-----------------------
-
-[[edit](https://en.wikipedia.org/w/index.php?title=Interpolation&action=edit&section=8 "Edit section: Function approximation")]
-
-Interpolation is a common way to approximate functions. Given a function ![Image 21: {\displaystyle f:[a,b]\to \mathbb {R} }](https://wikimedia.org/api/rest_v1/media/math/render/svg/b592d102ccd1ba134d401c5b3ea177baaba3ffac) with a set of points ![Image 22: {\displaystyle x_{1},x_{2},\dots ,x_{n}\in [a,b]}](https://wikimedia.org/api/rest_v1/media/math/render/svg/df22c48c2c827e30fa634d0964908f94af232750) one can form a function ![Image 23: {\displaystyle s:[a,b]\to \mathbb {R} }](https://wikimedia.org/api/rest_v1/media/math/render/svg/cb454b2565ba3ced5a91e87ee9b2a685a14d03bb) such that ![Image 24: {\displaystyle f(x_{i})=s(x_{i})}](https://wikimedia.org/api/rest_v1/media/math/render/svg/d0c74295169d68240e2a5e4510837168b5b7178c) for ![Image 25: {\displaystyle i=1,2,\dots ,n}](https://wikimedia.org/api/rest_v1/media/math/render/svg/c1d5159f58045d75d8a37feecb2bd11bcc772937) (that is, that ![Image 26: {\displaystyle s}](https://wikimedia.org/api/rest_v1/media/math/render/svg/01d131dfd7673938b947072a13a9744fe997e632) interpolates ![Image 27: {\displaystyle f}](https://wikimedia.org/api/rest_v1/media/math/render/svg/132e57acb643253e7810ee9702d9581f159a1c61) at these points). In general, an interpolant need not be a good approximation, but there are well known and often reasonable conditions where it will. For example, if ![Image 28: {\displaystyle f\in C^{4}([a,b])}](https://wikimedia.org/api/rest_v1/media/math/render/svg/cf9d66eda475f0e830cf15ecdec3d8fbf5e6ba7e) (four times continuously differentiable) then [cubic spline interpolation](https://en.wikipedia.org/wiki/Spline_interpolation "Spline interpolation") has an error bound given by ![Image 29: {\displaystyle \|f-s\|_{\infty }\leq C\|f^{(4)}\|_{\infty }h^{4}}](https://wikimedia.org/api/rest_v1/media/math/render/svg/41218b47c6c6a03e41d71d9eaba64b8a89abf1ea) where ![Image 30: {\displaystyle h\max _{i=1,2,\dots ,n-1}|x_{i+1}-x_{i}|}](https://wikimedia.org/api/rest_v1/media/math/render/svg/7c5ca7d68c4bb25c266875037f5300541e1c9e1b) and ![Image 31: {\displaystyle C}](https://wikimedia.org/api/rest_v1/media/math/render/svg/4fc55753007cd3c18576f7933f6f089196732029) is a constant.[[7]](https://en.wikipedia.org/wiki/Interpolation#cite_note-7)
-
-Via Gaussian processes
-----------------------
-
-[[edit](https://en.wikipedia.org/w/index.php?title=Interpolation&action=edit&section=9 "Edit section: Via Gaussian processes")]
-
-[Gaussian process](https://en.wikipedia.org/wiki/Gaussian_process "Gaussian process") is a powerful non-linear interpolation tool. Many popular interpolation tools are actually equivalent to particular Gaussian processes. Gaussian processes can be used not only for fitting an interpolant that passes exactly through the given data points but also for regression; that is, for fitting a curve through noisy data. In the geostatistics community Gaussian process regression is also known as [Kriging](https://en.wikipedia.org/wiki/Kriging "Kriging").
-
-Inverse Distance Weighting
---------------------------
-
-[[edit](https://en.wikipedia.org/w/index.php?title=Interpolation&action=edit&section=10 "Edit section: Inverse Distance Weighting")]
-
-[Inverse Distance Weighting](https://en.wikipedia.org/wiki/Inverse_distance_weighting "Inverse distance weighting") (IDW) is a spatial interpolation method that estimates values based on nearby data points, with closer points having more influence.[[8]](https://en.wikipedia.org/wiki/Interpolation#cite_note-8) It uses an inverse power law for weighting, where higher power values emphasize local effects, while lower values create a smoother surface. IDW is widely used in [GIS](https://en.wikipedia.org/wiki/Geographic_information_system "Geographic information system"), [meteorology](https://en.wikipedia.org/wiki/Meteorology "Meteorology"), and environmental modeling for its simplicity but may produce artifacts in clustered or uneven data.[[9]](https://en.wikipedia.org/wiki/Interpolation#cite_note-9)
-
-Other forms of interpolation can be constructed by picking a different class of interpolants. For instance, rational interpolation is **interpolation** by [rational functions](https://en.wikipedia.org/wiki/Rational_function "Rational function") using [Padé approximant](https://en.wikipedia.org/wiki/Pad%C3%A9_approximant "Padé approximant"), and [trigonometric interpolation](https://en.wikipedia.org/wiki/Trigonometric_interpolation "Trigonometric interpolation") is interpolation by [trigonometric polynomials](https://en.wikipedia.org/wiki/Trigonometric_polynomial "Trigonometric polynomial") using [Fourier series](https://en.wikipedia.org/wiki/Fourier_series "Fourier series"). Another possibility is to use [wavelets](https://en.wikipedia.org/wiki/Wavelet "Wavelet").
-
-The [Whittaker–Shannon interpolation formula](https://en.wikipedia.org/wiki/Whittaker%E2%80%93Shannon_interpolation_formula "Whittaker–Shannon interpolation formula") can be used if the number of data points is infinite or if the function to be interpolated has compact support.
-
-Sometimes, we know not only the value of the function that we want to interpolate, at some points, but also its derivative. This leads to [Hermite interpolation](https://en.wikipedia.org/wiki/Hermite_interpolation "Hermite interpolation") problems.
-
-When each data point is itself a function, it can be useful to see the interpolation problem as a partial [advection](https://en.wikipedia.org/wiki/Advection "Advection") problem between each data point. This idea leads to the [displacement interpolation](https://en.wikipedia.org/w/index.php?title=Displacement_interpolation&action=edit&redlink=1 "Displacement interpolation (page does not exist)") problem used in [transportation theory](https://en.wikipedia.org/wiki/Transportation_theory_(mathematics) "Transportation theory (mathematics)").
-
-In higher dimensions
---------------------
-
-[[edit](https://en.wikipedia.org/w/index.php?title=Interpolation&action=edit&section=12 "Edit section: In higher dimensions")]
-
-[![Image 32](https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Comparison_of_1D_and_2D_interpolation.svg/250px-Comparison_of_1D_and_2D_interpolation.svg.png)](https://en.wikipedia.org/wiki/File:Comparison_of_1D_and_2D_interpolation.svg)
-
-Comparison of some 1- and 2-dimensional interpolations. 
-
-Black and red/yellow/green/blue dots correspond to the interpolated point and neighbouring samples, respectively. 
+Black and red / yellow / green / blue dots correspond to the interpolated point and neighbouring samples, respectively.
 
 Their heights above the ground correspond to their values.
 
-Multivariate interpolation is the interpolation of functions of more than one variable. Methods include [nearest-neighbor interpolation](https://en.wikipedia.org/wiki/Nearest-neighbor_interpolation "Nearest-neighbor interpolation"), [bilinear interpolation](https://en.wikipedia.org/wiki/Bilinear_interpolation "Bilinear interpolation") and [bicubic interpolation](https://en.wikipedia.org/wiki/Bicubic_interpolation "Bicubic interpolation") in two dimensions, and [trilinear interpolation](https://en.wikipedia.org/wiki/Trilinear_interpolation "Trilinear interpolation") in three dimensions. They can be applied to gridded or scattered data. Mimetic interpolation generalizes to ![Image 33: {\displaystyle n}](https://wikimedia.org/api/rest_v1/media/math/render/svg/a601995d55609f2d9f5e233e36fbe9ea26011b3b) dimensional spaces where ![Image 34: {\displaystyle n>3}](https://wikimedia.org/api/rest_v1/media/math/render/svg/257030caae597fd034c2cbcff2cff9dfc4272d20).[[10]](https://en.wikipedia.org/wiki/Interpolation#cite_note-10)[[11]](https://en.wikipedia.org/wiki/Interpolation#cite_note-11)
+Main article: Multivariate interpolation Multivariate interpolation is the interpolation of functions of more than one variable. 
+Methods include nearest-neighbor interpolation , bilinear interpolation and bicubic interpolation in two dimensions, and trilinear interpolation in three dimensions.
+They can be applied to gridded or scattered data. Mimetic interpolation generalizes to n {\displaystyle n} dimensional spaces where n > 3 {\displaystyle n>3} .
 
-*   [![Image 35: Nearest neighbor](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Nearest2DInterpolExample.png/120px-Nearest2DInterpolExample.png)](https://en.wikipedia.org/wiki/File:Nearest2DInterpolExample.png "Nearest neighbor")
+[ 10 ] [ 11 ] Nearest neighbor Bilinear Bicubic In digital signal processing [ edit ] In the domain of digital signal processing, the term interpolation refers to the process of converting a sampled digital signal (such as a sampled audio signal) to that of a higher sampling rate ( Upsampling ) using various digital filtering techniques (for example, convolution with a frequency-limited impulse signal). In this application there is a specific requirement that the harmonic content of the original signal be preserved without creating aliased harmonic content of the original signal above the original Nyquist limit of the signal (that is, above fs/2 of the original signal sample rate). An early and fairly elementary discussion on this subject can be found in Rabiner and Crochiere's book Multirate Digital Signal Processing .
 
-Nearest neighbor
+[ 12 ] Related concepts [ edit ] The term extrapolation is used to find data points outside the range of known data points.
 
-*   [![Image 36: Bilinear](https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/BilinearInterpolExample.png/120px-BilinearInterpolExample.png)](https://en.wikipedia.org/wiki/File:BilinearInterpolExample.png "Bilinear")
+In curve fitting problems, the constraint that the interpolant has to go exactly through the data points is relaxed. It is only required to approach the data points as closely as possible (within some other constraints).  This requires parameterizing the potential interpolants and having some way of measuring the error.  In the simplest case this leads to least squares approximation.
 
-Bilinear
+Approximation theory studies how to find the best approximation to a given function by another function from some predetermined class, and how good this approximation is. This clearly yields a bound on how well the interpolant can approximate the unknown function.
 
-*   [![Image 37: Bicubic](https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/BicubicInterpolationExample.png/120px-BicubicInterpolationExample.png)](https://en.wikipedia.org/wiki/File:BicubicInterpolationExample.png "Bicubic")
+Generalization [ edit ] If we consider x {\displaystyle x} as a variable in a topological space ,  and the function f ( x ) {\displaystyle f(x)} mapping to a Banach space , then the problem is treated as "interpolation of operators".
 
-Bicubic
+[ 13 ] The classical results about interpolation of operators are the Riesz–Thorin theorem and the Marcinkiewicz theorem . There are also many other subsequent results.
 
-In digital signal processing
-----------------------------
+See also [ edit ] Barycentric coordinates – for interpolating within on a triangle or tetrahedron Brahmagupta's interpolation formula Discretization Fractal interpolation Imputation (statistics) Lagrange interpolation Missing data Newton–Cotes formulas Radial basis function interpolation Simple rational approximation Smoothing References [ edit ] ^ Sheppard, William Fleetwood (1911).
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Interpolation&action=edit&section=13 "Edit section: In digital signal processing")]
+"Interpolation" . In Chisholm, Hugh (ed.).
 
-In the domain of digital signal processing, the term interpolation refers to the process of converting a sampled digital signal (such as a sampled audio signal) to that of a higher sampling rate ([Upsampling](https://en.wikipedia.org/wiki/Upsampling "Upsampling")) using various digital filtering techniques (for example, convolution with a frequency-limited impulse signal). In this application there is a specific requirement that the harmonic content of the original signal be preserved without creating aliased harmonic content of the original signal above the original [Nyquist limit](https://en.wikipedia.org/wiki/Nyquist_frequency "Nyquist frequency") of the signal (that is, above fs/2 of the original signal sample rate). An early and fairly elementary discussion on this subject can be found in Rabiner and Crochiere's book _Multirate Digital Signal Processing_.[[12]](https://en.wikipedia.org/wiki/Interpolation#cite_note-12)
+Encyclopædia Britannica . Vol. 14 (11th ed.). Cambridge University Press. pp.
 
-The term _[extrapolation](https://en.wikipedia.org/wiki/Extrapolation "Extrapolation")_ is used to find data points outside the range of known data points.
+706– 710.
 
-In [curve fitting](https://en.wikipedia.org/wiki/Curve_fitting "Curve fitting") problems, the constraint that the interpolant has to go exactly through the data points is relaxed. It is only required to approach the data points as closely as possible (within some other constraints). This requires parameterizing the potential interpolants and having some way of measuring the error. In the simplest case this leads to [least squares](https://en.wikipedia.org/wiki/Least_squares "Least squares") approximation.
+^ Steffensen, J. F. (2006).
 
-[Approximation theory](https://en.wikipedia.org/wiki/Approximation_theory "Approximation theory") studies how to find the best approximation to a given function by another function from some predetermined class, and how good this approximation is. This clearly yields a bound on how well the interpolant can approximate the unknown function.
+Interpolation (Second ed.). Mineola, N.Y.
 
-If we consider ![Image 38: {\displaystyle x}](https://wikimedia.org/api/rest_v1/media/math/render/svg/87f9e315fd7e2ba406057a97300593c4802b53e4) as a variable in a [topological space](https://en.wikipedia.org/wiki/Topological_space "Topological space"), and the function ![Image 39: {\displaystyle f(x)}](https://wikimedia.org/api/rest_v1/media/math/render/svg/202945cce41ecebb6f643f31d119c514bec7a074) mapping to a [Banach space](https://en.wikipedia.org/wiki/Banach_space "Banach space"), then the problem is treated as "interpolation of operators".[[13]](https://en.wikipedia.org/wiki/Interpolation#cite_note-13) The classical results about interpolation of operators are the [Riesz–Thorin theorem](https://en.wikipedia.org/wiki/Riesz%E2%80%93Thorin_theorem "Riesz–Thorin theorem") and the [Marcinkiewicz theorem](https://en.wikipedia.org/wiki/Marcinkiewicz_theorem "Marcinkiewicz theorem"). There are also many other subsequent results.
+ISBN 978-0-486-15483-1 .
 
-*   [Barycentric coordinates](https://en.wikipedia.org/wiki/Barycentric_coordinate_system "Barycentric coordinate system") – for interpolating within on a triangle or tetrahedron
-*   [Brahmagupta's interpolation formula](https://en.wikipedia.org/wiki/Brahmagupta%27s_interpolation_formula "Brahmagupta's interpolation formula")
-*   [Discretization](https://en.wikipedia.org/wiki/Discretization "Discretization")
-*   [Fractal interpolation](https://en.wikipedia.org/wiki/Fractal_compression#Fractal_interpolation "Fractal compression")
-*   [Imputation (statistics)](https://en.wikipedia.org/wiki/Imputation_(statistics) "Imputation (statistics)")
-*   [Lagrange interpolation](https://en.wikipedia.org/wiki/Lagrange_polynomial "Lagrange polynomial")
-*   [Missing data](https://en.wikipedia.org/wiki/Missing_data "Missing data")
-*   [Newton–Cotes formulas](https://en.wikipedia.org/wiki/Newton%E2%80%93Cotes_formulas "Newton–Cotes formulas")
-*   [Radial basis function interpolation](https://en.wikipedia.org/wiki/Radial_basis_function_interpolation "Radial basis function interpolation")
-*   [Simple rational approximation](https://en.wikipedia.org/wiki/Simple_rational_approximation "Simple rational approximation")
-*   [Smoothing](https://en.wikipedia.org/wiki/Smoothing "Smoothing")
+OCLC 867770894 .
 
-1.   **[^](https://en.wikipedia.org/wiki/Interpolation#cite_ref-1)**[Sheppard, William Fleetwood](https://en.wikipedia.org/wiki/William_Fleetwood_Sheppard "William Fleetwood Sheppard") (1911). ["Interpolation"](https://en.wikisource.org/wiki/1911_Encyclop%C3%A6dia_Britannica/Interpolation). In [Chisholm, Hugh](https://en.wikipedia.org/wiki/Hugh_Chisholm "Hugh Chisholm") (ed.). _[Encyclopædia Britannica](https://en.wikipedia.org/wiki/Encyclop%C3%A6dia\_Britannica\_Eleventh\_Edition "Encyclopædia Britannica Eleventh Edition")_. Vol.14 (11th ed.). Cambridge University Press. pp.706–710.
-2.   **[^](https://en.wikipedia.org/wiki/Interpolation#cite_ref-2)**Steffensen, J. F. (2006). _Interpolation_ (Second ed.). Mineola, N.Y. [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) "ISBN (identifier)")[978-0-486-15483-1](https://en.wikipedia.org/wiki/Special:BookSources/978-0-486-15483-1 "Special:BookSources/978-0-486-15483-1"). [OCLC](https://en.wikipedia.org/wiki/OCLC_(identifier) "OCLC (identifier)")[867770894](https://search.worldcat.org/oclc/867770894).`{{cite book}}`: CS1 maint: location missing publisher ([link](https://en.wikipedia.org/wiki/Category:CS1_maint:_location_missing_publisher "Category:CS1 maint: location missing publisher"))
-3.   **[^](https://en.wikipedia.org/wiki/Interpolation#cite_ref-3)**Kress, Rainer (1998). [_Numerical Analysis_](https://archive.org/details/springer_10.1007-978-1-4612-0599-9). Springer. [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) "ISBN (identifier)")[9781461205999](https://en.wikipedia.org/wiki/Special:BookSources/9781461205999 "Special:BookSources/9781461205999").
-4.   **[^](https://en.wikipedia.org/wiki/Interpolation#cite_ref-4)**Pletzer, Alexander; Hayek, Wolfgang (2019-01-01). ["Mimetic Interpolation of Vector Fields on Arakawa C/D Grids"](https://journals.ametsoc.org/view/journals/mwre/147/1/mwr-d-18-0146.1.xml). _Monthly Weather Review_. **147** (1): 3–16. [Bibcode](https://en.wikipedia.org/wiki/Bibcode_(identifier) "Bibcode (identifier)"):[2019MWRv..147....3P](https://ui.adsabs.harvard.edu/abs/2019MWRv..147....3P). [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1175/MWR-D-18-0146.1](https://doi.org/10.1175%2FMWR-D-18-0146.1). [ISSN](https://en.wikipedia.org/wiki/ISSN_(identifier) "ISSN (identifier)")[1520-0493](https://search.worldcat.org/issn/1520-0493). [S2CID](https://en.wikipedia.org/wiki/S2CID_(identifier) "S2CID (identifier)")[125214770](https://api.semanticscholar.org/CorpusID:125214770). [Archived](https://web.archive.org/web/20220607041035/https://journals.ametsoc.org/view/journals/mwre/147/1/mwr-d-18-0146.1.xml) from the original on 2022-06-07. Retrieved 2022-06-07.
-5.   **[^](https://en.wikipedia.org/wiki/Interpolation#cite_ref-5)**Stern, Ari; Tong, Yiying; Desbrun, Mathieu; Marsden, Jerrold E. (2015), Chang, Dong Eui; Holm, Darryl D.; Patrick, George; Ratiu, Tudor (eds.), ["Geometric Computational Electrodynamics with Variational Integrators and Discrete Differential Forms"](http://link.springer.com/10.1007/978-1-4939-2441-7_19), _Geometry, Mechanics, and Dynamics_, Fields Institute Communications, vol.73, New York, NY: Springer New York, pp.437–475, [arXiv](https://en.wikipedia.org/wiki/ArXiv_(identifier) "ArXiv (identifier)"):[0707.4470](https://arxiv.org/abs/0707.4470), [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1007/978-1-4939-2441-7_19](https://doi.org/10.1007%2F978-1-4939-2441-7_19), [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) "ISBN (identifier)")[978-1-4939-2440-0](https://en.wikipedia.org/wiki/Special:BookSources/978-1-4939-2440-0 "Special:BookSources/978-1-4939-2440-0"), [S2CID](https://en.wikipedia.org/wiki/S2CID_(identifier) "S2CID (identifier)")[15194760](https://api.semanticscholar.org/CorpusID:15194760), retrieved 2022-06-15
-6.   **[^](https://en.wikipedia.org/wiki/Interpolation#cite_ref-6)**Jones, Philip (1999). ["First- and Second-Order Conservative Remapping Schemes for Grids in Spherical Coordinates"](https://doi.org/10.1175%2F1520-0493%281999%29127%3C2204%3AFASOCR%3E2.0.CO%3B2). _Monthly Weather Review_. **127** (9): 2204–2210. [Bibcode](https://en.wikipedia.org/wiki/Bibcode_(identifier) "Bibcode (identifier)"):[1999MWRv..127.2204J](https://ui.adsabs.harvard.edu/abs/1999MWRv..127.2204J). [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1175/1520-0493(1999)127<2204:FASOCR>2.0.CO;2](https://doi.org/10.1175%2F1520-0493%281999%29127%3C2204%3AFASOCR%3E2.0.CO%3B2). [S2CID](https://en.wikipedia.org/wiki/S2CID_(identifier) "S2CID (identifier)")[122744293](https://api.semanticscholar.org/CorpusID:122744293).
-7.   **[^](https://en.wikipedia.org/wiki/Interpolation#cite_ref-7)**Hall, Charles A.; Meyer, Weston W. (1976). ["Optimal Error Bounds for Cubic Spline Interpolation"](https://doi.org/10.1016%2F0021-9045%2876%2990040-X). _Journal of Approximation Theory_. **16** (2): 105–122. [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1016/0021-9045(76)90040-X](https://doi.org/10.1016%2F0021-9045%2876%2990040-X).
-8.   **[^](https://en.wikipedia.org/wiki/Interpolation#cite_ref-8)**Donald, Shepard (1968). "A two-dimensional interpolation function for irregularly-spaced data". _23rd ACM National Conference_.
-9.   **[^](https://en.wikipedia.org/wiki/Interpolation#cite_ref-9)**Ben Moshe, Nir (2025). ["A Simple Solution for the Inverse Distance Weighting Interpolation (IDW) Clustering Problem"](https://doi.org/10.3390%2Fsci7010030). _Sci_. **7** (1): 30. [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.3390/sci7010030](https://doi.org/10.3390%2Fsci7010030).
-10.   **[^](https://en.wikipedia.org/wiki/Interpolation#cite_ref-10)**Whitney, Hassler (1957). _Geometric Integration Theory_. Dover Books on Mathematics. [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) "ISBN (identifier)")[978-0486445830](https://en.wikipedia.org/wiki/Special:BookSources/978-0486445830 "Special:BookSources/978-0486445830").
-11.   **[^](https://en.wikipedia.org/wiki/Interpolation#cite_ref-11)**Pletzer, Alexander; Fillmore, David (2015). ["Conservative interpolation of edge and face data on n dimensional structured grids using differential forms"](https://doi.org/10.1016%2Fj.jcp.2015.08.029). _Journal of Computational Physics_. **302**: 21–40. [Bibcode](https://en.wikipedia.org/wiki/Bibcode_(identifier) "Bibcode (identifier)"):[2015JCoPh.302...21P](https://ui.adsabs.harvard.edu/abs/2015JCoPh.302...21P). [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1016/j.jcp.2015.08.029](https://doi.org/10.1016%2Fj.jcp.2015.08.029).
-12.   **[^](https://en.wikipedia.org/wiki/Interpolation#cite_ref-12)**Crochiere, Ronald E.; Rabiner, Lawrence R. (1983). _R.E. Crochiere and L.R. Rabiner. (1983). Multirate Digital Signal Processing. Englewood Cliffs, NJ: Prentice–Hall_. Prentice-Hall. [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) "ISBN (identifier)")[0136051626](https://en.wikipedia.org/wiki/Special:BookSources/0136051626 "Special:BookSources/0136051626").
-13.   **[^](https://en.wikipedia.org/wiki/Interpolation#cite_ref-13)**Colin Bennett, Robert C. Sharpley, _Interpolation of Operators_, Academic Press 1988
+{{ cite book }} :  CS1 maint: location missing publisher ( link ) ^ Kress, Rainer (1998).
 
-*   Online tools for [linear](http://tools.timodenk.com/linear-interpolation)[Archived](https://web.archive.org/web/20160918103516/http://tools.timodenk.com/linear-interpolation) 2016-09-18 at the [Wayback Machine](https://en.wikipedia.org/wiki/Wayback_Machine "Wayback Machine"), [quadratic](http://tools.timodenk.com/quadratic-interpolation)[Archived](https://web.archive.org/web/20160918102633/http://tools.timodenk.com/quadratic-interpolation) 2016-09-18 at the [Wayback Machine](https://en.wikipedia.org/wiki/Wayback_Machine "Wayback Machine"), [cubic spline](http://tools.timodenk.com/cubic-spline-interpolation)[Archived](https://web.archive.org/web/20160820175607/http://tools.timodenk.com/cubic-spline-interpolation) 2016-08-20 at the [Wayback Machine](https://en.wikipedia.org/wiki/Wayback_Machine "Wayback Machine"), and [polynomial](http://tools.timodenk.com/polynomial-interpolation)[Archived](https://web.archive.org/web/20160918102129/http://tools.timodenk.com/polynomial-interpolation) 2016-09-18 at the [Wayback Machine](https://en.wikipedia.org/wiki/Wayback_Machine "Wayback Machine") interpolation with visualisation and [JavaScript](https://en.wikipedia.org/wiki/JavaScript "JavaScript") source code.
-*   [Sol Tutorials - Interpolation Tricks](http://sol.gfxile.net/interpolation/index.html)[Archived](https://web.archive.org/web/20210131063823/http://sol.gfxile.net/interpolation/index.html) 2021-01-31 at the [Wayback Machine](https://en.wikipedia.org/wiki/Wayback_Machine "Wayback Machine")
-*   [Barycentric rational interpolation in Boost.Math](http://www.boost.org/doc/libs/release/libs/math/doc/html/math_toolkit/barycentric.html)
-*   [Interpolation via the Chebyshev transform in Boost.Math](http://www.boost.org/doc/libs/release/libs/math/doc/html/math_toolkit/sf_poly/chebyshev.html)
+Numerical Analysis . Springer.
+
+ISBN 9781461205999 .
+
+^ Pletzer, Alexander; Hayek, Wolfgang (2019-01-01).
+
+"Mimetic Interpolation of Vector Fields on Arakawa C/D Grids" .
+
+Monthly Weather Review .
+
+147 (1): 3– 16.
+
+Bibcode : 2019MWRv..147....3P .
+
+doi : 10.1175/MWR-D-18-0146.1 .
+
+ISSN 1520-0493 .
+
+S2CID 125214770 .
+
+Archived from the original on 2022-06-07 . Retrieved 2022-06-07 .
+
+^ Stern, Ari; Tong, Yiying; Desbrun, Mathieu; Marsden, Jerrold E. (2015), Chang, Dong Eui; Holm, Darryl D.; Patrick, George; Ratiu, Tudor (eds.), "Geometric Computational Electrodynamics with Variational Integrators and Discrete Differential Forms" , Geometry, Mechanics, and Dynamics , Fields Institute Communications, vol. 73, New York, NY: Springer New York, pp.
+
+437– 475, arXiv : 0707.4470 , doi : 10.1007/978-1-4939-2441-7_19 , ISBN 978-1-4939-2440-0 , S2CID 15194760 , retrieved 2022-06-15 ^ Jones, Philip (1999).
+
+"First- and Second-Order Conservative Remapping Schemes for Grids in Spherical Coordinates" .
+
+Monthly Weather Review .
+
+127 (9): 2204– 2210.
+
+Bibcode : 1999MWRv..127.2204J .
+
+doi : 10.1175/1520-0493(1999)127<2204:FASOCR>2.0.CO;2 .
+
+S2CID 122744293 .
+
+^ Hall, Charles A.; Meyer, Weston W. (1976).
+
+"Optimal Error Bounds for Cubic Spline Interpolation" .
+
+Journal of Approximation Theory .
+
+16 (2): 105– 122.
+
+doi : 10.1016/0021-9045(76)90040-X .
+
+^ Donald, Shepard (1968). "A two-dimensional interpolation function for irregularly-spaced data".
+
+23rd ACM National Conference .
+
+^ Ben Moshe, Nir (2025).
+
+"A Simple Solution for the Inverse Distance Weighting Interpolation (IDW) Clustering Problem" .
+
+Sci .
+
+7 (1): 30.
+
+doi : 10.3390/sci7010030 .
+
+^ Whitney, Hassler (1957).
+
+Geometric Integration Theory . Dover Books on Mathematics.
+
+ISBN 978-0486445830 .
+
+{{ cite book }} : ISBN / Date incompatibility ( help ) ^ Pletzer, Alexander; Fillmore, David (2015).
+
+"Conservative interpolation of edge and face data on n dimensional structured grids using differential forms" .
+
+Journal of Computational Physics .
+
+302 : 21– 40.
+
+Bibcode : 2015JCoPh.302...21P .
+
+doi : 10.1016/j.jcp.2015.08.029 .
+
+^ Crochiere, Ronald E.; Rabiner, Lawrence R. (1983).
+
+R.E. Crochiere and L.R. Rabiner. (1983). Multirate Digital Signal Processing. Englewood Cliffs, NJ: Prentice–Hall . Prentice-Hall.
+
+ISBN 0136051626 .
+
+^ Colin Bennett, Robert C. Sharpley, Interpolation of Operators , Academic Press 1988 External links [ edit ] Wikimedia Commons has media related to Interpolation .
+
+Online tools for linear Archived 2016-09-18 at the Wayback Machine , quadratic Archived 2016-09-18 at the Wayback Machine , cubic spline Archived 2016-08-20 at the Wayback Machine , and polynomial Archived 2016-09-18 at the Wayback Machine interpolation with visualisation and JavaScript source code.
+
+Sol Tutorials - Interpolation Tricks Archived 2021-01-31 at the Wayback Machine Barycentric rational interpolation in Boost.Math Interpolation via the Chebyshev transform in Boost.Math Authority control databases National United States France BnF data Czech Republic Israel Other Yale LUX NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐sn5h6
+Cached time: 20250812014115
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.423 seconds
+Real time usage: 0.673 seconds
+Preprocessor visited node count: 2440/1000000
+Revision size: 23982/2097152 bytes
+Post‐expand include size: 51250/2097152 bytes
+Template argument size: 2241/2097152 bytes
+Highest expansion depth: 14/100
+Expensive parser function count: 10/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 62098/5000000 bytes
+Lua time usage: 0.263/10.000 seconds
+Lua memory usage: 6621265/52428800 bytes
+Number of Wikibase entities loaded: 1/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  449.081      1 -total
+ 32.77%  147.148      1 Template:Reflist
+ 16.97%   76.203      1 Template:Authority_control
+ 15.89%   71.362      1 Template:Cite_EB1911
+ 12.45%   55.903      1 Template:Short_description
+ 10.77%   48.352      1 Template:Commons_category
+ 10.43%   46.823      1 Template:Sister_project
+ 10.16%   45.613      1 Template:Side_box
+ 10.12%   45.449      1 Template:More_footnotes
+  8.92%   40.067      1 Template:Ambox Saved in parser cache with key enwiki:pcache:14569:|#|:idhash:canonical and timestamp 20250812014115 and revision id 1301081018. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Interpolation&oldid=1301081018 " Categories : Interpolation Video Video signal Hidden categories: Wikipedia articles incorporating a citation from the 1911 Encyclopaedia Britannica with Wikisource reference CS1 maint: location missing publisher CS1 errors: ISBN date Articles with short description Short description is different from Wikidata Articles lacking in-text citations from October 2016 All articles lacking in-text citations Commons category link from Wikidata Webarchive template wayback links This page was last edited on 18 July 2025, at 00:32 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Interpolation 49 languages Add topic
+

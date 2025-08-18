@@ -1,0 +1,379 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Introduction 2 History 3 Computation of the critical parameter 4 Phases Toggle Phases subsection 4.1 Subcritical and supercritical 4.2 Criticality 5 Different models 6 Applications Toggle Applications subsection 6.1 In biology, biochemistry, and physical virology 6.2 In ecology 7 See also 8 References Toggle References subsection 8.1 Further reading 9 External links Toggle the table of contents Percolation theory 13 languages العربية Azərbaycanca Deutsch Español فارسی Français Italiano עברית മലയാളം Português Русский Українська 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Mathematical theory on behavior of connected clusters in a random graph Part of a series on Network science Theory Graph Complex network Contagion Small-world Scale-free Community structure Percolation Evolution Controllability Graph drawing Social capital Link analysis Optimization Reciprocity Closure Homophily Transitivity Preferential attachment Balance theory Network effect Social influence Network types Informational (computing) Telecommunication Transport Social Scientific collaboration Biological Artificial neural Interdependent Semantic Spatial Dependency Flow on-Chip Graphs Features Clique Component Cut Cycle Data structure Edge Loop Neighborhood Path Vertex Adjacency list / matrix Incidence list / matrix Types Bipartite Complete Directed Hyper Labeled Multi Random Weighted Metrics Algorithms Centrality Degree Motif Clustering Degree distribution Assortativity Distance Modularity Efficiency Models Topology Random graph Erdős–Rényi Barabási–Albert Bianconi–Barabási Fitness model Watts–Strogatz Exponential random (ERGM) Random geometric (RGG) Hyperbolic (HGN) Hierarchical Stochastic block Blockmodeling Maximum entropy Soft configuration LFR Benchmark Dynamics Boolean network agent based Epidemic / SIR Lists Categories Topics Software Network scientists Category:Network theory Category:Graph theory v t e In statistical physics and mathematics , percolation theory describes the behavior of a network when nodes or links are added. This is a geometric type of phase transition , since at a critical fraction of addition the network of small, disconnected clusters merge into significantly larger connected , so-called spanning clusters. The applications of percolation theory to materials science and in many other disciplines are discussed here and in the articles Network theory and Percolation (cognitive psychology) .
+
+Introduction [ edit ] A three-dimensional site percolation graph Bond percolation in a square lattice from p=0.3 to p=0.52 A representative question (and the source of the name) is as follows. Assume that some liquid is poured on top of some porous material. Will the liquid be able to make its way from hole to hole and reach the bottom? This physical question is modelled mathematically as a three-dimensional network of n × n × n vertices , usually called "sites", in which the edge or "bonds" between each two neighbors may be open (allowing the liquid through) with probability p , or closed with probability 1 – p , and they are assumed to be independent. Therefore, for a given p , what is the probability that an open path (meaning a path, each of whose links is an "open" bond) exists from the top to the bottom? The behavior for large n is of primary interest. This problem, called now bond percolation , was introduced in the mathematics literature by Broadbent & Hammersley (1957) , [ 1 ] and has been studied intensively by mathematicians and physicists since then.
+
+In a slightly different mathematical model for obtaining a random graph, a site is "occupied" with probability p or "empty" (in which case its edges are removed) with probability 1 – p ; the corresponding problem is called site percolation . The question is the same: for a given p , what is the probability that a path exists between top and bottom? Similarly, one can ask, given a connected graph at what fraction 1 – p of failures the graph will become disconnected (no large component).
+
+A 3D tube network percolation determination The same questions can be asked for any lattice dimension. As is quite typical, it is actually easier to examine infinite networks than just large ones. In this case the corresponding question is: does an infinite open cluster exist? That is, is there a path of connected points of infinite length "through" the network?  By Kolmogorov's zero–one law , for any given p , the probability that an infinite cluster exists is either zero or one. Since this probability is an increasing function of p (proof via coupling argument), there must be a critical p (denoted by p c ) below which the probability is always 0 and above which the probability is always 1. In practice, this criticality is very easy to observe. Even for n as small as 100, the probability of an open path from the top to the bottom increases sharply from very close to zero to very close to one in a short span of values of p .
+
+Detail of a bond percolation on the square lattice in two dimensions with percolation probability p = 0.51 History [ edit ] The Flory–Stockmayer theory was the first theory investigating percolation processes.
+
+[ 2 ] The history of the percolation model as we know it has its root in the coal industry. Since the industrial revolution, the economical importance of this source of energy fostered many scientific studies to understand its composition and optimize its use. During the 1930s and 1940s, the qualitative analysis by organic chemistry left more and more room to more quantitative studies.
+
+[ 3 ] In this context, the British Coal Utilisation Research Association (BCURA) was created in 1938. It was a research association funded by the coal mines owners. In 1942, Rosalind Franklin , who then recently graduated in chemistry from the university of Cambridge, joined the BCURA. She started research on the density and porosity of coal. During the Second World War, coal was an important strategic resource. It was used as a source of energy, but also was the main constituent of gas masks.
+
+Coal is a porous medium. To measure its 'real' density, one was to sink it in a liquid or a gas whose molecules are small enough to fill its microscopic pores. While trying to measure the density of coal using several gases (helium, methanol, hexane, benzene), and as she found different values depending on the gas used, Rosalind Franklin showed that the pores of coal are made of microstructures of various lengths that act as a microscopic sieve to discriminate the gases. She also discovered that the size of these structures depends on the temperature of carbonation during the coal production. With this research, she obtained a PhD degree and left the BCURA in 1946.
+
+[ 4 ] In the mid fifties, Simon Broadbent worked in the BCURA as a statistician. Among other interests, he studied the use of coal in gas masks. One question is to understand how a fluid can diffuse in the coal pores, modeled as a random maze of open or closed tunnels. In 1954, during a symposium on Monte Carlo methods , he asks questions to John Hammersley on the use of numerical methods to analyze this model.
+
+[ 5 ] Broadbent and Hammersley introduced in their article of 1957 a mathematical model to model this phenomenon, that is percolation.
+
+Computation of the critical parameter [ edit ] For most infinite lattice graphs, p c cannot be calculated exactly, though in some cases p c there is an exact value. For example: for the square lattice ℤ 2 in two dimensions, p c = ⁠ 1 / 2 ⁠ for bond percolation, a fact which was an open question for more than 20 years and was finally resolved by Harry Kesten in the early 1980s, [ 6 ] see Kesten (1982) . For site percolation on the square lattice, the value of p c is not known from analytic derivation but only via simulations of large lattices which provide the estimate p c = 0.59274621 ± 0.00000013.
+
+[ 7 ] A limit case for lattices in high dimensions is given by the Bethe lattice , whose threshold is at p c = ⁠ 1 / z − 1 ⁠ for a coordination number z . In other words: for the regular tree of degree z {\displaystyle z} , p c {\displaystyle p_{c}} is equal to 1 / ( z − − 1 ) {\displaystyle 1/(z-1)} .
+
+Percolation front For a random tree-like network without degree-degree correlation, it can be shown that such network can have a giant component , and the percolation threshold (transmission probability) is given by p c = 1 g 1 ′ ( 1 ) {\displaystyle p_{c}={\frac {1}{g_{1}'(1)}}} ,  where g 1 ( z ) {\displaystyle g_{1}(z)} is the generating function corresponding to the excess degree distribution . So, for random Erdős–Rényi networks of average degree ⟨ ⟨ k ⟩ ⟩ {\displaystyle \langle k\rangle } , p c = ⁠ 1 / ⟨k⟩ ⁠ .
+
+[ 8 ] [ 9 ] [ 10 ] In networks with low clustering , 0 < C ≪ ≪ 1 {\displaystyle 0<C\ll 1} , the critical point gets scaled by ( 1 − − C ) − − 1 {\displaystyle (1-C)^{-1}} such that: p c = 1 1 − − C 1 g 1 ′ ( 1 ) .
+
+{\displaystyle p_{c}={\frac {1}{1-C}}{\frac {1}{g_{1}'(1)}}.} [ 11 ] This indicates that for a given degree distribution, the clustering leads to a larger percolation threshold, mainly because for a fixed number of links, the clustering structure reinforces the core of the network with the price of diluting the global connections. For networks with high clustering, strong clustering could induce the core–periphery structure, in which the core and periphery might percolate at different critical points, and the above approximate treatment is not applicable.
+
+[ 12 ] Phases [ edit ] Subcritical and supercritical [ edit ] The main fact in the subcritical phase is "exponential decay". That is, when p < p c , the probability that a specific point (for example, the origin) is contained in an open cluster (meaning a maximal connected set of "open" edges of the graph) of size r decays to zero exponentially in r . This was proved for percolation in three and more dimensions by Menshikov (1986) and independently by Aizenman & Barsky (1987) . In two dimensions, it formed part of Kesten's proof that p c = ⁠ 1 / 2 ⁠ .
+
+[ 13 ] The dual graph of the square lattice ℤ 2 is also the square lattice. It follows that, in two dimensions, the supercritical phase is dual to a subcritical percolation process. This provides essentially full information about the supercritical model with d = 2 . The main result for the supercritical phase in three and more dimensions is that,  for sufficiently large N , there is almost certainly an infinite open cluster in the two-dimensional slab ℤ 2 × [0, N ] d − 2 . This was proved by Grimmett & Marstrand (1990) .
+
+[ 14 ] In two dimensions with p < ⁠ 1 / 2 ⁠ , there is with probability one a unique infinite closed cluster (a closed cluster is a maximal connected set of "closed" edges of the graph). Thus the subcritical phase may be described as finite open islands in an infinite closed ocean. When p > ⁠ 1 / 2 ⁠ just the opposite occurs, with finite closed islands in an infinite open ocean. The picture is more complicated when d ≥ 3 since p c < ⁠ 1 / 2 ⁠ , and there is coexistence of infinite open and closed clusters for p between p c and 1 − p c .
+
+Criticality [ edit ] Zoom in a critical percolation cluster (Click to animate) Percolation has a singularity at the critical point p = p c and many properties behave as of a power-law with p − − p c {\displaystyle p-p_{c}} , near p c {\displaystyle p_{c}} .
+
+Scaling theory predicts the existence of critical exponents , depending on the number d of dimensions, that determine the class of the singularity. When d = 2 these predictions are backed up by arguments from conformal field theory and Schramm–Loewner evolution , and include predicted numerical values for the exponents. Most of these predictions are conjectural except when the number d of dimensions satisfies either d = 2 or d ≥ 6 . They include: There are no infinite clusters (open or closed) The probability that there is an open path from some fixed point (say the origin) to a distance of r decreases polynomially , i.e. is on the order of r α for some α α does not depend on the particular lattice chosen, or on other local parameters. It depends only on the dimension d (this is an instance of the universality principle).
+
+α d decreases from d = 2 until d = 6 and then stays fixed.
+
+α 2 = − ⁠ 5 / 48 ⁠ α 6 = −1 .
+
+The shape of a large cluster in two dimensions is conformally invariant .
+
+See Grimmett (1999) .
+
+[ 15 ] In 11 or more dimensions, these facts are largely proved using a technique known as the lace expansion . It is believed that a version of the lace expansion should be valid for 7 or more dimensions, perhaps with implications also for the threshold case of 6 dimensions.  The connection of percolation to the lace expansion is found in Hara & Slade (1990) .
+
+[ 16 ] In two dimensions, the first fact ("no percolation in the critical phase") is proved for many lattices, using duality. Substantial progress has been made on two-dimensional percolation through the conjecture of Oded Schramm that the scaling limit of a large cluster may be described in terms of a Schramm–Loewner evolution . This conjecture was proved by Smirnov (2001) [ 17 ] in the special case of site percolation on the triangular lattice.
+
+Different models [ edit ] Directed percolation that models the effect of gravitational forces acting on the liquid was also introduced in Broadbent & Hammersley (1957) , [ 1 ] and has connections with the contact process .
+
+The first model studied was Bernoulli percolation. In this model all bonds are independent.  This model is called bond percolation by physicists.
+
+A generalization was next introduced as the Fortuin–Kasteleyn random cluster model , which has many connections with the Ising model and other Potts models .
+
+Bernoulli (bond) percolation on complete graphs is an example of a random graph .  The critical probability is p = ⁠ 1 / N ⁠ , where N is the number of vertices (sites) of the graph.
+
+Bootstrap percolation removes active cells from clusters when they have too few active neighbors, and looks at the connectivity of the remaining cells.
+
+[ 18 ] First passage percolation .
+
+Invasion percolation .
+
+Applications [ edit ] In biology, biochemistry, and physical virology [ edit ] Percolation theory has been used to successfully predict the fragmentation of biological virus shells (capsids), [ 19 ] [ 20 ] with the fragmentation threshold of Hepatitis B virus capsid predicted and detected experimentally.
+
+[ 21 ] When a critical number of subunits has been randomly removed from the nanoscopic shell, it fragments and this fragmentation may be detected using Charge Detection Mass Spectroscopy (CDMS) among other single-particle techniques.  This is a molecular analog to the common board game Jenga , and has relevance to the broader study of virus disassembly.  More stable viral particles (tilings with greater fragmentation thresholds) are found in greater abundance in nature.
+
+[ 19 ] In ecology [ edit ] Percolation theory has been applied to studies of how environment fragmentation impacts animal habitats [ 22 ] and models of how the plague bacterium Yersinia pestis spreads.
+
+[ 23 ] See also [ edit ] Bunkbed conjecture – Conjecture in probabilistic combinatorics Continuum percolation theory Critical exponent – Parameter describing physics near critical points Directed percolation – Physical models of filtering under forces such as gravity Erdős–Rényi model – Two closely related models for generating random graphs Fractal – Infinitely detailed mathematical structure Giant component – Large connected component of a random graph Graph theory – Area of discrete mathematics Interdependent networks – Subfield of network science Invasion percolation Kahn–Kalai conjecture – Mathematical proposition Network theory – Study of graphs as a representation of relations between discrete objects Network science – Academic field Percolation threshold – Threshold of percolation theory models Percolation critical exponents – Mathematical parameter in percolation theory Scale-free network – Network whose degree distribution follows a power law Shortest path problem – Computational problem of graph theory References [ edit ] ^ a b Broadbent, Simon; Hammersley, John (1957). "Percolation processes I. Crystals and mazes".
+
+Mathematical Proceedings of the Cambridge Philosophical Society .
+
+53 (3): 629– 641.
+
+Bibcode : 1957PCPS...53..629B .
+
+doi : 10.1017/S0305004100032680 .
+
+ISSN 0305-0041 .
+
+S2CID 84176793 .
+
+^ Sahini, M.; Sahimi, M. (2003-07-13).
+
+Applications Of Percolation Theory . CRC Press.
+
+ISBN 978-0-203-22153-2 .
+
+Archived from the original on 2023-02-04 . Retrieved 2020-10-27 .
+
+^ van Krevelen, Dirk W (1982). "Development of coal research—a review".
+
+Fuel .
+
+61 (9): 786– 790.
+
+doi : 10.1016/0016-2361(82)90304-0 .
+
+^ The rosalind franklin papers - the holes in coal: Research at BCURA and in Paris, 1942-1951.
+
+https://profiles.nlm.nih.gov/spotlight/kr/feature/coal Archived 2022-07-07 at the Wayback Machine . Accessed: 2022-01-17.
+
+^ Hammersley, JM; Welsh, DJA (1980). "Percolation theory and its ramifications".
+
+Contemporary Physics .
+
+21 (6): 593– 605.
+
+Bibcode : 1980ConPh..21..593H .
+
+doi : 10.1080/00107518008210661 .
+
+^ Bollobás, Béla; Riordan, Oliver (2006). "Sharp thresholds and percolation in the plane".
+
+Random Structures and Algorithms .
+
+29 (4): 524– 548.
+
+arXiv : math/0412510 .
+
+doi : 10.1002/rsa.20134 .
+
+ISSN 1042-9832 .
+
+S2CID 7342807 .
+
+^ MEJ Newman; RM Ziff (2000). "Efficient Monte Carlo algorithm and high-precision results for percolation".
+
+Physical Review Letters .
+
+85 (19): 4104– 4107.
+
+arXiv : cond-mat/0005264 .
+
+Bibcode : 2000PhRvL..85.4104N .
+
+doi : 10.1103/physrevlett.85.4104 .
+
+PMID 11056635 .
+
+S2CID 747665 .
+
+^ Erdős, P. & Rényi, A. (1959). "On random graphs I.".
+
+Publ. Math.
+
+(6): 290– 297.
+
+^ Erdős, P. & Rényi, A. (1960). "The evolution of random graphs".
+
+Publ. Math. Inst. Hung. Acad. Sci.
+
+(5): 17– 61.
+
+^ Bolloba's, B. (1985). "Random Graphs".
+
+Academic .
+
+^ Berchenko, Yakir; Artzy-Randrup, Yael; Teicher, Mina; Stone, Lewi (2009-03-30).
+
+"Emergence and Size of the Giant Component in Clustered Random Graphs with a Given Degree Distribution" .
+
+Physical Review Letters .
+
+102 (13): 138701.
+
+Bibcode : 2009PhRvL.102m8701B .
+
+doi : 10.1103/PhysRevLett.102.138701 .
+
+ISSN 0031-9007 .
+
+PMID 19392410 .
+
+Archived from the original on 2023-02-04 . Retrieved 2022-02-24 .
+
+^ Li, Ming; Liu, Run-Ran; Lü, Linyuan; Hu, Mao-Bin; Xu, Shuqi; Zhang, Yi-Cheng (2021-04-25).
+
+"Percolation on complex networks: Theory and application" .
+
+Physics Reports . Percolation on complex networks: Theory and application.
+
+907 : 1– 68.
+
+arXiv : 2101.11761 .
+
+Bibcode : 2021PhR...907....1L .
+
+doi : 10.1016/j.physrep.2020.12.003 .
+
+ISSN 0370-1573 .
+
+S2CID 231719831 .
+
+^ Kesten, Harry (1982).
+
+Percolation Theory for Mathematicians . Birkhauser.
+
+doi : 10.1007/978-1-4899-2730-9 .
+
+ISBN 978-0-8176-3107-9 .
+
+^ Grimmett, Geoffrey ; Marstrand, John (1990). "The Supercritical Phase of Percolation is Well Behaved".
+
+Proceedings of the Royal Society A: Mathematical, Physical and Engineering Sciences .
+
+430 (1879): 439– 457.
+
+Bibcode : 1990RSPSA.430..439G .
+
+doi : 10.1098/rspa.1990.0100 .
+
+ISSN 1364-5021 .
+
+S2CID 122534964 .
+
+^ Grimmett, Geoffrey (1999).
+
+Percolation . Grundlehren der mathematischen Wissenschaften. Vol. 321. Berlin: Springer.
+
+doi : 10.1007/978-3-662-03981-6 .
+
+ISBN 978-3-642-08442-3 .
+
+ISSN 0072-7830 .
+
+Archived from the original on 2020-02-23 . Retrieved 2009-04-18 .
+
+^ Hara, Takashi; Slade, Gordon (1990).
+
+"Mean-field critical behaviour for percolation in high dimensions" .
+
+Communications in Mathematical Physics .
+
+128 (2): 333– 391.
+
+Bibcode : 1990CMaPh.128..333H .
+
+doi : 10.1007/BF02108785 .
+
+ISSN 0010-3616 .
+
+S2CID 119875060 .
+
+Archived from the original on 2021-02-24 . Retrieved 2022-10-30 .
+
+^ Smirnov, Stanislav (2001). "Critical percolation in the plane: conformal invariance, Cardy's formula, scaling limits".
+
+Comptes Rendus de l'Académie des Sciences . I.
+
+333 (3): 239– 244.
+
+arXiv : 0909.4499 .
+
+Bibcode : 2001CRASM.333..239S .
+
+CiteSeerX 10.1.1.246.2739 .
+
+doi : 10.1016/S0764-4442(01)01991-7 .
+
+ISSN 0764-4442 .
+
+^ Adler, Joan (1991), "Bootstrap percolation", Physica A: Statistical Mechanics and Its Applications , 171 (3): 453– 470, Bibcode : 1991PhyA..171..453A , doi : 10.1016/0378-4371(91)90295-n .
+
+^ a b Brunk, Nicholas E.; Twarock, Reidun (2021).
+
+"Percolation Theory Reveals Biophysical Properties of Virus-like Particles" .
+
+ACS Nano .
+
+15 (8). American Chemical Society (ACS): 12988– 12995.
+
+doi : 10.1021/acsnano.1c01882 .
+
+ISSN 1936-0851 .
+
+PMC 8397427 .
+
+PMID 34296852 .
+
+^ Brunk, N. E.; Lee, L. S.; Glazier, J. A.; Butske, W.; Zlotnick, A. (2018).
+
+"Molecular Jenga: the percolation phase transition (collapse) in virus capsids" .
+
+Physical Biology .
+
+15 (5): 056005.
+
+Bibcode : 2018PhBio..15e6005B .
+
+doi : 10.1088/1478-3975/aac194 .
+
+PMC 6004236 .
+
+PMID 29714713 .
+
+^ Lee, L. S.; Brunk, N.; Haywood, D. G.; Keifer, D.; Pierson, E.; Kondylis, P.; Zlotnick, A. (2017).
+
+"A molecular breadboard: Removal and replacement of subunits in a hepatitis B virus capsid" .
+
+Protein Science .
+
+26 (11): 2170– 2180.
+
+doi : 10.1002/pro.3265 .
+
+PMC 5654856 .
+
+PMID 28795465 .
+
+^ Boswell, G. P.; Britton, N. F.; Franks, N. R. (1998-10-22).
+
+"Habitat fragmentation, percolation theory and the conservation of a keystone species" .
+
+Proceedings of the Royal Society of London B: Biological Sciences .
+
+265 (1409): 1921– 1925.
+
+doi : 10.1098/rspb.1998.0521 .
+
+ISSN 0962-8452 .
+
+PMC 1689475 .
+
+^ Davis, S.; Trapman, P.; Leirs, H.; Begon, M.; Heesterbeek, J. a. P. (2008-07-31). "The abundance threshold for plague as a critical percolation phenomenon".
+
+Nature .
+
+454 (7204): 634– 637.
+
+Bibcode : 2008Natur.454..634D .
+
+doi : 10.1038/nature07053 .
+
+hdl : 1874/29683 .
+
+ISSN 1476-4687 .
+
+PMID 18668107 .
+
+S2CID 4425203 .
+
+Aizenman, Michael ; Barsky, David (1987), "Sharpness of the phase transition in percolation models" , Communications in Mathematical Physics , 108 (3): 489– 526, Bibcode : 1987CMaPh.108..489A , doi : 10.1007/BF01212322 , S2CID 35592821 Menshikov, Mikhail (1986), "Coincidence of critical points in percolation problems", Soviet Mathematics - Doklady , 33 : 856– 859 Further reading [ edit ] Malthe-Sørenssen, Anders (2024).
+
+Percolation Theory Using Python .
+
+ISBN 978-3-031-59900-2 .
+
+Austin, David (July 2008).
+
+"Percolation: Slipping through the Cracks" . American Mathematical Society.
+
+Archived from the original on 2009-11-13 . Retrieved 2021-04-28 .
+
+Kesten, Harry (May 2006).
+
+"What Is ... Percolation?" (PDF) .
+
+Notices of the American Mathematical Society .
+
+53 (5): 572– 573.
+
+ISSN 1088-9477 .
+
+Archived (PDF) from the original on 2021-05-02 . Retrieved 2021-04-28 .
+
+External links [ edit ] PercoVIS: a macOS program to visualize percolation on networks in real time Interactive Percolation Nanohub online course on Percolation Theory v t e Stochastic processes Discrete time Bernoulli process Branching process Chinese restaurant process Galton–Watson process Independent and identically distributed random variables Markov chain Moran process Random walk Loop-erased Self-avoiding Biased Maximal entropy Continuous time Additive process Airy process Bessel process Birth–death process pure birth Brownian motion Bridge Dyson Excursion Fractional Geometric Meander Cauchy process Contact process Continuous-time random walk Cox process Diffusion process Empirical process Feller process Fleming–Viot process Gamma process Geometric process Hawkes process Hunt process Interacting particle systems Itô diffusion Itô process Jump diffusion Jump process Lévy process Local time Markov additive process McKean–Vlasov process Ornstein–Uhlenbeck process Poisson process Compound Non-homogeneous Quasimartingale Schramm–Loewner evolution Semimartingale Sigma-martingale Stable process Superprocess Telegraph process Variance gamma process Wiener process Wiener sausage Both Branching process Gaussian process Hidden Markov model (HMM) Markov process Martingale Differences Local Sub- Super- Random dynamical system Regenerative process Renewal process Stochastic chains with memory of variable length White noise Fields and other Dirichlet process Gaussian random field Gibbs measure Hopfield model Ising model Potts model Boolean network Markov random field Percolation Pitman–Yor process Point process Cox Determinantal Poisson Random field Random graph Time series models Autoregressive conditional heteroskedasticity (ARCH) model Autoregressive integrated moving average (ARIMA) model Autoregressive (AR) model Autoregressive–moving-average (ARMA) model Generalized autoregressive conditional heteroskedasticity (GARCH) model Moving-average (MA) model Financial models Binomial options pricing model Black–Derman–Toy Black–Karasinski Black–Scholes Chan–Karolyi–Longstaff–Sanders (CKLS) Chen Constant elasticity of variance (CEV) Cox–Ingersoll–Ross (CIR) Garman–Kohlhagen Heath–Jarrow–Morton (HJM) Heston Ho–Lee Hull–White Korn-Kreer-Lenssen LIBOR market Rendleman–Bartter SABR volatility Vašíček Wilkie Actuarial models Bühlmann Cramér–Lundberg Risk process Sparre–Anderson Queueing models Bulk Fluid Generalized queueing network M/G/1 M/M/1 M/M/c Properties Càdlàg paths Continuous Continuous paths Ergodic Exchangeable Feller-continuous Gauss–Markov Markov Mixing Piecewise-deterministic Predictable Progressively measurable Self-similar Stationary Time-reversible Limit theorems Central limit theorem Donsker's theorem Doob's martingale convergence theorems Ergodic theorem Fisher–Tippett–Gnedenko theorem Large deviation principle Law of large numbers (weak/strong) Law of the iterated logarithm Maximal ergodic theorem Sanov's theorem Zero–one laws ( Blumenthal , Borel–Cantelli , Engelbert–Schmidt , Hewitt–Savage , Kolmogorov , Lévy ) Inequalities Burkholder–Davis–Gundy Doob's martingale Doob's upcrossing Kunita–Watanabe Marcinkiewicz–Zygmund Tools Cameron–Martin formula Convergence of random variables Doléans-Dade exponential Doob decomposition theorem Doob–Meyer decomposition theorem Doob's optional stopping theorem Dynkin's formula Feynman–Kac formula Filtration Girsanov theorem Infinitesimal generator Itô integral Itô's lemma Karhunen–Loève theorem Kolmogorov continuity theorem Kolmogorov extension theorem Lévy–Prokhorov metric Malliavin calculus Martingale representation theorem Optional stopping theorem Prokhorov's theorem Quadratic variation Reflection principle Skorokhod integral Skorokhod's representation theorem Skorokhod space Snell envelope Stochastic differential equation Tanaka Stopping time Stratonovich integral Uniform integrability Usual hypotheses Wiener space Classical Abstract Disciplines Actuarial mathematics Control theory Econometrics Ergodic theory Extreme value theory (EVT) Large deviations theory Mathematical finance Mathematical statistics Probability theory Queueing theory Renewal theory Ruin theory Signal processing Statistics Stochastic analysis Time series analysis Machine learning List of topics Category Retrieved from " https://en.wikipedia.org/w/index.php?title=Percolation_theory&oldid=1300585445 " Category : Percolation theory Hidden categories: Webarchive template wayback links Articles with short description Short description is different from Wikidata This page was last edited on 15 July 2025, at 06:05 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Percolation theory 13 languages Add topic
+

@@ -1,0 +1,391 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Definition 2 Intuition and connection to optimal transport 3 Examples Toggle Examples subsection 3.1 Point masses 3.1.1 Deterministic distributions 3.1.2 Empirical distributions 3.1.2.1 One dimension 3.1.2.2 Higher dimensions 3.2 Normal distributions 3.3 One-dimensional distributions 4 Applications 5 Properties Toggle Properties subsection 5.1 Metric structure 5.2 Dual representation of W 1 5.2.1 Proof 5.3 Fluid mechanics interpretation of W 2 5.4 Equivalence of W 2 and a negative-order Sobolev norm 5.5 Separability and completeness 6 Wasserstein distance for p = ∞ 7 See also 8 References 9 Further reading 10 External links Toggle the table of contents Wasserstein metric 8 languages Català Deutsch فارسی Français 日本語 Русский Українська 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Distance function defined between probability distributions In mathematics , the Wasserstein distance or Kantorovich – Rubinstein metric is a distance function defined between probability distributions on a given metric space M {\displaystyle M} . It is named after Leonid Vaseršteĭn .
+
+Intuitively, if each distribution is viewed as a unit amount of earth (soil) piled on M {\displaystyle M} , the metric is the minimum "cost" of turning one pile into the other, which is assumed to be the amount of earth that needs to be moved times the mean distance it has to be moved.  This problem was first formalised by Gaspard Monge in 1781.  Because of this analogy, the metric is known in computer science as the earth mover's distance .
+
+The name "Wasserstein distance" was coined by R. L. Dobrushin in 1970, after learning of it in the work of Leonid Vaseršteĭn on Markov processes describing large systems of automata [ 1 ] (Russian, 1969). However the metric was first defined by Leonid Kantorovich in The Mathematical Method of Production Planning and Organization [ 2 ] (Russian original 1939) in the context of optimal transport planning of goods and materials. Some scholars thus encourage use of the terms "Kantorovich metric" and "Kantorovich distance". Most English -language publications use the German spelling "Wasserstein" (attributed to the name "Vaseršteĭn" ( Russian : Васерштейн ) being of Yiddish origin).
+
+Definition [ edit ] Let ( M , d ) {\displaystyle (M,d)} be a metric space that is a Polish space . For p ∈ ∈ [ 1 , + ∞ ∞ ] {\displaystyle p\in [1,+\infty ]} , the Wasserstein p {\displaystyle p} -distance between two probability measures μ μ {\displaystyle \mu } and ν ν {\displaystyle \nu } on M {\displaystyle M} with finite p {\displaystyle p} - moments is W p ( μ μ , ν ν ) = inf γ γ ∈ ∈ Γ Γ ( μ μ , ν ν ) ( E ( x , y ) ∼ ∼ γ γ d ( x , y ) p ) 1 p , {\displaystyle W_{p}(\mu ,\nu )=\inf _{\gamma \in \Gamma (\mu ,\nu )}\left(\mathbf {E} _{(x,y)\sim \gamma }d(x,y)^{p}\right)^{\frac {1}{p}},} where Γ Γ ( μ μ , ν ν ) {\displaystyle \Gamma (\mu ,\nu )} is the set of all couplings of μ μ {\displaystyle \mu } and ν ν {\displaystyle \nu } ; W ∞ ∞ ( μ μ , ν ν ) {\displaystyle W_{\infty }(\mu ,\nu )} is defined to be lim p → → + ∞ ∞ W p ( μ μ , ν ν ) {\displaystyle \lim _{p\rightarrow +\infty }W_{p}(\mu ,\nu )} and corresponds to a supremum norm . Here, a coupling γ γ {\displaystyle \gamma } is a joint probability measure on M × × M {\displaystyle M\times M} whose marginals are μ μ {\displaystyle \mu } and ν ν {\displaystyle \nu } on the first and second factors, respectively. This means that for all measurable A ⊂ ⊂ M {\displaystyle A\subset M} , it fulfills γ γ ( A × × M ) = μ μ ( A ) {\displaystyle \gamma (A\times M)=\mu (A)} and γ γ ( M × × A ) = ν ν ( A ) {\displaystyle \gamma (M\times A)=\nu (A)} .
+
+Intuition and connection to optimal transport [ edit ] Two one-dimensional distributions μ μ {\displaystyle \mu } and ν ν {\displaystyle \nu } , plotted on the x {\displaystyle x} and y {\displaystyle y} axes, and one possible joint distribution that defines a transport plan between them. The joint distribution/transport plan is not unique One way to understand the above definition is to consider the optimal transport problem . That is, for a distribution of mass μ μ ( x ) {\displaystyle \mu (x)} on a space X {\displaystyle X} , we wish to transport the mass in such a way that it is transformed into the distribution ν ν ( x ) {\displaystyle \nu (x)} on the same space; transforming the 'pile of earth' μ μ {\displaystyle \mu } to the pile ν ν {\displaystyle \nu } . This problem only makes sense if the pile to be created has the same mass as the pile to be moved; therefore without loss of generality assume that μ μ {\displaystyle \mu } and ν ν {\displaystyle \nu } are probability distributions containing a total mass of 1. Assume also that there is given some cost function c ( x , y ) ≥ ≥ 0 {\displaystyle c(x,y)\geq 0} that gives the cost of transporting a unit mass from the point x {\displaystyle x} to the point y {\displaystyle y} .
+A transport plan to move μ μ {\displaystyle \mu } into ν ν {\displaystyle \nu } can be described by a function γ γ ( x , y ) {\displaystyle \gamma (x,y)} which gives the amount of mass to move from x {\displaystyle x} to y {\displaystyle y} . You can imagine the task as the need to move a pile of earth of shape μ μ {\displaystyle \mu } to the hole in the ground of shape ν ν {\displaystyle \nu } such that at the end, both the pile of earth and the hole in the ground completely vanish. In order for this plan to be meaningful, it must satisfy the following properties: the amount of earth moved out of point x {\displaystyle x} must equal the amount that was there to begin with; that is, ∫ ∫ γ γ ( x , y ) d y = μ μ ( x ) , {\displaystyle \int \gamma (x,y)\,\mathrm {d} y=\mu (x),} and the amount of earth moved into point y {\displaystyle y} must equal the depth of the hole that was there at the beginning; that is, ∫ ∫ γ γ ( x , y ) d x = ν ν ( y ) .
+
+{\displaystyle \int \gamma (x,y)\,\mathrm {d} x=\nu (y).} That is, that the total mass moved out of an infinitesimal region around x {\displaystyle x} must be equal to μ μ ( x ) d x {\displaystyle \mu (x)\mathrm {d} x} and the total mass moved into a region around y {\displaystyle y} must be ν ν ( y ) d y {\displaystyle \nu (y)\mathrm {d} y} . This is equivalent to the requirement that γ γ {\displaystyle \gamma } be a joint probability distribution with marginals μ μ {\displaystyle \mu } and ν ν {\displaystyle \nu } . Thus, the infinitesimal mass transported from x {\displaystyle x} to y {\displaystyle y} is γ γ ( x , y ) d x d y {\displaystyle \gamma (x,y)\,\mathrm {d} x\,\mathrm {d} y} , and the cost of moving is c ( x , y ) γ γ ( x , y ) d x d y {\displaystyle c(x,y)\gamma (x,y)\,\mathrm {d} x\,\mathrm {d} y} , following the definition of the cost function. Therefore, the total cost of a transport plan γ γ {\displaystyle \gamma } is ∬ ∬ c ( x , y ) γ γ ( x , y ) d x d y = ∫ ∫ c ( x , y ) d γ γ ( x , y ) .
+
+{\displaystyle \iint c(x,y)\gamma (x,y)\,\mathrm {d} x\,\mathrm {d} y=\int c(x,y)\,\mathrm {d} \gamma (x,y).} The plan γ γ {\displaystyle \gamma } is not unique; the optimal transport plan is the plan with the minimal cost out of all possible transport plans. As mentioned, the requirement for a plan to be valid is that it is a joint distribution with marginals μ μ {\displaystyle \mu } and ν ν {\displaystyle \nu } ; letting Γ Γ {\displaystyle \Gamma } denote the set of all such measures as in the first section, the cost of the optimal plan is C = inf γ γ ∈ ∈ Γ Γ ( μ μ , ν ν ) ∫ ∫ c ( x , y ) d γ γ ( x , y ) .
+
+{\displaystyle C=\inf _{\gamma \in \Gamma (\mu ,\nu )}\int c(x,y)\,\mathrm {d} \gamma (x,y).} If the cost of a move is simply the distance between the two points, then the optimal cost is identical to the definition of the W 1 {\displaystyle W_{1}} distance.
+
+Examples [ edit ] Point masses [ edit ] Deterministic distributions [ edit ] Let μ μ 1 = δ δ a 1 {\displaystyle \mu _{1}=\delta _{a_{1}}} and μ μ 2 = δ δ a 2 {\displaystyle \mu _{2}=\delta _{a_{2}}} be two degenerate distributions (i.e.
+
+Dirac delta distributions ) located at points a 1 {\displaystyle a_{1}} and a 2 {\displaystyle a_{2}} in R {\displaystyle \mathbb {R} } .  There is only one possible coupling of these two measures, namely the point mass δ δ ( a 1 , a 2 ) {\displaystyle \delta _{(a_{1},a_{2})}} located at ( a 1 , a 2 ) ∈ ∈ R 2 {\displaystyle (a_{1},a_{2})\in \mathbb {R} ^{2}} .  Thus, using the usual absolute value function as the distance function on R {\displaystyle \mathbb {R} } , for any p ≥ ≥ 1 {\displaystyle p\geq 1} , the p {\displaystyle p} -Wasserstein distance between μ μ 1 {\displaystyle \mu _{1}} and μ μ 2 {\displaystyle \mu _{2}} is W p ( μ μ 1 , μ μ 2 ) = | a 1 − − a 2 | .
+
+{\displaystyle W_{p}(\mu _{1},\mu _{2})=|a_{1}-a_{2}|.} By similar reasoning, if μ μ 1 = δ δ a 1 {\displaystyle \mu _{1}=\delta _{a_{1}}} and μ μ 2 = δ δ a 2 {\displaystyle \mu _{2}=\delta _{a_{2}}} are point masses located at points a 1 {\displaystyle a_{1}} and a 2 {\displaystyle a_{2}} in R n {\displaystyle \mathbb {R} ^{n}} , and we use the usual Euclidean norm on R n {\displaystyle \mathbb {R} ^{n}} as the distance function, then W p ( μ μ 1 , μ μ 2 ) = ‖ ‖ a 1 − − a 2 ‖ ‖ 2 .
+
+{\displaystyle W_{p}(\mu _{1},\mu _{2})=\|a_{1}-a_{2}\|_{2}.} Empirical distributions [ edit ] One dimension [ edit ] If P {\displaystyle P} is an empirical measure with samples X 1 , … … , X n {\displaystyle X_{1},\ldots ,X_{n}} and Q {\displaystyle Q} is an empirical measure with samples Y 1 , … … , Y n {\displaystyle Y_{1},\ldots ,Y_{n}} , the distance is a simple function of the order statistics : W p ( P , Q ) = ( 1 n ∑ ∑ i = 1 n ‖ ‖ X ( i ) − − Y ( i ) ‖ ‖ p ) 1 p .
+
+{\displaystyle W_{p}(P,Q)=\left({\frac {1}{n}}\sum _{i=1}^{n}\|X_{(i)}-Y_{(i)}\|^{p}\right)^{\frac {1}{p}}.} Higher dimensions [ edit ] If P {\displaystyle P} and Q {\displaystyle Q} are empirical distributions, each based on n {\displaystyle n} observations, then W p ( P , Q ) = inf π π ( 1 n ∑ ∑ i = 1 n ‖ ‖ X i − − Y π π ( i ) ‖ ‖ p ) 1 p , {\displaystyle W_{p}(P,Q)=\inf _{\pi }\left({\frac {1}{n}}\sum _{i=1}^{n}\|X_{i}-Y_{\pi (i)}\|^{p}\right)^{\frac {1}{p}},} where the infimum is over all permutations π π {\displaystyle \pi } of n {\displaystyle n} elements. This is a linear assignment problem , and can be solved by the Hungarian algorithm in cubic time .
+
+Normal distributions [ edit ] Let μ μ 1 = N ( m 1 , C 1 ) {\displaystyle \mu _{1}={\mathcal {N}}(m_{1},C_{1})} and μ μ 2 = N ( m 2 , C 2 ) {\displaystyle \mu _{2}={\mathcal {N}}(m_{2},C_{2})} be two non-degenerate Gaussian measures (i.e.
+
+normal distributions ) on R n {\displaystyle \mathbb {R} ^{n}} , with respective expected values m 1 {\displaystyle m_{1}} and m 2 ∈ ∈ R n {\displaystyle m_{2}\in \mathbb {R} ^{n}} and symmetric positive semi-definite covariance matrices C 1 {\displaystyle C_{1}} and C 2 ∈ ∈ R n × × n {\displaystyle C_{2}\in \mathbb {R} ^{n\times n}} .  Then, [ 3 ] with respect to the usual Euclidean norm on R n {\displaystyle \mathbb {R} ^{n}} , the 2-Wasserstein distance between μ μ 1 {\displaystyle \mu _{1}} and μ μ 2 {\displaystyle \mu _{2}} is W 2 ( μ μ 1 , μ μ 2 ) 2 = ‖ ‖ m 1 − − m 2 ‖ ‖ 2 2 + t r a c e ⁡ ⁡ ( C 1 + C 2 − − 2 ( C 2 1 2 C 1 C 2 1 2 ) 1 2 ) .
+
+{\displaystyle W_{2}(\mu _{1},\mu _{2})^{2}=\|m_{1}-m_{2}\|_{2}^{2}+\mathop {\mathrm {trace} } \left(C_{1}+C_{2}-2\left(C_{2}^{\frac {1}{2}}C_{1}C_{2}^{\frac {1}{2}}\right)^{\frac {1}{2}}\right).} where C 1 2 {\displaystyle C^{\frac {1}{2}}} denotes the principal square root of C {\displaystyle C} . Note that the second term (involving the trace) is precisely the (unnormalised) Bures metric between C 1 {\displaystyle C_{1}} and C 2 {\displaystyle C_{2}} .
+This result generalises the earlier example of the Wasserstein distance between two point masses (at least in the case p = 2 {\displaystyle p=2} ), since a point mass can be regarded as a normal distribution with covariance matrix equal to zero, in which case the trace term disappears and only the term involving the Euclidean distance between the means remains.
+
+One-dimensional distributions [ edit ] Let μ μ 1 , μ μ 2 ∈ ∈ P p ( R ) {\displaystyle \mu _{1},\mu _{2}\in P_{p}(\mathbb {R} )} be probability measures on R {\displaystyle \mathbb {R} } , and denote their cumulative distribution functions by F 1 ( x ) {\displaystyle F_{1}(x)} and F 2 ( x ) {\displaystyle F_{2}(x)} . Then the transport problem has an analytic solution: Optimal transport preserves the order of probability mass elements, so the mass at quantile q {\displaystyle q} of μ μ 1 {\displaystyle \mu _{1}} moves to quantile q {\displaystyle q} of μ μ 2 {\displaystyle \mu _{2}} .
+Thus, the p {\displaystyle p} -Wasserstein distance between μ μ 1 {\displaystyle \mu _{1}} and μ μ 2 {\displaystyle \mu _{2}} is W p ( μ μ 1 , μ μ 2 ) = ( ∫ ∫ 0 1 | F 1 − − 1 ( q ) − − F 2 − − 1 ( q ) | p d q ) 1 p , {\displaystyle W_{p}(\mu _{1},\mu _{2})=\left(\int _{0}^{1}\left|F_{1}^{-1}(q)-F_{2}^{-1}(q)\right|^{p}\,\mathrm {d} q\right)^{\frac {1}{p}},} where F 1 − − 1 {\displaystyle F_{1}^{-1}} and F 2 − − 1 {\displaystyle F_{2}^{-1}} are the quantile functions (inverse CDFs).
+In the case of p = 1 {\displaystyle p=1} , a change of variables leads to the formula [ 4 ] W 1 ( μ μ 1 , μ μ 2 ) = ∫ ∫ R | F 1 ( x ) − − F 2 ( x ) | d x .
+
+{\displaystyle W_{1}(\mu _{1},\mu _{2})=\int _{\mathbb {R} }\left|F_{1}(x)-F_{2}(x)\right|\,\mathrm {d} x.} Applications [ edit ] The Wasserstein metric is a natural way to compare the probability distributions of two variables X and Y , where one variable is derived from the other by small, non-uniform perturbations (random or deterministic).
+
+In computer science, for example, the metric W 1 is widely used to compare discrete distributions, e.g.
+
+the color histograms of two digital images ; see earth mover's distance for more details.
+
+In their paper ' Wasserstein GAN ', Arjovsky et al.
+
+[ 5 ] use the Wasserstein-1 metric as a way to improve the original framework of generative adversarial networks (GAN), to alleviate the vanishing gradient and the mode collapse issues. The special case of normal distributions is used in a Frechet inception distance .
+
+The Wasserstein metric has a formal link with Procrustes analysis , with application to chirality measures, [ 6 ] and to shape analysis.
+
+[ 7 ] In computational biology, Wasserstein metric can be used to compare between persistence diagrams of cytometry datasets.
+
+[ 8 ] The Wasserstein metric also has been used in inverse problems in geophysics.
+
+[ 9 ] The Wasserstein metric is used in integrated information theory to compute the difference between concepts and conceptual structures.
+
+[ 10 ] The Wasserstein metric and related formulations have also been used to provide a unified theory for shape observable analysis in high energy and collider physics datasets.
+
+[ 11 ] [ 12 ] Properties [ edit ] Metric structure [ edit ] It can be shown that W p satisfies all the axioms of a metric on the Wasserstein space P p ( M ) consisting of all Borel probability measures on M having finite p th moment. Furthermore, convergence with respect to W p is equivalent to the usual weak convergence of measures plus convergence of the first p th moments.
+
+[ 13 ] Dual representation of W 1 [ edit ] The following dual representation of W 1 is a special case of the duality theorem of Kantorovich and Rubinstein (1958): when μ and ν have bounded support , W 1 ( μ μ , ν ν ) = sup { ∫ ∫ M f ( x ) d ( μ μ − − ν ν ) ( x ) | continuous f : M → → R , Lip ⁡ ⁡ ( f ) ≤ ≤ 1 } , {\displaystyle W_{1}(\mu ,\nu )=\sup \left\{\left.\int _{M}f(x)\,\mathrm {d} (\mu -\nu )(x)\,\right|{\text{ continuous }}f:M\to \mathbb {R} ,\operatorname {Lip} (f)\leq 1\right\},} where Lip( f ) denotes the minimal Lipschitz constant for f . This form shows that W 1 is an integral probability metric .
+
+Compare this with the definition of the Radon metric : ρ ρ ( μ μ , ν ν ) := sup { ∫ ∫ M f ( x ) d ( μ μ − − ν ν ) ( x ) | continuous f : M → → [ − − 1 , 1 ] } .
+
+{\displaystyle \rho (\mu ,\nu ):=\sup \left\{\left.\int _{M}f(x)\,\mathrm {d} (\mu -\nu )(x)\,\right|{\text{ continuous }}f:M\to [-1,1]\right\}.} If the metric d of the metric space ( M , d ) is bounded by some constant C , then 2 W 1 ( μ μ , ν ν ) ≤ ≤ C ρ ρ ( μ μ , ν ν ) , {\displaystyle 2W_{1}(\mu ,\nu )\leq C\rho (\mu ,\nu ),} and so convergence in the Radon metric (identical to total variation convergence when M is a Polish space ) implies convergence in the Wasserstein metric, but not vice versa.
+
+Proof [ edit ] The following is an intuitive proof which skips over technical points. A fully rigorous proof is found in.
+
+[ 14 ] Discrete case : When M {\displaystyle M} is discrete, solving for the 1-Wasserstein distance is a problem in linear programming: { min γ γ ∑ ∑ x , y c ( x , y ) γ γ ( x , y ) ∑ ∑ y γ γ ( x , y ) = μ μ ( x ) ∑ ∑ x γ γ ( x , y ) = ν ν ( y ) γ γ ≥ ≥ 0 {\displaystyle {\begin{cases}\min _{\gamma }\displaystyle \sum _{x,y}c(x,y)\gamma (x,y)\\[6pt]\displaystyle \sum _{y}\gamma (x,y)=\mu (x)\\[6pt]\displaystyle \sum _{x}\gamma (x,y)=\nu (y)\\[6pt]\gamma \geq 0\end{cases}}} where c : M × × M → → [ 0 , ∞ ∞ ) {\displaystyle c:M\times M\to [0,\infty )} is a general "cost function".
+
+By carefully writing the above equations as matrix equations, we obtain its dual problem : [ 15 ] { max f , g ∑ ∑ x μ μ ( x ) f ( x ) + ∑ ∑ y ν ν ( y ) g ( y ) f ( x ) + g ( y ) ≤ ≤ c ( x , y ) {\displaystyle {\begin{cases}\max _{f,g}\displaystyle \sum _{x}\mu (x)f(x)+\sum _{y}\nu (y)g(y)\\[6pt]f(x)+g(y)\leq c(x,y)\end{cases}}} and by the duality theorem of linear programming , since the primal problem is feasible and bounded, so is the dual problem, and the minimum in the first problem equals the maximum in the second problem. That is, the problem pair exhibits strong duality .
+
+For the general case, the dual problem is found by converting sums to integrals: { sup f , g E x ∼ ∼ μ μ [ f ( x ) ] + E y ∼ ∼ ν ν [ g ( y ) ] f ( x ) + g ( y ) ≤ ≤ c ( x , y ) {\displaystyle {\begin{cases}\sup _{f,g}\mathbb {E} _{x\sim \mu }[f(x)]+\mathbb {E} _{y\sim \nu }[g(y)]\\[6pt]f(x)+g(y)\leq c(x,y)\end{cases}}} and the strong duality still holds.
+This is the Kantorovich duality theorem .
+
+Cédric Villani recounts the following interpretation from Luis Caffarelli : [ 16 ] Suppose you want to ship some coal from mines, distributed as μ μ {\displaystyle \mu } , to factories, distributed as ν ν {\displaystyle \nu } . The cost function of transport is c {\displaystyle c} . Now a shipper comes and offers to do the transport for you. You would pay him f ( x ) {\displaystyle f(x)} per coal for loading the coal at x {\displaystyle x} , and pay him g ( y ) {\displaystyle g(y)} per coal for unloading the coal at y {\displaystyle y} .
+
+For you to accept the deal, the price schedule must satisfy f ( x ) + g ( y ) ≤ ≤ c ( x , y ) {\displaystyle f(x)+g(y)\leq c(x,y)} . The Kantorovich duality states that the shipper can make a price schedule that makes you pay almost as much as you would ship yourself.
+
+This result can be pressed further to yield: Theorem (Kantorovich-Rubenstein duality) — When the probability space Ω Ω {\displaystyle \Omega } is a metric space, then
+for any fixed K > 0 {\displaystyle K>0} , W 1 ( μ μ , ν ν ) = 1 K sup ‖ ‖ f ‖ ‖ L ≤ ≤ K E x ∼ ∼ μ μ [ f ( x ) ] − − E y ∼ ∼ ν ν [ f ( y ) ] {\displaystyle W_{1}(\mu ,\nu )={\frac {1}{K}}\sup _{\|f\|_{L}\leq K}\mathbb {E} _{x\sim \mu }[f(x)]-\mathbb {E} _{y\sim \nu }[f(y)]} where ‖ ‖ ⋅ ⋅ ‖ ‖ L {\displaystyle \|\cdot \|_{L}} is the Lipschitz norm .
+
+Proof It suffices to prove the case of K = 1 {\displaystyle K=1} .
+Start with W 1 ( μ μ , ν ν ) = sup f ( x ) + g ( y ) ≤ ≤ d ( x , y ) E x ∼ ∼ μ μ [ f ( x ) ] + E y ∼ ∼ ν ν [ g ( y ) ] .
+
+{\displaystyle W_{1}(\mu ,\nu )=\sup _{f(x)+g(y)\leq d(x,y)}\mathbb {E} _{x\sim \mu }[f(x)]+\mathbb {E} _{y\sim \nu }[g(y)].} Then, for any choice of g {\displaystyle g} , one can push the term higher by setting f ( x ) = inf y d ( x , y ) − − g ( y ) {\displaystyle f(x)=\inf _{y}d(x,y)-g(y)} , making it an infimal convolution of − − g {\displaystyle -g} with a cone. This implies f ( x ) − − f ( y ) ≤ ≤ d ( x , y ) {\displaystyle f(x)-f(y)\leq d(x,y)} for any x , y {\displaystyle x,y} , that is, ‖ ‖ f ‖ ‖ L ≤ ≤ 1 {\displaystyle \|f\|_{L}\leq 1} .
+
+Thus, W 1 ( μ μ , ν ν ) = sup g sup f ( x ) + g ( y ) ≤ ≤ d ( x , y ) E x ∼ ∼ μ μ [ f ( x ) ] + E y ∼ ∼ ν ν [ g ( y ) ] = sup g sup ‖ ‖ f ‖ ‖ L ≤ ≤ 1 , f ( x ) + g ( y ) ≤ ≤ d ( x , y ) E x ∼ ∼ μ μ [ f ( x ) ] + E y ∼ ∼ ν ν [ g ( y ) ] = sup ‖ ‖ f ‖ ‖ L ≤ ≤ 1 sup g , f ( x ) + g ( y ) ≤ ≤ d ( x , y ) E x ∼ ∼ μ μ [ f ( x ) ] + E y ∼ ∼ ν ν [ g ( y ) ] .
+
+{\displaystyle {\begin{aligned}W_{1}(\mu ,\nu )&=\sup _{g}\sup _{f(x)+g(y)\leq d(x,y)}\mathbb {E} _{x\sim \mu }[f(x)]+\mathbb {E} _{y\sim \nu }[g(y)]\\[6pt]&=\sup _{g}\sup _{\|f\|_{L}\leq 1,f(x)+g(y)\leq d(x,y)}\mathbb {E} _{x\sim \mu }[f(x)]+\mathbb {E} _{y\sim \nu }[g(y)]\\[6pt]&=\sup _{\|f\|_{L}\leq 1}\sup _{g,f(x)+g(y)\leq d(x,y)}\mathbb {E} _{x\sim \mu }[f(x)]+\mathbb {E} _{y\sim \nu }[g(y)].\end{aligned}}} Next, for any choice of ‖ ‖ f ‖ ‖ L ≤ ≤ 1 {\displaystyle \|f\|_{L}\leq 1} , g {\displaystyle g} can be optimized by setting g ( y ) = inf x d ( x , y ) − − f ( x ) {\displaystyle g(y)=\inf _{x}d(x,y)-f(x)} . Since ‖ ‖ f ‖ ‖ L ≤ ≤ 1 {\displaystyle \|f\|_{L}\leq 1} , this implies g ( y ) = − − f ( y ) {\displaystyle g(y)=-f(y)} .
+
+Infimal convolution of a cone with a curve. Note how the lower envelope has slope ≤ ≤ 1 {\displaystyle \leq 1} , and how the lower envelope is equal to the curve on the parts where the curve itself has slope ≤ ≤ 1 {\displaystyle \leq 1} .
+
+The two infimal convolution steps are visually clear when the probability space is R {\displaystyle \mathbb {R} } .
+
+For notational convenience, let ◻ ◻ {\displaystyle \square } denote the infimal convolution operation.
+
+For the first step, where we used f = cone ◻ ◻ ( − − g ) {\displaystyle f={\text{cone}}\mathbin {\square } (-g)} , plot out the curve of − − g {\displaystyle -g} , then at each point, draw a cone of slope 1, and take the lower envelope of the cones as f {\displaystyle f} , as shown in the diagram, then f {\displaystyle f} cannot increase with slope larger than 1. Thus all its secants have slope | f ( x ) − − f ( y ) x − − y | ≤ ≤ 1 {\displaystyle {\bigg |}{\frac {f(x)-f(y)}{x-y}}{\bigg |}\leq 1} .
+
+For the second step, picture the infimal convolution cone ◻ ◻ ( − − f ) {\displaystyle {\text{cone}}\mathbin {\square } (-f)} , then if all secants of f {\displaystyle f} have slope at most 1, then the lower envelope of cone ◻ ◻ ( − − f ) {\displaystyle {\text{cone}}\mathbin {\square } (-f)} are just the cone-apices themselves, thus cone ◻ ◻ ( − − f ) = − − f {\displaystyle {\text{cone}}\mathbin {\square } (-f)=-f} .
+
+1D Example . When both μ μ , ν ν {\displaystyle \mu ,\nu } are distributions on R {\displaystyle \mathbb {R} } , then integration by parts give E x ∼ ∼ μ μ [ f ( x ) ] − − E y ∼ ∼ ν ν [ f ( y ) ] = ∫ ∫ f ′ ( x ) ( F ν ν ( x ) − − F μ μ ( x ) ) d x , {\displaystyle \mathbb {E} _{x\sim \mu }[f(x)]-\mathbb {E} _{y\sim \nu }[f(y)]=\int f'(x)(F_{\nu }(x)-F_{\mu }(x))\,\mathrm {d} x,} thus f ( x ) = K ⋅ ⋅ sign ⁡ ⁡ ( F ν ν ( x ) − − F μ μ ( x ) ) .
+
+{\displaystyle f(x)=K\cdot \operatorname {sign} (F_{\nu }(x)-F_{\mu }(x)).} Fluid mechanics interpretation of W 2 [ edit ] Benamou & Brenier found a dual representation of W 2 {\displaystyle W_{2}} by fluid mechanics , which allows efficient solution by convex optimization .
+
+[ 17 ] [ 18 ] Given two probability densities p , q {\displaystyle p,q} on R n {\displaystyle \mathbb {R} ^{n}} , W 2 2 ( p , q ) = min v ∫ ∫ 0 1 ∫ ∫ R n ‖ ‖ v ( x , t ) ‖ ‖ 2 ρ ρ ( x , t ) d x d t {\displaystyle W_{2}^{2}(p,q)=\min _{\mathbf {v}}\int _{0}^{1}\int _{\mathbb {R} ^{n}}\|{\mathbf {v}}({\mathbf {x}},t)\|^{2}\rho ({\mathbf {x}},t)\,d{\mathbf {x}}\,dt} where v {\displaystyle {\mathbf {v}}} ranges over velocity fields driving the continuity equation with boundary conditions on the fluid density field: ρ ρ ˙ ˙ + ∇ ∇ ⋅ ⋅ ( ρ ρ v ) = 0 ρ ρ ( ⋅ ⋅ , 0 ) = p , ρ ρ ( ⋅ ⋅ , 1 ) = q {\displaystyle {\dot {\rho }}+\nabla \cdot (\rho {\mathbf {v}})=0\quad \rho (\cdot ,0)=p,\;\rho (\cdot ,1)=q} That is, the mass should be conserved, and the velocity field should transport the probability distribution p {\displaystyle p} to q {\displaystyle q} during the time interval [ 0 , 1 ] {\displaystyle [0,1]} .
+
+Equivalence of W 2 and a negative-order Sobolev norm [ edit ] Under suitable assumptions, the Wasserstein distance W 2 {\displaystyle W_{2}} of order two is Lipschitz equivalent to a negative-order homogeneous Sobolev norm . More precisely, if we take M {\displaystyle M} to be a connected Riemannian manifold equipped with a positive measure π π {\displaystyle \pi } , then we may define for f : : M → → R {\displaystyle f\colon M\to \mathbb {R} } the seminorm ‖ ‖ f ‖ ‖ H ˙ ˙ 1 ( π π ) 2 = ∫ ∫ M ‖ ‖ ∇ ∇ f ( x ) ‖ ‖ 2 π π ( d x ) {\displaystyle \|f\|_{{\dot {H}}^{1}(\pi )}^{2}=\int _{M}\|\nabla f(x)\|^{2}\,\pi (\mathrm {d} x)} and for a signed measure μ μ {\displaystyle \mu } on M {\displaystyle M} the dual norm ‖ ‖ μ μ ‖ ‖ H ˙ ˙ − − 1 ( π π ) = sup { | ⟨ ⟨ f , μ μ ⟩ ⟩ | | ‖ ‖ f ‖ ‖ H ˙ ˙ 1 ( π π ) ≤ ≤ 1 } .
+
+{\displaystyle \|\mu \|_{{\dot {H}}^{-1}(\pi )}=\sup {\bigg \{}|\langle f,\mu \rangle |\,{\bigg |}\,\|f\|_{{\dot {H}}^{1}(\pi )}\leq 1{\bigg \}}.} Then any two probability measures μ μ {\displaystyle \mu } and ν ν {\displaystyle \nu } on M {\displaystyle M} satisfy the upper bound [ 19 ] W 2 ( μ μ , ν ν ) ≤ ≤ 2 ‖ ‖ μ μ − − ν ν ‖ ‖ H ˙ ˙ − − 1 ( π π ) .
+
+{\displaystyle W_{2}(\mu ,\nu )\leq 2\,\|\mu -\nu \|_{{\dot {H}}^{-1}(\pi )}.} In the other direction, if μ μ {\displaystyle \mu } and ν ν {\displaystyle \nu } each have densities with respect to the standard volume measure on M {\displaystyle M} that are both bounded above by some 0 < C < ∞ ∞ {\displaystyle 0<C<\infty } , and M {\displaystyle M} has non-negative Ricci curvature , then [ 20 ] [ 21 ] ‖ ‖ μ μ − − ν ν ‖ ‖ H ˙ ˙ − − 1 ( π π ) ≤ ≤ C W 2 ( μ μ , ν ν ) .
+
+{\displaystyle \|\mu -\nu \|_{{\dot {H}}^{-1}(\pi )}\leq {\sqrt {C}}\,W_{2}(\mu ,\nu ).} Separability and completeness [ edit ] For any p ≥ 1, the metric space ( P p ( M ), W p ) is separable , and is complete if ( M , d ) is separable and complete.
+
+[ 22 ] Wasserstein distance for p = ∞ [ edit ] It is also possible to consider the Wasserstein metric for p = ∞ ∞ {\displaystyle p=\infty } . In this case, the defining formula becomes: W ∞ ∞ ( μ μ , ν ν ) = lim p → → + ∞ ∞ W p ( μ μ , ν ν ) = inf γ γ ∈ ∈ Γ Γ ( μ μ , ν ν ) γ γ - e s s u p ⁡ ⁡ d ( x , y ) , {\displaystyle W_{\infty }(\mu ,\nu )=\lim _{p\rightarrow +\infty }W_{p}(\mu ,\nu )=\inf _{\gamma \in \Gamma (\mu ,\nu )}\gamma \operatorname {-essup} d(x,y),} where γ γ - e s s u p ⁡ ⁡ d ( x , y ) {\displaystyle \gamma \operatorname {-essup} d(x,y)} denotes the essential supremum of d ( x , y ) {\displaystyle d(x,y)} with respect to measure γ γ {\displaystyle \gamma } . The metric space ( P ∞ ( M ), W ∞ ) is complete if ( M , d ) is separable and complete. Here, P ∞ is the space of all probability measures with bounded support.
+
+[ 23 ] See also [ edit ] Hutchinson metric Lévy metric Lévy–Prokhorov metric Fréchet distance Total variation distance of probability measures Transportation theory Earth mover's distance Wasserstein GAN Kolmogorov–Smirnov test References [ edit ] ^ Vaserstein LN (1969).
+
+"Markov processes over denumerable products of spaces, describing large systems of automata" (PDF) .
+
+Problemy Peredači Informacii .
+
+5 (3): 64– 72.
+
+^ Kantorovich LV (1939). "Mathematical Methods of Organizing and Planning Production".
+
+Management Science .
+
+6 (4): 366– 422.
+
+doi : 10.1287/mnsc.6.4.366 .
+
+JSTOR 2627082 .
+
+^ Olkin I, Pukelsheim F (October 1982).
+
+"The distance between two random vectors with given dispersion matrices" .
+
+Linear Algebra and Its Applications .
+
+48 : 257– 263.
+
+doi : 10.1016/0024-3795(82)90112-4 .
+
+ISSN 0024-3795 .
+
+^ S. S. Vallander, Theory of Probability and its Applications, 1974, Volume 18, Issue 4, Pages 784–786
+DOI: https://doi.org/10.1137/1118101 ^ Arjovsky M, Chintala S, Bottou L (July 2017).
+
+"Wasserstein Generative Adversarial Networks" .
+
+International Conference on Machine Learning 214-223 : 214– 223.
+
+^ Petitjean M (2002).
+
+"Chiral mixtures" (PDF) .
+
+Journal of Mathematical Physics .
+
+43 (8): 4147– 4157.
+
+Bibcode : 2002JMP....43.4147P .
+
+doi : 10.1063/1.1484559 .
+
+S2CID 85454709 .
+
+^ Petitjean M (2004). "From shape similarity to shape complementarity: toward a docking theory".
+
+Journal of Mathematical Chemistry .
+
+35 (3): 147– 158.
+
+doi : 10.1023/B:JOMC.0000033252.59423.6b .
+
+S2CID 121320315 .
+
+^ Mukherjee S, Wethington D, Dey TK, Das J (March 2022).
+
+"Determining clinically relevant features in cytometry data using persistent homology" .
+
+PLOS Computational Biology .
+
+18 (3): e1009931.
+
+arXiv : 2203.06263 .
+
+Bibcode : 2022PLSCB..18E9931M .
+
+doi : 10.1371/journal.pcbi.1009931 .
+
+PMC 9009779 .
+
+PMID 35312683 .
+
+^ Frederick, Christina; Yang, Yunan (2022-05-06).
+
+"Seeing through rock with help from optimal transport" .
+
+Snapshots of Modern Mathematics from Oberwolfach .
+
+doi : 10.14760/SNAP-2022-004-EN .
+
+^ Oizumi, Masafumi; Albantakis, Larissa; Tononi, Giulio (2014-05-08).
+
+"From the Phenomenology to the Mechanisms of Consciousness: Integrated Information Theory 3.0" .
+
+PLOS Computational Biology .
+
+10 (5): e1003588.
+
+Bibcode : 2014PLSCB..10E3588O .
+
+doi : 10.1371/journal.pcbi.1003588 .
+
+PMC 4014402 .
+
+PMID 24811198 .
+
+^ Ba, Demba; Dogra, Akshunna S.; Gambhir, Rikab; Tasissa, Abiy; Thaler, Jesse (2023-06-29).
+
+"SHAPER: can you hear the shape of a jet?" .
+
+Journal of High Energy Physics .
+
+2023 (6): 195.
+
+arXiv : 2302.12266 .
+
+Bibcode : 2023JHEP...06..195B .
+
+doi : 10.1007/JHEP06(2023)195 .
+
+ISSN 1029-8479 .
+
+S2CID 257205971 .
+
+^ "Awards, fellowships and the shape of physics: News from the College | Imperial News | Imperial College London" .
+
+Imperial News . 2023-03-29 . Retrieved 2023-10-31 .
+
+^ Clement P, Desch W (2008).
+
+"An elementary proof of the triangle inequality for the Wasserstein metric" .
+
+Proceedings of the American Mathematical Society .
+
+136 (1): 333– 339.
+
+doi : 10.1090/S0002-9939-07-09020-X .
+
+^ Villani, Cédric (2003). "Chapter 1: The Kantorovich Duality".
+
+Topics in optimal transportation . Providence, RI: American Mathematical Society.
+
+ISBN 0-8218-3312-X .
+
+OCLC 51477002 .
+
+^ Matoušek, Jiří; Gärtner, Bernd (2007), "Duality of Linear Programming", Understanding and Using Linear Programming , Universitext, Berlin, Heidelberg: Springer Berlin Heidelberg, pp.
+
+81– 104, doi : 10.1007/978-3-540-30717-4_6 , ISBN 978-3-540-30697-9 , retrieved 2022-07-15 ^ Villani, Cédric (2003). "1.1.3. The shipper's problem.".
+
+Topics in optimal transportation . Providence, RI: American Mathematical Society.
+
+ISBN 0-8218-3312-X .
+
+OCLC 51477002 .
+
+^ Benamou, Jean-David; Brenier, Yann (2000-01-01).
+
+"A computational fluid mechanics solution to the Monge-Kantorovich mass transfer problem" .
+
+Numerische Mathematik .
+
+84 (3): 375– 393.
+
+doi : 10.1007/s002110050002 .
+
+ISSN 0945-3245 .
+
+S2CID 1100384 .
+
+^ Finlay, Chris; Jacobsen, Joern-Henrik; Nurbekyan, Levon; Oberman, Adam (2020-11-21).
+
+"How to Train Your Neural ODE: the World of Jacobian and Kinetic Regularization" .
+
+International Conference on Machine Learning . PMLR: 3154– 3164.
+
+arXiv : 2002.02798 .
+
+^ Peyre R (October 2018).
+
+"Comparison between W 2 distance and Ḣ −1 norm, and localization of Wasserstein distance" .
+
+ESAIM: Control, Optimisation and Calculus of Variations .
+
+24 (4): 1489– 1501.
+
+doi : 10.1051/cocv/2017050 .
+
+ISSN 1292-8119 .
+
+(See Theorem 2.1.) ^ Loeper G (July 2006).
+
+"Uniqueness of the solution to the Vlasov–Poisson system with bounded density" .
+
+Journal de Mathématiques Pures et Appliquées .
+
+86 (1): 68– 79.
+
+arXiv : math/0504140 .
+
+doi : 10.1016/j.matpur.2006.01.005 .
+
+ISSN 1292-8119 .
+
+(See Theorem 2.9.) ^ Peyre R (October 2018).
+
+"Comparison between W 2 distance and Ḣ −1 norm, and localization of Wasserstein distance" .
+
+ESAIM: Control, Optimisation and Calculus of Variations .
+
+24 (4): 1489– 1501.
+
+doi : 10.1051/cocv/2017050 .
+
+(See Theorem 2.5.) ^ Bogachev VI, Kolesnikov AV (October 2012). "The Monge–Kantorovich problem: achievements, connections, and perspectives".
+
+Russian Mathematical Surveys .
+
+67 (5): 785– 890.
+
+Bibcode : 2012RuMaS..67..785B .
+
+doi : 10.1070/RM2012v067n05ABEH004808 .
+
+S2CID 121411457 .
+
+^ Givens, Clark R; Shortt, Rae Michael (1984).
+
+"A class of Wasserstein metrics for probability distributions" .
+
+Michigan Mathematical Journal .
+
+31 (2): 231– 240.
+
+doi : 10.1307/mmj/1029003026 .
+
+Further reading [ edit ] Ambrosio L, Gigli N, Savaré G (2005).
+
+Gradient Flows in Metric Spaces and in the Space of Probability Measures . Basel: ETH Zürich, Birkhäuser Verlag.
+
+ISBN 978-3-7643-2428-5 .
+
+Jordan R, Kinderlehrer D, Otto F (January 1998). "The variational formulation of the Fokker–Planck equation".
+
+SIAM Journal on Mathematical Analysis .
+
+29 (1): 1–17 (electronic).
+
+CiteSeerX 10.1.1.6.8815 .
+
+doi : 10.1137/S0036141096303359 .
+
+ISSN 0036-1410 .
+
+MR 1617171 .
+
+S2CID 13890235 .
+
+Rüschendorf L (2001) [1994], "Wasserstein metric" , Encyclopedia of Mathematics , EMS Press Villani C (2008).
+
+Optimal Transport, Old and New . Springer.
+
+ISBN 978-3-540-71050-9 .
+
+External links [ edit ] "What is the advantages of Wasserstein metric compared to Kullback–Leibler divergence?" .
+
+Stack Exchange . August 1, 2017.
+
+Retrieved from " https://en.wikipedia.org/w/index.php?title=Wasserstein_metric&oldid=1301256658 " Categories : Measure theory Metric geometry Theory of probability distributions Statistical distance Hidden categories: Articles with short description Short description matches Wikidata Articles containing Russian-language text Pages that use a deprecated format of the math tags This page was last edited on 18 July 2025, at 22:35 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Wasserstein metric 8 languages Add topic
+

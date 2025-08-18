@@ -1,0 +1,185 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Introduction 2 Materials simulation methods Toggle Materials simulation methods subsection 2.1 Electronic structure 2.1.1 Density functional theory 2.2 Atomistic methods 2.2.1 Molecular dynamics 2.2.2 Kinetic Monte Carlo 2.3 Mesoscale methods 2.3.1 Dislocation dynamics 2.3.2 Phase field 2.3.3 Crystal plasticity 2.4 Continuum simulation 2.4.1 Finite element method 3 Materials modeling methods Toggle Materials modeling methods subsection 3.1 CALPHAD 4 Comparison of methods 5 Multi-scale simulation Toggle Multi-scale simulation subsection 5.1 Concurrent multi-scale 5.2 Hierarchical multi-scale 5.3 Model development 6 Software and tools 7 Conferences 8 Journals 9 Related fields 10 See also 11 References 12 External links Toggle the table of contents Computational materials science 2 languages العربية فارسی Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Subfield of materials science For the scientific journal, see Computational Materials Science (journal) .
+
+This article includes a list of general references , but it lacks sufficient corresponding inline citations .
+
+Please help to improve this article by introducing more precise citations.
+
+( November 2019 ) ( Learn how and when to remove this message ) Computational materials science and engineering uses modeling, simulation, theory, and informatics to understand materials. The main goals include discovering new materials, determining material behavior and mechanisms, explaining experiments, and exploring materials theories. It is analogous to computational chemistry and computational biology as an increasingly important subfield of materials science .
+
+Introduction [ edit ] Just as materials science spans all length scales, from electrons to components, so do its computational sub-disciplines. While many methods and variations have been and continue to be developed, seven main simulation techniques, or motifs, have emerged.
+
+[ 1 ] These computer simulation methods use underlying models and approximations to understand material behavior in more complex scenarios than pure theory generally allows and with more detail and precision than is often possible from experiments. Each method can be used independently to predict materials properties and mechanisms, to feed information to other simulation methods run separately or concurrently, or to directly compare or contrast with experimental results.
+
+[ 2 ] One notable sub-field of computational materials science is integrated computational materials engineering (ICME), which seeks to use computational results and methods in conjunction with experiments, with a focus on industrial and commercial application.
+
+[ 3 ] Major current themes in the field include uncertainty quantification and propagation throughout simulations for eventual decision making, data infrastructure for sharing simulation inputs and results, [ 4 ] high-throughput materials design and discovery, [ 5 ] and new approaches given significant increases in computing power and the continuing history of supercomputing .
+
+Materials simulation methods [ edit ] Electronic structure [ edit ] Main article: Electronic structure Electronic structure methods solve the Schrödinger equation to calculate the energy of a system of electrons and atoms, the fundamental units of condensed matter. 
+Many variations of electronic structure methods exist of varying computational complexity, with a range of trade-offs between speed and accuracy.
+
+Density functional theory [ edit ] Main article: Density functional theory Due to its balance of computational cost and predictive capability density functional theory (DFT) has the most significant use in materials science . DFT most often refers to the calculation of the lowest energy state of the system; however, molecular dynamics (atomic motion through time) can be run with DFT computing forces between atoms.
+
+While DFT and many other electronic structures methods are described as ab initio , there are still approximations and inputs. Within DFT there are increasingly complex, accurate, and slow approximations underlying the simulation because the exact exchange-correlation functional is not known. The simplest model is the Local-density approximation (LDA), becoming more complex with the generalized-gradient approximation (GGA) and beyond. 
+An additional common approximation is to use a pseudopotential in place of core electrons, significantly speeding up simulations.
+
+Atomistic methods [ edit ] This section discusses the two major atomic simulation methods in materials science . Other particle-based methods include material point method and particle-in-cell , most often used for solid mechanics and plasma physics, respectively.
+
+Molecular dynamics [ edit ] Main article: Molecular dynamics The term Molecular dynamics (MD) is the historical name used to classify simulations of classical atomic motion through time. Typically, interactions between atoms are defined and fit to both experimental and electronic structure data with a wide variety of models, called interatomic potentials . With the interactions prescribed (forces), Newtonian motion is numerically integrated. The forces for MD can also be calculated using electronic structure methods based on either the Born-Oppenheimer Approximation or Car-Parrinello approaches.
+
+The simplest models include only van der Waals type attractions and steep repulsion to keep atoms apart, the nature of these models are derived from dispersion forces . Increasingly more complex models include effects due to coulomb interactions (e.g. ionic charges in ceramics), covalent bonds and angles (e.g. polymers), and electronic charge density (e.g. metals). Some models use fixed bonds, defined at the start of the simulation, while others have dynamic bonding. More recent efforts strive for robust, transferable models with generic functional forms: spherical harmonics, Gaussian kernels, and neural networks. In addition, MD can be used to simulate groupings of atoms within generic particles, called coarse-grained modeling , e.g. creating one particle per monomer within a polymer.
+
+Kinetic Monte Carlo [ edit ] Main article: kinetic Monte Carlo Monte Carlo in the context of materials science most often refers to atomistic simulations relying on rates. In kinetic Monte Carlo (kMC) rates for all possible changes within the system are defined and probabilistically evaluated. Because there is no restriction of directly integrating motion (as in molecular dynamics ), kMC methods are able to simulate significantly different problems with much longer timescales.
+
+Mesoscale methods [ edit ] The methods listed here are among the most common and the most directly tied to materials science specifically, where atomistic and electronic structure calculations are also widely used in computational chemistry and computational biology and continuum level simulations are common in a wide array of computational science application domains.
+
+Other methods within materials science include cellular automata for solidification and grain growth, Potts model approaches for grain evolution and other Monte Carlo techniques, as well as direct simulation of grain structures analogous to dislocation dynamics.
+
+Dislocation dynamics [ edit ] Plastic deformation in metals is dominated by the movement of dislocations , which are crystalline defects in materials with line type character. Rather than simulating the movement of tens of billions of atoms to model plastic deformation, which would be prohibitively computationally expensive, discrete dislocation dynamics (DDD) simulates the movement of dislocation lines.
+
+[ 6 ] [ 7 ] The overall goal of dislocation dynamics is to determine the movement of a set of dislocations given their initial positions, and external load and interacting microstructure. From this, macroscale deformation behavior can be extracted from the movement of individual dislocations by theories of plasticity.
+
+A typical DDD simulation goes as follows.
+
+[ 6 ] [ 8 ] A dislocation line can be modelled as a set of nodes connected by segments. This is similar to a mesh used in finite element modelling. Then, the forces on each of the nodes of the dislocation are calculated. These forces include any externally applied forces, forces due to the dislocation interacting with itself or other dislocations, forces from obstacles such as solutes or precipitates, and the drag force on the dislocation due to its motion, which is proportional to its velocity. The general method behind a DDD simulation is to calculate the forces on a dislocation at each of its nodes, from which the velocity of the dislocation at its nodes can be extracted. Then, the dislocation is moved forward according to this velocity and a given timestep. This procedure is then repeated. Over time, the dislocation may encounter enough obstacles such that it can no longer move and its velocity is near zero, at which point the simulation can be stopped and a new experiment can be conducted with this new dislocation arrangement.
+
+Both small-scale and large-scale dislocation simulations exist. For example, 2D dislocation models have been used to model the glide of a dislocation through a single plane as it interacts with various obstacles, such as precipitates . This further captures phenomena such as shearing and bowing of precipitates.
+
+[ 8 ] [ 9 ] The drawback to 2D DDD simulations is that phenomena involving movement out of a glide plane cannot be captured, such as cross slip and climb , although they are easier to run computationally.
+
+[ 6 ] Small 3D DDD simulations have been used to simulate phenomena such as dislocation multiplication at Frank-Read sources , and larger simulations can capture work hardening in a metal with many dislocations, which interact with each other and can multiply. A number of 3D DDD codes exist, such as ParaDiS, microMegas, and MDDP, among others.
+
+[ 6 ] There are other methods for simulating dislocation motion, from full molecular dynamics simulations, continuum dislocation dynamics, and phase field models .
+
+[ 6 ] [ 7 ] [ 8 ] [ 9 ] Phase field [ edit ] Main article: Phase field models Phase field methods are focused on phenomena dependent on interfaces and interfacial motion. Both the free energy function and the kinetics (mobilities) are defined in order to propagate the interfaces within the system through time.
+
+Crystal plasticity [ edit ] Main article: Crystal plasticity Crystal plasticity simulates the effects of atomic-based, dislocation motion without directly resolving either. Instead, the crystal orientations are updated through time with elasticity theory, plasticity through yield surfaces , and hardening laws. In this way, the stress-strain behavior of a material can be determined.
+
+Continuum simulation [ edit ] Finite element method [ edit ] Main article: Finite element method Finite element methods divide systems in space and solve the relevant physical equations throughout that decomposition. This ranges from thermal, mechanical, electromagnetic, to other physical phenomena. It is important to note from a materials science perspective that continuum methods generally ignore material heterogeneity and assume local materials properties to be identical throughout the system.
+
+Materials modeling methods [ edit ] All of the simulation methods described above contain models of materials behavior. The exchange-correlation functional for density functional theory, interatomic potential for molecular dynamics, and free energy functional for phase field simulations are examples. The degree to which each simulation method is sensitive to changes in the underlying model can be drastically different. Models themselves are often directly useful for materials science and engineering, not only to run a given simulation.
+
+CALPHAD [ edit ] Main article: CALPHAD Phase diagrams are integral to materials science and the development computational phase diagrams stands as one of the most important and successful examples of ICME. The Calculation of PHase Diagram (CALPHAD) method does not generally speaking constitute a simulation, but the models and optimizations instead result in phase diagrams to predict phase stability, extremely useful in materials design and materials process optimization.
+
+Comparison of methods [ edit ] For each material simulation method, there is a fundamental unit, characteristic length and time scale, and associated model(s).
+
+[ 1 ] Method Fundamental unit(s) Length scale Time scale Main model(s) Quantum Chemistry Electron, atom pm ps Many-body wavefunction methods , Basis set Density functional theory Electron, atom pm ps Exchange-correlation functional , Basis set Molecular dynamics Atom, Molecule nm ps - ns Interatomic potential Kinetic Monte Carlo Atom, Molecule, Cluster nm - μm ps - μs Interatomic potential , Rate Coefficients Dislocation dynamics Dislocation μm ns - μs Peach-Koehler Force , Slip System Interactions Phase field Grain, Interface μm - mm ns - μs Free energy functional Crystal plasticity Crystal orientation μm - mm μs - ms Hardening function and yield surface Finite element Volume element mm - m ms - s beam equation , heat equation , etc.
+
+Multi-scale simulation [ edit ] Main article: Multiscale modeling Many of the methods described can be combined, either running simultaneously or separately, feeding information between length scales or accuracy levels.
+
+Concurrent multi-scale [ edit ] Concurrent simulations in this context means methods used directly together, within the same code, with the same time step, and with direct mapping between the respective fundamental units.
+
+One type of concurrent multiscale simulation is quantum mechanics/molecular mechanics ( QM/MM ). This involves running a small portion (often a molecule or protein of interest) with a more accurate electronic structure calculation and surrounding it with a larger region of fast running, less accurate classical molecular dynamics . Many other methods exist, such as atomistic-continuum simulations, similar to QM/MM except using molecular dynamics and the finite element method as the fine (high-fidelity) and coarse (low-fidelity), respectively.
+
+[ 2 ] Hierarchical multi-scale [ edit ] Hierarchical simulation refers to those which directly exchange information between methods, but are run in separate codes, with differences in length and/or time scales handled through statistical or interpolative techniques.
+
+A common method of accounting for crystal orientation effects together with geometry embeds crystal plasticity within finite element simulations.
+
+[ 2 ] Model development [ edit ] Building a materials model at one scale often requires information from another, lower scale. Some examples are included here.
+
+The most common scenario for classical molecular dynamics simulations is to develop the interatomic model directly using density functional theory , most often electronic structure calculations. Classical MD can therefore be considered a hierarchical multi-scale technique, as well as a coarse-grained method (ignoring electrons). Similarly, coarse grained molecular dynamics are reduced or simplified particle simulations directly trained from all-atom MD simulations. These particles can represent anything from carbon-hydrogen pseudo-atoms, entire polymer monomers, to powder particles.
+
+Density functional theory is also often used to train and develop CALPHAD -based phase diagrams.
+
+Software and tools [ edit ] MOOSE / BISON simulation: A piece of a fuel pellet has chipped away (center left) due to a manufacturing defect or damage incurred while it was in transit. The damaged pellet surface induces a high-stress state in the adjacent cladding. As a result, the pellets warm up and densify before swelling back out due to fission products building up inside of them, further stressing the surrounding fuel cladding.
+
+Each modeling and simulation method has a combination of commercial, open-source, and lab-based codes.
+
+Open source software is becoming increasingly common, as are community codes which combine development efforts together. Examples include Quantum ESPRESSO (DFT), LAMMPS (MD), ParaDIS (DD), FiPy (phase field), and MOOSE (Continuum). In addition, open software from other communities is often useful for materials science, e.g.
+
+GROMACS developed within computational biology .
+
+Materials Studio - CASTEP and DMol3 NAMD Vienna Ab initio Simulation Package FHI-aims WIEN2k Conferences [ edit ] All major materials science conferences include computational research. Focusing entirely on computational efforts, the TMS ICME World Congress meets biannually. The Gordon Research Conference on Computational Materials Science and Engineering began in 2020. Many other method specific smaller conferences are also regularly organized.
+
+Journals [ edit ] Many materials science journals , as well as those from related disciplines welcome computational materials research. Those dedicated to the field include Computational Materials Science , Modelling and Simulation in Materials Science and Engineering , and npj Computational Materials.
+
+Related fields [ edit ] Computational materials science is one sub-discipline of both computational science and computational engineering , containing significant overlap with computational chemistry and computational physics . In addition, many atomistic methods are common between computational chemistry , computational biology , and CMSE; similarly, many continuum methods overlap with many other fields of computational engineering .
+
+See also [ edit ] Integrated computational materials engineering Materials informatics Computer simulation Molecular modeling Comparison of software for molecular mechanics modeling References [ edit ] ^ a b LeSar, Richard (2013-05-06).
+
+Introduction to Computational Materials Science: Fundamentals to Applications (1st ed.). Cambridge; New York: Cambridge University Press.
+
+ISBN 978-0-521-84587-8 .
+
+^ a b c Modeling Across Scales: A Roadmapping Study for Connecting Materials Models and Simulations Across Length and Time Scales (Report). The Minerals, Metals & Materials Society (TMS). 2015 . Retrieved 20 August 2019 .
+
+^ Allison, John; Backman, Dan; Christodoulou, Leo (2006-11-01). "Integrated computational materials engineering: A new paradigm for the global materials profession".
+
+JOM .
+
+58 (11): 25– 27.
+
+Bibcode : 2006JOM....58k..25A .
+
+doi : 10.1007/s11837-006-0223-5 .
+
+ISSN 1543-1851 .
+
+^ Warren, James A.; Ward, Charles H. (2018-06-11). "Evolution of a Materials Data Infrastructure".
+
+JOM .
+
+70 (9): 1652– 1658.
+
+Bibcode : 2018JOM....70i1652W .
+
+doi : 10.1007/s11837-018-2968-z .
+
+ISSN 1543-1851 .
+
+^ Curtarolo, Stefano; Hart, Gus L.W.; Nardelli, Marco Buongiorno; Mingo, Natalio; Sanvito, Stefano; Levy, Ohad (2013). "The high-throughput highway to computational materials design".
+
+Nature Materials .
+
+12 (3): 191– 201.
+
+Bibcode : 2013NatMa..12..191C .
+
+doi : 10.1038/nmat3568 .
+
+ISSN 1476-1122 .
+
+PMID 23422720 .
+
+^ a b c d e R. Sills, W. Kuykendall, A. Aghaei, W. Cai. "Fundamentals of Dislocation Dynamics Simulations", in "Multiscale Materials Modeling for Nanomechanics". Editors: C. Weinberger, G. Tucker. ISBN 978-3-319-33478-3 ^ a b D. Raabe. "Don't Trust your Simulation - Computational Materials Science on Its Way to Maturity?" (2002) Advanced Engineering Materials 4, No. 5 ^ a b c V. Mohles. "Dislocation Dynamics Simulations of Particle Strengthening." Continuum Scale Simulation of Engineering Materials: Fundamentals - Microstructures - Process Applications. Edited by Dierk Raabe, Franz Roters, Frederic Barlat, Long-Qing Chen. 2004 Wiley-VCH Verlag GmbH & Co. KGaA.
+
+ISBN 3-527-30760-5 .
+
+^ a b "P. Bocchini, D. Dunand. "Dislocation dynamics simulations of precipitation-strengthened Ni- and Co-based superalloys." Materialia 1 (2018) 211-220.
+
+External links [ edit ] TMS World Congress on Integrated Computational Materials Engineering (ICME) nanoHUB computational materials resources v t e Branches of materials science Main classes Metallurgy Ceramic engineering Polymer science and Polymer engineering Material independent Characterization Computational Fundamental aspects Informatics Domains Crystallography Surface science Tribology Microelectronics Interdisciplinary Chemistry Solid-state chemistry Polymer chemistry Mineralogy Mining engineering Nuclear engineering Physics Condensed-matter physics Polymer physics Soft-matter physics Solid-state physics Category Common Material NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐c5fpk
+Cached time: 20250812064302
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.295 seconds
+Real time usage: 0.380 seconds
+Preprocessor visited node count: 1339/1000000
+Revision size: 22042/2097152 bytes
+Post‐expand include size: 30992/2097152 bytes
+Template argument size: 1556/2097152 bytes
+Highest expansion depth: 13/100
+Expensive parser function count: 12/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 41175/5000000 bytes
+Lua time usage: 0.188/10.000 seconds
+Lua memory usage: 4866226/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  322.863      1 -total
+ 32.92%  106.294      1 Template:Reflist
+ 21.53%   69.506      1 Template:Branches_of_materials_science
+ 21.08%   68.062      1 Template:Navbox
+ 19.11%   61.693      1 Template:Cite_book
+ 16.22%   52.374      1 Template:Short_description
+ 12.93%   41.750      1 Template:More_footnotes_needed
+ 11.43%   36.898      1 Template:Ambox
+  9.77%   31.538      2 Template:Pagetype
+  6.20%   20.021      3 Template:Cite_journal Saved in parser cache with key enwiki:pcache:59798889:|#|:idhash:canonical and timestamp 20250812064302 and revision id 1297051678. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Computational_materials_science&oldid=1297051678 " Categories : Computational science Computational physics Hidden categories: Articles with short description Short description matches Wikidata Articles lacking in-text citations from November 2019 All articles lacking in-text citations This page was last edited on 23 June 2025, at 22:05 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Computational materials science 2 languages Add topic
+

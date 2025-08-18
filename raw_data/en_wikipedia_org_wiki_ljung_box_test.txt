@@ -1,0 +1,107 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Formal definition 2 Box–Pierce test 3 Implementations in statistics packages 4 See also 5 References 6 Further reading 7 External links Toggle the table of contents Ljung–Box test 7 languages Deutsch Español Français 日本語 Polski Русский Українська Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Statistical test The Ljung–Box test (named for Greta M. Ljung and George E. P. Box ) is a type of statistical test of whether any of a group of autocorrelations of a time series are different from zero. Instead of testing randomness at each distinct lag, it tests the "overall" randomness based on a number of lags, and is therefore a portmanteau test .
+
+This test is sometimes known as the Ljung–Box Q test , and it is closely connected to the Box–Pierce test (which is named after George E. P. Box and David A. Pierce). In fact, the Ljung–Box test statistic was described explicitly in the paper that led to the use of the Box–Pierce statistic, [ 1 ] [ 2 ] and from which that statistic takes its name. The Box–Pierce test statistic is a simplified version of the Ljung–Box statistic for which subsequent simulation studies have shown poor performance.
+
+[ 3 ] The Ljung–Box test is widely applied in econometrics and other applications of time series analysis . A similar assessment can be also carried out with the Breusch–Godfrey test and the Durbin–Watson test .
+
+Formal definition [ edit ] The Ljung–Box test may be defined as: H 0 {\displaystyle H_{0}} : The data is not correlated (i.e. the correlations in the population from which the sample is taken are 0, so that any observed correlations in the data result from randomness of the sampling process).
+
+H a {\displaystyle H_{a}} : The data exhibit serial correlation.
+
+The test statistic is: [ 2 ] Q = n ( n + 2 ) ∑ ∑ k = 1 h ρ ρ ^ ^ k 2 n − − k {\displaystyle Q=n(n+2)\sum _{k=1}^{h}{\frac {{\hat {\rho }}_{k}^{2}}{n-k}}} where n is the sample size, ρ ρ ^ ^ k {\displaystyle {\hat {\rho }}_{k}} is the sample autocorrelation at lag k , and h is the number of lags being tested. Under H 0 {\displaystyle H_{0}} the statistic Q asymptotically follows a χ χ ( h ) 2 {\displaystyle \chi _{(h)}^{2}} . For significance level α, the critical region for rejection of the hypothesis of randomness is: Q > χ χ 1 − − α α , h 2 {\displaystyle Q>\chi _{1-\alpha ,h}^{2}} where χ χ 1 − − α α , h 2 {\displaystyle \chi _{1-\alpha ,h}^{2}} is the (1 − α )- quantile [ 4 ] of the chi-squared distribution with h degrees of freedom.
+
+The Ljung–Box test is commonly used in autoregressive integrated moving average (ARIMA) modeling. Note that it is applied to the residuals of a fitted ARIMA model, not the original series, and in such applications the hypothesis actually being tested is that the residuals from the ARIMA model have no autocorrelation. When testing the residuals of an estimated ARIMA model, the degrees of freedom need to be adjusted to reflect the parameter estimation. For example, for an ARIMA( p ,0, q ) model, the degrees of freedom should be set to h − − p − − q {\displaystyle h-p-q} .
+
+[ 5 ] Box–Pierce test [ edit ] The Box–Pierce test uses the test statistic, in the notation outlined above, given by [ 1 ] Q BP = n ∑ ∑ k = 1 h ρ ρ ^ ^ k 2 , {\displaystyle Q_{\text{BP}}=n\sum _{k=1}^{h}{\hat {\rho }}_{k}^{2},} and it uses the same critical region as defined above.
+
+Simulation studies have shown that the distribution for the Ljung–Box statistic is closer to a χ χ ( h ) 2 {\displaystyle \chi _{(h)}^{2}} distribution than is the distribution for the Box–Pierce statistic for all sample sizes including small ones.
+
+[ citation needed ] Implementations in statistics packages [ edit ] R : the Box.test function in the stats package [ 6 ] Python : the acorr_ljungbox function in the statsmodels package [ 7 ] Julia : the Ljung–Box tests and the Box–Pierce tests in the HypothesisTests package [ 8 ] SPSS : the Box-Ljung statistic is included by default in output produced by the IBM SPSS Statistics Forecasting module.
+
+See also [ edit ] Q-statistic Wald–Wolfowitz runs test Breusch–Godfrey test Durbin–Watson test References [ edit ] ^ a b Box, G. E. P.; Pierce, D. A. (1970). "Distribution of Residual Autocorrelations in Autoregressive-Integrated Moving Average Time Series Models".
+
+Journal of the American Statistical Association .
+
+65 (332): 1509– 1526.
+
+doi : 10.1080/01621459.1970.10481180 .
+
+JSTOR 2284333 .
+
+^ a b G. M. Ljung; G. E. P. Box (1978). "On a Measure of a Lack of Fit in Time Series Models".
+
+Biometrika .
+
+65 (2): 297– 303.
+
+doi : 10.1093/biomet/65.2.297 .
+
+^ Davies, Neville; Newbold, Paul (1979).
+
+"Some power studies of a portmanteau test of time series model specification" .
+
+Biometrika .
+
+66 (1): 153– 155.
+
+doi : 10.1093/biomet/66.1.153 .
+
+^ Brockwell, Peter J.; Davis, Richard A.; Davis, R. J. (2002-03-08).
+
+Introduction to Time Series and Forecasting . Taylor & Francis. p.
+
+36 .
+
+ISBN 978-0-387-95351-9 .
+
+^ Davidson, James (2000).
+
+Econometric Theory . Blackwell. p. 162.
+
+ISBN 978-0-631-21584-4 .
+
+^ "R: Box–Pierce and Ljung–Box Tests" .
+
+stat.ethz.ch . Retrieved 2016-06-05 .
+
+^ "Python: Ljung–Box Tests" .
+
+statsmodels.org . Retrieved 2018-07-23 .
+
+^ "Time series tests" .
+
+juliastats.org . Retrieved 2020-02-04 .
+
+Further reading [ edit ] Brockwell, Peter; Davis, Richard (2002).
+
+Introduction to Time Series and Forecasting (2nd ed.). Springer. pp.
+
+35– 38.
+
+ISBN 978-0-387-94719-8 .
+
+Enders, Walter (2010).
+
+Applied Econometric Time Series (Third ed.). New York: Wiley. pp.
+
+69– 70.
+
+ISBN 978-0470-50539-7 .
+
+Hayashi, Fumio (2000).
+
+Econometrics . Princeton University Press. pp.
+
+142– 144.
+
+ISBN 978-0-691-01018-2 .
+
+External links [ edit ] This article incorporates public domain material from the National Institute of Standards and Technology v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject Retrieved from " https://en.wikipedia.org/w/index.php?title=Ljung–Box_test&oldid=1292254316 " Categories : Time series statistical tests Time domain analysis Hidden categories: Articles with short description Short description matches Wikidata All articles with unsourced statements Articles with unsourced statements from June 2011 Wikipedia articles incorporating text from the National Institute of Standards and Technology This page was last edited on 26 May 2025, at 01:03 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Ljung–Box test 7 languages Add topic
+

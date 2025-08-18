@@ -1,0 +1,80 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Background 2 Formalization 3 Example 4 Linear-quadratic control 5 Relation to expected value of perfect information (EVPI) 6 See also 7 References Toggle the table of contents Expected value of including uncertainty Add languages Add links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Concept in decision theory In decision theory and quantitative policy analysis , the expected value of including uncertainty ( EVIU ) is a measure that quantifies the potential benefit of incorporating uncertainty into decision-making . Specifically, it represents the expected improvement in decision outcomes when using a comprehensive probabilistic analysis compared to an analysis that ignores uncertainty by using only point estimates . EVIU helps decision-makers understand when it's worthwhile to invest resources in more sophisticated uncertainty analysis versus when simpler deterministic approaches might suffice.
+
+[ 1 ] [ 2 ] [ 3 ] For example, consider a public health official deciding whether to implement a vaccination program. Using only point estimates, the program costs $10 million and prevents 100 deaths, suggesting a cost of $100,000 per life saved. However, a probabilistic analysis might reveal that vaccination effectiveness has significant uncertainty, with a 20% chance of preventing 500 deaths (making the program highly cost-effective at $20,000 per life saved) and an 80% chance of preventing only 25 deaths (making it less cost-effective at $400,000 per life saved). By incorporating this uncertainty, the decision-maker might choose a more flexible implementation strategy or allocate resources to reduce uncertainty through pilot studies before full deployment. The EVIU quantifies how much better the decision becomes when accounting for this uncertainty distribution rather than relying solely on the average outcome.
+
+Background [ edit ] Decisions must be made every day in the ubiquitous presence of uncertainty.  For most day-to-day decisions, various heuristics are used to act reasonably in the presence of uncertainty, often with little thought about its presence.  However, for larger high-stakes decisions or decisions in highly public situations, decision makers may often benefit from a more systematic treatment of their decision problem, such as through quantitative analysis or decision analysis .
+
+When building a quantitative decision model, a model builder identifies various relevant factors, and encodes these as input variables . From these inputs, other quantities, called result variables , can be computed; these provide information for the decision maker.  For example, in the example detailed below, the decision maker must decide how soon before a flight's schedule departure he must leave for the airport (the decision).  One input variable is how long it takes to drive to the airport parking garage. From this and other inputs, the model can compute how likely it is the decision maker will miss the flight and what the net cost (in minutes) will be for various decisions.
+
+To reach a decision, a very common practice is to ignore uncertainty. Decisions are reached through quantitative analysis and model building by simply using a best guess (single value) for each input variable.  Decisions are then made on computed point estimates . In many cases, however, ignoring uncertainty can lead to very poor decisions, with estimations for result variables often misleading the decision maker [ 4 ] An alternative to ignoring uncertainty in quantitative decision models is to explicitly encode uncertainty as part of the model. With this approach, a probability distribution is provided for each input variable, rather than a single best guess.  The variance in that distribution reflects the degree of subjective uncertainty (or lack of knowledge) in the input quantity. The software tools then use methods such as Monte Carlo analysis to propagate the uncertainty to result variables, so that a decision maker obtains an explicit picture of the impact that uncertainty has on his decisions, and in many cases can make a much better decision as a result.
+
+When comparing the two approaches—ignoring uncertainty versus modeling uncertainty explicitly—the natural question to ask is how much difference it really makes to the quality of the decisions reached. In the 1960s, Ronald A. Howard proposed [ 5 ] one such measure, the expected value of perfect information (EVPI), a measure of how much it would be worth to learn the "true" values for all uncertain input variables.  While providing a highly useful measure of sensitivity to uncertainty, the EVPI does not directly capture the actual improvement in decisions obtained from explicitly representing and reasoning about uncertainty. For this, Max Henrion, in his Ph.D. thesis, introduced the expected value of including uncertainty (EVIU), the topic of this article.
+
+Formalization [ edit ] Let d ∈ ∈ D the decision being made, chosen from space D x ∈ ∈ X the uncertain quantity, with true value in space X U ( d , x ) the utility function f ( x ) the prior subjective probability distribution (density function) on x {\displaystyle {\begin{array}{ll}d\in D&{\text{the decision being made, chosen from space }}D\\x\in X&{\text{the uncertain quantity, with true value in space }}X\\U(d,x)&{\text{the utility function}}\\f(x)&{\text{the prior subjective probability distribution (density function) on }}x\end{array}}} When not including uncertainty, the optimal decision is found using only E [ x ] {\displaystyle E[x]} , the expected value of the uncertain quantity.  Hence, the decision ignoring uncertainty is given by: d i u = arg ⁡ ⁡ max d U ( d , E [ x ] ) .
+
+{\displaystyle d_{iu}={\arg \max _{d}}~U(d,E[x]).} The optimal decision taking uncertainty into account is the standard Bayes decision that maximizes expected utility : d ∗ ∗ = arg ⁡ ⁡ max d ∫ ∫ U ( d , x ) f ( x ) d x .
+
+{\displaystyle d^{*}={\arg \max _{d}}{\int U(d,x)f(x)\,dx}.} The EVIU is the difference in expected utility between these two decisions: E V I U = ∫ ∫ X [ U ( d ∗ ∗ , x ) − − U ( d i u , x ) ] f ( x ) d x .
+
+{\displaystyle EVIU=\int _{X}\left[U(d^{*},x)-U(d_{iu},x)\right]f(x)\,dx.} The uncertain quantity x and decision variable d may each be composed of many scalar variables, in which case the spaces X and D are each vector spaces.
+
+Example [ edit ] [influence diagram of EVIU model The diagram at right is an influence diagram for deciding how early the decision maker should leave home in order to catch a flight at the airport.  The single decision, in the green rectangle, is the number of minutes that one will decide to leave prior to the plane's departure time.  Four uncertain variables appear on the diagram in cyan ovals: The time required to drive from home to the airport's parking garage (in minutes), time to get from the parking garage to the gate (in minutes), the time before departure that one must be at the gate, and the loss (in minutes) incurred if the flight is missed.  Each of these nodes contains a probability distribution, viz: Time_to_drive_to_airport   := LogNormal (median:60,gsdev:1.3)
+Time_from_parking_to_gate  := LogNormal (median:10,gsdev:1.3)
+Gate_time_before_departure := Triangular (min:20,mode:30,max:40)
+Loss_if_miss_the_plane     := LogNormal (median:400,stddev:100) Each of these distributions is taken to be statistically independent .  The probability distribution for the first uncertain variable, Time_to_drive_to_airport , with median 60 and a geometric standard deviation of 1.3, is depicted in this graph: The model calculates the cost (the red hexagonal variable) as the number of minutes (or minute equivalents) consumed to successfully board the plane.  If one arrive too late, one will miss one's plane and incur the large loss (negative utility) of having to wait for the next flight.  If one arrives too early, one incurs the cost of a needlessly long wait for the flight.
+
+Models that utilize EVIU may use a utility function , or equivalently they may utilize a loss function , in which case the utility function is just the negative of the loss function .  In either case, the EVIU will be positive.  The main difference is just that with a loss function, the decision is made by minimizing loss rather than by maximizing utility.  The example here uses a loss function , Cost.
+
+The definitions for each of the computed variables is thus: Time_from_home_to_gate := Time_to_drive_to_airport + Time_from_parking_to_gate + Loss_if_miss_the_plane
+Value_per_minute_at_home := 1 Cost := Value_per_minute_at_home * Time_I_leave_home +
+           (If Time_I_leave_home < Time_from_home_to_gate Then Loss_if_miss_the_plane Else 0) The following graph displays the expected value taking uncertainty into account (the smooth blue curve) to the expected utility ignoring uncertainty, graphed as a function of the decision variable.
+
+When uncertainty is ignored, one acts as though the flight will be made with certainty as long as one leaves at least 100 minutes before the flight, and will miss the flight with certainty if one leaves any later than that.  Because one acts as if everything is certain, the optimal action is to leave exactly 100 minutes (or 100 minutes, 1 second) before the flight.
+
+When uncertainty is taken into account, the expected value smooths out (the blue curve), and the optimal action is to leave 140 minutes before the flight.  The expected value curve, with a decision at 100 minutes before the flight, shows the expected cost when ignoring uncertainty to be 313.7 minutes, while the expected cost when one leaves 140 minute before the flight is 151 minutes.  The difference between these two is the EVIU: E V I U = 313.7 − − 151 = 162.7 minutes {\displaystyle EVIU=313.7-151=162.7{\text{ minutes}}} In other words, if uncertainty is explicitly taken into account when the decision is made, an average savings of 162.7 minutes will be realized.
+
+Linear-quadratic control [ edit ] In the context of centralized linear-quadratic control , with additive uncertainty in the equation of evolution but no uncertainty about coefficient values in that equation, the optimal solution for the control variables taking into account the uncertainty is the same as the solution ignoring uncertainty. This property, which gives a zero expected value of including uncertainty, is called certainty equivalence .
+
+Relation to expected value of perfect information (EVPI) [ edit ] Both EVIU and EVPI compare the expected value of the Bayes' decision with another decision made without uncertainty.  For EVIU this other decision is made when the uncertainty is ignored , although it is there, while for EVPI this other decision is made after the uncertainty is removed by obtaining perfect information about x .
+
+The EVPI is the expected cost of being uncertain about x , while the EVIU is the additional expected cost of assuming that one is certain.
+
+The EVIU, like the EVPI, gives expected value in terms of the units of the utility function.
+
+See also [ edit ] Expected value of sample information Bulk Dispatch Lapse References [ edit ] ^ Morgan, M. Granger; Henrion, Max (1990). "Chap. 12".
+
+Uncertainty: A Guide to Dealing with Uncertainty in Quantitative Risk and Policy Analysis . Cambridge University Press.
+
+ISBN 0-521-36542-2 .
+
+^ Henrion, M. (1982).
+
+The value of knowing how little you know: The advantages of a probabilistic treatment of uncertainty in policy analysis (Ph.D. thesis). Carnegie Mellon University.
+
+^ EPA (2001). "Appendix D: Advanced Modeling Approaches for Characterizing Variability and Uncertainty".
+
+Risk Assessment Guidance for Superfund (RAGS) Volume III - Part A: Process for Conducting Probabilistic Risk Assessment (PDF) . United States Environmental Protection Agency. p. D-20. Archived from the original (PDF) on May 23, 2008.
+
+^ Danziger, Jeff; Sam L. Savage (2009).
+
+The Flaw of Averages: Why We Underestimate Risk in the Face of Uncertainty . New York: Wiley.
+
+ISBN 978-0-471-38197-6 .
+
+^ Howard, Ron A. (1966). "Information value theory".
+
+IEEE Transactions on Systems Science and Cybernetics .
+
+1 : 22– 6.
+
+doi : 10.1109/TSSC.1966.300074 .
+
+Retrieved from " https://en.wikipedia.org/w/index.php?title=Expected_value_of_including_uncertainty&oldid=1299000585 " Category : Expected utility Hidden categories: Articles with short description Short description is different from Wikidata This page was last edited on 6 July 2025, at 00:54 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Expected value of including uncertainty Add languages Add topic
+

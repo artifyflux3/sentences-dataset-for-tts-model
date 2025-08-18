@@ -1,0 +1,215 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 History 2 Cost raster Toggle Cost raster subsection 2.1 Directional cost 3 Least-cost-path algorithm 4 Corridor analysis 5 Cost-based allocation 6 Implementations 7 Applications 8 See also 9 References 10 External links Toggle the table of contents Cost distance analysis Add languages Add links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Spatial analysis techniques for minimizing cost For broader coverage of this topic, see Proximity analysis .
+
+In spatial analysis and geographic information systems , cost distance analysis or cost path analysis is a method for determining one or more optimal routes of travel through unconstrained (two-dimensional) space.
+
+[ 1 ] The optimal solution is that which minimizes the total cost of the route, based on a field of cost density (cost per linear unit) that varies over space due to local factors. It is thus based on the fundamental geographic principle of Friction of distance . It is an optimization problem with multiple deterministic algorithm solutions, implemented in most GIS software.
+
+The various problems, algorithms, and tools of cost distance analysis operate over an unconstrained two-dimensional space, meaning that a path could be of any shape. Similar cost optimization problems can also arise in a constrained space, especially a one-dimensional linear network such as a road or telecommunications network . Although they are similar in principle, the problems in network space require very different (usually simpler) algorithms to solve, largely adopted from graph theory . The collection of GIS tools for solving these problems are called network analysis .
+
+History [ edit ] Humans seem to have an innate desire to travel with minimal effort and time. Historic, even ancient, roads show patterns similar to what modern computational algorithms would generate, traveling straight across flat spaces, but curving around mountains, canyons, and thick vegetation.
+
+However, it was not until the 20th century that geographers developed theories to explain this route optimization, and algorithms to reproduce it. In 1957, during the Quantitative revolution in Geography, with its propensity to adopt principles or mathematical formalisms from the "hard" sciences (known as social physics ), William Warntz used refraction as an analogy for how minimizing travel cost will make transportation routes change direction at the boundary between two landscapes with very different friction of distance (e.g., emerging from a forest into a prairie).
+
+[ 2 ] His principle of "parsimonious movement," changing direction to minimize cost, was widely accepted, but the refraction analogy and mathematics ( Snell's law ) was not, largely because it does not scale well to normally complex geographic situations.
+
+[ 3 ] Warntz and others then adopted another analogy that proved much more successful in the common situation where travel cost varies continuously over space, by comparing it to terrain.
+
+[ 4 ] They compared the cost rate (i.e., cost per unit distance, the inverse of velocity if the cost is time) to the slope of a terrain surface (i.e., elevation change per unit distance), both being mathematical derivatives of an accumulated function or field: total elevation above a vertical datum (sea level) in the case of terrain. Integrating the cost rate field from a given starting point would create an analogous surface of total accumulated cost of travel from that point. In the same way that a stream follows the path of least resistance downhill, the streamline on the cost accumulation surface from any point "down" to the source will be the minimum-cost path.
+
+[ 5 ] [ 6 ] Additional lines of research in the 1960s further developed the nature of the cost rate field as a manifestation of the concept of friction of distance , studying how it was affected by various geographic features.
+
+[ 7 ] At the time, this solution was only theoretical, lacking the data and computing power for the continuous solution. Raster GIS provided the first feasible platform for implementing the theoretical solution by converting the continuous integration into a discrete summation procedure.
+
+Dana Tomlin implemented cost distance analysis in his Map Analysis Package by 1986, and Ronald Eastman added it to IDRISI by 1989, with a more efficient "pushbroom" cost accumulation algorithm.
+
+[ 8 ] Douglas (1994) further refined the accumulation algorithm, which is basically what is implemented in most current GIS software.
+
+[ 9 ] Cost raster [ edit ] Flowchart of a typical GIS Cost Path Analysis See also: Friction of distance The primary data set used in cost distance analysis is the cost raster , sometimes called the cost-of-passage surface, [ 9 ] the friction image, [ 8 ] the cost-rate field, or cost surface. In most implementations, this is a raster grid , in which the value of each cell represents the cost (i.e., expended resources, such as time, money, or energy) of a route crossing the cell in a horizontal or vertical direction.
+
+[ 10 ] It is thus a discretization of a field of cost rate (cost per linear unit), a spatially intensive property. This cost is a manifestation of the principle of friction of distance .
+
+A number of different types of cost may be relevant in a given routing problem: Travel cost , the resource expenditure required to move across the cell, usually time or energy/fuel.
+
+Construction cost , the resources (usually monetary) required to build the infrastructure that makes travel possible, such as roads, pipes, and cables. While some construction costs are constant (e.g., paving material), others are spatially variant, such as property acquisition and excavation.
+
+Environmental impacts , the negative effects on the natural or human environment caused by the infrastructure or the travel along it. For example, building an expressway through a residential neighborhood or a wetland would incur a high political cost (in the form of environmental impact assessments, protests, lawsuits, etc.).
+
+Some of these costs are easily quantifiable and measurable, such as transit time, fuel consumption, and construction costs, thus naturally lending themselves to computational solutions. That said, there may be significant uncertainty in predicting the cost prior to implementing the route. Other costs are much more difficult to measure due to their qualitative or subjective nature, such as political protest or ecological impact; these typically require operationalization through the creation of a scale .
+
+[ 11 ] In many situations, multiple types of cost may be simultaneously relevant, and the total cost is a combination of them. Because different costs are expressed in different units (or, in the case of scales, no units at all), they usually cannot be directly summed, but must be combined by creating an index . A common type of index is created by scaling each factor to a consistent range (say, [0,1]), then combining them using weighted linear combination . An important part of the creation of an index model like this is Calibration (statistics) , adjusting the parameters of the formula(s) to make the modeled relative cost match real-world costs, using methods such as the Analytic hierarchy process . The index model formula is typically implemented in a raster GIS using map algebra tools from raster grids representing each cost factor, resulting in a single cost raster grid.
+
+Directional cost [ edit ] Main article: Anisotropy One limitation of the traditional method is that the cost field is isotropic or omni-directional: the cost at a given location does not depend on the direction of traversal. This is appropriate in many situations, but not others. For example, if one is flying in a windy location, an airplane flying in the direction of the wind incurs a much lower cost than an airplane flying against it. Some research has been done on extending cost distance analysis algorithms to incorporate directional cost, but it is not yet widely implemented in GIS software.
+
+[ 12 ] IDRISI has some support for anisotropy.
+
+[ 1 ] Least-cost-path algorithm [ edit ] The most common cost distance task is to determine the single path through the space between a given source location and a destination location that has the least total accumulated cost. The typical solution algorithm is a discrete raster implementation of the cost integration strategy of Warntz and Lindgren, [ 5 ] which is a deterministic ( NP-complete ) optimization .
+
+[ 10 ] Inputs: cost field raster, source location, destination location (most implementations can solve for multiple sources and destinations simultaneously) Accumulation: Starting at the source location compute the lowest total cost needed to reach every other cell in the grid. Although there are several algorithms, such as those published by Eastman and Douglas, [ 8 ] [ 9 ] they generally follow a similar strategy.
+
+[ 13 ] This process also creates, as an important byproduct, a second raster grid usually called the backlink grid (Esri) or movement direction grid (GRASS), in which each cell has a direction code (0-7) representing which of its eight neighbors had the lowest cost.
+
+Find a cell that is adjacent to at least one cell that already has an accumulated cost assigned (initially, this is only the source cell) Determine which neighbor has the lowest accumulated cost. Encode the direction from the target to the lowest-cost neighbor in the backlink grid.
+
+Add the cost of the target cell (or an average of the costs of the target and neighbor cells) to the neighbor accumulated cost, to create the accumulated cost of the target cell. If the neighbor is diagonal, the local cost is multiplied by 2 {\displaystyle {\sqrt {2}}} The algorithm must also take into account that indirect routes may have lower cost, often using a hash table to keep track of temporary cost values along the expanding fringe of computation that can be reconsidered.
+
+Repeat the procedure until all cells are assigned.
+
+Drain: In keeping with the terrain analogy, trace the optimal route from the given destination back to the source like a stream draining away from a location. At its most basic, this is accomplished by starting at the destination cell, moving in the direction indicated in the backlink grid, then repeating for the next cell, and so on until the source is reached. Recent software adds some improvements, such as looking across three or more cells to recognize straight lines at angles other than the eight neighbor directions. For example, the r.walk function in GRASS can recognize the "knight's move" (one cell straight, then one cell diagonal) and draw a straight line bypassing the middle cell.
+
+Corridor analysis [ edit ] Flowchart of a cost corridor analysis procedure in GIS, with low-cost and moderate-cost corridors shaded A slightly different version of the least-cost path problem, which could be considered a fuzzy version of it, is to look for corridors more than one cell in width, thus providing some flexibility in applying the results. Corridors are commonly used in transportation planning and in wildlife management.
+
+The solution to this problem is to compute, for every cell in the study space, the total accumulated cost of the optimal path between a given source and destination that passes through that cell. Thus, every cell in the optimal path derived above would have the same minimum value. Cells near this path would be reached by paths deviating only slightly from the optimal path, so they would have relatively low cost values, collectively forming a corridor with fuzzy edges as more distant cells have increasing cost values.
+
+The algorithm to derive this corridor field is created by generating two cost accumulation grids: one using the source as described above. Then the algorithm is repeated, but using the destination as the source. Then these two grids are added using map algebra . This works because for each cell, the optimal source-destination path passing through that cell is the optimal path from that cell to the source, added to the optimal path from that cell to the destination. This can be accomplished using the cost accumulation tool above, along with a map algebra tool, although ArcGIS provides a Corridor tool that automates the process.
+
+Cost-based allocation [ edit ] Another use of the cost accumulation algorithm is to partition space among multiple sources, with each cell assigned to the source it can reach with the lowest cost, creating a series of regions in which each source is the "nearest". In the terrain analogy, these would correspond to watersheds (one could thus call these "cost-sheds," but this term is not in common usage). They are directly related to a voronoi diagram , which is essentially an allocation over a space with constant cost. They are also conceptually (if not computationally) similar to location-allocation tools for network analysis.
+
+A cost-based allocation can be created using two methods. The first is to use a modified version of the cost accumulation algorithm, which substitutes the backlink grid for an allocation grid, in which each cell is assigned the same source identifier of its lowest-cost neighbor, causing the domain of each source to gradually grow until they meet each other. This is the approach taken in ArcGIS Pro .
+
+[ 14 ] The second solution is to first run the basic accumulation algorithm, then use the backlink grid to determine the source into which each cell "flows." GRASS GIS uses this approach; in fact, the same tool is used as for computing watersheds from terrain.
+
+[ 15 ] Implementations [ edit ] Cost distance tools are available in most raster GIS software: GRASS GIS (often bundled into QGIS ), with separate accumulation ( r.cost ) and drain ( r.walk ) functions ArcGIS Desktop and ArcGIS Pro , with separate accumulation ( Cost Distance ) and drain ( Cost Path ) geoprocessing tools, as well as Corridor generation. Recently, starting with ArcGIS Pro version 2.5, a new set of cost distance tools was introduced, using more advanced algorithms with more flexible options.
+
+[ 16 ] TerrSet (formerly Idrisi) has several tools, implementing a variety of algorithms to solve different kinds of cost distance problems, including anisotropic (directional) cost.
+
+[ 17 ] Applications [ edit ] Cost distance analysis has found applications in a wide range of geography related disciplines including archaeology [ 18 ] and landscape ecology .
+
+[ 19 ] See also [ edit ] Distance decay Tobler's first law of geography Tobler's second law of geography Tobler's hiking function Travelling salesman problem Canadian traveller problem Traveling purchaser problem Vehicle routing problem References [ edit ] ^ a b de Smith, Michael, Paul Longley, Michael Goodchild (2018) Cost Distance , Geospatial Analysis , 6th Edition ^ Warntz, William (1957). "Transportation, Social Physics, and the Law of Refraction".
+
+The Professional Geographer .
+
+9 (4): 2– 7.
+
+Bibcode : 1957ProfG...9....2W .
+
+doi : 10.1111/j.0033-0124.1957.094_2.x .
+
+^ Bunge, William (1966).
+
+Theoretical Geography . Lund, Sweden: Berlingsta Botryckeriet. p. 128.
+
+^ Warntz, William (1965) " A note on surfaces and paths and applications to geographical problems , IMaGe Discussion Paper #6 , Ann Arbor: Michigan Inter-University Community of Mathematical Geographers ^ a b Lindgren, Ernesto S. (1967). "Proposed solution for the minimum path problem".
+
+Harvard Papers in Theoretical Geography, Geography and the Properties of Surface Series .
+
+4 .
+
+^ Lindgren, Ernesto S. (1967). "A minimum path problem reconsidered".
+
+Harvard Papers in Theoretical Geography, Geography and the Properties of Surface Series .
+
+28 .
+
+^ Huff, David L.; Jenks, George F. (1968). "Graphic interpretation of the friction of distance in gravity models".
+
+Annals of the Association of American Geographers .
+
+58 (4): 814.
+
+doi : 10.1111/j.1467-8306.1968.tb01670.x .
+
+^ a b c Eastman J R (1989) Pushbroom algorithms for calculating distances in raster grids .
+
+Proceedings, AutoCarto 9 , pp.288-97 ^ a b c Douglas, David H. (1994). "Least-cost Path in GIS Using an Accumulated Cost Surface and Slopelines".
+
+Cartographica .
+
+31 (3): 37– 51.
+
+doi : 10.3138/D327-0323-2JUT-016M .
+
+^ a b Bolstad, Paul (2008).
+
+GIS Fundamentals: A First Text on Geographic Information Systems (3rd ed.). Eider Press. pp.
+
+404– 408.
+
+ISBN 978-0-9717647-2-9 .
+
+^ G.H. Pirie (2009) Distance , in Rob Kitchin, Nigel Thrift (eds.) International Encyclopedia of Human Geography , Elsevier, Pages 242-251.
+
+doi:10.1016/B978-008044910-4.00265-0 ^ Collischonn, Walter; Pilar, Jorge Victor (2000). "A direction dependent least-cost-path algorithm for roads and canals".
+
+International Journal of Geographical Information Science .
+
+14 (4): 397– 407.
+
+Bibcode : 2000IJGIS..14..397C .
+
+doi : 10.1080/13658810050024304 .
+
+S2CID 37823291 .
+
+^ "How cost distance tools work" .
+
+ArcGIS Pro Documentation . Esri . Retrieved 29 December 2020 .
+
+^ "Cost Allocation (Spatial Analyst)" .
+
+ArcGIS Pro Documentation . Esri . Retrieved 30 December 2020 .
+
+^ "r.watershed" .
+
+GRASS GIS Documentation . Retrieved 30 December 2020 .
+
+^ "An overview of the Distance toolset" .
+
+ArcGIS Pro Documentation . Esri . Retrieved 29 December 2020 .
+
+^ Eastman, J. Ronald, TerrSet Manual , p.115, 227, 356 ^ Herzog, I (2014).
+
+"A review of case studies in archaeological least-cost analysis" .
+
+Archeologia e Calcolatori .
+
+25 : 223– 239.
+
+^ Etherington, Thomas R. (2016).
+
+"Least-Cost Modelling and Landscape Ecology: Concepts, Applications, and Opportunities" .
+
+Current Landscape Ecology Reports .
+
+1 (1): 40– 53.
+
+Bibcode : 2016CLER....1...40E .
+
+doi : 10.1007/s40823-016-0006-9 .
+
+External links [ edit ] Distance toolset documentation for Esri ArcGIS Pro Cost Surface tools in GRASS GIS NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐m2fdx
+Cached time: 20250812042230
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.239 seconds
+Real time usage: 0.327 seconds
+Preprocessor visited node count: 1111/1000000
+Revision size: 20875/2097152 bytes
+Post‐expand include size: 25867/2097152 bytes
+Template argument size: 704/2097152 bytes
+Highest expansion depth: 8/100
+Expensive parser function count: 4/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 55901/5000000 bytes
+Lua time usage: 0.143/10.000 seconds
+Lua memory usage: 5740161/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  257.347      1 -total
+ 57.60%  148.243      1 Template:Reflist
+ 40.52%  104.283      8 Template:Cite_journal
+ 23.28%   59.912      1 Template:Short_description
+ 12.32%   31.699      2 Template:Pagetype
+  8.71%   22.427      1 Template:Broader
+  7.20%   18.542      4 Template:Main_other
+  6.41%   16.486      1 Template:SDcat
+  6.16%   15.845      4 Template:Cite_web
+  3.93%   10.124      2 Template:Cite_book Saved in parser cache with key enwiki:pcache:66228478:|#|:idhash:canonical and timestamp 20250812042230 and revision id 1285735227. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Cost_distance_analysis&oldid=1285735227 " Categories : Geographic information systems Spatial analysis Hidden categories: Articles with short description Short description matches Wikidata This page was last edited on 15 April 2025, at 13:17 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Cost distance analysis Add languages Add topic
+

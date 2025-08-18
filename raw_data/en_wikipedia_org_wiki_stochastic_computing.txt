@@ -1,0 +1,428 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Motivation and a simple example 2 History 3 Strengths and weaknesses Toggle Strengths and weaknesses subsection 3.1 Strengths 3.2 Weaknesses 4 Stochastic decoding 5 Deterministic Methods to Stochastic Computing 6 Variants of stochastic computing 7 See also 8 References 9 Further reading Toggle the table of contents Stochastic computing 2 languages فارسی Français Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Computing using random bit streams Stochastic computing is a collection of techniques that represent continuous values by streams of random bits. Complex computations can then be computed by simple bit-wise operations on the streams. Stochastic computing is distinct from the study of randomized algorithms .
+
+Motivation and a simple example [ edit ] Suppose that p , q ∈ ∈ [ 0 , 1 ] {\displaystyle p,q\in [0,1]} is given, and we wish to compute p × × q {\displaystyle p\times q} . Stochastic computing performs this operation using probability instead of arithmetic.
+
+Specifically, suppose that there are two random, independent bit streams called stochastic number s (i.e.
+
+Bernoulli processes ), where the probability of a 1 in the first stream is p {\displaystyle p} , and the probability in the second stream is q {\displaystyle q} . We can take the logical AND of the two streams.
+
+a i {\displaystyle a_{i}} 1 0 1 1 0 1 ...
+
+b i {\displaystyle b_{i}} 1 1 0 1 1 0 ...
+
+a i ∧ ∧ b i {\displaystyle a_{i}\land b_{i}} 1 0 0 1 0 0 ...
+
+The probability of a 1 in the output stream is p q {\displaystyle pq} .  By observing enough output bits and measuring the frequency of 1s, it is possible to estimate p q {\displaystyle pq} to arbitrary accuracy.
+
+The operation above converts a fairly complicated computation (multiplication of p {\displaystyle p} and q {\displaystyle q} ) into a series of very simple operations (evaluation of a i ∧ ∧ b i {\displaystyle a_{i}\land b_{i}} ) on random bits.
+To put in another perspective, assuming the truth table of an AND gate. Conventional interpretation is that the output is true if and only if input A and B are true. However, if the table is interpreted vertically, (0011) AND (0101) is (0001), i.e., 1/2 x 1/2 = 1/4, which is exactly an arithmetic multiplication. As the information is presented in probability distribution, probability multiplication is literally an AND operation.
+
+A B Out 0 0 0 0 1 0 1 0 0 1 1 1 More generally speaking, stochastic computing represents numbers as streams of random bits and reconstructs numbers by calculating frequencies.  The computations are performed on the streams and translate complicated operations on p {\displaystyle p} and q {\displaystyle q} into simple operations on their stream representations.  (Because of the method of reconstruction, devices that perform these operations are sometimes called stochastic averaging processors.)  In modern terms, stochastic computing can be viewed as an interpretation of calculations in probabilistic terms, which are then evaluated with a Gibbs sampler . It can also be interpreted as a hybrid analog / digital computer.
+
+History [ edit ] The RASCEL stochastic computer, circa 1969 Stochastic computing was first introduced in a pioneering paper by John von Neumann in 1953.
+
+[ 1 ] However, the
+theory could not be fully developed until advances in computing of the 1960s, [ 2 ] [ 3 ] mostly through a series of simultaneous and parallel efforts in the US [ 4 ] and the UK.
+
+[ 5 ] By the late 1960s, attention turned to the design of
+special-purpose hardware to perform stochastic computation.  A host [ 6 ] of these machines were constructed between 1969 and 1974; RASCEL [ 7 ] is pictured in this article.
+
+Despite the intense interest in the 1960s and 1970s, stochastic
+computing ultimately failed to compete with more traditional digital
+logic, for reasons outlined below.  The first (and last)
+International Symposium on Stochastic Computing [ 8 ] took place in 1978; active research in the area dwindled over the next
+few years.
+
+Although stochastic computing declined as a general method of
+computing, it has shown promise in several applications.  Research has
+traditionally focused on certain tasks in machine learning and
+control.
+
+[ 9 ] [ 10 ] Somewhat recently, interest has turned towards stochastic
+decoding, which applies stochastic computing to the decoding of error
+correcting codes.
+
+[ 11 ] More recently, stochastic circuits have been successfully used in image processing tasks such as edge detection [ 12 ] and image thresholding .
+
+[ 13 ] Recent advancement in stochastic circuits also shows promising speed and energy efficiency advantages in artificial intelligence (AI) hardware acceleration on edge computing.
+
+Strengths and weaknesses [ edit ] Although stochastic computing was a historical failure, it may still remain relevant for
+solving certain problems.  To understand when it remains relevant, it is useful to
+compare stochastic computing with more traditional methods of digital computing.
+
+Strengths [ edit ] Suppose we wish to multiply
+two numbers each with n {\displaystyle n} bits of precision.
+Using the typical long
+multiplication method, we need to perform n 2 {\displaystyle n^{2}} operations.  With stochastic computing, we can
+AND together any number of bits and the expected value will always
+be correct.  (However, with a small number of samples the variance will
+render the actual result highly inaccurate).
+
+Moreover, the underlying operations in a digital multiplier are full adders , whereas a stochastic
+computer only requires an AND gate .  Additionally,
+a digital multiplier would naively require 2 n {\displaystyle 2n} input wires,
+whereas a stochastic multiplier would only require two input wires [ citation needed ] .
+(If the digital multiplier serialized its output, however, it would also
+require only two input wires.) Additionally, stochastic computing is robust against noise; if a few
+bits in a stream are flipped, those errors will have no significant impact
+on the solution.
+
+Furthermore, stochastic computing elements can tolerate skew in the arrival time of the inputs.
+Circuits work properly even when the inputs are misaligned temporally. As a result, stochastic
+systems can be designed to work with inexpensive locally generated clocks instead of using a global clock and 
+an expensive clock distribution network.
+
+[ 14 ] Finally, stochastic computing provides an estimate of the solution
+that grows more accurate as we extend the bit stream.  In particular,
+it provides a rough estimate very rapidly.  This property is usually 
+referred to as progressive precision , which suggests that the precision
+of stochastic numbers (bit streams) increases as computation proceeds.
+
+[ 15 ] It is as if the most significant bits of the number
+arrive before its least significant bits ; unlike the
+conventional arithmetic circuits where the most
+significant bits usually arrive last. In some
+iterative systems the partial solutions obtained through progressive precision can provide faster feedback
+than through traditional computing methods, leading to faster
+convergence.
+
+Weaknesses [ edit ] Stochastic computing is, by its very nature, random.  When we examine
+a random bit stream and try to reconstruct the underlying value, the effective precision
+can be measured by the variance of our sample.  In the example above, the digital multiplier
+computes a number to 2 n {\displaystyle 2n} bits of accuracy, so the
+precision is 2 − − 2 n {\displaystyle 2^{-2n}} .  If we are using a random bit
+stream to estimate a number and want the standard deviation of our
+estimate of the solution to be at least 2 − − 2 n {\displaystyle 2^{-2n}} , we
+would need O ( 2 4 n ) {\displaystyle O(2^{4n})} samples.  This represents an
+exponential increase in work. In certain applications, however, the
+progressive precision property of stochastic computing can be exploited
+to compensate this exponential loss.
+
+Second, stochastic computing requires a method of generating random
+biased bit streams.  In practice, these streams are generated with pseudo-random number generators .  Unfortunately, generating
+(pseudo-)random bits is fairly costly (compared to the expense of,
+e.g., a full adder).  Therefore, the gate-level advantage of
+stochastic computing is typically lost.
+
+Third, the analysis of stochastic computing assumes that the bit
+streams are independent (uncorrelated).  If this assumption does not
+hold, stochastic computing can fail dramatically.  For instance, if we
+try to compute p 2 {\displaystyle p^{2}} by multiplying a bit stream for p {\displaystyle p} by itself, the process fails: since a i ∧ ∧ a i = a i {\displaystyle a_{i}\land a_{i}=a_{i}} , the stochastic computation would yield p × × p = p {\displaystyle p\times p=p} , which is not generally true (unless p = {\displaystyle p=} 0 or 1).
+In systems with feedback, the problem of decorrelation can manifest in
+more complicated ways.  Systems of stochastic processors are prone to latching , where feedback between different components can achieve
+a deadlocked state.
+
+[ 16 ] A great deal of effort must be spent decorrelating the system to
+attempt to remediate latching.
+
+Fourth, although some digital functions have very simple stochastic
+counterparts (such as the translation between multiplication and the
+AND gate), many do not.  Trying to express these functions stochastically
+may cause various pathologies.  For instance, stochastic decoding requires
+the computation of the function f ( p , q ) → → p q / ( p q + ( 1 − − p ) ( 1 − − q ) ) {\displaystyle f(p,q)\rightarrow pq/(pq+(1-p)(1-q))} .
+There is no single bit operation that can compute this function; the usual solution
+involves producing correlated output bits, which, as we have seen above, can cause
+a host of problems.
+
+Other functions (such as the averaging operator f ( p , q ) → → ( p + q ) / 2 {\displaystyle f(p,q)\rightarrow (p+q)/2} require 
+either stream decimation or inflation.  Tradeoffs between precision and memory
+can be challenging.
+
+Stochastic decoding [ edit ] Although stochastic computing has a number of defects when considered
+as a method of general computation, there are certain applications
+that highlight its strengths.  One notable case occurs in the
+decoding of certain error correcting codes.
+
+In developments unrelated to stochastic computing, highly effective
+methods of decoding LDPC codes using
+the belief propagation algorithm were
+developed.  Belief propagation in this context involves iteratively
+reestimating certain parameters using two basic operations
+(essentially, a probabilistic XOR operation and an averaging
+operation).
+
+In 2003, researchers realized that these two operations could be
+modeled very simply with stochastic computing.
+
+[ 17 ] Moreover, since the
+belief propagation algorithm is iterative, stochastic computing provides partial
+solutions that may lead to faster convergence.
+Hardware implementations of stochastic decoders have been built on FPGAs .
+
+[ 18 ] The proponents of these methods argue that the performance of stochastic decoding is
+competitive with digital alternatives.
+
+Deterministic Methods to Stochastic Computing [ edit ] Deterministic methods of SC has been developed to perform completely accurate computation with SC circuits.
+
+[ 19 ] The essential principle of these methods is that every bit of one bit-streams interacts with every bit of the other bit-streams exactly once. To produce completely accurate result with these methods, the operation must run for the product of the length of input bit-streams. Deterministic methods are developed based on unary bit-streams, [ 20 ] [ 21 ] pseudo-random bit-streams, [ 22 ] and low-discrepancy bit-streams.
+
+[ 23 ] Variants of stochastic computing [ edit ] There are a number of variants of the basic stochastic computing
+paradigm.  Further information can be found in the referenced book by
+Mars and Poppelbaum.
+
+Bundle Processing involves sending a fixed number of
+bits instead of a stream.  One of the advantages of this approach is
+that the precision is improved.  To see why, suppose we transmit s {\displaystyle s} bits.  In regular stochastic computing, we can
+represent a precision of roughly O ( 1 / s ) {\displaystyle O(1/{\sqrt {s}})} different
+values, because of the variance of the estimate.  In bundle
+processing, we can represent a precision of 1 / s {\displaystyle 1/s} .
+However, bundle processing retains the same robustness to error of
+regular stochastic processing.
+
+Ergodic Processing involves sending a stream of bundles, which
+captures the benefits of regular stochastic and bundle processing.
+
+Burst Processing encodes a number by a higher base increasing
+stream.  For instance, we would encode 4.3 with ten decimal digits as 4444444555 since the average value of the preceding stream is 4.3.  This
+representation offers various advantages: there is no randomization
+since the numbers appear in increasing order,
+so the PRNG issues are avoided, but many of the advantages of
+stochastic computing are retained (such as partial estimates of the
+solution).  Additionally, it retains the linear precision of bundle
+and ergodic processing.
+
+See also [ edit ] Unconventional computing References [ edit ] ^ von Neumann, J. (1963). "Probabilistic logics and the synthesis of reliable organisms from unreliable components".
+
+The Collected Works of John von Neumann . Macmillan.
+
+ISBN 978-0-393-05169-8 .
+
+{{ cite conference }} : ISBN / Date incompatibility ( help ) ^ Petrovic, R.; Siljak, D. (1962).
+
+"Multiplication by means of coincidence" .
+
+ACTES Proc. of 3rd Int. Analog Comp. Meeting .
+
+^ Afuso, C. (1964), Quart. Tech. Prog. Rept.
+
+, Department of Computer Science, University of Illinois, Urbana, Illinois {{ citation }} :  CS1 maint: location missing publisher ( link ) ^ Poppelbaum, W.; Afuso, C.; Esch, J. (1967). "Stochastic computing elements and systems".
+
+Proceedings of the November 14-16, 1967, fall joint computer conference on - AFIPS '67 (Fall) . Vol. 31. pp.
+
+635– 644.
+
+doi : 10.1145/1465611.1465696 .
+
+ISBN 9781450378963 .
+
+S2CID 8504153 .
+
+^ Gaines, B. (1967). "Stochastic computing".
+
+Proceedings of the April 18-20, 1967, spring joint computer conference on - AFIPS '67 (Spring) . Vol. 30. pp.
+
+149– 156.
+
+doi : 10.1145/1465482.1465505 .
+
+ISBN 9781450378956 .
+
+S2CID 832296 .
+
+^ Mars, P.; Poppelbaum, W. (1981).
+
+Stochastic and deterministic averaging processors . P. Peregrinus.
+
+ISBN 978-0-906048-44-3 .
+
+^ Esch, John W. (1969).
+
+RASCEL, a programmable analog computer based on a regular array of stochastic computing element logic (PhD). University of Illinois, Urbana, Illinois. AAI700084.
+
+^ Proceedings of the first International Symposium on Stochastic Computing and its Applications . Toulouse, France. 1978.
+
+OCLC 499229066 .
+
+^ Gaines, B. R. (2013) [1969]. "Stochastic Computing Systems". In Tou, Julius (ed.).
+
+Advances in Information Systems Science . Vol. 2. Springer.
+
+ISBN 9781489958433 .
+
+^ van Daalen, M.; Jeavons, P.; Shawe-Taylor, J. (1993). "A stochastic neural architecture that exploits dynamically reconfigurable FPGAs".
+
+[1993] Proceedings IEEE Workshop on FPGAs for Custom Computing Machines . pp.
+
+202– 211.
+
+doi : 10.1109/FPGA.1993.279462 .
+
+ISBN 0-8186-3890-7 .
+
+S2CID 14929278 .
+
+^ Gaudet, Vincent; Rapley, Anthony (February 2003). "Iterative decoding using stochastic computation".
+
+Electronics Letters .
+
+39 (3): 299– 301.
+
+Bibcode : 2003ElL....39..299G .
+
+doi : 10.1049/el:20030217 .
+
+^ Alaghi, A.; Li, C.; Hayes, J. P. (2013). "Stochastic circuits for real-time image-processing applications".
+
+Proceedings of the 50th Annual Design Automation Conference on - DAC '13 . p. 1.
+
+doi : 10.1145/2463209.2488901 .
+
+ISBN 9781450320719 .
+
+S2CID 18174415 .
+
+^ Najafi, M. H.; Salehi, M. E. (2016). "A Fast Fault-Tolerant Architecture for Sauvola Local Image Thresholding Algorithm Using Stochastic Computing".
+
+IEEE Transactions on Very Large Scale Integration (VLSI) Systems .
+
+24 (2): 808– 812.
+
+doi : 10.1109/TVLSI.2015.2415932 .
+
+S2CID 6591306 .
+
+^ Najafi, M. H.; Lilja, D. J.; Riedel, M. D.; Bazargan, K. (2016). "Polysynchronous stochastic circuits".
+
+2016 21st Asia and South Pacific Design Automation Conference (ASP-DAC) . pp.
+
+492– 498.
+
+doi : 10.1109/ASPDAC.2016.7428060 .
+
+ISBN 978-1-4673-9569-4 .
+
+S2CID 8973285 .
+
+^ Alaghi, A.; Hayes, J. P. (2013). "Survey of Stochastic Computing".
+
+ACM Transactions on Embedded Computing Systems .
+
+12 (2s): 1.
+
+CiteSeerX 10.1.1.296.4448 .
+
+doi : 10.1145/2465787.2465794 .
+
+S2CID 4689958 .
+
+^ Winstead, C.; Rapley, A.; Gaudet, V.; Schlegel, C. (September 2005). "Stochastic iterative decoders".
+
+Proceedings. International Symposium on Information Theory, 2005. ISIT 2005 . Adelaide Australia. pp.
+
+1116– 1120.
+
+arXiv : cs/0501090 .
+
+doi : 10.1109/ISIT.2005.1523513 .
+
+ISBN 0-7803-9151-9 .
+
+S2CID 16390484 .
+
+{{ cite book }} :  CS1 maint: location missing publisher ( link ) ^ Gaudet, Vincent; Rapley, Anthony (February 2003). "Iterative decoding using stochastic computation".
+
+Electronics Letters .
+
+39 (3): 299– 301.
+
+Bibcode : 2003ElL....39..299G .
+
+doi : 10.1049/el:20030217 .
+
+^ Gross, W.; Gaudet, V.; Milner, A. (2006). "Stochastic implementation of LDPC decoders".
+
+Conference Record of the Thirty-Ninth Asilomar Conference on Signals, Systems and Computers .
+
+^ Najafi, M. Hassan; Jenson, Devon; Lilja, David J.; Riedel, Marc D. (December 2019).
+
+"Performing Stochastic Computation Deterministically" .
+
+IEEE Transactions on Very Large Scale Integration (VLSI) Systems .
+
+27 (12): 2925– 2938.
+
+doi : 10.1109/tvlsi.2019.2929354 .
+
+ISSN 1063-8210 .
+
+S2CID 201888463 .
+
+^ Jenson, Devon; Riedel, Marc (2016-11-07). "A deterministic approach to stochastic computation".
+
+Proceedings of the 35th International Conference on Computer-Aided Design . New York, NY, USA: ACM. pp.
+
+1– 8.
+
+doi : 10.1145/2966986.2966988 .
+
+ISBN 978-1-4503-4466-1 .
+
+S2CID 11281124 .
+
+^ Najafi, M. Hassan; Jamali-Zavareh, Shiva; Lilja, David J.; Riedel, Marc D.; Bazargan, Kia; Harjani, Ramesh (May 2017).
+
+"Time-Encoded Values for Highly Efficient Stochastic Circuits" .
+
+IEEE Transactions on Very Large Scale Integration (VLSI) Systems .
+
+25 (5): 1644– 1657.
+
+doi : 10.1109/tvlsi.2016.2645902 .
+
+ISSN 1063-8210 .
+
+S2CID 5672761 .
+
+^ Najafi, M. Hassan; Lilja, David (2018).
+
+"High Quality Down-Sampling for Deterministic Approaches to Stochastic Computing" .
+
+IEEE Transactions on Emerging Topics in Computing .
+
+9 : 7– 14.
+
+doi : 10.1109/tetc.2017.2789243 .
+
+ISSN 2168-6750 .
+
+^ Najafi, M. Hassan; Lilja, David J.; Riedel, Marc (2018-11-05). "Deterministic methods for stochastic computing using low-discrepancy sequences".
+
+Proceedings of the International Conference on Computer-Aided Design . New York, NY, USA: ACM. pp.
+
+1– 8.
+
+doi : 10.1145/3240765.3240797 .
+
+ISBN 978-1-4503-5950-4 .
+
+S2CID 53236540 .
+
+Further reading [ edit ] Gaines, Brian R. (1967).
+
+"Techniques of Identification with the Stochastic Computer" (PDF) .
+
+Proceedings IFAC Symposium on "The Problems of Identification in Automatic Control Systems", Section 6 Special Identification Instruments, Prague June 12–19, 1967 . Retrieved 2013-11-11 .
+
+Alaghi, Armin; Hayes, John P. (2013).
+
+"Survey of Stochastic Computing" (PDF) .
+
+ACM Transactions on Embedded Computing Systems .
+
+12 (2s): 1– 19.
+
+CiteSeerX 10.1.1.296.4448 .
+
+doi : 10.1145/2465787.2465794 .
+
+S2CID 4689958 . Retrieved 2013-11-11 .
+
+Retrieved from " https://en.wikipedia.org/w/index.php?title=Stochastic_computing&oldid=1255493051 " Categories : History of computing hardware Models of computation Statistical randomness Hidden categories: CS1 errors: ISBN date CS1 maint: location missing publisher Articles with short description Short description matches Wikidata All articles with unsourced statements Articles with unsourced statements from October 2014 This page was last edited on 5 November 2024, at 06:07 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Stochastic computing 2 languages Add topic
+

@@ -1,0 +1,394 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Example 2 Definition 3 Control 4 History 5 Types 6 Examples 7 Decreasing the potential for confounding 8 Artifacts 9 See also 10 Notes 11 References 12 Further reading 13 External links Toggle the table of contents Confounding 23 languages العربية Català Čeština Dansk Deutsch Español فارسی Français 한국어 Bahasa Indonesia Italiano עברית Nederlands 日本語 Polski Português Русский Slovenčina Svenska ไทย Українська 粵語 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Variable or factor in causal inference "Confounding factor" redirects here. For the company, see Confounding Factor . For the psychological state, see Confusion .
+
+This article may be too technical for most readers to understand .
+
+Please help improve it to make it understandable to non-experts , without removing the technical details.
+
+( September 2019 ) ( Learn how and when to remove this message ) Whereas a mediator is a factor in the causal chain (above), a confounder is a spurious factor incorrectly implying causation (bottom) In causal inference , a confounder [ a ] is a variable that influences both the dependent variable and independent variable , causing a spurious association .  Confounding is a causal concept, and as such, cannot be described in terms of correlations or associations.
+
+[ 1 ] [ 2 ] [ 3 ] The existence of confounders is an important quantitative explanation why correlation does not imply causation . Some notations are explicitly designed to identify the existence, possible existence, or non-existence of confounders in causal relationships between elements of a system.
+
+Confounders are threats to internal validity .
+
+[ 4 ] Example [ edit ] Let's assume that a trucking company owns a fleet of trucks made by two different manufacturers. Trucks made by one manufacturer are called "A Trucks" and trucks made by the other manufacturer are called "B Trucks." We want to find out whether A Trucks or B Trucks get better fuel economy. We measure fuel and miles driven for a month and calculate the MPG for each truck. We then run the appropriate analysis, which determines that there is a statistically significant trend that A Trucks are more fuel efficient than B Trucks. Upon further reflection, however, we also notice that A Trucks are more likely to be assigned highway routes, and B Trucks are more likely to be assigned city routes. This is a confounding variable. The confounding variable makes the results of the analysis unreliable. It is quite likely that we are just measuring the fact that highway driving results in better fuel economy than city driving.
+
+In statistics terms, the make of the truck is the independent variable, the fuel economy (MPG) is the dependent variable and the amount of city driving is the confounding variable. To fix this study, we have several choices. One is to randomize the truck assignments so that A trucks and B Trucks end up with equal amounts of city and highway driving. That eliminates the confounding variable. Another choice is to quantify the amount of city driving and use that as a second independent variable. A third choice is to segment the study, first comparing MPG during city driving for all trucks, and then run a separate study comparing MPG during highway driving.
+
+Definition [ edit ] Confounding is defined in terms of the data generating model. Let X be some independent variable , and Y some dependent variable . To estimate the effect of X on Y , the statistician must suppress the effects of extraneous variables that influence both X and Y . We say that X and Y are confounded by some other variable Z whenever Z causally influences both X and Y .
+
+Let P ( y ∣ ∣ do ( x ) ) {\displaystyle P(y\mid {\text{do}}(x))} be the probability of event Y = y under the hypothetical intervention X = x .
+
+X and Y are not confounded if and only if the following holds: P ( y ∣ ∣ do ( x ) ) = P ( y ∣ ∣ x ) {\displaystyle P(y\mid {\text{do}}(x))=P(y\mid x)} 1 for all values X = x and Y = y , where P ( y ∣ ∣ x ) {\displaystyle P(y\mid x)} is the conditional probability upon seeing X = x . Intuitively, this equality states that X and Y are not confounded whenever the observationally witnessed association between them is the same as the association that would be measured in a controlled experiment , with x randomized .
+
+In principle, the defining equality P ( y ∣ ∣ do ( x ) ) = P ( y ∣ ∣ x ) {\displaystyle P(y\mid {\text{do}}(x))=P(y\mid x)} can be verified from the data generating model, assuming we have all the equations and probabilities associated with the model. This is done by simulating an intervention do ( X = x ) {\displaystyle {\text{do}}(X=x)} (see Bayesian network ) and checking whether the resulting probability of Y equals the conditional probability P ( y ∣ ∣ x ) {\displaystyle P(y\mid x)} . It turns out, however, that graph structure alone is sufficient for verifying the equality P ( y ∣ ∣ do ( x ) ) = P ( y ∣ ∣ x ) {\displaystyle P(y\mid {\text{do}}(x))=P(y\mid x)} .
+
+Control [ edit ] See also: Controlling for a variable Consider a researcher attempting to assess the effectiveness of drug X , from population data in which drug usage was a patient's choice. The data shows that gender ( Z ) influences a patient's choice of drug as well as their chances of recovery ( Y ). In this scenario, gender Z confounds the relation between X and Y since Z is a cause of both X and Y : Causal diagram of Gender as common cause of Drug use and Recovery We have that P ( y ∣ ∣ do ( x ) ) ≠ ≠ P ( y ∣ ∣ x ) {\displaystyle P(y\mid {\text{do}}(x))\neq P(y\mid x)} 2 because the observational quantity contains information about the correlation between X and Z , and the interventional quantity does not (since X is not correlated with Z in a randomized experiment). It can be shown [ 5 ] that, in cases where only observational data is available, an unbiased estimate of the desired quantity P ( y ∣ ∣ do ( x ) ) {\displaystyle P(y\mid {\text{do}}(x))} , can
+be obtained by "adjusting" for all confounding factors, namely, conditioning on their various values and averaging the result. In the case of a single confounder Z , this leads to the "adjustment formula": P ( y ∣ ∣ do ( x ) ) = ∑ ∑ z P ( y ∣ ∣ x , z ) P ( z ) {\displaystyle P(y\mid {\text{do}}(x))=\sum _{z}P(y\mid x,z)P(z)} 3 which gives an unbiased estimate for the causal effect of X on Y . The same adjustment formula works when there are multiple confounders except, in this case, the choice of a set Z of variables that would guarantee unbiased estimates must be done with caution. The criterion for a proper choice of variables is called the Back-Door [ 5 ] [ 6 ] and requires that the chosen set Z "blocks" (or intercepts) every path between X and Y that contains an arrow into X. Such sets are called "Back-Door admissible" and may include variables which are not common causes of X and Y , but merely proxies thereof.
+
+Returning to the drug use example, since Z complies with the Back-Door requirement (i.e., it intercepts the one Back-Door path X ← ← Z → → Y {\displaystyle X\leftarrow Z\rightarrow Y} ), the Back-Door adjustment formula is valid: P ( Y = recovered ∣ ∣ do ( x = give drug ) ) = P ( Y = recovered ∣ ∣ X = give drug , Z = male ) P ( Z = male ) + P ( Y = recovered ∣ ∣ X = give drug , Z = female ) P ( Z = female ) {\displaystyle {\begin{aligned}P(Y={\text{recovered}}\mid {\text{do}}(x={\text{give drug}}))={}&P(Y={\text{recovered}}\mid X={\text{give drug}},Z={\text{male}})P(Z={\text{male}})\\&{}+P(Y={\text{recovered}}\mid X={\text{give drug}},Z={\text{female}})P(Z={\text{female}})\end{aligned}}} 4 In this way the physician can predict the likely effect of administering the drug from observational studies in which the conditional probabilities appearing on the right-hand side of the equation can be estimated by regression.
+
+Contrary to common beliefs, adding covariates to the adjustment set Z can introduce bias.
+
+[ 7 ] A typical counterexample occurs when Z is a common effect of X and Y , [ 8 ] a case in which Z is not a confounder (i.e., the null set is Back-door admissible) and adjusting for Z would create bias known as " collider bias" or " Berkson's paradox ." Controls that are not good confounders are sometimes called bad controls .
+
+In general, confounding can be controlled by adjustment if and only if there is a set of observed covariates that satisfies the Back-Door condition. Moreover, if Z is such a set, then the adjustment formula of Eq. (3) is valid.
+
+[ 5 ] [ 6 ] Pearl's do-calculus provides all possible conditions under which P ( y ∣ ∣ do ( x ) ) {\displaystyle P(y\mid {\text{do}}(x))} can be estimated, not necessarily by adjustment.
+
+[ 9 ] History [ edit ] According to Morabia (2011), [ 10 ] the word confounding derives from the Medieval Latin verb "confundere", which meant "mixing", and was probably chosen to represent the confusion (from Latin: con=with + fusus=mix or fuse together) between the cause one wishes to assess and other causes that may affect the outcome and thus confuse, or stand in the way of the desired assessment. Greenland, Robins and Pearl [ 11 ] note an early use of the term "confounding" in causal inference by John Stuart Mill in 1843.
+
+Fisher introduced the word "confounding" in his 1935 book "The Design of Experiments" [ 12 ] to refer specifically to a consequence of blocking (i.e., partitioning ) the set of treatment combinations in a factorial experiment , whereby certain interactions may be "confounded with blocks". This popularized the notion of confounding in statistics, although Fisher was concerned with the control of heterogeneity in experimental units, not with causal inference.
+
+According to Vandenbroucke (2004) [ 13 ] it was Kish [ 14 ] who used the word "confounding" in the sense of  "incomparability" of two or more groups (e.g., exposed and unexposed) in an observational study. Formal conditions defining what makes certain groups "comparable" and others "incomparable" were later developed in epidemiology by Greenland and Robins (1986) [ 15 ] using the counterfactual language of Neyman (1935) [ 16 ] and Rubin (1974).
+
+[ 17 ] These were later supplemented by graphical criteria such as the Back-Door condition ( Pearl 1993; Greenland, Robins and Pearl 1999).
+
+[ 11 ] [ 5 ] Graphical criteria were shown to be formally equivalent to the counterfactual definition [ 18 ] but more transparent to researchers relying on process models.
+
+Types [ edit ] In the case of risk assessments evaluating the magnitude and nature of risk to human health , it is important to control for confounding to isolate the effect of a particular hazard such as a food additive, pesticide , or new drug. For prospective studies, it is difficult to recruit and screen for volunteers with the same background (age, diet, education, geography, etc.), and in historical studies, there can be similar variability.  Due to the inability to control for variability of volunteers and human studies, confounding is a particular challenge. For these reasons, experiments offer a way to avoid most forms of confounding.
+
+In some disciplines, confounding is categorized into different types. In epidemiology , one type is "confounding by indication", [ 19 ] which relates to confounding from observational studies . Because prognostic factors may influence treatment decisions (and bias estimates of treatment effects), controlling for known prognostic factors may reduce this problem, but it is always possible that a forgotten or unknown factor was not included or that factors interact complexly. Confounding by indication has been described as the most important limitation of observational studies. Randomized trials are not affected by confounding by indication due to random assignment .
+
+Confounding variables may also be categorised according to their source. The choice of measurement instrument (operational confound), situational characteristics (procedural confound), or inter-individual differences (person confound).
+
+An operational confounding can occur in both experimental and non-experimental research designs.  This type of confounding occurs when a measure designed to assess a particular construct inadvertently measures something else as well.
+
+[ 20 ] A procedural confounding can occur in a laboratory experiment or a quasi-experiment . This type of confound occurs when the researcher mistakenly allows another variable to change along with the manipulated independent variable.
+
+[ 20 ] A person confounding occurs when two or more groups of units are analyzed together (e.g., workers from different occupations), despite varying according to one or more other (observed or unobserved) characteristics (e.g., gender).
+
+[ 21 ] Examples [ edit ] Say one is studying the relation between birth order (1st child, 2nd child, etc.) and the presence of Down Syndrome in the child. In this scenario, maternal age would be a confounding variable: [ citation needed ] Higher maternal age is directly associated with Down Syndrome in the child Higher maternal age is directly associated with Down Syndrome, regardless of birth order (a mother having her 1st vs 3rd child at age 50 confers the same risk) Maternal age is directly associated with birth order (the 2nd child, except in the case of twins, is born when the mother is older than she was for the birth of the 1st child) Maternal age is not a consequence of birth order (having a 2nd child does not change the mother's age) In risk assessments , factors such as age, gender, and educational levels often affect health status and so should be controlled.  Beyond these factors, researchers may not consider or have access to data on other causal factors.  An example is on the study of smoking tobacco on human health.  Smoking, drinking alcohol, and diet are lifestyle activities that are related.  A risk assessment that looks at the effects of smoking but does not control for alcohol consumption or diet may overestimate the risk of smoking.
+
+[ 22 ] Smoking and confounding are reviewed in occupational risk assessments such as the safety of coal mining.
+
+[ 23 ] When there is not a large sample population of non-smokers or non-drinkers in a particular occupation, the risk assessment may be biased towards finding a negative effect on health.
+
+[ 24 ] Decreasing the potential for confounding [ edit ] A reduction in the potential for the occurrence and effect of confounding factors can be obtained by increasing the types and numbers of comparisons performed in an analysis. If measures or manipulations of core constructs are confounded (i.e. operational or procedural confounds exist), subgroup analysis may not reveal problems in the analysis. Additionally, increasing the number of comparisons can create other problems (see multiple comparisons ).
+
+Peer review is a process that can assist in reducing instances of confounding, either before study implementation or after analysis has occurred. Peer review relies on collective expertise within a discipline to identify potential weaknesses in study design and analysis, including ways in which results may depend on confounding. Similarly, replication can test for the robustness of findings from one study under alternative study conditions or alternative analyses (e.g., controlling for potential confounds not identified in the initial study).
+
+Confounding effects may be less likely to occur and act similarly at multiple times and locations.
+
+[ citation needed ] In selecting study sites, the environment can be characterized in detail at the study sites to ensure sites are ecologically similar and therefore less likely to have confounding variables. Lastly, the relationship between the environmental variables that possibly confound the analysis and the measured parameters can be studied. The information pertaining to environmental variables can then be used in site-specific models to identify residual variance that may be due to real effects.
+
+[ 25 ] Depending on the type of study design in place, there are various ways to modify that design to actively exclude or control confounding variables: [ 26 ] Case-control studies assign confounders to both groups, cases and controls, equally. For example, if somebody wanted to study the cause of myocardial infarct and thinks that the age is a probable confounding variable, each 67-year-old infarct patient will be matched with a healthy 67-year-old "control" person. In case-control studies, matched variables most often are the age and sex.  Drawback: Case-control studies are feasible only when it is easy to find controls, i.e.
+
+persons whose status vis-à-vis all known potential confounding factors is the same as that of the case's patient: Suppose a case-control study attempts to find the cause of a given disease in a person who is 1) 45 years old, 2) African-American, 3) from Alaska , 4) an avid football player, 5) vegetarian, and 6) working in education.  A theoretically perfect control would be a person who, in addition to not having the disease being investigated, matches all these characteristics and has no diseases that the patient does not also have—but finding such a control would be an enormous task.
+
+Cohort studies : A degree of matching is also possible and it is often done by only admitting certain age groups or a certain sex into the study population, creating a cohort of people who share similar characteristics and thus all cohorts are comparable in regard to the possible confounding variable. For example, if age and sex are thought to be confounders, only 40 to 50 years old males would be involved in a cohort study that would assess the myocardial infarct risk in cohorts that either are physically active or inactive.  Drawback: In cohort studies, the overexclusion of input data may lead researchers to define too narrowly the set of similarly situated persons for whom they claim the study to be useful, such that other persons to whom the causal relationship does in fact apply may lose the opportunity to benefit from the study's recommendations.  Similarly, "over-stratification" of input data within a study may reduce the sample size in a given stratum to the point where generalizations drawn by observing the members of that stratum alone are not statistically significant .
+
+Double blinding : conceals from the trial population and the observers the experiment group membership of the participants.  By preventing the participants from knowing if they are receiving treatment or not, the placebo effect should be the same for the control and treatment groups. By preventing the observers from knowing of their membership, there should be no bias from researchers treating the groups differently or from interpreting the outcomes differently.
+
+Randomized controlled trial :  A method where the study population is divided randomly in order to mitigate the chances of self-selection by participants or bias by the study designers.  Before the experiment begins, the testers will assign the members of the participant pool to their groups (control, intervention, parallel), using a randomization process such as the use of a random number generator.  For example, in a study on the effects of exercise, the conclusions would be less valid if participants were given a choice if they wanted to belong to the control group which would not exercise or the intervention group which would be willing to take part in an exercise program.  The study would then capture other variables besides exercise, such as pre-experiment health levels and motivation to adopt healthy activities.  From the observer's side, the experimenter may choose candidates who are more likely to show the results the study wants to see or may interpret subjective results (more energetic, positive attitude) in a way favorable to their desires.
+
+Stratification : As in the example above, physical activity is thought to be a behaviour that protects from myocardial infarct; and age is assumed to be a possible confounder. The data sampled is then stratified by age group – this means that the association between activity and infarct would be analyzed per each age group. If the different age groups (or age strata) yield much different risk ratios , age must be viewed as a confounding variable. There exist statistical tools, among them Mantel–Haenszel methods, that account for stratification of data sets.
+
+Controlling for confounding by measuring the known confounders and including them as covariates is multivariable analysis such as regression analysis . Multivariate analyses reveal much less information about the strength or polarity of the confounding variable than do stratification methods. For example, if multivariate analysis controls for antidepressant , and it does not stratify antidepressants for TCA and SSRI , then it will ignore that these two classes of antidepressant have opposite effects on myocardial infarction, and one is much stronger than the other.
+
+All these methods have their drawbacks: The best available defense against the possibility of spurious results due to confounding is often to dispense with efforts at stratification and instead conduct a randomized study of a sufficiently large sample taken as a whole, such that all potential confounding variables (known and unknown) will be distributed by chance across all study groups and hence will be uncorrelated with the binary variable for inclusion/exclusion in any group.
+
+Ethical considerations: In double-blind and randomized controlled trials, participants are not aware that they are recipients of sham treatments and may be denied effective treatments.
+
+[ 27 ] There is a possibility that patients only agree to invasive surgery (which carry real medical risks) under the understanding that they are receiving treatment. Although this is an ethical concern, it is not a complete account of the situation. For surgeries that are currently being performed regularly, but for which there is no concrete evidence of a genuine effect, there may be ethical issues to continue such surgeries. In such circumstances, many of people are exposed to the real risks of surgery yet these treatments may possibly offer no discernible benefit.  Sham-surgery control is a method that may allow medical science to determine whether a surgical procedure is efficacious or not. Given that there are known risks associated with medical operations, it is questionably ethical to allow unverified surgeries to be conducted ad infinitum into the future.
+
+Artifacts [ edit ] Artifacts are variables that should have been systematically varied, either within or across studies, but that were accidentally held constant. Artifacts are thus threats to external validity . Artifacts are factors that covary with the treatment and the outcome. Campbell and Stanley [ 28 ] identify several artifacts. The major threats to internal validity are history, maturation, testing, instrumentation, statistical regression , selection, experimental mortality, and selection-history interactions.
+
+One way to minimize the influence of artifacts is to use a pretest-posttest control group design. Within this design, "groups of people who are initially equivalent (at the pretest phase) are randomly assigned to receive the experimental treatment or a control condition and then assessed again after this differential experience (posttest phase)".
+
+[ 29 ] Thus, any effects of artifacts are (ideally) equally distributed in participants in both the treatment and control conditions.
+
+See also [ edit ] Observational interpretation fallacy Anecdotal evidence – Evidence relying on personal testimony Causal inference – Branch of statistics concerned with inferring causal relationships between variables Epidemiological method – Scientific method in the specific field Simpson's paradox – Error in statistical reasoning with groups Omitted-variable bias Notes [ edit ] ^ Also known as a confounding variable , confounding factor , extraneous determinant , or lurking variable .
+
+References [ edit ] ^ Pearl, J., (2009).
+
+Simpson's Paradox , Confounding, and Collapsibility In Causality: Models, Reasoning and Inference (2nd ed.). New York : Cambridge University Press.
+
+^ VanderWeele, T.J.; Shpitser, I. (2013).
+
+"On the definition of a confounder" .
+
+Annals of Statistics .
+
+41 (1): 196– 220.
+
+arXiv : 1304.0564 .
+
+doi : 10.1214/12-aos1058 .
+
+PMC 4276366 .
+
+PMID 25544784 .
+
+^ Greenland, S.; Robins, J. M.; Pearl, J. (1999).
+
+"Confounding and Collapsibility in Causal Inference" .
+
+Statistical Science .
+
+14 (1): 29– 46.
+
+doi : 10.1214/ss/1009211805 .
+
+^ Shadish, W. R.; Cook, T. D.; Campbell, D. T. (2002).
+
+Experimental and quasi-experimental designs for generalized causal inference . Boston, MA: Houghton-Mifflin .
+
+^ a b c d Pearl, J., (1993). "Aspects of Graphical Models Connected With Causality", In Proceedings of the 49th Session of the International Statistical Science Institute, pp. 391–401.
+
+^ a b Pearl, J. (2009). Causal Diagrams and the Identification of Causal Effects In Causality: Models, Reasoning and Inference (2nd ed.). New York, NY, US: Cambridge University Press.
+
+^ Cinelli, C.; Forney, A.; Pearl, J. (March 2022).
+
+"A Crash Course in Good and Bad Controls" (PDF) .
+
+UCLA Cognitive Systems Laboratory, Technical Report (R-493) .
+
+^ Lee, P. H. (2014).
+
+"Should We Adjust for a Confounder if Empirical and Theoretical Criteria Yield Contradictory Results? A Simulation Study" .
+
+Sci Rep .
+
+4 : 6085.
+
+Bibcode : 2014NatSR...4.6085L .
+
+doi : 10.1038/srep06085 .
+
+PMC 5381407 .
+
+PMID 25124526 .
+
+^ Shpitser, I.; Pearl, J. (2008). "Complete identification methods for the causal hierarchy".
+
+The Journal of Machine Learning Research .
+
+9 : 1941– 1979.
+
+^ Morabia, A (2011).
+
+"History of the modern epidemiological concept of confounding" (PDF) .
+
+Journal of Epidemiology and Community Health .
+
+65 (4): 297– 300.
+
+doi : 10.1136/jech.2010.112565 .
+
+PMID 20696848 .
+
+S2CID 9068532 .
+
+^ a b Greenland, S.; Robins, J. M.; Pearl, J. (1999).
+
+"Confounding and Collapsibility in Causal Inference" .
+
+Statistical Science .
+
+14 (1): 31.
+
+doi : 10.1214/ss/1009211805 .
+
+^ Fisher, R. A. (1935). The design of experiments (pp. 114–145).
+
+^ Vandenbroucke, J. P. (2004). "The history of confounding".
+
+Soz Praventivmed .
+
+47 (4): 216– 224.
+
+doi : 10.1007/BF01326402 .
+
+PMID 12415925 .
+
+S2CID 198174446 .
+
+^ Kish, L (1959). "Some statistical problems in research design".
+
+Am Sociol .
+
+26 (3): 328– 338.
+
+doi : 10.2307/2089381 .
+
+JSTOR 2089381 .
+
+^ Greenland, S.; Robins, J. M. (1986). "Identifiability, exchangeability, and epidemiological confounding".
+
+International Journal of Epidemiology .
+
+15 (3): 413– 419.
+
+CiteSeerX 10.1.1.157.6445 .
+
+doi : 10.1093/ije/15.3.413 .
+
+PMID 3771081 .
+
+^ Neyman, J., with cooperation of K. Iwaskiewics and St. Kolodziejczyk (1935). Statistical problems in agricultural experimentation (with discussion).
+
+Suppl J Roy Statist Soc Ser B 2 107-180.
+
+^ Rubin, D. B. (1974). "Estimating causal effects of treatments in randomized and nonrandomized studies".
+
+Journal of Educational Psychology .
+
+66 (5): 688– 701.
+
+doi : 10.1037/h0037350 .
+
+S2CID 52832751 .
+
+^ Pearl, J., (2009).
+
+Causality: Models, Reasoning and Inference (2nd ed.). New York, NY, US: Cambridge University Press.
+
+^ Johnston, S. C. (2001).
+
+"Identifying Confounding by Indication through Blinded Prospective Review" .
+
+American Journal of Epidemiology .
+
+154 (3): 276– 284.
+
+doi : 10.1093/aje/154.3.276 .
+
+PMID 11479193 .
+
+^ a b Pelham, Brett (2006).
+
+Conducting Research in Psychology . Belmont: Wadsworth.
+
+ISBN 978-0-534-53294-9 .
+
+^ Steg, L.; Buunk, A. P.; Rothengatter, T. (2008). "Chapter 4".
+
+Applied Social Psychology: Understanding and managing social problems . Cambridge, UK: Cambridge University Press.
+
+^ Tjønneland, Anne; Grønbæk, Morten; Stripp, Connie; Overvad, Kim (January 1999).
+
+"Wine intake and diet in a random sample of 48763 Danish men and women" .
+
+The American Journal of Clinical Nutrition .
+
+69 (1): 49– 54.
+
+doi : 10.1093/ajcn/69.1.49 .
+
+PMID 9925122 .
+
+^ Axelson, O. (1989).
+
+"Confounding from smoking in occupational epidemiology" .
+
+British Journal of Industrial Medicine .
+
+46 (8): 505– 07.
+
+doi : 10.1136/oem.46.8.505 .
+
+PMC 1009818 .
+
+PMID 2673334 .
+
+^ James, Gareth; Witten, Daniela; Hastie, Trevor; Tibshirani, Robert (2021).
+
+An introduction to statistical learning: with applications in R (Second ed.). New York, NY: Springer. p. 150.
+
+doi : 10.1007/978-1-0716-1418-1 .
+
+ISBN 978-1-0716-1418-1 . Retrieved 9 November 2024 .
+
+^ Calow, Peter P. (2009) Handbook of Environmental Risk Assessment and Management , Wiley ^ Mayrent, Sherry L (1987).
+
+Epidemiology in Medicine .
+
+Lippincott Williams & Wilkins .
+
+ISBN 978-0-316-35636-7 .
+
+^ Emanuel, Ezekiel J; Miller, Franklin G (Sep 20, 2001). "The Ethics of Placebo-Controlled Trials—A Middle Ground".
+
+New England Journal of Medicine .
+
+345 (12): 915– 9.
+
+doi : 10.1056/nejm200109203451211 .
+
+PMID 11565527 .
+
+^ Campbell, D. T.; Stanley, J. C. (1966).
+
+Experimental and quasi-experimental designs for research . Chicago: Rand McNally.
+
+^ Crano, W. D.; Brewer, M. B. (2002).
+
+Principles and methods of social research (2nd ed.). Mahwah, NJ: Lawrence Erlbaum Associates . p. 28.
+
+Further reading [ edit ] Pearl, J. (January 1998).
+
+"Why there is no statistical test for confounding, why many think there is, and why they are almost right" (PDF) .
+
+UCLA Computer Science Department, Technical Report R-256 .
+
+Montgomery, D. C. (2001). "Blocking and Confounding in the 2 k {\displaystyle 2^{k}} Factorial Design".
+
+Design and Analysis of Experiments (5th ed.). Wiley. pp.
+
+287– 302. This textbook has an overview of confounding factors and how to account for them in design of experiments.
+
+{{ cite book }} :  CS1 maint: postscript ( link ) Brewer, M. B. (2000). "Research design and issues of validity". In Reis, H. T.; Judd, C. M. (eds.).
+
+Handbook of Research . New York: Cambridge University Press . pp.
+
+3–16 .
+
+ISBN 9780521551281 .
+
+Smith, E. R. (2000). "Research design". In Reis, H. T.; Judd, C. M. (eds.).
+
+Handbook of research methods in social and personality psychology . New York: Cambridge University Press. pp.
+
+17–39 .
+
+ISBN 9780521551281 .
+
+External links [ edit ] These sites contain descriptions or examples of confounding variables.
+
+Tutorial: Confounding and Effect Measure Modification (Boston University School of Public Health) Linear Regression (Yale University) Tutorial by University of New England v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject v t e Design of experiments Scientific method Scientific experiment Statistical design Control Internal and external validity Experimental unit Blinding Optimal design : Bayesian Random assignment Randomization Restricted randomization Replication versus subsampling Sample size Treatment and blocking Treatment Effect size Contrast Interaction Confounding Orthogonality Blocking Covariate Nuisance variable Models and inference Linear regression Ordinary least squares Bayesian Random effect Mixed model Hierarchical model: Bayesian Analysis of variance (Anova) Cochran's theorem Manova ( multivariate ) Ancova ( covariance ) Compare means Multiple comparison Designs Completely randomized Factorial Fractional factorial Plackett–Burman Taguchi Response surface methodology Polynomial and rational modeling Box–Behnken Central composite Block Generalized randomized block design (GRBD) Latin square Graeco-Latin square Orthogonal array Latin hypercube Repeated measures design Crossover study Randomized controlled trial Sequential analysis Sequential probability ratio test Glossary Category Mathematics portal Statistical outline Statistical topics NewPP limit report
+Parsed by mw‐web.codfw.main‐7c956d68b4‐qx5tf
+Cached time: 20250818054730
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.802 seconds
+Real time usage: 1.025 seconds
+Preprocessor visited node count: 4186/1000000
+Revision size: 34199/2097152 bytes
+Post‐expand include size: 224839/2097152 bytes
+Template argument size: 3942/2097152 bytes
+Highest expansion depth: 15/100
+Expensive parser function count: 9/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 128666/5000000 bytes
+Lua time usage: 0.478/10.000 seconds
+Lua memory usage: 17074415/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  785.504      1 -total
+ 31.55%  247.814      2 Template:Reflist
+ 21.91%  172.082     15 Template:Cite_journal
+ 17.87%  140.408      1 Template:Statistics
+ 17.52%  137.632      1 Template:Navbox_with_collapsible_groups
+ 14.71%  115.575      4 Template:Annotated_link
+  9.64%   75.693      1 Template:Short_description
+  8.90%   69.918     10 Template:Cite_book
+  7.17%   56.291     12 Template:Navbox
+  5.70%   44.803      2 Template:Pagetype Saved in parser cache with key enwiki:pcache:3105999:|#|:idhash:canonical and timestamp 20250818054730 and revision id 1280065491. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Confounding&oldid=1280065491 " Categories : Analysis of variance Causal inference Design of experiments Experimental bias Hidden categories: Articles with short description Short description is different from Wikidata Wikipedia articles that are too technical from September 2019 All articles that are too technical All articles with unsourced statements Articles with unsourced statements from April 2024 Articles with unsourced statements from April 2012 CS1 maint: postscript This page was last edited on 12 March 2025, at 08:07 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Confounding 23 languages Add topic
+

@@ -1,0 +1,847 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 History 2 Approach 3 Discussion Toggle Discussion subsection 3.1 Advantages 3.2 Disadvantages 3.3 Recommendations 4 Types of bootstrap scheme Toggle Types of bootstrap scheme subsection 4.1 Case resampling 4.1.1 Estimating the distribution of sample mean 4.1.2 Regression 4.2 Bayesian bootstrap 4.3 Smooth bootstrap 4.4 Parametric bootstrap 4.5 Resampling residuals 4.6 Gaussian process regression bootstrap 4.7 Wild bootstrap 4.8 Block bootstrap 4.8.1 Time series: Simple block bootstrap 4.8.2 Time series: Moving block bootstrap 4.8.3 Time series: Maximum entropy bootstrap 4.8.4 Cluster data: block bootstrap 5 Methods for improving computational efficiency Toggle Methods for improving computational efficiency subsection 5.1 Parallel processing 5.2 Poisson bootstrap 5.3 Bag of Little Bootstraps 6 Choice of statistic 7 Deriving confidence intervals from the bootstrap distribution Toggle Deriving confidence intervals from the bootstrap distribution subsection 7.1 Desirable properties 7.2 Bias, asymmetry, and confidence intervals 7.3 Methods for bootstrap confidence intervals 8 Bootstrap hypothesis testing 9 Example applications Toggle Example applications subsection 9.1 Smoothed bootstrap 10 Relation to other approaches to inference Toggle Relation to other approaches to inference subsection 10.1 Relationship to other resampling methods 10.2 U-statistics 11 Asymptotic theory Toggle Asymptotic theory subsection 11.1 Stochastic convergence 11.2 Consistency 11.3 Strong consistency 11.4 Showing consistency using the central limit theorem 12 Finite populations 13 See also 14 References 15 Further reading Toggle the table of contents Bootstrapping (statistics) 24 languages Català Čeština Deutsch Eesti Español فارسی Français 한국어 Bahasa Indonesia Italiano עברית Magyar Bahasa Melayu 日本語 Norsk bokmål Polski Português Русский Slovenščina Suomi Українська اردو 粵語 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Statistical method For other uses, see Bootstrapping (disambiguation) .
+
+Bootstrapping is a procedure for estimating the distribution of an estimator by resampling (often with replacement ) one's data or a model estimated from the data.
+
+[ 1 ] Bootstrapping assigns measures of accuracy ( bias , variance, confidence intervals , prediction error, etc.) to sample estimates.
+
+[ 2 ] [ 3 ] This technique allows estimation of the sampling distribution of almost any statistic using random sampling methods.
+
+[ 1 ] Bootstrapping estimates the properties of an estimand (such as its variance ) by measuring those properties when sampling from an approximating distribution. One standard choice for an approximating distribution is the empirical distribution function of the observed data. In the case where a set of observations can be assumed to be from an independent and identically distributed population, this can be implemented by constructing a number of resamples with replacement, of the observed data set (and of equal size to the observed data set). A key result in Efron's seminal paper that introduced the bootstrap [ 4 ] is the favorable performance of bootstrap methods using sampling with replacement compared to prior methods like the jackknife that sample without replacement. However, since its introduction, numerous variants on the bootstrap have been proposed, including methods that sample without replacement or that create bootstrap samples larger or smaller than the original data.
+
+The bootstrap may also be used for constructing hypothesis tests .
+
+[ 5 ] It is often used as an alternative to statistical inference based on the assumption of a parametric model when that assumption is in doubt, or where parametric inference is impossible or requires complicated formulas for the calculation of standard errors .
+
+History [ edit ] The bootstrap [ a ] was first described by Bradley Efron in "Bootstrap methods: another look at the jackknife" (1979), [ 4 ] inspired by earlier work on the jackknife .
+
+[ 6 ] [ 7 ] [ 8 ] Improved estimates of the variance were developed later.
+
+[ 9 ] [ 10 ] A Bayesian extension was developed in 1981.
+
+[ 11 ] The bias-corrected and accelerated ( B C a {\displaystyle BC_{a}} ) bootstrap was developed by Efron in 1987, [ 12 ] and the approximate bootstrap confidence interval (ABC, or approximate B C a {\displaystyle BC_{a}} ) procedure in 1992.
+
+[ 13 ] Approach [ edit ] A sample is drawn from a population. From this sample, resamples are generated by drawing with replacement (orange). Data points that were drawn more than once (which happens for approx. 26.4% of data points) are shown in red and slightly offsetted. From the resamples, the statistic x {\displaystyle x} is calculated and, therefore, a histogram can be calculated to estimate the distribution of x {\displaystyle x} .
+
+The basic idea of bootstrapping is that inference about a population from sample data (sample → population) can be modeled by resampling the sample data and performing inference about a sample from resampled data (resampled → sample).
+
+[ 14 ] As the population is unknown, the true error in a sample statistic against its population value is unknown. In bootstrap-resamples, the 'population' is in fact the sample, and this is known; hence the quality of inference of the 'true' sample from resampled data (resampled → sample) is measurable.
+
+More formally, the bootstrap works by treating inference of the true probability distribution J , given the original data, as being analogous to an inference of the empirical distribution Ĵ , given the resampled data. The accuracy of inferences regarding Ĵ using the resampled data can be assessed because we know Ĵ . If Ĵ is a reasonable approximation to J , then the quality of inference on J can in turn be inferred.
+
+As an example, assume we are interested in the average (or mean ) height of people worldwide.  We cannot measure all the people in the global population, so instead, we sample only a tiny part of it, and measure that.  Assume the sample is of size N ; that is, we measure the heights of N individuals.  From that single sample, only one estimate of the mean can be obtained.  In order to reason about the population, we need some sense of the variability of the mean that we have computed. The simplest bootstrap method involves taking the original data set of heights, and, using a computer, sampling from it to form a new sample (called a 'resample' or bootstrap sample) that is also of size N .  The bootstrap sample is taken from the original by using sampling with replacement (e.g. we might 'resample' 5 times from [1,2,3,4,5] and get [2,5,4,4,1]), so, assuming N is sufficiently large, for all practical purposes there is virtually zero probability that it will be identical to the original "real" sample.  This process is repeated a large number of times (typically 1,000 or 10,000 times), and for each of these bootstrap samples, we compute its mean (each of these is called a "bootstrap estimate").  We now can create a histogram of bootstrap means.  This histogram provides an estimate of the shape of the distribution of the sample mean from which we can answer questions about how much the mean varies across samples.  (The method here, described for the mean, can be applied to almost any other statistic or estimator .) Discussion [ edit ] This section includes a list of references , related reading , or external links , but its sources remain unclear because it lacks inline citations .
+
+Please help improve this section by introducing more precise citations.
+
+( June 2012 ) ( Learn how and when to remove this message ) Advantages [ edit ] A great advantage of bootstrap is its simplicity. It is a straightforward way to derive estimates of standard errors and confidence intervals for complex estimators of the distribution, such as percentile points, proportions, Odds ratio , and correlation coefficients. However, despite its simplicity, bootstrapping can be applied to complex sampling designs (e.g. for population divided into s strata with n s observations per strata, one example of which is a dose-response experiment, where bootstrapping can be applied for each stratum).
+
+[ 15 ] Bootstrap is also an appropriate way to control and check the stability of the results.  Although for most problems it is impossible to know the true confidence interval, bootstrap is asymptotically more accurate than the standard intervals obtained using sample variance and assumptions of normality.
+
+[ 16 ] Bootstrapping is also a convenient method that avoids the cost of repeating the experiment to get other groups of sample data.
+
+Disadvantages [ edit ] Bootstrapping depends heavily on the estimator used and, though simple, naive use of bootstrapping will not always yield asymptotically valid results and can lead to inconsistency.
+
+[ 17 ] Although bootstrapping is (under some conditions) asymptotically consistent , it does not provide general finite-sample guarantees. The result may depend on the representative sample. The apparent simplicity may conceal the fact that important assumptions are being made when undertaking the bootstrap analysis (e.g. independence of samples or large enough of a sample size) where these would be more formally stated in other approaches. Also, bootstrapping can be time-consuming and there are not many available software for bootstrapping as it is difficult to automate using traditional statistical computer packages.
+
+[ 15 ] Recommendations [ edit ] Scholars have recommended more bootstrap samples as available computing power has increased. If the results may have substantial real-world consequences, then one should use as many samples as is reasonable, given available computing power and time. Increasing the number of samples cannot increase the amount of information in the original data; it can only reduce the effects of random sampling errors which can arise from a bootstrap procedure itself. Moreover, there is evidence that numbers of samples greater than 100 lead to negligible improvements in the estimation of standard errors.
+
+[ 18 ] In fact, according to the original developer of the bootstrapping method, even setting the number of samples at 50 is likely to lead to fairly good standard error estimates.
+
+[ 19 ] Adèr et al. recommend the bootstrap procedure for the following situations: [ 20 ] When the theoretical distribution of a statistic of interest is complicated or unknown. Since the bootstrapping procedure is distribution-independent it provides an indirect method to assess the properties of the distribution underlying the sample and the parameters of interest that are derived from this distribution.
+
+When the sample size is insufficient for straightforward statistical inference. If the underlying distribution is well-known, bootstrapping provides a way to account for the distortions caused by the specific sample that may not be fully representative of the population.
+
+When power calculations have to be performed, and a small pilot sample is available. Most power and sample size calculations are heavily dependent on the standard deviation of the statistic of interest. If the estimate used is incorrect, the required sample size will also be wrong. One method to get an impression of the variation of the statistic is to use a small pilot sample and perform bootstrapping on it to get impression of the variance.
+
+However, Athreya has shown [ 21 ] that if one performs a naive bootstrap on the sample mean when the underlying population lacks a finite variance (for example, a power law distribution ), then the bootstrap distribution will not converge to the same limit as the sample mean. As a result, confidence intervals on the basis of a Monte Carlo simulation of the bootstrap could be misleading. Athreya states that "Unless one is reasonably sure that the underlying distribution is not heavy tailed , one should hesitate to use the naive bootstrap".
+
+Types of bootstrap scheme [ edit ] This section includes a list of references , related reading , or external links , but its sources remain unclear because it lacks inline citations .
+
+Please help improve this section by introducing more precise citations.
+
+( June 2012 ) ( Learn how and when to remove this message ) In univariate problems, it is usually acceptable to resample the individual observations with replacement ("case resampling" below) unlike subsampling , in which resampling is without replacement and is valid under much weaker conditions compared to the bootstrap. In small samples, a parametric bootstrap approach might be preferred. For other problems, a smooth bootstrap will likely be preferred.
+
+For regression problems, various other alternatives are available.
+
+[ 2 ] Case resampling [ edit ] The bootstrap is generally useful for estimating the distribution of a statistic (e.g. mean, variance) without using normality assumptions (as required, e.g., for a z-statistic or a t-statistic). In particular, the bootstrap is useful when there is no analytical form or an asymptotic theory (e.g., an applicable central limit theorem ) to help estimate the distribution of the statistics of interest. This is because bootstrap methods can apply to most random quantities, e.g., the ratio of variance and mean. There are at least two ways of performing case resampling.
+
+The Monte Carlo algorithm for case resampling is quite simple. First, we resample the data with replacement, and the size of the resample must be equal to the size of the original data set. Then the statistic of interest is computed from the resample from the first step. We repeat this routine many times to get a more precise estimate of the Bootstrap distribution of the statistic.
+
+[ 2 ] The 'exact' version for case resampling is similar, but we exhaustively enumerate every possible resample of the data set. This can be computationally expensive as there are a total of ( 2 n − − 1 n ) = ( 2 n − − 1 ) !
+
+n !
+
+( n − − 1 ) !
+
+{\displaystyle {\binom {2n-1}{n}}={\frac {(2n-1)!}{n!(n-1)!}}} different resamples, where n is the size of the data set. Thus for n = 5, 10, 20, 30 there are 126, 92378, 6.89 × 10 10 and 5.91 × 10 16 different resamples respectively.
+
+[ 22 ] Estimating the distribution of sample mean [ edit ] Consider a coin-flipping experiment. We flip the coin and record whether it lands heads or tails. Let X = x 1 , x 2 , …, x 10 be 10 observations from the experiment.
+
+x i = 1 if the i th flip lands heads, and 0 otherwise. By invoking the assumption that the average of the coin flips is normally distributed, we can use the t-statistic to estimate the distribution of the sample mean, x ¯ ¯ = 1 10 ( x 1 + x 2 + ⋯ ⋯ + x 10 ) .
+
+{\displaystyle {\bar {x}}={\frac {1}{10}}(x_{1}+x_{2}+\cdots +x_{10}).} Such a normality assumption can be justified either as an approximation of the distribution of each individual coin flip or as an approximation of the distribution of the average of a large number of coin flips. The former is a poor approximation because the true distribution of the coin flips is Bernoulli instead of normal. The latter is a valid approximation in infinitely large samples due to the central limit theorem .
+
+However, if we are not ready to make such a justification, then we can use the bootstrap instead. Using case resampling, we can derive the distribution of x ¯ ¯ {\displaystyle {\bar {x}}} . We first resample the data to obtain a bootstrap resample . An example of the first resample might look like this X 1 * = x 2 , x 1 , x 10 , x 10 , x 3 , x 4 , x 6 , x 7 , x 1 , x 9 . There are some duplicates since a bootstrap resample comes from sampling with replacement from the data. Also the number of data points in a bootstrap resample is equal to the number of data points in our original observations. Then we compute the mean of this resample and obtain the first bootstrap mean : μ 1 *. We repeat this process to obtain the second resample X 2 * and compute the second bootstrap mean μ 2 *. If we repeat this 100 times, then we have μ 1 *, μ 2 *, ..., μ 100 *.  This represents an empirical bootstrap distribution of sample mean. From this empirical distribution, one can derive a bootstrap confidence interval for the purpose of hypothesis testing.
+
+Regression [ edit ] In regression problems, case resampling refers to the simple scheme of resampling individual cases – often rows of a data set . For regression problems, as long as the data set is fairly large, this simple scheme is often acceptable.
+
+[ citation needed ] However, the method is open to criticism [ citation needed ] .
+
+[ 15 ] In regression problems, the explanatory variables are often fixed, or at least observed with more control than the response variable. Also, the range of the explanatory variables defines the information available from them. Therefore, to resample cases means that each bootstrap sample will lose some information. As such, alternative bootstrap procedures should be considered.
+
+Bayesian bootstrap [ edit ] Bootstrapping can be interpreted in a Bayesian framework using a scheme that creates new data sets through reweighting the initial data. Given a set of N {\displaystyle N} data points, the weighting assigned to data point i {\displaystyle i} in a new data set D J {\displaystyle {\mathcal {D}}^{J}} is w i J = x i J − − x i − − 1 J {\displaystyle w_{i}^{J}=x_{i}^{J}-x_{i-1}^{J}} , where x J {\displaystyle \mathbf {x} ^{J}} is a low-to-high ordered list of N − − 1 {\displaystyle N-1} uniformly distributed random numbers on [ 0 , 1 ] {\displaystyle [0,1]} , preceded by 0 and succeeded by 1. The distributions of a parameter inferred from considering many such data sets D J {\displaystyle {\mathcal {D}}^{J}} are then interpretable as posterior distributions on that parameter.
+
+[ 23 ] Smooth bootstrap [ edit ] Under this scheme, a small amount of (usually normally distributed) zero-centered random noise is added onto each resampled observation. This is equivalent to sampling from a kernel density estimate of the data. Assume K to be a symmetric kernel density function with unit variance. The standard kernel estimator f ^ ^ h ( x ) {\displaystyle {\hat {f\,}}_{h}(x)} of f ( x ) {\displaystyle f(x)} is f ^ ^ h ( x ) = 1 n h ∑ ∑ i = 1 n K ( x − − X i h ) , {\displaystyle {\hat {f\,}}_{h}(x)={1 \over nh}\sum _{i=1}^{n}K\left({x-X_{i} \over h}\right),} [ 24 ] where h {\displaystyle h} is the smoothing parameter. And the corresponding distribution function estimator F ^ ^ h ( x ) {\displaystyle {\hat {F\,}}_{h}(x)} is F ^ ^ h ( x ) = ∫ ∫ − − ∞ ∞ x f ^ ^ h ( t ) d t .
+
+{\displaystyle {\hat {F\,}}_{h}(x)=\int _{-\infty }^{x}{\hat {f}}_{h}(t)\,dt.} [ 24 ] Parametric bootstrap [ edit ] Based on the assumption that the original data set is a realization of a random sample from a distribution of a specific parametric type, in this case a parametric model is fitted by parameter θ,  often by maximum likelihood , and samples of random numbers are drawn from this fitted model. Usually the sample drawn has the same sample size as the original data. Then the estimate of original function F can be written as F ^ ^ = F θ θ ^ ^ {\displaystyle {\hat {F}}=F_{\hat {\theta }}} . This sampling process is repeated many times as for other bootstrap methods. Considering the centered sample mean in this case, the random sample original distribution function F θ θ {\displaystyle F_{\theta }} is replaced by a bootstrap random sample with function F θ θ ^ ^ {\displaystyle F_{\hat {\theta }}} , and the probability distribution of X n ¯ ¯ − − μ μ θ θ {\displaystyle {\bar {X_{n}}}-\mu _{\theta }} is approximated by that of X ¯ ¯ n ∗ ∗ − − μ μ ∗ ∗ {\displaystyle {\bar {X}}_{n}^{*}-\mu ^{*}} , where μ μ ∗ ∗ = μ μ θ θ ^ ^ {\displaystyle \mu ^{*}=\mu _{\hat {\theta }}} , which is the expectation corresponding to F θ θ ^ ^ {\displaystyle F_{\hat {\theta }}} .
+
+[ 25 ] The use of a parametric model at the sampling stage of the bootstrap methodology leads to procedures which are different from those obtained by applying basic statistical theory to inference for the same model.
+
+Resampling residuals [ edit ] Another approach to bootstrapping in regression problems is to resample residuals . The method proceeds as follows.
+
+Fit the model and retain the fitted values y ^ ^ i {\displaystyle {\widehat {y\,}}_{i}} and the residuals ε ε ^ ^ i = y i − − y ^ ^ i , ( i = 1 , … … , n ) {\displaystyle {\widehat {\varepsilon \,}}_{i}=y_{i}-{\widehat {y\,}}_{i},(i=1,\dots ,n)} .
+
+For each pair, ( x i , y i ), in which x i is the (possibly multivariate) explanatory variable, add a randomly resampled residual, ε ε ^ ^ j {\displaystyle {\widehat {\varepsilon \,}}_{j}} , to the fitted value y ^ ^ i {\displaystyle {\widehat {y\,}}_{i}} . In other words, create synthetic response variables y i ∗ ∗ = y ^ ^ i + ε ε ^ ^ j {\displaystyle y_{i}^{*}={\widehat {y\,}}_{i}+{\widehat {\varepsilon \,}}_{j}} where j is selected randomly from the list (1, ..., n ) for every i .
+
+Refit the model using the fictitious response variables y i ∗ ∗ {\displaystyle y_{i}^{*}} , and retain the quantities of interest (often the parameters, μ μ ^ ^ i ∗ ∗ {\displaystyle {\widehat {\mu }}_{i}^{*}} , estimated from the synthetic y i ∗ ∗ {\displaystyle y_{i}^{*}} ).
+
+Repeat steps 2 and 3 a large number of times.
+
+This scheme has the advantage that it retains the information in the explanatory variables. However, a question arises as to which residuals to resample. Raw residuals are one option; another is studentized residuals (in linear regression). Although there are arguments in favor of using studentized residuals; in practice, it often makes little difference, and it is easy to compare the results of both schemes.
+
+Gaussian process regression bootstrap [ edit ] When data are temporally correlated, straightforward bootstrapping destroys the inherent correlations. This method uses Gaussian process regression (GPR) to fit a probabilistic model from which replicates may then be drawn. GPR is a Bayesian non-linear regression method. A Gaussian process (GP) is a collection of random variables, any finite number of which have a joint Gaussian (normal) distribution. A GP is defined by a mean function and a covariance function, which specify the mean vectors and covariance matrices for each finite collection of the random variables.
+
+[ 26 ] Regression model: y ( x ) = f ( x ) + ε ε , ε ε ∼ ∼ N ( 0 , σ σ 2 ) , {\displaystyle y(x)=f(x)+\varepsilon ,\ \ \varepsilon \sim {\mathcal {N}}(0,\sigma ^{2}),} ε ε {\displaystyle \varepsilon } is a noise term.
+
+Gaussian process prior: For any finite collection of variables, x 1 , ..., x n , the function outputs f ( x 1 ) , … … , f ( x n ) {\displaystyle f(x_{1}),\ldots ,f(x_{n})} are jointly distributed according to a multivariate Gaussian with mean m = [ m ( x 1 ) , … … , m ( x n ) ] ⊺ ⊺ {\displaystyle m=[m(x_{1}),\ldots ,m(x_{n})]^{\intercal }} and covariance matrix ( K ) i j = k ( x i , x j ) .
+
+{\displaystyle (K)_{ij}=k(x_{i},x_{j}).} Assume f ( x ) ∼ ∼ G P ( m , k ) .
+
+{\displaystyle f(x)\sim {\mathcal {GP}}(m,k).} Then y ( x ) ∼ ∼ G P ( m , l ) {\displaystyle y(x)\sim {\mathcal {GP}}(m,l)} , where l ( x i , x j ) = k ( x i , x j ) + σ σ 2 δ δ ( x i , x j ) {\displaystyle l(x_{i},x_{j})=k(x_{i},x_{j})+\sigma ^{2}\delta (x_{i},x_{j})} , and δ δ ( x i , x j ) {\displaystyle \delta (x_{i},x_{j})} is the standard Kronecker delta function.
+
+[ 26 ] Gaussian process posterior: According to GP prior, we can get [ y ( x 1 ) , … … , y ( x r ) ] ∼ ∼ N ( m 0 , K 0 ) {\displaystyle [y(x_{1}),\ldots ,y(x_{r})]\sim {\mathcal {N}}(m_{0},K_{0})} , where m 0 = [ m ( x 1 ) , … … , m ( x r ) ] ⊺ ⊺ {\displaystyle m_{0}=[m(x_{1}),\ldots ,m(x_{r})]^{\intercal }} and ( K 0 ) i j = k ( x i , x j ) + σ σ 2 δ δ ( x i , x j ) .
+
+{\displaystyle (K_{0})_{ij}=k(x_{i},x_{j})+\sigma ^{2}\delta (x_{i},x_{j}).} Let x 1 * ,...,x s * be another finite collection of variables, it's obvious that [ y ( x 1 ) , … … , y ( x r ) , f ( x 1 ∗ ∗ ) , … … , f ( x s ∗ ∗ ) ] ⊺ ⊺ ∼ ∼ N ( ( m 0 m ∗ ∗ ) ( K 0 K ∗ ∗ K ∗ ∗ ⊺ ⊺ K ∗ ∗ ∗ ∗ ) ) {\displaystyle [y(x_{1}),\ldots ,y(x_{r}),f(x_{1}^{*}),\ldots ,f(x_{s}^{*})]^{\intercal }\sim {\mathcal {N}}({\binom {m_{0}}{m_{*}}}{\begin{pmatrix}K_{0}&K_{*}\\K_{*}^{\intercal }&K_{**}\end{pmatrix}})} , where m ∗ ∗ = [ m ( x 1 ∗ ∗ ) , … … , m ( x s ∗ ∗ ) ] ⊺ ⊺ {\displaystyle m_{*}=[m(x_{1}^{*}),\ldots ,m(x_{s}^{*})]^{\intercal }} , ( K ∗ ∗ ∗ ∗ ) i j = k ( x i ∗ ∗ , x j ∗ ∗ ) {\displaystyle (K_{**})_{ij}=k(x_{i}^{*},x_{j}^{*})} , ( K ∗ ∗ ) i j = k ( x i , x j ∗ ∗ ) .
+
+{\displaystyle (K_{*})_{ij}=k(x_{i},x_{j}^{*}).} According to the equations above, the outputs y are also jointly distributed according to a multivariate Gaussian. Thus, [ f ( x 1 ∗ ∗ ) , … … , f ( x s ∗ ∗ ) ] ⊺ ⊺ ∣ ∣ ( [ y ( x ) ] ⊺ ⊺ = y ) ∼ ∼ N ( m post , K post ) , {\displaystyle [f(x_{1}^{*}),\ldots ,f(x_{s}^{*})]^{\intercal }\mid ([y(x)]^{\intercal }=y)\sim {\mathcal {N}}(m_{\text{post}},K_{\text{post}}),} where y = [ y 1 , .
+
+.
+
+.
+
+, y r ] ⊺ ⊺ {\displaystyle y=[y_{1},...,y_{r}]^{\intercal }} , m post = m ∗ ∗ + K ∗ ∗ ⊺ ⊺ ( K O + σ σ 2 I r ) − − 1 ( y − − m 0 ) {\displaystyle m_{\text{post}}=m_{*}+K_{*}^{\intercal }(K_{O}+\sigma ^{2}I_{r})^{-1}(y-m_{0})} , K post = K ∗ ∗ ∗ ∗ − − K ∗ ∗ ⊺ ⊺ ( K O + σ σ 2 I r ) − − 1 K ∗ ∗ {\displaystyle K_{\text{post}}=K_{**}-K_{*}^{\intercal }(K_{O}+\sigma ^{2}I_{r})^{-1}K_{*}} , and I r {\displaystyle I_{r}} is r × × r {\displaystyle r\times r} identity matrix.
+
+[ 26 ] Wild bootstrap [ edit ] The wild bootstrap, proposed originally by Wu (1986), [ 27 ] is suited when the model exhibits heteroskedasticity . The idea is, as the residual bootstrap, to leave the regressors at their sample value, but to resample the response variable based on the residuals values. That is, for each replicate, one computes a new y {\displaystyle y} based on y i ∗ ∗ = y ^ ^ i + ε ε ^ ^ i v i {\displaystyle y_{i}^{*}={\widehat {y\,}}_{i}+{\widehat {\varepsilon \,}}_{i}v_{i}} so the residuals are randomly multiplied by a random variable v i {\displaystyle v_{i}} with mean 0 and variance 1. For most distributions of v i {\displaystyle v_{i}} (but not Mammen's), this method assumes that the 'true' residual distribution is symmetric and can offer advantages over simple residual sampling for smaller sample sizes. Different forms are used for the random variable v i {\displaystyle v_{i}} , such as The standard normal distribution A distribution suggested by Mammen (1993).
+
+[ 28 ] v i = { − − ( 5 − − 1 ) / 2 with probability ( 5 + 1 ) / ( 2 5 ) , ( 5 + 1 ) / 2 with probability ( 5 − − 1 ) / ( 2 5 ) {\displaystyle v_{i}={\begin{cases}-({\sqrt {5}}-1)/2&{\text{with probability }}({\sqrt {5}}+1)/(2{\sqrt {5}}),\\({\sqrt {5}}+1)/2&{\text{with probability }}({\sqrt {5}}-1)/(2{\sqrt {5}})\end{cases}}} Approximately, Mammen's distribution is: v i = { − − 0.6180 (with a 0 in the units' place) with probability 0.7236 , + 1.6180 (with a 1 in the units' place) with probability 0.2764.
+
+{\displaystyle v_{i}={\begin{cases}-0.6180\quad {\text{(with a 0 in the units' place)}}&{\text{with probability }}0.7236,\\+1.6180\quad {\text{(with a 1 in the units' place)}}&{\text{with probability }}0.2764.\end{cases}}} Or the simpler distribution, linked to the Rademacher distribution : v i = { − − 1 with probability 1 / 2 , + 1 with probability 1 / 2.
+
+{\displaystyle v_{i}={\begin{cases}-1&{\text{with probability }}1/2,\\+1&{\text{with probability }}1/2.\end{cases}}} Block bootstrap [ edit ] The block bootstrap is used when the data, or the errors in a model, are correlated. In this case, a simple case or residual resampling will fail, as it is not able to replicate the correlation in the data. The block bootstrap tries to replicate the correlation by resampling inside blocks of data (see Blocking (statistics) ). The block bootstrap has been used mainly with data correlated in time (i.e. time series) but can also be used with data correlated in space, or among groups (so-called cluster data).
+
+Time series: Simple block bootstrap [ edit ] In the (simple) block bootstrap, the variable of interest is split into non-overlapping blocks.
+
+Time series: Moving block bootstrap [ edit ] In the moving block bootstrap, introduced by Künsch (1989), [ 29 ] data is split into n − b + 1 overlapping blocks of length b : Observation 1 to b will be block 1, observation 2 to b + 1 will be block 2, etc. Then from these n − b + 1 blocks, n / b blocks will be drawn at random with replacement. Then aligning these n/b blocks in the order they were picked, will give the bootstrap observations.
+
+This bootstrap works with dependent data, however, the bootstrapped observations will not be stationary anymore by construction. But, it was shown that varying randomly the block length can avoid this problem.
+
+[ 30 ] This method is known as the stationary bootstrap.
+
+Other related modifications of the moving block bootstrap are the Markovian bootstrap and a stationary bootstrap method that matches subsequent blocks based on standard deviation matching.
+
+Time series: Maximum entropy bootstrap [ edit ] Vinod (2006), [ 31 ] presents a method that bootstraps time series data using  maximum entropy principles satisfying the Ergodic theorem with mean-preserving and mass-preserving constraints. There is an R package, meboot , [ 32 ] that utilizes the method, which  has applications in econometrics and computer science.
+
+Cluster data: block bootstrap [ edit ] Cluster data describes data where many observations per unit are observed. This could be observing many firms in many states or observing students in many classes. In such cases, the correlation structure is simplified, and one does usually make the assumption that data is correlated within a group/cluster, but independent between groups/clusters. The structure of the block bootstrap is easily obtained (where the block just corresponds to the group), and usually only the groups are resampled, while the observations within the groups are left unchanged.
+
+Cameron et al. (2008) discusses this for clustered errors in linear regression.
+
+[ 33 ] Methods for improving computational efficiency [ edit ] The bootstrap is a powerful technique although may require substantial computing resources in both time and memory. Some techniques have been developed to reduce this burden. They can generally be combined with many of the different types of Bootstrap schemes and various choices of statistics.
+
+Parallel processing [ edit ] Most bootstrap methods are embarrassingly parallel algorithms. That is, the statistic of interest for each bootstrap sample does not depend on other bootstrap samples. Such computations can therefore be performed on separate CPUs or compute nodes with the results from the separate nodes eventually aggregated for final analysis.
+
+Poisson bootstrap [ edit ] The nonparametric bootstrap samples items from a list of size n with counts drawn from a multinomial distribution . If W i {\displaystyle W_{i}} denotes the number times element i is included in a given bootstrap sample, then each W i {\displaystyle W_{i}} is distributed as a binomial distribution with n trials and mean 1, but W i {\displaystyle W_{i}} is not independent of W j {\displaystyle W_{j}} for i ≠ ≠ j {\displaystyle i\neq j} .
+
+The Poisson bootstrap instead draws samples assuming all W i {\displaystyle W_{i}} 's are independently and identically distributed as Poisson variables with mean 1.
+The rationale is that the limit of the binomial distribution is Poisson: lim n → → ∞ ∞ Binomial ⁡ ⁡ ( n , 1 / n ) = Poisson ⁡ ⁡ ( 1 ) {\displaystyle \lim _{n\to \infty }\operatorname {Binomial} (n,1/n)=\operatorname {Poisson} (1)} The Poisson bootstrap had been proposed by Hanley and MacGibbon as potentially useful for non-statisticians using software like SAS and SPSS , which lacked the bootstrap packages of R and S-Plus programming languages.
+
+[ 34 ] The same authors report that for large enough n, the results are relatively similar to the nonparametric bootstrap estimates but go on to note the Poisson bootstrap has seen minimal use in applications.
+
+Another proposed advantage of the Poisson bootstrap is the independence of the W i {\displaystyle W_{i}} makes the method easier to apply for large datasets that must be processed as streams.
+
+[ 35 ] A way to improve on the Poisson bootstrap, termed "sequential bootstrap", is by taking the first samples so that the proportion of unique values is ≈0.632 of the original sample size n. This provides a distribution with main empirical characteristics being within a distance of O ( n 3 / 4 ) {\displaystyle O(n^{3/4})} .
+
+[ 36 ] Empirical investigation has shown this method can yield good results.
+
+[ 37 ] This is related to the reduced bootstrap method.
+
+[ 38 ] Bag of Little Bootstraps [ edit ] For massive data sets, it is often computationally prohibitive to hold all the sample data in memory and resample from the sample data. The Bag of Little Bootstraps (BLB) [ 39 ] provides a method of pre-aggregating data before bootstrapping to reduce computational constraints. This works by partitioning the data set into b {\displaystyle b} equal-sized buckets and aggregating the data within each bucket. This pre-aggregated data set becomes the new sample data over which to draw samples with replacement. This method is similar to the Block Bootstrap, but the motivations and definitions of the blocks are very different. Under certain assumptions, the sample distribution should approximate the full bootstrapped scenario. One constraint is the number of buckets b = n γ γ {\displaystyle b=n^{\gamma }} where γ γ ∈ ∈ [ 0.5 , 1 ] {\displaystyle \gamma \in [0.5,1]} and the authors recommend usage of b = n 0.7 {\displaystyle b=n^{0.7}} as a general solution.
+
+Choice of statistic [ edit ] The bootstrap distribution of a point estimator of a population parameter has been used to produce a bootstrapped confidence interval for the parameter's true value if the parameter can be written as a function of the population's distribution .
+
+Population parameters are estimated with many point estimators . Popular families of point-estimators include mean-unbiased minimum-variance estimators , median-unbiased estimators , Bayesian estimators (for example, the posterior distribution 's mode , median , mean ), and maximum-likelihood estimators .
+
+A Bayesian point estimator and a maximum-likelihood estimator have good performance when the sample size is infinite, according to asymptotic theory . For practical problems with finite samples, other estimators may be preferable. Asymptotic theory suggests techniques that often improve the performance of bootstrapped estimators; the bootstrapping of a maximum-likelihood estimator may often be improved using transformations related to pivotal quantities .
+
+[ 40 ] Deriving confidence intervals from the bootstrap distribution [ edit ] The bootstrap distribution of a parameter-estimator is often used to calculate confidence intervals for its population-parameter.
+
+[ 2 ] A variety of methods for constructing the confidence intervals have been proposed, although there is disagreement which method is the best.
+
+Desirable properties [ edit ] The survey of bootstrap confidence interval methods of DiCiccio and Efron and consequent discussion lists several desired properties of confidence intervals, which generally are not all simultaneously met.
+
+Transformation invariant - the confidence intervals from bootstrapping transformed data (e.g., by taking the logarithm) would ideally be the same as transforming the confidence intervals from bootstrapping the untransformed data.
+
+Confidence intervals should be valid or consistent , i.e., the probability a parameter is in a confidence interval with nominal level 1 − − α α {\displaystyle 1-\alpha } should be equal to or at least converge in probability to 1 − − α α {\displaystyle 1-\alpha } . The latter criteria is both refined and expanded using the framework of Hall.
+
+[ 41 ] The refinements are to distinguish between methods based on how fast the true coverage probability approaches the nominal value, where a method is (using DiCiccio and Efron's terminology) first-order accurate if the error term in the approximation is O ( 1 / n ) {\displaystyle O(1/{\sqrt {n}})} and second-order accurate if the error term is O ( n − − 1 ) {\displaystyle O(n^{-1})} . In addition, methods are distinguished by the speed with which the estimated bootstrap critical point converges to the true (unknown) point, and a method is second-order correct when this rate is O p ( n − − 3 / 2 ) {\displaystyle O_{p}(n^{-3/2})} .
+
+Gleser in the discussion of the paper argues that a limitation of the asymptotic descriptions in the previous bullet is that the O ( ⋅ ⋅ ) {\displaystyle O(\cdot )} terms are not necessarily uniform in the parameters or true distribution.
+
+Bias, asymmetry, and confidence intervals [ edit ] Bias : The bootstrap distribution and the sample may disagree systematically, in which case bias may occur.
+
+If the bootstrap distribution of an estimator is symmetric, then percentile confidence-interval are often used; such intervals are appropriate especially for median-unbiased estimators of minimum risk (with respect to an absolute loss function ).  Bias in the bootstrap distribution will lead to bias in the confidence interval.
+
+Otherwise, if the bootstrap distribution is non-symmetric, then percentile confidence intervals are often inappropriate.
+
+Methods for bootstrap confidence intervals [ edit ] There are several methods for constructing confidence intervals from the bootstrap distribution of a real parameter: Basic bootstrap , [ 40 ] also known as the Reverse Percentile Interval .
+
+[ 42 ] The basic bootstrap is a simple scheme to construct the confidence interval: one simply takes the empirical quantiles from the bootstrap distribution of the parameter (see Davison and Hinkley 1997, equ. 5.6 p. 194): ( 2 θ θ ^ ^ − − θ θ ( 1 − − α α / 2 ) ∗ ∗ , 2 θ θ ^ ^ − − θ θ ( α α / 2 ) ∗ ∗ ) {\displaystyle (2{\widehat {\theta \,}}-\theta _{(1-\alpha /2)}^{*},2{\widehat {\theta \,}}-\theta _{(\alpha /2)}^{*})} where θ θ ( 1 − − α α / 2 ) ∗ ∗ {\displaystyle \theta _{(1-\alpha /2)}^{*}} denotes the 1 − − α α / 2 {\displaystyle 1-\alpha /2} percentile of the bootstrapped coefficients θ θ ∗ ∗ {\displaystyle \theta ^{*}} .
+
+Percentile bootstrap . The percentile bootstrap proceeds in a similar way to the basic bootstrap, using percentiles of the bootstrap distribution, but with a different formula (note the inversion of the left and right quantiles): ( θ θ ( α α / 2 ) ∗ ∗ , θ θ ( 1 − − α α / 2 ) ∗ ∗ ) {\displaystyle (\theta _{(\alpha /2)}^{*},\theta _{(1-\alpha /2)}^{*})} where θ θ ( 1 − − α α / 2 ) ∗ ∗ {\displaystyle \theta _{(1-\alpha /2)}^{*}} denotes the 1 − − α α / 2 {\displaystyle 1-\alpha /2} percentile of the bootstrapped coefficients θ θ ∗ ∗ {\displaystyle \theta ^{*}} .
+
+See Davison and Hinkley (1997, equ. 5.18 p. 203) and Efron and Tibshirani (1993, equ 13.5 p. 171).
+
+This method can be applied to any statistic. It will work well in cases where the bootstrap distribution is symmetrical and centered on the observed statistic [ 43 ] and where the sample statistic is median-unbiased and has maximum concentration (or minimum risk with respect to an absolute value loss function).  When working with small sample sizes (i.e., less than 50), the basic / reversed percentile and percentile confidence intervals for (for example) the variance statistic will be too narrow. So that with a sample of 20 points, 90% confidence interval will include the true variance only 78% of the time.
+
+[ 44 ] The basic / reverse percentile confidence intervals are easier to justify mathematically [ 45 ] [ 42 ] but they are less accurate in general than percentile confidence intervals, and some authors discourage their use.
+
+[ 42 ] Studentized bootstrap . The studentized bootstrap, also called bootstrap-t , is computed analogously to the standard confidence interval, but replaces the quantiles from the normal or student approximation by the quantiles from the bootstrap distribution of the Student's t-test (see Davison and Hinkley 1997, equ. 5.7 p. 194 and Efron and Tibshirani 1993 equ 12.22, p. 160): ( θ θ ^ ^ − − t ( 1 − − α α / 2 ) ∗ ∗ ⋅ ⋅ se ^ ^ θ θ , θ θ ^ ^ − − t ( α α / 2 ) ∗ ∗ ⋅ ⋅ se ^ ^ θ θ ) {\displaystyle ({\widehat {\theta \,}}-t_{(1-\alpha /2)}^{*}\cdot {\widehat {\text{se}}}_{\theta },{\widehat {\theta \,}}-t_{(\alpha /2)}^{*}\cdot {\widehat {\text{se}}}_{\theta })} where t ( 1 − − α α / 2 ) ∗ ∗ {\displaystyle t_{(1-\alpha /2)}^{*}} denotes the 1 − − α α / 2 {\displaystyle 1-\alpha /2} percentile of the bootstrapped Student's t-test t ∗ ∗ = ( θ θ ^ ^ ∗ ∗ − − θ θ ^ ^ ) / se ^ ^ θ θ ^ ^ ∗ ∗ {\displaystyle t^{*}=({\widehat {\theta \,}}^{*}-{\widehat {\theta \,}})/{\widehat {\text{se}}}_{{\widehat {\theta \,}}^{*}}} , and se ^ ^ θ θ {\displaystyle {\widehat {\text{se}}}_{\theta }} is the estimated standard error of the coefficient in the original model.
+
+The studentized test enjoys optimal properties as the statistic that is bootstrapped is pivotal (i.e. it does not depend on nuisance parameters as the t-test follows asymptotically a N(0,1) distribution), unlike the percentile bootstrap.
+
+Bias-corrected bootstrap – adjusts for bias in the bootstrap distribution.
+
+Accelerated bootstrap – The bias-corrected and accelerated (BCa) bootstrap, by Efron (1987), [ 12 ] adjusts for both bias and skewness in the bootstrap distribution. This approach is accurate in a wide variety of settings, has reasonable computation requirements, and produces reasonably narrow intervals.
+
+[ 12 ] Bootstrap hypothesis testing [ edit ] This article may require cleanup to meet Wikipedia's quality standards . The specific problem is: there are other bootstrap tests.
+
+Please help improve this article if you can.
+
+( July 2023 ) ( Learn how and when to remove this message ) Efron and Tibshirani [ 2 ] suggest the following algorithm for comparing the means of two independent samples:
+Let x 1 , … … , x n {\displaystyle x_{1},\ldots ,x_{n}} be a random sample from distribution F with sample mean x ¯ ¯ {\displaystyle {\bar {x}}} and sample variance σ σ x 2 {\displaystyle \sigma _{x}^{2}} . Let y 1 , … … , y m {\displaystyle y_{1},\ldots ,y_{m}} be another, independent random sample from distribution G with mean y ¯ ¯ {\displaystyle {\bar {y}}} and variance σ σ y 2 {\displaystyle \sigma _{y}^{2}} Calculate the test statistic t = x ¯ ¯ − − y ¯ ¯ σ σ x 2 / n + σ σ y 2 / m {\displaystyle t={\frac {{\bar {x}}-{\bar {y}}}{\sqrt {\sigma _{x}^{2}/n+\sigma _{y}^{2}/m}}}} Create two new data sets whose values are x i ′ = x i − − x ¯ ¯ + z ¯ ¯ {\displaystyle x_{i}'=x_{i}-{\bar {x}}+{\bar {z}}} and y i ′ = y i − − y ¯ ¯ + z ¯ ¯ , {\displaystyle y_{i}'=y_{i}-{\bar {y}}+{\bar {z}},} where z ¯ ¯ {\displaystyle {\bar {z}}} is the mean of the combined sample.
+
+Draw a random sample ( x i ∗ ∗ {\displaystyle x_{i}^{*}} ) of size n {\displaystyle n} with replacement from x i ′ {\displaystyle x_{i}'} and another random sample ( y i ∗ ∗ {\displaystyle y_{i}^{*}} ) of size m {\displaystyle m} with replacement from y i ′ {\displaystyle y_{i}'} .
+
+Calculate the test statistic t ∗ ∗ = x ∗ ∗ ¯ ¯ − − y ∗ ∗ ¯ ¯ σ σ x ∗ ∗ 2 / n + σ σ y ∗ ∗ 2 / m {\displaystyle t^{*}={\frac {{\bar {x^{*}}}-{\bar {y^{*}}}}{\sqrt {\sigma _{x}^{*2}/n+\sigma _{y}^{*2}/m}}}} Repeat 3 and 4 B {\displaystyle B} times (e.g.
+
+B = 1000 {\displaystyle B=1000} ) to collect B {\displaystyle B} values of the test statistic.
+
+Estimate the p-value as p = ∑ ∑ i = 1 B I { t i ∗ ∗ ≥ ≥ t } B {\displaystyle p={\frac {\sum _{i=1}^{B}I\{t_{i}^{*}\geq t\}}{B}}} where I { condition } = 1 {\displaystyle I\{{\text{condition}}\}=1} when condition is true and 0 otherwise.
+
+Example applications [ edit ] This section includes a list of references , related reading , or external links , but its sources remain unclear because it lacks inline citations .
+
+Please help improve this section by introducing more precise citations.
+
+( June 2012 ) ( Learn how and when to remove this message ) Smoothed bootstrap [ edit ] In 1878, Simon Newcomb took observations on the speed of light .
+
+[ 46 ] The data set contains two outliers , which greatly influence the sample mean . (The sample mean need not be a consistent estimator for any population mean , because no mean needs to exist for a heavy-tailed distribution .) A well-defined and robust statistic for the central tendency is the sample median, which is consistent and median-unbiased for the population median.
+
+The bootstrap distribution for Newcomb's data appears below. We can reduce the discreteness of the bootstrap distribution by adding a small amount of random noise to each bootstrap sample. A conventional choice is to add noise with a standard deviation of σ σ / n {\displaystyle \sigma /{\sqrt {n}}} for a sample size n ; this noise is often drawn from a Student-t distribution with n-1 degrees of freedom.
+
+[ 47 ] This results in an approximately-unbiased estimator for the variance of the sample mean.
+
+[ 48 ] This means that samples taken from the bootstrap distribution will have a variance which is, on average, equal to the variance of the total population.
+
+Histograms of the bootstrap distribution and the smooth bootstrap distribution appear below. The bootstrap distribution of the sample-median has only a small number of values. The smoothed bootstrap distribution has a richer support . However, note that whether the smoothed or standard bootstrap procedure is favorable is case-by-case and is shown to depend on both the underlying distribution function and on the quantity being estimated.
+
+[ 49 ] In this example, the bootstrapped 95% (percentile) confidence-interval for the population median is (26, 28.5), which is close to the interval for  (25.98, 28.46) for the smoothed bootstrap.
+
+Relation to other approaches to inference [ edit ] Relationship to other resampling methods [ edit ] Further information: Resampling (statistics) The bootstrap is distinguished from: the jackknife procedure, used to estimate biases of sample statistics and to estimate variances, and cross-validation , in which the parameters (e.g., regression weights, factor loadings) that are estimated in one subsample are applied to another subsample.
+
+Bootstrap aggregating (bagging) is a meta-algorithm based on averaging model predictions obtained from models trained on multiple bootstrap samples.
+
+U-statistics [ edit ] Main article: U-statistic In situations where an obvious statistic can be devised to measure a required characteristic using only a small number, r , of data items, a corresponding statistic based on the entire sample can be formulated. Given an r -sample statistic, one can create an n -sample statistic by something similar to bootstrapping (taking the average of the statistic over all subsamples of size r ). This procedure is known to have certain good properties and the result is a U-statistic . The sample mean and sample variance are of this form, for r = 1 and r = 2.
+
+Asymptotic theory [ edit ] The bootstrap has under certain conditions desirable asymptotic properties . The asymptotic properties most often described are weak convergence / consistency of the sample paths of the bootstrap empirical process and the validity of confidence intervals derived from the bootstrap. This section describes the convergence of the empirical bootstrap.
+
+Stochastic convergence [ edit ] This paragraph summarizes more complete descriptions of stochastic convergence in van der Vaart and Wellner [ 50 ] and Kosorok.
+
+[ 51 ] The bootstrap defines a stochastic process , a collection of random variables indexed by some set T {\displaystyle T} , where T {\displaystyle T} is typically the real line ( R {\displaystyle \mathbb {R} } ) or a family of functions. Processes of interest are those with bounded sample paths, i.e., sample paths in L-infinity ( ℓ ℓ ∞ ∞ ( T ) {\displaystyle \ell ^{\infty }(T)} ), the set of all uniformly bounded functions from T {\displaystyle T} to R {\displaystyle \mathbb {R} } . When equipped with the uniform distance, ℓ ℓ ∞ ∞ ( T ) {\displaystyle \ell ^{\infty }(T)} is a metric space , and when T = R {\displaystyle T=\mathbb {R} } , two subspaces of ℓ ℓ ∞ ∞ ( T ) {\displaystyle \ell ^{\infty }(T)} are of particular interest, C [ 0 , 1 ] {\displaystyle C[0,1]} , the space of all continuous functions from T {\displaystyle T} to the unit interval [0,1], and D [ 0 , 1 ] {\displaystyle D[0,1]} , the space of all cadlag functions from T {\displaystyle T} to [0,1]. This is because C [ 0 , 1 ] {\displaystyle C[0,1]} contains the distribution functions for all continuous random variables, and D [ 0 , 1 ] {\displaystyle D[0,1]} contains the distribution functions for all random variables. Statements about the consistency of the bootstrap are statements about the convergence of the sample paths of the bootstrap process as random elements of the metric space ℓ ℓ ∞ ∞ ( T ) {\displaystyle \ell ^{\infty }(T)} or some subspace thereof, especially C [ 0 , 1 ] {\displaystyle C[0,1]} or D [ 0 , 1 ] {\displaystyle D[0,1]} .
+
+Consistency [ edit ] Horowitz in a recent review [ 1 ] defines consistency as: the bootstrap estimator G n ( ⋅ ⋅ , F n ) {\displaystyle G_{n}(\cdot ,F_{n})} is consistent [for a statistic T n {\displaystyle T_{n}} ] if, for each F 0 {\displaystyle F_{0}} , sup τ τ | G n ( τ τ , F n ) − − G ∞ ∞ ( τ τ , F 0 ) | {\displaystyle \sup _{\tau }|G_{n}(\tau ,F_{n})-G_{\infty }(\tau ,F_{0})|} converges in probability to 0 as n → → ∞ ∞ {\displaystyle n\to \infty } , where F n {\displaystyle F_{n}} is the distribution of the statistic of interest in the original sample, F 0 {\displaystyle F_{0}} is the true but unknown distribution of the statistic, G ∞ ∞ ( τ τ , F 0 ) {\displaystyle G_{\infty }(\tau ,F_{0})} is the asymptotic distribution function of T n {\displaystyle T_{n}} , and τ τ {\displaystyle \tau } is the indexing variable in the distribution function, i.e., P ( T n ≤ ≤ τ τ ) = G n ( τ τ , F 0 ) {\displaystyle P(T_{n}\leq \tau )=G_{n}(\tau ,F_{0})} . This is sometimes more specifically called consistency relative to the Kolmogorov-Smirnov distance .
+
+[ 52 ] Horowitz goes on to recommend using a theorem from Mammen [ 53 ] that provides easier to check necessary and sufficient conditions for consistency for statistics of a certain common form. In particular, let { X i : i = 1 , … … , n } {\displaystyle \{X_{i}:i=1,\ldots ,n\}} be the random sample. If T n = ∑ ∑ i = 1 n g n ( X i ) − − t n σ σ n {\displaystyle T_{n}={\frac {\sum _{i=1}^{n}g_{n}(X_{i})-t_{n}}{\sigma _{n}}}} for a sequence of numbers t n {\displaystyle t_{n}} and σ σ n {\displaystyle \sigma _{n}} , then the bootstrap estimate of the cumulative distribution function estimates the empirical cumulative distribution function if and only if T n {\displaystyle T_{n}} converges in distribution to the standard normal distribution .
+
+Strong consistency [ edit ] Convergence in (outer) probability as described above is also called weak consistency . It can also be shown with slightly stronger assumptions, that the bootstrap is strongly consistent , where convergence in (outer) probability is replaced by convergence (outer) almost surely. When only one type of consistency is described, it is typically weak consistency. This is adequate for most statistical applications since it implies confidence bands derived from the bootstrap are asymptotically valid.
+
+[ 51 ] Showing consistency using the central limit theorem [ edit ] In simpler cases, it is possible to use the central limit theorem directly to show the consistency of the bootstrap procedure for estimating the distribution of the sample mean.
+
+Specifically, let us consider X n 1 , … … , X n n {\displaystyle X_{n1},\ldots ,X_{nn}} independent identically distributed random variables with E [ X n 1 ] = μ μ {\displaystyle \mathbb {E} [X_{n1}]=\mu } and Var [ X n 1 ] = σ σ 2 < ∞ ∞ {\displaystyle {\text{Var}}[X_{n1}]=\sigma ^{2}<\infty } for each n ≥ ≥ 1 {\displaystyle n\geq 1} . Let X ¯ ¯ n = n − − 1 ( X n 1 + ⋯ ⋯ + X n n ) {\displaystyle {\bar {X}}_{n}=n^{-1}(X_{n1}+\cdots +X_{nn})} . In addition, for each n ≥ ≥ 1 {\displaystyle n\geq 1} , conditional on X n 1 , … … , X n n {\displaystyle X_{n1},\ldots ,X_{nn}} , let X n 1 ∗ ∗ , … … , X n n ∗ ∗ {\displaystyle X_{n1}^{*},\ldots ,X_{nn}^{*}} be independent random variables with distribution equal to the empirical distribution of X n 1 , … … , X n n {\displaystyle X_{n1},\ldots ,X_{nn}} . This is the sequence of bootstrap samples.
+
+Then it can be shown that sup τ τ ∈ ∈ R | P ∗ ∗ ( n ( X ¯ ¯ n ∗ ∗ − − X ¯ ¯ n ) σ σ ^ ^ n ≤ ≤ τ τ ) − − P ( n ( X ¯ ¯ n − − μ μ ) σ σ ≤ ≤ τ τ ) | → → 0 in probability as n → → ∞ ∞ , {\displaystyle \sup _{\tau \in \mathbb {R} }\left|P^{*}\left({\frac {{\sqrt {n}}({\bar {X}}_{n}^{*}-{\bar {X}}_{n})}{{\hat {\sigma }}_{n}}}\leq \tau \right)-P\left({\frac {{\sqrt {n}}({\bar {X}}_{n}-\mu )}{\sigma }}\leq \tau \right)\right|\to 0{\text{ in probability as }}n\to \infty ,} where P ∗ ∗ {\displaystyle P^{*}} represents probability conditional on X n 1 , … … , X n n {\displaystyle X_{n1},\ldots ,X_{nn}} , n ≥ ≥ 1 {\displaystyle n\geq 1} , X ¯ ¯ n ∗ ∗ = n − − 1 ( X n 1 ∗ ∗ + ⋯ ⋯ + X n n ∗ ∗ ) {\displaystyle {\bar {X}}_{n}^{*}=n^{-1}(X_{n1}^{*}+\cdots +X_{nn}^{*})} , and σ σ ^ ^ n 2 = n − − 1 ∑ ∑ i = 1 n ( X n i − − X ¯ ¯ n ) 2 {\displaystyle {\hat {\sigma }}_{n}^{2}=n^{-1}\sum _{i=1}^{n}(X_{ni}-{\bar {X}}_{n})^{2}} .
+
+To see this, note that ( X n i ∗ ∗ − − X ¯ ¯ n ) / n σ σ ^ ^ n {\displaystyle (X_{ni}^{*}-{\bar {X}}_{n})/{\sqrt {n}}{\hat {\sigma }}_{n}} satisfies the Lindeberg condition , so the CLT holds.
+
+[ 54 ] The Glivenko–Cantelli theorem provides theoretical background for the bootstrap method.
+
+Finite populations [ edit ] Finite populations and drawing without replacement require adaptations of the bootstrap due to the violation of the i.i.d assumption. One example is "population bootstrap" [ 55 ] .
+
+See also [ edit ] Accuracy and precision Bootstrap aggregating Bootstrapping Empirical likelihood Imputation (statistics) Reliability (statistics) Reproducibility Resampling References [ edit ] ^ a b c Horowitz JL (2019).
+
+"Bootstrap methods in econometrics" .
+
+Annual Review of Economics .
+
+11 : 193– 224.
+
+arXiv : 1809.04016 .
+
+doi : 10.1146/annurev-economics-080218-025651 .
+
+^ a b c d e Efron B , Tibshirani R (1993).
+
+An Introduction to the Bootstrap . Boca Raton, FL: Chapman & Hall/CRC.
+
+ISBN 0-412-04231-2 .
+
+software Archived 2012-07-12 at archive.today ^ Efron B (2003).
+
+"Second thoughts on the bootstrap" (PDF) .
+
+Statistical Science .
+
+18 (2): 135– 140.
+
+doi : 10.1214/ss/1063994968 .
+
+^ a b c Efron, B.
+
+(1979).
+
+"Bootstrap methods: Another look at the jackknife" .
+
+The Annals of Statistics .
+
+7 (1): 1– 26.
+
+doi : 10.1214/aos/1176344552 .
+
+^ Lehmann E.L. (1992) "Introduction to Neyman and Pearson (1933) On the Problem of the Most Efficient Tests of Statistical Hypotheses". In: Breakthroughs in Statistics, Volume 1, (Eds Kotz, S., Johnson, N.L.), Springer-Verlag. ISBN 0-387-94037-5 (followed by reprinting of the paper).
+
+^ Quenouille MH (1949). "Approximate tests of correlation in time-series".
+
+Journal of the Royal Statistical Society, Series B .
+
+11 (1): 68– 84.
+
+doi : 10.1111/j.2517-6161.1949.tb00023.x .
+
+^ Tukey JW . "Bias and confidence in not-quite large samples".
+
+Annals of Mathematical Statistics .
+
+29 : 614.
+
+^ Jaeckel L (1972) The infinitesimal jackknife. Memorandum MM72-1215-11, Bell Lab ^ Bickel PJ , Freedman DA (1981).
+
+"Some asymptotic theory for the bootstrap" .
+
+The Annals of Statistics .
+
+9 (6): 1196– 1217.
+
+doi : 10.1214/aos/1176345637 .
+
+^ Singh K (1981).
+
+"On the asymptotic accuracy of Efron's bootstrap" .
+
+The Annals of Statistics .
+
+9 (6): 1187– 1195.
+
+doi : 10.1214/aos/1176345636 .
+
+JSTOR 2240409 .
+
+^ Rubin DB (1981).
+
+"The Bayesian bootstrap" .
+
+The Annals of Statistics .
+
+9 : 130– 134.
+
+doi : 10.1214/aos/1176345338 .
+
+^ a b c Efron, B.
+
+(1987). "Better Bootstrap Confidence Intervals".
+
+Journal of the American Statistical Association .
+
+82 (397). Journal of the American Statistical Association, Vol. 82, No. 397: 171– 185.
+
+doi : 10.2307/2289144 .
+
+JSTOR 2289144 .
+
+^ DiCiccio T, Efron B (1992).
+
+"More accurate confidence intervals in exponential families" .
+
+Biometrika .
+
+79 (2): 231– 245.
+
+doi : 10.2307/2336835 .
+
+ISSN 0006-3444 .
+
+JSTOR 2336835 .
+
+OCLC 5545447518 . Retrieved 2024-01-31 .
+
+^ Good, P. (2006) Resampling Methods. 3rd Ed. Birkhauser.
+
+^ a b c "21 Bootstrapping Regression Models" (PDF) .
+
+Archived (PDF) from the original on 2015-07-24.
+
+^ DiCiccio TJ, Efron B (1996).
+
+"Bootstrap confidence intervals (with Discussion)" .
+
+Statistical Science .
+
+11 (3): 189– 228.
+
+doi : 10.1214/ss/1032280214 .
+
+^ Hinkley D (1994).
+
+"[Bootstrap: More than a Stab in the Dark?]: Comment" .
+
+Statistical Science .
+
+9 (3): 400– 403.
+
+doi : 10.1214/ss/1177010387 .
+
+ISSN 0883-4237 .
+
+^ Goodhue DL, Lewis W, Thompson W (2012). "Does PLS have advantages for small sample size or non-normal data?".
+
+MIS Quarterly .
+
+36 (3): 981– 1001.
+
+doi : 10.2307/41703490 .
+
+JSTOR 41703490 .
+
+Appendix .
+
+^ Efron, B., Rogosa, D., & Tibshirani, R. (2004). Resampling methods of estimation. In N.J. Smelser, & P.B. Baltes (Eds.). International Encyclopedia of the Social & Behavioral Sciences (pp. 13216–13220). New York, NY: Elsevier.
+
+^ Adèr, H. J.
+
+, Mellenbergh G. J.
+
+, & Hand, D. J. (2008).
+
+Advising on research methods: A consultant's companion . Huizen, The Netherlands: Johannes van Kessel Publishing.
+
+ISBN 978-90-79418-01-5 .
+
+^ Athreya KB (1987).
+
+"Bootstrap of the mean in the infinite variance case" .
+
+Annals of Statistics .
+
+15 (2): 724– 731.
+
+doi : 10.1214/aos/1176350371 .
+
+^ "How many different bootstrap samples are there? Statweb.stanford.edu" . Archived from the original on 2019-09-14 . Retrieved 2019-12-09 .
+
+^ Rubin, D. B. (1981). "The Bayesian bootstrap".
+
+Annals of Statistics , 9, 130.
+
+^ a b WANG, SUOJIN (1995). "Optimizing the smoothed bootstrap".
+
+Ann. Inst. Statist. Math .
+
+47 : 65– 80.
+
+doi : 10.1007/BF00773412 .
+
+S2CID 122041565 .
+
+^ Dekking, Frederik Michel; Kraaikamp, Cornelis; Lopuhaä, Hendrik Paul; Meester, Ludolf Erwin (2005).
+
+A modern introduction to probability and statistics : understanding why and how . London: Springer.
+
+ISBN 978-1-85233-896-1 .
+
+OCLC 262680588 .
+
+^ a b c Kirk, Paul (2009).
+
+"Gaussian process regression bootstrapping: exploring the effects of uncertainty in time course data" .
+
+Bioinformatics .
+
+25 (10): 1300– 1306.
+
+doi : 10.1093/bioinformatics/btp139 .
+
+PMC 2677737 .
+
+PMID 19289448 .
+
+^ Wu, C.F.J. (1986).
+
+"Jackknife, bootstrap and other resampling methods in regression analysis (with discussions)" .
+
+Annals of Statistics .
+
+14 : 1261– 1350.
+
+doi : 10.1214/aos/1176350142 .
+
+^ Mammen, E. (Mar 1993).
+
+"Bootstrap and wild bootstrap for high dimensional linear models" .
+
+Annals of Statistics .
+
+21 (1): 255– 285.
+
+doi : 10.1214/aos/1176349025 .
+
+^ Künsch, H. R. (1989).
+
+"The Jackknife and the Bootstrap for General Stationary Observations" .
+
+Annals of Statistics .
+
+17 (3): 1217– 1241.
+
+doi : 10.1214/aos/1176347265 .
+
+^ Politis, D. N.; Romano, J. P. (1994). "The Stationary Bootstrap".
+
+Journal of the American Statistical Association .
+
+89 (428): 1303– 1313.
+
+doi : 10.1080/01621459.1994.10476870 .
+
+hdl : 10983/25607 .
+
+^ Vinod, HD (2006). "Maximum entropy ensembles for time series inference in economics".
+
+Journal of Asian Economics .
+
+17 (6): 955– 978.
+
+doi : 10.1016/j.asieco.2006.09.001 .
+
+^ Vinod, Hrishikesh; López-de-Lacalle, Javier (2009).
+
+"Maximum entropy bootstrap for time series: The meboot R package" .
+
+Journal of Statistical Software .
+
+29 (5): 1– 19.
+
+doi : 10.18637/jss.v029.i05 .
+
+^ Cameron, A. C.; Gelbach, J. B.; Miller, D. L. (2008).
+
+"Bootstrap-based improvements for inference with clustered errors" (PDF) .
+
+Review of Economics and Statistics .
+
+90 (3): 414– 427.
+
+doi : 10.1162/rest.90.3.414 .
+
+^ Hanley JA, MacGibbon B (2006).
+
+"Creating non-parametric bootstrap samples using Poisson frequencies" .
+
+Computer Methods and Programs in Biomedicine .
+
+83 (1): 57– 62.
+
+doi : 10.1016/j.cmpb.2006.04.006 .
+
+PMID 16730851 .
+
+^ Chamandy N, Muralidharan O, Najmi A, Naidu S (2012).
+
+"Estimating Uncertainty for Massive Data Streams" . Retrieved 2024-08-14 .
+
+^ Babu, G. Jogesh; Pathak, P. K; Rao, C. R.
+
+(1999).
+
+"Second-order correctness of the Poisson bootstrap" .
+
+The Annals of Statistics .
+
+27 (5): 1666– 1683.
+
+doi : 10.1214/aos/1017939146 .
+
+^ Shoemaker, Owen J.; Pathak, P. K. (2001). "The sequential bootstrap: a comparison with regular bootstrap".
+
+Communications in Statistics - Theory and Methods .
+
+30 ( 8– 9): 1661– 1674.
+
+doi : 10.1081/STA-100105691 .
+
+^ Jiménez-Gamero, María Dolores; Muñoz-García, Joaquín; Pino-Mejías, Rafael (2004). "Reduced bootstrap for the median".
+
+Statistica Sinica .
+
+14 (4): 1179– 1198.
+
+JSTOR 24307226 .
+
+^ Kleiner, A; Talwalkar, A; Sarkar, P; Jordan, M. I. (2014). "A scalable bootstrap for massive data".
+
+Journal of the Royal Statistical Society, Series B (Statistical Methodology) .
+
+76 (4): 795– 816.
+
+arXiv : 1112.5016 .
+
+doi : 10.1111/rssb.12050 .
+
+ISSN 1369-7412 .
+
+S2CID 3064206 .
+
+^ a b Davison, A. C.
+
+; Hinkley, D. V.
+
+(1997).
+
+Bootstrap methods and their application . Cambridge Series in Statistical and Probabilistic Mathematics. Cambridge University Press.
+
+ISBN 0-521-57391-2 .
+
+software .
+
+^ Hall P (1988).
+
+"Theoretical comparison of bootstrap confidence intervals" .
+
+The Annals of Statistics .
+
+16 (3): 927– 953.
+
+doi : 10.1214/aos/1176350933 .
+
+JSTOR 2241604 .
+
+^ a b c Hesterberg, Tim C (2014). "What Teachers Should Know about the Bootstrap: Resampling in the Undergraduate Statistics Curriculum".
+
+arXiv : 1411.5279 [ stat.OT ].
+
+^ Efron, B.
+
+(1982).
+
+The jackknife, the bootstrap, and other resampling plans . Vol. 38. Society of Industrial and Applied Mathematics CBMS-NSF Monographs.
+
+ISBN 0-89871-179-7 .
+
+^ Scheiner, S. (1998).
+
+Design and Analysis of Ecological Experiments . CRC Press.
+
+ISBN 0412035618 .
+
+Ch13, p300 ^ Rice, John.
+
+Mathematical Statistics and Data Analysis (2 ed.). p. 272.
+
+"Although this direct equation of quantiles of the bootstrap sampling distribution with confidence limits may seem initially appealing, it’s rationale is somewhat obscure." ^ Data from examples in Bayesian Data Analysis ^ Chihara, Laura; Hesterberg, Tim (3 August 2018).
+
+Mathematical Statistics with Resampling and R (2nd ed.). John Wiley & Sons, Inc.
+
+doi : 10.1002/9781119505969 .
+
+ISBN 9781119416548 .
+
+S2CID 60138121 .
+
+^ Voinov, Vassily [G.]; Nikulin, Mikhail [S.] (1993). Unbiased estimators and their applications. Vol. 1: Univariate case. Dordrect: Kluwer Academic Publishers. ISBN 0-7923-2382-3.
+
+^ Young, G. A. (July 1990).
+
+"Alternative Smoothed Bootstraps" .
+
+Journal of the Royal Statistical Society, Series B (Methodological) .
+
+52 (3): 477– 484.
+
+doi : 10.1111/j.2517-6161.1990.tb01801.x .
+
+ISSN 0035-9246 .
+
+^ van der Vaart AW , Wellner JA (1996).
+
+Weak Convergence and Empirical Processes With Applications to Statistics . New York: Springer Science+Business Media .
+
+ISBN 978-1-4757-2547-6 .
+
+^ a b Kosorok MR (2008).
+
+Introduction to Empirical Processes and Semiparametric Inference . New York: Springer Science+Business Media .
+
+ISBN 978-0-387-74977-8 .
+
+^ van der Vaart AW (1998).
+
+Asymptotic Statistics . Cambridge Series in Statistical and Probabilistic Mathematics. New York: Cambridge University Press . p. 329.
+
+ISBN 978-0-521-78450-4 .
+
+^ Mammen E (1992).
+
+When Does Bootstrap Work?: Aysmptotic Results and Simulations . Lecture Notes in Statistics. Vol. 57. New York: Springer-Verlag .
+
+ISBN 978-0-387-97867-3 .
+
+^ Gregory, Karl (29 Dec 2023).
+
+"Some results based on the Lindeberg central limit theorem" (PDF) . Retrieved 29 Dec 2023 .
+
+^ Mashreghi, Zeinab, David Haziza, and Christian Léger. "A survey of bootstrap methods in finite population sampling." (2016): 1-52.
+
+https://projecteuclid.org/journals/statistics-surveys/volume-10/issue-none/A-survey-of-bootstrap-methods-in-finite-population-sampling/10.1214/16-SS113.full Further reading [ edit ] Diaconis P , Efron B (May 1983).
+
+"Computer-intensive methods in statistics" (PDF) .
+
+Scientific American .
+
+248 (5): 116– 130.
+
+Bibcode : 1983SciAm.248e.116D .
+
+doi : 10.1038/scientificamerican0583-116 . Archived from the original (PDF) on 2016-03-13 . Retrieved 2016-01-19 .
+
+popular-science Efron B (1981). "Nonparametric estimates of standard error: The jackknife, the bootstrap and other methods".
+
+Biometrika .
+
+68 (3): 589– 599.
+
+doi : 10.1093/biomet/68.3.589 .
+
+JSTOR 2335441 .
+
+Hesterberg T, Moore DS, Monaghan S, Clipson A, Epstein R (2005).
+
+"Bootstrap methods and permutation tests" (PDF) . In David S. Moore , George McCabe (eds.).
+
+Introduction to the Practice of Statistics .
+
+software . Archived from the original (PDF) on 2006-02-15 . Retrieved 2007-03-23 .
+
+Efron B (1979).
+
+"Bootstrap methods: Another look at the jackknife" .
+
+The Annals of Statistics .
+
+7 : 1– 26.
+
+doi : 10.1214/aos/1176344552 .
+
+Efron B (1982).
+
+The Jackknife, the Bootstrap, and Other Resampling Plans . Society of Industrial and Applied Mathematics CBMS-NSF Monographs. Vol. 38. Philadelphia, US: Society for Industrial and Applied Mathematics .
+
+Efron B , Tibshirani RJ (1993).
+
+An Introduction to the Bootstrap . Monographs on Statistics and Applied Probability. Vol. 57. Boca Raton, US: Chapman & Hall .
+
+software .
+
+Davison AC, Hinley DV (1997).
+
+Bootstrap Methods and their Application . Cambridge Series in Statistical and Probabilistic Mathematics. Cambridge: Cambridge University Press .
+
+ISBN 9780511802843 .
+
+software .
+
+Mooney CZ, Duval RD (1993).
+
+Bootstrapping: A Nonparametric Approach to Statistical Inference . Sage University Paper Series on Quantitative Applications in the Social Sciences. Vol.
+
+07– 095. Newbury Park, US: Sage .
+
+Wright D, London K, Field AP (2011). "Using bootstrap estimation and the plug-in principle for clinical psychology data".
+
+Journal of Experimental Psychopathology .
+
+2 (2): 252– 270.
+
+doi : 10.5127/jep.013611 .
+
+Gong G (1986). "Cross-validation, the jackknife, and the bootstrap: Excess error estimation in forward logistic regression".
+
+Journal of the American Statistical Association .
+
+81 (393): 108– 113.
+
+doi : 10.1080/01621459.1986.10478245 .
+
+^ Other names that Efron's colleagues suggested for the "bootstrap" method were: Swiss Army Knife , Meat Axe , Swan-Dive , Jack-Rabbit , and Shotgun .
+
+[ 4 ] v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject Authority control databases National United States France BnF data Czech Republic Israel Other Yale LUX NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐sflxf
+Cached time: 20250812015419
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 1.287 seconds
+Real time usage: 1.652 seconds
+Preprocessor visited node count: 6667/1000000
+Revision size: 70832/2097152 bytes
+Post‐expand include size: 292309/2097152 bytes
+Template argument size: 5630/2097152 bytes
+Highest expansion depth: 15/100
+Expensive parser function count: 12/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 232724/5000000 bytes
+Lua time usage: 0.701/10.000 seconds
+Lua memory usage: 7651137/52428800 bytes
+Number of Wikibase entities loaded: 1/500 Transclusion expansion time report (%,ms,calls,template)
+100.00% 1085.242      1 -total
+ 45.01%  488.496      2 Template:Reflist
+ 30.79%  334.196     35 Template:Cite_journal
+ 14.73%  159.833      1 Template:Statistics
+ 14.49%  157.219      1 Template:Navbox_with_collapsible_groups
+ 10.82%  117.416     16 Template:Cite_book
+ 10.31%  111.897      1 Template:Short_description
+  8.03%   87.154      2 Template:Pagetype
+  6.03%   65.393      4 Template:Ambox
+  5.92%   64.218     11 Template:Navbox Saved in parser cache with key enwiki:pcache:6885770:|#|:idhash:canonical and timestamp 20250812015419 and revision id 1291833836. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Bootstrapping_(statistics)&oldid=1291833836 " Categories : Computational statistics Resampling (statistics) Hidden categories: Webarchive template archiveis links Articles with short description Short description matches Wikidata Articles lacking in-text citations from June 2012 All articles lacking in-text citations All articles with unsourced statements Articles with unsourced statements from August 2024 Articles with unsourced statements from April 2009 Articles needing cleanup from July 2023 All pages needing cleanup Cleanup tagged articles with a reason field from July 2023 Wikipedia pages needing cleanup from July 2023 CS1: long volume value This page was last edited on 23 May 2025, at 17:54 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Bootstrapping (statistics) 24 languages Add topic
+

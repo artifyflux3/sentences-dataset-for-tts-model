@@ -1,0 +1,145 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Outline Toggle Outline subsection 1.1 Active stereo vision 2 Applications 3 Detailed definition Toggle Detailed definition subsection 3.1 Image rectification 3.2 Smoothness 4 Information measure Toggle Information measure subsection 4.1 Least squares information measure 4.2 Information measure for stereoscopic images 5 Methods of implementation 6 See also 7 References 8 External links Toggle the table of contents Computer stereo vision 4 languages Français 한국어 日本語 Українська Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Extraction of 3D data from digital images Computer stereo vision is the extraction of 3D information from digital images, such as those obtained by a CCD camera . By comparing information about a scene from two vantage points, 3D information can be extracted by examining the relative positions of objects in the two panels. This is similar to the biological process of stereopsis .
+
+Outline [ edit ] In traditional stereo vision, two cameras, displaced horizontally from one another, are used to obtain two differing views on a scene, in a manner similar to human binocular vision .  By comparing these two images, the relative depth information can be obtained in the form of a disparity map , which encodes the difference in horizontal coordinates of corresponding image points. The values in this disparity map are inversely proportional to the scene depth at the corresponding pixel location.
+
+For a human to compare the two images, they must be superimposed in a stereoscopic device, with the image from the right camera being shown to the observer's right eye and from the left one to the left eye.
+
+In a computer vision system, several pre-processing steps are required.
+
+[ 1 ] The image must first be undistorted, such that barrel distortion and tangential distortion are removed. This ensures that the observed image matches the projection of an ideal pinhole camera .
+
+The image must be projected back to a common plane to allow comparison of the image pairs, known as image rectification .
+
+An information measure which compares the two images is minimized.  This gives the best estimate of the position of features in the two images, and creates a disparity map.
+
+Optionally, the received disparity map is projected into a 3d point cloud . By utilising the cameras' projective parameters, the point cloud can be computed such that it provides measurements at a known scale.
+
+Active stereo vision [ edit ] The active stereo vision is a form of stereo vision which actively employs a light such as a laser or a structured light to simplify the stereo matching problem. The opposed term is passive stereo vision.
+
+Conventional structured-light vision (SLV) employs a structured light or laser, and finds projector-camera correspondences.
+
+[ 2 ] [ 3 ] Conventional active stereo vision (ASV) employs a structured light or laser, however, the stereo matching is performed only for camera-camera correspondences, in the same way as the passive stereo vision.
+
+Structured-light stereo (SLS) is a hybrid technique, which utilizes both camera-camera and projector-camera correspondences.
+
+[ 4 ] Applications [ edit ] 3D stereo displays find many applications in entertainment, information transfer and automated systems. Stereo vision is highly important in fields such as robotics to extract information about the relative position of 3D objects in the vicinity of autonomous systems. Other applications for robotics include object recognition , [ 5 ] where depth information allows for the system to separate occluding image components, such as one chair in front of another, which the robot may otherwise not be able to distinguish as a separate object by any other criteria.
+
+Scientific applications for digital stereo vision include the extraction of information from aerial surveys , for calculation of contour maps or even geometry extraction for 3D building mapping, photogrammetric satellite mapping, or calculation of 3D heliographical information such as obtained by the NASA STEREO project.
+
+Detailed definition [ edit ] Further information: Triangulation (computer vision) Diagram describing relationship of image displacement to depth with stereoscopic images, assuming flat co-planar images A pixel records color at a position.  The position is identified by position in the grid of pixels (x, y) and depth to the pixel z.
+
+Stereoscopic vision gives two images of the same scene, from different positions.  In the adjacent diagram light from the point A is transmitted through the entry points of pinhole cameras at B and D , onto image screens at E and H .
+
+In the attached diagram the distance between the centers of the two camera lens is BD = BC + CD .  The triangles are similar, ACB and BFE ACD and DGH Therefore displacement d = E F + G H = B F ( E F B F + G H B F ) = B F ( E F B F + G H D G ) = B F ( B C + C D A C ) = B F B D A C = k z , where {\displaystyle {\begin{aligned}{\text{Therefore displacement }}d&=EF+GH\\&=BF({\frac {EF}{BF}}+{\frac {GH}{BF}})\\&=BF({\frac {EF}{BF}}+{\frac {GH}{DG}})\\&=BF({\frac {BC+CD}{AC}})\\&=BF{\frac {BD}{AC}}\\&={\frac {k}{z}}{\text{, where}}\\\end{aligned}}} k = BD BF z = AC is the distance from the camera plane to the object.
+
+So assuming the cameras are level, and image planes are flat on the same plane, the displacement in the y axis between the same pixel in the two images is, d = k z {\displaystyle d={\frac {k}{z}}} Where k is the distance between the two cameras times the distance from the lens to the image.
+
+The depth component in the two images are z 1 {\displaystyle z_{1}} and z 2 {\displaystyle z_{2}} , given by, z 2 ( x , y ) = min { v : v = z 1 ( x , y − − k z 1 ( x , y ) ) } {\displaystyle z_{2}(x,y)=\min \left\{v:v=z_{1}(x,y-{\frac {k}{z_{1}(x,y)}})\right\}} z 1 ( x , y ) = min { v : v = z 2 ( x , y + k z 2 ( x , y ) ) } {\displaystyle z_{1}(x,y)=\min \left\{v:v=z_{2}(x,y+{\frac {k}{z_{2}(x,y)}})\right\}} These formulas allow for the occlusion of voxels , seen in one image on the surface of the object, by closer voxels seen in the other image, on the surface of the object.
+
+Image rectification [ edit ] Where the image planes are not co-planar, image rectification is required to adjust the images as if they were co-planar.  This may be achieved by a linear transformation.
+
+The images may also need rectification to make each image equivalent to the image taken from a pinhole camera projecting to a flat plane.
+
+Smoothness [ edit ] Smoothness is a measure of the similarity of colors. Given the assumption that a distinct object has a small number of colors, similarly-colored pixels are more likely to belong to a single object than to multiple objects.
+
+The method described above for evaluating smoothness is based on information theory, and an assumption that the influence of the color of a voxel influences the color of nearby voxels according to the normal distribution on the distance between points.  The model is based on approximate assumptions about the world.
+
+Another method based on prior assumptions of smoothness is auto-correlation.
+
+Smoothness is a property of the world rather than an intrinsic property of an image. An image comprising random dots would have no smoothness, and inferences about neighboring points would be useless.
+
+In principle, smoothness, as with other properties of the world, should be learned.  This appears to be what the human vision system does.
+
+[ citation needed ] Information measure [ edit ] Least squares information measure [ edit ] The normal distribution is P ( x , μ μ , σ σ ) = 1 σ σ 2 π π e − − ( x − − μ μ ) 2 2 σ σ 2 {\displaystyle P(x,\mu ,\sigma )={\frac {1}{\sigma {\sqrt {2\pi }}}}e^{-{\frac {(x-\mu )^{2}}{2\sigma ^{2}}}}} Probability is related to information content described by message length L , P ( x ) = 2 − − L ( x ) {\displaystyle P(x)=2^{-L(x)}} L ( x ) = − − log 2 ⁡ ⁡ P ( x ) {\displaystyle L(x)=-\log _{2}{P(x)}} so, L ( x , μ μ , σ σ ) = log 2 ⁡ ⁡ ( σ σ 2 π π ) + ( x − − μ μ ) 2 2 σ σ 2 log 2 ⁡ ⁡ e {\displaystyle L(x,\mu ,\sigma )=\log _{2}(\sigma {\sqrt {2\pi }})+{\frac {(x-\mu )^{2}}{2\sigma ^{2}}}\log _{2}e} For the purposes of comparing stereoscopic images, only the relative message length matters.  Based on this, the information measure I , called the Sum of Squares of Differences (SSD) is, I ( x , μ μ , σ σ ) = ( x − − μ μ ) 2 σ σ 2 {\displaystyle I(x,\mu ,\sigma )={\frac {(x-\mu )^{2}}{\sigma ^{2}}}} where, L ( x , μ μ , σ σ ) = log 2 ⁡ ⁡ ( σ σ 2 π π ) + I ( x , μ μ , σ σ ) log 2 ⁡ ⁡ e 2 {\displaystyle L(x,\mu ,\sigma )=\log _{2}(\sigma {\sqrt {2\pi }})+I(x,\mu ,\sigma ){\frac {\log _{2}e}{2}}} Because of the cost in processing time of squaring numbers in SSD, many implementations use Sum of Absolute Difference (SAD) as the basis for computing the information measure.  Other methods use normalized cross correlation (NCC).
+
+Information measure for stereoscopic images [ edit ] The least squares measure may be used to measure the information content of the stereoscopic images, [ 6 ] given depths at each point z ( x , y ) {\displaystyle z(x,y)} .  Firstly the information needed to express one image in terms of the other is derived.  This is called I m {\displaystyle I_{m}} .
+
+A color difference function should be used to fairly measure the difference between colors.  The color difference function is written cd in the following.  The measure of the information needed to record the color matching between the two images is, I m ( z 1 , z 2 ) = 1 σ σ m 2 ∑ ∑ x , y cd ⁡ ⁡ ( color 1 ⁡ ⁡ ( x , y + k z 1 ( x , y ) ) , color 2 ⁡ ⁡ ( x , y ) ) 2 {\displaystyle I_{m}(z_{1},z_{2})={\frac {1}{\sigma _{m}^{2}}}\sum _{x,y}\operatorname {cd} (\operatorname {color} _{1}(x,y+{\frac {k}{z_{1}(x,y)}}),\operatorname {color} _{2}(x,y))^{2}} An assumption is made about the smoothness of the image.  Assume that two pixels are more likely to be the same color, the closer the voxels they represent are.  This measure is intended to favor colors that are similar being grouped at the same depth.  For example, if an object in front occludes an area of sky behind, the measure of smoothness favors the blue pixels all being grouped together at the same depth.
+
+The total measure of smoothness uses the distance between voxels as an estimate of the expected standard deviation of the color difference, I s ( z 1 , z 2 ) = 1 2 σ σ h 2 ∑ ∑ i : { 1 , 2 } ∑ ∑ x 1 , y 1 ∑ ∑ x 2 , y 2 cd ⁡ ⁡ ( color i ⁡ ⁡ ( x 1 , y 1 ) , color i ⁡ ⁡ ( x 2 , y 2 ) ) 2 ( x 1 − − x 2 ) 2 + ( y 1 − − y 2 ) 2 + ( z i ( x 1 , y 1 ) − − z i ( x 2 , y 2 ) ) 2 {\displaystyle I_{s}(z_{1},z_{2})={\frac {1}{2\sigma _{h}^{2}}}\sum _{i:\{1,2\}}\sum _{x_{1},y_{1}}\sum _{x_{2},y_{2}}{\frac {\operatorname {cd} (\operatorname {color} _{i}(x_{1},y_{1}),\operatorname {color} _{i}(x_{2},y_{2}))^{2}}{(x_{1}-x_{2})^{2}+(y_{1}-y_{2})^{2}+(z_{i}(x_{1},y_{1})-z_{i}(x_{2},y_{2}))^{2}}}} The total information content is then the sum, I t ( z 1 , z 2 ) = I m ( z 1 , z 2 ) + I s ( z 1 , z 2 ) {\displaystyle I_{t}(z_{1},z_{2})=I_{m}(z_{1},z_{2})+I_{s}(z_{1},z_{2})} The z component of each pixel must be chosen to give the minimum value for the information content.  This will give the most likely depths at each pixel.  The minimum total information measure is, I min = min { i : i = I t ( z 1 , z 2 ) } {\displaystyle I_{\operatorname {min} }=\min {\{i:i=I_{t}(z_{1},z_{2})\}}} The depth functions for the left and right images are the pair, ( z 1 , z 2 ) ∈ ∈ { ( z 1 , z 2 ) : I t ( z 1 , z 2 ) = I min } {\displaystyle (z_{1},z_{2})\in \{(z_{1},z_{2}):I_{t}(z_{1},z_{2})=I_{\operatorname {min} }\}} Methods of implementation [ edit ] The minimization problem is NP-complete .  This means a general solution to this problem will take a long time to reach.  However methods exist for computers based on heuristics that approximate the result in a reasonable amount of time.  Also methods exist based on neural networks .
+
+[ 7 ] Efficient implementation of stereoscopic vision is an area of active research.
+
+See also [ edit ] 3D reconstruction from multiple images 3D scanner Autostereoscopy Computer vision Epipolar geometry Semi-global matching Structure from motion Stereo camera Stereophotogrammetry Stereopsis Stereoscopic depth rendition Stixel Trifocal tensor - for trifocal stereoscopy (using three images instead of two) References [ edit ] ^ Bradski, Gary; Kaehler, Adrian.
+
+Learning OpenCV: Computer Vision with the OpenCV Library . O'Reilly.
+
+^ Je, Changsoo; Lee, Sang Wook; Park, Rae-Hong (2004). "High-Contrast Color-Stripe Pattern for Rapid Structured-Light Range Imaging".
+
+Computer Vision - ECCV 2004 . Lecture Notes in Computer Science. Vol. 3021. pp.
+
+95– 107.
+
+arXiv : 1508.04981 .
+
+doi : 10.1007/978-3-540-24670-1_8 .
+
+ISBN 978-3-540-21984-2 .
+
+S2CID 13277591 .
+
+^ Je, Changsoo; Lee, Sang Wook; Park, Rae-Hong (2012).
+
+"Colour-stripe permutation pattern for rapid structured-light range imaging" .
+
+Optics Communications .
+
+285 (9): 2320– 2331.
+
+Bibcode : 2012OptCo.285.2320J .
+
+doi : 10.1016/j.optcom.2012.01.025 .
+
+^ Jang, Wonkwi; Je, Changsoo; Seo, Yongduek; Lee, Sang Wook (2013).
+
+"Structured-light stereo: Comparative analysis and integration of structured-light and active stereo for measuring dynamic shape" .
+
+Optics and Lasers in Engineering .
+
+51 (11): 1255– 1264.
+
+Bibcode : 2013OptLE..51.1255J .
+
+doi : 10.1016/j.optlaseng.2013.05.001 .
+
+^ Sumi, Yasushi; Kawai, Yoshihiro; Yoshimi, Takashi; Tomita, Fumiaki (2002).
+
+"3D Object Recognition in Cluttered Environments by Segment-Based Stereo Vision" .
+
+International Journal of Computer Vision .
+
+46 (1): 5– 23.
+
+doi : 10.1023/A:1013240031067 .
+
+S2CID 22926546 .
+
+^ Lazaros, Nalpantidis; Sirakoulis, Georgios Christou; Gasteratos1, Antonios (2008).
+
+"Review of Stereo Vision Algorithms: From Software to Hardware" .
+
+International Journal of Optomechatronics .
+
+2 (4): 435– 462.
+
+doi : 10.1080/15599610802438680 .
+
+S2CID 18115413 .
+
+{{ cite journal }} :  CS1 maint: numeric names: authors list ( link ) ^ WANG, JUNG-HUA; HSIAO, CHIH-PING (1999). "On disparity matching in stereo vision via a neural network framework".
+
+Proc. Natl. Sci. Counc. ROC A .
+
+23 (5): 665– 678.
+
+CiteSeerX 10.1.1.105.9067 .
+
+External links [ edit ] Tutorial on uncalibrated stereo vision Learn about stereo vision with MATLAB Stereo Vision and Rover Navigation Software for Planetary Exploration v t e Computer vision Categories Datasets Digital geometry Commercial systems Feature detection Geometry Image sensor technology Learning Morphology Motion analysis Noise reduction techniques Recognition and categorization Research infrastructure Researchers Segmentation Software Technologies Computer stereo vision Motion capture Object recognition 3D object recognition Applications 3D reconstruction 3D reconstruction from multiple images 2D to 3D conversion Gaussian splatting Neural radiance field Shape from focus Simultaneous localization and mapping Structure from motion View synthesis Visual hull 4D reconstruction Free viewpoint television Volumetric capture 3D pose estimation Activity recognition Audio-visual speech recognition Automatic image annotation Automatic number-plate recognition Automated species identification Augmented reality Bioimage informatics Blob detection Computer-aided diagnosis Content-based image retrieval Reverse image search Eye tracking Face recognition Foreground detection Gesture recognition Image denoising Image restoration Landmark detection Medical image computing Object detection Moving object detection Small object detection Optical character recognition Pose tracking Remote sensing Robotic mapping Autonomous vehicles Video content analysis Video motion analysis Video surveillance Video tracking Main category v t e Stereoscopy and 3D display Perception 3D stereo view Binocular rivalry Binocular vision Chromostereopsis Convergence insufficiency Correspondence problem Peripheral vision Depth perception Epipolar geometry Kinetic depth effect Stereoblindness Stereopsis Stereopsis recovery Stereoscopic acuity Vergence-accommodation conflict Display technologies Active shutter 3D system Anaglyph 3D Autostereogram Autostereoscopy Bubblegram Head-mounted display Holography Integral imaging Lenticular lens Multiscopy Parallax barrier Parallax scrolling Polarized 3D system Specular holography Stereo display Stereoscope Vectograph Virtual retinal display Volumetric display Wiggle stereoscopy Other technologies 2D to 3D conversion 2D plus Delta 2D-plus-depth Computer stereo vision Multiview Video Coding Parallax scanning Pseudoscope Stereo photography techniques Stereoautograph Stereoscopic depth rendition Stereoscopic rangefinder Stereoscopic spectroscopy Stereoscopic video coding Product types 3D camcorder 3D film 3D television 3D-enabled mobile phones 4D film Blu-ray 3D Digital 3D Stereo camera Stereo microscope Stereoscopic video game Virtual reality headset Notable products AMD HD3D Dolby 3D Fujifilm FinePix Real 3D Infitec MasterImage 3D Nintendo 3DS New 3DS Nvidia 3D Vision Panavision 3D RealD 3D Sharp Actius RD3D View-Master XpanD 3D Miscellany Stereographer Stereoscopic Displays and Applications Retrieved from " https://en.wikipedia.org/w/index.php?title=Computer_stereo_vision&oldid=1292198191 " Categories : Applications of computer vision Geometry in computer vision Vision Stereoscopy Stereophotogrammetry Hidden categories: CS1 maint: numeric names: authors list Articles with short description Short description matches Wikidata All articles with unsourced statements Articles with unsourced statements from October 2022 This page was last edited on 25 May 2025, at 18:20 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Computer stereo vision 4 languages Add topic
+

@@ -1,0 +1,463 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Intuition 2 Underlying principles 3 Method Toggle Method subsection 3.1 Mathematical statement 3.2 Multivariate analysis 3.3 Non-parametric test 4 Limitations 5 Extensions Toggle Extensions subsection 5.1 Time-varying Granger causality 6 In neuroscience Toggle In neuroscience subsection 6.1 Extensions to point process models 7 In computing 8 See also 9 References 10 Further reading Toggle the table of contents Granger causality 13 languages Deutsch Español فارسی Français Italiano עברית 日本語 Polski Português Русский Türkçe 粵語 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Statistical hypothesis test for forecasting When time series X Granger-causes time series Y , the patterns in X are approximately repeated in Y after some time lag (two examples are indicated with arrows). Thus, past values of X can be used for the prediction of future values of Y .
+
+The Granger causality test is a statistical hypothesis test for determining whether one time series is useful in forecasting another, first proposed in 1969.
+
+[ 1 ] Ordinarily, regressions reflect "mere" correlations , but Clive Granger argued that causality in economics could be tested for by measuring the ability to predict the future values of a time series using prior values of another time series. Since the question of "true causality" is deeply philosophical, and because of the post hoc ergo propter hoc fallacy of assuming that one thing preceding another can be used as a proof of causation, econometricians assert that the Granger test finds only "predictive causality".
+
+[ 2 ] Using the term "causality" alone is a misnomer, as Granger-causality is better described as "precedence", [ 3 ] or, as Granger himself later claimed in 1977, "temporally related".
+
+[ 4 ] Rather than testing whether X causes Y, the Granger causality tests whether X forecasts Y.
+
+[ 5 ] A time series X is said to Granger-cause Y if it can be shown, usually through a series of t-tests and F-tests on lagged values of X (and with lagged values of Y also included), that those X values provide statistically significant information about future values of Y .
+
+Granger also stressed that some studies using "Granger causality" testing in areas outside economics reached "ridiculous" conclusions.
+
+[ 6 ] "Of course, many ridiculous papers appeared", he said in his Nobel lecture.
+
+[ 7 ] However, it remains a popular method for causality analysis in time series due to its computational simplicity.
+
+[ 8 ] [ 9 ] The original definition of Granger causality does not account for latent confounding effects and does not capture instantaneous and non-linear causal relationships, though several extensions have been proposed to address these issues.
+
+[ 8 ] Intuition [ edit ] We say that a variable X that evolves over time Granger-causes another evolving variable Y if predictions of the value of Y based on its own past values and on the past values of X are better than predictions of Y based only on Y' s own past values.
+
+Underlying principles [ edit ] Granger defined the causality relationship based on two principles: [ 8 ] [ 10 ] The cause happens prior to its effect.
+
+The cause has unique information about the future values of its effect.
+
+Given these two assumptions about causality, Granger proposed to test the following hypothesis for identification of a causal effect of X {\displaystyle X} on Y {\displaystyle Y} : P [ Y ( t + 1 ) ∈ ∈ A ∣ ∣ I ( t ) ] ≠ ≠ P [ Y ( t + 1 ) ∈ ∈ A ∣ ∣ I − − X ( t ) ] , {\displaystyle \mathbb {P} [Y(t+1)\in A\mid {\mathcal {I}}(t)]\neq \mathbb {P} [Y(t+1)\in A\mid {\mathcal {I}}_{-X}(t)],} where P {\displaystyle \mathbb {P} } refers to probability, A {\displaystyle A} is an arbitrary non-empty set, and I ( t ) {\displaystyle {\mathcal {I}}(t)} and I − − X ( t ) {\displaystyle {\mathcal {I}}_{-X}(t)} respectively denote the information available as of time t {\displaystyle t} in the entire universe, and that in the modified universe in which X {\displaystyle X} is excluded. If the above hypothesis is accepted, we say that X {\displaystyle X} Granger-causes Y {\displaystyle Y} .
+
+[ 8 ] [ 10 ] Method [ edit ] If a time series is a stationary process , the test is performed using the level values of two (or more) variables. If the variables are non-stationary, then the test is done using first (or higher) differences. The number of lags to be included is usually chosen using an information criterion, such as the Akaike information criterion or the Schwarz information criterion . Any particular lagged value of one of the variables is retained in the regression if (1) it is significant according to a t-test, and (2) it and the other lagged values of the variable jointly add explanatory power to the model according to an F-test. Then the null hypothesis of no Granger causality is not rejected if and only if no lagged values of an explanatory variable have been retained in the regression.
+
+In practice it may be found that neither variable Granger-causes the other, or that each of the two variables Granger-causes the other.
+
+Mathematical statement [ edit ] Let y and x be stationary time series. To test the null hypothesis that x does not Granger-cause y , one first finds the proper lagged values of y to include in a univariate autoregression of y : y t = a 0 + a 1 y t − − 1 + a 2 y t − − 2 + ⋯ ⋯ + a m y t − − m + error t .
+
+{\displaystyle y_{t}=a_{0}+a_{1}y_{t-1}+a_{2}y_{t-2}+\cdots +a_{m}y_{t-m}+{\text{error}}_{t}.} Next, the autoregression is augmented by including lagged values of x : y t = a 0 + a 1 y t − − 1 + a 2 y t − − 2 + ⋯ ⋯ + a m y t − − m + b p x t − − p + ⋯ ⋯ + b q x t − − q + error t .
+
+{\displaystyle y_{t}=a_{0}+a_{1}y_{t-1}+a_{2}y_{t-2}+\cdots +a_{m}y_{t-m}+b_{p}x_{t-p}+\cdots +b_{q}x_{t-q}+{\text{error}}_{t}.} One retains in this regression all lagged values of x that are individually significant according to their t-statistics, provided that collectively they add explanatory power to the regression according to an F-test (whose null hypothesis is no explanatory power jointly added by the x' s). In the notation of the above augmented regression, p is the shortest, and q is the longest, lag length for which the lagged value of x is significant.
+
+The null hypothesis that x does not Granger-cause y is not rejected if and only if no lagged values of x are retained in the regression.
+
+Multivariate analysis [ edit ] Multivariate Granger causality analysis is usually performed by fitting a vector autoregressive model (VAR) to the time series. In particular, let X ( t ) ∈ ∈ R d × × 1 {\displaystyle X(t)\in \mathbb {R} ^{d\times 1}} for t = 1 , … … , T {\displaystyle t=1,\ldots ,T} be a d {\displaystyle d} -dimensional multivariate time series. Granger causality is performed by fitting a VAR model with L {\displaystyle L} time lags as follows: X ( t ) = ∑ ∑ τ τ = 1 L A τ τ X ( t − − τ τ ) + ε ε ( t ) , {\displaystyle X(t)=\sum _{\tau =1}^{L}A_{\tau }X(t-\tau )+\varepsilon (t),} where ε ε ( t ) {\displaystyle \varepsilon (t)} is a white Gaussian random vector, and A τ τ {\displaystyle A_{\tau }} is a matrix for every τ τ {\displaystyle \tau } . A time series X i {\displaystyle X_{i}} is called a Granger cause of another time series X j {\displaystyle X_{j}} , if at least one of the elements A τ τ ( j , i ) {\displaystyle A_{\tau }(j,i)} for τ τ = 1 , … … , L {\displaystyle \tau =1,\ldots ,L} is significantly larger than zero (in absolute value).
+
+[ 11 ] Non-parametric test [ edit ] The above linear methods are appropriate for testing Granger causality in the mean. However they are not able to detect Granger causality in higher moments, e.g., in the variance. Non-parametric tests for Granger causality are designed to address this problem.
+
+[ 12 ] The definition of Granger causality in these tests is general and does not involve any modelling assumptions, such as a linear autoregressive model. The non-parametric tests for Granger causality can be used as diagnostic tools to build better parametric models including higher order moments and/or non-linearity.
+
+[ 13 ] Limitations [ edit ] As its name implies, Granger causality is not necessarily true causality.
+
+[ 14 ] If both X and Y are driven by a common third process with different lags, one might still fail to reject the alternative hypothesis of Granger causality. Yet, manipulation of one of the variables would not change the other. Indeed, the Granger-causality tests are designed to handle pairs of variables, and may produce misleading results when the true relationship involves three or more variables. Having said this, it has been argued that given a probabilistic view of causation, Granger causality can be considered true causality in that sense, especially when Reichenbach's "screening off" notion of probabilistic causation is taken into account.
+
+[ 15 ] Other possible sources of misguiding test results are: (1) not frequent enough or too frequent sampling, (2) nonlinear causal relationship, (3) time series nonstationarity and nonlinearity and (4) existence of rational expectations.
+
+[ 14 ] A similar test involving more variables can be applied with vector autoregression .
+
+The validity of the Granger causality test has been challenged in the academic literature, [ 16 ] in a paper claiming that "not even the most fundamental requirement underlying any possible definition of causality is met by the Granger causality test... any definition of causality should refer to the prediction of the future from the past... we find that Granger also allows one to 'predict' the past from the future." Extensions [ edit ] A method for Granger causality has been developed that is not sensitive to deviations from the assumption that the error term is normally distributed.
+
+[ 17 ] This method is especially useful in financial economics, since many financial variables are non-normally distributed.
+
+[ 18 ] Recently, asymmetric causality testing has been suggested in the literature in order to separate the causal impact of positive changes from the negative ones.
+
+[ 19 ] An extension of Granger (non-)causality testing to panel data is also available.
+
+[ 20 ] A modified Granger causality test based on the GARCH (generalized auto-regressive conditional heteroscedasticity) type of integer-valued time series models is available in many areas.
+
+[ 21 ] [ 22 ] Time-varying Granger causality [ edit ] The extension of Granger causality to incorporate its dynamic, time-varying nature allows for a more nuanced understanding of how causal relationships in time-series data evolve over time.
+
+[ 23 ] The methodology uses recursive techniques such as the Forward Expanding (FE), Rolling (RO), and Recursive Evolving (RE) windows to overcome the limitations of traditional Granger causality tests and understand changes in causal relationships across different periods.
+
+[ 24 ] A central aspect of this methodology is the 'tvgc' command in Stata.
+
+[ 23 ] Empirical applications, such as data involving transaction fees and economic sub-systems on Ethereum, highlight the dynamic nature of economic relationships over time.
+
+[ 25 ] In neuroscience [ edit ] A long-held belief about neural function maintained that different areas of the brain were task specific; that the structural connectivity local to a certain area somehow dictated the function of that piece. Collecting work that has been performed over many years, there has been a move to a different, network-centric approach to describing information flow in the brain. Explanation of function is beginning to include the concept of networks existing at different levels and throughout different locations in the brain.
+
+[ 26 ] The behavior of these networks can be described by non-deterministic processes that are evolving through time. That is to say that given the same input stimulus, you will not get the same output from the network. The dynamics of these networks are governed by probabilities so we treat them as stochastic (random) processes so that we can capture these kinds of dynamics between different areas of the brain.
+
+Different methods of obtaining some measure of information flow from the firing activities of a neuron and its surrounding ensemble have been explored in the past, but they are limited in the kinds of conclusions that can be drawn and provide little insight into the directional flow of information, its effect size, and how it can change with time.
+
+[ 27 ] Recently Granger causality has been applied to address some of these issues.
+
+[ 28 ] Put plainly, one examines how to best predict the future of a neuron: using either the entire ensemble or the entire ensemble except a certain target neuron. If the prediction is made worse by excluding the target neuron, then we say it has a "g-causal" relationship with the current neuron.
+
+Extensions to point process models [ edit ] Previous Granger-causality methods could only operate on continuous-valued data so the analysis of neural spike train recordings involved transformations that ultimately altered the stochastic properties of the data, indirectly altering the validity of the conclusions that could be drawn from it. In 2011, however, a new general-purpose Granger-causality framework was proposed that could directly operate on any modality, including neural-spike trains.
+
+[ 27 ] Neural spike train data can be modeled as a point-process . A temporal point process is a stochastic time-series of binary events that occurs in continuous time. It can only take on two values at each point in time, indicating whether or not an event has actually occurred. This type of binary-valued representation of information suits the activity of neural populations because a single neuron's action potential has a typical waveform. In this way, what carries the actual information being output from a neuron is the occurrence of a "spike", as well as the time between successive spikes. Using this approach one could abstract the flow of information in a neural-network to be simply the spiking times for each neuron through an observation period. A point-process can be represented either by the timing of the spikes themselves, the waiting times between spikes, using a counting process, or, if time is discretized enough to ensure that in each window only one event has the possibility of occurring, that is to say one time bin can only contain one event, as a set of 1s and 0s, very similar to binary.
+
+[ citation needed ] One of the simplest types of neural-spiking models is the Poisson process . This however, is limited in that it is memory-less. It does not account for any spiking history when calculating the current probability of firing. Neurons, however, exhibit a fundamental (biophysical) history dependence by way of its relative and absolute refractory periods.
+
+To address this, a conditional intensity function is used to represent the probability of a neuron spiking, conditioned on its own history. The conditional intensity function expresses the instantaneous firing probability and implicitly defines a complete probability model for the point process. It defines a probability per unit time. So if this unit time is taken small enough to ensure that only one spike could occur in that time window, then our conditional intensity function completely specifies the probability that a given neuron will fire in a certain time.
+
+[ citation needed ] In computing [ edit ] Software packages have been developed for measuring "Granger causality" in Python and R : Python package [1] R package [2] See also [ edit ] Bradford Hill criteria – Criteria for measuring cause and effect Transfer entropy – Non-parametric statistic on information transfer Koch postulate – Four criteria showing a causal relationship between a causative microbe and a disease Pages displaying short descriptions of redirect targets References [ edit ] ^ Granger, C. W. J. (1969). "Investigating Causal Relations by Econometric Models and Cross-spectral Methods".
+
+Econometrica .
+
+37 (3): 424– 438.
+
+doi : 10.2307/1912791 .
+
+JSTOR 1912791 .
+
+^ Diebold, Francis X. (2007).
+
+Elements of Forecasting (PDF) (4th ed.). Thomson South-Western. pp.
+
+230– 231.
+
+ISBN 978-0324359046 .
+
+^ Leamer, Edward E. (1985). "Vector Autoregressions for Causal Inference?".
+
+Carnegie-Rochester Conference Series on Public Policy .
+
+22 : 283.
+
+doi : 10.1016/0167-2231(85)90035-1 .
+
+^ Granger, C. W. J.; Newbold, Paul (1977).
+
+Forecasting Economic Time Series . New York: Academic Press. p. 225.
+
+ISBN 0122951506 .
+
+^ Hamilton, James D. (1994).
+
+Time Series Analysis (PDF) . Princeton University Press. pp.
+
+306– 308.
+
+ISBN 0-691-04289-6 .
+
+^ Thurman, Walter (1988).
+
+"Chickens, Eggs, and Causality or Which Came First?" (PDF) .
+
+American Journal of Agricultural Economics .
+
+70 (2): 237– 238.
+
+doi : 10.2307/1242062 .
+
+JSTOR 1242062 . Retrieved 2 April 2022 .
+
+^ Granger, Clive W. J. (2004).
+
+"Time Series Analysis, Cointegration, and Applications" (PDF) .
+
+American Economic Review .
+
+94 (3): 421– 425.
+
+CiteSeerX 10.1.1.370.6488 .
+
+doi : 10.1257/0002828041464669 .
+
+S2CID 154709108 . Retrieved 12 June 2019 .
+
+^ a b c d Eichler, Michael (2012).
+
+"Causal Inference in Time Series Analysis" (PDF) . In Berzuini, Carlo (ed.).
+
+Causality : statistical perspectives and applications (3rd ed.). Hoboken, N.J.: Wiley. pp.
+
+327– 352.
+
+ISBN 978-0470665565 .
+
+^ Seth, Anil (2007).
+
+"Granger causality" .
+
+Scholarpedia .
+
+2 (7): 1667.
+
+Bibcode : 2007SchpJ...2.1667S .
+
+doi : 10.4249/scholarpedia.1667 .
+
+^ a b Granger, C.W.J. (1980). "Testing for causality: A personal viewpoint".
+
+Journal of Economic Dynamics and Control .
+
+2 : 329– 352.
+
+doi : 10.1016/0165-1889(80)90069-X .
+
+^ Lütkepohl, Helmut (2005).
+
+New introduction to multiple time series analysis (3 ed.). Berlin: Springer. pp.
+
+41 –51.
+
+ISBN 978-3540262398 .
+
+^ Diks, Cees; Panchenko, Valentyn (2006).
+
+"A new statistic and practical guidelines for nonparametric Granger causality testing" (PDF) .
+
+Journal of Economic Dynamics and Control .
+
+30 (9): 1647– 1669.
+
+doi : 10.1016/j.jedc.2005.08.008 .
+
+^ Francis, Bill B.
+
+; Mougoue, Mbodja; Panchenko, Valentyn (2010).
+
+"Is there a Symmetric Nonlinear Causal Relationship between Large and Small Firms?" (PDF) .
+
+Journal of Empirical Finance .
+
+17 (1): 23– 28.
+
+doi : 10.1016/j.jempfin.2009.08.003 .
+
+^ a b Mariusz, Maziarz (2015-05-20).
+
+"A review of the Granger-causality fallacy" .
+
+The Journal of Philosophical Economics . VIII. (2).
+
+ISSN 1843-2298 .
+
+^ Mannino, Michael; Bressler, Steven L (2015). "Foundational perspectives on causality in large-scale brain networks".
+
+Physics of Life Reviews .
+
+15 : 107– 23.
+
+Bibcode : 2015PhLRv..15..107M .
+
+doi : 10.1016/j.plrev.2015.09.002 .
+
+PMID 26429630 .
+
+^ Grassmann, Greta (2020).
+
+"New considerations on the validity of the Wiener-Granger causality test" .
+
+Heliyon .
+
+6 (10): e05208.
+
+Bibcode : 2020Heliy...605208G .
+
+doi : 10.1016/j.heliyon.2020.e05208 .
+
+PMC 7578691 .
+
+PMID 33102842 .
+
+^ Hacker, R. Scott; Hatemi-j, A. (2006).
+
+"Tests for causality between integrated variables using asymptotic and bootstrap distributions: Theory and application" .
+
+Applied Economics .
+
+38 (13): 1489– 1500.
+
+doi : 10.1080/00036840500405763 .
+
+S2CID 121999615 .
+
+^ Mandelbrot, Benoit (1963). "The Variation of Certain Speculative Prices".
+
+The Journal of Business .
+
+36 (4): 394– 419.
+
+doi : 10.1086/294632 .
+
+^ Hatemi-j, A. (2012).
+
+"Asymmetric causality tests with an application" .
+
+Empirical Economics .
+
+43 : 447– 456.
+
+doi : 10.1007/s00181-011-0484-x .
+
+S2CID 153562476 .
+
+^ Dumitrescu, E.-I.; Hurlin, C. (2012). "Testing for Granger non-causality in heterogeneous panels".
+
+Economic Modelling .
+
+29 (4): 1450– 1460.
+
+CiteSeerX 10.1.1.395.568 .
+
+doi : 10.1016/j.econmod.2012.02.014 .
+
+S2CID 9227921 .
+
+^ Chen, Cathy W. S.; Hsieh, Ying-Hen; Su, Hung-Chieh; Wu, Jia Jing (2018-02-01).
+
+"Causality test of ambient fine particles and human influenza in Taiwan: Age group-specific disparity and geographic heterogeneity" .
+
+Environment International .
+
+111 : 354– 361.
+
+Bibcode : 2018EnInt.111..354C .
+
+doi : 10.1016/j.envint.2017.10.011 .
+
+ISSN 0160-4120 .
+
+PMID 29173968 .
+
+^ Chen, Cathy W. S.; Lee, Sangyeol (2017). "Bayesian causality test for integer-valued time series models with applications to climate and crime data".
+
+Journal of the Royal Statistical Society, Series C (Applied Statistics) .
+
+66 (4): 797– 814.
+
+doi : 10.1111/rssc.12200 .
+
+hdl : 10.1111/rssc.12200 .
+
+ISSN 1467-9876 .
+
+S2CID 125296454 .
+
+^ a b Baum, Christopher F.; Hurn, Stan; Otero, Jesús (2022-06-30).
+
+"Testing for time-varying Granger causality" .
+
+The Stata Journal: Promoting Communications on Statistics and Stata .
+
+22 (2): 355– 378.
+
+doi : 10.1177/1536867X221106403 .
+
+ISSN 1536-867X .
+
+S2CID 250221497 .
+
+^ Shojaie, Ali; Fox, Emily B.
+
+(2022-03-07).
+
+"Granger Causality: A Review and Recent Advances" .
+
+Annual Review of Statistics and Its Application .
+
+9 (1): 289– 319.
+
+arXiv : 2105.02675 .
+
+Bibcode : 2022AnRSA...9..289S .
+
+doi : 10.1146/annurev-statistics-040120-010930 .
+
+ISSN 2326-8298 .
+
+PMC 10571505 .
+
+PMID 37840549 .
+
+^ Ante, Lennart; Saggu, Aman (2024-01-04).
+
+"Time-Varying Bidirectional Causal Relationships between Transaction Fees and Economic Activity of Subsystems Utilizing the Ethereum Blockchain Network" .
+
+Journal of Risk and Financial Management .
+
+17 (1): 19.
+
+arXiv : 2501.05299 .
+
+doi : 10.3390/jrfm17010019 .
+
+ISSN 1911-8074 .
+
+^ Knight, R. T (2007). "Neuroscience: Neural Networks Debunk Phrenology".
+
+Science .
+
+316 (5831): 1578– 9.
+
+doi : 10.1126/science.1144677 .
+
+PMID 17569852 .
+
+S2CID 15065228 .
+
+^ a b Kim, Sanggyun; Putrino, David; Ghosh, Soumya; Brown, Emery N (2011).
+
+"A Granger Causality Measure for Point Process Models of Ensemble Neural Spiking Activity" .
+
+PLOS Computational Biology .
+
+7 (3): e1001110.
+
+Bibcode : 2011PLSCB...7E1110K .
+
+doi : 10.1371/journal.pcbi.1001110 .
+
+PMC 3063721 .
+
+PMID 21455283 .
+
+^ Bressler, Steven L; Seth, Anil K (2011). "Wiener–Granger Causality: A well established methodology".
+
+NeuroImage .
+
+58 (2): 323– 9.
+
+doi : 10.1016/j.neuroimage.2010.02.059 .
+
+PMID 20202481 .
+
+S2CID 36616970 .
+
+Further reading [ edit ] Enders, Walter (2004).
+
+Applied Econometric Time Series (Second ed.). New York: Wiley. pp.
+
+283–288 .
+
+ISBN 978-0-471-23065-6 .
+
+Gujarati, Damodar N.; Porter, Dawn C.
+
+(2009). "Causality in Economics: The Granger Causality Test".
+
+Basic Econometrics (Fifth international ed.). New York: McGraw-Hill. pp.
+
+652– 658.
+
+ISBN 978-007-127625-2 .
+
+Hoover, Kevin D.
+
+(1988).
+
+"Granger-causality" .
+
+The New Classical Macroeconomics . Oxford: Basil Blackwell. pp.
+
+168–176 .
+
+ISBN 978-0-631-14605-6 .
+
+Kuersteiner, Guido (2008).
+
+"Granger–Sims causality" .
+
+The New Palgrave Dictionary of Economics .
+
+Kleinberg, S.
+
+and Hripcsak, G. (2011) "A review of causal inference for biomedical informatics" Archived April 30, 2012, at the Wayback Machine J. Biomed Informatics v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject Retrieved from " https://en.wikipedia.org/w/index.php?title=Granger_causality&oldid=1300667042 " Categories : Multivariate time series Time series statistical tests Hidden categories: CS1: long volume value Articles with short description Short description matches Wikidata All articles with unsourced statements Articles with unsourced statements from February 2018 Pages displaying short descriptions of redirect targets via Module:Annotated link Webarchive template wayback links This page was last edited on 15 July 2025, at 18:26 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Granger causality 13 languages Add topic
+

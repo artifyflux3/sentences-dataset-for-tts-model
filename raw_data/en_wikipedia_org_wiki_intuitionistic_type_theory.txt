@@ -1,0 +1,279 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Design 2 Type theory Toggle Type theory subsection 2.1 0 type, 1 type and 2 type 2.2 Σ type constructor 2.3 Π type constructor 2.4 = type constructor 2.5 Inductive types 2.6 Universe types 3 Judgements 4 Categorical models of type theory 5 Extensional versus intensional 6 Implementations of type theory 7 Martin-Löf type theories 8 See also 9 Notes 10 References 11 Further reading 12 External links Toggle the table of contents Intuitionistic type theory 8 languages Català 한국어 Italiano 日本語 Português Русский Українська 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Alternative foundation of mathematics Intuitionistic type theory (also known as constructive type theory , or Martin-Löf type theory ( MLTT )) is a type theory and an alternative foundation of mathematics .
+Intuitionistic type theory was created by Per Martin-Löf , a Swedish mathematician and philosopher , who first published it in 1972. There are multiple versions of the type theory: Martin-Löf proposed both intensional and extensional variants of the theory and early impredicative versions, shown to be inconsistent by Girard's paradox , gave way to predicative versions. However, all versions keep the core design of constructive logic using dependent types .
+
+Design [ edit ] Martin-Löf designed the type theory on the principles of mathematical constructivism . Constructivism requires any existence proof to contain a "witness". So, any proof of "there exists a prime greater than 1000" must identify a specific number that is both prime and greater than 1000. Intuitionistic type theory accomplished this design goal by internalizing the BHK interpretation . A useful consequence is that proofs become mathematical objects that can be examined, compared, and manipulated.
+
+Intuitionistic type theory's type constructors were built to follow a one-to-one correspondence with logical connectives. For example, the logical connective called implication ( A ⟹ ⟹ B {\displaystyle A\implies B} ) corresponds to the type of a function ( A → → B {\displaystyle A\to B} ). This correspondence is called the Curry–Howard isomorphism . Prior type theories had also followed this isomorphism, but Martin-Löf's was the first to extend it to predicate logic by introducing dependent types.
+
+Type theory [ edit ] Main article: Type theory A type theory is a kind of mathematical ontology , or foundation , describing the fundamental objects that exist. In the standard foundation, set theory combined with mathematical logic , the fundamental object is the set, which is a container that contains elements. In type theory, the fundamental object is the term, each of which belongs to one and only one type.
+
+Intuitionistic type theory has three finite types, which are then composed using five different type constructors. Unlike set theories , type theories are not built on top of a logic like Frege's . So, each feature of the type theory does double duty as a feature of both math and logic.
+
+0 type, 1 type and 2 type [ edit ] There are three finite types: The 0 type contains no terms. The 1 type contains one canonical term. The 2 type contains two canonical terms.
+
+Because the 0 type contains no terms, it is also called the empty type . It is used to represent anything that cannot exist. It is also written ⊥ ⊥ {\displaystyle \bot } and represents anything unprovable (that is, a proof of it cannot exist). As a result, negation is defined as a function to it: ¬ ¬ A := A → → ⊥ ⊥ {\displaystyle \neg A:=A\to \bot } .
+
+Likewise, the 1 type contains one canonical term and represents existence. It also is called the unit type .
+
+Finally, the 2 type contains two canonical terms. It represents a definite choice between two values. It is used for Boolean values but not propositions.
+
+Propositions are instead represented by particular types. For instance, a true proposition can be represented by the 1 type, while a false proposition can be represented by the 0 type. But we cannot assert that these are the only propositions, i.e. the law of excluded middle does not hold for propositions in intuitionistic type theory.
+
+Σ type constructor [ edit ] Σ-types contain ordered pairs. As with typical ordered pair (or 2-tuple) types, a Σ-type can describe the Cartesian product , A × × B {\displaystyle A\times B} , of two other types, A {\displaystyle A} and B {\displaystyle B} . Logically, such an ordered pair would hold a proof of A {\displaystyle A} and a proof of B {\displaystyle B} , so one may see such a type written as A ∧ ∧ B {\displaystyle A\wedge B} .
+
+Σ-types are more powerful than typical ordered pair types because of dependent typing. In the ordered pair, the type of the second term can depend on the value of the first term. For example, the first term of the pair might be a natural number and the second term's type might be a sequence of reals of length equal to the first term. Such a type would be written: ∑ ∑ n : N Vec ⁡ ⁡ ( R , n ) {\displaystyle \sum _{n{\mathbin {:}}{\mathbb {N} }}\operatorname {Vec} ({\mathbb {R} },n)} Using set-theory terminology, this is similar to an indexed disjoint union of sets. In the case of the usual cartesian product, the type of the second term does not depend on the value of the first term. Thus the type describing the cartesian product N × × R {\displaystyle {\mathbb {N} }\times {\mathbb {R} }} is written: ∑ ∑ n : N R {\displaystyle \sum _{n{\mathbin {:}}{\mathbb {N} }}{\mathbb {R} }} It is important to note here that the value of the first term, n {\displaystyle n} , is not depended on by the type of the second term, R {\displaystyle {\mathbb {R} }} .
+
+Σ-types can be used to build up longer dependently-typed tuples used in mathematics and the records or structs used in most programming languages. An example of a dependently-typed 3-tuple is two integers and a proof that the first integer is smaller than the second integer, described by the type: ∑ ∑ m : Z ∑ ∑ n : Z ( ( m < n ) = True ) {\displaystyle \sum _{m{\mathbin {:}}{\mathbb {Z} }}{\sum _{n{\mathbin {:}}{\mathbb {Z} }}((m<n)={\text{True}})}} Dependent typing allows Σ-types to serve the role of existential quantifier . The statement "there exists an n {\displaystyle n} of type N {\displaystyle {\mathbb {N} }} , such that P ( n ) {\displaystyle P(n)} is proven" becomes the type of ordered pairs where the first item is the value n {\displaystyle n} of type N {\displaystyle {\mathbb {N} }} and the second item is a proof of P ( n ) {\displaystyle P(n)} . Notice that the type of the second item (proofs of P ( n ) {\displaystyle P(n)} ) depends on the value in the first part of the ordered pair ( n {\displaystyle n} ). Its type would be: ∑ ∑ n : N P ( n ) {\displaystyle \sum _{n{\mathbin {:}}{\mathbb {N} }}P(n)} Π type constructor [ edit ] Π-types contain functions. As with typical function types, they consist of an input type and an output type. They are more powerful than typical function types however, in that the return type can depend on the input value. Functions in type theory are different from set theory. In set theory, you look up the argument's value in a set of ordered pairs. In type theory, the argument is substituted into a term and then computation ("reduction") is applied to the term.
+
+As an example, the type of a function that, given a natural number n {\displaystyle n} , returns a vector containing n {\displaystyle n} real numbers is written: ∏ ∏ n : N Vec ⁡ ⁡ ( R , n ) {\displaystyle \prod _{n{\mathbin {:}}{\mathbb {N} }}\operatorname {Vec} ({\mathbb {R} },n)} When the output type does not depend on the input value, the function type is often simply written with a → → {\displaystyle \to } . Thus, N → → R {\displaystyle {\mathbb {N} }\to {\mathbb {R} }} is the type of functions from natural numbers to real numbers. Such Π-types correspond to logical implication. The logical proposition A ⟹ ⟹ B {\displaystyle A\implies B} corresponds to the type A → → B {\displaystyle A\to B} , containing functions that take proofs-of-A and return proofs-of-B. This type could be written more consistently as: ∏ ∏ a : A B {\displaystyle \prod _{a{\mathbin {:}}A}B} Π-types are also used in logic for universal quantification . The statement "for every n {\displaystyle n} of type N {\displaystyle {\mathbb {N} }} , P ( n ) {\displaystyle P(n)} is proven" becomes a function from n {\displaystyle n} of type N {\displaystyle {\mathbb {N} }} to proofs of P ( n ) {\displaystyle P(n)} . Thus, given the value for n {\displaystyle n} the function generates a proof that P ( ⋅ ⋅ ) {\displaystyle P(\,\cdot \,)} holds for that value. The type would be ∏ ∏ n : N P ( n ) {\displaystyle \prod _{n{\mathbin {:}}{\mathbb {N} }}P(n)} = type constructor [ edit ] =-types are created from two terms. Given two terms like 2 + 2 {\displaystyle 2+2} and 2 ⋅ ⋅ 2 {\displaystyle 2\cdot 2} , you can create a new type 2 + 2 = 2 ⋅ ⋅ 2 {\displaystyle 2+2=2\cdot 2} . The terms of that new type represent proofs that the pair reduce to the same canonical term. Thus, since both 2 + 2 {\displaystyle 2+2} and 2 ⋅ ⋅ 2 {\displaystyle 2\cdot 2} compute to the canonical term 4 {\displaystyle 4} , there will be a term of the type 2 + 2 = 2 ⋅ ⋅ 2 {\displaystyle 2+2=2\cdot 2} . In intuitionistic type theory, there is a single way to introduce =-types and that is by reflexivity : refl : ∏ ∏ a : A ( a = a ) .
+
+{\displaystyle \operatorname {refl} {\mathbin {:}}\prod _{a{\mathbin {:}}A}(a=a).} It is possible to create =-types such as 1 = 2 {\displaystyle 1=2} where the terms do not reduce to the same canonical term, but you will be unable to create terms of that new type. In fact, if you were able to create a term of 1 = 2 {\displaystyle 1=2} , you could create a term of ⊥ ⊥ {\displaystyle \bot } . Putting that into a function would generate a function of type 1 = 2 → → ⊥ ⊥ {\displaystyle 1=2\to \bot } . Since … … → → ⊥ ⊥ {\displaystyle \ldots \to \bot } is how intuitionistic type theory defines negation, you would have ¬ ¬ ( 1 = 2 ) {\displaystyle \neg (1=2)} or, finally, 1 ≠ ≠ 2 {\displaystyle 1\neq 2} .
+
+Equality of proofs is an area of active research in proof theory and has led to the development of homotopy type theory and other type theories.
+
+Inductive types [ edit ] Further information: Inductive type Inductive types allow the creation of complex, self-referential types. For example, a linked list of natural numbers is either an empty list or a pair of a natural number and another linked list. Inductive types can be used to define unbounded mathematical structures like trees , graphs , etc.. In fact, the natural numbers type may be defined as an inductive type, either being 0 {\displaystyle 0} or the successor of another natural number.
+
+Inductive types define new constants, such as zero 0 : N {\displaystyle 0{\mathbin {:}}{\mathbb {N} }} and the successor function S : N → → N {\displaystyle S{\mathbin {:}}{\mathbb {N} }\to {\mathbb {N} }} . Since S {\displaystyle S} does not have a definition and cannot be evaluated using substitution, terms like S 0 {\displaystyle S0} and S S S 0 {\displaystyle SSS0} become the canonical terms of the natural numbers.
+
+Proofs on inductive types are made possible by induction . Each new inductive type comes with its own inductive rule. To prove a predicate P ( ⋅ ⋅ ) {\displaystyle P(\,\cdot \,)} for every natural number, you use the following rule: N - e l i m : P ( 0 ) → → ( ∏ ∏ n : N P ( n ) → → P ( S ( n ) ) ) → → ∏ ∏ n : N P ( n ) {\displaystyle {\operatorname {{\mathbb {N} }-elim} }\,{\mathbin {:}}P(0)\,\to \left(\prod _{n{\mathbin {:}}{\mathbb {N} }}P(n)\to P(S(n))\right)\to \prod _{n{\mathbin {:}}{\mathbb {N} }}P(n)} Inductive types in intuitionistic type theory are defined in terms of W-types, the type of well-founded trees. Later work in type theory generated coinductive types, induction-recursion, and induction-induction for working on types with more obscure kinds of self-referentiality.
+
+Higher inductive types allow equality to be defined between terms.
+
+Universe types [ edit ] The universe types allow proofs to be written about all the types created with the other type constructors. Every term in the universe type U 0 {\displaystyle {\mathcal {U}}_{0}} can be mapped to a type created with any combination of 0 , 1 , 2 , Σ Σ , Π Π , = , {\displaystyle 0,1,2,\Sigma ,\Pi ,=,} and the inductive type constructor. However, to avoid paradoxes, there is no term in U n {\displaystyle {\mathcal {U}}_{n}} that maps to U n {\displaystyle {\mathcal {U}}_{n}} for any n ∈ ∈ N {\displaystyle {\mathcal {n}}\in \mathbb {N} } .
+
+[ 1 ] To write proofs about all "the small types" and U 0 {\displaystyle {\mathcal {U}}_{0}} , you must use U 1 {\displaystyle {\mathcal {U}}_{1}} , which does contain a term for U 0 {\displaystyle {\mathcal {U}}_{0}} , but not for itself U 1 {\displaystyle {\mathcal {U}}_{1}} . Similarly, for U 2 {\displaystyle {\mathcal {U}}_{2}} . There is a predicative hierarchy of universes, so to quantify a proof over any fixed constant k {\displaystyle k} universes, you can use U k + 1 {\displaystyle {\mathcal {U}}_{k+1}} .
+
+Universe types are a tricky feature of type theories. Martin-Löf's original type theory had to be changed to account for Girard's paradox . Later research covered topics such as "super universes", " Mahlo universes", and impredicative universes.
+
+Judgements [ edit ] The formal definition of intuitionistic type theory is written using judgements. For example, in the statement "if A {\displaystyle A} is a type and B {\displaystyle B} is a type then ∑ ∑ a : A B {\displaystyle \textstyle \sum _{a:A}B} is a type" there are judgements of "is a type", "and", and "if ... then ...". The expression ∑ ∑ a : A B {\displaystyle \textstyle \sum _{a:A}B} is not a judgement; it is the type being defined.
+
+This second level of the type theory can be confusing, particularly where it comes to equality. There is a judgement of term equality, which might say 4 = 2 + 2 {\displaystyle 4=2+2} . It is a statement that two terms reduce to the same canonical term. There is also a judgement of type equality, say that A = B {\displaystyle A=B} , which means every element of A {\displaystyle A} is an element of the type B {\displaystyle B} and vice versa. At the type level, there is a type 4 = 2 + 2 {\displaystyle 4=2+2} and it contains terms if there is a proof that 4 {\displaystyle 4} and 2 + 2 {\displaystyle 2+2} reduce to the same value. (Terms of this type are generated using the term-equality judgement.) Lastly, there is an English-language level of equality, because we use the word "four" and symbol " 4 {\displaystyle 4} " to refer to the canonical term S S S S 0 {\displaystyle SSSS0} . Synonyms like these are called "definitionally equal" by Martin-Löf.
+
+The description of judgements below is based on the discussion in Nordström, Petersson, and Smith.
+
+The formal theory works with types and objects .
+
+A type is declared by: A T y p e {\displaystyle A\ {\mathsf {Type}}} An object exists and is in a type if: a : A {\displaystyle a{\mathbin {:}}A} Objects can be equal a = b {\displaystyle a=b} and types can be equal A = B {\displaystyle A=B} A type that depends on an object from another type is declared ( x : A ) B {\displaystyle (x{\mathbin {:}}A)B} and removed by substitution B [ x / a ] {\displaystyle B[x/a]} , replacing the variable x {\displaystyle x} with the object a {\displaystyle a} in B {\displaystyle B} .
+
+An object that depends on an object from another type can be done two ways.
+If the object is "abstracted", then it is written [ x ] b {\displaystyle [x]b} and removed by substitution b [ x / a ] {\displaystyle b[x/a]} , replacing the variable x {\displaystyle x} with the object a {\displaystyle a} in b {\displaystyle b} .
+
+The object-depending-on-object can also be declared as a constant as part of a recursive type. An example of a recursive type is: 0 : N {\displaystyle 0{\mathbin {:}}\mathbb {N} } S : N → → N {\displaystyle S{\mathbin {:}}\mathbb {N} \to \mathbb {N} } Here, S {\displaystyle S} is a constant object-depending-on-object. It is not associated with an abstraction. Constants like S {\displaystyle S} can be removed by defining equality. Here the relationship with addition is defined using equality and using pattern matching to handle the recursive aspect of S {\displaystyle S} : add : ( N × × N ) → → N add ⁡ ⁡ ( 0 , b ) = b add ⁡ ⁡ ( S ( a ) , b ) = S ( add ⁡ ⁡ ( a , b ) ) ) {\displaystyle {\begin{aligned}\operatorname {add} &{\mathbin {:}}\ (\mathbb {N} \times \mathbb {N} )\to \mathbb {N} \\\operatorname {add} (0,b)&=b\\\operatorname {add} (S(a),b)&=S(\operatorname {add} (a,b)))\end{aligned}}} S {\displaystyle S} is manipulated as an opaque constant - it has no internal structure for substitution.
+
+So, objects and types and these relations are used to express formulae in the theory. The following styles of judgements are used to create new objects, types and relations from existing ones: Γ Γ ⊢ ⊢ σ σ T y p e {\displaystyle \Gamma \vdash \sigma \ {\mathsf {Type}}} σ is a well-formed type in the context Γ.
+
+Γ Γ ⊢ ⊢ t : σ σ {\displaystyle \Gamma \vdash t{\mathbin {:}}\sigma } t is a well-formed term of type σ in context Γ.
+
+Γ Γ ⊢ ⊢ σ σ ≡ ≡ τ τ {\displaystyle \Gamma \vdash \sigma \equiv \tau } σ and τ are equal types in context Γ.
+
+Γ Γ ⊢ ⊢ t ≡ ≡ u : σ σ {\displaystyle \Gamma \vdash t\equiv u{\mathbin {:}}\sigma } t and u are judgmentally equal terms of type σ in context Γ.
+
+⊢ ⊢ Γ Γ C o n t e x t {\displaystyle \vdash \Gamma \ {\mathsf {Context}}} Γ is a well-formed context of typing assumptions.
+
+By convention, there is a type that represents all other types. It is called U {\displaystyle {\mathcal {U}}} (or Set {\displaystyle \operatorname {Set} } ). Since U {\displaystyle {\mathcal {U}}} is a type, the members of it are objects. There is a dependent type El {\displaystyle \operatorname {El} } that maps each object to its corresponding type.
+
+In most texts El {\displaystyle \operatorname {El} } is never written.
+
+From the context of the statement, a reader can almost always tell whether A {\displaystyle A} refers to a type, or whether it refers to the object in U {\displaystyle {\mathcal {U}}} that corresponds to the type.
+
+This is the complete foundation of the theory. Everything else is derived.
+
+To implement logic, each proposition is given its own type. The objects in those types represent the different possible ways to prove the proposition. If there is no proof for the proposition, then the type has no objects in it. Operators like "and" and "or" that work on propositions introduce new types and new objects. So A × × B {\displaystyle A\times B} is a type that depends on the type A {\displaystyle A} and the type B {\displaystyle B} . The objects in that dependent type are defined to exist for every pair of objects in A {\displaystyle A} and B {\displaystyle B} . If either A {\displaystyle A} or B {\displaystyle B} have no proof and is an empty type, then the new type representing A × × B {\displaystyle A\times B} is also empty.
+
+This can be done for other types (booleans, natural numbers, etc.) and their operators.
+
+Categorical models of type theory [ edit ] Using the language of category theory , R. A. G. Seely introduced the notion of a locally cartesian closed category (LCCC) as the basic model of type theory. This has been refined by Hofmann and Dybjer to Categories with Families or Categories with Attributes based on earlier work by Cartmell.
+
+[ 2 ] A category with families is a category C of contexts (in which the objects are contexts, and the context morphisms are substitutions), together with a functor T : C op → Fam ( Set ).
+
+Fam ( Set ) is the category of families of Sets, in which objects are pairs ⁠ ( A , B ) {\displaystyle (A,B)} ⁠ of an "index set" A and a function B : X → A , and morphisms are pairs of functions f : A → A' and g : X → X' , such that B' ° g = f ° B – in other words, f maps B a to B g ( a ) .
+
+The functor T assigns to a context G a set ⁠ T y ( G ) {\displaystyle Ty(G)} ⁠ of types, and for each ⁠ A : T y ( G ) {\displaystyle A:Ty(G)} ⁠ , a set ⁠ T m ( G , A ) {\displaystyle Tm(G,A)} ⁠ of terms. The axioms for a functor require that these play harmoniously with substitution. Substitution is usually written in the form Af or af , where A is a type in ⁠ T y ( G ) {\displaystyle Ty(G)} ⁠ and a is a term in ⁠ T m ( G , A ) {\displaystyle Tm(G,A)} ⁠ , and f is a substitution from D to G . Here ⁠ A f : T y ( D ) {\displaystyle Af:Ty(D)} ⁠ and ⁠ a f : T m ( D , A f ) {\displaystyle af:Tm(D,Af)} ⁠ .
+
+The category C must contain a terminal object (the empty context), and a final object for a form of product called comprehension, or context extension, in which the right element is a type in the context of the left element. If G is a context, and ⁠ A : T y ( G ) {\displaystyle A:Ty(G)} ⁠ , then there should be an object ⁠ ( G , A ) {\displaystyle (G,A)} ⁠ final among contexts D with mappings p : D → G , q : Tm ( D,Ap ).
+
+A logical framework, such as Martin-Löf's, takes the form of closure conditions on the context-dependent sets of types and terms: that there should be a type called Set, and for each set a type, that the types should be closed under forms of dependent sum and product, and so forth.
+
+A theory such as that of predicative set theory expresses closure conditions on the types of sets and their elements: that they should be closed under operations that reflect dependent sum and product, and under various forms of inductive definition.
+
+Extensional versus intensional [ edit ] A fundamental distinction is extensional vs intensional type theory. In extensional type theory, definitional (i.e., computational) equality is not distinguished from propositional equality, which requires proof. As a consequence type checking becomes undecidable in extensional type theory because programs in the theory might not terminate. For example, such a theory allows one to give a type to the Y-combinator ; a detailed example of this can be found in Nordstöm and Petersson Programming in Martin-Löf's Type Theory .
+
+[ 3 ] However, this does not prevent extensional type theory from being a basis for a practical tool; for example, Nuprl is based on extensional type theory.
+
+In contrast, in intensional type theory type checking is decidable , but the representation of standard mathematical concepts is somewhat more cumbersome, since intensional reasoning requires using setoids or similar constructions. There are many common mathematical objects that are hard to work with or cannot be represented without this, for example, integer numbers , rational numbers , and real numbers . Integers and rational numbers can be represented without setoids, but this representation is difficult to work with. Cauchy real numbers cannot be represented without this.
+
+[ 4 ] Homotopy type theory works on resolving this problem. It allows one to define higher inductive types , which not only define first-order constructors ( values or points ), but higher-order constructors, i.e. equalities between elements ( paths ), equalities between equalities ( homotopies ), ad infinitum .
+
+Implementations of type theory [ edit ] Different forms of type theory have been implemented as the formal systems underlying a number of proof assistants . While many are based on Per Martin-Löf's ideas, many have added features, more axioms, or a different philosophical background. For instance, the Nuprl system is based on computational type theory [ 5 ] and Coq is based on the calculus of (co)inductive constructions . Dependent types also feature in the design of programming languages such as ATS , Cayenne , Epigram , Agda , [ 6 ] and Idris .
+
+[ 7 ] Martin-Löf type theories [ edit ] Per Martin-Löf constructed several type theories that were published at various times, some of them much later than when the preprints with their description became accessible to specialists (among others Jean-Yves Girard and Giovanni Sambin). The list below attempts to list all the theories that have been described in a printed form and to sketch the key features that distinguished them from each other. All of these theories had dependent products, dependent sums, disjoint unions, finite types and natural numbers. All the theories had the same reduction rules that did not include η-reduction either for dependent products or for dependent sums, except for MLTT79 where the η-reduction for dependent products is added.
+
+MLTT71 was the first type theory created by Per Martin-Löf. It appeared in a preprint in 1971. It had one universe, but this universe had a name in itself, i.e., it was a type theory with, as it is called today, "Type in Type".
+
+Jean-Yves Girard has shown that this system was inconsistent, and the preprint was never published.
+
+MLTT72 was presented in a 1972 preprint that has now been published.
+
+[ 8 ] That theory had one universe V and no identity types (=-types). The universe was " predicative " in the sense that the dependent product of a family of objects from V over an object that was not in V such as, for example, V itself, was not assumed to be in V. The universe was à la Russell 's Principia Mathematica , i.e., one would write directly "T∈V" and "t∈T" (Martin-Löf uses the sign "∈" instead of modern ":") without an added constructor such as "El".
+
+MLTT73 was the first definition of a type theory that Per Martin-Löf published (it was presented at the Logic Colloquium '73 and published in 1975 [ 9 ] ). There are identity types, which he describes as "propositions", but since no real distinction between propositions and the rest of the types is introduced the meaning of this is unclear. There is what later acquires the name of J-eliminator but yet without a name (see pp. 94–95). There is in this theory an infinite sequence of universes V 0 , ..., V n , ... . The universes are predicative, à la Russell and non-cumulative . In fact, Corollary 3.10 on p. 115 says that if A∈V m and B∈V n are such that A and B are convertible then m = n .
+
+MLTT79 was presented in 1979 and published in 1982.
+
+[ 10 ] In this paper, Martin-Löf introduced the four basic types of judgement for the dependent type theory that has since become fundamental in the study of the meta-theory of such systems. He also introduced contexts as a separate concept in it (see p. 161). There are identity types with the J-eliminator (which already appeared in MLTT73 but did not have this name there) but also with the rule that makes the theory "extensional" (p. 169). There are W-types. There is an infinite sequence of predicative universes that are cumulative .
+
+Bibliopolis : there is a discussion of a type theory in the Bibliopolis book from 1984, [ 11 ] but it is somewhat open-ended and does not seem to represent a particular set of choices and so there is no specific type theory associated with it.
+
+See also [ edit ] Intuitionistic logic Typed lambda calculus Notes [ edit ] ^ Bertot, Yves; Castéran, Pierre (2004).
+
+Interactive theorem proving and program development: Coq'Art: the calculus of inductive constructions . Texts in theoretical computer science. Berlin Heidelberg: Springer.
+
+ISBN 978-3-540-20854-9 .
+
+^ Clairambault, Pierre; Dybjer, Peter (2014).
+
+"The biequivalence of locally cartesian closed categories and Martin-Löf type theories" .
+
+Mathematical Structures in Computer Science .
+
+24 (6).
+
+arXiv : 1112.3456 .
+
+doi : 10.1017/S0960129513000881 .
+
+ISSN 0960-1295 .
+
+S2CID 416274 .
+
+^ Bengt Nordström; Kent Petersson; Jan M. Smith (1990).
+
+Programming in Martin-Löf's Type Theory . Oxford University Press, p. 90.
+
+^ Altenkirch, Thorsten; Anberrée, Thomas; Li, Nuo.
+
+Definable Quotients in Type Theory (PDF) (Report). Archived from the original (PDF) on 2024-04-19.
+
+^ Allen, S.F.; Bickford, M.; Constable, R.L.; Eaton, R.; Kreitz, C.; Lorigo, L.; Moran, E. (2006).
+
+"Innovations in computational type theory using Nuprl" .
+
+Journal of Applied Logic .
+
+4 (4): 428– 469.
+
+doi : 10.1016/j.jal.2005.10.005 .
+
+^ Norell, Ulf (2009). "Dependently typed programming in Agda".
+
+Proceedings of the 4th international workshop on Types in language design and implementation . TLDI '09. New York, NY, USA: ACM. pp.
+
+1– 2.
+
+CiteSeerX 10.1.1.163.7149 .
+
+doi : 10.1145/1481861.1481862 .
+
+ISBN 9781605584201 .
+
+S2CID 1777213 .
+
+^ Brady, Edwin (2013).
+
+"Idris, a general-purpose dependently typed programming language: Design and implementation" .
+
+Journal of Functional Programming .
+
+23 (5): 552– 593.
+
+doi : 10.1017/S095679681300018X .
+
+ISSN 0956-7968 .
+
+S2CID 19895964 .
+
+^ Martin-Löf, Per (1998).
+
+An intuitionistic theory of types, Twenty-five years of constructive type theory (Venice,1995) . Oxford Logic Guides. Vol. 36. New York: Oxford University Press. pp.
+
+127– 172.
+
+^ Martin-Löf, Per (1975). "An intuitionistic theory of types: predicative part".
+
+Studies in Logic and the Foundations of Mathematics . Logic Colloquium '73 (Bristol, 1973). Vol. 80. Amsterdam: North-Holland. pp.
+
+73– 118.
+
+^ Martin-Löf, Per (1982). "Constructive mathematics and computer programming".
+
+Studies in Logic and the Foundations of Mathematics . Logic, methodology and philosophy of science, VI (Hannover, 1979). Vol. 104. Amsterdam: North-Holland. pp.
+
+153– 175.
+
+^ Martin-Löf, Per (1984).
+
+Intuitionistic type theory, Studies in Proof Theory (lecture notes by Giovanni Sambin) . Vol. 1. Bibliopolis. pp. iv, 91.
+
+References [ edit ] Martin-Löf, Per ; Sambin, Giovanni (1984).
+
+Intuitionistic type theory (PDF) . Napoli: Bibliopolis.
+
+ISBN 978-8870881059 .
+
+OCLC 12731401 .
+
+Further reading [ edit ] Per Martin-Löf's Notes, as recorded by Giovanni Sambin (1980) Nordström, Bengt; Petersson, Kent; Smith, Jan M. (1990).
+
+Programming in Martin-Löf's Type Theory . Oxford University Press.
+
+ISBN 9780198538141 .
+
+Thompson, Simon (1991).
+
+Type Theory and Functional Programming . Addison-Wesley.
+
+ISBN 0-201-41667-0 .
+
+Granström, Johan G. (2011).
+
+Treatise on Intuitionistic Type Theory . Springer.
+
+ISBN 978-94-007-1735-0 .
+
+External links [ edit ] EU Types Project: Tutorials – lecture notes and slides from the Types Summer School 2005 n-Categories - Sketch of a Definition – letter from John Baez and James Dolan to Ross Street , November 29, 1995 v t e Non-classical logic Intuitionistic Intuitionistic logic Constructive analysis Heyting arithmetic Intuitionistic type theory Constructive set theory Fuzzy Degree of truth Fuzzy rule Fuzzy set Fuzzy finite element Fuzzy set operations Substructural Structural rule Relevance logic Linear logic Paraconsistent Dialetheism Description Ontology (information science) Ontology language Many-valued Three-valued Four-valued Łukasiewicz Digital logic Three-state logic Tri-state buffer Four-valued Verilog IEEE 1164 VHDL Others Dynamic semantics Inquisitive logic Intermediate logic Non-monotonic logic v t e Major topics in Foundations of Mathematics Mathematical logic Peano axioms Mathematical induction Formal system Axiomatic system Hilbert system Natural deduction Mathematical proof Model theory Mathematical constructivism Modal logic List of mathematical logic topics Set theory Set Naive set theory Axiomatic set theory Zermelo set theory Zermelo–Fraenkel set theory Constructive set theory Descriptive set theory Determinacy Russell's paradox List of set theory topics Type theory Axiom of reducibility Simple type theory Dependent type theory Intuitionistic type theory Homotopy type theory Univalent foundations Girard's paradox Category theory Category Topos theory Category of sets Higher category theory ∞-groupoid ∞-topos theory Mathematical structuralism Glossary of category theory List of category theory topics NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐7lmb4
+Cached time: 20250812001150
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.459 seconds
+Real time usage: 0.862 seconds
+Preprocessor visited node count: 1939/1000000
+Revision size: 31675/2097152 bytes
+Post‐expand include size: 51742/2097152 bytes
+Template argument size: 609/2097152 bytes
+Highest expansion depth: 8/100
+Expensive parser function count: 3/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 69725/5000000 bytes
+Lua time usage: 0.240/10.000 seconds
+Lua memory usage: 5423971/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  372.035      1 -total
+ 40.85%  151.958      1 Template:Reflist
+ 31.49%  117.153      8 Template:Cite_book
+ 21.54%   80.128      1 Template:Short_description
+ 21.43%   79.714      2 Template:Navbox
+ 21.14%   78.643      1 Template:Non-classical_logic
+ 13.13%   48.836      2 Template:Pagetype
+  6.32%   23.514      3 Template:Cite_journal
+  5.51%   20.497      3 Template:Main_other
+  5.02%   18.660      1 Template:SDcat Saved in parser cache with key enwiki:pcache:345023:|#|:idhash:canonical and timestamp 20250812001150 and revision id 1294075196. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Intuitionistic_type_theory&oldid=1294075196 " Categories : Foundations of mathematics Dependently typed programming Constructivism (mathematics) Type theory Logic in computer science Intuitionism Hidden categories: Articles with short description Short description matches Wikidata This page was last edited on 5 June 2025, at 12:25 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Intuitionistic type theory 8 languages Add topic
+

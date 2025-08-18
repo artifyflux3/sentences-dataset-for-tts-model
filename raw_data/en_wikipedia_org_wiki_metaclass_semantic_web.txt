@@ -1,0 +1,141 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Examples 2 Implementations Toggle Implementations subsection 2.1 RDF and RDFS 2.2 OWL 2.2.1 Punning 2.3 Protégé 3 Classification 4 See also 5 References Toggle the table of contents Metaclass (knowledge representation) 2 languages Français Interlingua Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia (Redirected from Metaclass (Semantic Web) ) This article has multiple issues.
+
+Please help improve it or discuss these issues on the talk page .
+
+( Learn how and when to remove these messages ) This article possibly contains original research .
+
+Please improve it by verifying the claims made and adding inline citations . Statements consisting only of original research should be removed.
+
+( May 2015 ) ( Learn how and when to remove this message ) This article needs additional citations for verification .
+
+Please help improve this article by adding citations to reliable sources . Unsourced material may be challenged and removed.
+
+Find sources: "Metaclass" knowledge representation – news · newspapers · books · scholar · JSTOR ( May 2015 ) ( Learn how and when to remove this message ) ( Learn how and when to remove this message ) In knowledge representation , particularly in the Semantic Web , a metaclass is a class whose instances can themselves be classes. Similar to their role in programming languages , metaclasses in ontology languages can have properties otherwise applicable only to individuals, while retaining the same class's ability to be classified in a concept hierarchy.  This enables knowledge about instances of those metaclasses to be inferred by semantic reasoners using statements made in the metaclass.  Metaclasses thus enhance the expressivity of knowledge representations in a way that can be intuitive for users.
+
+While classes are suitable to represent a population of individuals, metaclasses can, as one of their feature, be used to represent the conceptual dimension of an ontology .
+
+[ 1 ] Metaclasses are supported in the Web Ontology Language (OWL) and the data-modeling vocabulary RDFS .  
+Metaclasses are often modeled by setting them as the object of claims involving rdf:type and rdfs:subClassOf—built-in properties commonly referred to as instance of and subclass of .
+
+Instance of entails that the subject of the claim is an instance, i.e. an individual that is a member of a class.
+
+Subclass of entails that the subject is a class.  In the context of instance of and subclass of , the key difference between metaclasses and ordinary classes is that metaclasses are the object of instance of claims used on a class, while ordinary classes are not objects of such claims. (e.g. in a claim Bob instance of Human , Bob is the subject and an Instance, while the object, Human, is an ordinary class; but a further claim that Human instance of Animal species makes "Animal species" a metaclass because it has a member, "Human", that is also a Class).
+
+OWL 2 DL supports metaclasses by a feature called punning , [ 2 ] in which one entity is interpreted as two different types of thing—a class and an individual—depending on its syntactic context.  For example, through punning, an ontology could have a concept hierarchy such as Harry the eagle instance of golden eagle , golden eagle subclass of bird , and golden eagle instance of species .  In this case, the punned entity would be golden eagle, because it is represented as a class (second claim) and an instance (third claim); whereas the metaclass would be species, as it has an instance that is a class.  Punning also enables other properties that would otherwise be applicable only to ordinary instances to be used directly on classes, for example "golden eagle conservation status least concern ." [ 3 ] Having arisen from the fields of knowledge representation , description logic and formal ontology , Semantic Web languages have a closer relationship to philosophical ontology than do conventional programming languages such as Java or Python . Accordingly, the nature of metaclasses is informed by philosophical notions such as abstract objects , the abstract and concrete , and type-token distinction .  Metaclasses permit concepts to be construed as tokens of other concepts while retaining their ontological status as types.  This enables types to be enumerated over, while preserving the ability to inherit from types.  For example, metaclasses could allow a machine reasoner to infer from a human-friendly ontology how many elements are in the periodic table , or, given that number of protons is a property of chemical element and isotopes are a subclass of elements, how many protons exist in the isotope hydrogen-2 .
+
+Metaclasses are sometime organized by levels, in a similar way to the simple Theory of types [ 4 ] where classes that are not metaclasses are assigned the first level, classes of classes in the first level are in the second level, classes of classes in the second level on the next and so on.
+
+[ 5 ] Examples [ edit ] Following the type-token distinction , real world objects such as Abraham Lincoln or the planet Mars are regrouped into classes of similar objects.  Abraham Lincoln is said to be an instance of human, and Mars is an instance of planet. This is a kind of is-a relationship.  Metaclasses are class of classes, such as for example the nuclide concept. In chemistry, atoms are often classified as elements and, more specifically, isotopes .  The glass of water one last drank has many hydrogen atoms, each of which is an instance of hydrogen .
+
+Hydrogen itself, a class of atoms, is an instance of nuclide .  Nuclide is a class of classes, hence a metaclass.
+
+Implementations [ edit ] RDF and RDFS [ edit ] In RDF , the rdf:type property is used to state that a resource is an instance of a class.
+
+[ 6 ] This enables metaclasses to be easily created by using rdf:type in a chain-like fashion.
+
+[ citation needed ] [ dubious – discuss ] For example, in the two triples Harry the eagle rdf:type golden eagle
+golden eagle rdf:type species the resource species is a metaclass, [ dubious – discuss ] because golden eagle is used as a class in the first statement and the class golden eagle is said to be an instance of the class species in the second statement.
+
+RDF also provides rdf:Property as a way to create properties beyond those defined in the built-in vocabulary.  Properties can be used directly on metaclasses, for example " species quantity 8.7 million [ broken anchor ] ", where quantity is a property defined via rdf:Property and species is a metaclass per the preceding example above.
+
+RDFS , an extension of RDF, introduced rdfs:Class and rdfs:subClassOf and enriched how vocabularies can classify concepts.
+
+[ 7 ] [ 8 ] Whereas rdf:type enables vocabularies to represent instantiation , the property rdfs:subClassOf enables vocabularies to represent subsumption .  RDFS thus makes it possible for vocabularies to represent taxonomies , also known as subsumption hierarchies or concept hierarchies, which is an important addition to the type–token distinction made possible by RDF.
+
+Notably, the resource rdfs:Class is an instance of itself, [ 7 ] demonstrating both the use of metaclasses in the language's internal implementation and a reflexive usage of rdf:type . RDFS is its own metamodel [ 9 ] OWL [ edit ] In some OWL flavors like OWL1 -DL, entities can be either classes or instances, but cannot be both. This limitations forbids metaclasses and metamodeling .
+
+[ 10 ] This is not the case in the OWL1 full flavor, but this allows the model to be computationally undecidable.
+
+[ 11 ] In OWL2 , metaclasses can implemented with punning , that is a way to treat classes as if they were individuals.
+
+[ 2 ] Other approaches have also been proposed and used to check the properties of ontologies at a meta level.
+
+[ 12 ] Punning [ edit ] OWL 2 supports metaclasses through a feature called punning . In metaclasses implemented by punning, the same subject is interpreted as two fundamentally different types of thing—a class and an individual—depending on its syntactic context. This is similar to a pun in natural language, where different senses of the same word are emphasized to illustrate a point. Unlike in natural language, where puns are typically used for comedic or rhetorical effect, the  main goal of punning in Semantic Web technologies is to make concepts easier to represent, closer to how they are discussed in everyday speech or academic literature.
+
+Although OWL 2 permits the same symbol to assume different roles, its standard semantics (known as Direct Semantics) still interprets the symbol differently depending on whether it is used as an individual, a class, or a property.
+
+[ 13 ] [ 14 ] Protégé [ edit ] In the ontology editor Protégé , metaclasses are templates for other classes who are their instances.
+
+[ 15 ] Classification [ edit ] an example of ontology with a first metaclass order: the classification of some chemical atoms Some ontologies like the Cyc AI project 's classifies classes and metaclasses.
+
+[ 5 ] Classes are divided into fixed-order classes and variable-order classes . In the case of fixed-order classes, an order is attributed for metaclasses by measuring the distance to individuals with respect to the number of "instance of" triples that are necessary to find an individual. Classes that are not metaclasses are classes of individuals, so their order is "1" ( first-order classes ). Metaclasses that are classes of first-order classes' order is "2" ( second-order classes ), and so on. Variable-order metaclasses, on the other hand, can have instances; one example of variable-order metaclass is the class of all fixed-order classes.
+
+See also [ edit ] Metaclass Class (knowledge representation) References [ edit ] ^ Alain Pirotte; David Massart (2004).
+
+"Integrating Two Descriptions of Taxonomies with Materialization" (PDF) .
+
+Journal of Object Technology .
+
+^ a b "OWL 2 Web Ontology Language New Features and Rationale (Second Edition)" . W3C . Retrieved 7 March 2015 .
+
+^ Robert Stevens; Alan Rector (13 May 2011).
+
+"Higher Order Knowledge in Ontologies" .
+
+ontogenesis.knowledgeblog.org .
+
+^ Whitehead, Alfred North; Russell, Bertrand (1910), Principia mathematica , vol. 1 (1 ed.), Cambridge: Cambridge University Press, JFM 41.0083.02 ^ a b Foxvog, D. (2005).
+
+Instances of instances modeled via higher-order classes . Workshop on Foundational Aspects of Ontologies (FOnt 2005), 28th German Conference on Artificial Intelligence. Koblenz, Germany. pp.
+
+46– 54.
+
+^ Dan Brickley; R.V. Guha (2004-02-10).
+
+"RDF Vocabulary Description Language 1.0: RDF Schema. Section 3.3, rdf:type" . World Wide Web Consortium.
+
+^ a b Dan Brickley; R.V. Guha (2004-02-10).
+
+"RDF Vocabulary Description Language 1.0: RDF Schema. Section 2.2, rdfs:Class" . World Wide Web Consortium.
+
+^ Dan Brickley; R.V. Guha (2004-02-10).
+
+"RDF Vocabulary Description Language 1.0: RDF Schema. Section 3.4, rdfs:subClassOf" . World Wide Web Consortium.
+
+^ S Koide.
+
+"MetaModeling in OOP, MOF, RDFS, and OwL" (PDF) .
+
+^ "OWL Web Ontology Language Reference" .
+
+W3C . 2004. pp. Appendix E. Rules of Thumb for OWL DL ontologies . Retrieved 7 March 2015 .
+
+^ Boris Motik (2007).
+
+"On the properties of metamodeling in OWL" (PDF) .
+
+Journal of Logic and Computation .
+
+17 (4): 617– 637.
+
+doi : 10.1093/logcom/exm027 .
+
+^ Integrated metamodeling and diagnosis in OWL 2 (PDF) . international semantic web conference . Retrieved 7 March 2015 .
+
+^ "OWL 2 Web Ontology Language New Features and Rationale (Second Edition)" . W3C . Retrieved 22 February 2025 .
+
+The OWL 2 Direct Semantics treats the different uses of the same name as completely separate ^ Lenzerini, Maurizio; Lepore, Lorenzo; Poggi, Antonella (March 2021). "Metamodeling and metaquerying in OWL 2 QL".
+
+Journal of Artificial Intelligence .
+
+292 (103432). Elsevier.
+
+doi : 10.1016/j.artint.2020.103432 .
+
+hdl : 11573/1483956 .
+
+DS relies on the notion of interpretation of the standard First-Order Logic (FOL) se- mantics and, thus, it treats punning by sanctioning that an individual and a class with the same name are different elements ^ Rose Dieng and Olivier Corby (ed.).
+
+"The knowledge model of protégé 2000" (PDF) .
+
+Methods, Models, and Tools proceedings . Knowledge engineering and knowledge management . Retrieved 7 March 2015 .
+
+§6.1 summary of the RDFS model Retrieved from " https://en.wikipedia.org/w/index.php?title=Metaclass_(knowledge_representation)&oldid=1303671360 " Categories : Ontology languages Web Ontology Language Resource Description Framework Knowledge representation Hidden categories: Articles that may contain original research from May 2015 All articles that may contain original research Articles needing additional references from May 2015 All articles needing additional references Articles with multiple maintenance issues All articles with unsourced statements Articles with unsourced statements from April 2016 All accuracy disputes Articles with disputed statements from April 2016 Pages with broken anchors Pages containing broken anchor template with unsupported parameters This page was last edited on 1 August 2025, at 11:07 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Metaclass (knowledge representation) 2 languages Add topic
+

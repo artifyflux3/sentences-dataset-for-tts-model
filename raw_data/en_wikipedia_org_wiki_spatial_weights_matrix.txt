@@ -1,0 +1,67 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Contiguity-Based Weights 2 Distance-Based Weights 3 Spatial Lag 4 See also 5 References Toggle the table of contents Spatial weight matrix Add languages Add links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia (Redirected from Spatial weights matrix ) Neighbor Matrix The concept of a spatial weight is used in spatial analysis to describe neighbor relations between regions on a map.
+
+[ 1 ] If location i {\displaystyle i} is a neighbor of location j {\displaystyle j} then w i j ≠ ≠ 0 {\displaystyle w_{ij}\neq 0} otherwise w i j = 0 {\displaystyle w_{ij}=0} . Usually (though not always) we do not consider a site to be a neighbor of itself [ 2 ] so w i i = 0 {\displaystyle w_{ii}=0} . These coefficients are encoded in the spatial weight matrix W = ( w 11 w 12 … … w 1 N w 21 w 22 … … w 2 N ⋮ ⋮ ⋮ ⋮ ⋮ ⋮ ⋮ ⋮ w N 1 w N 2 … … w N N ) {\displaystyle W={\begin{pmatrix}w_{11}&w_{12}&\ldots &w_{1N}\\w_{21}&w_{22}&\ldots &w_{2N}\\\vdots &\vdots &\vdots &\vdots \\w_{N1}&w_{N2}&\ldots &w_{NN}\\\end{pmatrix}}} Where N {\displaystyle N} is the number of sites under consideration. The spatial weight matrix is a key quantity in the computation of many spatial indices like Moran's I , Geary's C , Getis-Ord statistics and Join Count Statistics .
+
+Contiguity-Based Weights [ edit ] Common connectivity patterns described on a regular grid. Non-zero values of w A j {\displaystyle w_{Aj}} are indicated by the red lines. For example in the rook's case, for the A {\displaystyle A} row of the weight matrix only w A N , w A S , w A E , w A W ≠ ≠ 0 {\displaystyle w_{AN},w_{AS},w_{AE},w_{AW}\neq 0} and similarly in the other cases.
+
+This approach considers spatial sites as nodes in a graph with links determined by a shared boundary or vertex.
+
+[ 3 ] The elements of the spatial weight matrix are determined by setting w i j = 1 {\displaystyle w_{ij}=1} for all connected pairs of nodes i j {\displaystyle ij} with all the other elements set to 0. This makes the spatial weight matrix equivalent to the adjacency matrix of the corresponding network. It is common [ 2 ] to row-normalize the matrix W {\displaystyle W} , w i j → → w i j / ∑ ∑ j w i j {\displaystyle w_{ij}\rightarrow w_{ij}/\sum _{j}w_{ij}} In this case the sum of all the elements of W {\displaystyle W} equals N {\displaystyle N} the number of sites.
+
+African quadripoint. Using Rook neighbors, Zimbabwe is neighbours with Zambia and Botswana. Using Queen neighbors, Zimbabwe is also a neighbor of Namibia. Bishop neighbors are rarely used for polygonal data.
+
+There are three common methods for linking sites [ 3 ] named after the chess pieces which make similar moves: Rook: sites are neighbors if they share an edge Bishop: sites are neighbours if they share a vertex Queen: sites are neighbours if they share an edge or a vertex In some cases statistics can be quite different depending on the definition used, especially for discrete data on a grid.
+
+[ 3 ] There are also other cases  where the choice of neighbors is not obvious and can affect the outcome of the analysis.
+
+Bivand and Wong [ 4 ] describe a situation where the value of spatial indices of association (like Moran's I ) depend on the inclusion or exclusion of a ferry crossing between counties. There are also cases where regions meet in a tripoint or quadripoint where Rook and Queen neighborhoods can differ.
+
+Distance-Based Weights [ edit ] Another way to define spatial neighbors is based on the distance between sites. One simple choice is to set w i j = 1 {\displaystyle w_{ij}=1} for every pair ( i , j ) {\displaystyle (i,j)} separated by a distance less than some threshold δ δ {\displaystyle \delta } .
+
+[ 5 ] Cliff and Ord [ 1 ] suggest the general form w i j = g ( d i j , β β i j ) {\displaystyle w_{ij}=g(d_{ij},\beta _{ij})} Where g {\displaystyle g} is some function of d i j {\displaystyle d_{ij}} the distance between i {\displaystyle i} and j {\displaystyle j} and β β i j {\displaystyle \beta _{ij}} is the proportion of the perimeter of i {\displaystyle i} in contact with j {\displaystyle j} . The function w i j = d i j − − α α β β i j b {\displaystyle w_{ij}=d_{ij}^{-\alpha }\beta _{ij}^{b}} is then suggested. Often the β β {\displaystyle \beta } term is not included and the most common values for α α {\displaystyle \alpha } are 1 and 2.
+
+[ 3 ] Another common choice for the distance decay function is [ 6 ] w i j = exp ⁡ ⁡ ( − − d i j ) {\displaystyle w_{ij}=\exp(-d_{ij})} though a number of different Kernel functions can be used. The exponential and other Kernel functions typically set w i i = 1 {\displaystyle w_{ii}=1} which must be considered in applications.
+
+It is possible to make the spatial weight matrix a function of 'distance class': [ 7 ] w i j → → w i j ( d ) {\displaystyle w_{ij}\rightarrow w_{ij}(d)} where d {\displaystyle d} denotes the 'distance class', for example d = 1 , 2 , 3 , … … {\displaystyle d=1,2,3,\ldots } corresponding to first, second, third etc. neighbors. In this case, functions of the spatial weight matrix become distance class dependent. For example, Moran's I is I ( d ) = N | W ( d ) | ∑ ∑ i = 1 N ∑ ∑ j = 1 N w i j ( d ) ( x i − − x ¯ ¯ ) ( x j − − x ¯ ¯ ) ∑ ∑ i = 1 N ( x i − − x ¯ ¯ ) 2 {\displaystyle I(d)={\frac {N}{|W(d)|}}{\frac {\sum _{i=1}^{N}\sum _{j=1}^{N}w_{ij}(d)(x_{i}-{\bar {x}})(x_{j}-{\bar {x}})}{\sum _{i=1}^{N}(x_{i}-{\bar {x}})^{2}}}} This defines a type of spatial correlogram , in this case, since Moran's I measures spatial autocorrelation, I ( d ) {\displaystyle I(d)} measures how the autocorrelation of the data changes as a function of distance class. Remembering Tobler's first law of geography , "everything is related to everything else, but near things are more related than distant things" it usually decreases with distance.
+
+Common distance functions include [ 5 ] Euclidean distance , Manhattan distance and Great-circle distance .
+
+Spatial Lag [ edit ] One application of the spatial weight matrix is to compute the spatial lag [ 8 ] [ W x ] i = ∑ ∑ j w i j x j {\displaystyle [Wx]_{i}=\sum _{j}w_{ij}x_{j}} For row-standardised weights initially set to w i j = 1 {\displaystyle w_{ij}=1} and with w i i = 0 {\displaystyle w_{ii}=0} , [ W x ] i {\displaystyle [Wx]_{i}} is simply the average value observed at the neighbors of i {\displaystyle i} . These lagged variables can then be used in regression analysis to incorporate the dependence of the outcome variable on the values at neighboring sites.
+
+[ 9 ] The standard regression equation is y i = ∑ ∑ k x i k β β k + ϵ ϵ i {\displaystyle y_{i}=\sum _{k}x_{ik}\beta _{k}+\epsilon _{i}} The spatial lag model adds the spatial lag vector to this y i = ρ ρ ∑ ∑ j w i j y j + ∑ ∑ k x i k β β k + ϵ ϵ i {\displaystyle y_{i}=\rho \sum _{j}w_{ij}y_{j}+\sum _{k}x_{ik}\beta _{k}+\epsilon _{i}} where ρ ρ {\displaystyle \rho } is a parameter which controls the degree of autocorrelation of y {\displaystyle y} .
+
+[ 10 ] This is similar to an autoregressive model in the analysis of time series .
+
+See also [ edit ] Spatial Analysis Moran's I Geary's C Join Count Statistics References [ edit ] ^ a b Cliff, A.D. and Ord, J.K. (1981).
+
+Spatial Processes: Models & Applications . Pion.
+
+ISBN 9780850860818 .
+
+{{ cite book }} :  CS1 maint: multiple names: authors list ( link ) ^ a b "Contiguity-Based Spatial Weights" .
+
+^ a b c d Dale MR, Fortin MJ. Spatial analysis: a guide for ecologists. Cambridge University Press; 2014 Sep 11.
+
+^ Bivand RS, Wong DW. Comparing implementations of global and local indicators of spatial association. Test. 2018 Sep;27(3):716-48.
+
+^ a b "Distance-Band Spatial Weights" .
+
+^ "Spatial Weights as Distance Functions" .
+
+^ Legendre P, Legendre L. Numerical ecology. Elsevier; 2012 Jul 21.
+
+^ "Applications of Spatial Weights" .
+
+^ Anselin L, Griffith DA. Do spatial effecfs really matter in regression analysis?. Papers in Regional Science. 1988 Jan 1;65(1):11-34.
+
+^ Seya H, Yoshida T, Yamagata Y. Spatial econometric models. InSpatial Analysis Using Big Data 2020 Jan 1 (pp. 113-158). Academic Press.
+
+Retrieved from " https://en.wikipedia.org/w/index.php?title=Spatial_weight_matrix&oldid=1302146431 " Categories : Spatial analysis Covariance and correlation Hidden categories: CS1 maint: multiple names: authors list Articles with short description Short description matches Wikidata This page was last edited on 23 July 2025, at 17:12 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Spatial weight matrix Add languages Add topic
+

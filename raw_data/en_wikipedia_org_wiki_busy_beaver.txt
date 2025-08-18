@@ -1,0 +1,746 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Technical definition Toggle Technical definition subsection 1.1 Example 2 Functions Toggle Functions subsection 2.1 Score function Σ 2.1.1 Non-computability 2.1.2 Complexity and unprovability of Σ 2.2 Maximum shifts function S 2.3 Proof for uncomputability of S ( n ) and Σ( n ) 2.4 Uncomputability of space(n) and num(n) 3 Generalizations Toggle Generalizations subsection 3.1 Different numbers of symbols 3.2 Nondeterministic Turing machines 4 Applications Toggle Applications subsection 4.1 Open mathematical problems 4.1.1 Consistency of theories 4.1.2 Notable examples 4.2 Universal Turing machines 4.3 Physical Church–Turing thesis 5 Known results Toggle Known results subsection 5.1 Lower bounds 5.1.1 Green machines 5.1.2 Relationships between busy beaver functions 5.2 Exact values and lower and upper bounds 5.3 List of busy beavers 6 Visualizations 7 See also 8 Notes 9 References 10 External links Toggle the table of contents Busy beaver 13 languages العربية Deutsch Français 한국어 Italiano עברית Nederlands 日本語 Polski Português Русский Suomi 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Concept in theoretical computer science For other uses of Busy Beaver or Busy Beavers, see Busy beaver (disambiguation) .
+
+This article has multiple issues.
+
+Please help improve it or discuss these issues on the talk page .
+
+( Learn how and when to remove these messages ) This article may be too technical for most readers to understand .
+
+Please help improve it to make it understandable to non-experts , without removing the technical details.
+
+( October 2016 ) ( Learn how and when to remove this message ) This article has an unclear citation style .
+
+The references used may be made clearer with a different or consistent style of citation and footnoting .
+
+( July 2024 ) ( Learn how and when to remove this message ) ( Learn how and when to remove this message ) This "space–time diagram" [ 1 ] shows the state of the memory tape on a row for the first 100,000 timesteps of the best 5-state busy beaver from top to bottom. Orange is "1", white is "0" (image compressed vertically).
+
+In theoretical computer science , the busy beaver game aims to find a terminating program of a given size that (depending on definition) either produces the most output possible, or runs for the longest number of steps.
+
+[ 2 ] Since an endlessly looping program producing infinite output or running for infinite time is easily conceived, such programs are excluded from the game.
+
+[ 2 ] Rather than traditional programming languages, the programs used in the game are n-state Turing machines , [ 2 ] one of the first mathematical models of computation.
+
+[ 3 ] Turing machines consist of an infinite tape, and a finite set of states which serve as the program's "source code". Producing the most output is defined as writing the largest number of 1s on the tape, also referred to as achieving the highest score, and running for the longest time is defined as taking the longest number of steps to halt.
+
+[ 4 ] The n- state busy beaver game consists of finding the longest-running or highest-scoring Turing machine which has n states and eventually halts.
+
+[ 2 ] Such machines are assumed to start on a blank tape, and the tape is assumed to contain only zeros and ones (a binary Turing machine).
+
+[ 2 ] The objective of the game is to program a set of transitions between states aiming for the highest score or longest running time while making sure the machine will halt eventually.
+
+An n -th busy beaver , BB- n or simply "busy beaver" is a Turing machine that wins the n -state busy beaver game.
+
+[ 5 ] Depending on definition, it either attains the highest score (denoted by Σ(n) [ 4 ] ), or runs for the longest time ( S(n) ), among all other possible n -state competing Turing machines.
+
+Deciding the running time or score of the n th Busy Beaver is incomputable .
+
+[ 4 ] In fact, both the functions Σ(n) and S(n) eventually become larger than any computable function.
+
+[ 4 ] This has implications in computability theory , the halting problem , and complexity theory .
+
+[ 6 ] The concept of a busy beaver was first introduced by Tibor Radó in his 1962 paper, "On Non-Computable Functions".
+
+[ 4 ] One of the most interesting aspects of the busy beaver game is that, if it were possible to compute the functions Σ(n) and S(n) for all n , then this would resolve all mathematical conjectures which can be encoded in the form "does ⟨this Turing machine⟩ halt".
+
+[ 5 ] For example, a 27-state Turing machine could check Goldbach's conjecture for each number and halt on a counterexample: if this machine had not halted after running for S(27) steps, then it must run forever, resolving the conjecture.
+
+[ 5 ] Many other problems, including the Riemann hypothesis (744 states) and the consistency of ZF set theory (745 states [ 7 ] [ 8 ] ), can be expressed in a similar form, where at most a countably infinite number of cases need to be checked.
+
+[ 5 ] Technical definition [ edit ] The n -state busy beaver game (or BB- n game ), introduced in Tibor Radó 's 1962 paper, involves a class of Turing machines , each member of which is required to meet the following design specifications: The machine has n "operational" states plus a Halt state, where n is a positive integer, and one of the n states is distinguished as the starting state. (Typically, the states are labelled by 1, 2, ..., n , with state 1 as the starting state, or by A , B , C , ..., with state A as the starting state.) The machine uses a single two-way infinite (or unbounded) tape.
+
+The tape alphabet is {0, 1}, with 0 serving as the blank symbol.
+
+The machine's transition function takes two inputs: the current non-Halt state, the symbol in the current tape cell, and produces three outputs: a symbol to write over the symbol in the current tape cell (it may be the same symbol as the symbol overwritten), a direction to move (left or right; that is, shift to the tape cell one place to the left or right of the current cell), and a state to transition into (which may be the Halt state).
+
+"Running" the machine consists of starting in the starting state, with the current tape cell being any cell of a blank (all-0) tape, and then iterating the transition function until the Halt state is entered (if ever).
+
+If and only if the machine eventually halts, then the number of 1s finally remaining on the tape is called the machine's score . The n -state busy beaver (BB- n ) game is therefore a contest, depending on definition to find such an n -state Turing machine having the largest possible score or running time.
+
+Example [ edit ] The rules for one 1-state Turing machine might be: In state 1, if the current symbol is 0, write a 1, move one space to the right, and transition to state 1 In state 1, if the current symbol is 1, write a 0, move one space to the right, and transition to HALT This Turing machine would move to the right, swapping the value of all the bits it passes. Since the starting tape is all 0s, it would make an unending string of ones. This machine would not be a busy beaver contender because it runs forever on a blank tape.
+
+Functions [ edit ] In his original 1962 paper, Radó defined two functions related to the busy beaver game: the score function Σ(n) and the shifts function S(n).
+
+[ 4 ] Both take a number of Turing machine states n {\displaystyle n} and output the maximum score attainable by a Turing machine of that number of states by some measure. The score function Σ(n) gives the maximum number of 1s an n {\displaystyle n} -state Turing machine can output before halting, while the shifts function S(n) gives the maximum number of shifts (or equivalently steps, because each step includes a shift) that an n {\displaystyle n} -state Turing machine can undergo before halting.
+
+[ 4 ] He proved that both of these functions were noncomputable , because they each grew faster than any computable function.
+
+[ 4 ] The function BB(n) has been defined to be either of these functions, [ citation needed ] so that notation is not used in this article.
+
+A number of other uncomputable functions can also be defined based on measuring the performance of Turing machines in other ways than time or maximal number of ones.
+
+[ 9 ] For example: [ 9 ] The function num ( n ) {\displaystyle {\text{num}}(n)} is defined to be the maximum number of contiguous ones a halting Turing machine can write on a blank tape. In other words, this is the largest unary number a Turing machine of n states can write on a tape.
+
+The function space ( n ) {\displaystyle {\text{space}}(n)} is defined to be the maximal number of tape squares a halting Turing machine can read (i.e., visit) before halting. This includes the starting square, but not a square that the machine only reaches after the halt transition (if the halt transition is annotated with a move direction), because that square does not influence the machine's behaviour. This is the maximal space complexity of an n -state Turing machine.
+
+These four functions together stand in the relation num ( n ) ≤ ≤ Σ Σ ( n ) ≤ ≤ space ( n ) ≤ ≤ S ( n ) {\displaystyle {\text{num}}(n)\leq \Sigma (n)\leq {\text{space}}(n)\leq S(n)} .
+
+[ 9 ] More functions can also be defined by operating the game on different computing machines, such as 3-symbol Turing machines, [ 10 ] non-deterministic Turing machines, [ 11 ] the lambda calculus (sequence A333479 in the OEIS ) or even arbitrary programming languages.
+
+[ 10 ] Score function Σ [ edit ] The score function quantifies the maximum score attainable by a busy beaver on a given measure. This is a noncomputable function , because it grows asymptotically faster than any computable function.
+
+[ 12 ] The score function, Σ Σ : N → → N {\displaystyle \Sigma :\mathbb {N} \to \mathbb {N} } , is defined so that Σ Σ ( n ) {\displaystyle \Sigma (n)} is the maximum attainable score (the maximum number of 1s finally on the tape) among all halting 2-symbol n {\displaystyle n} -state Turing machines of the above-described type, when started on a blank tape.
+
+It is clear that Σ Σ {\displaystyle \Sigma } is a well-defined function: for every n , there are at most finitely many n -state Turing machines as above, up to isomorphism, hence at most finitely many possible running times.
+
+[ 4 ] p. 880 According to the score-based definition, any n -state 2-symbol Turing machine M for which σ ( M ) = Σ( n ) (i.e., which attains the maximum score) is called a busy beaver.  For each n , there exist at least 4( n − 1)!
+
+n -state busy beavers. (Given any n -state busy beaver, another is obtained by merely changing the shift direction in a halting transition, a third by reversing all shift directions uniformly, and a fourth by reversing the halt direction of the all-swapped busy beaver.  Furthermore, a permutation of all states except Start and Halt produces a machine that attains the same score.  Theoretically, there could be more than one kind of transition leading to the halting state, but in practice it would be wasteful, because there is only one sequence of state transitions producing the sought-after result.) Non-computability [ edit ] Radó's 1962 paper proved that if f : N → → N {\displaystyle f:\mathbb {N} \to \mathbb {N} } is any computable function , then Σ( n ) > f ( n ) for all sufficiently large n , and hence that Σ is not a computable function.
+
+[ 4 ] Moreover, this implies that it is undecidable by a general algorithm whether an arbitrary Turing machine is a busy beaver. (Such an algorithm cannot exist, because its existence would allow Σ to be computed, which is a proven impossibility. In particular, such an algorithm could be used to construct another algorithm that would compute Σ as follows: for any given n , each of the finitely many n -state 2-symbol Turing machines would be tested until an n -state busy beaver is found; this busy beaver machine would then be simulated to determine its score, which is by definition Σ( n ).) Even though Σ( n ) is an uncomputable function, there are some small n for which it is possible to obtain its values and prove that they are correct. It is not hard to show that Σ(0) = 0, Σ(1) = 1, Σ(2) = 4, and with progressively more difficulty it can be shown that Σ(3) = 6, Σ(4) = 13 and Σ(5) = 4098 (sequence A028444 in the OEIS ). Σ( n ) has not yet been determined for any instance of n > 5, although lower bounds have been established (see the Known values section below).
+
+Complexity and unprovability of Σ [ edit ] A variant of Kolmogorov complexity is defined as follows: [ 13 ] The complexity of a number n is the smallest number of states needed for a BB-class Turing machine that halts with a single block of n consecutive 1s on an initially blank tape. The corresponding variant of Chaitin's incompleteness theorem states that, in the context of a given axiomatic system for the natural numbers , there exists a number k such that no specific number can be proven to have complexity greater than k , and hence that no specific upper bound can be proven for Σ( k ) (the latter is because "the complexity of n is greater than k " would be proven if n > Σ( k ) were proven). As mentioned in the cited reference, for any axiomatic system of "ordinary mathematics" the least value k for which this is true is far less than 10⇈10 ; consequently, in the context of ordinary mathematics, neither the value nor any upper-bound of Σ(10⇈10) can be proven. ( Gödel's first incompleteness theorem is illustrated by this result: in an axiomatic system of ordinary mathematics, there is a true-but-unprovable sentence of the form Σ(10⇈10) = n , and there are infinitely many true-but-unprovable sentences of the form Σ(10⇈10) < n .) Maximum shifts function S [ edit ] In addition to the function Σ, Radó [1962] introduced another extreme function for Turing machines, the maximum shifts function , S , defined as follows: [ 4 ] s ( M ) = the number of shifts M makes before halting, for any M ∈ E n , S ( n ) = max{ s ( M ) | M ∈ E n } = the largest number of shifts made by any halting n -state 2-symbol Turing machine.
+
+Because normal Turing machines are required to have a shift in each and every transition or "step" (including any transition to a Halt state), the max-shifts function is at the same time a max-steps function.
+
+Radó showed that S is noncomputable for the same reason that Σ is noncomputable – it grows faster than any computable function. He proved this simply by noting that for each n , S ( n ) ≥ Σ( n ). Each shift may write a 0 or a 1 on the tape, while Σ counts a subset of the shifts that wrote a 1, namely the ones that had not been overwritten by the time the Turing machine halted; consequently, S grows at least as fast as Σ, which had already been proved to grow faster than any computable function.
+
+[ 4 ] The following connection between Σ and S was used by Lin & Radó ( Computer Studies of Turing Machine Problems , 1965) to prove that Σ(3) = 6 and that S(3)=21: For a given n , if S ( n ) is known then all n -state Turing machines can (in principle) be run for up to S ( n ) steps, at which point any machine that has not yet halted will never halt.  At that point, by observing which machines have halted with the most 1s on the tape (i.e., the busy beavers), one obtains from their tapes the value of Σ( n ). The approach used by Lin & Radó for the case of n = 3 was to conjecture that S (3) = 21 (after unsuccessfully conjecturing 18), then to simulate all the essentially different 3-state machines (82,944 machines, equal to 2 10 3 4 ) for up to 21 steps. They found 26,073 machines that halted, including one that halted only after 21 steps. By analyzing the behavior of the machines that had not halted within 21 steps, they succeeded in showing that none of those machines would ever halt, most of them following a certain pattern. This proved the conjecture that S (3) = 21, and also determined that Σ(3) = 6, which was attained by several machines, all halting after 11 to 14 steps.
+
+[ 14 ] In 2016, Adam Yedidia and Scott Aaronson obtained the first (explicit) upper bound on the minimum n for which S( n ) is unprovable in ZFC . To do so they constructed a 7910-state [ 15 ] Turing machine whose behavior cannot be proven based on the usual axioms of set theory ( Zermelo–Fraenkel set theory with the axiom of choice ), under reasonable consistency hypotheses ( stationary Ramsey property ).
+
+[ 16 ] [ 17 ] Stefan O'Rear then reduced it to 1919 states, with the dependency on the stationary Ramsey property eliminated, [ 18 ] [ 19 ] and later to 748 states.
+
+[ 6 ] In July 2023, Riebel reduced it to 745 states.
+
+[ 7 ] [ 8 ] Proof for uncomputability of S ( n ) and Σ( n ) [ edit ] This section does not cite any sources .
+
+Please help improve this section by adding citations to reliable sources . Unsourced material may be challenged and removed .
+
+( July 2024 ) ( Learn how and when to remove this message ) Suppose that S ( n ) is a computable function and let EvalS denote a TM, evaluating S ( n ). Given a tape with n 1s it will produce S ( n ) 1s on the tape and then halt. Let Clean denote a Turing machine cleaning the sequence of 1s initially written on the tape. Let Double denote a Turing machine evaluating function n + n . Given a tape with n 1s it will produce 2 n 1s on the tape and then halt. 
+Let us create the composition Double | EvalS | Clean and let n 0 be the number of states of this machine. Let Create_n 0 denote a Turing machine creating n 0 1s on an initially blank tape. This machine may be constructed in a trivial manner to have n 0 states (the state i writes 1, moves the head right and switches to state i + 1, except the state n 0 , which halts). Let N denote the sum n 0 + n 0 .
+
+Let BadS denote the composition Create_n 0 | Double | EvalS | Clean . Notice that this machine has N states. Starting with an initially blank tape it first creates a sequence of n 0 1s and then doubles it, producing a sequence of N 1s. Then BadS will produce S ( N ) 1s on tape, and at last it will clear all 1s and then halt. But the phase of cleaning will continue at least S ( N ) steps, so the time of working of BadS is strictly greater than S ( N ), which contradicts to the definition of the function S ( n ).
+
+The uncomputability of Σ( n ) may be proved in a similar way. In the above proof, one must exchange the machine EvalS with EvalΣ and Clean with Increment — a simple TM, searching for a first 0 on the tape and replacing it with 1.
+
+The uncomputability of S ( n ) can also be established by reference to the blank tape halting problem. The blank tape halting problem is the problem of deciding for any Turing machine whether or not it will halt when started on an empty tape.  The blank tape halting problem is equivalent to the standard halting problem and so it is also uncomputable.  If S ( n ) was computable, then we could solve the blank tape halting problem simply by running any given Turing machine with n states for S ( n ) steps;  if it has still not halted, it never will.  So, since the blank tape halting problem is not computable, it follows that S ( n ) must likewise be uncomputable.
+
+Uncomputability of space(n) and num(n) [ edit ] Both space ( n ) {\displaystyle {\text{space}}(n)} and num ( n ) {\displaystyle {\text{num}}(n)} functions are uncomputable.
+
+[ 9 ] This can be shown for space ( n ) {\displaystyle {\text{space}}(n)} by noting that every tape square a Turing machine writes a one to, it must also visit: in other words, Σ Σ ( n ) ≤ ≤ space ( n ) {\displaystyle \Sigma (n)\leq {\text{space}}(n)} .
+
+[ 9 ] The num ( n ) {\displaystyle {\text{num}}(n)} function can be shown to be incomputable by proving, for example, that space ( n ) < num ( 3 n + 3 ) {\displaystyle {\text{space}}(n)<{\text{num}}(3n+3)} : this can be done by designing an (3n+3) -state Turing machine which simulates the n -state space champion, and then uses it to write at least space ( n ) {\displaystyle {\text{space}}(n)} contiguous ones to the tape.
+
+[ 9 ] Generalizations [ edit ] Analogs of the shift function can be simply defined in any programming language, given that the programs can be described by bit-strings, and a program's number of steps can be counted.
+
+[ 10 ] For example, the busy beaver game can also be generalized to two dimensions using Turing machines on two-dimensional tapes, or to Turing machines that are allowed to stay in the same place as well as move to the left and right.
+
+[ 10 ] Alternatively a "busy beaver function" for diverse models of computation can be defined with Kolmogorov complexity .
+
+[ 10 ] This is done by taking B B ( n ) {\displaystyle {BB}(n)} to be the largest integer m {\displaystyle m} such that K L ( m ) ≤ ≤ n {\displaystyle K_{L}(m)\leq n} , where K L ( m ) {\displaystyle K_{L}(m)} is the length of the shortest program in L {\displaystyle L} that outputs m {\displaystyle m} : B B ( n ) {\displaystyle {BB}(n)} is thereby the largest integer a program with length n {\displaystyle n} or less can output in L {\displaystyle L} .
+
+[ 10 ] The longest running 6-state, 2-symbol machine which has the additional property of reversing the tape value at each step produces 6147 1s after 47 339 970 steps.
+
+[ citation needed ] So for the Reversal Turing Machine (RTM) class, [ 20 ] S RTM (6) ≥ 47 339 970 and Σ RTM (6) ≥ 6147 . Likewise we could define an analog to the Σ function for register machines as the largest number which can be present in any register on halting, for a given number of instructions.
+
+[ citation needed ] Different numbers of symbols [ edit ] A simple generalization is the extension to Turing machines with m symbols instead of just two (0 and 1).
+
+[ 10 ] For example, a trinary Turing machine with m = 3 symbols would have the symbols 0, 1, and 2. The generalization to Turing machines with n states and m symbols defines the following generalized busy beaver functions : Σ( n , m ): the largest number of non-zeros printable by an n -state, m -symbol machine started on an initially blank tape before halting, [ citation needed ] and S ( n , m ): the largest number of steps taken by an n -state, m -symbol machine started on an initially blank tape before halting.
+
+[ 10 ] For example, the longest-running 3-state 3-symbol machine found so far runs 119 112 334 170 342 540 steps before halting.
+
+[ 21 ] [ 22 ] Nondeterministic Turing machines [ edit ] Maximal halting times and states from p -case, 2-state, 2-color NDTM [ 11 ] p steps states 1 2 2 2 4 4 3 6 7 4 7 11 5 8 15 6 7 18 7 6 18 The problem can be extended to nondeterministic Turing machines by looking for the system with the most states across all branches or the branch with the longest number of steps.
+
+[ 11 ] The question of whether a given NDTM will halt is still computationally irreducible, and the computation required to find an NDTM busy beaver is significantly greater than the deterministic case, since there are multiple branches that need to be considered. For a 2-state, 2-color system with p cases or rules, the table to the right gives the maximum number of steps before halting and maximum number of unique states created by the NDTM.
+
+Applications [ edit ] Open mathematical problems [ edit ] In addition to posing a rather challenging mathematical game , the busy beaver functions Σ(n) and S ( n ) offer an entirely new approach to solving pure mathematics problems. Many open problems in mathematics could in theory, but not in practice, be solved in a systematic way given the value of S ( n ) for a sufficiently large n .
+
+[ 5 ] [ 23 ] Theoretically speaking, the value of S(n) encodes the answer to all mathematical conjectures that can be checked in infinite time by a Turing machine with less than or equal to n states.
+
+[ 6 ] Consider any Π Π 1 0 {\displaystyle \Pi _{1}^{0}} conjecture : any conjecture that could be disproven via a counterexample among a countable number of cases (e.g.
+
+Goldbach's conjecture ). Write a computer program that sequentially tests this conjecture for increasing values. In the case of Goldbach's conjecture, we would consider every even number ≥ 4 sequentially and test whether or not it is the sum of two prime numbers. Suppose this program is simulated on an n -state Turing machine. If it finds a counterexample (an even number ≥ 4 that is not the sum of two primes in our example), it halts and indicates that. However, if the conjecture is true, then our program will never halt. (This program halts only if it finds a counterexample.) [ 6 ] Now, this program is simulated by an n -state Turing machine, so if we know S ( n ) we can decide (in a finite amount of time) whether or not it will ever halt by simply running the machine that many steps.  And if, after S ( n ) steps, the machine does not halt, we know that it never will and thus that there are no counterexamples to the given conjecture (i.e., no even numbers that are not the sum of two primes).  This would prove the conjecture to be true.
+
+[ 6 ] Thus specific values (or upper bounds) for S ( n ) could be, in theory, used to systematically solve many open problems in mathematics.
+
+[ 6 ] However, current results on the busy beaver problem suggest that this will not be practical for two reasons: [ citation needed ] It is extremely hard to prove values for the busy beaver function (and the max shift function). Every known exact value of S ( n ) was proven by enumerating every n -state Turing machine and proving whether or not each halts. One would have to calculate S ( n ) by some less direct method for it to actually be useful.
+
+[ citation needed ] The values of S(n) and the other busy beaver functions get very large, very quickly. While the value of S(5) is only around 47 million, the value of S(6) is more than 10⇈10000000, or in tetration notation, 10 , 000 , 000 10 {\displaystyle {}^{10,000,000}10} , which is equal to 10 ( 10 ( 10 ( 10 ( … … ) ) ) ) {\displaystyle 10^{(10^{(10^{(10^{(\ldots )})})})}} with a tower of 10 million tens. A greater lower bound for S(6) is 9 2 2 2 {\displaystyle ^{^{^{^{9}2}2}}2} , i.e. 2 tetrated to the 2 tetrated to the 2 tetrated to the 9 which is at least 2 pentated to the 5.
+
+[ 24 ] The value of S(27), which is the number of steps the current program for the Goldbach conjecture would need to be run to give a conclusive answer, is incomprehensibly huge, and not remotely possible to write down, much less run a machine for, in the observable universe.
+
+[ 5 ] Consistency of theories [ edit ] Another property of S(n) is that no arithmetically sound, computably axiomatized theory can prove all of the function's values. Specifically, given a computable and arithmetically sound theory T {\displaystyle T} , there is a number n T {\displaystyle n_{T}} such that for all n ≥ ≥ n T {\displaystyle n\geq n_{T}} , no statement of the form S ( n ) = k {\displaystyle S(n)=k} can be proved in T {\displaystyle T} .
+
+[ 6 ] This implies that for each theory there is a specific largest value of S(n) that it can prove. This is true because for every such T {\displaystyle T} , a Turing machine with n T {\displaystyle n_{T}} states can be designed to enumerate every possible proof in T {\displaystyle T} .
+
+[ 6 ] If the theory is inconsistent, then all false statements are provable, and the Turing machine can be given the condition to halt if, and only if, it finds a proof of, for example, 0 = 1 {\displaystyle 0=1} .
+
+[ 6 ] Any theory that proves the value of S ( n T ) {\displaystyle S(n_{T})} proves its own consistency, violating Gödel's second incompleteness theorem .
+
+[ 6 ] This can be used to place various theories on a scale, for example the various large cardinal axioms in ZFC : if each theory T {\displaystyle T} is assigned as its number n T {\displaystyle n_{T}} , theories with larger values of n T {\displaystyle n_{T}} prove the consistency of those below them, placing all such theories on a countably infinite scale.
+
+[ 6 ] Notable examples [ edit ] A 745-state binary Turing machine has been constructed that halts iff ZFC is inconsistent.
+
+[ 7 ] [ 8 ] A 744-state Turing machine has been constructed that halts iff the Riemann hypothesis is false.
+
+[ 18 ] [ 5 ] A 43-state Turing machine was constructed that halts iff Goldbach's conjecture is false. This was further reduced to 25-state machine, [ 18 ] [ 5 ] and later formally proved and verified in the Lean 4 theorem proving language.
+
+[ 25 ] A 15-state Turing machine has been constructed that halts iff the following conjecture formulated by Paul Erdős in 1979 is false: for all n > 8 there is at least one digit 2 in the base 3 representation of 2 n .
+
+[ 26 ] [ 27 ] A 6-state Turing machine has been discovered that halts iff repeated applications of x n + 1 = ⌊ 3 x n 2 ⌋ + 2 {\textstyle x_{n+1}=\left\lfloor {\frac {3x_{n}}{2}}\right\rfloor +2} starting from 4 [ failed verification ] ever produces twice as many odd values as even values. It was later named "Antihydra".
+
+[ 28 ] Universal Turing machines [ edit ] Exploring the relationship between computational universality and the dynamic behavior of Busy Beaver Turing machines , a conjecture was proposed in 2012 [ 29 ] suggesting that Busy Beaver machines were natural candidates for Turing universality as they display complex characteristics, known for (1) their maximal computational complexity within size constraints, (2) their ability to perform non-trivial calculations before halting, and (3) the difficulty in finding and proving these machines; these features suggest that Busy Beaver machines possess the necessary complexity for universality.
+
+Physical Church–Turing thesis [ edit ] The growth properties of the Busy Beaver function have implications for the behaviour of physical systems, assuming the truth of the physical Church–Turing thesis . If the physical Church–Turing thesis holds, and all physically computable functions are Turing-computable, then no directly measurable physical quantity can grow faster than the Busy Beaver function, as no Turing-computable function can grow faster than it.
+
+[ 30 ] Simple functions of B B ( n ) {\displaystyle BB(n)} would also impose a lower limit on growth rates, as well as upper and lower bounds on rates of convergence.
+
+[ 31 ] [ 30 ] Known results [ edit ] Lower bounds [ edit ] Green machines [ edit ] In 1964 Milton Green developed a lower bound for the 1s-counting variant of the Busy Beaver function that was published in the proceedings of the 1964 IEEE symposium on switching circuit theory and logical design. Heiner Marxen and Jürgen Buntrock described it as "a non-trivial (not primitive recursive) lower bound".
+
+[ 32 ] This lower bound can be calculated but is too complex to state as a single expression in terms of n .
+
+[ 33 ] This was done with a set of Turing machines, each of which demonstrated the lower bound for a certain n .
+
+[ 33 ] When n =8 the method gives Σ Σ ( 8 ) ≥ ≥ 3 × × ( 7 × × 3 92 − − 1 ) / 2 ≈ ≈ 8.248 × × 10 44 .
+
+{\displaystyle \Sigma (8)\geq 3\times (7\times 3^{92}-1)/2\approx 8.248\times 10^{44}.} In contrast, the best current (as of 2024) lower bound on Σ Σ ( 6 ) {\displaystyle \Sigma (6)} is 10 ↑ ↑ ↑ ↑ 15 {\displaystyle 10\uparrow \uparrow 15} , where each ↑ ↑ {\displaystyle \uparrow } is Knuth's up-arrow notation .
+
+[ 10 ] This represents 10 ( 10 ( 10 ( 10 ( … … ) ) ) ) {\displaystyle 10^{(10^{(10^{(10^{(\ldots )})})})}} , an exponentiated chain of 15 tens equal to 10 10 ↑ ↑ ↑ ↑ 14 {\displaystyle 10^{10\uparrow \uparrow 14}} . The value of Σ Σ ( 8 ) {\displaystyle \Sigma (8)} is probably much larger still than that.
+
+Specifically, the lower bound was shown with a series of recursive Turing machines, each of which was made of a smaller one with two additional states that repeatedly applied the smaller machine to the input tape.
+
+[ 33 ] Defining the value of the N-state busy-beaver competitor on a tape containing m {\displaystyle m} ones to be B N ( m ) {\displaystyle B_{N}(m)} (the ultimate output of each machine being its value on m = 0 {\displaystyle m=0} , because a blank tape has 0 ones), the recursion relations are as follows: [ 33 ] B N ( 0 ) = 1 B 1 ( m ) = m + 1 B N ( m ) = 1 + B N − − 2 ( 1 + B N ( m − − 1 ) ) {\displaystyle {\begin{aligned}B_{N}(0)&=1\\B_{1}(m)&=m+1\\B_{N}(m)&=1+B_{N-2}(1+B_{N}(m-1))\end{aligned}}} This leads to two formulas, for odd and even numbers, for calculating the lower bound given by the Nth machine, G ( N ) {\displaystyle G(N)} : G ( N ) = B N − − 2 ( B N − − 2 ( 1 ) ) foroddN G ( N ) = 1 + B N − − 3 ( 1 + B N − − 3 ( 1 ) ) forevenN {\displaystyle {\begin{aligned}G(N)&=B_{N-2}(B_{N-2}(1)){\textrm {foroddN}}\\G(N)&=1+B_{N-3}(1+B_{N-3}(1)){\textrm {forevenN}}\end{aligned}}} The lower bound BB(N) can also be related to the Ackermann function . It can be shown that: [ 34 ] A ( n , n ) > G ( 4 N + 3 ) > A ( 4 , 2 N + 1 ) {\displaystyle A(n,n)>G(4N+3)>A(4,2N+1)} Relationships between busy beaver functions [ edit ] Trivially, S(n) ≥ Σ(n) because a machine that writes Σ(n) ones must take at least Σ(n) steps to do so.
+
+[ 34 ] It is possible to give a number of upper bounds on the time S(n) with the number of ones Σ(n): S ( n ) ≤ ≤ ( n + 1 ) × × Σ Σ ( 5 n ) × × 2 Σ Σ ( 5 n ) {\displaystyle S(n)\leq (n+1)\times \Sigma (5n)\times 2^{\Sigma (5n)}} (Rado [ 34 ] ) S ( n ) ≤ ≤ Σ Σ ( 9 n ) {\displaystyle S(n)\leq \Sigma (9n)} (Buro [ 34 ] ) S ( n ) ≤ ≤ ( 2 n − − 1 ) × × Σ Σ ( 3 n + 3 ) {\displaystyle S(n)\leq (2n-1)\times \Sigma (3n+3)} (Ben-Amram, Julstrom and Zwick [ 34 ] ) By defining num(n) to be the maximum number of ones an n -state Turing machine is allowed to output contiguously, rather than in any position (the largest unary number it can output), it is possible to show: [ 34 ] [ 9 ] num ( n ) < Σ Σ ( n ) S ( n ) < num ( n + o ( n ) ) S ( n ) < num ( 3 n + 6 ) {\displaystyle {\begin{aligned}{\text{num}}(n)&<\Sigma (n)\\S(n)&<{\text{num}}(n+o(n))\\S(n)&<{\text{num}}(3n+6)\end{aligned}}} Ben-Amram and Petersen, 2002, also give an asymptotically improved bound on S(n). There exists a constant c , such that for all n ≥ 2 : [ 34 ] S ( n ) ≤ ≤ Σ Σ ( n + ⌈ 8 n log 2 ⁡ ⁡ n ⌉ + c ) .
+
+{\displaystyle S(n)\leq \Sigma \left(n+\left\lceil {\frac {8n}{\log _{2}n}}\right\rceil +c\right).} Exact values and lower and upper bounds [ edit ] The following table lists the exact values and some known lower bounds for S ( n ), Σ( n ), and several other busy beaver functions. In this table, 2-symbol Turing machines are used. Entries listed as "?" are at least as large as other entries to the left (because all n-state machines are also (n+1) state machines), and no larger than entries above them (because S(n) ≥ space(n) ≥ Σ(n) ≥ num(n)). So, space(6) is known to be greater than 2 ↑ ↑ ↑ ↑ ↑ ↑ {\displaystyle \uparrow \uparrow \uparrow } 5, as space(n) ≥ Σ(n) and Σ(6) > 2 ↑ ↑ ↑ ↑ ↑ ↑ {\displaystyle \uparrow \uparrow \uparrow } 5.
+
+47 176 870 is an upper bound for space(5), because S(5) = 47 176 870 ( [ 3 ] ) and S(n) ≥ space(n). 4098 is an upper bound for num(5), because Σ(5) = 4098 and Σ(n) ≥ num(n). The last entry listed as "?" is num(6), because Σ(6) > 2 ↑ ↑ ↑ ↑ ↑ ↑ {\displaystyle \uparrow \uparrow \uparrow } 5, but Σ(n) ≥ num(n), same for num(7).
+
+Values of busy beaver functions Function 2-state 3-state 4-state 5-state 6-state 7-state S(n) 6 [ 6 ] 21 [ 6 ] 107 [ 6 ] 47 176 870 [ 3 ] > 2 ↑ ↑ ↑ ↑ ↑ ↑ {\displaystyle \uparrow \uparrow \uparrow } 5 [ 35 ] > 2 ↑ ↑ 11 {\displaystyle \uparrow ^{11}} 2 ↑ ↑ 11 {\displaystyle \uparrow ^{11}} 3 [ 35 ] space(n) 4 [ 34 ] 7 [ 34 ] 16 [ 34 ] ≥ 12 289 ≤ 47 176 870 S(n) ≥ space(n) [ 34 ] > 2 ↑ ↑ ↑ ↑ ↑ ↑ {\displaystyle \uparrow \uparrow \uparrow } 5 space(n) ≥ Σ(n) > 2 ↑ ↑ 11 {\displaystyle \uparrow ^{11}} 2 ↑ ↑ 11 {\displaystyle \uparrow ^{11}} 3 [ 35 ] Σ(n) 4 [ 34 ] 6 [ 34 ] 13 [ 34 ] 4098 [ 35 ] > 2 ↑ ↑ ↑ ↑ ↑ ↑ {\displaystyle \uparrow \uparrow \uparrow } 5 [ 35 ] > 2 ↑ ↑ 11 {\displaystyle \uparrow ^{11}} 2 ↑ ↑ 11 {\displaystyle \uparrow ^{11}} 3 [ 35 ] num(n) 4 [ 34 ] 6 [ 34 ] 12 [ 34 ] ≤ 4098 ?
+
+?
+
+The 5-state busy beaver was discovered by Heiner Marxen and Jürgen Buntrock in 1989, but only proved to be the winning fifth busy beaver in 2024 using a proof in Rocq .
+
+[ 36 ] List of busy beavers [ edit ] For an example of a 3-state busy beaver's state table and its "run", see Turing machine examples § 3-state Busy Beaver , and Turing machine examples .
+
+A zoomed-out space-time diagram of the 5-state busy beaver machine. The diagram is compressed so only steps which change the tape are shown, leading to triangular shapes appearing in the diagram. Green and yellow triangles indicate regions where the Turing machine shuttles back and forth; the time taken is proportional to the areas of these colored triangles. The bottom row is an excerpt of the tape and the read/write head upon halting.
+
+These are tables of rules for Turing machines that generate Σ(1) and S (1), Σ(2) and S (2), Σ(3) (but not S (3)), Σ(4) and S (4), Σ(5) and S (5), and the best known lower bound for Σ(6) and S (6).
+
+In the tables, columns represent the current state and rows represent the current symbol read from the tape. Each table entry is a string of three characters, indicating the symbol to write onto the tape, the direction to move, and the new state (in that order). The halt state is shown as H .
+
+Each machine begins in state A with an infinite tape that contains all 0s. Thus, the initial symbol read from the tape is a 0.
+
+Result key: (starts at the position overlined , halts at the position underlined ) 1-state, 2-symbol busy beaver A 0 1R H 1 (not used) Result: 0 0 1 0 0 (1 step, one "1" total) 2-state, 2-symbol busy beaver [ citation needed ] A B 0 1R B 1L A 1 1L B 1R H Result: 0 0 1 1 1 1 0 0 (6 steps, four "1"s total) Animation of a 3-state, 2-symbol busy beaver 3-state, 2-symbol busy beaver [ 37 ] [ 14 ] A B C 0 1R B 0R C 1L C 1 1R H 1R B 1L A Result: 0 0 1 1 1 1 1 1 0 0 (14 steps, six "1"s total).
+
+This is one of several nonequivalent machines giving six 1s. Unlike the previous machines, this one is a busy beaver for Σ, but not for S . ( S (3) = 21, and the machine obtains only five 1s.
+
+[ 14 ] ) Animation of a 4-state, 2-symbol busy beaver 4-state, 2-symbol busy beaver A B C D 0 1R B 1L A 1R H 1R D 1 1L B 0L C 1L D 0R A Result: 0 0 1 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 (107 steps, thirteen "1"s total) This "space-time diagram" [ 1 ] shows the state of the memory tape on a row for the first 100,000 timesteps of the best 5-state busy beaver from top to bottom. Orange is "1", white is "0" (image compressed vertically).
+
+5-state, 2-symbol busy beaver A B C D E 0 1R B 1R C 1R D 1L A 1R H 1 1L C 1R B 0L E 1L D 0L A Result: 4098 "1"s with 8191 "0"s interspersed in 47,176,870 steps.
+
+Note in the image to the right how this solution is similar qualitatively to the evolution of some cellular automata .
+
+current 6-state, 2-symbol best contender [ 21 ] [ 38 ] A B C D E F 0 1R B 1R C 1L C 0L E 1L F 0R C 1 0L D 0R F 1L A 1R H 0R B 0R E Result: 1 0 1 1 1 ...  1 1 1 ("10" followed by more than 10↑↑15 contiguous "1"s in more than 10↑↑15 steps, where 10↑↑15=10 10 .
+
+.
+
+10 , an exponential tower of 15 tens).
+
+Visualizations [ edit ] In the following table, the rules for each busy beaver (maximizing Σ) are represented visually, with orange squares corresponding to a "1" on the tape, and white corresponding to "0". The position of the head is indicated by the black ovoid, with the orientation of the head representing the state. Individual tapes are laid out horizontally, with time progressing from top to bottom. The halt state is represented by a rule which maps one state to itself (head doesn't move).
+
+Evolution of busy beavers with 1–4 states Rules for 1-state busy beaver Rules for 2-state busy beaver Rules for 3-state busy beaver Rules for 4-state busy beaver Evolution of 1-state busy beaver until halt. The initial state triggers a halt, with a single "1" being written before termination.
+
+Evolution of 2-state busy beaver until halt Evolution of 3-state busy beaver until halt Evolution of 4-state busy beaver until halt. Bottom line in left image wraps to top line of right image. The final step writes "1" before halting (not shown).
+
+See also [ edit ] Rayo's number Turmite Notes [ edit ] ^ a b "Story # space-time-diagrams" .
+
+The Busy Beaver Challenge . Retrieved 9 July 2024 .
+
+^ a b c d e Weisstein, Eric W.
+
+"Busy Beaver" .
+
+Wolfram MathWorld .
+
+Archived from the original on 7 December 2023 . Retrieved 21 November 2023 .
+
+^ a b c Brubaker, Ben (2 July 2024).
+
+"Amateur Mathematicians Find Fifth 'Busy Beaver' Turing Machine" .
+
+Quanta Magazine . Retrieved 3 July 2024 .
+
+^ a b c d e f g h i j k l Radó, Tibor (May 1962).
+
+"On non-computable functions" (PDF) .
+
+Bell System Technical Journal .
+
+41 (3): 877– 884.
+
+doi : 10.1002/j.1538-7305.1962.tb00480.x .
+
+Archived (PDF) from the original on 12 October 2021 . Retrieved 7 July 2022 .
+
+^ a b c d e f g h Pavlus, John (10 December 2020).
+
+"How the Slowest Computer Programs Illuminate Math's Fundamental Limits" .
+
+Quanta Magazine .
+
+Archived from the original on 10 December 2020 . Retrieved 11 December 2020 .
+
+^ a b c d e f g h i j k l m n Aaronson, Scott (29 September 2020).
+
+"The Busy Beaver Frontier" (PDF) .
+
+SIGACT News .
+
+51 (3): 32– 54.
+
+doi : 10.1145/3427361.3427369 .
+
+ISSN 0163-5700 . Archived from the original (PDF) on 5 July 2022.
+
+^ a b c Aaronson, Scott (5 July 2023).
+
+"Life, blogging, and the Busy Beaver function go on" .
+
+Shtetl-Optimized .
+
+Archived from the original on 28 August 2023 . Retrieved 27 August 2023 .
+
+^ a b c Riebel, Johannes (March 2023).
+
+The Undecidability of BB(748): Understanding Gödel's Incompleteness Theorems (PDF) (Bachelor's thesis).
+
+University of Augsburg .
+
+Archived (PDF) from the original on 17 September 2024 . Retrieved 24 September 2024 .
+
+^ a b c d e f g Ben-Amram, A. M.; Julstrom, B. A.; Zwick, U. (1 August 1996).
+
+"A note on busy beavers and other creatures" .
+
+Mathematical Systems Theory .
+
+29 (4): 375– 386.
+
+doi : 10.1007/BF01192693 .
+
+ISSN 1433-0490 .
+
+^ a b c d e f g h i Aaronson, Scott (2 July 2024).
+
+"BusyBeaver(5) is now known to be 47,176,870" .
+
+Shtetl-Optimized . Retrieved 4 July 2024 .
+
+^ a b c Wolfram, Stephen (4 February 2021).
+
+"Multiway Turing Machines" .
+
+www.wolframphysics.org .
+
+Archived from the original on 7 July 2022 . Retrieved 7 July 2022 .
+
+^ Chaitin (1987) ^ Boolos, Burgess & Jeffrey, 2007. "Computability and Logic" ^ a b c Lin, Shen; Rado, Tibor (April 1965).
+
+"Computer studies of Turing machine problems" .
+
+Journal of the ACM .
+
+12 (2): 196– 212.
+
+doi : 10.1145/321264.321270 .
+
+S2CID 17789208 .
+
+^ Yedidia, Adam; Aaronson, Scott (May 2016). "A Relatively Small Turing Machine Whose Behavior Is Independent of Set Theory".
+
+arXiv : 1605.04343 [ cs.FL ].
+
+^ Aron, Jacob (11 May 2016).
+
+"This Turing machine should run forever unless maths is wrong" .
+
+New Scientist .
+
+Archived from the original on 20 October 2016 . Retrieved 25 September 2016 .
+
+^ Version from May 3rd contained 7918 states: Aaronson, Scott (3 May 2016).
+
+"The 8000th Busy Beaver number eludes ZF set theory" .
+
+Shtetl-Optimized .
+
+Archived from the original on 27 September 2016 . Retrieved 25 September 2016 .
+
+^ a b c Aaronson, Scott (3 May 2016).
+
+"Three announcements" .
+
+Shtetl-Optimized . Retrieved 27 April 2018 .
+
+^ "sorear/metamath-turing-machines: Metamath proof enumerators and other things" .
+
+GitHub . 13 February 2019.
+
+Archived from the original on 17 April 2021 . Retrieved 19 May 2018 .
+
+^ "Reversal Turing machine" .
+
+skelet.ludost.net . Retrieved 10 February 2022 .
+
+^ a b Pascal Michel's Busy Beaver Competitions Archived 2023-10-06 at the Wayback Machine page listing best contenders known.
+
+^ Michel, Pascal (14 December 2015). "Problems in number theory from busy beaver competition".
+
+Logical Methods in Computer Science .
+
+11 (4): 10.
+
+^ Chaitin, Gregory J.
+
+(1987).
+
+"Computing the Busy Beaver Function" (PDF) . In Cover, T. M.; Gopinath, B. (eds.).
+
+Open Problems in Communication and Computation . Springer. pp.
+
+108– 112.
+
+ISBN 978-0-387-96621-2 . Archived from the original (PDF) on 30 December 2017 . Retrieved 7 July 2022 .
+
+^ Aaronson, Scott (28 June 2025).
+
+"BusyBeaver(6) is really quite large" .
+
+Shtetl-Optimized . Retrieved 16 July 2025 .
+
+^ Leng, Yijun.
+
+"GitHub Repository 'goldbach_tm27' " .
+
+GitHub .
+
+^ Stérin, Tristan; Woods, Damien (2021). "Hardness of busy beaver value BB(15)".
+
+arXiv : 2107.12475 [ cs.LO ].
+
+^ Erdös, Paul (1979).
+
+"Some unconventional problems in number theory" .
+
+Mathematics Magazine .
+
+52 (2): 67– 70.
+
+doi : 10.1080/0025570X.1979.11976756 .
+
+JSTOR 2689842 .
+
+Archived from the original on 13 June 2022 . Retrieved 7 July 2022 .
+
+^ "Antihydra" .
+
+BusyBeaverWiki . Retrieved 18 June 2025 .
+
+^ Zenil, Hector (2012).
+
+"On the Dynamic Qualitative Behaviour of Universal Computation" .
+
+Complex Systems .
+
+20 (3): 265– 277.
+
+doi : 10.25088/ComplexSystems.20.3.265 .
+
+ISSN 0891-2513 .
+
+PDF available from publisher.
+
+^ a b Ord, Toby (2024). "Bounds on the rates of growth and convergence of all physical processes".
+
+arXiv : 2410.10928 [ physics.hist-ph ].
+
+^ Karmela Padavic-Callaghan (1 November 2024).
+
+"There may be a cosmic speed limit on how fast anything can grow" .
+
+New Scientist .
+
+^ Brady, Allen H. (March 1998).
+
+"Heiner Marxen and Jürgen Buntrock. Attacking the busy beaver 5. Bulletin of the European Association for Theoretical Computer Science, no. 40 (Feb.1990), pp. 247–251. – Pascal Michel. Busy beaver competition and Collatz-like problems. Archive for mathematical logic, vol. 32 (1993), pp. 351–367" .
+
+The Journal of Symbolic Logic (book review).
+
+63 (1): 331– 332.
+
+doi : 10.2307/2586607 .
+
+ISSN 0022-4812 .
+
+JSTOR 2586607 .
+
+Archived from the original on 5 July 2024 . Retrieved 5 July 2024 .
+
+Free HTML version by author Archived 2006-10-09 at the Wayback Machine ^ a b c d Green, Milton W. (11 November 1964). "A lower bound RADO's sigma function for binary turing machines".
+
+1964 Proceedings of the Fifth Annual Symposium on Switching Circuit Theory and Logical Design . IEEE Computer Society. pp.
+
+91– 94.
+
+doi : 10.1109/SWCT.1964.3 .
+
+^ a b c d e f g h i j k l m n o p q Ben-Amram, A. M.; Petersen, H. (2002). "Improved bounds for functions related to busy beavers".
+
+Theory of Computing Systems .
+
+35 (1): 1– 11.
+
+doi : 10.1007/s00224-001-1052-0 .
+
+MR 1879169 .
+
+^ a b c d e f Michel, Pascal.
+
+"Historical survey of Busy Beavers" .
+
+^ "[July 2nd 2024] We have proved 'BB(5) = 47,176,870' " .
+
+The Busy Beaver Challenge . 2 July 2024.
+
+Archived from the original on 2 July 2024 . Retrieved 2 July 2024 .
+
+^ Shen Lin (1963).
+
+Computer studies of Turing machine problems (Ph.D. thesis).
+
+Ohio State University .
+
+^ Ligocki, Shawn (21 June 2022).
+
+"BB(6, 2) > 10↑↑15" .
+
+sligocki .
+
+Archived from the original on 2 July 2024 . Retrieved 4 July 2024 .
+
+References [ edit ] Radó, Tibor (May 1962).
+
+"On non-computable functions" (PDF) .
+
+Bell System Technical Journal .
+
+41 (3): 877– 884.
+
+doi : 10.1002/j.1538-7305.1962.tb00480.x .
+
+Archived (PDF) from the original on 12 October 2021 . Retrieved 7 July 2022 .
+
+This is where Radó first defined the busy beaver problem and proved that it was uncomputable and grew faster than any computable function.
+
+Lin, Shen; Radó, Tibor (April 1965).
+
+"Computer Studies of Turing Machine Problems" .
+
+Journal of the ACM .
+
+12 (2): 196– 212.
+
+doi : 10.1145/321264.321270 .
+
+S2CID 17789208 .
+
+The results of this paper had already appeared in part in Lin's 1963 doctoral dissertation, under Radó's guidance.  Lin & Radó prove that Σ(3) = 6 and S (3) = 21 by proving that all 3-state 2-symbol Turing Machines which don't halt within 21 steps will never halt. (Most are proven automatically by a computer program, however 40 are proven by human inspection.) Brady, Allen H. (April 1983).
+
+"The determination of the value of Rado's noncomputable function Σ( k ) for four-state Turing machines" .
+
+Mathematics of Computation .
+
+40 (162): 647– 665.
+
+doi : 10.1090/S0025-5718-1983-0689479-6 .
+
+JSTOR 2007539 .
+
+Brady proves that Σ(4) = 13 and S (4) = 107. Brady defines two new categories for non-halting 3-state 2-symbol Turing Machines: Christmas Trees and Counters. He uses a computer program to prove that all but 27 machines which run over 107 steps are variants of Christmas Trees and Counters which can be proven to run infinitely. The last 27 machines (referred to as holdouts) are proven by personal inspection by Brady himself not to halt.
+
+Machlin, Rona; Stout, Quentin F. (June 1990).
+
+"The complex behavior of simple machines" .
+
+Physica D: Nonlinear Phenomena .
+
+42 ( 1– 3): 85– 98.
+
+Bibcode : 1990PhyD...42...85M .
+
+doi : 10.1016/0167-2789(90)90068-Z .
+
+hdl : 2027.42/28528 .
+
+Archived from the original on 30 January 2012 . Retrieved 7 July 2022 .
+
+Machlin and Stout describe the busy beaver problem and many techniques used for finding busy beavers (which they apply to Turing Machines with 4-states and 2-symbols, thus verifying Brady's proof). They suggest how to estimate a variant of Chaitin's halting probability (Ω).
+
+Marxen, Heiner; Buntrock, Jürgen (February 1990).
+
+"Attacking the Busy Beaver 5" .
+
+Bulletin of the EATCS .
+
+40 : 247– 251.
+
+Archived from the original on 9 October 2006 . Retrieved 19 January 2020 .
+
+Marxen and Buntrock demonstrate that Σ(5) ≥ 4098 and S (5) ≥ 47 176 870 and describe in detail the method they used to find these machines and prove many others will never halt.
+
+Green, Milton W. (1964). "A lower bound RADO's sigma function for binary turing machines".
+
+1964 Proceedings of the Fifth Annual Symposium on Switching Circuit Theory and Logical Design . pp.
+
+91– 94.
+
+doi : 10.1109/SWCT.1964.3 .
+
+Archived from the original on 3 February 2019 . Retrieved 7 July 2022 .
+
+Green recursively constructs machines for any number of states and provides the recursive function that computes their score (computes σ), thus providing a lower bound for Σ. This function's growth is comparable to that of Ackermann's function .
+
+Dewdney, Alexander K.
+
+(1984). "A computer trap for the busy beaver, the hardest working Turing machine".
+
+Scientific American .
+
+251 (2): 10– 17.
+
+Busy beaver programs are described by Alexander Dewdney in Scientific American , August 1984, pages 19–23, also March 1985 p. 23 and April 1985 p. 30 .
+
+Chaitin, Gregory J.
+
+(1987).
+
+"Computing the Busy Beaver Function" (PDF) . In Cover, T. M.; Gopinath, B. (eds.).
+
+Open Problems in Communication and Computation . Springer. pp.
+
+108– 112.
+
+ISBN 978-0-387-96621-2 . Archived from the original (PDF) on 30 December 2017 . Retrieved 7 July 2022 .
+
+Brady, Allen H. (1995). "The Busy Beaver Game and the Meaning of Life". In Herken, Rolf (ed.).
+
+The Universal Turing Machine: A Half-Century Survey (2nd ed.). Wien, New York: Springer-Verlag. pp.
+
+237– 254.
+
+ISBN 978-3-211-82637-9 .
+
+Wherein Brady (of 4-state fame) describes some history of the beast and calls its pursuit "The Busy Beaver Game". He describes other games (e.g.
+
+cellular automata and Conway's Game of Life ). Of particular interest is "The Busy Beaver Game in Two Dimensions" (p. 247). With 19 references.
+
+Booth, Taylor L.
+
+(1967).
+
+Sequential Machines and Automata Theory . New York: Wiley.
+
+ISBN 978-0-471-08848-6 .
+
+Cf Chapter 9, Turing Machines. A difficult book, meant for electrical engineers and technical specialists. Discusses recursion, partial-recursion with reference to Turing Machines, halting problem. A reference in Booth attributes busy beaver to Rado. Booth also defines Rado's busy beaver problem in "home problems" 3, 4, 5, 6 of Chapter 9, p. 396. Problem 3 is to "show that the busy beaver problem is unsolvable... for all values of n." Ben-Amram, A. M.; Petersen, H. (2002). "Improved Bounds for Functions Related to Busy Beavers".
+
+Theory of Computing Systems .
+
+35 : 1– 11.
+
+CiteSeerX 10.1.1.136.5997 .
+
+doi : 10.1007/s00224-001-1052-0 .
+
+S2CID 10429773 .
+
+Improved bounds.
+
+Lafitte, G.; Papazian, C. (June 2007). "The fabric of small Turing machines".
+
+Computation and Logic in the Real World, Proceedings of the Third Conference on Computability in Europe . pp.
+
+219– 227.
+
+CiteSeerX 10.1.1.104.3021 .
+
+This article contains a complete classification of the 2-state, 3-symbol Turing machines, and thus a proof for the (2, 3) busy beaver: Σ(2, 3) = 9 and S(2, 3) = 38.
+
+Boolos, George S.; Burgess, John P.; Jeffrey, Richard C. (2007).
+
+Computability and Logic (Fifth ed.). Cambridge University Press.
+
+ISBN 978-0-521-87752-7 .
+
+Kropitz, Pavel (2010).
+
+Problém Busy Beaver (PDF) (Bachelor thesis) (in Slovak). Charles University in Prague.
+
+This is the description of ideas, of the algorithms and their implementation, with the description of the experiments examining 5-state and 6-state Turing machines by parallel run on 31 4-core computer and finally the best results for 6-state TM.
+
+External links [ edit ] Wikiversity hosts a quiz on the busy beaver The page of Heiner Marxen , who, with Jürgen Buntrock, found the above-mentioned records for a 5 and 6-state Turing machine.
+
+Pascal Michel's Historical survey of busy beaver results which also contains best results and some analysis.
+
+Definition of the class RTM - Reversal Turing Machines, simple and strong subclass of the TMs.
+
+" The Busy Beaver Problem: A New Millennium Attack " ( archived ) at the Rensselaer RAIR Lab. This effort found several new records and established several values for the quadruple formalization.
+
+Daniel Briggs' website archive and forum for solving the 5-state, 2-symbol busy beaver problem, based on Skelet (Georgi Georgiev) nonregular machines list.
+
+Ligocki, Shawn (17 July 2021).
+
+"Collatz-like behavior of Busy Beavers" .
+
+sligocki . Retrieved 12 July 2022 .
+
+Aaronson, Scott (1999), Who can name the bigger number?
+
+Weisstein, Eric W.
+
+"Busy Beaver" .
+
+MathWorld .
+
+Busy Beaver Turing Machines - Computerphile , YouTube Pascal Michel.
+
+The Busy Beaver Competition: a historical survey . 70 pages. 2017. <hal-00396880v5> OEIS sequence A060843 (Busy Beaver problem) Authority control databases : National Germany NewPP limit report
+Parsed by mw‐web.codfw.canary‐6968b5bc8‐fvlh4
+Cached time: 20250814090634
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 1.009 seconds
+Real time usage: 1.588 seconds
+Preprocessor visited node count: 6784/1000000
+Revision size: 67939/2097152 bytes
+Post‐expand include size: 169647/2097152 bytes
+Template argument size: 13159/2097152 bytes
+Highest expansion depth: 12/100
+Expensive parser function count: 14/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 202902/5000000 bytes
+Lua time usage: 0.572/10.000 seconds
+Lua memory usage: 9684637/52428800 bytes
+Number of Wikibase entities loaded: 1/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  950.911      1 -total
+ 16.70%  158.796     16 Template:Cite_web
+ 10.55%  100.340     17 Template:Cite_journal
+  9.07%   86.239      1 Template:Short_description
+  7.37%   70.109      1 Template:Authority_control
+  6.87%   65.330      1 Template:Multiple_issues
+  6.62%   62.961      7 Template:Citation_needed
+  6.04%   57.406      8 Template:Fix
+  5.89%   55.998      2 Template:Pagetype
+  5.17%   49.141      7 Template:Cite_book Saved in parser cache with key enwiki:pcache:67911:|#|:idhash:canonical and timestamp 20250814090634 and revision id 1305826025. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Busy_beaver&oldid=1305826025 " Categories : Computability theory Theory of computation Large integers Metaphors referring to animals Hidden categories: Webarchive template wayback links Articles with short description Short description is different from Wikidata Wikipedia articles that are too technical from October 2016 All articles that are too technical Wikipedia references cleanup from July 2024 All articles needing references cleanup Articles covered by WikiProject Wikify from July 2024 All articles covered by WikiProject Wikify Articles with multiple maintenance issues Use dmy dates from June 2025 All articles with unsourced statements Articles with unsourced statements from September 2024 Articles needing additional references from July 2024 All articles needing additional references Articles with unsourced statements from February 2022 Articles with unsourced statements from June 2024 Articles with unsourced statements from July 2024 All articles with failed verification Articles with failed verification from June 2025 Articles with unsourced statements from January 2023 CS1 Slovak-language sources (sk) This page was last edited on 14 August 2025, at 09:05 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Busy beaver 13 languages Add topic
+

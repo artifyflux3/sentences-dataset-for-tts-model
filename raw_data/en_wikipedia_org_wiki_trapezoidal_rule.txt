@@ -1,0 +1,149 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 History 2 Numerical implementation Toggle Numerical implementation subsection 2.1 Non-uniform grid 2.2 Uniform grid 3 Error analysis Toggle Error analysis subsection 3.1 Proof 3.2 Periodic and peak functions 3.3 "Rough" functions 4 Applicability and alternatives 5 Example 6 See also 7 Notes 8 References 9 External links Toggle the table of contents Trapezoidal rule 26 languages العربية Català Чӑвашла Čeština Cymraeg Dansk Deutsch Español فارسی Français Gaeilge 한국어 Italiano עברית Magyar Nederlands 日本語 Norsk bokmål Polski Русский Shqip Српски / srpski Suomi Svenska Українська 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Numerical integration method This article is about a rule for approximating integrals. For the trapezoidal rule used for initial value problems, see Trapezoidal rule (differential equations) and Heun's method .
+
+The function f ( x ) (in blue) is approximated by a linear function (in red).
+
+In calculus , the trapezoidal rule (informally trapezoid rule ; or in British English trapezium rule ) [ a ] is a technique for numerical integration , i.e., approximating the definite integral : ∫ ∫ a b f ( x ) d x .
+
+{\displaystyle \int _{a}^{b}f(x)\,dx.} The trapezoidal rule works by approximating the region under the graph of the function f ( x ) {\displaystyle f(x)} as a trapezoid and calculating its area . This is easily calculated by noting that the area of the region is made up of a rectangle with width ( b − − a ) {\displaystyle (b-a)} and height f ( a ) {\displaystyle f(a)} , and a triangle of width ( b − − a ) {\displaystyle (b-a)} and height f ( b ) − − f ( a ) {\displaystyle f(b)-f(a)} .
+
+Letting A r {\displaystyle A_{r}} denote the area of the rectangle and A t {\displaystyle A_{t}} the area of the triangle, it follows that A r = ( b − − a ) ⋅ ⋅ f ( a ) , A t = 1 2 ( b − − a ) ⋅ ⋅ ( f ( b ) − − f ( a ) ) .
+
+{\displaystyle A_{r}=(b-a)\cdot f(a),\quad A_{t}={\tfrac {1}{2}}(b-a)\cdot (f(b)-f(a)).} Therefore ∫ ∫ a b f ( x ) d x ≈ ≈ A r + A t = ( b − − a ) ⋅ ⋅ f ( a ) + 1 2 ( b − − a ) ⋅ ⋅ ( f ( b ) − − f ( a ) ) = ( b − − a ) ⋅ ⋅ ( f ( a ) + 1 2 f ( b ) − − 1 2 f ( a ) ) = ( b − − a ) ⋅ ⋅ ( 1 2 f ( a ) + 1 2 f ( b ) ) = ( b − − a ) ⋅ ⋅ 1 2 ( f ( a ) + f ( b ) ) .
+
+{\displaystyle {\begin{aligned}\int _{a}^{b}f(x)\,dx&\approx A_{r}+A_{t}\\&=(b-a)\cdot f(a)+{\tfrac {1}{2}}(b-a)\cdot (f(b)-f(a))\\&=(b-a)\cdot \left(f(a)+{\tfrac {1}{2}}f(b)-{\tfrac {1}{2}}f(a)\right)\\&=(b-a)\cdot \left({\tfrac {1}{2}}f(a)+{\tfrac {1}{2}}f(b)\right)\\&=(b-a)\cdot {\tfrac {1}{2}}(f(a)+f(b)).\end{aligned}}} An animation that shows what the trapezoidal rule is and how the error in approximation decreases as the step size decreases The integral can be even better approximated by partitioning the integration interval , applying the trapezoidal rule to each subinterval, and summing the results. In practice, this "chained" (or "composite") trapezoidal rule  is usually what is meant by "integrating with the trapezoidal rule". Let { x k } {\displaystyle \{x_{k}\}} be a partition of [ a , b ] {\displaystyle [a,b]} such that a = x 0 < x 1 < ⋯ ⋯ < x N − − 1 < x N = b {\displaystyle a=x_{0}<x_{1}<\cdots <x_{N-1}<x_{N}=b} and Δ Δ x k {\displaystyle \Delta x_{k}} be the length of the k {\displaystyle k} -th subinterval (that is, Δ Δ x k = x k − − x k − − 1 {\displaystyle \Delta x_{k}=x_{k}-x_{k-1}} ), then ∫ ∫ a b f ( x ) d x ≈ ≈ ∑ ∑ k = 1 N f ( x k − − 1 ) + f ( x k ) 2 Δ Δ x k .
+
+{\displaystyle \int _{a}^{b}f(x)\,dx\approx \sum _{k=1}^{N}{\frac {f(x_{k-1})+f(x_{k})}{2}}\Delta x_{k}.} The trapezoidal rule may be viewed as the result obtained by averaging the left and right Riemann sums , and is sometimes defined this way.
+
+The approximation becomes more accurate as the resolution of the partition increases (that is, for larger N {\displaystyle N} , all Δ Δ x k {\displaystyle \Delta x_{k}} decrease).
+
+When the partition has a regular spacing, as is often the case, that is, when all the Δ Δ x k {\displaystyle \Delta x_{k}} have the same value Δ Δ x , {\displaystyle \Delta x,} the formula can be simplified for calculation efficiency by factoring Δ Δ x {\displaystyle \Delta x} out:.
+
+∫ ∫ a b f ( x ) d x ≈ ≈ Δ Δ x ( f ( x 0 ) + f ( x N ) 2 + ∑ ∑ k = 1 N − − 1 f ( x k ) ) .
+
+{\displaystyle \int _{a}^{b}f(x)\,dx\approx \Delta x\left({\frac {f(x_{0})+f(x_{N})}{2}}+\sum _{k=1}^{N-1}f(x_{k})\right).} As discussed below, it is also possible to place error bounds on the accuracy of the value of a definite integral estimated using a trapezoidal rule.
+
+Illustration of "chained trapezoidal rule" used on an irregularly-spaced partition of [ a , b ] {\displaystyle [a,b]} .
+
+History [ edit ] A 2016 Science paper reports that the trapezoid rule was in use in Babylon before 50 BCE for integrating the velocity of Jupiter along the ecliptic .
+
+[ 1 ] [ 2 ] Numerical implementation [ edit ] Non-uniform grid [ edit ] When the grid spacing is non-uniform, one can use the formula ∫ ∫ a b f ( x ) d x ≈ ≈ ∑ ∑ k = 1 N f ( x k − − 1 ) + f ( x k ) 2 Δ Δ x k , {\displaystyle \int _{a}^{b}f(x)\,dx\approx \sum _{k=1}^{N}{\frac {f(x_{k-1})+f(x_{k})}{2}}\Delta x_{k},} wherein Δ Δ x k = x k − − x k − − 1 .
+
+{\displaystyle \Delta x_{k}=x_{k}-x_{k-1}.} Uniform grid [ edit ] For a domain partitioned by N {\displaystyle N} equally spaced points, considerable simplification may occur.
+
+Let Δ Δ x = b − − a N , {\textstyle \Delta x={\frac {b-a}{N}},} and x k = a + k Δ Δ x {\displaystyle x_{k}=a+k\Delta x} for ⁠ k = 0 , 1 , … … , N {\displaystyle k=0,1,\ldots ,N} ⁠ .
+The approximation to the integral becomes ∫ ∫ a b f ( x ) d x ≈ ≈ Δ Δ x 2 ∑ ∑ k = 1 N ( f ( x k − − 1 ) + f ( x k ) ) = Δ Δ x ( f ( x N ) + f ( x 0 ) 2 + ∑ ∑ k = 1 N − − 1 f ( x k ) ) .
+
+{\displaystyle {\begin{aligned}\int _{a}^{b}f(x)\,dx\approx {\frac {\Delta x}{2}}&\sum _{k=1}^{N}\left(f(x_{k-1})+f(x_{k})\right)\\[1ex]&=\Delta x\left({\frac {f(x_{N})+f(x_{0})}{2}}+\sum _{k=1}^{N-1}f(x_{k})\right).\end{aligned}}} Error analysis [ edit ] An animation showing how the trapezoidal rule approximation improves with more strips for an interval with a = 2 {\displaystyle a=2} and b = 8 {\displaystyle b=8} . As the number of intervals N {\displaystyle N} increases, so too does the accuracy of the result.
+
+The error of the composite trapezoidal rule is the difference between the value of the integral and the numerical result: E = ∫ ∫ a b f ( x ) d x − − b − − a N [ f ( a ) + f ( b ) 2 + ∑ ∑ k = 1 N − − 1 f ( a + k b − − a N ) ] {\displaystyle {\text{E}}=\int _{a}^{b}f(x)\,dx-{\frac {b-a}{N}}\left[{f(a)+f(b) \over 2}+\sum _{k=1}^{N-1}f\left(a+k{\frac {b-a}{N}}\right)\right]} There exists a number ξ between a and b , such that [ 3 ] E = − − ( b − − a ) 3 12 N 2 f ″ ( ξ ξ ) {\displaystyle {\text{E}}=-{\frac {(b-a)^{3}}{12N^{2}}}f''(\xi )} It follows that if the integrand is concave up (and thus has a positive second derivative), then the error is negative and the trapezoidal rule overestimates the true value. This can also be seen from the geometric picture: the trapezoids include all of the area under the curve and extend over it. Similarly, a concave-down function yields an underestimate because area is unaccounted for under the curve, but none is counted above. If the interval of the integral being approximated includes an inflection point , the sign of the error is harder to identify.
+
+An asymptotic error estimate for N → ∞ is given by E = − − ( b − − a ) 2 12 N 2 [ f ′ ( b ) − − f ′ ( a ) ] + O ( N − − 3 ) .
+
+{\displaystyle {\text{E}}=-{\frac {(b-a)^{2}}{12N^{2}}}{\big [}f'(b)-f'(a){\big ]}+O(N^{-3}).} Further terms in this error estimate are given by the Euler–Maclaurin summation formula.
+
+Several techniques can be used to analyze the error, including: [ 4 ] Fourier series Residue calculus Euler–Maclaurin summation formula [ 5 ] [ 6 ] Polynomial interpolation [ 7 ] It is argued that the speed of convergence of the trapezoidal rule reflects and can be used as a definition of classes of smoothness of the functions.
+
+[ 8 ] Proof [ edit ] First suppose that h = b − − a N {\displaystyle h={\frac {b-a}{N}}} and a k = a + ( k − − 1 ) h {\displaystyle a_{k}=a+(k-1)h} . Let g k ( t ) = 1 2 t [ f ( a k ) + f ( a k + t ) ] − − ∫ ∫ a k a k + t f ( x ) d x {\displaystyle g_{k}(t)={\frac {1}{2}}t[f(a_{k})+f(a_{k}+t)]-\int _{a_{k}}^{a_{k}+t}f(x)\,dx} be the function such that | g k ( h ) | {\displaystyle |g_{k}(h)|} is the error of the trapezoidal rule on one of the intervals, [ a k , a k + h ] {\displaystyle [a_{k},a_{k}+h]} . Then d g k d t = 1 2 [ f ( a k ) + f ( a k + t ) ] + 1 2 t ⋅ ⋅ f ′ ( a k + t ) − − f ( a k + t ) , {\displaystyle {dg_{k} \over dt}={1 \over 2}[f(a_{k})+f(a_{k}+t)]+{1 \over 2}t\cdot f'(a_{k}+t)-f(a_{k}+t),} and d 2 g k d t 2 = 1 2 t ⋅ ⋅ f ″ ( a k + t ) .
+
+{\displaystyle {d^{2}g_{k} \over dt^{2}}={1 \over 2}t\cdot f''(a_{k}+t).} Now suppose that | f ″ ( x ) | ≤ ≤ | f ″ ( ξ ξ ) | , {\displaystyle \left|f''(x)\right|\leq \left|f''(\xi )\right|,} which holds if f {\displaystyle f} is sufficiently smooth. It then follows that | f ″ ( a k + t ) | ≤ ≤ f ″ ( ξ ξ ) {\displaystyle \left|f''(a_{k}+t)\right|\leq f''(\xi )} which is equivalent to − − f ″ ( ξ ξ ) ≤ ≤ f ″ ( a k + t ) ≤ ≤ f ″ ( ξ ξ ) {\displaystyle -f''(\xi )\leq f''(a_{k}+t)\leq f''(\xi )} , or − − f ″ ( ξ ξ ) t 2 ≤ ≤ g k ″ ( t ) ≤ ≤ f ″ ( ξ ξ ) t 2 .
+
+{\displaystyle -{\frac {f''(\xi )t}{2}}\leq g_{k}''(t)\leq {\frac {f''(\xi )t}{2}}.} Since g k ′ ( 0 ) = 0 {\displaystyle g_{k}'(0)=0} and g k ( 0 ) = 0 {\displaystyle g_{k}(0)=0} , ∫ ∫ 0 t g k ″ ( x ) d x = g k ′ ( t ) {\displaystyle \int _{0}^{t}g_{k}''(x)dx=g_{k}'(t)} and ∫ ∫ 0 t g k ′ ( x ) d x = g k ( t ) .
+
+{\displaystyle \int _{0}^{t}g_{k}'(x)dx=g_{k}(t).} Using these results, we find − − f ″ ( ξ ξ ) t 2 4 ≤ ≤ g k ′ ( t ) ≤ ≤ f ″ ( ξ ξ ) t 2 4 {\displaystyle -{\frac {f''(\xi )t^{2}}{4}}\leq g_{k}'(t)\leq {\frac {f''(\xi )t^{2}}{4}}} and − − f ″ ( ξ ξ ) t 3 12 ≤ ≤ g k ( t ) ≤ ≤ f ″ ( ξ ξ ) t 3 12 {\displaystyle -{\frac {f''(\xi )t^{3}}{12}}\leq g_{k}(t)\leq {\frac {f''(\xi )t^{3}}{12}}} Letting t = h {\displaystyle t=h} we find − − f ″ ( ξ ξ ) h 3 12 ≤ ≤ g k ( h ) ≤ ≤ f ″ ( ξ ξ ) h 3 12 .
+
+{\displaystyle -{\frac {f''(\xi )h^{3}}{12}}\leq g_{k}(h)\leq {\frac {f''(\xi )h^{3}}{12}}.} Summing all of the local error terms we find ∑ ∑ k = 1 N g k ( h ) = b − − a N [ f ( a ) + f ( b ) 2 + ∑ ∑ k = 1 N − − 1 f ( a + k b − − a N ) ] − − ∫ ∫ a b f ( x ) d x .
+
+{\displaystyle \sum _{k=1}^{N}g_{k}(h)={\frac {b-a}{N}}\left[{f(a)+f(b) \over 2}+\sum _{k=1}^{N-1}f\left(a+k{\frac {b-a}{N}}\right)\right]-\int _{a}^{b}f(x)dx.} But we also have − − ∑ ∑ k = 1 N f ″ ( ξ ξ ) h 3 12 ≤ ≤ ∑ ∑ k = 1 N g k ( h ) ≤ ≤ ∑ ∑ k = 1 N f ″ ( ξ ξ ) h 3 12 {\displaystyle -\sum _{k=1}^{N}{\frac {f''(\xi )h^{3}}{12}}\leq \sum _{k=1}^{N}g_{k}(h)\leq \sum _{k=1}^{N}{\frac {f''(\xi )h^{3}}{12}}} and ∑ ∑ k = 1 N f ″ ( ξ ξ ) h 3 12 = f ″ ( ξ ξ ) h 3 N 12 , {\displaystyle \sum _{k=1}^{N}{\frac {f''(\xi )h^{3}}{12}}={\frac {f''(\xi )h^{3}N}{12}},} so that − − f ″ ( ξ ξ ) h 3 N 12 ≤ ≤ b − − a N [ f ( a ) + f ( b ) 2 + ∑ ∑ k = 1 N − − 1 f ( a + k b − − a N ) ] − − ∫ ∫ a b f ( x ) d x ≤ ≤ f ″ ( ξ ξ ) h 3 N 12 .
+
+{\displaystyle -{\frac {f''(\xi )h^{3}N}{12}}\leq {\frac {b-a}{N}}\left[{f(a)+f(b) \over 2}+\sum _{k=1}^{N-1}f\left(a+k{\frac {b-a}{N}}\right)\right]-\int _{a}^{b}f(x)dx\leq {\frac {f''(\xi )h^{3}N}{12}}.} Therefore the total error is bounded by error = ∫ ∫ a b f ( x ) d x − − b − − a N [ f ( a ) + f ( b ) 2 + ∑ ∑ k = 1 N − − 1 f ( a + k b − − a N ) ] = f ″ ( ξ ξ ) h 3 N 12 = f ″ ( ξ ξ ) ( b − − a ) 3 12 N 2 .
+
+{\displaystyle {\text{error}}=\int _{a}^{b}f(x)\,dx-{\frac {b-a}{N}}\left[{f(a)+f(b) \over 2}+\sum _{k=1}^{N-1}f\left(a+k{\frac {b-a}{N}}\right)\right]={\frac {f''(\xi )h^{3}N}{12}}={\frac {f''(\xi )(b-a)^{3}}{12N^{2}}}.} Periodic and peak functions [ edit ] The trapezoidal rule converges rapidly for periodic functions. This is an easy consequence of the Euler-Maclaurin summation formula , which says that
+if f {\displaystyle f} is p {\displaystyle p} times continuously differentiable with period T {\displaystyle T} ∑ ∑ k = 0 N − − 1 f ( k h ) h = ∫ ∫ 0 T f ( x ) d x + ∑ ∑ k = 1 ⌊ ⌊ p / 2 ⌋ ⌋ B 2 k ( 2 k ) !
+
+( f ( 2 k − − 1 ) ( T ) − − f ( 2 k − − 1 ) ( 0 ) ) − − ( − − 1 ) p h p ∫ ∫ 0 T B ~ ~ p ( x / T ) f ( p ) ( x ) d x {\displaystyle \sum _{k=0}^{N-1}f(kh)h=\int _{0}^{T}f(x)\,dx+\sum _{k=1}^{\lfloor p/2\rfloor }{\frac {B_{2k}}{(2k)!}}(f^{(2k-1)}(T)-f^{(2k-1)}(0))-(-1)^{p}h^{p}\int _{0}^{T}{\tilde {B}}_{p}(x/T)f^{(p)}(x)\,dx} where h := T / N {\displaystyle h:=T/N} and B ~ ~ p {\displaystyle {\tilde {B}}_{p}} is the periodic extension of the p {\displaystyle p} th Bernoulli polynomial.
+
+[ 9 ] Due to the periodicity, the derivatives at the endpoint cancel and we see that the error is O ( h p ) {\displaystyle O(h^{p})} .
+
+A similar effect is available for peak-like functions, such as Gaussian , Exponentially modified Gaussian and other functions with derivatives at integration limits that can be neglected.
+
+[ 10 ] The evaluation of the full integral of a Gaussian function by trapezoidal rule with 1% accuracy can be made using just 4 points.
+
+[ 11 ] Simpson's rule requires 1.8 times more points to achieve the same accuracy.
+
+[ 11 ] [ 12 ] "Rough" functions [ edit ] For functions that are not in C 2 , the error bound given above is not applicable. Still, error bounds for such rough functions can be derived, which typically show a slower convergence with the number of function evaluations N {\displaystyle N} than the O ( N − − 2 ) {\displaystyle O(N^{-2})} behaviour given above. Interestingly, in this case the trapezoidal rule often has sharper bounds than Simpson's rule for the same number of function evaluations.
+
+[ 13 ] Applicability and alternatives [ edit ] The trapezoidal rule is one of a family of formulas for numerical integration called Newton–Cotes formulas , of which the midpoint rule is similar to the trapezoid rule.
+
+Simpson's rule is another member of the same family, and in general has faster convergence than the trapezoidal rule for functions which are twice continuously differentiable, though not in all specific cases. However, for various classes of rougher functions (ones with weaker smoothness conditions), the trapezoidal rule has faster convergence in general than Simpson's rule.
+
+[ 13 ] Moreover, the trapezoidal rule tends to become extremely accurate when periodic functions are integrated over their periods, which can be analyzed in various ways . Convergence usually is exponential or faster.
+
+[ 8 ] [ 12 ] A similar effect is available for peak functions.
+
+[ 11 ] [ 12 ] For non-periodic functions, however, methods with unequally spaced points such as Gaussian quadrature and Clenshaw–Curtis quadrature are generally far more accurate; Clenshaw–Curtis quadrature can be viewed as a change of variables to express arbitrary integrals in terms of periodic integrals, at which point the trapezoidal rule can be applied accurately.
+
+Example [ edit ] The following integral is given: ∫ ∫ 0.1 1.3 5 x e − − 2 x d x {\displaystyle \int _{0.1}^{1.3}{5xe^{-2x}{dx}}} Use the composite trapezoidal rule to estimate the value of this integral. Use three segments.
+
+Find the true error E t {\textstyle E_{t}} for part (a).
+
+Find the absolute relative true error | ε ε t | {\textstyle \left|\varepsilon _{t}\right|} for part (a).
+
+Solution The solution using the composite trapezoidal rule with 3 segments is applied as follows.
+
+∫ ∫ a b f ( x ) d x ≈ ≈ b − − a 2 n [ f ( a ) + 2 ∑ ∑ i = 1 n − − 1 f ( a + i h ) + f ( b ) ] {\displaystyle \int _{a}^{b}{f(x){dx}}\approx {\frac {b-a}{2n}}\left\lbrack f(a)+2\sum _{i=1}^{n-1}{f(a+{ih})}+f(b)\right\rbrack } n = 3 a = 0.1 b = 1.3 h = b − − a n = 1.3 − − 0.1 3 = 0.4 {\displaystyle {\begin{aligned}n&=3\\a&=0.1\\b&=1.3\\h&={\frac {b-a}{n}}={\frac {1.3-0.1}{3}}=0.4\end{aligned}}} Using the composite trapezoidal rule formula ∫ ∫ a b f ( x ) d x ≈ ≈ b − − a 2 n [ f ( a ) + 2 { ∑ ∑ i = 1 n − − 1 f ( a + i h ) } + f ( b ) ] ( 3 ) {\displaystyle {\begin{aligned}\int _{a}^{b}{f(x){dx}}\approx {\frac {b-a}{2n}}\left\lbrack f(a)+2\left\{\sum _{i=1}^{n-1}{f(a+{ih})}\right\}+f(b)\right\rbrack \;\;\;\;\;\;\;\;\;\;\;\;(3)\end{aligned}}} I ≈ ≈ 1.3 − − 0.1 6 [ f ( 0.1 ) + 2 ∑ ∑ i = 1 3 − − 1 f ( 0.1 + 0.4 i ) + f ( 1.3 ) ] I ≈ ≈ 1.3 − − 0.1 6 [ f ( 0.1 ) + 2 ∑ ∑ i = 1 2 f ( 0.1 + 0.4 i ) + f ( 1.3 ) ] = 0.2 [ f ( 0.1 ) + 2 f ( 0.5 ) + 2 f ( 0.9 ) + f ( 1.3 ) ] = 0.2 [ 5 × × 0.1 × × e − − 2 ( 0.1 ) + 2 ( 5 × × 0.5 × × e − − 2 ( 0.5 ) ) + 2 ( 5 × × 0.9 × × e − − 2 ( 0.9 ) ) + 5 × × 1.3 × × e − − 2 ( 1.3 ) ] = 0.84385 {\displaystyle {\begin{aligned}I&\approx {\frac {1.3-0.1}{6}}\left\lbrack f(0.1)+2\sum _{i=1}^{3-1}{f(0.1+0.4i)}+f(1.3)\right\rbrack \\I&\approx {\frac {1.3-0.1}{6}}\left\lbrack f(0.1)+2\sum _{i=1}^{2}{f(0.1+0.4i)}+f(1.3)\right\rbrack \\&=0.2\lbrack f(0.1)+2f(0.5)+2f(0.9)+f(1.3)\rbrack \\&=0.2[5\times 0.1\times e^{-2(0.1)}+2(5\times 0.5\times e^{-2(0.5)})+2(5\times 0.9\times e^{-2(0.9)})+5\times 1.3\times e^{-2(1.3)}\rbrack \\&=0.84385\end{aligned}}} The exact value of the above integral can be found by integration by parts and is ∫ ∫ 0.1 1.3 5 x e − − 2 x d x = 0.89387 {\displaystyle \int _{0.1}^{1.3}5xe^{-2x}{dx}=0.89387} So the true error is E t = True Value − − Approximate Value = 0.89387 − − 0.84385 = 0.05002 {\displaystyle {\begin{aligned}E_{t}&={\text{True Value}}-{\text{Approximate Value}}\\&=0.89387-0.84385\\&=0.05002\end{aligned}}} The absolute relative true error is | ε ε t | = | True Error True Value | × × 100 % % = | 0.05002 0.89387 | × × 100 % % = 5.5959 % % {\displaystyle \displaystyle {\begin{aligned}\left|\varepsilon _{t}\right|&=\left|{\frac {\text{True Error}}{\text{True Value}}}\right|\times 100\%\\&=\left|{\frac {0.05002}{0.89387}}\right|\times 100\%\\&=5.5959\%\end{aligned}}} See also [ edit ] Gaussian quadrature Newton–Cotes formulas Rectangle method Romberg's method Simpson's rule Clenshaw–Curtis quadrature Tai's model Volterra integral equation § Numerical Solution using Trapezoidal Rule Notes [ edit ] ^ See Trapezoid for more information on terminology.
+
+^ Ossendrijver, Mathieu (Jan 29, 2016).
+
+"Ancient Babylonian astronomers calculated Jupiter's position from the area under a time-velocity graph" .
+
+Science .
+
+351 (6272): 482– 484.
+
+Bibcode : 2016Sci...351..482O .
+
+doi : 10.1126/science.aad8085 .
+
+PMID 26823423 .
+
+S2CID 206644971 .
+
+^ "Ancient Babylonians 'first to use geometry' " .
+
+BBC News . 2016-01-29 . Retrieved 2025-02-13 .
+
+^ Atkinson (1989 , equation (5.1.7)) ^ ( Weideman 2002 , p. 23, section 2) ^ Atkinson (1989 , equation (5.1.9)) ^ Atkinson (1989 , p. 285) ^ Burden & Faires (2011 , p. 194) ^ a b ( Rahman & Schmeisser 1990 ) ^ Kress, Rainer (1998).
+
+Numerical Analysis, volume 181 of Graduate Texts in Mathematics . Springer-Verlag.
+
+^ Goodwin, E. T. (1949). "The evaluation of integrals of the form ∫ ∫ − − ∞ ∞ ∞ ∞ f ( x ) e − − x 2 d x {\displaystyle \textstyle \int _{-\infty }^{\infty }{f(x)e^{-x^{2}}dx}} ".
+
+Mathematical Proceedings of the Cambridge Philosophical Society .
+
+45 (2): 241– 245.
+
+Bibcode : 1949PCPS...45..241G .
+
+doi : 10.1017/S0305004100024786 .
+
+ISSN 1469-8064 .
+
+^ a b c Kalambet, Yuri; Kozmin, Yuri; Samokhin, Andrey (2018). "Comparison of integration rules in the case of very narrow chromatographic peaks".
+
+Chemometrics and Intelligent Laboratory Systems .
+
+179 : 22– 30.
+
+doi : 10.1016/j.chemolab.2018.06.001 .
+
+ISSN 0169-7439 .
+
+^ a b c ( Weideman 2002 ) ^ a b ( Cruz-Uribe & Neugebauer 2002 ) References [ edit ] Atkinson, Kendall E. (1989), An Introduction to Numerical Analysis (2nd ed.), New York: John Wiley & Sons , ISBN 978-0-471-50023-0 Rahman, Qazi I.; Schmeisser, Gerhard (December 1990), "Characterization of the speed of convergence of the trapezoidal rule", Numerische Mathematik , 57 (1): 123– 138, doi : 10.1007/BF01386402 , ISSN 0945-3245 , S2CID 122245944 Burden, Richard L.; Faires, J. Douglas (2011), Numerical Analysis (9th ed.), Brooks/Cole Weideman, J. A. C. (January 2002), "Numerical Integration of Periodic Functions: A Few Examples", The American Mathematical Monthly , 109 (1): 21– 36, doi : 10.2307/2695765 , JSTOR 2695765 Cruz-Uribe, D.; Neugebauer, C. J. (2002), "Sharp Error Bounds for the Trapezoidal Rule and Simpson's Rule" (PDF) , Journal of Inequalities in Pure and Applied Mathematics , 3 (4) External links [ edit ] The Wikibook A-level Mathematics has a page on the topic of: Trapezium Rule Trapezium formula. I.P. Mysovskikh , Encyclopedia of Mathematics , ed. M. Hazewinkel Notes on the convergence of trapezoidal-rule quadrature An implementation of trapezoidal quadrature provided by Boost.Math v t e Numerical integration Newton–Cotes formulas Trapezoidal rule Simpson's rule Simpson's 3/8 rule Adaptive Simpson's method Boole's rule Romberg's method Gaussian quadrature Gauss–Hermite quadrature Gauss–Jacobi quadrature Gauss–Kronrod quadrature formula Gauss–Laguerre quadrature Gauss–Legendre quadrature Chebyshev–Gauss quadrature Other Barnes–Hut simulation Bayesian quadrature Clenshaw–Curtis quadrature Filon quadrature Lebedev quadrature Tanh-sinh quadrature Related Numerical methods for ordinary differential equations Numerical methods for partial differential equations v t e Calculus Precalculus Binomial theorem Concave function Continuous function Factorial Finite difference Free variables and bound variables Graph of a function Linear function Radian Rolle's theorem Secant Slope Tangent Limits Indeterminate form Limit of a function One-sided limit Limit of a sequence Order of approximation (ε, δ)-definition of limit Differential calculus Derivative Second derivative Partial derivative Differential Differential operator Mean value theorem Notation Leibniz's notation Newton's notation Rules of differentiation linearity Power Sum Chain L'Hôpital's Product General Leibniz's rule Quotient Other techniques Implicit differentiation Inverse functions and differentiation Logarithmic derivative Related rates Stationary points First derivative test Second derivative test Extreme value theorem Maximum and minimum Further applications Newton's method Taylor's theorem Differential equation Ordinary differential equation Partial differential equation Stochastic differential equation Integral calculus Antiderivative Arc length Riemann integral Basic properties Constant of integration Fundamental theorem of calculus Differentiating under the integral sign Integration by parts Integration by substitution trigonometric Euler Tangent half-angle substitution Partial fractions in integration Quadratic integral Trapezoidal rule Volumes Washer method Shell method Integral equation Integro-differential equation Vector calculus Derivatives Curl Directional derivative Divergence Gradient Laplacian Basic theorems Line integrals Green's Stokes' Gauss' Multivariable calculus Divergence theorem Geometric Hessian matrix Jacobian matrix and determinant Lagrange multiplier Line integral Matrix Multiple integral Partial derivative Surface integral Volume integral Advanced topics Differential forms Exterior derivative Generalized Stokes' theorem Tensor calculus Sequences and series Arithmetico-geometric sequence Types of series Alternating Binomial Fourier Geometric Harmonic Infinite Power Maclaurin Taylor Telescoping Tests of convergence Abel's Alternating series Cauchy condensation Direct comparison Dirichlet's Integral Limit comparison Ratio Root Term Special functions and numbers Bernoulli numbers e (mathematical constant) Exponential function Natural logarithm Stirling's approximation History of calculus Adequality Brook Taylor Colin Maclaurin Generality of algebra Gottfried Wilhelm Leibniz Infinitesimal Infinitesimal calculus Isaac Newton Fluxion Law of Continuity Leonhard Euler Method of Fluxions The Method of Mechanical Theorems Lists Integrals rational functions irrational algebraic functions exponential functions logarithmic functions hyperbolic functions inverse trigonometric functions inverse Secant Secant cubed List of limits List of derivatives Miscellaneous topics Complex calculus Contour integral Differential geometry Manifold Curvature of curves of surfaces Tensor Euler–Maclaurin formula Gabriel's horn Integration Bee Proof that 22/7 exceeds π Regiomontanus' angle maximization problem Steinmetz solid Retrieved from " https://en.wikipedia.org/w/index.php?title=Trapezoidal_rule&oldid=1305061594 " Category : Numerical integration Hidden categories: Articles with short description Short description matches Wikidata This page was last edited on 9 August 2025, at 20:45 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Trapezoidal rule 26 languages Add topic
+

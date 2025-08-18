@@ -1,0 +1,158 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Example 2 The offline k-server problem 3 Notes 4 References Toggle the table of contents k -server problem 2 languages Español Русский Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Computational problem of interest in computer science Unsolved problem in computer science Is there a k {\displaystyle k} -competitive algorithm for solving the k {\displaystyle k} -server problem in an arbitrary metric space?
+
+More unsolved problems in computer science The k -server problem is a problem of theoretical computer science in the category of online algorithms , one of two abstract problems on metric spaces that are central to the theory of competitive analysis (the other being metrical task systems ). In this problem, an online algorithm must control the movement of a set of k servers , represented as points in a metric space, and handle requests that are also in the form of points in the space. As each request arrives, the algorithm must determine which server to move to the requested point. The goal of the algorithm is to keep the total distance all servers move small, relative to the total distance the servers could have moved by an optimal adversary who knows in advance the entire sequence of requests.
+
+The problem was first posed by Mark Manasse, Lyle A. McGeoch and Daniel Sleator (1988).
+
+[ 1 ] The most prominent open question concerning the k -server problem is the so-called k -server conjecture, also posed by Manasse et al. This conjecture states that there is an algorithm for solving the k -server problem in an arbitrary metric space and for any number k of servers that has competitive ratio exactly k . Manasse et al. were able to prove their conjecture when k = 2, and for more general values of k for some metric spaces restricted to have exactly k +1 points.
+
+Chrobak and Larmore (1991) proved the conjecture for tree metrics.  The special case of metrics in which all distances are equal is called the paging problem because it models the problem of page replacement algorithms in memory caches, and was also already known to have a k -competitive algorithm ( Sleator and Tarjan 1985). Fiat et al. (1990) first proved that there exists an algorithm with finite competitive ratio for any constant k and any metric space, and finally Koutsoupias and Papadimitriou (1995) proved that Work Function Algorithm (WFA) has competitive ratio 2 k - 1. However, despite the efforts of many other researchers, reducing the competitive ratio to k or providing an improved lower bound remains open as of 2014 [update] . The most common believed scenario is that the Work Function Algorithm is k -competitive. To this direction, in 2000 Bartal and Koutsoupias showed that this is true for some special cases (if the metric space is a line, a weighted star or any metric of k +2 points).
+
+The k -server conjecture has also a version for randomized algorithms, which asks if exists a randomized algorithm with competitive ratio O(log k ) in any arbitrary metric space (with at least k + 1 points).
+
+[ 2 ] In 2011, a randomized algorithm with competitive bound Õ(log 2 k log 3 n) was found.
+
+[ 3 ] [ 4 ] In 2017, a randomized algorithm with competitive bound O(log 6 k) was announced, [ 5 ] but was later retracted.
+
+[ 6 ] In 2022 it was shown that the randomized version of the conjecture is false.
+
+[ 2 ] [ 7 ] [ 8 ] Example [ edit ] To make the problem more concrete, imagine sending customer support technicians to customers when they have trouble with their equipment. In our example problem there are two technicians, Mary and Noah, serving three customers, in San Francisco, California; Washington, DC; and Baltimore, Maryland. As a k -server problem, the servers are the technicians, so k = 2 and this is a 2-server problem. Washington and Baltimore are 35 miles (56 km) apart, while San Francisco is 3,000 miles (4,800 km) away from both, and initially Mary and Noah are both in San Francisco.
+
+Consider an algorithm for assigning servers to requests that always assigns the closest server to the request, and suppose that each weekday morning the customer in Washington needs assistance while each weekday afternoon the customer in Baltimore needs assistance, and that the customer in San Francisco never needs assistance. Then, our algorithm will assign one of the servers (say Mary) to the Washington area, after which she will always be the closest server and always be assigned to all customer requests. Thus, every day our algorithm incurs the cost of traveling between Washington and Baltimore and back, 70 miles (110 km). After a year of this request pattern, the algorithm will have incurred 20,500 miles (33,000 km) travel: 3,000 to send Mary to the East Coast, and 17,500 for the trips between Washington and Baltimore. On the other hand, an optimal adversary who knows the future request schedule could have sent both Mary and Noah to Washington and Baltimore respectively, paying 6,000 miles (9,700 km) of travel once but then avoiding any future travel costs. The competitive ratio of our algorithm on this input is 20,500/6,000 or approximately 3.4, and by adjusting the parameters of this example the competitive ratio of this algorithm can be made arbitrarily large.
+
+Thus we see that always assigning the closest server can be far from optimal. On the other hand, it seems foolish for an algorithm that does not know future requests to send both of its technicians away from San Francisco, as the next request could be in that city and it would have to send someone back immediately. So it seems that it is difficult or impossible for a k -server algorithm to perform well relative to its adversary. However, for the 2-server problem, there exists an algorithm that always has a total travel distance of at most twice the adversary's distance.
+The k -server conjecture states that similar solutions exist for problems with any larger number of technicians.
+
+The offline k-server problem [ edit ] The k-server problem is also useful in an offline setting, that is, when the sequence of requests is completely known. For examples,
+for some algorithms the sequence of memory accesses is independent of the input (an example is matrix multiplication), and so the paging
+problem can be solved offline. This problem has been shown to be solvable in polynomial time [ 9 ] .
+
+Notes [ edit ] ^ Manasse, Mark; McGeoch, Lyle; Sleator, Daniel (1988-01-01).
+
+"Competitive algorithms for on-line problems" .
+
+Proceedings of the twentieth annual ACM symposium on Theory of computing - STOC '88 . New York, NY, USA: Association for Computing Machinery. pp.
+
+322– 333.
+
+doi : 10.1145/62212.62243 .
+
+ISBN 978-0-89791-264-8 .
+
+S2CID 13356897 .
+
+^ a b Bubeck, Sébastien; Coester, Christian; Rabani, Yuval (June 20–23, 2023).
+
+The Randomized 𝑘-Server Conjecture Is False!
+
+. 55th Annual ACM Symposium on Theory of Computing (STOC '23). Orlando, FL, USA: ACM. p. 14.
+
+arXiv : 2211.05753 .
+
+doi : 10.1145/3564246.3585132 .
+
+^ Bansal, Nikhil; Buchbinder, Niv; Madry, Aleksander; Naor, Joseph (2015).
+
+"A polylogarithmic-competitive algorithm for the k -server problem" (PDF) .
+
+Journal of the ACM .
+
+62 (5): A40:1–A40:49.
+
+arXiv : 1110.1580 .
+
+doi : 10.1145/2783434 .
+
+MR 3424197 .
+
+S2CID 15668961 .
+
+^ "Another Annoying Open Problem" . 19 November 2011.
+
+^ Lee, James R. (2017). "Fusible HSTs and the Randomized k-Server Conjecture".
+
+arXiv : 1711.01789 [ cs.DS ].
+
+^ "Erratum: Fusible HSTS and the randomized k-server conjecture" .
+
+^ Goldberg, Madison (2023-11-20).
+
+"Researchers Refute a Widespread Belief About Online Algorithms" .
+
+Quanta Magazine . Retrieved 2023-11-26 .
+
+^ The video presentation of the paper "The Randomized k-Server Conjecture is False!" at STOC 2023 is available in YouTube.
+
+^ Chrobak et al. (1991) .
+
+sfnp error: no target: CITEREFChrobak_et_al.1991 ( help ) References [ edit ] Chrobak, Marek ; Larmore, Lawrence L.
+
+(1991). "An optimal on-line algorithm for K -servers on trees".
+
+SIAM Journal on Computing .
+
+20 (1): 144– 148.
+
+CiteSeerX 10.1.1.53.2395 .
+
+doi : 10.1137/0220008 .
+
+Chrobak, Marek ; Karloff, Howard ; Payne, Tom ; Vishwnathan, Sundar (1991). "New ressults on server problems".
+
+SIAM Journal on Discrete Mathematics .
+
+4 (2): 172– 181.
+
+Fiat, A.; Rabani, Y.; Ravid, Y. (1990). "Competitive k -server algorithms".
+
+Proceedings of the 31st Annual IEEE Symposium on Foundations of Computer Science . pp.
+
+454– 463.
+
+Koutsoupias, Elias; Papadimitriou, Christos H.
+
+(1995). "On the k -server conjecture".
+
+Journal of the ACM .
+
+42 (5): 971– 983.
+
+doi : 10.1145/210118.210128 .
+
+S2CID 5813837 .
+
+Manasse, Mark; McGeoch, Lyle A.; Sleator, Daniel D.
+
+(1990). "Competitive algorithms for server problems".
+
+Journal of Algorithms .
+
+11 (2): 208– 230.
+
+doi : 10.1016/0196-6774(90)90003-W .
+
+Sleator, Daniel D.
+
+; Tarjan, Robert E.
+
+(1985).
+
+"Amortized efficiency of list update and paging rules" .
+
+Communications of the ACM .
+
+28 (2): 202– 208.
+
+doi : 10.1145/2786.2793 .
+
+S2CID 2494305 .
+
+Retrieved from " https://en.wikipedia.org/w/index.php?title=K-server_problem&oldid=1296818836 " Categories : Online algorithms Unsolved problems in computer science Hidden categories: Harv and Sfn no-target errors Articles with short description Short description matches Wikidata Articles containing potentially dated statements from 2014 All articles containing potentially dated statements This page was last edited on 22 June 2025, at 13:48 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents k -server problem 2 languages Add topic
+

@@ -1,0 +1,253 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Types of succinct games Toggle Types of succinct games subsection 1.1 Graphical games 1.2 Sparse games 1.3 Symmetric games 1.4 Anonymous games 1.5 Polymatrix games 1.6 Circuit games 1.7 Other representations 2 Summary of complexities of finding equilibria 3 Notes 4 External links Toggle the table of contents Succinct game 1 language 粵語 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Game in algorithmic game theory See also: Game theory § Alternative game representations Consider a game of three players, I,II and III, facing, respectively, the strategies {T,B}, {L,R}, and {l,r}. Without further constraints, 3*2 3 =24 utility values would be required to describe such a game.
+
+L , l L , r R , l R , r T 4 , 6 , 2 5 , 5 , 5 8 , 1 , 7 1 , 4 , 9 B 8 , 6 , 6 7 , 4 , 7 9 , 6 , 5 0 , 3 , 0 For each strategy profile, the utility of the first player is listed first ( red ), and is followed by the utilities of the second player ( green ) and the third player ( blue ).
+
+In algorithmic game theory , a succinct game or a succinctly representable game is a game which may be represented in a size much smaller than its normal form representation. Without placing constraints on player utilities, describing a game of n {\displaystyle n} players, each facing s {\displaystyle s} strategies , requires listing n s n {\displaystyle ns^{n}} utility values. Even trivial algorithms are capable of finding a Nash equilibrium in a time polynomial in the length of such a large input. A succinct game is of polynomial type if in a game represented by a string of length n the number of players, as well as the number of strategies of each player, is bounded by a polynomial in n [ 1 ] (a formal definition, describing succinct games as a computational problem , is given by Papadimitriou & Roughgarden 2008 [ 2 ] ).
+
+Types of succinct games [ edit ] Graphical games [ edit ] Say that each player's utility depends only on his own action and the action of one other player - for instance, I depends on II, II on III and III on I. Representing such a game would require only three 2x2 utility tables, containing in all only 12 utility values.
+
+L R T 9 8 B 3 4 l r L 6 8 R 1 3 T B l 4 4 r 5 7 Graphical games are games in which the utilities of each player depends on the actions of very few other players. If d {\displaystyle d} is the greatest number of players by whose actions any single player is affected (that is, it is the indegree of the game graph), the number of utility values needed to describe the game is n s d + 1 {\displaystyle ns^{d+1}} , which, for a small d {\displaystyle d} is a considerable improvement.
+
+It has been shown that any normal form game is reducible to a graphical game with all degrees bounded by three and with two strategies for each player.
+
+[ 3 ] Unlike normal form games, the problem of finding a pure Nash equilibrium in graphical games (if one exists) is NP-complete .
+
+[ 4 ] The problem of finding a (possibly mixed) Nash equilibrium in a graphical game is PPAD -complete.
+
+[ 5 ] Finding a correlated equilibrium of a graphical game can be done in polynomial time, and for a graph with a bounded treewidth , this is also true for finding an optimal correlated equilibrium.
+
+[ 2 ] Sparse games [ edit ] When most of the utilities are 0, as below, it is easy to come up with a succinct representation.
+
+L , l L , r R , l R , r T 0 , 0 , 0 2 , 0 , 1 0 , 0 , 0 0 , 7 , 0 B 0 , 0 , 0 0 , 0 , 0 2 , 0 , 3 0 , 0 , 0 Sparse games are those where most of the utilities are zero. Graphical games may be seen as a special case of sparse games.
+
+For a two player game, a sparse game may be defined as a game in which each row and column of the two payoff (utility) matrices has at most a constant number of non-zero entries. It has been shown that finding a Nash equilibrium in such a sparse game is PPAD-hard, and that there does not exist a fully polynomial-time approximation scheme unless PPAD is in P .
+
+[ 6 ] Symmetric games [ edit ] Suppose all three players are identical (we'll color them all purple ), and face the strategy set {T,B}. Let #TP and #BP be the number of a player's peers who've chosen T and B, respectively. Describing this game requires only 6 utility values.
+
+#TP=2 #BP=0 #TP=1 #BP=1 #TP=0 #BP=2 T 5 2 2 B 1 7 2 In symmetric games all players are identical, so in evaluating the utility of a combination of strategies, all that matters is how many of the n {\displaystyle n} players play each of the s {\displaystyle s} strategies. Thus, describing such a game requires giving only s ( n + s − − 2 s − − 1 ) {\displaystyle s{\tbinom {n+s-2}{s-1}}} utility values.
+
+In a symmetric game with 2 strategies there always exists a pure Nash equilibrium – although a symmetric pure Nash equilibrium may not exist.
+
+[ 7 ] The problem of finding a pure Nash equilibrium in a symmetric game (with possibly more than two players) with a constant number of actions is in AC 0 ; however, when the number of actions grows with the number of players (even linearly) the problem is NP-complete.
+
+[ 8 ] In any symmetric game there exists a symmetric equilibrium . Given a symmetric game of n players facing k strategies, a symmetric equilibrium may be found in polynomial time if k= O ( log ⁡ ⁡ n / log ⁡ ⁡ log ⁡ ⁡ n ) {\displaystyle O(\log n/\log \log n)} .
+
+[ 9 ] Finding a correlated equilibrium in symmetric games may be done in polynomial time.
+
+[ 2 ] Anonymous games [ edit ] If players were different but did not distinguish between other players we would need to list 18 utility values to represent the game - one table such as that given for "symmetric games" above for each player.
+
+#TP=2 #BP=0 #TP=1 #BP=1 #TP=0 #BP=2 T 8 , 8 , 2 2 , 9 , 5 4 , 1 , 4 B 6 , 1 , 3 2 , 2 , 1 7 , 0 , 6 In anonymous games , players have different utilities but do not distinguish between other players (for instance, having to choose between "go to cinema" and "go to bar" while caring only how crowded will each place be, not who'll they meet there). In such a game a player's utility again depends on how many of his peers choose which strategy, and his own, so s n ( n + s − − 2 s − − 1 ) {\displaystyle sn{\tbinom {n+s-2}{s-1}}} utility values are required.
+
+If the number of actions grows with the number of players, finding a pure Nash equilibrium in an anonymous game is NP-hard .
+
+[ 8 ] An optimal correlated equilibrium of an anonymous game may be found in polynomial time.
+
+[ 2 ] When the number of strategies is 2, there is a known PTAS for finding an ε-approximate Nash equilibrium .
+
+[ 10 ] Polymatrix games [ edit ] If the game in question was a polymatrix game, describing it would require 24 utility values. For simplicity, let us examine only the utilities of player I (we would need two more such tables for each of the other players).
+
+L R T 4 , 6 8 , 7 B 3 , 7 9 , 1 l r T 7 , 7 1 , 6 B 8 , 6 6 , 4 l r L 2 , 9 3 , 3 R 2 , 4 1 , 5 If strategy profile (B,R,l) was chosen, player I's utility would be 9+8=17, player II's utility would be 1+2=3, and player III's utility would be 6+4=10.
+
+In a polymatrix game (also known as a multimatrix game ), there is a utility matrix for every pair of players (i,j) , denoting a component of player i's utility. Player i's final utility is the sum of all such components. The number of utilities values required to represent such a game is O ( n 2 ∗ ∗ s 2 ) {\displaystyle O(n^{2}*s^{2})} .
+
+Polymatrix games always have at least one mixed Nash equilibrium.
+
+[ 11 ] The problem of finding a Nash equilibrium in a polymatrix game is PPAD-complete.
+
+[ 5 ] Moreover, the problem of finding a constant approximate Nash equilibrium in a polymatrix game is also PPAD-complete.
+
+[ 12 ] Finding a correlated equilibrium of a polymatrix game can be done in polynomial time.
+
+[ 2 ] Note that even if pairwise games played between players have pure Nash equilibria, the global interaction does not necessarily admit a pure Nash equilibrium (although a mixed Nash equilibrium must exist). Checking if a pure Nash equilibrium exists is a strongly NP-complete problem.
+
+[ 13 ] Competitive polymatrix games with only zero-sum interactions between players are a generalization of two-player zero-sum games. The Minimax theorem originally formulated for two-player games by von Neumann generalizes to zero-sum polymatrix games.
+
+[ 14 ] Same as two-player zero-sum games, polymatrix zero-sum games have mixed Nash equilibria that can be computed in polynomial time and those equilibria coincide with correlated equilibria . But some other properties of two-player zero-sum games do not generalize. Notably, players need not have a unique value of the game and equilibrium strategies are not max-min strategies in a sense that worst-case payoffs of players are not maximized when using an equilibrium strategy. There exists an open source Python library [ 15 ] for simulating competitive polymatrix games.
+
+Polymatrix games which have coordination games on their edges are potential games [ 16 ] and can be solved using a potential function method.
+
+Circuit games [ edit ] Let us now equate the players' various strategies with the Boolean values "0" and "1", and let X stand for player I's choice, Y for player II's choice and Z for player III's choice. Let us assign each player a circuit: Player I: X ∧ (Y ∨ Z) Player II: X ⊕ Y ⊕ Z Player III: X ∨ Y These describe the utility table below.
+
+0 , 0 0 , 1 1 , 0 1 , 1 0 0 , 0 , 0 0 , 1 , 0 0 , 1 , 1 0 , 0 , 1 1 0 , 1 , 1 1 , 0 , 1 1 , 0 , 1 1 , 1 , 1 The most flexible of way of representing a succinct game is by representing each player by a polynomial-time bounded Turing machine , which takes as its input the actions of all players and outputs the player's utility. Such a Turing machine is equivalent to a Boolean circuit , and it is this representation, known as circuit games , that we will consider.
+
+Computing the value of a 2-player zero-sum circuit game is an EXP -complete problem, [ 17 ] and approximating the value of such a game up to a multiplicative factor is known to be in PSPACE .
+
+[ 18 ] Determining whether a pure Nash equilibrium exists is a Σ Σ 2 P {\displaystyle \Sigma _{2}^{\rm {P}}} -complete problem (see Polynomial hierarchy ).
+
+[ 19 ] Other representations [ edit ] Many other types of succinct game exist (many having to do with allocation of resources). Examples include congestion games , network congestion games , scheduling games , local effect games , facility location games , action-graph games , hypergraphical games and more.
+
+Summary of complexities of finding equilibria [ edit ] Below is a table of some known complexity results for finding certain classes of equilibria in several game representations. "NE" stands for "Nash equilibrium", and "CE" for "correlated equilibrium".
+
+n is the number of players and s is the number of strategies each player faces (we're assuming all players face the same number of strategies). In graphical games, d is the maximum indegree of the game graph. For references, see main article text.
+
+Representation Size ( O (...)) Pure NE Mixed NE CE Optimal CE Normal form game n s n {\displaystyle ns^{n}} NP-complete PPAD-complete P P Graphical game n s d + 1 {\displaystyle ns^{d+1}} NP-complete PPAD-complete P NP-hard Symmetric game s ( n + s − − 2 s − − 1 ) {\displaystyle s{\tbinom {n+s-2}{s-1}}} NP-complete The computation of symmetric Nash equilibrium is PPAD-hard for two players. The computation of non-symmetric Nash equilibrium for two players is NP-complete.
+
+P P Anonymous game s n ( n + s − − 2 s − − 1 ) {\displaystyle sn{\tbinom {n+s-2}{s-1}}} NP-hard P P Polymatrix game n 2 s 2 {\displaystyle n^{2}s^{2}} strongly NP-complete PPAD-complete (polynomial for zero-sum polymatrix) P NP-hard Circuit game Σ Σ 2 P {\displaystyle \Sigma _{2}^{\rm {P}}} -complete Congestion game PLS-complete P NP-hard Notes [ edit ] ^ Papadimitriou, Christos H. (2007). "The Complexity of Finding Nash Equilibria". In Nisan, Noam; Roughgarden, Tim; Tardos, Éva; et al. (eds.).
+
+Algorithmic Game Theory . Cambridge University Press. pp.
+
+29 –52.
+
+ISBN 978-0-521-87282-9 .
+
+^ a b c d e Papadimitriou, Christos H.; Roughgarden, Tim (2008). "Computing Correlated Equilibria in Multi-Player Games".
+
+J. ACM .
+
+55 (3): 1– 29.
+
+CiteSeerX 10.1.1.335.2634 .
+
+doi : 10.1145/1379759.1379762 .
+
+S2CID 53224027 .
+
+^ Goldberg, Paul W.; Papadimitriou, Christos H. (2006).
+
+"Reducibility Among Equilibrium Problems" .
+
+Proceedings of the thirty-eighth annual ACM symposium on Theory of computing . Seattle, WA, USA: ACM. pp.
+
+61– 70.
+
+doi : 10.1145/1132516.1132526 .
+
+ISBN 1-59593-134-1 . Retrieved 2010-01-25 .
+
+^ Gottlob, G.; Greco, G.; Scarcello, F. (2005). "Pure Nash Equilibria: Hard and Easy Games".
+
+Journal of Artificial Intelligence Research .
+
+24 ( 195– 220): 26– 37.
+
+arXiv : 1109.2152 .
+
+doi : 10.1613/jair.1683 .
+
+^ a b Daskalakis, Constantinos; Fabrikant, Alex; Papadimitriou, Christos H. (2006). "The Game World Is Flat: The Complexity of Nash Equilibria in Succinct Games".
+
+Automata, Languages and Programming . Lecture Notes in Computer Science. Vol. 4051. pp.
+
+513– 524.
+
+CiteSeerX 10.1.1.111.8075 .
+
+doi : 10.1007/11786986_45 .
+
+ISBN 978-3-540-35904-3 .
+
+^ Chen, Xi; Deng, Xiaotie; Teng, Shang-Hua (2006).
+
+"Sparse Games Are Hard" .
+
+Internet and Network Economics . pp.
+
+262–273 .
+
+doi : 10.1007/11944874_24 .
+
+ISBN 978-3-540-68138-0 .
+
+^ Cheng, Shih-Fen; Reeves, Daniel M.; Vorobeychik, Yevgeniy; Wellman, Michael P. (2004).
+
+Notes on Equilibria in Symmetric Games . AAMAS-04 Workshop on Game Theory and Decision Theory.
+
+^ a b Brandt, Felix; Fischer, Felix; Holzer, Markus (2009).
+
+"Symmetries and the Complexity of Pure Nash Equilibrium" .
+
+J. Comput. Syst. Sci .
+
+75 (3): 163– 177.
+
+doi : 10.1016/j.jcss.2008.09.001 .
+
+^ Papadimitriou, Christos H.; Roughgarden, Tim (2005).
+
+"Computing equilibria in multi-player games" .
+
+Proceedings of the sixteenth annual ACM-SIAM symposium on Discrete algorithms . Vancouver, British Columbia: Society for Industrial and Applied Mathematics. pp.
+
+82– 91.
+
+ISBN 0-89871-585-7 . Retrieved 2010-01-25 .
+
+^ Daskalakis, Constantinos; Papadimitriou, Christos H. (2007). "Computing Equilibria in Anonymous Games".
+
+arXiv : 0710.5582v1 [ cs ].
+
+^ Howson, Joseph T. (January 1972). "Equilibria of Polymatrix Games".
+
+Management Science .
+
+18 (5): 312– 318.
+
+doi : 10.1287/mnsc.18.5.312 .
+
+ISSN 0025-1909 .
+
+JSTOR 2634798 .
+
+^ Rubinstein, Aviad (2015-01-01). "Inapproximability of Nash Equilibrium".
+
+Proceedings of the forty-seventh annual ACM symposium on Theory of Computing . STOC '15. New York, NY, USA: ACM. pp.
+
+409– 418.
+
+arXiv : 1405.3322 .
+
+doi : 10.1145/2746539.2746578 .
+
+ISBN 9781450335362 .
+
+S2CID 14633920 .
+
+^ Apt, Krzysztof ; Simon, Sunil; Wojtczak, Dominik (4 October 2021). "Coordination Games on Weighted Directed Graphs".
+
+Mathematics of Operations Research .
+
+47 (2): 995– 1025.
+
+arXiv : 1910.02693 .
+
+doi : 10.1287/moor.2021.1159 .
+
+S2CID 203836087 .
+
+^ Cai, Y., Candogan, O., Daskalakis, C., & Papadimitriou, C. (2016). Zero-sum Polymatrix Games: A generalization of Minimax.
+
+https://people.csail.mit.edu/costis/zerosum_final3.pdf ^ O. Person https://pypi.org/project/polymatrix/ ^ Rahn, Mona and Schafer, Guido (2015) Efficient Equilibria in Polymatrix Coordination Games https://arxiv.org/pdf/1504.07518.pdf ^ Feigenbaum, Joan; Koller, Daphne; Shor, Peter (1995).
+
+A Game-Theoretic Classification of Interactive Complexity Classes . Certer for Discrete Mathematics \& Theoretical Computer Science . Retrieved 2010-01-25 .
+
+^ Fortnow, Lance; Impagliazzo, Russell; Kabanets, Valentine; Umans, Christopher (2005).
+
+"On the Complexity of Succinct Zero-Sum Games" .
+
+Proceedings of the 20th Annual IEEE Conference on Computational Complexity . IEEE Computer Society. pp.
+
+323– 332.
+
+ISBN 0-7695-2364-1 . Retrieved 2010-01-23 .
+
+^ Schoenebeck, Grant; Vadhan, Salil (2006).
+
+"The computational complexity of nash equilibria in concisely represented games" .
+
+Proceedings of the 7th ACM conference on Electronic commerce . Ann Arbor, Michigan, USA: ACM. pp.
+
+270– 279.
+
+doi : 10.1145/1134707.1134737 .
+
+ISBN 1-59593-236-4 . Retrieved 2010-01-25 .
+
+External links [ edit ] Algorithmic Game Theory: The Computational Complexity of Pure Nash v t e Game theory Glossary Game theorists Games Traditional game theory Definitions Asynchrony Bayesian regret Best response Bounded rationality Cheap talk Coalition Complete contract Complete information Complete mixing Confrontation analysis Conjectural variation Contingent cooperator Coopetition Cooperative game theory Dynamic inconsistency Escalation of commitment Farsightedness Game semantics Hierarchy of beliefs Imperfect information Incomplete information Information set Move by nature Mutual knowledge Non-cooperative game theory Non-credible threat Outcome Perfect information Perfect recall Ply Preference Rationality Sequential game Simultaneous action selection Spite Strategic complements Strategic dominance Strategic form Strategic interaction Strategic move Strategy Subgame Succinct game Topological game Tragedy of the commons Uncorrelated asymmetry Equilibrium concepts Backward induction Bayes correlated equilibrium Bayesian efficiency Bayesian game Bayesian Nash equilibrium Berge equilibrium Bertrand–Edgeworth model Coalition-proof Nash equilibrium Core Correlated equilibrium Cursed equilibrium Edgeworth price cycle Epsilon-equilibrium Gibbs equilibrium Incomplete contracts Inequity aversion Individual rationality Iterated elimination of dominated strategies Markov perfect equilibrium Mertens-stable equilibrium Nash equilibrium Open-loop model Pareto efficiency Payoff dominance Perfect Bayesian equilibrium Price of anarchy Program equilibrium Proper equilibrium Quantal response equilibrium Quasi-perfect equilibrium Rational agent Rationalizability Rationalizable strategy Satisfaction equilibrium Self-confirming equilibrium Sequential equilibrium Shapley value Strong Nash equilibrium Subgame perfect equilibrium Trembling hand equilibrium Strategies Appeasement Bid shading Cheap talk Collusion Commitment device De-escalation Deterrence Escalation Fictitious play Focal point Grim trigger Hobbesian trap Markov strategy Max-dominated strategy Mixed strategy Pure strategy Tit for tat Win–stay, lose–switch Games All-pay auction Battle of the sexes Nash bargaining game Bertrand competition Blotto game Centipede game Coordination game Cournot competition Deadlock Dictator game Trust game Diner's dilemma Dollar auction El Farol Bar problem Electronic mail game Gift-exchange game Guess 2/3 of the average Keynesian beauty contest Kuhn poker Lewis signaling game Matching pennies Obligationes Optional prisoner's dilemma Pirate game Prisoner's dilemma Public goods game Rendezvous problem Rock paper scissors Stackelberg competition Stag hunt Traveler's dilemma Ultimatum game Volunteer's dilemma War of attrition Theorems Arrow's impossibility theorem Aumann's agreement theorem Brouwer fixed-point theorem Competitive altruism Folk theorem Gibbard–Satterthwaite theorem Gibbs lemma Glicksberg's theorem Kakutani fixed-point theorem Kuhn's theorem One-shot deviation principle Prim–Read theory Rational ignorance Rational irrationality Sperner's lemma Zermelo's theorem Subfields Algorithmic game theory Behavioral game theory Behavioral strategy Compositional game theory Contract theory Drama theory Graphical game theory Heresthetic Mean-field game theory Negotiation theory Quantum game theory Social software Key people Albert W. Tucker Alvin E. Roth Amos Tversky Antoine Augustin Cournot Ariel Rubinstein David Gale David K. Levine David M. Kreps Donald B. Gillies Drew Fudenberg Eric Maskin Harold W. Kuhn Herbert Simon Herbert Scarf Hervé Moulin Jean Tirole Jean-François Mertens Jennifer Tour Chayes Ken Binmore Kenneth Arrow Leonid Hurwicz Lloyd Shapley Martin Shubik Melvin Dresher Merrill M. Flood Olga Bondareva Oskar Morgenstern Paul Milgrom Peyton Young Reinhard Selten Robert Aumann Robert Axelrod Robert B. Wilson Roger Myerson Samuel Bowles Suzanne Scotchmer Thomas Schelling William Vickrey Combinatorial game theory Core concepts Combinatorial explosion Determinacy Disjunctive sum First-player and second-player win Game complexity Game tree Impartial game Misère Partisan game Solved game Sprague–Grundy theorem Strategy-stealing argument Zugzwang Games Chess Chomp Clobber Cram Domineering Hackenbush Nim Notakto Subtract a square Sylver coinage Toads and Frogs Mathematical tools Mex Nimber On Numbers and Games Star Surreal number Winning Ways for Your Mathematical Plays Search algorithms Alpha–beta pruning Expectiminimax Minimax Monte Carlo tree search Negamax Paranoid algorithm Principal variation search Key people Claude Shannon John Conway John von Neumann Evolutionary game theory Core concepts Bishop–Cannings theorem Evolution and the Theory of Games Evolutionarily stable set Evolutionarily stable state Evolutionarily stable strategy Replicator equation Risk dominance Stochastically stable equilibrium Weak evolutionarily stable strategy Games Chicken Stag hunt Applications Cultural group selection Fisher's principle Mobbing Terminal investment hypothesis Key people John Maynard Smith Robert Axelrod Mechanism design Core concepts Algorithmic mechanism design Bayesian-optimal mechanism Incentive compatibility Market design Monotonicity Participation constraint Revelation principle Strategyproofness Vickrey–Clarke–Groves mechanism Theorems Myerson–Satterthwaite theorem Revenue equivalence Applications Digital goods auction Knapsack auction Truthful cake-cutting Other topics Bertrand paradox Chainstore paradox Computational complexity of games Helly metric Multi-agent system PPAD-complete Mathematics portal Commons WikiProject Category Retrieved from " https://en.wikipedia.org/w/index.php?title=Succinct_game&oldid=1305215330 " Category : Game theory game classes Hidden categories: Articles with short description Short description is different from Wikidata This page was last edited on 10 August 2025, at 18:50 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Succinct game 1 language Add topic
+

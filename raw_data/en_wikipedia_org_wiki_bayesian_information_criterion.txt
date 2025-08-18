@@ -1,0 +1,187 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Definition 2 Derivation 3 Use 4 Properties 5 Limitations 6 Gaussian special case 7 See also 8 Notes 9 References 10 Further reading 11 External links Toggle the table of contents Bayesian information criterion 12 languages Català Deutsch Español فارسی Français Italiano 日本語 Polski Русский Українська 粵語 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Criterion for model selection Part of a series on Bayesian statistics Posterior = Likelihood × Prior ÷ Evidence Background Bayesian inference Bayesian probability Bayes' theorem Bernstein–von Mises theorem Coherence Cox's theorem Cromwell's rule Likelihood principle Principle of indifference Principle of maximum entropy Model building Conjugate prior Linear regression Empirical Bayes Hierarchical model Posterior approximation Markov chain Monte Carlo Laplace's approximation Integrated nested Laplace approximations Variational inference Approximate Bayesian computation Estimators Bayesian estimator Credible interval Maximum a posteriori estimation Evidence approximation Evidence lower bound Nested sampling Model evaluation Bayes factor ( Schwarz criterion ) Model averaging Posterior predictive Mathematics portal v t e In statistics , the Bayesian information criterion ( BIC ) or Schwarz information criterion (also SIC , SBC , SBIC ) is a criterion for model selection among a finite set of models; models with lower BIC are generally preferred. It is based, in part, on the likelihood function and it is closely related to the Akaike information criterion (AIC).
+
+When fitting models, it is possible to increase the maximum likelihood by adding parameters, but doing so may result in overfitting . Both BIC and AIC attempt to resolve this problem by introducing a penalty term for the number of parameters in the model; the penalty term is larger in BIC than in AIC for sample sizes greater than 7.
+
+[ 1 ] The BIC was developed by Gideon E. Schwarz and published in a 1978 paper, [ 2 ] as a large-sample approximation to the Bayes factor .
+
+Definition [ edit ] The BIC is formally defined as [ 3 ] [ a ] B I C = k ln ⁡ ⁡ ( n ) − − 2 ln ⁡ ⁡ ( L ^ ^ ) .
+
+{\displaystyle \mathrm {BIC} =k\ln(n)-2\ln({\widehat {L}}).\ } where L ^ ^ {\displaystyle {\hat {L}}} = the maximized value of the likelihood function of the model M {\displaystyle M} , i.e.
+
+L ^ ^ = p ( x ∣ ∣ θ θ ^ ^ , M ) {\displaystyle {\hat {L}}=p(x\mid {\widehat {\theta }},M)} , where { θ θ ^ ^ } {\displaystyle \{{\widehat {\theta }}\}} are the parameter values that maximize the likelihood function and x {\displaystyle x} is the observed data; n {\displaystyle n} = the number of data points in x {\displaystyle x} , the number of observations , or equivalently, the sample size; k {\displaystyle k} = the number of parameters estimated by the model. For example, in multiple linear regression , the estimated parameters are the intercept, the q {\displaystyle q} slope parameters, and the constant variance of the errors; thus, k = q + 2 {\displaystyle k=q+2} .
+
+Derivation [ edit ] The BIC can be derived by integrating out the parameters of the model using Laplace's method , starting with the following model evidence : [ 5 ] [ 6 ] : 217 p ( x ∣ ∣ M ) = ∫ ∫ p ( x ∣ ∣ θ θ , M ) π π ( θ θ ∣ ∣ M ) d θ θ {\displaystyle p(x\mid M)=\int p(x\mid \theta ,M)\pi (\theta \mid M)\,d\theta } where π π ( θ θ ∣ ∣ M ) {\displaystyle \pi (\theta \mid M)} is the prior for θ θ {\displaystyle \theta } under model M {\displaystyle M} .
+
+The log-likelihood, ln ⁡ ⁡ ( p ( x ∣ ∣ θ θ , M ) ) {\displaystyle \ln(p(x\mid \theta ,M))} , is then expanded to a second order Taylor series about the MLE , θ θ ^ ^ {\displaystyle {\widehat {\theta }}} , assuming it is twice differentiable as follows: ln ⁡ ⁡ ( p ( x ∣ ∣ θ θ , M ) ) = ln ⁡ ⁡ ( L ^ ^ ) − − n 2 ( θ θ − − θ θ ^ ^ ) T I ( θ θ ^ ^ ) ( θ θ − − θ θ ^ ^ ) + R ( x , θ θ ) , {\displaystyle \ln(p(x\mid \theta ,M))=\ln({\widehat {L}})-{\frac {n}{2}}(\theta -{\widehat {\theta }})^{\operatorname {T} }{\mathcal {I}}({\widehat {\theta }})(\theta -{\widehat {\theta }})+R(x,\theta ),} where I ( θ θ ) {\displaystyle {\mathcal {I}}(\theta )} is the average observed information per observation , and R ( x , θ θ ) {\displaystyle R(x,\theta )} denotes the residual term.  To the extent that R ( x , θ θ ) {\displaystyle R(x,\theta )} is negligible and π π ( θ θ ∣ ∣ M ) {\displaystyle \pi (\theta \mid M)} is relatively linear near θ θ ^ ^ {\displaystyle {\widehat {\theta }}} , we can integrate out θ θ {\displaystyle \theta } to get the following: p ( x ∣ ∣ M ) ≈ ≈ L ^ ^ ( 2 π π n ) k 2 | I ( θ θ ^ ^ ) | − − 1 2 π π ( θ θ ^ ^ ) {\displaystyle p(x\mid M)\approx {\hat {L}}{\left({\frac {2\pi }{n}}\right)}^{\frac {k}{2}}|{\mathcal {I}}({\widehat {\theta }})|^{-{\frac {1}{2}}}\pi ({\widehat {\theta }})} As n {\displaystyle n} increases, we can ignore | I ( θ θ ^ ^ ) | {\displaystyle |{\mathcal {I}}({\widehat {\theta }})|} and π π ( θ θ ^ ^ ) {\displaystyle \pi ({\widehat {\theta }})} as they are O ( 1 ) {\displaystyle O(1)} .  Thus, p ( x ∣ ∣ M ) = exp ⁡ ⁡ ( ln ⁡ ⁡ L ^ ^ − − k 2 ln ⁡ ⁡ ( n ) + O ( 1 ) ) = exp ⁡ ⁡ ( − − B I C 2 + O ( 1 ) ) , {\displaystyle p(x\mid M)=\exp \left(\ln {\widehat {L}}-{\frac {k}{2}}\ln(n)+O(1)\right)=\exp \left(-{\frac {\mathrm {BIC} }{2}}+O(1)\right),} where BIC is defined as above, and L ^ ^ {\displaystyle {\widehat {L}}} either (a) is the Bayesian posterior mode or (b) uses the MLE and the prior π π ( θ θ ∣ ∣ M ) {\displaystyle \pi (\theta \mid M)} has nonzero slope at the MLE.  Then the posterior p ( M ∣ ∣ x ) ∝ ∝ p ( x ∣ ∣ M ) p ( M ) ≈ ≈ exp ⁡ ⁡ ( − − B I C 2 ) p ( M ) {\displaystyle p(M\mid x)\propto p(x\mid M)p(M)\approx \exp \left(-{\frac {\mathrm {BIC} }{2}}\right)p(M)} Use [ edit ] When picking from several models, ones with lower BIC values are generally preferred. The BIC is an increasing function of the error variance σ σ e 2 {\displaystyle \sigma _{e}^{2}} and an increasing function of k . That is, unexplained variation in the dependent variable and the number of explanatory variables increase the value of BIC. However, a lower BIC does not necessarily indicate one model is better than another. Because it involves approximations, the BIC is merely a heuristic. In particular, differences in BIC should never be treated like transformed Bayes factors.
+
+It is important to keep in mind that the BIC can be used to compare estimated models only when the numerical values of the dependent variable [ b ] are identical for all models being compared. The models being compared need not be nested , unlike the case when models are being compared using an F-test or a likelihood ratio test .
+
+[ citation needed ] Properties [ edit ] This section needs additional citations for verification .
+
+Please help improve this article by adding citations to reliable sources in this section. Unsourced material may be challenged and removed.
+
+( November 2011 ) ( Learn how and when to remove this message ) The BIC generally penalizes free parameters more strongly than the Akaike information criterion , though it depends on the size of n and relative magnitude of n and k .
+
+It is independent of the prior.
+
+It can measure the efficiency of the parameterized model in terms of predicting the data.
+
+It penalizes the complexity of the model where complexity refers to the number of parameters in the model.
+
+It is approximately equal to the minimum description length criterion but with negative sign.
+
+It can be used to choose the number of clusters according to the intrinsic complexity present in a particular dataset.
+
+It is closely related to other penalized likelihood criteria such as Deviance information criterion and the Akaike information criterion .
+
+Limitations [ edit ] The BIC suffers from two main limitations [ 7 ] the above approximation is only valid for sample size n {\displaystyle n} much larger than the number k {\displaystyle k} of parameters in the model.
+
+the BIC cannot handle complex collections of models as in the variable selection (or feature selection ) problem in high-dimension.
+
+[ 7 ] Gaussian special case [ edit ] Under the assumption that the model errors or disturbances are independent and identically distributed according to a normal distribution and the boundary condition that the derivative of the log likelihood with respect to the true variance is zero, this becomes ( up to an additive constant , which depends only on n and not on the model): [ 8 ] B I C = n ln ⁡ ⁡ ( σ σ e 2 ^ ^ ) + k ln ⁡ ⁡ ( n ) {\displaystyle \mathrm {BIC} =n\ln({\widehat {\sigma _{e}^{2}}})+k\ln(n)\ } where σ σ e 2 ^ ^ {\displaystyle {\widehat {\sigma _{e}^{2}}}} is the error variance. The error variance in this case is defined as σ σ e 2 ^ ^ = 1 n ∑ ∑ i = 1 n ( x i − − x ^ ^ i ) 2 .
+
+{\displaystyle {\widehat {\sigma _{e}^{2}}}={\frac {1}{n}}\sum _{i=1}^{n}(x_{i}-{\widehat {x}}_{i})^{2}.} which is a biased estimator for the true variance .
+
+In terms of the residual sum of squares (RSS) the BIC is B I C = n ln ⁡ ⁡ ( RSS / n ) + k ln ⁡ ⁡ ( n ) {\displaystyle \mathrm {BIC} =n\ln({\text{RSS}}/n)+k\ln(n)\ } When testing multiple linear models against a saturated model, the BIC can be rewritten in terms of the deviance χ χ 2 {\displaystyle \chi ^{2}} as: [ 9 ] B I C = χ χ 2 + k ln ⁡ ⁡ ( n ) {\displaystyle \mathrm {BIC} =\chi ^{2}+k\ln(n)} where k {\displaystyle k} is the number of model parameters in the test.
+
+See also [ edit ] Akaike information criterion Bayes factor Bayesian model comparison Deviance information criterion Hannan–Quinn information criterion Jensen–Shannon divergence Kullback–Leibler divergence Minimum message length Notes [ edit ] ^ The AIC, AICc and BIC defined by Claeskens and Hjort [ 4 ] are the negatives of those defined in this article and in most other standard references.
+
+^ A dependent variable is also called a response variable or an outcome variable . See Regression analysis .
+
+References [ edit ] ^ See the review paper: Stoica, P.; Selen, Y. (2004), "Model-order selection: a review of information criterion rules", IEEE Signal Processing Magazine (July): 36– 47, doi : 10.1109/MSP.2004.1311138 , S2CID 17338979 .
+
+^ Schwarz, Gideon E. (1978), "Estimating the dimension of a model", Annals of Statistics , 6 (2): 461– 464, doi : 10.1214/aos/1176344136 , MR 0468014 .
+
+^ Wit, Ernst; Edwin van den Heuvel; Jan-Willem Romeyn (2012).
+
+" 'All models are wrong...': an introduction to model uncertainty" (PDF) .
+
+Statistica Neerlandica .
+
+66 (3): 217– 236.
+
+doi : 10.1111/j.1467-9574.2012.00530.x .
+
+S2CID 7793470 .
+
+^ Claeskens, G.
+
+; Hjort, N. L.
+
+(2008), Model Selection and Model Averaging , Cambridge University Press ^ Raftery, A.E. (1995). "Bayesian model selection in social research".
+
+Sociological Methodology .
+
+25 : 111– 196.
+
+doi : 10.2307/271063 .
+
+JSTOR 271063 .
+
+^ Konishi, Sadanori; Kitagawa, Genshiro (2008).
+
+Information criteria and statistical modeling . Springer.
+
+ISBN 978-0-387-71886-6 .
+
+^ a b Giraud, C. (2015).
+
+Introduction to high-dimensional statistics . Chapman & Hall/CRC.
+
+ISBN 9781482237948 .
+
+^ Priestley, M.B. (1981).
+
+Spectral Analysis and Time Series .
+
+Academic Press .
+
+ISBN 978-0-12-564922-3 .
+
+(p. 375).
+
+^ Kass, Robert E.; Raftery, Adrian E. (1995), "Bayes Factors", Journal of the American Statistical Association , 90 (430): 773– 795, doi : 10.2307/2291091 , ISSN 0162-1459 , JSTOR 2291091 .
+
+Further reading [ edit ] Bhat, H. S.; Kumar, N (2010).
+
+"On the derivation of the Bayesian Information Criterion" (PDF) . Archived from the original (PDF) on 28 March 2012.
+
+Findley, D. F. (1991). "Counterexamples to parsimony and BIC".
+
+Annals of the Institute of Statistical Mathematics .
+
+43 (3): 505– 514.
+
+doi : 10.1007/BF00053369 .
+
+S2CID 58910242 .
+
+Kass, R. E.; Wasserman, L. (1995). "A reference Bayesian test for nested hypotheses and its relationship to the Schwarz criterion".
+
+Journal of the American Statistical Association .
+
+90 (431): 928– 934.
+
+doi : 10.2307/2291327 .
+
+JSTOR 2291327 .
+
+Liddle, A. R. (2007).
+
+"Information criteria for astrophysical model selection" .
+
+Monthly Notices of the Royal Astronomical Society .
+
+377 (1): L74 – L78 .
+
+arXiv : astro-ph/0701113 .
+
+Bibcode : 2007MNRAS.377L..74L .
+
+doi : 10.1111/j.1745-3933.2007.00306.x .
+
+S2CID 2884450 .
+
+McQuarrie, A. D. R.; Tsai, C.-L. (1998).
+
+Regression and Time Series Model Selection .
+
+World Scientific .
+
+External links [ edit ] Sparse Vector Autoregressive Modeling v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject NewPP limit report
+Parsed by mw‐api‐ext.codfw.main‐5cf8f5fb49‐z7t5h
+Cached time: 20250812014507
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.613 seconds
+Real time usage: 0.861 seconds
+Preprocessor visited node count: 2887/1000000
+Revision size: 11794/2097152 bytes
+Post‐expand include size: 187065/2097152 bytes
+Template argument size: 2873/2097152 bytes
+Highest expansion depth: 16/100
+Expensive parser function count: 4/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 69392/5000000 bytes
+Lua time usage: 0.343/10.000 seconds
+Lua memory usage: 7745497/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  571.142      1 -total
+ 25.63%  146.390      2 Template:Reflist
+ 17.32%   98.948      1 Template:Statistics
+ 16.99%   97.016      1 Template:Bayesian_statistics
+ 16.86%   96.319      1 Template:Navbox_with_collapsible_groups
+ 16.29%   93.016      4 Template:Citation
+ 13.16%   75.157      1 Template:Short_description
+  9.90%   56.523     11 Template:Navbox
+  7.37%   42.110      2 Template:Pagetype
+  7.34%   41.898      1 Template:Citation_needed Saved in parser cache with key enwiki:pcache:2473272:|#|:idhash:canonical and timestamp 20250812014507 and revision id 1286138126. Rendering was triggered because: unknown Retrieved from " https://en.wikipedia.org/w/index.php?title=Bayesian_information_criterion&oldid=1286138126 " Categories : Model selection Bayesian inference Regression variable selection Hidden categories: Articles with short description Short description is different from Wikidata All articles with unsourced statements Articles with unsourced statements from February 2019 Articles needing additional references from November 2011 All articles needing additional references This page was last edited on 17 April 2025, at 23:49 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Bayesian information criterion 12 languages Add topic
+

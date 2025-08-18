@@ -1,0 +1,115 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Explanation 2 Dealing with uncertainty about including the intercept and deterministic time trend terms 3 See also 4 References 5 Further reading 6 External links Toggle the table of contents Dickey–Fuller test 11 languages Deutsch Español Français Italiano 日本語 Polski Português Русский Türkçe Українська 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Time series statistical test In statistics , the Dickey–Fuller test tests the null hypothesis that a unit root is present in an autoregressive (AR) time series model. The alternative hypothesis is different depending on which version of the test is used, but is usually stationarity or trend-stationarity . The test is named after the statisticians David Dickey and Wayne Fuller , who developed it in 1979.
+
+[ 1 ] Explanation [ edit ] A simple AR model is y t = ρ ρ y t − − 1 + u t {\displaystyle y_{t}=\rho y_{t-1}+u_{t}\,} where y t {\displaystyle y_{t}} is the variable of interest, t {\displaystyle t} is the time index, ρ ρ {\displaystyle \rho } is a coefficient, and u t {\displaystyle u_{t}} is the error term (assumed to be white noise ).  A unit root is present if ρ ρ = 1 {\displaystyle \rho =1} . The model would be non-stationary in this case.
+
+The regression model can be written as Δ Δ y t = ( ρ ρ − − 1 ) y t − − 1 + u t = δ δ y t − − 1 + u t {\displaystyle \Delta y_{t}=(\rho -1)y_{t-1}+u_{t}=\delta y_{t-1}+u_{t}\,} where Δ Δ {\displaystyle \Delta } is the first difference operator and δ δ ≡ ≡ ρ ρ − − 1 {\displaystyle \delta \equiv \rho -1} . This model can be estimated, and testing for a unit root is equivalent to testing δ δ = 0 {\displaystyle \delta =0} .  Since the test is done over the residual term rather than raw data, it is not possible to use standard t-distribution to provide critical values. Therefore, this statistic t {\displaystyle t} has a specific distribution simply known as the Dickey–Fuller table .
+
+There are three main versions of the test: 1. Test for a unit root: Δ Δ y t = δ δ y t − − 1 + u t {\displaystyle \Delta y_{t}=\delta y_{t-1}+u_{t}\,} 2. Test for a unit root with constant: Δ Δ y t = a 0 + δ δ y t − − 1 + u t {\displaystyle \Delta y_{t}=a_{0}+\delta y_{t-1}+u_{t}\,} 3. Test for a unit root with constant and deterministic time trend: Δ Δ y t = a 0 + a 1 t + δ δ y t − − 1 + u t {\displaystyle \Delta y_{t}=a_{0}+a_{1}t+\delta y_{t-1}+u_{t}\,} Each version of the test has its own critical value which depends on the size of the sample. In each case, the null hypothesis is that there is a unit root, δ δ = 0 {\displaystyle \delta =0} . The tests have low statistical power in that they often cannot distinguish between true unit-root processes ( δ δ = 0 {\displaystyle \delta =0} ) and near unit-root processes ( δ δ {\displaystyle \delta } is close to zero). This is called the "near observation equivalence" problem.
+
+The intuition behind the test is as follows. If the series y {\displaystyle y} is stationary (or trend-stationary ), then it has a tendency to return to a constant (or deterministically trending) mean. Therefore, large values will tend to be followed by smaller values (negative changes), and small values by larger values (positive changes). Accordingly, the level of the series will be a significant predictor of next period's change, and will have a negative coefficient. If, on the other hand, the series is integrated, then positive changes and negative changes will occur with probabilities that do not depend on the current level of the series; in a random walk , where you are now does not affect which way you will go next.
+
+It is notable that Δ Δ y t = a 0 + u t {\displaystyle \Delta y_{t}=a_{0}+u_{t}\,} may be rewritten as y t = y 0 + ∑ ∑ i = 1 t u i + a 0 t {\displaystyle y_{t}=y_{0}+\sum _{i=1}^{t}u_{i}+a_{0}t} with a deterministic trend coming from a 0 t {\displaystyle a_{0}t} and a stochastic intercept term coming from y 0 + ∑ ∑ i = 1 t u i {\displaystyle y_{0}+\sum _{i=1}^{t}u_{i}} , resulting in what is referred to as a stochastic trend .
+
+[ 2 ] There is also an extension of the Dickey–Fuller (DF) test called the augmented Dickey–Fuller test (ADF), which removes all the structural effects (autocorrelation) in the time series and then tests using the same procedure.
+
+Dealing with uncertainty about including the intercept and deterministic time trend terms [ edit ] Which of the three main versions of the test should be used is not a minor issue. The decision is important for the size of the unit root test (the probability of rejecting the null hypothesis of a unit root when there is one) and the power of the unit root test (the probability of rejecting the null hypothesis of a unit root when there is not one). Inappropriate exclusion of the intercept or deterministic time trend term leads to bias in the coefficient estimate for δ , leading to the actual size for the unit root test not matching the reported one. If the time trend term is inappropriately excluded with the a 0 {\displaystyle a_{0}} term estimated, then the power of the unit root test can be substantially reduced as a trend may be captured through the random walk with drift model.
+
+[ 3 ] On the other hand, inappropriate inclusion of the intercept or time trend term reduces the power of the unit root test, and sometimes that reduced power can be substantial.
+
+Use of prior knowledge about whether the intercept and deterministic time trend should be included is of course ideal but not always possible. When such prior knowledge is unavailable, various testing strategies (series of ordered tests) have been suggested, e.g. by Dolado, Jenkinson, and Sosvilla-Rivero (1990) [ 4 ] and by Enders (2004), often with the ADF extension to remove autocorrelation. Elder and Kennedy (2001) present a simple testing strategy that avoids double and triple testing for the unit root that can occur with other testing strategies, and discuss how to use prior knowledge about the existence or not of long-run growth (or shrinkage) in y .
+
+[ 5 ] Hacker and Hatemi-J (2010) provide simulation results on these matters, [ 6 ] including simulations covering the Enders (2004) and Elder and Kennedy (2001) unit-root testing strategies. Simulation results are presented in Hacker (2010) which indicate that using an information criterion such as the Schwarz information criterion may be useful in determining unit root and trend status within a Dickey–Fuller framework.
+
+[ 7 ] See also [ edit ] KPSS test Phillips–Perron test References [ edit ] ^ Dickey, D. A.; Fuller, W. A. (1979).
+
+"Distribution of the Estimators for Autoregressive Time Series with a Unit Root" .
+
+Journal of the American Statistical Association .
+
+74 (366): 427– 431.
+
+doi : 10.1080/01621459.1979.10482531 .
+
+JSTOR 2286348 .
+
+^ Enders, W.
+
+(2004).
+
+Applied Econometric Time Series (Second ed.). Hoboken: John Wiley & Sons.
+
+ISBN 978-0-471-23065-6 .
+
+^ Campbell, J. Y.; Perron, P. (1991).
+
+"Pitfalls and Opportunities: What Macroeconomists Should Know about Unit Roots" (PDF) .
+
+NBER Macroeconomics Annual .
+
+6 (1): 141– 201.
+
+doi : 10.2307/3585053 .
+
+JSTOR 3585053 .
+
+^ Dolado, J. J.; Jenkinson, T.; Sosvilla-Rivero, S. (1990). "Cointegration and Unit Roots".
+
+Journal of Economic Surveys .
+
+4 (3): 249– 273.
+
+doi : 10.1111/j.1467-6419.1990.tb00088.x .
+
+hdl : 10016/3321 .
+
+^ Elder, J.; Kennedy, P. E. (2001). "Testing for Unit Roots: What Should Students Be Taught?".
+
+Journal of Economic Education .
+
+32 (2): 137– 146.
+
+CiteSeerX 10.1.1.140.8811 .
+
+doi : 10.1080/00220480109595179 .
+
+S2CID 18656808 .
+
+^ Hacker, R. S.; Hatemi-J, A. (2010).
+
+"The Properties of Procedures Dealing with Uncertainty about Intercept and Deterministic Trend in Unit Root Testing" .
+
+CESIS Electronic Working Paper Series, Paper No. 214 . Centre of Excellence for Science and Innovation Studies, The Royal Institute of Technology, Stockholm, Sweden.
+
+^ Hacker, Scott (2010-02-11).
+
+"The Effectiveness of Information Criteria in Determining Unit Root and Trend Status" .
+
+Working Paper Series in Economics and Institutions of Innovation .
+
+213 . Stockholm, Sweden: Royal Institute of Technology, CESIS - Centre of Excellence for Science and Innovation Studies.
+
+Further reading [ edit ] Enders, Walter (2010).
+
+Applied Econometric Time Series (Third ed.). New York: Wiley. pp.
+
+206– 215.
+
+ISBN 978-0470-50539-7 .
+
+Hatanaka, Michio (1996).
+
+Time-Series-Based Econometrics: Unit Roots and Cointegration . New York: Oxford University Press. pp.
+
+48– 49.
+
+ISBN 978-0-19-877353-5 .
+
+External links [ edit ] Statistical tables for unit-root tests – Dickey–Fuller table How to do a Dickey-Fuller Test Using Excel v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject Retrieved from " https://en.wikipedia.org/w/index.php?title=Dickey–Fuller_test&oldid=1295382851 " Category : Time series statistical tests Hidden categories: Articles with short description Short description matches Wikidata This page was last edited on 13 June 2025, at 11:37 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Dickey–Fuller test 11 languages Add topic
+

@@ -1,0 +1,143 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Stability in numerical linear algebra 2 Stability in numerical differential equations 3 Example 4 See also 5 Notes 6 References Toggle the table of contents Numerical stability 19 languages العربية Català Čeština Deutsch Ελληνικά Español Esperanto فارسی Français Italiano עברית 日本語 Polski Português Русский Slovenčina Українська اردو 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Ability of numerical algorithms to remain accurate under small changes of inputs This article includes a list of general references , but it lacks sufficient corresponding inline citations .
+
+Please help to improve this article by introducing more precise citations.
+
+( February 2012 ) ( Learn how and when to remove this message ) In the mathematical subfield of numerical analysis , numerical stability is a generally desirable property of numerical algorithms . The precise definition of stability depends on the context: one important context is numerical linear algebra , and another is algorithms for solving ordinary and partial differential equations by discrete approximation.
+
+In numerical linear algebra, the principal concern is instabilities caused by proximity to singularities of various kinds, such as very small or nearly colliding eigenvalues . On the other hand, in numerical algorithms for differential equations the concern is the growth of round-off errors and/or small fluctuations in initial data which might cause a large deviation of final answer from the exact solution.
+
+[ citation needed ] Some numerical algorithms may damp out the small fluctuations (errors) in the input data; others might magnify such errors.  Calculations that can be proven not to magnify approximation errors are called numerically stable .  One of the common tasks of numerical analysis is to try to select algorithms which are robust – that is to say, do not produce a wildly different result for a very small change in the input data.
+
+An opposite phenomenon is instability . Typically, an algorithm involves an approximative method, and in some cases one could prove that the algorithm would approach the right solution in some limit (when using actual real numbers, not floating point numbers). Even in this case, there is no guarantee that it would converge to the correct solution, because the floating-point round-off or truncation errors can be magnified, instead of damped, causing the deviation from the exact solution to grow exponentially.
+
+[ 1 ] Stability in numerical linear algebra [ edit ] There are different ways to formalize the concept of stability. The following definitions of forward, backward, and mixed stability are often used in numerical linear algebra .
+
+Diagram showing the forward error Δ y and the backward error Δ x , and their relation to the exact solution map f and the numerical solution f* .
+
+Consider the problem to be solved by the numerical algorithm as a function f mapping the data x to the solution y . The result of the algorithm, say y *, will usually deviate from the "true" solution y . The main causes of error are round-off error and truncation error . The forward error of the algorithm is the difference between the result and the solution; in this case, Δ y = y * − y . The backward error is the smallest Δ x such that f ( x + Δ x ) = y * ; in other words, the backward error tells us what problem the algorithm actually solved. The forward and backward error are related by the condition number : the forward error is at most as big in magnitude as the condition number multiplied by the magnitude of the backward error.
+
+In many cases, it is more natural to consider the relative error | Δ Δ x | | x | {\displaystyle {\frac {|\Delta x|}{|x|}}} instead of the absolute error Δ x .
+
+The algorithm is said to be backward stable if the backward error is small for all inputs x . Of course, "small" is a relative term and its definition will depend on the context. Often, we want the error to be of the same order as, or perhaps only a few orders of magnitude bigger than, the unit round-off .
+
+Mixed stability combines the concepts of forward error and backward error.
+
+The usual definition of numerical stability uses a more general concept, called mixed stability , which combines the forward error and the backward error. An algorithm is stable in this sense if it solves a nearby problem approximately, i.e., if there exists a Δ x such that both Δ x is small and f ( x + Δ x ) − y * is small. Hence, a backward stable algorithm is always stable.
+
+An algorithm is forward stable if its forward error divided by the condition number of the problem is small. This means that an algorithm is forward stable if it has a forward error of magnitude similar to some backward stable algorithm.
+
+Stability in numerical differential equations [ edit ] The above definitions are particularly relevant in situations where truncation errors are not important. In other contexts, for instance when solving differential equations , a different definition of numerical stability is used.
+
+In numerical ordinary differential equations , various concepts of numerical stability exist, for instance A-stability . They are related to some concept of stability in the dynamical systems sense, often Lyapunov stability . It is important to use a stable method when solving a stiff equation .
+
+Yet another definition is used in numerical partial differential equations . An algorithm for solving a linear evolutionary partial differential equation is stable if the total variation of the numerical solution at a fixed time remains bounded as the step size goes to zero. The Lax equivalence theorem states that an algorithm converges if it is consistent and stable (in this sense). Stability is sometimes achieved by including numerical diffusion . Numerical diffusion is a mathematical term which ensures that roundoff and other errors in the calculation get spread out and do not add up to cause the calculation to "blow up".
+
+Von Neumann stability analysis is a commonly used procedure for the stability analysis of finite difference schemes as applied to linear partial differential equations.  These results do not hold for nonlinear PDEs, where a general, consistent definition of stability is complicated by many properties absent in linear equations.
+
+Example [ edit ] Computing the square root of 2 (which is roughly 1.41421) is a well-posed problem . Many algorithms solve this problem by starting with an initial approximation x 0 to 2 {\displaystyle {\sqrt {2}}} , for instance x 0 = 1.4, and then computing improved guesses x 1 , x 2 , etc. One such method is the famous Babylonian method , which is given by x k +1 = ( x k + 2/ x k )/2. Another method, called "method X", is given by x k +1 = ( x k 2 − 2) 2 + x k .
+
+[ note 1 ] A few iterations of each scheme are calculated in table form below, with initial guesses x 0 = 1.4 and x 0 = 1.42.
+
+Babylonian Babylonian Method X Method X x 0 = 1.4 x 0 = 1.42 x 0 = 1.4 x 0 = 1.42 x 1 = 1.4142857...
+
+x 1 = 1.41422535...
+
+x 1 = 1.4016 x 1 = 1.42026896 x 2 = 1.414213564...
+
+x 2 = 1.41421356242...
+
+x 2 = 1.4028614...
+
+x 2 = 1.42056...
+
+...
+
+...
+
+x 1000000 = 1.41421...
+
+x 27 = 7280.2284...
+
+Observe that the Babylonian method converges quickly regardless of the initial guess, whereas Method X converges extremely slowly with initial guess x 0 = 1.4 and diverges for initial guess x 0 = 1.42. Hence, the Babylonian method is numerically stable, while Method X is numerically unstable.
+
+Numerical stability is affected by the number of the significant digits the machine keeps. If a machine is used that keeps only the four most significant decimal digits, a good example on loss of significance can be given by the two equivalent functions f ( x ) = x ( x + 1 − − x ) {\displaystyle f(x)=x\left({\sqrt {x+1}}-{\sqrt {x}}\right)} and g ( x ) = x x + 1 + x .
+
+{\displaystyle g(x)={\frac {x}{{\sqrt {x+1}}+{\sqrt {x}}}}.} Comparing the results of f ( 500 ) = 500 ( 501 − − 500 ) = 500 ( 22.38 − − 22.36 ) = 500 ( 0.02 ) = 10 {\displaystyle f(500)=500\left({\sqrt {501}}-{\sqrt {500}}\right)=500\left(22.38-22.36\right)=500(0.02)=10} and g ( 500 ) = 500 501 + 500 = 500 22.38 + 22.36 = 500 44.74 = 11.17 {\displaystyle {\begin{alignedat}{3}g(500)&={\frac {500}{{\sqrt {501}}+{\sqrt {500}}}}\\&={\frac {500}{22.38+22.36}}\\&={\frac {500}{44.74}}=11.17\end{alignedat}}} by comparing the two results above, it is clear that loss of significance (caused here by catastrophic cancellation from subtracting approximations to the nearby numbers 501 {\displaystyle {\sqrt {501}}} and 500 {\displaystyle {\sqrt {500}}} , despite the subtraction being computed exactly) has a huge effect on the results, even though both functions are equivalent, as shown below f ( x ) = x ( x + 1 − − x ) = x ( x + 1 − − x ) x + 1 + x x + 1 + x = x ( x + 1 ) 2 − − ( x ) 2 x + 1 + x = x x + 1 − − x x + 1 + x = x 1 x + 1 + x = x x + 1 + x = g ( x ) {\displaystyle {\begin{alignedat}{4}f(x)&=x\left({\sqrt {x+1}}-{\sqrt {x}}\right)\\&=x\left({\sqrt {x+1}}-{\sqrt {x}}\right){\frac {{\sqrt {x+1}}+{\sqrt {x}}}{{\sqrt {x+1}}+{\sqrt {x}}}}\\&=x{\frac {({\sqrt {x+1}})^{2}-({\sqrt {x}})^{2}}{{\sqrt {x+1}}+{\sqrt {x}}}}\\&=x{\frac {x+1-x}{{\sqrt {x+1}}+{\sqrt {x}}}}\\&=x{\frac {1}{{\sqrt {x+1}}+{\sqrt {x}}}}\\&={\frac {x}{{\sqrt {x+1}}+{\sqrt {x}}}}\\&=g(x)\end{alignedat}}} The desired value, computed using infinite precision, is 11.174755...
+
+[ note 2 ] See also [ edit ] Algorithms for calculating variance Stability theory Chaos theory Propagation of uncertainty Notes [ edit ] ^ This is a fixed point iteration for the equation x = ( x 2 − − 2 ) 2 + x = f ( x ) {\displaystyle x=(x^{2}-2)^{2}+x=f(x)} , whose solutions include 2 {\displaystyle {\sqrt {2}}} . The iterates always move to the right since f ( x ) ≥ ≥ x {\displaystyle f(x)\geq x} . Hence x 1 = 1.4 < 2 {\displaystyle x_{1}=1.4<{\sqrt {2}}} converges and x 1 = 1.42 > 2 {\displaystyle x_{1}=1.42>{\sqrt {2}}} diverges.
+
+^ The example is a modification of one taken from Mathews & Fink (1999) .
+
+[ 2 ] References [ edit ] ^ Giesela Engeln-Müllges; Frank Uhlig (2 July 1996).
+
+Numerical Algorithms with C . M. Schon (Translator), F. Uhlig (Translator) (1 ed.). Springer. p. 10.
+
+ISBN 978-3-540-60530-0 .
+
+^ Mathews, John H.; Fink, Kurtis D. (1999). "Example 1.17".
+
+Numerical Methods Using MATLAB (3rd ed.). Prentice Hall. p. 28.
+
+Nicholas J. Higham (1996).
+
+Accuracy and Stability of Numerical Algorithms . Philadelphia: Society of Industrial and Applied Mathematics.
+
+ISBN 0-89871-355-2 .
+
+Richard L. Burden; J. Douglas Faires (2005).
+
+Numerical Analysis (8th ed.). U.S.: Thomson Brooks/Cole.
+
+ISBN 0-534-39200-8 .
+
+Mesnard, Olivier; Barba, Lorena A. (2017). "Reproducible and Replicable Computational Fluid Dynamics: It's Harder Than You Think".
+
+Computing in Science & Engineering .
+
+19 (4): 44– 55.
+
+arXiv : 1605.04339 .
+
+Bibcode : 2017CSE....19d..44M .
+
+doi : 10.1109/MCSE.2017.3151254 .
+
+S2CID 11288122 .
+
+v t e Linear algebra Outline Glossary Basic concepts Scalar Vector Vector space Scalar multiplication Vector projection Linear span Linear map Linear projection Linear independence Linear combination Multilinear map Basis Change of basis Row and column vectors Row and column spaces Kernel Eigenvalues and eigenvectors Transpose Linear equations Matrices Block Decomposition Invertible Minor Multiplication Rank Transformation Cramer's rule Gaussian elimination Productive matrix Gram matrix Bilinear Orthogonality Dot product Hadamard product Inner product space Outer product Kronecker product Gram–Schmidt process Multilinear algebra Determinant Cross product Triple product Seven-dimensional cross product Geometric algebra Exterior algebra Bivector Multivector Tensor Outermorphism Vector space constructions Dual Direct sum Function space Quotient Subspace Tensor product Numerical Floating-point Numerical stability Basic Linear Algebra Subprograms Sparse matrix Comparison of linear algebra libraries Category NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐sdb7d
+Cached time: 20250812023032
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.357 seconds
+Real time usage: 0.566 seconds
+Preprocessor visited node count: 1557/1000000
+Revision size: 11794/2097152 bytes
+Post‐expand include size: 34264/2097152 bytes
+Template argument size: 2821/2097152 bytes
+Highest expansion depth: 13/100
+Expensive parser function count: 3/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 26785/5000000 bytes
+Lua time usage: 0.230/10.000 seconds
+Lua memory usage: 6269790/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  449.667      1 -total
+ 35.53%  159.782      2 Template:Reflist
+ 34.60%  155.588      4 Template:Cite_book
+ 20.59%   92.593      1 Template:Linear_algebra
+ 20.09%   90.320      1 Template:Navbox
+ 13.68%   61.515      1 Template:Short_description
+ 12.00%   53.973      1 Template:More_footnotes
+ 10.46%   47.041      1 Template:Ambox
+  8.41%   37.796      2 Template:Pagetype
+  6.64%   29.844      2 Template:NoteTag Saved in parser cache with key enwiki:pcache:233807:|#|:idhash:canonical and timestamp 20250812023032 and revision id 1286749964. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Numerical_stability&oldid=1286749964 " Category : Numerical analysis Hidden categories: Articles with short description Short description is different from Wikidata Articles lacking in-text citations from February 2012 All articles lacking in-text citations All articles with unsourced statements Articles with unsourced statements from October 2017 This page was last edited on 21 April 2025, at 19:15 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Numerical stability 19 languages Add topic
+

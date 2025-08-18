@@ -1,0 +1,220 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Reversible classical logic gates 2 Quantum logic gates 3 Reversible logic circuits 4 Quantum computations 5 Accelerating Quantum Computing Simulations with FPGAs 6 See also 7 References 8 External links Toggle the table of contents Quantum circuit 12 languages العربية Català Deutsch Español 한국어 日本語 Português Русский Suomi Українська Tiếng Việt 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Model of quantum computing This article includes a list of general references , but it lacks sufficient corresponding inline citations .
+
+Please help to improve this article by introducing more precise citations.
+
+( October 2015 ) ( Learn how and when to remove this message ) Circuit that performs teleportation of a qubit.
+
+[ 1 ] This circuit consists of both quantum gates and measurements . Measurement is a quantum phenomenon that does not occur in classical circuits .
+
+In quantum information theory , a quantum circuit is a model for quantum computation , similar to classical circuits , in which a computation is a sequence of quantum gates , measurements , initializations of qubits to known values, and possibly other actions. The minimum set of actions that a circuit needs to be able to perform on the qubits to enable quantum computation is known as DiVincenzo's criteria .
+
+Circuits are written such that the horizontal axis is time, starting at the left hand side and ending at the right. Horizontal lines are qubits, doubled lines represent classical bits . The items that are connected by these lines are operations performed on the qubits, such as measurements or gates. These lines define the sequence of events, and are usually not physical cables.
+
+[ 2 ] [ 3 ] [ 4 ] The graphical depiction of quantum circuit elements is described using a variant of the Penrose graphical notation .
+
+[ citation needed ] Richard Feynman used an early version of the quantum circuit notation in 1986.
+
+[ 5 ] Reversible classical logic gates [ edit ] Most elementary logic gates of a classical computer are not reversible . Thus, for instance, for an AND gate one cannot always recover the two input bits from the output bit; for example, if the output bit is 0, we cannot tell from this whether the input bits are 01 or 10  or 00.
+
+However, reversible gates in classical computers are easily constructed for bit strings of any length; moreover, these are actually of practical interest, since irreversible gates must always increase physical entropy . A reversible gate is a reversible function on n -bit data that returns n -bit data,  where an n -bit data is a string of bits x 1 , x 2 , ..., x n of length n .   The set of n -bit data is the space {0,1} n , which consists of 2 n strings of 0's and 1's.
+
+More precisely: an n -bit reversible gate is a bijective mapping f from the set {0,1} n of n -bit data onto itself.
+An example of such a reversible gate f is a mapping that applies a fixed permutation to its inputs.
+For reasons of practical engineering, one typically studies gates only for small values of n , e.g.
+
+n =1, n =2 or n =3.  These gates can be easily described by tables.
+
+Quantum logic gates [ edit ] The quantum logic gates are reversible unitary transformations on at least one qubit. Multiple qubits taken together are referred to as quantum registers . To define quantum gates, we first need to specify the quantum replacement of an n -bit datum. The quantized version of classical n -bit space {0,1} n is the Hilbert space H QB ⁡ ⁡ ( n ) = ℓ ℓ 2 ( { 0 , 1 } n ) .
+
+{\displaystyle H_{\operatorname {QB} (n)}=\ell ^{2}(\{0,1\}^{n}).} This is by definition the space of complex-valued functions on {0,1} n and is naturally an inner product space .
+
+ℓ ℓ 2 {\displaystyle \ell ^{2}} means the function is a square-integrable function . This space can also be regarded as consisting of linear combinations , or superpositions , of classical bit strings. Note that H QB( n ) is a vector space over the complex numbers of dimension 2 n . The elements of this vector space are the possible state-vectors of n - qubit quantum registers.
+
+Using Dirac ket notation, if x 1 , x 2 , ..., x n is a classical bit string, then | x 1 , x 2 , ⋯ ⋯ , x n ⟩ ⟩ {\displaystyle |x_{1},x_{2},\cdots ,x_{n}\rangle \quad } is a special n -qubit register corresponding to the function which maps this classical bit string to 1 and maps all other bit strings to 0; these 2 n special n -qubit registers are called computational basis states . All n -qubit registers are complex linear combinations of these computational basis states.
+
+Quantum logic gates, in contrast to classical logic gates, are always reversible. One requires a special kind of reversible function, namely a unitary mapping, that is, a linear transformation of a complex inner product space that preserves the Hermitian inner product .  An n -qubit (reversible) quantum gate is a unitary mapping U from the space H QB( n ) of n -qubit registers onto itself.
+
+Typically, we are only interested in gates for small values of n .
+
+A reversible n -bit classical logic gate gives rise to a reversible n -bit quantum gate as follows:  to each reversible n -bit logic gate f corresponds a quantum gate W f defined as follows: W f ( | x 1 , x 2 , ⋯ ⋯ , x n ⟩ ⟩ ) = | f ( x 1 , x 2 , ⋯ ⋯ , x n ) ⟩ ⟩ .
+
+{\displaystyle W_{f}(|x_{1},x_{2},\cdots ,x_{n}\rangle )=|f(x_{1},x_{2},\cdots ,x_{n})\rangle .} Note that W f permutes the computational basis states.
+
+Of particular importance is the controlled NOT gate (also called CNOT gate) W CNOT defined on a quantized 2 qubit.  Other examples of quantum logic gates derived from classical ones are the Toffoli gate and the Fredkin gate .
+
+However, the Hilbert-space structure of the qubits permits many quantum gates that are not induced by classical ones. For example, a relative phase shift is a 1 qubit gate given by multiplication by the phase shift operator : P ( φ φ ) = [ 1 0 0 e i φ φ ] , {\displaystyle P(\varphi )={\begin{bmatrix}1&0\\0&e^{i\varphi }\end{bmatrix}},} so P ( φ φ ) | 0 ⟩ ⟩ = | 0 ⟩ ⟩ P ( φ φ ) | 1 ⟩ ⟩ = e i φ φ | 1 ⟩ ⟩ .
+
+{\displaystyle P(\varphi )|0\rangle =|0\rangle \quad P(\varphi )|1\rangle =e^{i\varphi }|1\rangle .} Reversible logic circuits [ edit ] Main article: reversible computing Again, we consider first reversible classical computation.  Conceptually, there is no difference between a reversible n -bit  circuit and a reversible n -bit logic gate: either one is just an invertible function on the space of n bit data. However, as mentioned in the previous section, for engineering reasons we would like to have a small number of simple reversible gates, that can be put together to assemble any reversible circuit.
+
+To explain this assembly process, suppose we have a reversible n -bit gate f and  a reversible m -bit gate g .  Putting them together means producing a new circuit by connecting some set of k outputs of f to some set of k inputs of g as in the figure below.  In that figure, n =5, k =3 and m =7. The resulting circuit is also reversible and operates on n + m − k bits.
+
+We will refer to this scheme as a classical assemblage (This concept corresponds to a technical definition in Kitaev 's pioneering paper cited below). In composing these reversible machines, it is important to ensure that the intermediate machines are also reversible.  This condition assures that intermediate "garbage" is not created (the net physical effect would be to increase entropy, which is one of the motivations for going through  this exercise).
+
+Note that each horizontal line on the above picture represents either 0 or 1, not these probabilities. Since quantum computations are reversible, at each 'step' the number of lines must be the same number of input lines. Also, each input combination must be mapped to a single combination at each 'step'. This means that each intermediate combination in a quantum circuit is a bijective function of the input.
+
+[ 6 ] Now it is possible to show that the Toffoli gate is a universal gate. This means that given any reversible classical n -bit circuit h , we can construct a classical assemblage of Toffoli gates in the above manner to produce an  ( n + m )-bit circuit f such that f ( x 1 , … … , x n , 0 , … … , 0 ⏟ ⏟ ) = ( y 1 , … … , y n , 0 , … … , 0 ⏟ ⏟ ) {\displaystyle f(x_{1},\ldots ,x_{n},\underbrace {0,\dots ,0} )=(y_{1},\ldots ,y_{n},\underbrace {0,\ldots ,0} )} where there are m underbraced zeroed inputs and ( y 1 , … … , y n ) = h ( x 1 , … … , x n ) {\displaystyle (y_{1},\ldots ,y_{n})=h(x_{1},\ldots ,x_{n})} .
+
+Notice that the result always has a string of m zeros as the ancilla bits. No "rubbish" is ever produced, and so this computation is indeed one that, in a physical sense, generates no entropy.  This issue is carefully discussed in Kitaev's article.
+
+More generally, any function f (bijective or not) can be simulated by a circuit of Toffoli gates. Obviously, if the mapping fails to be injective , at some point in the simulation (for example as the last step) some "garbage" has to be produced.
+
+For quantum circuits a similar composition of qubit gates can be defined.  That is, associated to any classical assemblage as above, we can produce a reversible quantum circuit when in place of f we have an n -qubit gate U and in place of g we have an m -qubit gate W . See illustration below: The fact that connecting gates this way gives rise to a unitary mapping on n + m − k qubit space is easy to check. In a real quantum computer the physical connection between the gates is a major engineering challenge, since it is one of the places where decoherence may occur.
+
+There are also universality theorems for certain sets of well-known gates; such a universality theorem exists, for instance, for the pair consisting of the single qubit phase gate U θ mentioned above (for a suitable value of θ), together with the 2-qubit CNOT gate W CNOT . However, the universality theorem for the quantum case is somewhat weaker than the one for the classical case; it asserts only that any reversible n -qubit circuit can be approximated arbitrarily well by circuits assembled from these two elementary gates. Note that there are uncountably many possible single qubit phase gates, one for every possible angle θ, so they cannot all be represented by a finite circuit constructed from { U θ , W CNOT }.
+
+Quantum computations [ edit ] So far we have not shown how quantum circuits are used to perform computations.  Since many important numerical problems reduce to computing a unitary transformation U on a finite-dimensional space (the celebrated discrete Fourier transform being a prime example), one might expect that some quantum circuit could be designed to carry out the transformation U . In principle, one needs only to prepare an n qubit state ψ as an appropriate superposition of computational basis states for the input and measure the output U ψ.  Unfortunately, there are two problems with this: One cannot measure the phase of ψ at any computational basis state so there is no way of reading out the complete answer. This is in the nature of measurement in quantum mechanics.
+
+There is no way to efficiently prepare the input state ψ.
+
+This does not prevent quantum circuits for the discrete Fourier transform from being used as intermediate steps in other quantum circuits, but the use is more subtle.  In fact quantum computations are probabilistic .
+
+We now provide a mathematical model for how quantum circuits can simulate probabilistic but classical computations.  Consider an r -qubit circuit U with
+register space H QB( r ) .
+
+U is thus a unitary map H QB ⁡ ⁡ ( r ) → → H QB ⁡ ⁡ ( r ) .
+
+{\displaystyle H_{\operatorname {QB} (r)}\rightarrow H_{\operatorname {QB} (r)}.} In order to associate this circuit to a classical mapping on bitstrings, we specify An input register X = {0,1} m of m (classical) bits.
+
+An output register Y = {0,1} n of n (classical) bits.
+
+The contents x = x 1 , ..., x m of
+the classical input register are used to initialize the qubit
+register in some way.  Ideally, this would be done with the computational basis
+state | x → → , 0 ⟩ ⟩ = | x 1 , x 2 , ⋯ ⋯ , x m , 0 , … … , 0 ⏟ ⏟ ⟩ ⟩ , {\displaystyle |{\vec {x}},0\rangle =|x_{1},x_{2},\cdots ,x_{m},\underbrace {0,\dots ,0} \rangle ,} where there are r - m underbraced zeroed inputs.  Nevertheless,
+this perfect initialization is completely unrealistic.  Let us assume
+therefore that the initialization is a mixed state given by some density operator S which is near the idealized input in some appropriate metric, e.g.
+
+Tr ⁡ ⁡ ( | | x → → , 0 ⟩ ⟩ ⟨ ⟨ x → → , 0 | − − S | ) ≤ ≤ δ δ .
+
+{\displaystyle \operatorname {Tr} \left({\big |}|{\vec {x}},0\rangle \langle {\vec {x}},0|-S{\big |}\right)\leq \delta .} Similarly, the output register space is related to the qubit register, by a Y valued observable A . Note that observables in quantum mechanics are usually defined in
+terms of projection valued measures on R ; if the variable
+happens to be discrete, the projection valued measure reduces to a
+family {E λ } indexed on some parameter λ
+ranging over a countable set.  Similarly, a Y valued observable,
+can be associated with a family of pairwise orthogonal projections
+{E y } indexed by elements of Y .  such that I = ∑ ∑ y ∈ ∈ Y E y .
+
+{\displaystyle I=\sum _{y\in Y}\operatorname {E} _{y}.} Given a mixed state S , there corresponds a probability measure on Y given by Pr ⁡ ⁡ { y } = Tr ⁡ ⁡ ( S E y ) .
+
+{\displaystyle \operatorname {Pr} \{y\}=\operatorname {Tr} (S\operatorname {E} _{y}).} The function F : X → Y is computed by a circuit U : H QB( r ) → H QB( r ) to within ε if and only if
+for all bitstrings x of length m ⟨ x → → , 0 | U ∗ ∗ E F ( x ) ⁡ ⁡ U | x → → , 0 ⟩ = ⟨ E F ( x ) ⁡ ⁡ U ( | x → → , 0 ⟩ ⟩ ) | U ( | x → → , 0 ⟩ ⟩ ) ⟩ ≥ ≥ 1 − − ϵ ϵ .
+
+{\displaystyle \left\langle {\vec {x}},0{\big |}U^{*}\operatorname {E} _{F(x)}U{\big |}{\vec {x}},0\right\rangle =\left\langle \operatorname {E} _{F(x)}U(|{\vec {x}},0\rangle ){\big |}U(|{\vec {x}},0\rangle )\right\rangle \geq 1-\epsilon .} Now | Tr ⁡ ⁡ ( S U ∗ ∗ E F ( x ) ⁡ ⁡ U ) − − ⟨ x → → , 0 | U ∗ ∗ E F ( x ) ⁡ ⁡ U | x → → , 0 ⟩ | ≤ ≤ Tr ⁡ ⁡ ( | | x → → , 0 ⟩ ⟩ ⟨ ⟨ x → → , 0 | − − S | ) ‖ ‖ U ∗ ∗ E F ( x ) ⁡ ⁡ U ‖ ‖ ≤ ≤ δ δ {\displaystyle \left|\operatorname {Tr} (SU^{*}\operatorname {E} _{F(x)}U)-\left\langle {\vec {x}},0{\big |}U^{*}\operatorname {E} _{F(x)}U{\big |}{\vec {x}},0\right\rangle \right|\leq \operatorname {Tr} ({\big |}|{\vec {x}},0\rangle \langle {\vec {x}},0|-S{\big |})\|U^{*}\operatorname {E} _{F(x)}U\|\leq \delta } so that Tr ⁡ ⁡ ( S U ∗ ∗ E F ( x ) ⁡ ⁡ U ) ≥ ≥ 1 − − ϵ ϵ − − δ δ .
+
+{\displaystyle \operatorname {Tr} (SU^{*}\operatorname {E} _{F(x)}U)\geq 1-\epsilon -\delta .} Theorem .  If  ε + δ < 1/2, then  the probability distribution Pr ⁡ ⁡ { y } = Tr ⁡ ⁡ ( S U ∗ ∗ E y ⁡ ⁡ U ) {\displaystyle \operatorname {Pr} \{y\}=\operatorname {Tr} (SU^{*}\operatorname {E} _{y}U)} on Y can be used to determine F ( x ) with an arbitrarily  small probability of error by majority sampling, for a sufficiently large sample size. Specifically, take k independent samples from the probability distribution Pr on Y and choose a value on which more than half of the samples agree. The probability that the value F ( x ) is sampled more than k /2 times is at least 1 − − e − − 2 γ γ 2 k , {\displaystyle 1-e^{-2\gamma ^{2}k},} where γ = 1/2 - ε - δ.
+
+This follows by applying the Chernoff bound .
+
+Accelerating Quantum Computing Simulations with FPGAs [ edit ] With the advent of quantum computing, there has been a significant surge in both the number of developers and available tools.
+
+[ 7 ] However, the slow pace of technological advancement and the high maintenance costs associated with quantum computers have limited broader participation in this field. In response, developers have turned to simulators, such as IBM's Qiskit , to model quantum behavior without relying solely on real quantum hardware. Nevertheless, simulators, being classical computers, are constrained by computation speed. The fundamental advantage of quantum computers lies in their ability to process qubits, leveraging properties like entanglement and superposition simultaneously. By running quantum simulations on classical computers, the inherent parallelism of quantum computing is taken away. Moreover, as the number of simulated qubits increases, the simulation's speed decreases proportionally.
+
+In a quantum circuit, the vectors are used to represent the state of the qubits and different matrices are used to represent the gate that is applied on the qubits. Since linear algebra is a major component of the quantum simulation, Field Programmable Gate Arrays ( FPGAs ) could be used to accelerate the simulation of quantum computing. FPGA is a kind of hardware that excels at executing operations in parallel, supports pipelining, has on-chip memory resources with low access latency, and offers the flexibility to reconfigure the hardware architecture on-the-fly which make it a well suited tool to handle matrix multiplication.
+
+The main idea of accelerating quantum computing simulations is to offload some of the heavy computation to special hardware like FPGA in order to speed up the whole simulation process. And the bigger quantum circuits (more qubits and more gates) we simulate, the more speedup we gain from offloading to FPGA compared with software simulations on CPU. The data flow of the simulation is explained below. First, the user inputs all the information of the quantum circuit including initial state and various gates through the user interface. Then, all this information is compressed and sent to the FPGA through some hardware communication protocols like AXI. Then, all the information is stored in the on-chip memory in the FPGA. And the simulation starts when the data is read from the memory and sent to the Matrix multiplication module. After all the calculation is done, the result will be sent back to the memory and to the CPU.
+
+Suppose we are simulating 5-qubit circuits, then we need to store the vector that holds 32 (2⁵) 16-bit values, each of which represents the square-root probability of a possible existing state. We also need to store the 32x32 matrix that represents the gate. In order to parallel this computation, we can store the 32 rows of the matrix separately and replicate 32 row_vec_mult hardware such that each row can calculate the multiplication in parallel. This will dramatically speed up the simulation with a price of more hardware and memory usage in FPGA.
+
+[ 8 ] It has been discovered that with careful hardware design, it's possible to achieve a hardware architecture with O(n) time complexity, where 'n' denotes the number of qubits. In contrast, the runtime of Numpy approaches O(2^2^n). This finding underscores the feasibility of leveraging FPGAs to accelerate quantum computing simulations.
+
+[ 9 ] See also [ edit ] Wikimedia Commons has media related to Quantum circuit .
+
+Abstract index notation Angular momentum diagrams (quantum mechanics) Circuit complexity and BQP Matrix product state uses Penrose graphical notation Quantum register Spin networks Trace diagram References [ edit ] ^ Nielsen, Michael A.
+
+; Chuang, Isaac (2010).
+
+Quantum Computation and Quantum Information . Cambridge: Cambridge University Press . pp.
+
+26– 28.
+
+ISBN 978-1-10700-217-3 .
+
+OCLC 43641333 .
+
+^ Colin P. Williams (2011).
+
+Explorations in Quantum Computing .
+
+Springer . pp.
+
+123– 200.
+
+ISBN 978-1-84628-887-6 .
+
+^ Nielsen, Michael A.
+
+; Chuang, Isaac (2010).
+
+Quantum Computation and Quantum Information . Cambridge: Cambridge University Press . pp.
+
+171– 215.
+
+ISBN 978-1-10700-217-3 .
+
+OCLC 43641333 .
+
+^ Ömer, Bernhard (2000-01-20).
+
+Quantum Programming in QCL (PDF) (Thesis). Institute for Theoretical Physics, Vienna University of Technology. pp.
+
+37– 38 . Retrieved 2021-10-12 .
+
+^ Feynman, Richard P. (1986). "Quantum mechanical computers".
+
+Foundations of Physics .
+
+16 (6). Springer Science and Business Media LLC: 507– 531.
+
+Bibcode : 1986FoPh...16..507F .
+
+doi : 10.1007/bf01886518 .
+
+ISSN 0015-9018 .
+
+S2CID 122076550 .
+
+^ "Introduction to the Quantum Circuit Model" (PDF) .
+
+^ "Accelerating Quantum Simulations w/ FPGAs" . 19 August 2020.
+
+^ "Accelerating Quantum Simulations w/ FPGAs" . 19 August 2020.
+
+^ "Accelerating Quantum Simulations w/ FPGAs" . 19 August 2020.
+
+Biham, Eli ; Brassard, Gilles ; Kenigsberg, Dan; Mor, Tal (2004), "Quantum computing without entanglement", Theoretical Computer Science , 320 (1): 15– 33, arXiv : quant-ph/0306182 , doi : 10.1016/j.tcs.2004.03.041 , MR 2060181 , S2CID 295103 .
+
+Freedman, Michael H.
+
+; Kitaev, Alexei ; Larsen, Michael J.
+
+; Wang, Zhenghan (2003), "Topological quantum computation", Bulletin of the American Mathematical Society , 40 (1): 31– 38, arXiv : quant-ph/0101025 , doi : 10.1090/S0273-0979-02-00964-3 , MR 1943131 .
+
+Hirvensalo, Mika (2001), Quantum Computing , Natural Computing Series, Berlin: Springer-Verlag, ISBN 3-540-66783-0 , MR 1931238 .
+
+Kitaev, A. Yu.
+
+(1997), "Quantum computations: algorithms and error correction", Uspekhi Mat. Nauk (in Russian), 52 (6(318)): 53– 112, Bibcode : 1997RuMaS..52.1191K , doi : 10.1070/RM1997v052n06ABEH002155 , MR 1611329 , S2CID 250816585 .
+
+Nielsen, Michael A.
+
+; Chuang, Isaac L. (2000), Quantum Computation and Quantum Information , Cambridge: Cambridge University Press, ISBN 0-521-63235-8 , MR 1796805 .
+
+External links [ edit ] Q-circuit Archived 2019-03-23 at the Wayback Machine is a macro package for drawing quantum circuit diagrams in LaTeX.
+
+Quantum Circuit Simulator (Davy Wybiral) ( qcsimulator.github.io on GitHub ) a browser-based quantum circuit diagram editor and simulator.
+
+Quantum Computing Playground ( Quantum-Computing-Playground on GitHub ) a browser-based quantum scripting environment.
+
+Quirk - Quantum Circuit Toy ( Quirk on GitHub ) a browser-based quantum circuit diagram editor and simulator.
+
+v t e Electronic components Semiconductor devices MOS transistors Transistor NMOS PMOS BiCMOS BioFET Chemical field-effect transistor (ChemFET) Complementary MOS (CMOS) Depletion-load NMOS Fin field-effect transistor (FinFET) Floating-gate MOSFET (FGMOS) Insulated-gate bipolar transistor (IGBT) ISFET LDMOS MOS field-effect transistor (MOSFET) Multi-gate field-effect transistor (MuGFET) Power MOSFET Thin-film transistor (TFT) VMOS UMOS Other transistors Bipolar junction transistor (BJT) Darlington transistor Diffused junction transistor Field-effect transistor (FET) Junction Gate FET (JFET) Organic FET (OFET) Light-emitting transistor (LET) Organic LET (OLET) Pentode transistor Point-contact transistor Programmable unijunction transistor (PUT) Static induction transistor (SIT) Tetrode transistor Unijunction transistor (UJT) Diodes Avalanche diode Constant-current diode (CLD, CRD) Gunn diode Laser diode (LD) Light-emitting diode (LED) Organic light-emitting diode (OLED) Photodiode PIN diode Schottky diode Step recovery diode Zener diode Other devices Printed electronics Printed circuit board DIAC Heterostructure barrier varactor Integrated circuit (IC) Hybrid integrated circuit Light emitting capacitor (LEC) Memistor Memristor Memtransistor Memory cell Metal-oxide varistor (MOV) Mixed-signal integrated circuit MOS integrated circuit (MOS IC) Organic semiconductor Photodetector Quantum circuit RF CMOS Silicon controlled rectifier (SCR) Solaristor Static induction thyristor (SITh) Three-dimensional integrated circuit (3D IC) Thyristor Trancitor TRIAC Varicap Voltage regulators Linear regulator Low-dropout regulator Switching regulator Buck Boost Buck–boost Split-pi Ćuk SEPIC Charge pump Switched capacitor Vacuum tubes Acorn tube Audion Beam tetrode Barretter Compactron Diode Fleming valve Neutron tube Nonode Nuvistor Pentagrid (Hexode, Heptode, Octode) Pentode Photomultiplier Phototube Tetrode Triode Vacuum tubes ( RF ) Backward-wave oscillator (BWO) Cavity magnetron Crossed-field amplifier (CFA) Gyrotron Inductive output tube (IOT) Klystron Maser Sutton tube Traveling-wave tube (TWT) X-ray tube Cathode-ray tubes Beam deflection tube Charactron Iconoscope Magic eye tube Monoscope Selectron tube Storage tube Trochotron Video camera tube Williams tube Gas-filled tubes Cold cathode Crossatron Dekatron Ignitron Krytron Mercury-arc valve Neon lamp Nixie tube Thyratron Trigatron Voltage-regulator tube Adjustable Potentiometer digital Variable capacitor Varicap Passive Connector audio and video electrical power RF Electrolytic detector Ferrite Antifuse Fuse resettable eFUSE Resistor Switch Thermistor Transformer Varistor Wire Wollaston wire Reactive Capacitor types Ceramic resonator Crystal oscillator Inductor Parametron Relay reed relay mercury relay v t e Quantum information science General DiVincenzo's criteria NISQ era Quantum computing timeline Quantum information Quantum programming Quantum simulation Qubit physical vs. logical Quantum processors cloud-based Theorems Bell's Eastin–Knill Gleason's Gottesman–Knill Holevo's No-broadcasting No-cloning No-communication No-deleting No-hiding No-teleportation PBR Quantum speed limit Threshold Solovay–Kitaev Schrödinger-HJW Quantum communication Classical capacity entanglement-assisted quantum capacity Entanglement distillation Entanglement swapping Monogamy of entanglement LOCC Quantum channel quantum network State purification Quantum teleportation quantum energy teleportation quantum gate teleportation Superdense coding Quantum cryptography Post-quantum cryptography Quantum coin flipping Quantum money Quantum key distribution BB84 SARG04 other protocols Quantum secret sharing Quantum algorithms Algorithmic cooling Amplitude amplification Bernstein–Vazirani BHT Boson sampling Deutsch–Jozsa Grover's HHL Hidden subgroup Magic state distillation Quantum annealing Quantum counting Quantum Fourier transform Quantum optimization Quantum phase estimation Shor's Simon's VQE Quantum complexity theory BQP DQC1 EQP QIP QMA PostBQP Quantum processor benchmarks Quantum supremacy Quantum volume Randomized benchmarking XEB Relaxation times T 1 T 2 Quantum computing models Adiabatic quantum computation Continuous-variable quantum information One-way quantum computer cluster state Quantum circuit quantum logic gate Quantum machine learning quantum neural network Quantum Turing machine Topological quantum computer Hamiltonian quantum computation Quantum error correction Codes 5 qubit CSS GKP quantum convolutional stabilizer Shor Bacon–Shor Steane Toric gnu Entanglement-assisted Physical implementations Quantum optics Cavity QED Circuit QED Linear optical QC KLM protocol Ultracold atoms Neutral atom QC Trapped-ion QC Spin -based Kane QC Spin qubit QC NV center NMR QC Superconducting Charge qubit Flux qubit Phase qubit Transmon Quantum programming OpenQASM – Qiskit – IBM QX Quil – Forest/Rigetti QCS Cirq Q# libquantum many others...
+
+Quantum information science Quantum mechanics topics v t e Quantum mechanics Background Introduction History Timeline Classical mechanics Old quantum theory Glossary Fundamentals Born rule Bra–ket notation Complementarity Density matrix Energy level Ground state Excited state Degenerate levels Zero-point energy Entanglement Hamiltonian Interference Decoherence Measurement Nonlocality Quantum state Superposition Tunnelling Scattering theory Symmetry in quantum mechanics Uncertainty Wave function Collapse Wave–particle duality Formulations Formulations Heisenberg Interaction Matrix mechanics Schrödinger Path integral formulation Phase space Equations Klein–Gordon Dirac Weyl Majorana Rarita–Schwinger Pauli Rydberg Schrödinger Interpretations Bayesian Consciousness causes collapse Consistent histories Copenhagen de Broglie–Bohm Ensemble Hidden-variable Local Superdeterminism Many-worlds Objective collapse Quantum logic Relational Transactional Experiments Bell test Davisson–Germer Delayed-choice quantum eraser Double-slit Franck–Hertz Mach–Zehnder interferometer Elitzur–Vaidman Popper Quantum eraser Stern–Gerlach Wheeler's delayed choice Science Quantum biology Quantum chemistry Quantum chaos Quantum cosmology Quantum differential calculus Quantum dynamics Quantum geometry Quantum measurement problem Quantum mind Quantum stochastic calculus Quantum spacetime Technology Quantum algorithms Quantum amplifier Quantum bus Quantum cellular automata Quantum finite automata Quantum channel Quantum circuit Quantum complexity theory Quantum computing Timeline Quantum cryptography Quantum electronics Quantum error correction Quantum imaging Quantum image processing Quantum information Quantum key distribution Quantum logic Quantum logic gates Quantum machine Quantum machine learning Quantum metamaterial Quantum metrology Quantum network Quantum neural network Quantum optics Quantum programming Quantum sensing Quantum simulator Quantum teleportation Extensions Quantum fluctuation Casimir effect Quantum statistical mechanics Quantum field theory History Quantum gravity Relativistic quantum mechanics Related Schrödinger's cat in popular culture Wigner's friend EPR paradox Quantum mysticism Category v t e Emerging technologies Fields Quantum algorithms amplifier bus cellular automata channel circuit complexity theory computing cryptography post-quantum dynamics electronics error correction finite automata image processing imaging information key distribution logic logic clock logic gate machine machine learning metamaterial network neural network optics programming sensing simulator teleportation Other Acoustic levitation Anti-gravity Cloak of invisibility Digital scent technology Force field Plasma window Immersive virtual reality Magnetic refrigeration Phased-array optics Thermoacoustic heat engine List Retrieved from " https://en.wikipedia.org/w/index.php?title=Quantum_circuit&oldid=1263269140 " Categories : Quantum information science Models of computation Hidden categories: Articles with short description Short description matches Wikidata Articles lacking in-text citations from October 2015 All articles lacking in-text citations All articles with unsourced statements Articles with unsourced statements from October 2021 Commons category link is on Wikidata CS1 Russian-language sources (ru) Webarchive template wayback links This page was last edited on 15 December 2024, at 18:11 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Quantum circuit 12 languages Add topic
+

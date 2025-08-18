@@ -1,0 +1,122 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 General 2 Regression statistics 3 Ordinary and weighted least squares 4 Linearization Toggle Linearization subsection 4.1 Transformation 4.2 Segmentation 5 See also 6 Notes 7 References 8 Further reading Toggle the table of contents Nonlinear regression 16 languages Català Čeština Español فارسی Français 한국어 Italiano 日本語 Polski Português Русский Српски / srpski Türkçe Tiếng Việt 粵語 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Regression analysis Part of a series on Regression analysis Models Linear regression Simple regression Polynomial regression General linear model Generalized linear model Vector generalized linear model Discrete choice Binomial regression Binary regression Logistic regression Multinomial logistic regression Mixed logit Probit Multinomial probit Ordered logit Ordered probit Poisson Multilevel model Fixed effects Random effects Linear mixed-effects model Nonlinear mixed-effects model Nonlinear regression Nonparametric Semiparametric Robust Quantile Isotonic Principal components Least angle Local Segmented Errors-in-variables Estimation Least squares Linear Non-linear Ordinary Weighted Generalized Generalized estimating equation Partial Total Non-negative Ridge regression Regularized Least absolute deviations Iteratively reweighted Bayesian Bayesian multivariate Least-squares spectral analysis Background Regression validation Mean and predicted response Errors and residuals Goodness of fit Studentized residual Gauss–Markov theorem Mathematics portal v t e See Michaelis–Menten kinetics for details In statistics, nonlinear regression is a form of regression analysis in which observational data are modeled by a function which is a nonlinear combination of the model parameters and depends on one or more independent variables. The data are fitted by a method of successive approximations (iterations).
+
+General [ edit ] In nonlinear regression, a statistical model of the form, y ∼ ∼ f ( x , β β ) {\displaystyle \mathbf {y} \sim f(\mathbf {x} ,{\boldsymbol {\beta }})} relates a vector of independent variables , x {\displaystyle \mathbf {x} } , and its associated observed dependent variables , y {\displaystyle \mathbf {y} } . The function f {\displaystyle f} is nonlinear in the components of the vector of parameters β β {\displaystyle \beta } , but otherwise arbitrary. For example, the Michaelis–Menten model for enzyme kinetics has two parameters and one independent variable, related by f {\displaystyle f} by: [ a ] f ( x , β β ) = β β 1 x β β 2 + x {\displaystyle f(x,{\boldsymbol {\beta }})={\frac {\beta _{1}x}{\beta _{2}+x}}} This function, which is a rectangular hyperbola, is nonlinear because it cannot be expressed as a linear combination of the two β β {\displaystyle \beta } s.
+
+Systematic error may be present in the independent variables but its treatment is outside the scope of regression analysis. If the independent variables are not error-free, this is an errors-in-variables model , also outside this scope.
+
+Other examples of nonlinear functions include exponential functions , logarithmic functions , trigonometric functions , power functions , Gaussian function , and Lorentz distributions . Some functions, such as the exponential or logarithmic functions, can be transformed so that they are linear. When so transformed, standard linear regression can be performed but must be applied with caution. See § Linearization §§ Transformation , below, for more details.
+
+In general, there is no closed-form expression for the best-fitting parameters, as there is in linear regression . Usually numerical optimization algorithms are applied to determine the best-fitting parameters. Again in contrast to linear regression, there may be many local minima of the function to be optimized and even the global minimum may produce a biased estimate. In practice, estimated values of the parameters are used, in conjunction with the optimization algorithm, to attempt to find the global minimum of a sum of squares.
+
+For details concerning nonlinear data modeling see least squares and non-linear least squares .
+
+Regression statistics [ edit ] The assumption underlying this procedure is that the model can be approximated by a linear function, namely a first-order Taylor series : f ( x i , β β ) ≈ ≈ f ( x i , 0 ) + ∑ ∑ j J i j β β j {\displaystyle f(x_{i},{\boldsymbol {\beta }})\approx f(x_{i},0)+\sum _{j}J_{ij}\beta _{j}} where J i j = ∂ ∂ f ( x i , β β ) ∂ ∂ β β j {\displaystyle J_{ij}={\frac {\partial f(x_{i},{\boldsymbol {\beta }})}{\partial \beta _{j}}}} are Jacobian matrix elements. It follows from this that the least squares estimators are given by β β ^ ^ ≈ ≈ ( J T J ) − − 1 J T y , {\displaystyle {\hat {\boldsymbol {\beta }}}\approx \mathbf {(J^{T}J)^{-1}J^{T}y} ,} compare generalized least squares with covariance matrix proportional to the unit matrix. The nonlinear regression statistics are computed and used as in linear regression statistics, but using J in place of X in the formulas.
+
+When the function f ( x i , β β ) {\displaystyle f(x_{i},{\boldsymbol {\beta }})} itself is not known analytically, but needs to be linearly approximated from n + 1 {\displaystyle n+1} , or more, known values (where n {\displaystyle n} is the number of estimators), the best estimator is obtained directly from the Linear Template Fit as [ 1 ] β β ^ ^ = ( ( Y M ~ ~ ) T Ω Ω − − 1 Y M ~ ~ ) − − 1 ( Y M ~ ~ ) T Ω Ω − − 1 ( d − − Y m ¯ ¯ ) {\displaystyle {\hat {\boldsymbol {\beta }}}=((\mathbf {Y{\tilde {M}}} )^{\mathsf {T}}{\boldsymbol {\Omega }}^{-1}\mathbf {Y{\tilde {M}}} )^{-1}(\mathbf {Y{\tilde {M}}} )^{\mathsf {T}}{\boldsymbol {\Omega }}^{-1}(\mathbf {d} -\mathbf {Y{\bar {m}})} } (see also linear least squares ).
+
+The linear approximation introduces bias into the statistics. Therefore, more caution than usual is required in interpreting statistics derived from a nonlinear model.
+
+Ordinary and weighted least squares [ edit ] The best-fit curve is often assumed to be that which minimizes the sum of squared residuals . This is the ordinary least squares (OLS) approach.  However, in cases where the dependent variable does not have constant variance, or there are some outliers, a sum of weighted squared residuals may be minimized; see weighted least squares . Each weight should ideally be equal to the reciprocal of the variance of the observation, or the reciprocal of the dependent variable to some power in the outlier case, [ 2 ] but weights may be recomputed on each iteration, in an iteratively weighted least squares algorithm.
+
+Linearization [ edit ] Transformation [ edit ] Further information: Data transformation (statistics) Some nonlinear regression problems can be moved to a linear domain by a suitable transformation of the model formulation.
+
+For example, consider the nonlinear regression problem y = a e b x U {\displaystyle y=ae^{bx}U} with parameters a and b and with multiplicative error term U . If we take the logarithm of both sides, this becomes ln ⁡ ⁡ ( y ) = ln ⁡ ⁡ ( a ) + b x + u , {\displaystyle \ln {(y)}=\ln {(a)}+bx+u,} where u = ln( U ), suggesting estimation of the unknown parameters by a linear regression of ln( y ) on x , a computation that does not require iterative optimization. However, use of a nonlinear transformation requires caution.  The influences of the data values will change, as will the error structure of the model and the interpretation of any inferential results.  These may not be desired effects.  On the other hand, depending on what the largest source of error is, a nonlinear transformation may distribute the errors in a Gaussian fashion, so the choice to perform a nonlinear transformation must be informed by modeling considerations.
+
+For Michaelis–Menten kinetics , the linear Lineweaver–Burk plot 1 v = 1 V max + K m V max [ S ] {\displaystyle {\frac {1}{v}}={\frac {1}{V_{\max }}}+{\frac {K_{m}}{V_{\max }[S]}}} of 1/ v against 1/[ S ] has been much used. However, since it is very sensitive to data error and is strongly biased toward fitting the data in a particular range of the independent variable, [ S ], its use is strongly discouraged.
+
+For error distributions that belong to the exponential family , a link function may be used to transform the parameters under the Generalized linear model framework.
+
+Segmentation [ edit ] Yield of mustard and soil salinity Main article: Segmented regression The independent or explanatory variable (say X) can be split up into classes or segments and linear regression can be performed per segment. Segmented regression with confidence analysis may yield the result that the dependent or response variable (say Y) behaves differently in the various segments.
+
+[ 3 ] The figure shows that the soil salinity (X) initially exerts no influence on the crop yield (Y) of mustard, until a critical or threshold value ( breakpoint ), after which the yield is affected negatively.
+
+[ 4 ] See also [ edit ] Mathematics portal Non-linear least squares Curve fitting Generalized linear model Local regression Response modeling methodology Genetic programming Multi expression programming Linear or quadratic template fit Notes [ edit ] ^ This model can also be expressed in the conventional biological notation: v = V max [ S ] K m + [ S ] {\displaystyle v={\frac {V_{\max }\ [\mathrm {S} ]}{K_{m}+[\mathrm {S} ]}}} References [ edit ] ^ Britzger, Daniel (2022). "The Linear Template Fit".
+
+Eur. Phys. J. C .
+
+82 (8): 731.
+
+arXiv : 2112.01548 .
+
+Bibcode : 2022EPJC...82..731B .
+
+doi : 10.1140/epjc/s10052-022-10581-w .
+
+^ Motulsky, H.J.; Ransnas, L.A. (1987).
+
+"Fitting curves to data using nonlinear regression: a practical and nonmathematical review" .
+
+The FASEB Journal .
+
+1 (5): 365– 374.
+
+doi : 10.1096/fasebj.1.5.3315805 .
+
+PMID 3315805 .
+
+^ R.J.Oosterbaan, 1994, Frequency and Regression Analysis. In: H.P.Ritzema (ed.), Drainage Principles and Applications, Publ. 16, pp. 175-224, International Institute for Land Reclamation and Improvement (ILRI), Wageningen, The Netherlands.
+
+ISBN 90-70754-33-9 . Download as PDF : [1] ^ R.J.Oosterbaan, 2002. Drainage research in farmers' fields: analysis of data. Part of project “Liquid Gold” of the
+International Institute for Land Reclamation and Improvement (ILRI), Wageningen, The Netherlands. Download as PDF : [2] . The figure was made with the SegReg program, which can be downloaded freely from [3] Further reading [ edit ] Bethea, R. M.; Duran, B. S.; Boullion, T. L. (1985).
+
+Statistical Methods for Engineers and Scientists . New York: Marcel Dekker.
+
+ISBN 0-8247-7227-X .
+
+Meade, N.; Islam, T. (1995). "Prediction Intervals for Growth Curve Forecasts".
+
+Journal of Forecasting .
+
+14 (5): 413– 430.
+
+doi : 10.1002/for.3980140502 .
+
+Schittkowski, K. (2002).
+
+Data Fitting in Dynamical Systems . Boston: Kluwer.
+
+ISBN 1402010796 .
+
+Seber, G. A. F.; Wild, C. J. (1989).
+
+Nonlinear Regression . New York: John Wiley and Sons.
+
+ISBN 0471617601 .
+
+v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject v t e Least squares and regression analysis Computational statistics Least squares Linear least squares Non-linear least squares Iteratively reweighted least squares Correlation and dependence Pearson product-moment correlation Rank correlation ( Spearman's rho Kendall's tau ) Partial correlation Confounding variable Regression analysis Ordinary least squares Partial least squares Total least squares Ridge regression Regression as a statistical model Linear regression Simple linear regression Ordinary least squares Generalized least squares Weighted least squares General linear model Predictor structure Polynomial regression Growth curve (statistics) Segmented regression Local regression Non-standard Nonlinear regression Nonparametric Semiparametric Robust Quantile Isotonic Non-normal errors Generalized linear model Binomial Poisson Logistic Decomposition of variance Analysis of variance Analysis of covariance Multivariate AOV Model exploration Stepwise regression Model selection Mallows's C p AIC BIC Model specification Regression validation Background Mean and predicted response Gauss–Markov theorem Errors and residuals Goodness of fit Studentized residual Minimum mean-square error Frisch–Waugh–Lovell theorem Design of experiments Response surface methodology Optimal design Bayesian design Numerical approximation Numerical analysis Approximation theory Numerical integration Gaussian quadrature Orthogonal polynomials Chebyshev polynomials Chebyshev nodes Applications Curve fitting Calibration curve Numerical smoothing and differentiation System identification Moving least squares Regression analysis category Statistics category Mathematics portal Statistics outline Statistics topics NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐6np56
+Cached time: 20250812003357
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.467 seconds
+Real time usage: 0.645 seconds
+Preprocessor visited node count: 2024/1000000
+Revision size: 10472/2097152 bytes
+Post‐expand include size: 192504/2097152 bytes
+Template argument size: 1687/2097152 bytes
+Highest expansion depth: 15/100
+Expensive parser function count: 4/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 53368/5000000 bytes
+Lua time usage: 0.262/10.000 seconds
+Lua memory usage: 7336496/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  428.671      1 -total
+ 22.98%   98.499      2 Template:Reflist
+ 21.78%   93.375      1 Template:Statistics
+ 21.09%   90.389      1 Template:Navbox_with_collapsible_groups
+ 20.89%   89.535      1 Template:Regression_bar
+ 20.47%   87.749      1 Template:Sidebar
+ 20.08%   86.096      3 Template:Cite_journal
+ 16.40%   70.319      1 Template:Short_description
+ 15.15%   64.931     13 Template:Navbox
+  8.80%   37.706      2 Template:Pagetype Saved in parser cache with key enwiki:pcache:1045012:|#|:idhash:canonical and timestamp 20250812003357 and revision id 1281024569. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Nonlinear_regression&oldid=1281024569 " Category : Regression analysis Hidden categories: Articles with short description Short description is different from Wikidata This page was last edited on 17 March 2025, at 21:00 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Nonlinear regression 16 languages Add topic
+

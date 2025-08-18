@@ -1,0 +1,196 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Definitions Toggle Definitions subsection 1.1 Example Nim Game 1.2 Nimbers 1.3 Combining Games 1.3.1 Example Game 2 1.3.2 Combined Game 1.4 Equivalence 2 First Lemma 3 Second Lemma 4 Proof of the Sprague–Grundy theorem 5 Development 6 See also 7 References 8 External links Toggle the table of contents Sprague–Grundy theorem 10 languages Deutsch Español فارسی Français עברית 日本語 Polski Русский Українська 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Every impartial game position is equivalent to a position in the game of nim This article has multiple issues.
+
+Please help improve it or discuss these issues on the talk page .
+
+( Learn how and when to remove these messages ) This article includes a list of general references , but it lacks sufficient corresponding inline citations .
+
+Please help to improve this article by introducing more precise citations.
+
+( June 2014 ) ( Learn how and when to remove this message ) This article may be too technical for most readers to understand .
+
+Please help improve it to make it understandable to non-experts , without removing the technical details.
+
+( June 2014 ) ( Learn how and when to remove this message ) ( Learn how and when to remove this message ) In combinatorial game theory , the Sprague–Grundy theorem states that every impartial game under the normal play convention is equivalent to a one-heap game of nim , or to an infinite generalization of nim. It can therefore be represented as a natural number , the size of the heap in its equivalent game of nim, as an ordinal number in the infinite generalization, or alternatively as a nimber , the value of that one-heap game in an algebraic system whose addition operation combines multiple heaps to form a single equivalent heap in nim.
+
+The Grundy value or nim-value of any impartial game is the unique nimber that the game is equivalent to.  In the case of a game whose positions are indexed by the natural numbers (like nim itself, which is indexed by its heap sizes), the sequence of nimbers for successive positions of the game is called the nim-sequence of the game.
+
+The Sprague–Grundy theorem and its proof encapsulate the main results of a theory discovered independently by R. P. Sprague (1936) [ 1 ] and P. M. Grundy (1939).
+
+[ 2 ] Definitions [ edit ] For the purposes of the Sprague–Grundy theorem, a game is a two-player sequential game of perfect information satisfying the ending condition (all games come to an end: there are no infinite lines of play) and the normal play condition (a player who cannot move loses).
+
+At any given point in the game, a player's position is the set of moves they are allowed to make.  As an example, we can define the zero game to be the two-player game where neither player has any legal moves.  Referring to the two players as A {\displaystyle A} (for Alice) and B {\displaystyle B} (for Bob), we would denote their positions as ( A , B ) = ( { } , { } ) {\displaystyle (A,B)=(\{\},\{\})} , since the set of moves each player can make is empty.
+
+An impartial game is one in which at any given point in the game, each player is allowed exactly the same set of moves. Normal-play nim is an example of an impartial game. In nim, there are one or more heaps of objects, and two players (we'll call them Alice and Bob), take turns choosing a heap and removing 1 or more objects from it. The winner is the player who removes the final object from the final heap.  The game is impartial because for any given configuration of pile sizes, the moves Alice can make on her turn are exactly the same moves Bob would be allowed to make if it were his turn.  In contrast, a game such as checkers is not impartial because, supposing Alice were playing red and Bob were playing black, for any given arrangement of pieces on the board, if it were Alice's turn, she would only be allowed to move the red pieces, and if it were Bob's turn, he would only be allowed to move the black pieces.
+
+Note that any configuration of an impartial game can therefore be written as a single position, because the moves will be the same no matter whose turn it is. For example, the position of the zero game can simply be written { } {\displaystyle \{\}} , because if it's Alice's turn, she has no moves to make, and if it's Bob's turn, he has no moves to make either.
+A move can be associated with the position it leaves the next player in.
+
+Doing so allows positions to be defined recursively.  For example, consider the following game of Nim played by Alice and Bob.
+
+Example Nim Game [ edit ] Sizes of heaps  Moves
+ A B C
+  
+ 1 2 2           Alice takes 1 from A
+ 0 2 2           Bob   takes 1 from B 
+ 0 1 2           Alice takes 1 from C 
+ 0 1 1           Bob   takes 1 from B 
+ 0 0 1           Alice takes 1 from C
+ 0 0 0           Bob   has no moves, so Alice wins At step 6 of the game (when all of the heaps are empty) the position is { } {\displaystyle \{\}} , because Bob has no valid moves to make.  We name this position ∗ ∗ 0 {\displaystyle *0} .
+
+At step 5, Alice had exactly one option: to remove one object from heap C, leaving Bob with no moves.  Since her move leaves Bob in position ∗ ∗ 0 {\displaystyle *0} , her position is written { ∗ ∗ 0 } {\displaystyle \{*0\}} .  We name this position ∗ ∗ 1 {\displaystyle *1} .
+
+At step 4, Bob had two options: remove one from B or remove one from C.  Note, however, that it didn't really matter which heap Bob removed the object from: Either way, Alice would be left with exactly one object in exactly one pile. So, using our recursive definition, Bob really only has one move: ∗ ∗ 1 {\displaystyle *1} .   Thus, Bob's position is { ∗ ∗ 1 } {\displaystyle \{*1\}} .
+
+At step 3, Alice had 3 options: remove two from C, remove one from C, or remove one from B.  Removing two from C leaves Bob in position ∗ ∗ 1 {\displaystyle *1} .  Removing one from C leaves Bob with two piles, each of size one, i.e., position { ∗ ∗ 1 } {\displaystyle \{*1\}} , as described in step 4. However, removing 1 from B would leave Bob with two objects in a single pile.
+
+His moves would then be ∗ ∗ 0 {\displaystyle *0} and ∗ ∗ 1 {\displaystyle *1} , so her move would result in the position { ∗ ∗ 0 , ∗ ∗ 1 } {\displaystyle \{*0,*1\}} .  We call this position ∗ ∗ 2 {\displaystyle *2} .  Alice's position is then the set of all her moves: { ∗ ∗ 1 , { ∗ ∗ 1 } , ∗ ∗ 2 } {\displaystyle {\big \{}*1,\{*1\},*2{\big \}}} .
+
+Following the same recursive logic, at step 2, Bob's position is { { ∗ ∗ 1 , { ∗ ∗ 1 } , ∗ ∗ 2 } , ∗ ∗ 2 } .
+
+{\displaystyle {\big \{}\{*1,\{*1\},*2\},*2{\big \}}.} Finally, at step 1, Alice's position is { { ∗ ∗ 1 , { ∗ ∗ 1 } , ∗ ∗ 2 } , { ∗ ∗ 2 , { ∗ ∗ 1 , { ∗ ∗ 1 } , ∗ ∗ 2 } } , { { ∗ ∗ 1 } , { { ∗ ∗ 1 } } , { ∗ ∗ 1 , { ∗ ∗ 1 } , ∗ ∗ 2 } } } .
+
+{\displaystyle {\Big \{}{\big \{}*1,\{*1\},*2{\big \}},{\big \{}*2,\{*1,\{*1\},*2\}{\big \}},{\big \{}\{*1\},\{\{*1\}\},\{*1,\{*1\},*2\}{\big \}}{\Big \}}.} Nimbers [ edit ] The special names ∗ ∗ 0 {\displaystyle *0} , ∗ ∗ 1 {\displaystyle *1} , and ∗ ∗ 2 {\displaystyle *2} referenced in our example game are called nimbers .  In general, the nimber ∗ ∗ n {\displaystyle *n} corresponds to the position in a game of nim where there are exactly n {\displaystyle n} objects in exactly one heap.  
+Formally, nimbers are defined inductively as follows: ∗ ∗ 0 {\displaystyle *0} is { } {\displaystyle \{\}} , ∗ ∗ 1 = { ∗ ∗ 0 } {\displaystyle *1=\{*0\}} , ∗ ∗ 2 = { ∗ ∗ 0 , ∗ ∗ 1 } {\displaystyle *2=\{*0,*1\}} and  for all n ≥ ≥ 0 {\displaystyle n\geq 0} , ∗ ∗ ( n + 1 ) = ∗ ∗ n ∪ ∪ { ∗ ∗ n } {\displaystyle *(n+1)=*n\cup \{*n\}} .
+
+While the word nim ber comes from the game nim , nimbers can be used to describe the positions of any finite, impartial game, and in fact, the Sprague–Grundy theorem states that every  instance of a finite, impartial game can be associated with a single nimber.
+
+Combining Games [ edit ] Two games can be combined by adding their positions together.
+For example, consider another game of nim with heaps A ′ {\displaystyle A'} , B ′ {\displaystyle B'} , and C ′ {\displaystyle C'} .
+
+Example Game 2 [ edit ] Sizes of heaps    Moves
+ 
+A' B' C'
+1  1  1           Alice takes 1 from A'
+0  1  1           Bob takes one from B'
+0  0  1           Alice takes one from C'
+0  0  0           Bob has no moves, so Alice wins.
+
+We can combine it with our first example to get a combined game with six heaps: A {\displaystyle A} , B {\displaystyle B} , C {\displaystyle C} , A ′ {\displaystyle A'} , B ′ {\displaystyle B'} , and C ′ {\displaystyle C'} : Combined Game [ edit ] Sizes of heaps     Moves
+ A  B  C  A' B' C'  
+  
+ 1  2  2  1  1  1   Alice takes 1 from A
+ 0  2  2  1  1  1   Bob takes 1 from A'
+ 0  2  2  0  1  1   Alice takes 1 from B'
+ 0  2  2  0  0  1   Bob takes 1 from C'
+ 0  2  2  0  0  0   Alice takes 2 from B
+ 0  0  2  0  0  0   Bob takes 2 from C
+ 0  0  0  0  0  0   Alice has no moves, so Bob wins.
+
+To differentiate between the two games, for the first example game , we'll label its starting position S {\displaystyle \color {blue}S} , and color it blue: S = { { ∗ ∗ 1 , { ∗ ∗ 1 } , ∗ ∗ 2 } , { ∗ ∗ 2 , { ∗ ∗ 1 , { ∗ ∗ 1 } , ∗ ∗ 2 } } , { { ∗ ∗ 1 } , { { ∗ ∗ 1 } } , { ∗ ∗ 1 , { ∗ ∗ 1 } , ∗ ∗ 2 } } } {\displaystyle \color {blue}S={\Big \{}{\big \{}*1,\{*1\},*2{\big \}},{\big \{}*2,\{*1,\{*1\},*2\}{\big \}},{\big \{}\{*1\},\{\{*1\}\},\{*1,\{*1\},*2\}{\big \}}{\Big \}}} For the second example game , we'll label the starting position S ′ {\displaystyle \color {red}S'} and color it red: S ′ = { { ∗ ∗ 1 } } .
+
+{\displaystyle \color {red}S'={\Big \{}\{*1\}{\Big \}}.} To compute the starting position of the combined game , remember that a player can either make a move in the first game, leaving the second game untouched, or make a move in the second game, leaving the first game untouched.  So the combined game's starting position is: S + S ′ = { S + { ∗ ∗ 1 } } ∪ ∪ { S ′ + { ∗ ∗ 1 , { ∗ ∗ 1 } , ∗ ∗ 2 } , S ′ + { ∗ ∗ 2 , { ∗ ∗ 1 , { ∗ ∗ 1 } , ∗ ∗ 2 } } , S ′ + { { ∗ ∗ 1 } , { { ∗ ∗ 1 } } , { ∗ ∗ 1 , { ∗ ∗ 1 } , ∗ ∗ 2 } } } {\displaystyle \color {blue}S\color {black}+\color {red}S'\color {black}={\Big \{}\color {blue}S\color {black}+\color {red}\{*1\}\color {black}{\Big \}}\cup {\Big \{}\color {red}S'\color {black}+\color {blue}\{*1,\{*1\},*2\}\color {black},\color {red}S'\color {black}+\color {blue}\{*2,\{*1,\{*1\},*2\}\}\color {black},\color {red}S'\color {black}+\color {blue}\{\{*1\},\{\{*1\}\},\{*1,\{*1\},*2\}\}\color {black}{\Big \}}} The explicit formula for adding positions is: S + S ′ = { S + s ′ ∣ ∣ s ′ ∈ ∈ S ′ } ∪ ∪ { s + S ′ ∣ ∣ s ∈ ∈ S } {\displaystyle S+S'=\{S+s'\mid s'\in S'\}\cup \{s+S'\mid s\in S\}} , which means that addition is both commutative and associative.
+
+Equivalence [ edit ] Positions in impartial games fall into two outcome classes : either the next player (the one whose turn it is) wins (an N {\displaystyle {\boldsymbol {\mathcal {N}}}} - position ), or the previous player wins (a P {\displaystyle {\boldsymbol {\mathcal {P}}}} - position ).  So, for example, ∗ ∗ 0 {\displaystyle *0} is a P {\displaystyle {\mathcal {P}}} -position, while ∗ ∗ 1 {\displaystyle *1} is an N {\displaystyle {\mathcal {N}}} -position.
+
+Two positions G {\displaystyle G} and G ′ {\displaystyle G'} are equivalent if, no matter what position H {\displaystyle H} is added to them, they are always in the same outcome class.  
+Formally, G ≈ ≈ G ′ {\displaystyle G\approx G'} if and only if ∀ ∀ H {\displaystyle \forall H} , G + H {\displaystyle G+H} is in the same outcome class as G ′ + H {\displaystyle G'+H} .
+
+To use our running examples, notice that in both the first and second games above, we can show that on every turn, Alice has a move that forces Bob into a P {\displaystyle {\mathcal {P}}} -position. Thus, both S {\displaystyle \color {blue}S} and S ′ {\displaystyle \color {red}S'} are N {\displaystyle {\mathcal {N}}} -positions.  (Notice that in the combined game, Bob is the player with the N {\displaystyle {\mathcal {N}}} -positions. In fact, S + S ′ {\displaystyle \color {blue}S\color {black}+\color {red}S'} is a P {\displaystyle {\mathcal {P}}} -position, which as we will see in Lemma 2, means S ≈ ≈ S ′ {\displaystyle \color {blue}S\color {black}\approx \color {red}S'} .) First Lemma [ edit ] As an intermediate step to proving the main theorem, we show that for every position G {\displaystyle G} and every P {\displaystyle {\mathcal {P}}} -position A {\displaystyle A} , the equivalence G ≈ ≈ A + G {\displaystyle G\approx A+G} holds.  By the above definition of equivalence, this amounts to showing that G + H {\displaystyle G+H} and A + G + H {\displaystyle A+G+H} share an outcome class for all H {\displaystyle H} .
+
+Suppose that G + H {\displaystyle G+H} is a P {\displaystyle {\mathcal {P}}} -position.  Then the previous player has a winning strategy for A + G + H {\displaystyle A+G+H} : respond to moves in A {\displaystyle A} according to their winning strategy for A {\displaystyle A} (which exists by virtue of A {\displaystyle A} being a P {\displaystyle {\mathcal {P}}} -position), and respond to moves in G + H {\displaystyle G+H} according to their winning strategy for G + H {\displaystyle G+H} (which exists for the analogous reason).  So A + G + H {\displaystyle A+G+H} must also be a P {\displaystyle {\mathcal {P}}} -position.
+
+On the other hand, if G + H {\displaystyle G+H} is an N {\displaystyle {\mathcal {N}}} -position, then A + G + H {\displaystyle A+G+H} is also an N {\displaystyle {\mathcal {N}}} -position, because the next player has a winning strategy: choose a P {\displaystyle {\mathcal {P}}} -position from among the G + H {\displaystyle G+H} options, and we conclude from the previous paragraph that adding A {\displaystyle A} to that position is still a P {\displaystyle {\mathcal {P}}} -position.  Thus, in this case, A + G + H {\displaystyle A+G+H} must be a N {\displaystyle {\mathcal {N}}} -position, just like G + H {\displaystyle G+H} .
+
+As these are the only two cases, the lemma holds.
+
+Second Lemma [ edit ] As a further step, we show that G ≈ ≈ G ′ {\displaystyle G\approx G'} if and only if G + G ′ {\displaystyle G+G'} is a P {\displaystyle {\mathcal {P}}} -position.
+
+In the forward direction, suppose that G ≈ ≈ G ′ {\displaystyle G\approx G'} .  Applying the definition of equivalence with H = G {\displaystyle H=G} , we find that G ′ + G {\displaystyle G'+G} (which is equal to G + G ′ {\displaystyle G+G'} by commutativity of addition) is in the same outcome class as G + G {\displaystyle G+G} .  But G + G {\displaystyle G+G} must be a P {\displaystyle {\mathcal {P}}} -position: for every move made in one copy of G {\displaystyle G} , the previous player can respond with the same move in the other copy, and so always make the last move.
+
+In the reverse direction, since A = G + G ′ {\displaystyle A=G+G'} is a P {\displaystyle {\mathcal {P}}} -position by hypothesis, it follows from the first lemma, G ≈ ≈ G + A {\displaystyle G\approx G+A} , that G ≈ ≈ G + ( G + G ′ ) {\displaystyle G\approx G+(G+G')} .   Similarly, since B = G + G {\displaystyle B=G+G} is also a P {\displaystyle {\mathcal {P}}} -position, it follows from the first lemma in the form G ′ ≈ ≈ G ′ + B {\displaystyle G'\approx G'+B} that G ′ ≈ ≈ G ′ + ( G + G ) {\displaystyle G'\approx G'+(G+G)} .  By associativity and commutativity, the right-hand sides of these results are equal.  Furthermore, ≈ ≈ {\displaystyle \approx } is an equivalence relation because equality is an equivalence relation on outcome classes.  Via the transitivity of ≈ ≈ {\displaystyle \approx } , we can conclude that G ≈ ≈ G ′ {\displaystyle G\approx G'} .
+
+Proof of the Sprague–Grundy theorem [ edit ] We prove that all positions are equivalent to a nimber by structural induction .  The more specific result, that the given game's initial position must be equivalent to a nimber, shows that the game is itself equivalent to a nimber.
+
+Consider a position G = { G 1 , G 2 , … … , G k } {\displaystyle G=\{G_{1},G_{2},\ldots ,G_{k}\}} . By the induction hypothesis , all of the options are equivalent to nimbers, say G i ≈ ≈ ∗ ∗ n i {\displaystyle G_{i}\approx *n_{i}} . So let G ′ = { ∗ ∗ n 1 , ∗ ∗ n 2 , … … , ∗ ∗ n k } {\displaystyle G'=\{*n_{1},*n_{2},\ldots ,*n_{k}\}} .  We will show that G ≈ ≈ ∗ ∗ m {\displaystyle G\approx *m} , where m {\displaystyle m} is the mex (minimum exclusion) of the numbers n 1 , n 2 , … … , n k {\displaystyle n_{1},n_{2},\ldots ,n_{k}} , that is, the smallest non-negative integer not equal to some n i {\displaystyle n_{i}} .
+
+The first thing we need to note is that G ≈ ≈ G ′ {\displaystyle G\approx G'} , by way of the second lemma. If k {\displaystyle k} is zero, the claim is trivially true.  Otherwise, consider G + G ′ {\displaystyle G+G'} . If the next player makes a move to G i {\displaystyle G_{i}} in G {\displaystyle G} , then the previous player can move to ∗ ∗ n i {\displaystyle *n_{i}} in G ′ {\displaystyle G'} , and conversely if the next player makes a move in G ′ {\displaystyle G'} . After this, the position is a P {\displaystyle {\mathcal {P}}} -position by the lemma's forward implication. Therefore, G + G ′ {\displaystyle G+G'} is a P {\displaystyle {\mathcal {P}}} -position, and, citing the lemma's reverse implication, G ≈ ≈ G ′ {\displaystyle G\approx G'} .
+
+Now let us show that G ′ + ∗ ∗ m {\displaystyle G'+*m} is a P {\displaystyle {\mathcal {P}}} -position, which, using the second lemma once again, means that G ′ ≈ ≈ ∗ ∗ m {\displaystyle G'\approx *m} . We do so by giving an explicit strategy for the previous player.
+
+Suppose that G ′ {\displaystyle G'} and ∗ ∗ m {\displaystyle *m} are empty.  Then G ′ + ∗ ∗ m {\displaystyle G'+*m} is the null set, clearly a P {\displaystyle {\mathcal {P}}} -position.
+
+Or consider the case that the next player moves in the component ∗ ∗ m {\displaystyle *m} to the option ∗ ∗ m ′ {\displaystyle *m'} where m ′ < m {\displaystyle m'<m} . Because m {\displaystyle m} was the minimum excluded number, the previous player can move in G ′ {\displaystyle G'} to ∗ ∗ m ′ {\displaystyle *m'} .  And, as shown before, any position plus itself is a P {\displaystyle {\mathcal {P}}} -position.
+
+Finally, suppose instead that the next player moves in the component G ′ {\displaystyle G'} to the option ∗ ∗ n i {\displaystyle *n_{i}} . If n i < m {\displaystyle n_{i}<m} then the previous player moves in ∗ ∗ m {\displaystyle *m} to ∗ ∗ n i {\displaystyle *n_{i}} ; otherwise, if n i > m {\displaystyle n_{i}>m} , the previous player moves in ∗ ∗ n i {\displaystyle *n_{i}} to ∗ ∗ m {\displaystyle *m} ; in either case the result is a position plus itself. (It is not possible that n i = m {\displaystyle n_{i}=m} because m {\displaystyle m} was defined to be different from all the n i {\displaystyle n_{i}} .) In summary, we have G ≈ ≈ G ′ {\displaystyle G\approx G'} and G ′ ≈ ≈ ∗ ∗ m {\displaystyle G'\approx *m} .  By transitivity, we conclude that G ≈ ≈ ∗ ∗ m {\displaystyle G\approx *m} , as desired.
+
+Development [ edit ] If G {\displaystyle G} is a position of an impartial game, the unique integer m {\displaystyle m} such that G ≈ ≈ ∗ ∗ m {\displaystyle G\approx *m} is called its Grundy value, or Grundy number, and the function that assigns this value to each such position is called the Sprague–Grundy function.  R. L. Sprague and P. M. Grundy independently gave an explicit definition of this function, not based on any concept of equivalence to nim positions, and showed that it had the following properties: The Grundy value of a single nim pile of size m {\displaystyle m} (i.e. of the position ∗ ∗ m {\displaystyle *m} ) is m {\displaystyle m} ; A position is a loss for the next player to move (i.e. a P {\displaystyle {\mathcal {P}}} -position) if and only if its Grundy value is zero; and The Grundy value of the sum of a finite set of positions is just the nim-sum of the Grundy values of its summands.
+
+It follows straightforwardly from these results that if a position G {\displaystyle G} has a Grundy value of m {\displaystyle m} , then G + H {\displaystyle G+H} has the same Grundy value as ∗ ∗ m + H {\displaystyle *m+H} , and therefore belongs to the same outcome class, for any position H {\displaystyle H} .   Thus, although Sprague and Grundy never explicitly stated the theorem described in this article, it follows directly from their results and is credited to them.
+
+[ 3 ] [ 4 ] These results have subsequently been developed into the field of combinatorial game theory , notably by Richard Guy , Elwyn Berlekamp , John Horton Conway and others, where they are now encapsulated in the Sprague–Grundy theorem and its proof in the form described here. The field is presented in the books Winning Ways for your Mathematical Plays and On Numbers and Games .
+
+See also [ edit ] Genus theory Indistinguishability quotient References [ edit ] ^ Sprague, R. P.
+
+(1936).
+
+"Über mathematische Kampfspiele" .
+
+Tohoku Mathematical Journal (in German).
+
+41 : 438– 444.
+
+JFM 62.1070.03 .
+
+Zbl 0013.29004 .
+
+^ Grundy, P. M.
+
+(1939).
+
+"Mathematics and games" .
+
+Eureka .
+
+2 : 6– 8. Archived from the original on 2007-09-27.
+
+Reprinted, 1964, 27 : 9–11.
+
+^ Smith, Cedric A.B. (1960), "Patrick Michael Grundy, 1917–1959", Journal of the Royal Statistical Society, Series A , 123 (2): 221– 22 ^ Schleicher, Dierk; Stoll, Michael (2006). "An introduction to Conway's games and numbers".
+
+Moscow Mathematical Journal .
+
+6 (2): 359– 388.
+
+arXiv : math.CO/0410026 .
+
+doi : 10.17323/1609-4514-2006-6-2-359-388 .
+
+S2CID 7175146 .
+
+External links [ edit ] Grundy's game at cut-the-knot Easily readable, introductory account from the UCLA Math Department The Game of Nim at sputsoft.com Milvang-Jensen, Brit C. A. (2000), Combinatorial Games, Theory and Applications (PDF) , CiteSeerX 10.1.1.89.805 v t e Game theory Glossary Game theorists Games Traditional game theory Definitions Asynchrony Bayesian regret Best response Bounded rationality Cheap talk Coalition Complete contract Complete information Complete mixing Confrontation analysis Conjectural variation Contingent cooperator Coopetition Cooperative game theory Dynamic inconsistency Escalation of commitment Farsightedness Game semantics Hierarchy of beliefs Imperfect information Incomplete information Information set Move by nature Mutual knowledge Non-cooperative game theory Non-credible threat Outcome Perfect information Perfect recall Ply Preference Rationality Sequential game Simultaneous action selection Spite Strategic complements Strategic dominance Strategic form Strategic interaction Strategic move Strategy Subgame Succinct game Topological game Tragedy of the commons Uncorrelated asymmetry Equilibrium concepts Backward induction Bayes correlated equilibrium Bayesian efficiency Bayesian game Bayesian Nash equilibrium Berge equilibrium Bertrand–Edgeworth model Coalition-proof Nash equilibrium Core Correlated equilibrium Cursed equilibrium Edgeworth price cycle Epsilon-equilibrium Gibbs equilibrium Incomplete contracts Inequity aversion Individual rationality Iterated elimination of dominated strategies Markov perfect equilibrium Mertens-stable equilibrium Nash equilibrium Open-loop model Pareto efficiency Payoff dominance Perfect Bayesian equilibrium Price of anarchy Program equilibrium Proper equilibrium Quantal response equilibrium Quasi-perfect equilibrium Rational agent Rationalizability Rationalizable strategy Satisfaction equilibrium Self-confirming equilibrium Sequential equilibrium Shapley value Strong Nash equilibrium Subgame perfect equilibrium Trembling hand equilibrium Strategies Appeasement Bid shading Cheap talk Collusion Commitment device De-escalation Deterrence Escalation Fictitious play Focal point Grim trigger Hobbesian trap Markov strategy Max-dominated strategy Mixed strategy Pure strategy Tit for tat Win–stay, lose–switch Games All-pay auction Battle of the sexes Nash bargaining game Bertrand competition Blotto game Centipede game Coordination game Cournot competition Deadlock Dictator game Trust game Diner's dilemma Dollar auction El Farol Bar problem Electronic mail game Gift-exchange game Guess 2/3 of the average Keynesian beauty contest Kuhn poker Lewis signaling game Matching pennies Obligationes Optional prisoner's dilemma Pirate game Prisoner's dilemma Public goods game Rendezvous problem Rock paper scissors Stackelberg competition Stag hunt Traveler's dilemma Ultimatum game Volunteer's dilemma War of attrition Theorems Arrow's impossibility theorem Aumann's agreement theorem Brouwer fixed-point theorem Competitive altruism Folk theorem Gibbard–Satterthwaite theorem Gibbs lemma Glicksberg's theorem Kakutani fixed-point theorem Kuhn's theorem One-shot deviation principle Prim–Read theory Rational ignorance Rational irrationality Sperner's lemma Zermelo's theorem Subfields Algorithmic game theory Behavioral game theory Behavioral strategy Compositional game theory Contract theory Drama theory Graphical game theory Heresthetic Mean-field game theory Negotiation theory Quantum game theory Social software Key people Albert W. Tucker Alvin E. Roth Amos Tversky Antoine Augustin Cournot Ariel Rubinstein David Gale David K. Levine David M. Kreps Donald B. Gillies Drew Fudenberg Eric Maskin Harold W. Kuhn Herbert Simon Herbert Scarf Hervé Moulin Jean Tirole Jean-François Mertens Jennifer Tour Chayes Ken Binmore Kenneth Arrow Leonid Hurwicz Lloyd Shapley Martin Shubik Melvin Dresher Merrill M. Flood Olga Bondareva Oskar Morgenstern Paul Milgrom Peyton Young Reinhard Selten Robert Aumann Robert Axelrod Robert B. Wilson Roger Myerson Samuel Bowles Suzanne Scotchmer Thomas Schelling William Vickrey Combinatorial game theory Core concepts Combinatorial explosion Determinacy Disjunctive sum First-player and second-player win Game complexity Game tree Impartial game Misère Partisan game Solved game Sprague–Grundy theorem Strategy-stealing argument Zugzwang Games Chess Chomp Clobber Cram Domineering Hackenbush Nim Notakto Subtract a square Sylver coinage Toads and Frogs Mathematical tools Mex Nimber On Numbers and Games Star Surreal number Winning Ways for Your Mathematical Plays Search algorithms Alpha–beta pruning Expectiminimax Minimax Monte Carlo tree search Negamax Paranoid algorithm Principal variation search Key people Claude Shannon John Conway John von Neumann Evolutionary game theory Core concepts Bishop–Cannings theorem Evolution and the Theory of Games Evolutionarily stable set Evolutionarily stable state Evolutionarily stable strategy Replicator equation Risk dominance Stochastically stable equilibrium Weak evolutionarily stable strategy Games Chicken Stag hunt Applications Cultural group selection Fisher's principle Mobbing Terminal investment hypothesis Key people John Maynard Smith Robert Axelrod Mechanism design Core concepts Algorithmic mechanism design Bayesian-optimal mechanism Incentive compatibility Market design Monotonicity Participation constraint Revelation principle Strategyproofness Vickrey–Clarke–Groves mechanism Theorems Myerson–Satterthwaite theorem Revenue equivalence Applications Digital goods auction Knapsack auction Truthful cake-cutting Other topics Bertrand paradox Chainstore paradox Computational complexity of games Helly metric Multi-agent system PPAD-complete Mathematics portal Commons WikiProject Category NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐dpxnn
+Cached time: 20250812020616
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.458 seconds
+Real time usage: 1.192 seconds
+Preprocessor visited node count: 2174/1000000
+Revision size: 20165/2097152 bytes
+Post‐expand include size: 112009/2097152 bytes
+Template argument size: 9139/2097152 bytes
+Highest expansion depth: 18/100
+Expensive parser function count: 4/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 38826/5000000 bytes
+Lua time usage: 0.206/10.000 seconds
+Lua memory usage: 5441169/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  339.192      1 -total
+ 28.33%   96.091      1 Template:Reflist
+ 26.73%   90.660      1 Template:Game_theory
+ 25.99%   88.143      1 Template:Navbox_with_collapsible_groups
+ 23.17%   78.583      3 Template:Cite_journal
+ 19.09%   64.768      1 Template:Short_description
+ 17.89%   60.678      1 Template:Multiple_issues
+ 12.53%   42.513      2 Template:Pagetype
+ 11.01%   37.335      1 Template:More_footnotes
+ 10.61%   35.972      2 Template:Ambox Saved in parser cache with key enwiki:pcache:41372:|#|:idhash:canonical and timestamp 20250812020616 and revision id 1297328516. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Sprague–Grundy_theorem&oldid=1297328516 " Categories : Combinatorial game theory Theorems in discrete mathematics Hidden categories: CS1 German-language sources (de) Articles with short description Short description is different from Wikidata Articles lacking in-text citations from June 2014 All articles lacking in-text citations Wikipedia articles that are too technical from June 2014 All articles that are too technical Articles with multiple maintenance issues This page was last edited on 25 June 2025, at 14:05 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Sprague–Grundy theorem 10 languages Add topic
+

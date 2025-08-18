@@ -1,0 +1,591 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 History 2 Uses Toggle Uses subsection 2.1 One-sample t -test 2.2 Two-sample t -tests 2.2.1 Independent (unpaired) samples 2.2.2 Paired samples 3 Assumptions 4 Calculations Toggle Calculations subsection 4.1 Slope of a regression line 4.2 Independent two-sample t -test 4.2.1 Equal sample sizes and variance 4.2.2 Equal or unequal sample sizes, similar variances ( ⁠ 1 / 2 ⁠ < ⁠ s X 1 / s X 2 ⁠ < 2) 4.2.3 Equal or unequal sample sizes, unequal variances ( s X 1 > 2 s X 2 or s X 2 > 2 s X 1 ) 4.3 Exact method for unequal variances and sample sizes 4.4 Dependent t -test for paired samples 5 Worked examples Toggle Worked examples subsection 5.1 Unequal variances 5.2 Equal variances 6 Related statistical tests Toggle Related statistical tests subsection 6.1 Alternatives to the t -test for location problems 6.2 A design which includes both paired observations and independent observations 6.3 Multivariate testing 6.4 The two-sample t -test is a special case of simple linear regression 7 Software implementations 8 See also 9 References 10 Sources 11 Further reading 12 External links Toggle the table of contents Student's t -test 39 languages العربية Asturianu भोजपुरी Català Čeština Deutsch Eesti Ελληνικά Español Euskara فارسی Français Galego 한국어 हिन्दी Hrvatski Bahasa Indonesia Italiano עברית Jawa Kiswahili Latviešu Magyar Македонски Nederlands 日本語 Norsk bokmål Polski Português Русский Simple English Српски / srpski Sunda Suomi Svenska Türkçe Українська 粵語 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikiversity Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Statistical hypothesis test Student's t -test is a statistical test used to test whether the difference between the response of two groups is statistically significant or not. It is any statistical hypothesis test in which the test statistic follows a Student's t -distribution under the null hypothesis . It is most commonly applied when the test statistic would follow a normal distribution if the value of a scaling term in the test statistic were known (typically, the scaling term is unknown and is therefore a nuisance parameter ). When the scaling term is estimated based on the data , the test statistic—under certain conditions—follows a Student's t distribution. The t -test's most common application is to test whether the means of two populations are significantly different. In many cases, a Z -test will yield very similar results to a t -test because the latter converges to the former as the size of the dataset increases.
+
+History [ edit ] William Sealy Gosset , who developed the " t -statistic" and published it under the pseudonym of "Student" The term " t -statistic" is abbreviated from "hypothesis test statistic".
+
+[ 1 ] In statistics, the t -distribution was first derived as a posterior distribution in 1876 by Helmert [ 2 ] [ 3 ] [ 4 ] and Lüroth .
+
+[ 5 ] [ 6 ] [ 7 ] The t -distribution also appeared in a more general form as Pearson type IV distribution in Karl Pearson 's 1895 paper.
+
+[ 8 ] However, the t -distribution, also known as Student's t -distribution , gets its name from William Sealy Gosset , who first published it in English in 1908 in the scientific journal Biometrika using the pseudonym "Student" [ 9 ] [ 10 ] because his employer preferred staff to use pen names when publishing scientific papers.
+
+[ 11 ] Gosset worked at the Guinness Brewery in Dublin , Ireland , and was interested in the problems of small samples –  for example, the chemical properties of barley with small sample sizes. Hence a second version of the etymology of the term Student is that Guinness did not want their competitors to know that they were using the t -test to determine the quality of raw material. Although it was William Gosset after whom the term "Student" is penned, it was actually through the work of Ronald Fisher that the distribution became well known as "Student's distribution" [ 12 ] and "Student's t -test".
+
+Gosset devised the t -test as an economical way to monitor the quality of stout . The t -test work was submitted to and accepted in the journal Biometrika and published in 1908.
+
+[ 9 ] Guinness had a policy of allowing technical staff leave for study (so-called "study leave"), which Gosset used during the first two terms of the 1906–1907 academic year in Professor Karl Pearson 's Biometric Laboratory at University College London .
+
+[ 13 ] Gosset's identity was then known to fellow statisticians and to editor-in-chief Karl Pearson.
+
+[ 14 ] Uses [ edit ] One-sample t -test [ edit ] A one-sample Student's t -test is a location test of whether the mean of a population has a value specified in a null hypothesis . In testing the null hypothesis that the population mean is equal to a specified value μ 0 , one uses the statistic t = x ¯ ¯ − − μ μ 0 s / n , {\displaystyle t={\frac {{\bar {x}}-\mu _{0}}{s/{\sqrt {n}}}},} where x ¯ ¯ {\displaystyle {\bar {x}}} is the sample mean, s is the sample standard deviation and n is the sample size. The degrees of freedom used in this test are n − 1 . Although the parent population does not need to be normally distributed, the distribution of the population of sample means x ¯ ¯ {\displaystyle {\bar {x}}} is assumed to be normal.
+
+By the central limit theorem , if the observations are independent and the second moment exists, then t {\displaystyle t} will be approximately normal N ( 0 , 1 ) {\textstyle {\mathcal {N}}(0,1)} .
+
+Two-sample t -tests [ edit ] Type I error of unpaired and paired two-sample t -tests as a function of the correlation. The simulated random numbers originate from a bivariate normal distribution with a variance of 1. The significance level is 5% and the number of cases is 60.
+
+Power of unpaired and paired two-sample t -tests as a function of the correlation. The simulated random numbers originate from a bivariate normal distribution with a variance of 1 and a deviation of the expected value of 0.4. The significance level is 5% and the number of cases is 60.
+
+A two-sample location test of the null hypothesis such that the means of two populations are equal. All such tests are usually called Student's t -tests , though strictly speaking that name should only be used if the variances of the two populations are also assumed to be equal; the form of the test used when this assumption is dropped is sometimes called Welch's t -test . These tests are often referred to as unpaired or independent samples t -tests, as they are typically applied when the statistical units underlying the two samples being compared are non-overlapping.
+
+[ 15 ] Two-sample t -tests for a difference in means involve independent samples (unpaired samples) or paired samples .  Paired t -tests are a form of blocking , and have greater power (probability of avoiding a type II error, also known as a false negative) than unpaired tests when the paired units are similar with respect to "noise factors" (see confounder ) that are independent of membership in the two groups being compared.
+
+[ 16 ] In a different context, paired t -tests can be used to reduce the effects of confounding factors in an observational study .
+
+Independent (unpaired) samples [ edit ] The independent samples t -test is used when two separate sets of independent and identically distributed samples are obtained, and one variable from each of the two populations is compared. For example, suppose we are evaluating the effect of a medical treatment, and we enroll 100 subjects into our study, then randomly assign 50 subjects to the treatment group and 50 subjects to the control group. In this case, we have two independent samples and would use the unpaired form of the t -test.
+
+Paired samples [ edit ] Main article: Paired difference test Paired samples t -tests typically consist of a sample of matched pairs of similar units , or one group of units that has been tested twice (a "repeated measures" t -test).
+
+A typical example of the repeated measures t -test would be where subjects are tested prior to a treatment, say for high blood pressure, and the same subjects are tested again after treatment with a blood-pressure-lowering medication. By comparing the same patient's numbers before and after treatment, we are effectively using each patient as their own control. That way the correct rejection of the null hypothesis (here: of no difference made by the treatment) can become much more likely, with statistical power increasing simply because the random interpatient variation has now been eliminated. However, an increase of statistical power comes at a price: more tests are required, each subject having to be tested twice. Because half of the sample now depends on the other half, the paired version of Student's t -test has only ⁠ n / 2 ⁠ − 1 degrees of freedom (with n being the total number of observations). Pairs become individual test units, and the sample has to be doubled to achieve the same number of degrees of freedom. Normally, there are n − 1 degrees of freedom (with n being the total number of observations).
+
+[ 17 ] A paired samples t -test based on a "matched-pairs sample" results from an unpaired sample that is subsequently used to form a paired sample, by using additional variables that were measured along with the variable of interest.
+
+[ 18 ] The matching is carried out by identifying pairs of values consisting of one observation from each of the two samples, where the pair is similar in terms of other measured variables. This approach is sometimes used in observational studies to reduce or eliminate the effects of confounding factors.
+
+Paired samples t -tests are often referred to as "dependent samples t -tests".
+
+Assumptions [ edit ] This section's factual accuracy is disputed .
+
+Relevant discussion may be found on the talk page . Please help to ensure that disputed statements are reliably sourced .
+
+( October 2022 ) ( Learn how and when to remove this message ) Most test statistics have the form t = Z / s , where Z and s are functions of the data.
+
+Z may be sensitive to the alternative hypothesis (i.e., its magnitude tends to be larger when the alternative hypothesis is true), whereas s is a scaling parameter that allows the distribution of t to be determined.
+
+As an example, in the one-sample t -test t = Z s = X ¯ ¯ − − μ μ σ σ ^ ^ / n , {\displaystyle t={\frac {Z}{s}}={\frac {{\bar {X}}-\mu }{{\hat {\sigma }}/{\sqrt {n}}}},} where X ¯ ¯ {\displaystyle {\bar {X}}} is the sample mean from a sample X 1 , X 2 , …, X n , of size n , s is the standard error of the mean , σ σ ^ ^ = 1 n − − 1 ∑ ∑ i ( X i − − X ¯ ¯ ) 2 {\displaystyle {\hat {\sigma }}={\sqrt {{\frac {1}{n-1}}\sum _{i}(X_{i}-{\bar {X}})^{2}}}} is the estimate of the standard deviation of the population, and μ is the population mean .
+
+The assumptions underlying a t -test in the simplest form above are that: X follows a normal distribution with mean μ and variance σ 2 / n .
+
+s 2 ( n − 1)/ σ 2 follows a χ 2 distribution with n − 1 degrees of freedom . This assumption is met when the observations used for estimating s 2 come from a normal distribution (and i.i.d.
+
+for each group).
+
+Z and s are independent .
+
+In the t -test comparing the means of two independent samples, the following assumptions should be met: The means of the two populations being compared should follow normal distributions . Under weak assumptions, this follows in large samples from the central limit theorem , even when the distribution of observations in each group is non-normal.
+
+[ 19 ] If using Student's original definition of the t -test, the two populations being compared should have the same variance (testable using F -test , Levene's test , Bartlett's test , or the Brown–Forsythe test ; or assessable graphically using a Q–Q plot ). If the sample sizes in the two groups being compared are equal, Student's original t -test is highly robust to the presence of unequal variances.
+
+[ 20 ] Welch's t -test is insensitive to equality of the variances regardless of whether the sample sizes are similar.
+
+The data used to carry out the test should either be sampled independently from the two populations being compared or be fully paired. This is in general not testable from the data, but if the data are known to be dependent (e.g. paired by test design), a dependent test has to be applied. For partially paired data, the classical independent t -tests may give invalid results as the test statistic might not follow a t distribution, while the dependent t -test is sub-optimal as it discards the unpaired data.
+
+[ 21 ] Most two-sample t -tests are robust to all but large deviations from the assumptions.
+
+[ 22 ] For exactness , the t -test and Z -test require normality of the sample means, and the t -test additionally requires that the sample variance follows a scaled χ 2 distribution , and that the sample mean and sample variance be statistically independent .  Normality of the individual data values is not required if these conditions are met. By the central limit theorem , sample means of moderately large samples are often well-approximated by a normal distribution even if the data are not normally distributed. However, the sample size required for the sample means to converge to normality depends on the skewness of the distribution of the original data. The sample can vary from 30 to 100 or higher values depending on the skewness.
+
+[ 23 ] [ 24 ] For non-normal data, the distribution of the sample variance may deviate substantially from a χ 2 distribution.
+
+However, if the sample size is large, Slutsky's theorem implies that the distribution of the sample variance has little effect on the distribution of the test statistic. That is, as sample size n {\displaystyle n} increases: n ( X ¯ ¯ − − μ μ ) → d N ( 0 , σ σ 2 ) {\displaystyle {\sqrt {n}}({\bar {X}}-\mu )\xrightarrow {d} N(0,\sigma ^{2})} as per the Central limit theorem , s 2 → p σ σ 2 {\displaystyle s^{2}\xrightarrow {p} \sigma ^{2}} as per the law of large numbers , ∴ ∴ n ( X ¯ ¯ − − μ μ ) s → d N ( 0 , 1 ) {\displaystyle \therefore {\frac {{\sqrt {n}}({\bar {X}}-\mu )}{s}}\xrightarrow {d} N(0,1)} .
+
+Calculations [ edit ] Explicit expressions that can be used to carry out various t -tests are given below. In each case, the formula for a test statistic that either exactly follows or closely approximates a t -distribution under the null hypothesis is given. Also, the appropriate degrees of freedom are given in each case. Each of these statistics can be used to carry out either a one-tailed or two-tailed test .
+
+Once the t value and degrees of freedom are determined, a p -value can be found using a table of values from Student's t -distribution . If the calculated p -value is below the threshold chosen for statistical significance (usually the 0.10, the 0.05, or 0.01 level), then the null hypothesis is rejected in favor of the alternative hypothesis.
+
+Slope of a regression line [ edit ] Suppose one is fitting the model Y = α α + β β x + ε ε , {\displaystyle Y=\alpha +\beta x+\varepsilon ,} where x is known, α and β are unknown, ε is a normally distributed random variable with mean 0 and unknown variance σ 2 , and Y is the outcome of interest. We want to test the null hypothesis that the slope β is equal to some specified value β 0 (often taken to be 0, in which case the null hypothesis is that x and y are uncorrelated).
+
+Let α α ^ ^ , β β ^ ^ = least-squares estimators , S E α α ^ ^ , S E β β ^ ^ = the standard errors of least-squares estimators .
+
+{\displaystyle {\begin{aligned}{\hat {\alpha }},{\hat {\beta }}&={\text{least-squares estimators}},\\SE_{\hat {\alpha }},SE_{\hat {\beta }}&={\text{the standard errors of least-squares estimators}}.\end{aligned}}} Then t score = β β ^ ^ − − β β 0 S E β β ^ ^ ∼ ∼ T n − − 2 {\displaystyle t_{\text{score}}={\frac {{\hat {\beta }}-\beta _{0}}{SE_{\hat {\beta }}}}\sim {\mathcal {T}}_{n-2}} has a t -distribution with n − 2 degrees of freedom if the null hypothesis is true. The standard error of the slope coefficient : S E β β ^ ^ = 1 n − − 2 ∑ ∑ i = 1 n ( y i − − y ^ ^ i ) 2 ∑ ∑ i = 1 n ( x i − − x ¯ ¯ ) 2 {\displaystyle SE_{\hat {\beta }}={\frac {\sqrt {\displaystyle {\frac {1}{n-2}}\sum _{i=1}^{n}(y_{i}-{\hat {y}}_{i})^{2}}}{\sqrt {\displaystyle \sum _{i=1}^{n}(x_{i}-{\bar {x}})^{2}}}}} can be written in terms of the residuals. Let ε ε ^ ^ i = y i − − y ^ ^ i = y i − − ( α α ^ ^ + β β ^ ^ x i ) = residuals = estimated errors , SSR = ∑ ∑ i = 1 n ε ε ^ ^ i 2 = sum of squares of residuals .
+
+{\displaystyle {\begin{aligned}{\hat {\varepsilon }}_{i}&=y_{i}-{\hat {y}}_{i}=y_{i}-({\hat {\alpha }}+{\hat {\beta }}x_{i})={\text{residuals}}={\text{estimated errors}},\\{\text{SSR}}&=\sum _{i=1}^{n}{{\hat {\varepsilon }}_{i}}^{2}={\text{sum of squares of residuals}}.\end{aligned}}} Then t score is given by t score = ( β β ^ ^ − − β β 0 ) n − − 2 S S R ∑ ∑ i = 1 n ( x i − − x ¯ ¯ ) 2 .
+
+{\displaystyle t_{\text{score}}={\frac {({\hat {\beta }}-\beta _{0}){\sqrt {n-2}}}{\sqrt {\frac {SSR}{\sum _{i=1}^{n}(x_{i}-{\bar {x}})^{2}}}}}.} Another way to determine the t score is t score = r n − − 2 1 − − r 2 , {\displaystyle t_{\text{score}}={\frac {r{\sqrt {n-2}}}{\sqrt {1-r^{2}}}},} where r is the Pearson correlation coefficient .
+
+The t score, intercept can be determined from the t score, slope : t score,intercept = α α β β t score,slope s x 2 + x ¯ ¯ 2 , {\displaystyle t_{\text{score,intercept}}={\frac {\alpha }{\beta }}{\frac {t_{\text{score,slope}}}{\sqrt {s_{\text{x}}^{2}+{\bar {x}}^{2}}}},} where s x 2 is the sample variance.
+
+Independent two-sample t -test [ edit ] Equal sample sizes and variance [ edit ] Given two groups (1, 2), this test is only applicable when: the two sample sizes are equal, it can be assumed that the two distributions have the same variance.
+
+Violations of these assumptions are discussed below.
+
+The t statistic to test whether the means are different can be calculated as follows: t = X ¯ ¯ 1 − − X ¯ ¯ 2 s p 2 n , {\displaystyle t={\frac {{\bar {X}}_{1}-{\bar {X}}_{2}}{s_{p}{\sqrt {\frac {2}{n}}}}},} where s p = s X 1 2 + s X 2 2 2 .
+
+{\displaystyle s_{p}={\sqrt {\frac {s_{X_{1}}^{2}+s_{X_{2}}^{2}}{2}}}.} Here s p is the pooled standard deviation for n = n 1 = n 2 , and s 2 X 1 and s 2 X 2 are the unbiased estimators of the population variance. The denominator of t is the standard error of the difference between two means.
+
+For significance testing, the degrees of freedom for this test is 2 n − 2 , where n is sample size.
+
+Equal or unequal sample sizes, similar variances ( ⁠ 1 / 2 ⁠ < ⁠ s X 1 / s X 2 ⁠ < 2) [ edit ] This test is used only when it can be assumed that the two distributions have the same variance (when this assumption is violated, see below). 
+The previous formulae are a special case of the formulae below, one recovers them when both samples are equal in size: n = n 1 = n 2 .
+
+The t statistic to test whether the means are different can be calculated as follows: t = X ¯ ¯ 1 − − X ¯ ¯ 2 s p ⋅ ⋅ 1 n 1 + 1 n 2 , {\displaystyle t={\frac {{\bar {X}}_{1}-{\bar {X}}_{2}}{s_{p}\cdot {\sqrt {{\frac {1}{n_{1}}}+{\frac {1}{n_{2}}}}}}},} where s p = ( n 1 − − 1 ) s X 1 2 + ( n 2 − − 1 ) s X 2 2 n 1 + n 2 − − 2 {\displaystyle s_{p}={\sqrt {\frac {(n_{1}-1)s_{X_{1}}^{2}+(n_{2}-1)s_{X_{2}}^{2}}{n_{1}+n_{2}-2}}}} is the pooled standard deviation of the two samples: it is defined in this way so that its square is an unbiased estimator of the common variance, whether or not the population means are the same. In these formulae, n i − 1 is the number of degrees of freedom for each group, and the total sample size minus two (that is, n 1 + n 2 − 2 ) is the total number of degrees of freedom, which is used in significance testing.
+
+The minimum detectable effect (MDE) is: [ 25 ] δ δ ≥ ≥ 2 S p 2 n ( t 1 − − α α , ν ν + t 1 − − β β , ν ν ) {\displaystyle \delta \geq {\sqrt {\frac {2S_{p}^{2}}{n}}}(t_{1-\alpha ,\nu }+t_{1-\beta ,\nu })} Equal or unequal sample sizes, unequal variances ( s X 1 > 2 s X 2 or s X 2 > 2 s X 1 ) [ edit ] Main article: Welch's t -test This test, also known as Welch's t -test, is used only when the two population variances are not assumed to be equal (the two sample sizes may or may not be equal) and hence must be estimated separately. The t statistic to test whether the population means are different is calculated as t = X ¯ ¯ 1 − − X ¯ ¯ 2 s Δ Δ ¯ ¯ , {\displaystyle t={\frac {{\bar {X}}_{1}-{\bar {X}}_{2}}{s_{\bar {\Delta }}}},} where s Δ Δ ¯ ¯ = s 1 2 n 1 + s 2 2 n 2 .
+
+{\displaystyle s_{\bar {\Delta }}={\sqrt {{\frac {s_{1}^{2}}{n_{1}}}+{\frac {s_{2}^{2}}{n_{2}}}}}.} Here s i 2 is the unbiased estimator of the variance of each of the two samples with n i = number of participants in group i ( i = 1 or 2). In this case ( s Δ Δ ¯ ¯ ) 2 {\displaystyle (s_{\bar {\Delta }})^{2}} is not a pooled variance. For use in significance testing, the distribution of the test statistic is approximated as an ordinary Student's t -distribution with the degrees of freedom calculated using d.f.
+
+= ( s 1 2 n 1 + s 2 2 n 2 ) 2 ( s 1 2 / n 1 ) 2 n 1 − − 1 + ( s 2 2 / n 2 ) 2 n 2 − − 1 .
+
+{\displaystyle {\text{d.f.}}={\frac {\left({\frac {s_{1}^{2}}{n_{1}}}+{\frac {s_{2}^{2}}{n_{2}}}\right)^{2}}{{\frac {(s_{1}^{2}/n_{1})^{2}}{n_{1}-1}}+{\frac {(s_{2}^{2}/n_{2})^{2}}{n_{2}-1}}}}.} This is known as the Welch–Satterthwaite equation . The true distribution of the test statistic actually depends (slightly) on the two unknown population variances (see Behrens–Fisher problem ).
+
+Exact method for unequal variances and sample sizes [ edit ] The test [ 26 ] deals with the famous Behrens–Fisher problem , i.e., comparing the difference between the means of two normally distributed populations when the variances of the two populations are not assumed to be equal, based on two independent samples.
+
+The test is developed as an exact test that allows for unequal sample sizes and unequal variances of two populations. The exact property still holds even with extremely small and unbalanced sample sizes (e.g.
+
+m ≡ ≡ n X = 50 {\displaystyle \ m\equiv n_{\mathsf {X}}=50\ } vs.
+
+n ≡ ≡ n Y = 5 {\displaystyle \ n\equiv n_{\mathsf {Y}}=5\ } ).
+
+The statistic to test whether the means are different can be calculated as follows: Let X = [ X 1 , X 2 , … … , X m ] ⊤ ⊤ {\displaystyle \ X=\left[\ X_{1},X_{2},\ldots ,X_{m}\ \right]^{\top }\ } and Y = [ Y 1 , Y 2 , … … , Y n ] ⊤ ⊤ {\displaystyle \ Y=\left[\ Y_{1},Y_{2},\ldots ,Y_{n}\ \right]^{\top }\ } be the i.i.d. sample vectors (for m ≥ ≥ n {\displaystyle \ m\geq n\ } ) from N o r m ( μ μ X , σ σ X 2 ) {\displaystyle \ {\mathsf {Norm}}\left(\ \mu _{\mathsf {X}},\ \sigma _{\mathsf {X}}^{2}\ \right)\ } and N o r m ( μ μ Y , σ σ Y 2 ) {\displaystyle \ {\mathsf {Norm}}\left(\ \mu _{\mathsf {Y}},\ \sigma _{\mathsf {Y}}^{2}\ \right)\ } separately.
+
+Let ( P ⊤ ⊤ ) n × × n {\displaystyle \ (P^{\top })_{n\times n}\ } be an n × × n {\displaystyle n\times n} orthogonal matrix whose elements of the first row are all 1 n , {\displaystyle \ {\tfrac {1}{\sqrt {n\ }}}\ ,} similarly, let ( Q ⊤ ⊤ ) n × × m {\displaystyle \ (Q^{\top })_{n\times m}\ } be the first n {\displaystyle \ n\ } rows of an m × × m {\displaystyle \ m\times m\ } orthogonal matrix (whose elements of the first row are all 1 m {\displaystyle \ {\tfrac {1}{\sqrt {m\ }}}\ } ).
+
+Then Z ≡ ≡ ( Q ⊤ ⊤ ) n × × m X m − − ( P ⊤ ⊤ ) n × × n Y n {\displaystyle \ Z\equiv {\frac {\ \left(Q^{\top }\right)_{n\times m}\ X\ }{\sqrt {m\ }}}\ -\ {\frac {\ \left(P^{\top }\right)_{n\times n}\ Y\ }{\sqrt {n\ }}}\ } is an n -dimensional normal random vector: Z ∼ ∼ N o r m ( [ μ μ X − − μ μ Y , 0 , 0 , … … , 0 ] ⊤ ⊤ , ( σ σ X 2 m + σ σ Y 2 n ) I n ) .
+
+{\displaystyle Z~\sim ~{\mathsf {Norm}}\left(\ \left[\ \mu _{\mathsf {X}}-\mu _{\mathsf {Y}},\ 0,\ 0,\ \ldots ,\ 0\ \right]^{\top }\ ,\ \left({\frac {\ \sigma _{\mathsf {X}}^{2}\ }{m}}+{\frac {\ \sigma _{\mathsf {Y}}^{2}\ }{n}}\right)\ I_{n}\ \right)~.} From the above distribution we see that the first element of the vector Z is Z 1 = X ¯ ¯ − − Y ¯ ¯ = 1 m ∑ ∑ i = 1 m X i − − 1 n ∑ ∑ j = 1 n Y j , {\displaystyle Z_{1}={\bar {X}}-{\bar {Y}}={\frac {1}{\ m\ }}\sum _{i=1}^{m}\ X_{i}-{\frac {1}{\ n\ }}\sum _{j=1}^{n}\ Y_{j}\ ,} hence the first element is distributed as Z 1 − − ( μ μ X − − μ μ Y ) ∼ ∼ N o r m ( 0 , σ σ X 2 m + σ σ Y 2 n ) , {\displaystyle Z_{1}-\left(\mu _{\mathsf {X}}-\mu _{\mathsf {Y}}\right)~\sim ~{\mathsf {Norm}}\left(\ 0,\ {\frac {\ \sigma _{\mathsf {X}}^{2}\ }{m}}+{\frac {\ \sigma _{\mathsf {Y}}^{2}\ }{n}}\ \right)\ ,} and the squares of the remaining elements of Z are chi-squared distributed ∑ ∑ i = 2 n Z i 2 n − − 1 ∼ ∼ χ χ n − − 1 2 n − − 1 × × ( σ σ X 2 m + σ σ Y 2 n ) {\displaystyle {\frac {\ \sum _{i=2}^{n}Z_{i}^{2}\ }{\ n-1\ }}~\sim ~{\frac {\ \chi _{n-1}^{2}\ }{\ n-1\ }}\times \left({\frac {\ \sigma _{\mathsf {X}}^{2}\ }{m}}+{\frac {\ \sigma _{\mathsf {Y}}^{2}\ }{n}}\right)} and by construction of the orthogonal matricies P and Q we have Z 1 − − ( μ μ X − − μ μ Y ) ⊥ ⊥ ∑ ∑ i = 2 n Z i 2 , {\displaystyle Z_{1}-\left(\mu _{\mathsf {X}}-\mu _{\mathsf {Y}}\right)\quad \perp \quad \sum _{i=2}^{n}Z_{i}^{2}\ ,} so Z 1 , the first element of Z , is statistically independent of the remaining elements by orthogonality.
+Finally, take for the test statistic T e ≡ ≡ Z 1 − − ( μ μ X − − μ μ Y ) ( ∑ ∑ i = 2 n Z i 2 ) / ( n − − 1 ) ∼ ∼ t n − − 1 .
+
+{\displaystyle T_{\mathsf {e}}~\equiv ~{\frac {\ Z_{1}-\left(\mu _{\mathsf {X}}-\mu _{\mathsf {Y}}\right)\ }{\ {\sqrt {\left(\sum _{i=2}^{n}Z_{i}^{2}\right)/\left(n-1\right)\ }}\ }}~\sim ~t_{n-1}~.} Dependent t -test for paired samples [ edit ] This test is used when the samples are dependent; that is, when there is only one sample that has been tested twice (repeated measures) or when there are two samples that have been matched or "paired". This is an example of a paired difference test . The t statistic is calculated as t = X ¯ ¯ D − − μ μ 0 s D / n , {\displaystyle t={\frac {{\bar {X}}_{D}-\mu _{0}}{s_{D}/{\sqrt {n}}}},} where X ¯ ¯ D {\displaystyle {\bar {X}}_{D}} and s D {\displaystyle s_{D}} are the average and standard deviation of the differences between all pairs. The pairs are e.g. either one person's pre-test and post-test scores or between-pairs of persons matched into meaningful groups (for instance, drawn from the same family or age group: see table). The constant μ 0 is zero if we want to test whether the average of the difference is significantly different. The degree of freedom used is n − 1 , where n represents the number of pairs.
+
+Example of matched pairs Pair Name Age Test 1 John 35 250 1 Jane 36 340 2 Jimmy 22 460 2 Jessy 21 200 Example of repeated measures Number Name Test 1 Test 2 1 Mike 35% 67% 2 Melanie 50% 46% 3 Melissa 90% 86% 4 Mitchell 78% 91% Worked examples [ edit ] Let A 1 denote a set obtained by drawing a random sample of six measurements: A 1 = { 30.02 , 29.99 , 30.11 , 29.97 , 30.01 , 29.99 } {\displaystyle A_{1}=\{30.02,\ 29.99,\ 30.11,\ 29.97,\ 30.01,\ 29.99\}} and let A 2 denote a second set obtained similarly: A 2 = { 29.89 , 29.93 , 29.72 , 29.98 , 30.02 , 29.98 } {\displaystyle A_{2}=\{29.89,\ 29.93,\ 29.72,\ 29.98,\ 30.02,\ 29.98\}} These could be, for example, the weights of screws that were manufactured by two different machines.
+
+We will carry out tests of the null hypothesis that the means of the populations from which the two samples were taken are equal.
+
+The difference between the two sample means, each denoted by X i , which appears in the numerator for all the two-sample testing approaches discussed above, is X ¯ ¯ 1 − − X ¯ ¯ 2 = 0.095.
+
+{\displaystyle {\bar {X}}_{1}-{\bar {X}}_{2}=0.095.} The sample standard deviations for the two samples are approximately 0.05 and 0.11, respectively. For such small samples, a test of equality between the two population variances would not be very powerful.  Since the sample sizes are equal, the two forms of the two-sample t -test will perform similarly in this example.
+
+Unequal variances [ edit ] If the approach for unequal variances (discussed above) is followed, the results are s 1 2 n 1 + s 2 2 n 2 ≈ ≈ 0.04849 {\displaystyle {\sqrt {{\frac {s_{1}^{2}}{n_{1}}}+{\frac {s_{2}^{2}}{n_{2}}}}}\approx 0.04849} and the degrees of freedom d.f.
+
+≈ ≈ 7.031.
+
+{\displaystyle {\text{d.f.}}\approx 7.031.} The test statistic is approximately 1.959, which gives a two-tailed test p -value of 0.09077.
+
+Equal variances [ edit ] If the approach for equal variances (discussed above) is followed, the results are s p ≈ ≈ 0.08399 {\displaystyle s_{p}\approx 0.08399} and the degrees of freedom d.f.
+
+= 10.
+
+{\displaystyle {\text{d.f.}}=10.} The test statistic is approximately equal to 1.959, which gives a two-tailed p -value of 0.07857.
+
+Related statistical tests [ edit ] Alternatives to the t -test for location problems [ edit ] The t -test provides an exact test for the equality of the means of two i.i.d. normal populations with unknown, but equal, variances. ( Welch's t -test is a nearly exact test for the case where the data are normal but the variances may differ.)  For moderately large samples and a one tailed test, the t -test is relatively robust to moderate violations of the normality assumption.
+
+[ 27 ] In large enough samples, the t -test asymptotically approaches the z -test , and becomes robust even to large deviations from normality.
+
+[ 19 ] If the data are substantially non-normal and the sample size is small, the t -test can give misleading results. See Location test for Gaussian scale mixture distributions for some theory related to one particular family of non-normal distributions.
+
+When the normality assumption does not hold, a non-parametric alternative to the t -test may have better statistical power . However, when data are non-normal with differing variances between groups, a t -test may have better type-1 error control than some non-parametric alternatives.
+
+[ 28 ] Furthermore, non-parametric methods, such as the Mann-Whitney U test discussed below, typically do not test for a difference of means, so should be used carefully if a difference of means is of primary scientific interest.
+
+[ 19 ] For example, Mann-Whitney U test will keep the type 1 error at the desired level alpha if both groups have the same distribution. It will also have power in detecting an alternative by which group B has the same distribution as A but after some shift by a constant (in which case there would indeed be a difference in the means of the two groups). However, there could be cases where group A and B will have different distributions but with the same means (such as two distributions, one with positive skewness and the other with a negative one, but shifted so to have the same means). In such cases, MW could have more than alpha level power in rejecting the Null hypothesis but attributing the interpretation of difference in means to such a result would be incorrect.
+
+In the presence of an outlier , the t -test is not robust. For example, for two independent samples when the data distributions are asymmetric  (that is, the distributions are skewed ) or the distributions have large tails, then the Wilcoxon rank-sum test (also known as the Mann–Whitney U test ) can have three to four times higher power than the t -test.
+
+[ 27 ] [ 29 ] [ 30 ] The nonparametric counterpart to the paired samples t -test is the Wilcoxon signed-rank test for paired samples. For a discussion on choosing between the t -test and nonparametric alternatives, see Lumley, et al. (2002).
+
+[ 19 ] One-way analysis of variance (ANOVA) generalizes the two-sample t -test when the data belong to more than two groups.
+
+A design which includes both paired observations and independent observations [ edit ] When both paired observations and independent observations are present in the two sample design, assuming  data are missing completely at random (MCAR), the paired observations or independent observations may be discarded in order to proceed with the standard tests above. Alternatively making use of all of the available data, assuming normality and MCAR, the generalized partially overlapping samples t -test could be used.
+
+[ 31 ] Multivariate testing [ edit ] Main article: Hotelling's T-squared distribution A generalization of Student's t statistic, called Hotelling's t -squared statistic , allows for the testing of hypotheses on multiple (often correlated) measures within the same sample. For instance, a researcher might submit a number of subjects to a personality test consisting of multiple personality scales (e.g. the Minnesota Multiphasic Personality Inventory ). Because measures of this type are usually positively correlated, it is not advisable to conduct separate univariate t -tests to test hypotheses, as these would neglect the covariance among measures and inflate the chance of falsely rejecting at least one hypothesis ( Type I error ). In this case a single multivariate test is preferable for hypothesis testing.
+
+Fisher's Method for combining multiple tests with alpha reduced for positive correlation among tests is one. Another is Hotelling's T 2 statistic follows a T 2 distribution. However, in practice the distribution is rarely used, since tabulated values for T 2 are hard to find. Usually, T 2 is converted instead to an F statistic.
+
+For a one-sample multivariate test, the hypothesis is that the mean vector ( μ ) is equal to a given vector ( μ 0 ). The test statistic is Hotelling's t 2 : t 2 = n ( x ¯ ¯ − − μ μ 0 ) ′ S − − 1 ( x ¯ ¯ − − μ μ 0 ) {\displaystyle t^{2}=n({\bar {\mathbf {x} }}-{{\boldsymbol {\mu }}_{0}})'{\mathbf {S} }^{-1}({\bar {\mathbf {x} }}-{{\boldsymbol {\mu }}_{0}})} where n is the sample size, x is the vector of column means and S is an m × m sample covariance matrix .
+
+For a two-sample multivariate test, the hypothesis is that the mean vectors ( μ 1 , μ 2 ) of two samples are equal. The test statistic is Hotelling's two-sample t 2 : t 2 = n 1 n 2 n 1 + n 2 ( x ¯ ¯ 1 − − x ¯ ¯ 2 ) ′ S pooled − − 1 ( x ¯ ¯ 1 − − x ¯ ¯ 2 ) .
+
+{\displaystyle t^{2}={\frac {n_{1}n_{2}}{n_{1}+n_{2}}}\left({\bar {\mathbf {x} }}_{1}-{\bar {\mathbf {x} }}_{2}\right)'{\mathbf {S} _{\text{pooled}}}^{-1}\left({\bar {\mathbf {x} }}_{1}-{\bar {\mathbf {x} }}_{2}\right).} The two-sample t -test is a special case of simple linear regression [ edit ] This section does not cite any sources .
+
+Please help improve this section by adding citations to reliable sources . Unsourced material may be challenged and removed .
+
+( March 2025 ) ( Learn how and when to remove this message ) The two-sample t -test is a special case of simple linear regression as illustrated by the following example.
+
+A clinical trial examines 6 patients given drug or placebo. Three (3) patients get 0 units of drug (the placebo group). Three (3) patients get 1 unit of drug (the active treatment group). At the end of treatment, the researchers measure the change from baseline in the number of words that each patient can recall in a memory test.
+
+A table of the patients' word recall and drug dose values are shown below.
+
+Patient drug.dose word.recall 1 0 1 2 0 2 3 0 3 4 1 5 5 1 6 6 1 7 Data and code are given for the analysis using the R programming language with the t.test and lm functions for the t-test and linear regression. Here are the same (fictitious) data above generated in R.
+
+> word.recall.data = data.frame ( drug.dose = c ( 0 , 0 , 0 , 1 , 1 , 1 ), word.recall = c ( 1 , 2 , 3 , 5 , 6 , 7 )) Perform the t -test. Notice that the assumption of equal variance, var.equal=T , is required to make the analysis exactly equivalent to simple linear regression.
+
+> with ( word.recall.data , t.test ( word.recall ~ drug.dose , var.equal = T )) Running the R code gives the following results.
+
+The mean word.recall in the 0 drug.dose group is 2.
+
+The mean word.recall in the 1 drug.dose group is 6.
+
+The difference between treatment groups in the mean word.recall is 6 – 2 = 4.
+
+The difference in word.recall between drug doses is significant (p=0.00805).
+
+Perform a linear regression of the same data. Calculations may be performed using the R function lm() for a linear model.
+
+> word.recall.data.lm = lm ( word.recall ~ drug.dose , data = word.recall.data ) > summary ( word.recall.data.lm ) The linear regression provides a table of coefficients and p-values.
+
+Coefficient Estimate Std. Error t value P-value Intercept 2 0.5774 3.464 0.02572 drug.dose 4 0.8165 4.899 0.000805 The table of coefficients gives the following results.
+
+The estimate value of 2 for the intercept is the mean value of the word recall when the drug dose is 0.
+
+The estimate value of 4 for the drug dose indicates that for a 1-unit change in drug dose (from 0 to 1) there is a 4-unit change in mean word recall (from 2 to 6). This is the slope of the line joining the two group means.
+
+The p-value that the slope of 4 is different from 0 is p = 0.00805.
+
+The coefficients for the linear regression specify the slope and intercept of the line that joins the two group means, as illustrated in the graph. The intercept is 2 and the slope is 4.
+
+Compare the result from the linear regression to the result from the t -test.
+
+From the t -test, the difference between the group means is 6-2=4.
+
+From the regression, the slope is also 4 indicating that a 1-unit change in drug dose (from 0 to 1) gives a 4-unit change in mean word recall (from 2 to 6).
+
+The t -test p -value for the difference in means, and the regression p-value for the slope, are both 0.00805. The methods give identical results.
+
+This example shows that, for the special case of a simple linear regression where there is a single x-variable that has values 0 and 1, the t -test gives the same results as the linear regression. The relationship can also be shown algebraically.
+
+Recognizing this relationship between the t -test and linear regression facilitates the use of multiple linear regression and multi-way analysis of variance . These alternatives to t -tests allow for the inclusion of additional explanatory variables that are associated with the response. Including such additional explanatory variables using regression or anova reduces the otherwise unexplained variance , and commonly yields greater power to detect differences than do two-sample t -tests.
+
+Software implementations [ edit ] Many spreadsheet programs and statistics packages, such as QtiPlot , LibreOffice Calc , Microsoft Excel , SAS , SPSS , Stata , DAP , gretl , R , Python , PSPP , Wolfram Mathematica , MATLAB and Minitab , include implementations of Student's t -test.
+
+Language/Program Function Notes Microsoft Excel pre 2010 TTEST( array1 , array2 , tails , type ) See [1] Microsoft Excel 2010 and later T.TEST( array1 , array2 , tails , type ) See [2] Apple Numbers TTEST(sample-1-values, sample-2-values, tails, test-type) See [3] LibreOffice Calc TTEST( Data1; Data2; Mode; Type ) See [4] Google Sheets TTEST(range1, range2, tails, type) See [5] Python scipy.stats.ttest_ind( a , b , equal_var=True ) See [6] MATLAB ttest(data1, data2) See [7] Mathematica TTest[{data1,data2}] See [8] R t.test(data1, data2, var.equal=TRUE) See [9] SAS PROC TTEST See [10] Java tTest(sample1, sample2) See [11] Julia EqualVarianceTTest(sample1, sample2) See [12] Stata ttest data1 == data2 See [13] See also [ edit ] Mathematics portal Conditional change model Equivalence test – Tool used to draw statistical inferences from observed data F -test – Statistical hypothesis test, mostly using multiple restrictions Noncentral t -distribution in power analysis – Probability distribution Student's t -statistic – Ratio in statistics Pages displaying short descriptions of redirect targets Z -test – Statistical test Mann–Whitney U test – Nonparametric test of the null hypothesis Šidák correction for t -test – Statistical method Welch's t -test – Statistical test of whether two populations have equal means Analysis of variance – Collection of statistical models (ANOVA) t -distribution – Probability distribution Confidence intervals for the mean of a normal distribution (also here ) References [ edit ] ^ The Microbiome in Health and Disease . Academic Press. 2020-05-29. p. 397.
+
+ISBN 978-0-12-820001-8 .
+
+^ Szabó, István (2003). "Systeme aus einer endlichen Anzahl starrer Körper".
+
+Einführung in die Technische Mechanik (in German). Springer Berlin Heidelberg. pp.
+
+196– 199.
+
+doi : 10.1007/978-3-642-61925-0_16 (inactive 12 July 2025).
+
+ISBN 978-3-540-13293-6 .
+
+{{ cite book }} :  CS1 maint: DOI inactive as of July 2025 ( link ) ^ Schlyvitch, B. (October 1937). "Untersuchungen über den anastomotischen Kanal zwischen der Arteria coeliaca und mesenterica superior und damit in Zusammenhang stehende Fragen".
+
+Zeitschrift für Anatomie und Entwicklungsgeschichte (in German).
+
+107 (6): 709– 737.
+
+doi : 10.1007/bf02118337 .
+
+ISSN 0340-2061 .
+
+S2CID 27311567 .
+
+^ Helmert (1876).
+
+"Die Genauigkeit der Formel von Peters zur Berechnung des wahrscheinlichen Beobachtungsfehlers directer Beobachtungen gleicher Genauigkeit" .
+
+Astronomische Nachrichten (in German).
+
+88 ( 8– 9): 113– 131.
+
+Bibcode : 1876AN.....88..113H .
+
+doi : 10.1002/asna.18760880802 .
+
+^ Lüroth, J. (1876).
+
+"Vergleichung von zwei Werthen des wahrscheinlichen Fehlers" .
+
+Astronomische Nachrichten (in German).
+
+87 (14): 209– 220.
+
+Bibcode : 1876AN.....87..209L .
+
+doi : 10.1002/asna.18760871402 .
+
+^ Pfanzagl, J. (1996). "Studies in the history of probability and statistics XLIV. A forerunner of the t -distribution".
+
+Biometrika .
+
+83 (4): 891– 898.
+
+doi : 10.1093/biomet/83.4.891 .
+
+MR 1766040 .
+
+^ Sheynin, Oscar (1995). "Helmert's work in the theory of errors".
+
+Archive for History of Exact Sciences .
+
+49 (1): 73– 104.
+
+doi : 10.1007/BF00374700 .
+
+ISSN 0003-9519 .
+
+S2CID 121241599 .
+
+^ Pearson, Karl (1895).
+
+"X. Contributions to the mathematical theory of evolution.—II. Skew variation in homogeneous material" .
+
+Philosophical Transactions of the Royal Society of London A .
+
+186 : 343– 414.
+
+Bibcode : 1895RSPTA.186..343P .
+
+doi : 10.1098/rsta.1895.0010 .
+
+^ a b Student (1908).
+
+"The Probable Error of a Mean" (PDF) .
+
+Biometrika .
+
+6 (1): 1– 25.
+
+doi : 10.1093/biomet/6.1.1 .
+
+hdl : 10338.dmlcz/143545 . Retrieved 24 July 2016 .
+
+^ "T Table" .
+
+^ Wendl, Michael C. (2016). "Pseudonymous fame".
+
+Science .
+
+351 (6280): 1406.
+
+doi : 10.1126/science.351.6280.1406 .
+
+PMID 27013722 .
+
+^ Walpole, Ronald E. (2006).
+
+Probability & statistics for engineers & scientists . Myers, H. Raymond (7th ed.). New Delhi: Pearson.
+
+ISBN 81-7758-404-9 .
+
+OCLC 818811849 .
+
+^ Raju, T. N. (2005). "William Sealy Gosset and William A. Silverman: Two 'Students' of Science".
+
+Pediatrics .
+
+116 (3): 732– 735.
+
+doi : 10.1542/peds.2005-1134 .
+
+PMID 16140715 .
+
+S2CID 32745754 .
+
+^ Dodge, Yadolah (2008).
+
+The Concise Encyclopedia of Statistics . Springer Science & Business Media. pp.
+
+234– 235.
+
+ISBN 978-0-387-31742-7 .
+
+^ Fadem, Barbara (2008).
+
+High-Yield Behavioral Science . High-Yield Series. Hagerstown, MD: Lippincott Williams & Wilkins.
+
+ISBN 9781451130300 .
+
+^ Rice, John A. (2006).
+
+Mathematical Statistics and Data Analysis (3rd ed.). Duxbury Advanced.
+
+[ ISBN missing ] ^ Weisstein, Eric.
+
+"Student's t -Distribution" .
+
+mathworld.wolfram.com .
+
+^ David, H. A.; Gunnink, Jason L. (1997). "The Paired t Test Under Artificial Pairing".
+
+The American Statistician .
+
+51 (1): 9– 12.
+
+doi : 10.2307/2684684 .
+
+JSTOR 2684684 .
+
+^ a b c d Lumley, Thomas; Diehr, Paula ; Emerson, Scott; Chen, Lu (May 2002).
+
+"The Importance of the Normality Assumption in Large Public Health Data Sets" .
+
+Annual Review of Public Health .
+
+23 (1): 151– 169.
+
+doi : 10.1146/annurev.publhealth.23.100901.140546 .
+
+ISSN 0163-7525 .
+
+PMID 11910059 .
+
+^ Markowski, Carol A.; Markowski, Edward P. (1990). "Conditions for the Effectiveness of a Preliminary Test of Variance".
+
+The American Statistician .
+
+44 (4): 322– 326.
+
+doi : 10.2307/2684360 .
+
+JSTOR 2684360 .
+
+^ Guo, Beibei; Yuan, Ying (2017). "A comparative review of methods for comparing means using partially paired data".
+
+Statistical Methods in Medical Research .
+
+26 (3): 1323– 1340.
+
+doi : 10.1177/0962280215577111 .
+
+PMID 25834090 .
+
+S2CID 46598415 .
+
+^ Bland, Martin (1995).
+
+An Introduction to Medical Statistics . Oxford University Press. p. 168.
+
+ISBN 978-0-19-262428-4 .
+
+^ "Central limit theorem and the normality assumption > Normality > Continuous distributions > Distribution > Statistical Reference Guide | Analyse-it® 6.15 documentation" .
+
+analyse-it.com . Retrieved 2024-05-17 .
+
+^ DEMİR, Süleyman (2022-06-26).
+
+"Comparison of Normality Tests in Terms of Sample Sizes under Different Skewness and Kurtosis Coefficients" .
+
+International Journal of Assessment Tools in Education .
+
+9 (2): 397– 409.
+
+doi : 10.21449/ijate.1101295 .
+
+ISSN 2148-7456 .
+
+^ Minimum Detectable Difference for Two-Sample t-Test for Means. Equation and example adapted from Zar, 1984 ^ Wang, Chang; Jia, Jinzhu (2022). "Te Test: A New Non-asymptotic T-test for Behrens-Fisher Problems".
+
+arXiv : 2210.16473 [ math.ST ].
+
+^ a b Sawilowsky, Shlomo S.; Blair, R. Clifford (1992). "A More Realistic Look at the Robustness and Type II Error Properties of the t Test to Departures From Population Normality".
+
+Psychological Bulletin .
+
+111 (2): 352– 360.
+
+doi : 10.1037/0033-2909.111.2.352 .
+
+^ Zimmerman, Donald W. (January 1998). "Invalidation of Parametric and Nonparametric Statistical Tests by Concurrent Violation of Two Assumptions".
+
+The Journal of Experimental Education .
+
+67 (1): 55– 68.
+
+doi : 10.1080/00220979809598344 .
+
+ISSN 0022-0973 .
+
+^ Blair, R. Clifford; Higgins, James J. (1980). "A Comparison of the Power of Wilcoxon's Rank-Sum Statistic to That of Student's t Statistic Under Various Nonnormal Distributions".
+
+Journal of Educational Statistics .
+
+5 (4): 309– 335.
+
+doi : 10.2307/1164905 .
+
+JSTOR 1164905 .
+
+^ Fay, Michael P.; Proschan, Michael A. (2010).
+
+"Wilcoxon–Mann–Whitney or t -test? On assumptions for hypothesis tests and multiple interpretations of decision rules" .
+
+Statistics Surveys .
+
+4 : 1– 39.
+
+doi : 10.1214/09-SS051 .
+
+PMC 2857732 .
+
+PMID 20414472 .
+
+^ Derrick, B; Toher, D; White, P (2017).
+
+"How to compare the means of two samples that include paired observations and independent observations: A companion to Derrick, Russ, Toher and White (2017)" (PDF) .
+
+The Quantitative Methods for Psychology .
+
+13 (2): 120– 126.
+
+doi : 10.20982/tqmp.13.2.p120 .
+
+Sources [ edit ] O'Mahony, Michael (1986).
+
+Sensory Evaluation of Food: Statistical Methods and Procedures .
+
+CRC Press . p. 487.
+
+ISBN 0-82477337-3 .
+
+Press, William H.; Teukolsky, Saul A.; Vetterling, William T.; Flannery, Brian P. (1992).
+
+Numerical Recipes in C: The Art of Scientific Computing .
+
+Cambridge University Press . p.
+
+616 .
+
+ISBN 0-521-43108-5 .
+
+Further reading [ edit ] Boneau, C. Alan (1960). "The effects of violations of assumptions underlying the t test".
+
+Psychological Bulletin .
+
+57 (1): 49– 64.
+
+doi : 10.1037/h0041412 .
+
+PMID 13802482 .
+
+Edgell, Stephen E.; Noon, Sheila M. (1984). "Effect of violation of normality on the t test of the correlation coefficient".
+
+Psychological Bulletin .
+
+95 (3): 576– 583.
+
+doi : 10.1037/0033-2909.95.3.576 .
+
+External links [ edit ] Wikiversity has learning resources about t-test English Wikisource has original text related to this article: The Probable Error of a Mean "Student test" .
+
+Encyclopedia of Mathematics .
+
+EMS Press . 2001 [1994].
+
+Trochim, William M.K. " The T-Test ", Research Methods Knowledge Base , conjoint.ly Econometrics lecture (topic: hypothesis testing) on YouTube by Mark Thoma v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject Authority control databases National Germany Other Yale LUX NewPP limit report
+Parsed by mw‐web.codfw.main‐7c956d68b4‐srzzh
+Cached time: 20250817224113
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, vary‐revision, show‐toc]
+CPU time usage: 0.988 seconds
+Real time usage: 1.398 seconds
+Preprocessor visited node count: 9683/1000000
+Revision size: 52789/2097152 bytes
+Post‐expand include size: 262764/2097152 bytes
+Template argument size: 9996/2097152 bytes
+Highest expansion depth: 18/100
+Expensive parser function count: 12/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 156847/5000000 bytes
+Lua time usage: 0.570/10.000 seconds
+Lua memory usage: 22030540/52428800 bytes
+Number of Wikibase entities loaded: 1/500 Transclusion expansion time report (%,ms,calls,template)
+100.00% 1080.531      1 -total
+ 24.17%  261.162      1 Template:Reflist
+ 16.79%  181.369     11 Template:Annotated_link
+ 12.06%  130.306     21 Template:Cite_journal
+ 11.25%  121.554      1 Template:Statistics
+ 11.04%  119.341      1 Template:Navbox_with_collapsible_groups
+ 10.49%  113.324      9 Template:Cite_book
+  7.40%   79.958     73 Template:Math
+  6.58%   71.048      2 Template:Sister_project
+  6.48%   69.970      1 Template:Short_description Saved in parser cache with key enwiki:pcache:536080:|#|:idhash:canonical and timestamp 20250817224113 and revision id 1300139086. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Student%27s_t-test&oldid=1300139086 " Categories : Statistical tests Parametric statistics Hidden categories: CS1 maint: DOI inactive as of July 2025 CS1 German-language sources (de) Pages with missing ISBNs Articles with short description Short description is different from Wikidata Accuracy disputes from October 2022 All accuracy disputes Articles needing additional references from March 2025 All articles needing additional references Pages displaying short descriptions of redirect targets via Module:Annotated link Wikisource templates with missing id This page was last edited on 12 July 2025, at 13:43 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Student's t -test 39 languages Add topic
+

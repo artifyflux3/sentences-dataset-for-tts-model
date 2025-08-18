@@ -1,0 +1,367 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Structural and reduced form Toggle Structural and reduced form subsection 1.1 Assumptions 2 Identification Toggle Identification subsection 2.1 Using cross-equation restrictions to achieve identification 3 Estimation Toggle Estimation subsection 3.1 Two-stage least squares (2SLS) 3.2 Indirect least squares 3.3 Limited information maximum likelihood (LIML) 3.3.1 K class estimators 3.4 Three-stage least squares (3SLS) 4 Applications in social science 5 See also 6 References 7 Further reading 8 External links Toggle the table of contents Simultaneous equations model 5 languages Català Deutsch Español Bahasa Indonesia Русский Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Type of statistical model Simultaneous equations models are a type of statistical model in which the dependent variables are functions of other dependent variables, rather than just independent variables.
+
+[ 1 ] This means some of the explanatory variables are jointly determined with the dependent variable, which in economics usually is the consequence of some underlying equilibrium mechanism . Take the typical supply and demand model: whilst typically one would determine the quantity supplied and demanded to be a function of the price set by the market, it is also possible for the reverse to be true, where producers observe the quantity that consumers demand and then set the price.
+
+[ 2 ] Simultaneity poses challenges for the estimation of the statistical parameters of interest, because the Gauss–Markov assumption of strict exogeneity of the regressors is violated. And while it would be natural to estimate all simultaneous equations at once, this often leads to a computationally costly non-linear optimization problem even for the simplest system of linear equations .
+
+[ 3 ] This situation prompted the development, spearheaded by the Cowles Commission in the 1940s and 1950s, [ 4 ] of various techniques that estimate each equation in the model seriatim, most notably limited information maximum likelihood and two-stage least squares .
+
+[ 5 ] Structural and reduced form [ edit ] Suppose there are m regression equations of the form y i t = y − − i , t ′ γ γ i + x i t ′ β β i + u i t , i = 1 , … … , m , {\displaystyle y_{it}=y_{-i,t}'\gamma _{i}+x_{it}'\;\!\beta _{i}+u_{it},\quad i=1,\ldots ,m,} where i is the equation number, and t = 1, ..., T is the observation index. In these equations x it is the k i × 1 vector of exogenous variables, y it is the dependent variable, y −i,t is the n i × 1 vector of all other endogenous variables which enter the i th equation on the right-hand side, and u it are the error terms. The “− i ” notation indicates that the vector y −i,t may contain any of the y ’s except for y it (since it is already present on the left-hand side). The regression coefficients β i and γ i are of dimensions k i × 1 and n i × 1 correspondingly. Vertically stacking the T observations corresponding to the i th equation, we can write each equation in vector form as y i = Y − − i γ γ i + X i β β i + u i , i = 1 , … … , m , {\displaystyle y_{i}=Y_{-i}\gamma _{i}+X_{i}\beta _{i}+u_{i},\quad i=1,\ldots ,m,} where y i and u i are T× 1 vectors, X i is a T×k i matrix of exogenous regressors, and Y −i is a T×n i matrix of endogenous regressors on the right-hand side of the i th equation. Finally, we can move all endogenous variables to the left-hand side and write the m equations jointly in vector form as Y Γ Γ = X B + U .
+
+{\displaystyle Y\Gamma =X\mathrm {B} +U.\,} This representation is known as the structural form . In this equation Y = [ y 1 y 2 ...
+
+y m ] is the T×m matrix of dependent variables. Each of the matrices Y −i is in fact an n i -columned submatrix of this Y . The m×m matrix Γ, which describes the relation between the dependent variables, has a complicated structure. It has ones on the diagonal, and all other elements of each column i are either the components of the vector −γ i or zeros, depending on which columns of Y were included in the matrix Y −i . The T×k matrix X contains all exogenous regressors from all equations, but without repetitions (that is, matrix X should be of full rank). Thus, each X i is a k i -columned submatrix of X . Matrix Β has size k×m , and each of its columns consists of the components of vectors β i and zeros, depending on which of the regressors from X were included or excluded from X i . Finally, U = [ u 1 u 2 ...
+
+u m ] is a T×m matrix of the error terms.
+
+Postmultiplying the structural equation by Γ −1 , the system can be written in the reduced form as Y = X B Γ Γ − − 1 + U Γ Γ − − 1 = X Π Π + V .
+
+{\displaystyle Y=X\mathrm {B} \Gamma ^{-1}+U\Gamma ^{-1}=X\Pi +V.\,} This is already a simple general linear model , and it can be estimated for example by ordinary least squares . Unfortunately, the task of decomposing the estimated matrix Π Π ^ ^ {\displaystyle \scriptstyle {\hat {\Pi }}} into the individual factors Β and Γ −1 is quite complicated, and therefore the reduced form is more suitable for prediction but not inference.
+
+Assumptions [ edit ] Firstly, the rank of the matrix X of exogenous regressors must be equal to k , both in finite samples and in the limit as T → ∞ (this later requirement means that in the limit the expression 1 T X ′ X {\displaystyle \scriptstyle {\frac {1}{T}}X'\!X} should converge to a nondegenerate k×k matrix). Matrix Γ is also assumed to be non-degenerate.
+
+Secondly, error terms are assumed to be serially independent and identically distributed . That is, if the t th row of matrix U is denoted by u ( t ) , then the sequence of vectors { u ( t ) } should be iid, with zero mean and some covariance matrix Σ (which is unknown). In particular, this implies that E[ U ] = 0 , and E[ U′U ] = T Σ .
+
+Lastly, assumptions are required for identification.
+
+Identification [ edit ] The identification conditions require that the system of linear equations be solvable for the unknown parameters.
+
+More specifically, the order condition , a necessary condition for identification, is that for each equation k i + n i ≤ k , which can be phrased as “the number of excluded exogenous variables is greater or equal to the number of included endogenous variables”.
+
+The rank condition , a stronger condition which is necessary and sufficient, is that the rank of Π i 0 equals n i , where Π i 0 is a ( k − k i )× n i matrix which is obtained from Π by crossing out those columns which correspond to the excluded endogenous variables, and those rows which correspond to the included exogenous variables.
+
+Using cross-equation restrictions to achieve identification [ edit ] In simultaneous equations models, the most common method to achieve identification is by imposing within-equation parameter restrictions.
+
+[ 6 ] Yet, identification is also possible using cross equation restrictions.
+
+To illustrate how cross equation restrictions can be used for identification, consider the following example from Wooldridge [ 6 ] y 1 = γ γ 12 y 2 + δ δ 11 z 1 + δ δ 12 z 2 + δ δ 13 z 3 + u 1 y 2 = γ γ 21 y 1 + δ δ 21 z 1 + δ δ 22 z 2 + u 2 {\displaystyle {\begin{aligned}y_{1}&=\gamma _{12}y_{2}+\delta _{11}z_{1}+\delta _{12}z_{2}+\delta _{13}z_{3}+u_{1}\\y_{2}&=\gamma _{21}y_{1}+\delta _{21}z_{1}+\delta _{22}z_{2}+u_{2}\end{aligned}}} where z's are uncorrelated with u's and y's are endogenous variables.  Without further restrictions, the first equation is not identified because there is no excluded exogenous variable.  The second equation is just identified if δ 13 ≠0 , which is assumed to be true for the rest of discussion.
+
+Now we impose the cross equation restriction of δ 12 = δ 22 . Since the second equation is identified, we can treat δ 12 as known for the purpose of identification. Then, the first equation becomes: y 1 − − δ δ 12 z 2 = γ γ 12 y 2 + δ δ 11 z 1 + δ δ 13 z 3 + u 1 {\displaystyle y_{1}-\delta _{12}z_{2}=\gamma _{12}y_{2}+\delta _{11}z_{1}+\delta _{13}z_{3}+u_{1}} Then, we can use ( z 1 , z 2 , z 3 ) as instruments to estimate the coefficients in the above equation since there are one endogenous variable ( y 2 ) and one excluded exogenous variable ( z 2 ) on the right hand side.  Therefore, cross equation restrictions in place of within-equation restrictions can achieve identification.
+
+Estimation [ edit ] Two-stage least squares (2SLS) [ edit ] The simplest and the most common estimation method for the simultaneous equations model is the so-called two-stage least squares method, [ 7 ] developed independently by Theil (1953) and Basmann (1957) .
+
+[ 8 ] [ 9 ] [ 10 ] It is an equation-by-equation technique, where the endogenous regressors on the right-hand side of each equation are being instrumented with the regressors X from all other equations. The method is called “two-stage” because it conducts estimation in two steps: [ 7 ] Step 1 : Regress Y −i on X and obtain the predicted values Y ^ ^ − − i {\displaystyle \scriptstyle {\hat {Y}}_{\!-i}} ; Step 2 : Estimate γ i , β i by the ordinary least squares regression of y i on Y ^ ^ − − i {\displaystyle \scriptstyle {\hat {Y}}_{\!-i}} and X i .
+
+If the i th equation in the model is written as y i = ( Y − − i X i ) ( γ γ i β β i ) + u i ≡ ≡ Z i δ δ i + u i , {\displaystyle y_{i}={\begin{pmatrix}Y_{-i}&X_{i}\end{pmatrix}}{\begin{pmatrix}\gamma _{i}\\\beta _{i}\end{pmatrix}}+u_{i}\equiv Z_{i}\delta _{i}+u_{i},} where Z i is a T× ( n i + k i ) matrix of both endogenous and exogenous regressors in the i th equation, and δ i is an ( n i + k i )-dimensional vector of regression coefficients, then the 2SLS estimator of δ i will be given by [ 7 ] δ δ ^ ^ i = ( Z ^ ^ i ′ Z ^ ^ i ) − − 1 Z ^ ^ i ′ y i = ( Z i ′ P Z i ) − − 1 Z i ′ P y i , {\displaystyle {\hat {\delta }}_{i}={\big (}{\hat {Z}}'_{i}{\hat {Z}}_{i}{\big )}^{-1}{\hat {Z}}'_{i}y_{i}={\big (}Z'_{i}PZ_{i}{\big )}^{-1}Z'_{i}Py_{i},} where P = X ( X ′ X ) −1 X ′ is the projection matrix onto the linear space spanned by the exogenous regressors X .
+
+Indirect least squares [ edit ] Indirect least squares is an approach in econometrics where the coefficients in a simultaneous equations model are estimated from the reduced form model using ordinary least squares .
+
+[ 11 ] [ 12 ] For this, the structural system of equations is transformed into the reduced form first. Once the coefficients are estimated the model is put back into the structural form.
+
+Limited information maximum likelihood (LIML) [ edit ] The “limited information” maximum likelihood method was suggested by M. A. Girshick in 1947, [ 13 ] and formalized by T. W. Anderson and H. Rubin in 1949.
+
+[ 14 ] It is used when one is interested in estimating a single structural equation at a time (hence its name of limited information), say for observation i: y i = Y − − i γ γ i + X i β β i + u i ≡ ≡ Z i δ δ i + u i {\displaystyle y_{i}=Y_{-i}\gamma _{i}+X_{i}\beta _{i}+u_{i}\equiv Z_{i}\delta _{i}+u_{i}} The structural equations for the remaining endogenous variables Y −i are not specified, and they are given in their reduced form: Y − − i = X Π Π + U − − i {\displaystyle Y_{-i}=X\Pi +U_{-i}} Notation in this context is different than for the simple IV case. One has: Y − − i {\displaystyle Y_{-i}} : The endogenous variable(s).
+
+X − − i {\displaystyle X_{-i}} : The exogenous variable(s) X {\displaystyle X} : The instrument(s) (often denoted Z {\displaystyle Z} ) The explicit formula for the LIML is: [ 15 ] δ δ ^ ^ i = ( Z i ′ ( I − − λ λ M ) Z i ) − − 1 Z i ′ ( I − − λ λ M ) y i , {\displaystyle {\hat {\delta }}_{i}={\Big (}Z'_{i}(I-\lambda M)Z_{i}{\Big )}^{\!-1}Z'_{i}(I-\lambda M)y_{i},} where M = I − X ( X ′ X ) −1 X ′ , and λ is the smallest characteristic root of the matrix: ( [ y i Y − − i ] M i [ y i Y − − i ] ) ( [ y i Y − − i ] M [ y i Y − − i ] ) − − 1 {\displaystyle {\Big (}{\begin{bmatrix}y_{i}\\Y_{-i}\end{bmatrix}}M_{i}{\begin{bmatrix}y_{i}&Y_{-i}\end{bmatrix}}{\Big )}{\Big (}{\begin{bmatrix}y_{i}\\Y_{-i}\end{bmatrix}}M{\begin{bmatrix}y_{i}&Y_{-i}\end{bmatrix}}{\Big )}^{\!-1}} where, in a similar way, M i = I − X i ( X i ′ X i ) −1 X i ′ .
+
+In other words, λ is the smallest solution of the generalized eigenvalue problem , see Theil (1971 , p. 503): | [ y i Y − − i ] ′ M i [ y i Y − − i ] − − λ λ [ y i Y − − i ] ′ M [ y i Y − − i ] | = 0 {\displaystyle {\Big |}{\begin{bmatrix}y_{i}&Y_{-i}\end{bmatrix}}'M_{i}{\begin{bmatrix}y_{i}&Y_{-i}\end{bmatrix}}-\lambda {\begin{bmatrix}y_{i}&Y_{-i}\end{bmatrix}}'M{\begin{bmatrix}y_{i}&Y_{-i}\end{bmatrix}}{\Big |}=0} K class estimators [ edit ] The LIML is a special case of the K-class estimators: [ 16 ] δ δ ^ ^ = ( Z ′ ( I − − κ κ M ) Z ) − − 1 Z ′ ( I − − κ κ M ) y , {\displaystyle {\hat {\delta }}={\Big (}Z'(I-\kappa M)Z{\Big )}^{\!-1}Z'(I-\kappa M)y,} with: δ δ = [ β β i γ γ i ] {\displaystyle \delta ={\begin{bmatrix}\beta _{i}&\gamma _{i}\end{bmatrix}}} Z = [ X i Y − − i ] {\displaystyle Z={\begin{bmatrix}X_{i}&Y_{-i}\end{bmatrix}}} Several estimators belong to this class: κ=0: OLS κ=1: 2SLS. Note indeed that in this case, I − − κ κ M = I − − M = P {\displaystyle I-\kappa M=I-M=P} the usual projection matrix of the 2SLS κ=λ: LIML κ=λ - α / (n-K): Fuller (1977) estimator.
+
+[ 17 ] Here K represents the number of instruments, n the sample size, and α a positive constant to specify. A value of α=1 will yield an estimator that is approximately unbiased.
+
+[ 16 ] Three-stage least squares (3SLS) [ edit ] The three-stage least squares estimator was introduced by Zellner & Theil (1962) .
+
+[ 18 ] [ 19 ] It can be seen as a special case of multi-equation GMM where the set of instrumental variables is common to all equations.
+
+[ 20 ] If all regressors are in fact predetermined, then 3SLS reduces to seemingly unrelated regressions (SUR). Thus it may also be seen as a combination of two-stage least squares (2SLS) with SUR.
+
+Applications in social science [ edit ] Across fields and disciplines simultaneous equation models are applied to various observational phenomena. These equations are applied when phenomena are assumed to be reciprocally causal. The classic example is supply and demand in economics . In other disciplines there are examples such as candidate evaluations and party identification [ 21 ] or public opinion and social policy in political science ; [ 22 ] [ 23 ] road investment and travel demand in geography; [ 24 ] and educational attainment and parenthood entry in sociology or demography .
+
+[ 25 ] The simultaneous equation model requires a theory of reciprocal causality that includes special features if the causal effects are to be estimated as simultaneous feedback as opposed to one-sided 'blocks' of an equation where a researcher is interested in the causal effect of X on Y while holding the causal effect of Y on X constant, or when the researcher knows the exact amount of time it takes for each causal effect to take place, i.e., the length of the causal lags. Instead of lagged effects, simultaneous feedback means estimating the simultaneous and perpetual impact of X and Y on each other. This requires a theory that causal effects are simultaneous in time, or so complex that they appear to behave simultaneously; a common example are the moods of roommates.
+
+[ 26 ] To estimate simultaneous feedback models a theory of equilibrium is also necessary – that X and Y are in relatively steady states or are part of a system (society, market, classroom) that is in a relatively stable state.
+
+[ 27 ] See also [ edit ] General linear model Seemingly unrelated regressions Reduced form Parameter identification problem References [ edit ] ^ Martin, Vance; Hurn, Stan; Harris, David (2013).
+
+Econometric Modelling with Time Series . Cambridge University Press. p. 159.
+
+ISBN 978-0-521-19660-4 .
+
+^ Maddala, G. S.; Lahiri, Kajal (2009).
+
+Introduction to Econometrics (Fourth ed.). Wiley. pp.
+
+355– 357.
+
+ISBN 978-0-470-01512-4 .
+
+^ Quandt, Richard E. (1983). "Computational Problems and Methods". In Griliches, Z.; Intriligator, M. D. (eds.).
+
+Handbook of Econometrics . Vol. I. North-Holland. pp.
+
+699– 764.
+
+ISBN 0-444-86185-8 .
+
+^ Christ, Carl F. (1994). "The Cowles Commission's Contributions to Econometrics at Chicago, 1939–1955".
+
+Journal of Economic Literature .
+
+32 (1): 30– 59.
+
+JSTOR 2728422 .
+
+^ Johnston, J.
+
+(1971). "Simultaneous-equation Methods: Estimation".
+
+Econometric Methods (Second ed.). New York: McGraw-Hill. pp.
+
+376– 423.
+
+ISBN 0-07-032679-7 .
+
+^ a b Wooldridge, J.M., Econometric Analysis of Cross Section and Panel Data, MIT Press, Cambridge, Mass.
+
+^ a b c Greene, William H. (2002).
+
+Econometric analysis (5th ed.). Prentice Hall. pp.
+
+398– 99.
+
+ISBN 0-13-066189-9 .
+
+^ Theil, H. (1953). Estimation and Simultaneous Correlation in Complete Equation Systems (Memorandum). Central Planning Bureau.
+
+Reprinted in Henri Theil’s Contributions to Economics and Econometrics (Springer, 1992), doi : 10.1007/978-94-011-2546-8_6 .
+
+^ Basmann, R. L.
+
+(1957). "A generalized classical method of linear estimation of coefficients in a structural equation".
+
+Econometrica .
+
+25 (1): 77– 83.
+
+doi : 10.2307/1907743 .
+
+JSTOR 1907743 .
+
+^ Theil, Henri (1971).
+
+Principles of Econometrics . New York: John Wiley.
+
+ISBN 978-0-471-85845-4 .
+
+^ Park, S-B. (1974) "On Indirect Least Squares Estimation of a Simultaneous Equation System", The Canadian Journal of Statistics / La Revue Canadienne de Statistique , 2 (1), 75–82 JSTOR 3314964 ^ Vajda, S.; Valko, P.; Godfrey, K.R. (1987). "Direct and indirect least squares methods in continuous-time parameter estimation".
+
+Automatica .
+
+23 (6): 707– 718.
+
+doi : 10.1016/0005-1098(87)90027-6 .
+
+^ First application by Girshick, M. A.; Haavelmo, Trygve (1947). "Statistical Analysis of the Demand for Food: Examples of Simultaneous Estimation of Structural Equations".
+
+Econometrica .
+
+15 (2): 79– 110.
+
+doi : 10.2307/1907066 .
+
+JSTOR 1907066 .
+
+^ Anderson, T.W.; Rubin, H. (1949).
+
+"Estimator of the parameters of a single equation in a complete system of stochastic equations" .
+
+Annals of Mathematical Statistics .
+
+20 (1): 46– 63.
+
+doi : 10.1214/aoms/1177730090 .
+
+JSTOR 2236803 .
+
+^ Amemiya, Takeshi (1985).
+
+Advanced Econometrics . Cambridge, Massachusetts: Harvard University Press. p.
+
+235 .
+
+ISBN 0-674-00560-0 .
+
+^ a b Davidson, Russell; MacKinnon, James G. (1993).
+
+Estimation and inference in econometrics . Oxford University Press. p. 649.
+
+ISBN 0-19-506011-3 .
+
+^ Fuller, Wayne (1977). "Some Properties of a Modification of the Limited Information Estimator".
+
+Econometrica .
+
+45 (4): 939– 953.
+
+doi : 10.2307/1912683 .
+
+JSTOR 1912683 .
+
+^ Zellner, Arnold ; Theil, Henri (1962). "Three-stage least squares: simultaneous estimation of simultaneous equations".
+
+Econometrica .
+
+30 (1): 54– 78.
+
+doi : 10.2307/1911287 .
+
+JSTOR 1911287 .
+
+^ Kmenta, Jan (1986).
+
+"System Methods of Estimation" .
+
+Elements of Econometrics (Second ed.). New York: Macmillan. pp.
+
+695– 701.
+
+ISBN 9780023650703 .
+
+^ Hayashi, Fumio (2000).
+
+"Multiple-Equation GMM" .
+
+Econometrics . Princeton University Press. pp.
+
+276– 279.
+
+ISBN 1400823838 .
+
+^ Page, Benjamin I.; Jones, Calvin C. (1979-12-01). "Reciprocal Effects of Policy Preferences, Party Loyalties and the Vote".
+
+American Political Science Review .
+
+73 (4): 1071– 1089.
+
+doi : 10.2307/1953990 .
+
+ISSN 0003-0554 .
+
+JSTOR 1953990 .
+
+S2CID 144984371 .
+
+^ Wlezien, Christopher (1995-01-01). "The Public as Thermostat: Dynamics of Preferences for Spending".
+
+American Journal of Political Science .
+
+39 (4): 981– 1000.
+
+doi : 10.2307/2111666 .
+
+JSTOR 2111666 .
+
+^ Breznau, Nate (2016-07-01).
+
+"Positive Returns and Equilibrium: Simultaneous Feedback Between Public Opinion and Social Policy" .
+
+Policy Studies Journal .
+
+45 (4): 583– 612.
+
+doi : 10.1111/psj.12171 .
+
+ISSN 1541-0072 .
+
+^ Xie, F.; Levinson, D. (2010-05-01). "How streetcars shaped suburbanization: a Granger causality analysis of land use and transit in the Twin Cities".
+
+Journal of Economic Geography .
+
+10 (3): 453– 470.
+
+doi : 10.1093/jeg/lbp031 .
+
+hdl : 11299/179996 .
+
+ISSN 1468-2702 .
+
+^ Marini, Margaret Mooney (1984-01-01). "Women's Educational Attainment and the Timing of Entry into Parenthood".
+
+American Sociological Review .
+
+49 (4): 491– 511.
+
+doi : 10.2307/2095464 .
+
+JSTOR 2095464 .
+
+^ Wong, Chi-Sum; Law, Kenneth S. (1999-01-01). "Testing Reciprocal Relations by Nonrecursive Structuralequation Models Using Cross-Sectional Data".
+
+Organizational Research Methods .
+
+2 (1): 69– 87.
+
+doi : 10.1177/109442819921005 .
+
+ISSN 1094-4281 .
+
+S2CID 122284566 .
+
+^ 2013. “Reverse Arrow Dynamics: Feedback Loops and Formative Measurement.” In Structural Equation Modeling: A Second Course , edited by Gregory R. Hancock and Ralph O. Mueller, 2nd ed., 41–79. Charlotte, NC: Information Age Publishing Further reading [ edit ] Asteriou, Dimitrios; Hall, Stephen G. (2011).
+
+Applied Econometrics (Second ed.). Basingstoke: Palgrave Macmillan. p. 395.
+
+ISBN 978-0-230-27182-1 .
+
+Chow, Gregory C.
+
+(1983).
+
+Econometrics . New York: McGraw-Hill. pp.
+
+117–121 .
+
+ISBN 0-07-010847-1 .
+
+Fomby, Thomas B.; Hill, R. Carter; Johnson, Stanley R. (1984). "Simultaneous Equations Models".
+
+Advanced Econometric Methods . New York: Springer. pp.
+
+437– 552.
+
+ISBN 0-387-90908-7 .
+
+Maddala, G. S.
+
+; Lahiri, Kajal (2009). "Simultaneous Equations Models".
+
+Introduction to Econometrics (Fourth ed.). New York: Wiley. pp.
+
+355– 400.
+
+ISBN 978-0-470-01512-4 .
+
+Ruud, Paul A. (2000). "Simultaneous Equations".
+
+An Introduction to Classical Econometric Theory . Oxford University Press. pp.
+
+697– 746.
+
+ISBN 0-19-511164-8 .
+
+Sargan, Denis (1988).
+
+Lectures on Advanced Econometric Theory . Oxford: Basil Blackwell. pp.
+
+68– 89.
+
+ISBN 0-631-14956-2 .
+
+Wooldridge, Jeffrey M.
+
+(2013). "Simultaneous Equations Models".
+
+Introductory Econometrics (Fifth ed.). South-Western. pp.
+
+554– 582.
+
+ISBN 978-1-111-53104-1 .
+
+External links [ edit ] Lecture on the Identification Problem in 2SLS, and Estimation on YouTube by Mark Thoma Retrieved from " https://en.wikipedia.org/w/index.php?title=Simultaneous_equations_model&oldid=1266875142 " Categories : Simultaneous equation methods (econometrics) Regression models Mathematical and quantitative methods (economics) Hidden categories: Articles with short description Short description is different from Wikidata This page was last edited on 2 January 2025, at 16:51 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Simultaneous equations model 5 languages Add topic
+

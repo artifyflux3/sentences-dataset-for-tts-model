@@ -1,0 +1,1453 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Functional form 2 Force calculation 3 Classes of interatomic potentials Toggle Classes of interatomic potentials subsection 3.1 Parametric potentials 3.1.1 Pair potentials 3.1.1.1 Repulsive potentials 3.1.2 Many-body potentials 3.1.2.1 Force fields 3.2 Non-parametric potentials 4 Potential fitting 5 Machine-learned interatomic potentials 6 Reliability of interatomic potentials 7 See also 8 References 9 External links Toggle the table of contents Interatomic potential 10 languages العربية Català Español Français Հայերեն Македонски 日本語 Русский Türkçe Українська Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Functions for calculating potential energy Typical shape of an interatomic pair potential.
+
+Interatomic potentials are mathematical functions to calculate the potential energy of a system of atoms with given positions in space.
+
+[ 1 ] [ 2 ] [ 3 ] [ 4 ] Interatomic potentials are widely used as the physical basis of molecular mechanics and molecular dynamics simulations in computational chemistry , computational physics and computational materials science to explain and predict materials properties. Examples of quantitative properties and qualitative phenomena that are explored with interatomic potentials include lattice parameters, surface energies, interfacial energies, adsorption , cohesion , thermal expansion , and elastic and plastic material behavior, as well as chemical reactions .
+
+[ 5 ] [ 6 ] [ 7 ] [ 8 ] [ 9 ] [ 10 ] [ 11 ] Functional form [ edit ] Interatomic potentials can be written as a series expansion of
+functional terms that depend on the position of one, two, three, etc.
+atoms at a time. Then the total potential of the system V {\displaystyle \textstyle V_{\mathrm {} }} can
+be written as [ 3 ] V = ∑ ∑ i = 1 N V 1 ( r → → i ) + ∑ ∑ i , j = 1 N V 2 ( r → → i , r → → j ) + ∑ ∑ i , j , k = 1 N V 3 ( r → → i , r → → j , r → → k ) + ⋯ ⋯ {\displaystyle V_{\mathrm {} }=\sum _{i=1}^{N}V_{1}({\vec {r}}_{i})+\sum _{i,j=1}^{N}V_{2}({\vec {r}}_{i},{\vec {r}}_{j})+\sum _{i,j,k=1}^{N}V_{3}({\vec {r}}_{i},{\vec {r}}_{j},{\vec {r}}_{k})+\cdots } Here V 1 {\displaystyle \textstyle V_{1}} is the one-body term, V 2 {\displaystyle \textstyle V_{2}} the two-body term, V 3 {\displaystyle \textstyle V_{3}} the
+three body term, N {\displaystyle \textstyle N} the number of atoms in the system, r → → i {\displaystyle {\vec {r}}_{i}} the position of atom i {\displaystyle i} , etc.
+
+i {\displaystyle i} , j {\displaystyle j} and k {\displaystyle k} are indices
+that loop over atom positions.
+
+Note that in case the pair potential is given per atom pair, in the two-body
+term the potential should be multiplied by 1/2 as otherwise each bond is counted
+twice, and similarly the three-body term by 1/6.
+
+[ 3 ] Alternatively,
+the summation of the pair term can be restricted to cases i < j {\displaystyle \textstyle i<j} and similarly for the three-body term i < j < k {\displaystyle \textstyle i<j<k} , if
+the potential form is such that it is symmetric with respect to exchange
+of the j {\displaystyle j} and k {\displaystyle k} indices (this may not be the case for potentials
+for multielemental systems).
+
+The one-body term is only meaningful if the atoms are in an external
+field (e.g. an electric field). In the absence of external fields,
+the potential V {\displaystyle V} should not depend on the absolute position of
+atoms, but only on the relative positions. This means
+that the functional form can be rewritten as a function
+of interatomic distances r i j = | r → → i − − r → → j | {\displaystyle \textstyle r_{ij}=|{\vec {r}}_{i}-{\vec {r}}_{j}|} and angles between the bonds
+(vectors to neighbours) θ θ i j k {\displaystyle \textstyle \theta _{ijk}} .
+Then, in the absence of external forces, the general
+form becomes V T O T = ∑ ∑ i , j N V 2 ( r i j ) + ∑ ∑ i , j , k N V 3 ( r i j , r i k , θ θ i j k ) + ⋯ ⋯ {\displaystyle V_{\mathrm {TOT} }=\sum _{i,j}^{N}V_{2}(r_{ij})+\sum _{i,j,k}^{N}V_{3}(r_{ij},r_{ik},\theta _{ijk})+\cdots } In the three-body term V 3 {\displaystyle \textstyle V_{3}} the
+interatomic distance r j k {\displaystyle \textstyle r_{jk}} is not needed
+since the three terms r i j , r i k , θ θ i j k {\displaystyle \textstyle r_{ij},r_{ik},\theta _{ijk}} are sufficient to give the relative positions of three atoms i , j , k {\displaystyle i,j,k} in three-dimensional space. Any terms of order higher than
+2 are also called many-body potentials .
+In some interatomic potentials the many-body interactions are 
+embedded into the terms of a pair potential (see discussion on
+EAM-like and bond order potentials below).
+
+In principle the sums in the expressions run over all N {\displaystyle N} atoms.
+However, if the range of the interatomic potential is finite,
+i.e. the potentials V ( r ) ≡ ≡ 0 {\displaystyle \textstyle V(r)\equiv 0} above
+some cutoff distance r c u t {\displaystyle \textstyle r_{\mathrm {cut} }} ,
+the summing can be restricted to atoms within the cutoff
+distance of each other. By also using a cellular method
+for finding the neighbours, [ 1 ] the MD algorithm can be
+an O(N) algorithm. Potentials with an infinite
+range can be summed up efficiently by Ewald summation and its further developments.
+
+Force calculation [ edit ] The forces acting between atoms can be obtained by differentiation of
+the total energy with respect to atom positions. That is,
+to get the force on atom i {\displaystyle i} one should take the three-dimensional
+derivative (gradient) of the potential V tot {\displaystyle V_{\text{tot}}} with respect to the position of atom i {\displaystyle i} : F → → i = − − ∇ ∇ r → → i V T O T {\displaystyle {\vec {F}}_{i}=-\nabla _{{\vec {r}}_{i}}V_{\mathrm {TOT} }} For two-body potentials this gradient reduces, thanks to the
+symmetry with respect to i j {\displaystyle ij} in the potential form, to straightforward
+differentiation with respect to the interatomic distances r i j {\displaystyle \textstyle r_{ij}} . However, for many-body
+potentials (three-body, four-body, etc.) the differentiation
+becomes considerably more complex [ 12 ] [ 13 ] since the potential may not be any longer symmetric with respect to i j {\displaystyle ij} exchange.
+In other words, also the energy
+of atoms k {\displaystyle k} that are not direct neighbours of i {\displaystyle i} can depend on the position r → → i {\displaystyle \textstyle {\vec {r}}_{i}} because of angular and other many-body terms, and hence contribute to the gradient ∇ ∇ r → → k {\displaystyle \textstyle \nabla _{{\vec {r}}_{k}}} .
+
+Classes of interatomic potentials [ edit ] Interatomic potentials come in many different varieties, with
+different physical motivations. Even for single well-known elements such as silicon, 
+a wide variety of potentials quite different in functional form and motivation have been developed.
+
+[ 14 ] The true interatomic interactions
+are quantum mechanical in nature, and there is no known
+way in which the true interactions described by
+the Schrödinger equation or Dirac equation for
+all electrons and nuclei could be cast into an analytical
+functional form. Hence all analytical interatomic
+potentials are by necessity approximations .
+
+Over time interatomic potentials have largely grown more complex and more accurate, although this is not strictly true.
+
+[ 15 ] This has included both increased descriptions of physics, as well as added parameters. Until recently, all interatomic potentials could be described as "parametric", having been developed and optimized with a fixed number of (physical) terms and parameters. New research focuses instead on non-parametric potentials which can be systematically improvable by using complex local atomic neighbor descriptors and separate mappings to predict system properties,  such that the total number of terms and parameters are flexible.
+
+[ 16 ] These non-parametric models can be significantly more accurate, but since they are not tied to physical forms and parameters, there are many potential issues surrounding extrapolation and uncertainties.
+
+Parametric potentials [ edit ] Pair potentials [ edit ] The arguably simplest widely used interatomic interaction model is the Lennard-Jones potential [ 17 ] [ 18 ] [ 11 ] V L J ( r ) = 4 ε ε [ ( σ σ r ) 12 − − ( σ σ r ) 6 ] {\displaystyle V_{\mathrm {LJ} }(r)=4\varepsilon \left[\left({\frac {\sigma }{r}}\right)^{12}-\left({\frac {\sigma }{r}}\right)^{6}\right]} where ε ε {\displaystyle \textstyle \varepsilon } is the depth of the potential well and σ σ {\displaystyle \textstyle \sigma } is the distance at which the potential crosses zero.
+The attractive term proportional to 1 / r 6 {\displaystyle \textstyle 1/r^{6}} in the potential comes from the scaling of van der Waals forces , while the 1 / r 12 {\displaystyle \textstyle 1/r^{12}} repulsive term is much more approximate (conveniently the square of the attractive term).
+
+[ 6 ] On its own, this potential is quantitatively accurate only for noble gases and has been extensively studied in the past decades, [ 19 ] but is also widely used for qualitative studies and in systems where dipole interactions are significant, particularly in chemistry force fields to describe intermolecular interactions - especially in fluids.
+
+[ 20 ] Another simple and widely used pair potential is the Morse potential , which consists simply of a sum of two exponentials.
+
+V M ( r ) = D e ( e − − 2 a ( r − − r e ) − − 2 e − − a ( r − − r e ) ) {\displaystyle V_{\mathrm {M} }(r)=D_{e}(e^{-2a(r-r_{e})}-2e^{-a(r-r_{e})})} Here D e {\displaystyle \textstyle D_{e}} is the equilibrium bond energy and r e {\displaystyle \textstyle r_{e}} the bond distance. The Morse
+potential has been applied to studies of molecular vibrations and solids, [ 21 ] and also inspired the functional form of more accurate potentials such as the bond-order potentials.
+
+Ionic materials are often described by a sum of a 
+short-range repulsive term, such as the Buckingham pair potential , and a long-range Coulomb potential giving the ionic interactions between the ions forming the material. The short-range
+term for ionic materials can also be of many-body character
+.
+
+[ 22 ] Pair potentials have some inherent limitations, such as the inability
+to describe all 3 elastic constants of
+cubic metals or correctly describe both cohesive energy and vacancy formation energy.
+
+[ 7 ] Therefore, quantitative molecular dynamics simulations 
+are carried out with various of many-body potentials.
+
+Repulsive potentials [ edit ] For very short interatomic separations, important in radiation material science ,
+the interactions can be described quite accurately with screened Coulomb potentials which have the general form V ( r i j ) = 1 4 π π ε ε 0 Z 1 Z 2 e 2 r i j φ φ ( r / a ) {\displaystyle V(r_{ij})={1 \over 4\pi \varepsilon _{0}}{Z_{1}Z_{2}e^{2} \over r_{ij}}\varphi (r/a)} Here, φ φ ( r ) → → 1 {\displaystyle \varphi (r)\to 1} when r → → 0 {\displaystyle r\to 0} .
+
+Z 1 {\displaystyle Z_{1}} and Z 2 {\displaystyle Z_{2}} are the charges of the interacting nuclei, and a {\displaystyle a} is the so-called screening parameter.
+A widely used popular screening function is the "Universal ZBL" one.
+
+[ 23 ] and more accurate ones can be obtained from all-electron quantum chemistry calculations [ 24 ] [ 25 ] In a comparative study of several quantum chemistry methods, it was shown that pair-specific "NLH" repulsive potentials with a simple three-exponential screening function are accurate to within ~2% above 30 eV, while the universal ZBL potential differs by ~5%–10% from the quantum chemical calculations above 100 eV.
+
+[ 25 ] In binary collision approximation simulations this kind of potential can be used
+to describe the nuclear stopping power .
+
+Many-body potentials [ edit ] The Stillinger-Weber potential [ 26 ] is a potential that has a 
+two-body and three-body terms of the standard form V T O T = ∑ ∑ i , j N V 2 ( r i j ) + ∑ ∑ i , j , k N V 3 ( r i j , r i k , θ θ i j k ) {\displaystyle V_{\mathrm {TOT} }=\sum _{i,j}^{N}V_{2}(r_{ij})+\sum _{i,j,k}^{N}V_{3}(r_{ij},r_{ik},\theta _{ijk})} where the three-body term describes how the potential energy changes with bond bending.
+It was originally developed for pure Si, but has been extended to many other
+elements and compounds [ 27 ] [ 28 ] and also formed the basis for other Si potentials.
+
+[ 29 ] [ 30 ] Metals are very commonly described with what can be called
+"EAM-like" potentials, i.e. potentials that share
+the same functional form as the embedded atom model .
+In these potentials, the total potential energy is written V T O T = ∑ ∑ i N F i ( ∑ ∑ j ρ ρ ( r i j ) ) + 1 2 ∑ ∑ i , j N V 2 ( r i j ) {\displaystyle V_{\mathrm {TOT} }=\sum _{i}^{N}F_{i}\left(\sum _{j}\rho (r_{ij})\right)+{\frac {1}{2}}\sum _{i,j}^{N}V_{2}(r_{ij})} where F i {\displaystyle \textstyle F_{i}} is a so-called embedding function
+(not to be confused with the force F → → i {\displaystyle \textstyle {\vec {F}}_{i}} ) that is a function of the sum of the so-called electron density ρ ρ ( r i j ) {\displaystyle \textstyle \rho (r_{ij})} .
+
+V 2 {\displaystyle \textstyle V_{2}} is a pair potential that usually is purely repulsive. In the original
+formulation [ 31 ] [ 32 ] the electron
+density function ρ ρ ( r i j ) {\displaystyle \textstyle \rho (r_{ij})} was obtained
+from true atomic electron densities, and the embedding function
+was motivated from density-functional theory as the energy needed
+to 'embed' an atom into the electron density. 
+.
+
+[ 33 ] However, many other potentials used for metals share the same functional
+form but motivate the terms differently, e.g. based
+on tight-binding theory [ 34 ] [ 35 ] [ 36 ] or other motivations [ 37 ] [ 38 ] .
+
+[ 39 ] EAM-like potentials are usually implemented as numerical tables.
+A collection of tables is available at the interatomic
+potential repository at NIST [1] Covalently bonded materials are often described by bond order potentials , sometimes also called
+Tersoff-like or Brenner-like potentials.
+
+[ 10 ] [ 40 ] [ 41 ] These have in general a form that resembles a pair potential: V i j ( r i j ) = V r e p u l s i v e ( r i j ) + b i j k V a t t r a c t i v e ( r i j ) {\displaystyle V_{ij}(r_{ij})=V_{\mathrm {repulsive} }(r_{ij})+b_{ijk}V_{\mathrm {attractive} }(r_{ij})} where the repulsive and attractive part are simple exponential
+functions similar to those in the Morse potential.
+However, the strength is modified by the environment of the atom i {\displaystyle i} via the b i j k {\displaystyle b_{ijk}} term. If implemented without
+an explicit angular dependence,  these potentials
+can be shown to be mathematically equivalent to 
+some varieties of EAM-like potentials [ 42 ] [ 43 ] Thanks to this equivalence, the bond-order potential formalism has been implemented also for many metal-covalent mixed materials.
+
+[ 43 ] [ 44 ] [ 45 ] [ 46 ] EAM potentials have also been extended to describe covalent bonding by adding angular-dependent terms to the electron density function ρ ρ {\displaystyle \rho } , in what is called the modified embedded atom method (MEAM).
+
+[ 47 ] [ 48 ] [ 49 ] Force fields [ edit ] Main article: Force field (chemistry) A force field is the collection of parameters to describe the physical interactions between atoms or physical units (up to ~10 8 ) using a given energy expression. The term force field characterizes the collection of parameters for a given interatomic potential (energy function) and is often used within the computational chemistry community.
+
+[ 50 ] The force field parameters make the difference between good and poor models. Force fields are used for the simulation of metals, ceramics, molecules, chemistry, and biological systems, covering the entire periodic table and multiphase materials. Today's performance is among the best for solid-state materials, [ 51 ] [ 52 ] molecular fluids, [ 20 ] and for biomacromolecules, [ 53 ] whereby biomacromolecules were the primary focus of force fields from the 1970s to the early 2000s. Force fields range from relatively simple and interpretable fixed-bond models (e.g. Interface force field, [ 50 ] CHARMM , [ 54 ] and COMPASS) to explicitly reactive models with many adjustable fit parameters (e.g.
+
+ReaxFF ) and machine learning models.
+
+Non-parametric potentials [ edit ] It should first be noted that non-parametric potentials are often referred to as "machine learning" potentials. While the descriptor/mapping forms of non-parametric models are closely related to machine learning in general and their complex nature make machine learning fitting optimizations almost necessary, differentiation is important in that parametric models can also be optimized using machine learning.
+
+Current research in interatomic potentials involves using systematically improvable, non-parametric mathematical forms and increasingly complex machine learning methods. The total energy is then written V T O T = ∑ ∑ i N E ( q i ) {\displaystyle V_{\mathrm {TOT} }=\sum _{i}^{N}E(\mathbf {q} _{i})} where q i {\displaystyle \mathbf {q} _{i}} is a mathematical representation of the atomic environment surrounding the atom i {\displaystyle i} , known as the descriptor .
+
+[ 55 ] E {\displaystyle E} is a machine-learning model that provides a prediction for the energy of atom i {\displaystyle i} based on the descriptor output. An accurate machine-learning potential requires both a robust descriptor and a suitable machine learning framework. The simplest descriptor is the set of interatomic distances from atom i {\displaystyle i} to its neighbours, yielding a machine-learned pair potential. However, more complex many-body descriptors are needed to produce highly accurate potentials.
+
+[ 55 ] It is also possible to use a linear combination of multiple descriptors with associated machine-learning models.
+
+[ 56 ] Potentials have been constructed using a variety of machine-learning methods, descriptors, and mappings, including neural networks , [ 57 ] Gaussian process regression , [ 58 ] [ 59 ] and linear regression .
+
+[ 60 ] [ 16 ] A non-parametric potential is most often trained to total energies, forces, and/or stresses obtained from quantum-level calculations, such as density functional theory , as with most modern potentials. However, the accuracy of a machine-learning potential can be converged to be comparable with the underlying quantum calculations, unlike analytical models. Hence, they are in general more accurate than traditional analytical potentials, but they are correspondingly less able to extrapolate. Further, owing to the complexity of the machine-learning model and the descriptors, they are computationally far more expensive than their analytical counterparts.
+
+Non-parametric, machine learned potentials may also be combined with parametric, analytical potentials, for example to include known physics such as the screened Coulomb repulsion, [ 61 ] or to impose physical constraints on the predictions.
+
+[ 62 ] Potential fitting [ edit ] Since the interatomic potentials are approximations, they by necessity all involve
+parameters that need to be adjusted to some reference values. In simple
+potentials such as the Lennard-Jones and Morse ones, the parameters are interpretable and can be set to match e.g. the equilibrium bond length and bond strength
+of a dimer molecule or the surface energy of a solid
+.
+
+[ 63 ] [ 64 ] Lennard-Jones potential can typically describe the lattice parameters, surface energies, and approximate mechanical properties.
+
+[ 65 ] Many-body
+potentials often contain tens or even hundreds of adjustable parameters with limited interpretability and no compatibility with common interatomic potentials for bonded molecules.
+Such parameter sets can be fit to a larger set of experimental data, or materials
+properties derived from less reliable data such as from density-functional theory .
+
+[ 66 ] [ 67 ] For solids, a many-body potential
+can often describe the lattice constant of the equilibrium crystal structure, the cohesive energy , and linear elastic constants , as well as basic point defect properties of all the elements and stable compounds well, although deviations in surface energies often exceed 50%.
+
+[ 30 ] [ 43 ] [ 45 ] [ 46 ] [ 65 ] [ 50 ] [ 68 ] [ 69 ] [ 70 ] Non-parametric potentials in turn contain hundreds or even thousands of independent parameters to fit. For any but the simplest model forms, sophisticated optimization and machine learning methods are necessary for useful potentials.
+
+The aim of most potential functions and fitting is to make the potential transferable , i.e. that it can describe materials properties that are clearly
+different from those it was fitted to (for examples of potentials explicitly aiming for this,
+see e.g.
+
+[ 71 ] [ 72 ] [ 73 ] [ 74 ] [ 75 ] ). Key aspects here are the correct representation of chemical bonding, validation of structures and energies, as well as interpretability of all parameters.
+
+[ 51 ] Full transferability and interpretability is reached with the Interface force field (IFF).
+
+[ 50 ] An example of partial transferability, a review of interatomic potentials
+of Si describes that Stillinger-Weber and Tersoff III potentials for Si can describe several (but not all) materials properties they were not fitted to.
+
+[ 14 ] The NIST interatomic potential repository provides a collection of fitted interatomic potentials, either as fitted parameter values or numerical
+tables of the potential functions.
+
+[ 76 ] The OpenKIM [ 77 ] project also provides a repository of fitted potentials, along with collections of validation tests and a software framework for promoting reproducibility in molecular simulations using interatomic potentials.
+
+Machine-learned interatomic potentials [ edit ] Main article: Machine learning potential Since the 1990s, machine learning programs have been employed to construct interatomic potentials, mapping atomic structures to their potential energies. These are generally referred to as 'machine learning potentials' (MLPs) [ 78 ] or as  'machine-learned interatomic potentials' (MLIPs).
+
+[ 79 ] Such machine learning potentials help fill the gap between highly accurate but computationally intensive simulations like density functional theory and computationally lighter, but much less precise, empirical potentials. Early neural networks showed promise, but their inability to systematically account for interatomic energy interactions limited their applications to smaller, low-dimensional systems, keeping them largely within the confines of academia. However, with continuous advancements in artificial intelligence technology, machine learning methods have become significantly more accurate, increasing the use of machine learning in the field.
+
+[ 80 ] [ 81 ] [ 79 ] Modern neural networks have revolutionized the construction of highly accurate and computationally light potentials by integrating theoretical understanding of materials science into their architectures and preprocessing. Almost all are local, accounting for all interactions between an atom and its neighbor up to some cutoff radius. These neural networks usually intake atomic coordinates and output potential energies. Atomic coordinates are sometimes transformed with atom-centered symmetry functions or pair symmetry functions before being fed into neural networks. Encoding symmetry has been pivotal in enhancing machine learning potentials by drastically constraining the neural networks' search space.
+
+[ 80 ] [ 82 ] Conversely, message-passing neural networks (MPNNs), a form of graph neural networks, learn their own descriptors and symmetry encodings. They treat molecules as three-dimensional graphs and iteratively update each atom's feature vectors as information about neighboring atoms is processed through message functions and convolutions. These feature vectors are then used to directly predict the final potentials. In 2017, the first-ever MPNN model, a deep tensor neural network, was used to calculate the properties of small organic molecules.
+
+[ 83 ] [ 80 ] [ 84 ] Another class of machine-learned interatomic potential is the Gaussian approximation potential (GAP), [ 85 ] [ 86 ] [ 87 ] which combines compact descriptors of local atomic environments [ 88 ] with Gaussian process regression [ 89 ] to machine learn the potential energy surface of a given system. To date, the GAP framework has been used to successfully develop a number of MLIPs for various systems, including for elemental systems such as Carbon [ 90 ] [ 91 ] Silicon, [ 92 ] and Tungsten, [ 93 ] as well as for multicomponent systems such as Ge 2 Sb 2 Te 5 [ 94 ] and austenitic stainless steel , Fe 7 Cr 2 Ni.
+
+[ 95 ] Reliability of interatomic potentials [ edit ] Classical interatomic potentials often exceed the accuracy of simplified quantum mechanical methods such as density functional theory at a million times lower computational cost.
+
+[ 51 ] The use of interatomic potentials is recommended for the simulation of nanomaterials, biomacromolecules, and electrolytes from atoms up to millions of atoms at the 100 nm scale and beyond. As a limitation, electron densities and quantum processes at the local scale of hundreds of atoms are not included. When of interest, higher level quantum chemistry methods can be locally used.
+
+[ 96 ] The robustness of a model at different conditions other than those used in the fitting process is often measured in terms of transferability of the potential.
+
+See also [ edit ] Computational chemistry Computational materials science Molecular dynamics Force field (chemistry) References [ edit ] ^ a b M. P. Allen and D. J. Tildesley. Computer Simulation of Liquids.  Oxford University Press, Oxford, England, 1989.
+
+^ Daan Frenkel and Berend Smit. Understanding molecular simulation: from algorithms to applications. Academic Press, San Diego, second edition, 2002.
+
+^ a b c R. Lesar. Introduction to Computational Materials Science. Cambridge University Press, 2013.
+
+^ Brenner, D.W. (2000). "The Art and Science of an Analytic Potential".
+
+Physica Status Solidi B .
+
+217 (1): 23– 40.
+
+Bibcode : 2000PSSBR.217...23B .
+
+doi : 10.1002/(SICI)1521-3951(200001)217:1<23::AID-PSSB23>3.0.CO;2-N .
+
+ISSN 0370-1972 .
+
+^ N. W. Ashcroft and N. D. Mermin. Solid State Physics.Saunders College, Philadelphia, 1976.
+
+^ a b Charles Kittel.
+
+Introduction to Solid State Physics . John Wiley & Sons, New York, third edition, 1968.
+
+^ a b Daw, Murray S.; Foiles, Stephen M.; Baskes, Michael I. (1993).
+
+"The embedded-atom method: a review of theory and applications" .
+
+Materials Science Reports .
+
+9 ( 7– 8): 251– 310.
+
+doi : 10.1016/0920-2307(93)90001-U .
+
+ISSN 0920-2307 .
+
+^ Tersoff J (April 1988). "New empirical approach for the structure and energy of covalent systems".
+
+Physical Review B .
+
+37 (12): 6991– 7000.
+
+Bibcode : 1988PhRvB..37.6991T .
+
+doi : 10.1103/physrevb.37.6991 .
+
+PMID 9943969 .
+
+^ FINNIS, M (2007). "Bond-order potentials through the ages".
+
+Progress in Materials Science .
+
+52 ( 2– 3): 133– 153.
+
+doi : 10.1016/j.pmatsci.2006.10.003 .
+
+ISSN 0079-6425 .
+
+^ a b Sinnott, Susan B.
+
+; Brenner, Donald W. (2012).
+
+"Three decades of many-body potentials in materials research" .
+
+MRS Bulletin .
+
+37 (5): 469– 473.
+
+Bibcode : 2012MRSBu..37..469S .
+
+doi : 10.1557/mrs.2012.88 .
+
+ISSN 0883-7694 .
+
+^ a b Fischer, Johann; Wendland, Martin (October 2023).
+
+"On the history of key empirical intermolecular potentials" .
+
+Fluid Phase Equilibria .
+
+573 : 113876.
+
+Bibcode : 2023FlPEq.57313876F .
+
+doi : 10.1016/j.fluid.2023.113876 .
+
+^ Beardmore, Keith M.; Grønbech-Jensen, Niels (1 October 1999). "Direct simulation of ion-beam-induced stressing and amorphization of silicon".
+
+Physical Review B .
+
+60 (18): 12610– 12616.
+
+arXiv : cond-mat/9901319v2 .
+
+Bibcode : 1999PhRvB..6012610B .
+
+doi : 10.1103/physrevb.60.12610 .
+
+ISSN 0163-1829 .
+
+S2CID 15494648 .
+
+^ Albe, Karsten; Nord, J.; Nordlund, K. (2009). "Dynamic charge-transfer bond-order potential for gallium nitride".
+
+Philosophical Magazine .
+
+89 ( 34– 36): 3477– 3497.
+
+Bibcode : 2009PMag...89.3477A .
+
+doi : 10.1080/14786430903313708 .
+
+ISSN 1478-6435 .
+
+S2CID 56072359 .
+
+^ a b Balamane H, Halicioglu T, Tiller WA (July 1992). "Comparative study of silicon empirical interatomic potentials".
+
+Physical Review B .
+
+46 (4): 2250– 2279.
+
+Bibcode : 1992PhRvB..46.2250B .
+
+doi : 10.1103/physrevb.46.2250 .
+
+PMID 10003901 .
+
+^ Plimpton SJ, Thompson AP (2012). "Computational aspects of many-body potentials".
+
+MRS Bull .
+
+37 (5): 513– 521.
+
+Bibcode : 2012MRSBu..37..513P .
+
+doi : 10.1557/mrs.2012.96 .
+
+S2CID 138567968 .
+
+^ a b Shapeev, Alexander V. (2016-09-13). "Moment Tensor Potentials: A Class of Systematically Improvable Interatomic Potentials".
+
+Multiscale Modeling & Simulation .
+
+14 (3): 1153– 1173.
+
+arXiv : 1512.06054 .
+
+doi : 10.1137/15M1054183 .
+
+ISSN 1540-3459 .
+
+S2CID 28970251 .
+
+^ Lennard-Jones, J. E. (1924).
+
+"On the Determination of Molecular Fields" .
+
+Proc. R. Soc. Lond. A .
+
+106 (738): 463– 477.
+
+Bibcode : 1924RSPSA.106..463J .
+
+doi : 10.1098/rspa.1924.0082 .
+
+.
+
+^ Lenhard, Johannes; Stephan, Simon; Hasse, Hans (June 2024).
+
+"On the History of the Lennard-Jones Potential" .
+
+Annalen der Physik .
+
+536 (6).
+
+doi : 10.1002/andp.202400115 .
+
+ISSN 0003-3804 .
+
+^ Stephan, Simon; Thol, Monika; Vrabec, Jadran; Hasse, Hans (2019-10-28).
+
+"Thermophysical Properties of the Lennard-Jones Fluid: Database and Data Assessment" .
+
+Journal of Chemical Information and Modeling .
+
+59 (10): 4248– 4265.
+
+doi : 10.1021/acs.jcim.9b00620 .
+
+ISSN 1549-9596 .
+
+PMID 31609113 .
+
+S2CID 204545481 .
+
+^ a b Stephan, Simon; Horsch, Martin T.; Vrabec, Jadran; Hasse, Hans (2019-07-03).
+
+"MolMod – an open access database of force fields for molecular simulations of fluids" .
+
+Molecular Simulation .
+
+45 (10): 806– 814.
+
+arXiv : 1904.05206 .
+
+doi : 10.1080/08927022.2019.1601191 .
+
+ISSN 0892-7022 .
+
+S2CID 119199372 .
+
+^ Girifalco, L. A.; Weizer, V. G. (1 April 1959). "Application of the Morse Potential Function to Cubic Metals".
+
+Physical Review .
+
+114 (3): 687– 690.
+
+Bibcode : 1959PhRv..114..687G .
+
+doi : 10.1103/physrev.114.687 .
+
+hdl : 10338.dmlcz/103074 .
+
+ISSN 0031-899X .
+
+^ Feuston, B. P.; Garofalini, S. H. (1988). "Empirical three-body potential for vitreous silica".
+
+The Journal of Chemical Physics .
+
+89 (9): 5818– 5824.
+
+Bibcode : 1988JChPh..89.5818F .
+
+doi : 10.1063/1.455531 .
+
+ISSN 0021-9606 .
+
+^ J. F. Ziegler, J. P. Biersack, and U. Littmark. The Stopping and Range of Ions in Matter. Pergamon, New York, 1985.
+
+^ Nordlund, K.; Runeberg, N.; Sundholm, D. (1997). "Repulsive interatomic potentials calculated using Hartree-Fock and density-functional theory methods".
+
+Nuclear Instruments and Methods in Physics Research Section B: Beam Interactions with Materials and Atoms .
+
+132 (1): 45– 54.
+
+Bibcode : 1997NIMPB.132...45N .
+
+doi : 10.1016/s0168-583x(97)00447-3 .
+
+ISSN 0168-583X .
+
+^ a b Nordlund, Kai; Lehtola, Susi; Hobler, Gerhard (2025-03-26).
+
+"Repulsive interatomic potentials calculated at three levels of theory" .
+
+Physical Review A .
+
+111 (3): 032818.
+
+arXiv : 2501.06617 .
+
+doi : 10.1103/PhysRevA.111.032818 .
+
+^ Stillinger FH, Weber TA (April 1985). "Computer simulation of local order in condensed phases of silicon".
+
+Physical Review B .
+
+31 (8): 5262– 5271.
+
+Bibcode : 1985PhRvB..31.5262S .
+
+doi : 10.1103/physrevb.31.5262 .
+
+PMID 9936488 .
+
+^ Ichimura, M. (16 February 1996). "Stillinger-Weber potentials for III–V compound semiconductors and their application to the critical thickness calculation for InAs/GaAs".
+
+Physica Status Solidi A .
+
+153 (2): 431– 437.
+
+Bibcode : 1996PSSAR.153..431I .
+
+doi : 10.1002/pssa.2211530217 .
+
+ISSN 0031-8965 .
+
+^ Ohta, H.; Hamaguchi, S. (2001).
+
+"Classical interatomic potentials for si-o-f and si-o-cl systems" (PDF) .
+
+Journal of Chemical Physics .
+
+115 (14): 6679– 90.
+
+Bibcode : 2001JChPh.115.6679O .
+
+doi : 10.1063/1.1400789 .
+
+hdl : 2433/50272 .
+
+^ Bazant, M. Z.; Kaxiras, E.; Justo, J. F. (1997). "Environment-dependent interatomic potential for bulk silicon".
+
+Phys. Rev. B .
+
+56 (14): 8542.
+
+arXiv : cond-mat/9704137 .
+
+Bibcode : 1997PhRvB..56.8542B .
+
+doi : 10.1103/PhysRevB.56.8542 .
+
+S2CID 17860100 .
+
+^ a b Justo, João F.; Bazant, Martin Z.; Kaxiras, Efthimios; Bulatov, V. V.; Yip, Sidney (1 July 1998). "Interatomic potential for silicon defects and disordered phases".
+
+Physical Review B .
+
+58 (5): 2539– 2550.
+
+arXiv : cond-mat/9712058 .
+
+Bibcode : 1998PhRvB..58.2539J .
+
+doi : 10.1103/physrevb.58.2539 .
+
+ISSN 0163-1829 .
+
+S2CID 14585375 .
+
+^ Foiles SM , Baskes MI , Daw MS (June 1986). "Embedded-atom-method functions for the fcc metals Cu, Ag, Au, Ni, Pd, Pt, and their alloys".
+
+Physical Review B .
+
+33 (12): 7983– 7991.
+
+Bibcode : 1986PhRvB..33.7983F .
+
+doi : 10.1103/physrevb.33.7983 .
+
+PMID 9938188 .
+
+^ Foiles, S. M.; Baskes, M. I.; Daw, M. S. (15 June 1988).
+
+"Erratum: Embedded-atom-method functions for the fcc metals Cu, Ag, Au, Ni, Pd, Pt, and their alloys" .
+
+Physical Review B .
+
+37 (17): 10378.
+
+doi : 10.1103/physrevb.37.10378 .
+
+ISSN 0163-1829 .
+
+^ Puska, M. J.; Nieminen, R. M.; Manninen, M. (15 September 1981).
+
+"Atoms embedded in an electron gas: Immersion energies" .
+
+Physical Review B .
+
+24 (6): 3037– 3047.
+
+Bibcode : 1981PhRvB..24.3037P .
+
+doi : 10.1103/physrevb.24.3037 .
+
+ISSN 0163-1829 .
+
+^ Finnis, M. W.; Sinclair, J. E. (1984). "A simple empirical N-body potential for transition metals".
+
+Philosophical Magazine A .
+
+50 (1): 45– 55.
+
+Bibcode : 1984PMagA..50...45F .
+
+doi : 10.1080/01418618408244210 .
+
+ISSN 0141-8610 .
+
+^ "Erratum" .
+
+Philosophical Magazine A .
+
+53 (1): 161. 1986.
+
+Bibcode : 1986PMagA..53..161.
+
+.
+
+doi : 10.1080/01418618608242815 .
+
+ISSN 0141-8610 .
+
+^ Cleri F, Rosato V (July 1993). "Tight-binding potentials for transition metals and alloys".
+
+Physical Review B .
+
+48 (1): 22– 33.
+
+Bibcode : 1993PhRvB..48...22C .
+
+doi : 10.1103/physrevb.48.22 .
+
+PMID 10006745 .
+
+^ Kelchner, Cynthia L.; Halstead, David M.; Perkins, Leslie S.; Wallace, Nora M.; DePristo, Andrew E. (1994). "Construction and evaluation of embedding functions".
+
+Surface Science .
+
+310 ( 1– 3): 425– 435.
+
+Bibcode : 1994SurSc.310..425K .
+
+doi : 10.1016/0039-6028(94)91405-2 .
+
+ISSN 0039-6028 .
+
+^ Dudarev, S L; Derlet, P M (17 October 2005). "A 'magnetic' interatomic potential for molecular dynamics simulations".
+
+Journal of Physics: Condensed Matter .
+
+17 (44): 7097– 7118.
+
+Bibcode : 2005JPCM...17.7097D .
+
+doi : 10.1088/0953-8984/17/44/003 .
+
+ISSN 0953-8984 .
+
+S2CID 123141962 .
+
+^ Olsson, Pär; Wallenius, Janne; Domain, Christophe; Nordlund, Kai; Malerba, Lorenzo (21 December 2005). "Two-band modeling of α-prime phase formation in Fe-Cr".
+
+Physical Review B .
+
+72 (21): 214119.
+
+Bibcode : 2005PhRvB..72u4119O .
+
+doi : 10.1103/physrevb.72.214119 .
+
+ISSN 1098-0121 .
+
+S2CID 16118006 .
+
+^ Tersoff J (April 1988). "New empirical approach for the structure and energy of covalent systems".
+
+Physical Review B .
+
+37 (12): 6991– 7000.
+
+Bibcode : 1988PhRvB..37.6991T .
+
+doi : 10.1103/PhysRevB.37.6991 .
+
+PMID 9943969 .
+
+^ Brenner DW (November 1990). "Empirical potential for hydrocarbons for use in simulating the chemical vapor deposition of diamond films".
+
+Physical Review B .
+
+42 (15): 9458– 9471.
+
+Bibcode : 1990PhRvB..42.9458B .
+
+doi : 10.1103/PhysRevB.42.9458 .
+
+PMID 9995183 .
+
+^ Brenner DW (August 1989). "Relationship between the embedded-atom method and Tersoff potentials".
+
+Physical Review Letters .
+
+63 (9): 1022.
+
+Bibcode : 1989PhRvL..63.1022B .
+
+doi : 10.1103/PhysRevLett.63.1022 .
+
+PMID 10041250 .
+
+^ a b c Albe, Karsten; Nordlund, Kai; Averback, Robert S. (2002). "Modeling the metal-semiconductor interaction: Analytical bond-order potential for platinum-carbon".
+
+Physical Review B .
+
+65 (19): 195124.
+
+Bibcode : 2002PhRvB..65s5124A .
+
+doi : 10.1103/PhysRevB.65.195124 .
+
+ISSN 0163-1829 .
+
+^ de Brito Mota, F.; Justo, J. F.; Fazzio, A. (1998). "Structural properties of amorphous silicon nitride".
+
+Phys. Rev. B .
+
+58 (13): 8323.
+
+Bibcode : 1998PhRvB..58.8323D .
+
+doi : 10.1103/PhysRevB.58.8323 .
+
+^ a b Juslin, N.; Erhart, P.; Träskelin, P.; Nord, J.; Henriksson, K. O. E.; Nordlund, K.; Salonen, E.; Albe, K. (15 December 2005). "Analytical interatomic potential for modeling nonequilibrium processes in the W–C–H system".
+
+Journal of Applied Physics .
+
+98 (12): 123520–123520–12.
+
+Bibcode : 2005JAP....98l3520J .
+
+doi : 10.1063/1.2149492 .
+
+ISSN 0021-8979 .
+
+S2CID 8090449 .
+
+^ a b Erhart, Paul; Juslin, Niklas; Goy, Oliver; Nordlund, Kai; Müller, Ralf; Albe, Karsten (30 June 2006). "Analytic bond-order potential for atomistic simulations of zinc oxide".
+
+Journal of Physics: Condensed Matter .
+
+18 (29): 6585– 6605.
+
+Bibcode : 2006JPCM...18.6585E .
+
+doi : 10.1088/0953-8984/18/29/003 .
+
+ISSN 0953-8984 .
+
+S2CID 38072718 .
+
+^ Baskes MI (December 1987). "Application of the embedded-atom method to covalent materials: A semiempirical potential for silicon".
+
+Physical Review Letters .
+
+59 (23): 2666– 2669.
+
+Bibcode : 1987PhRvL..59.2666B .
+
+doi : 10.1103/PhysRevLett.59.2666 .
+
+PMID 10035617 .
+
+^ Baskes MI (August 1992). "Modified embedded-atom potentials for cubic materials and impurities".
+
+Physical Review B .
+
+46 (5): 2727– 2742.
+
+Bibcode : 1992PhRvB..46.2727B .
+
+doi : 10.1103/PhysRevB.46.2727 .
+
+PMID 10003959 .
+
+^ Lee, Byeong-Joo; Baskes, M. I. (2000-10-01). "Second nearest-neighbor modified embedded-atom-method potential".
+
+Physical Review B .
+
+62 (13): 8564– 8567.
+
+Bibcode : 2000PhRvB..62.8564L .
+
+doi : 10.1103/PhysRevB.62.8564 .
+
+^ a b c d Heinz H, Lin TJ, Mishra RK, Emami FS (February 2013). "Thermodynamically consistent force fields for the assembly of inorganic, organic, and biological nanostructures: the INTERFACE force field".
+
+Langmuir .
+
+29 (6): 1754– 65.
+
+doi : 10.1021/la3038846 .
+
+PMID 23276161 .
+
+^ a b c Heinz H, Ramezani-Dakhel H (January 2016). "Simulations of inorganic-bioorganic interfaces to discover new materials: insights, comparisons to experiment, challenges, and opportunities".
+
+Chemical Society Reviews .
+
+45 (2): 412– 48.
+
+doi : 10.1039/c5cs00890e .
+
+PMID 26750724 .
+
+^ Mishra, Ratan K.; Mohamed, Aslam Kunhi; Geissbühler, David; Manzano, Hegoi; Jamil, Tariq; Shahsavari, Rouzbeh; Kalinichev, Andrey G.; Galmarini, Sandra; Tao, Lei; Heinz, Hendrik; Pellenq, Roland (December 2017).
+
+"A force field database for cementitious materials including validations, applications and opportunities" .
+
+Cement and Concrete Research .
+
+102 : 68– 89.
+
+doi : 10.1016/j.cemconres.2017.09.003 .
+
+^ Wang J, Wolf RM, Caldwell JW, Kollman PA, Case DA (July 2004).
+
+"Development and testing of a general amber force field" .
+
+Journal of Computational Chemistry .
+
+25 (9): 1157– 74.
+
+doi : 10.1002/jcc.20035 .
+
+PMID 15116359 .
+
+S2CID 18734898 .
+
+^ Huang J, MacKerell AD (September 2013).
+
+"CHARMM36 all-atom additive protein force field: validation based on comparison to NMR data" .
+
+Journal of Computational Chemistry .
+
+34 (25): 2135– 45.
+
+doi : 10.1002/jcc.23354 .
+
+PMC 3800559 .
+
+PMID 23832629 .
+
+^ a b Bartók, Albert P.; Kondor, Risi; Csányi, Gábor (2013-05-28). "On representing chemical environments".
+
+Physical Review B .
+
+87 (18): 184115.
+
+arXiv : 1209.3140 .
+
+Bibcode : 2013PhRvB..87r4115B .
+
+doi : 10.1103/PhysRevB.87.184115 .
+
+ISSN 1098-0121 .
+
+S2CID 118375156 .
+
+^ Deringer, Volker L.; Csányi, Gábor (2017-03-03). "Machine learning based interatomic potential for amorphous carbon".
+
+Physical Review B .
+
+95 (9): 094203.
+
+arXiv : 1611.03277 .
+
+Bibcode : 2017PhRvB..95i4203D .
+
+doi : 10.1103/PhysRevB.95.094203 .
+
+ISSN 2469-9950 .
+
+S2CID 55190594 .
+
+^ Behler J, Parrinello M (April 2007). "Generalized neural-network representation of high-dimensional potential-energy surfaces".
+
+Physical Review Letters .
+
+98 (14): 146401.
+
+Bibcode : 2007PhRvL..98n6401B .
+
+doi : 10.1103/PhysRevLett.98.146401 .
+
+PMID 17501293 .
+
+^ Bartók AP, Payne MC, Kondor R, Csányi G (April 2010). "Gaussian approximation potentials: the accuracy of quantum mechanics, without the electrons".
+
+Physical Review Letters .
+
+104 (13): 136403.
+
+arXiv : 0910.1019 .
+
+Bibcode : 2010PhRvL.104m6403B .
+
+doi : 10.1103/PhysRevLett.104.136403 .
+
+PMID 20481899 .
+
+S2CID 15918457 .
+
+^ Dragoni, Daniele; Daff, Thomas D.; Csányi, Gábor; Marzari, Nicola (2018-01-30).
+
+"Achieving DFT accuracy with a machine-learning interatomic potential: Thermomechanics and defects in bcc ferromagnetic iron" .
+
+Physical Review Materials .
+
+2 (1): 013808.
+
+arXiv : 1706.10229 .
+
+Bibcode : 2018PhRvM...2a3808D .
+
+doi : 10.1103/PhysRevMaterials.2.013808 .
+
+hdl : 10281/231112 .
+
+S2CID 119252567 .
+
+^ Thompson, A.P.; Swiler, L.P.; Trott, C.R.; Foiles, S.M.; Tucker, G.J. (2015-03-15).
+
+"Spectral neighbor analysis method for automated generation of quantum-accurate interatomic potentials" .
+
+Journal of Computational Physics .
+
+285 : 316– 330.
+
+arXiv : 1409.3880 .
+
+Bibcode : 2015JCoPh.285..316T .
+
+doi : 10.1016/j.jcp.2014.12.018 .
+
+^ Byggmästar, J.; Hamedani, A.; Nordlund, K.; Djurabekova, F. (2019-10-17). "Machine-learning interatomic potential for radiation damage and defects in tungsten".
+
+Physical Review B .
+
+100 (14): 144105.
+
+arXiv : 1908.07330 .
+
+Bibcode : 2019PhRvB.100n4105B .
+
+doi : 10.1103/PhysRevB.100.144105 .
+
+hdl : 10138/306660 .
+
+S2CID 201106123 .
+
+^ Pun GP, Batra R, Ramprasad R, Mishin Y (May 2019).
+
+"Physically informed artificial neural networks for atomistic modeling of materials" .
+
+Nature Communications .
+
+10 (1): 2339.
+
+Bibcode : 2019NatCo..10.2339P .
+
+doi : 10.1038/s41467-019-10343-5 .
+
+PMC 6538760 .
+
+PMID 31138813 .
+
+^ Heinz, Hendrik; Vaia, R. A.; Farmer, B. L.; Naik, R. R. (2008-10-09). "Accurate Simulation of Surfaces and Interfaces of Face-Centered Cubic Metals Using 12−6 and 9−6 Lennard-Jones Potentials".
+
+The Journal of Physical Chemistry C .
+
+112 (44): 17281– 17290.
+
+doi : 10.1021/jp801931d .
+
+ISSN 1932-7447 .
+
+^ Liu, Juan; Tennessen, Emrys; Miao, Jianwei; Huang, Yu; Rondinelli, James M.; Heinz, Hendrik (2018-05-31). "Understanding Chemical Bonding in Alloys and the Representation in Atomistic Simulations".
+
+The Journal of Physical Chemistry C .
+
+122 (26): 14996– 15009.
+
+doi : 10.1021/acs.jpcc.8b01891 .
+
+ISSN 1932-7447 .
+
+S2CID 51855788 .
+
+^ a b Nathanson M, Kanhaiya K, Pryor A, Miao J, Heinz H (December 2018). "Atomic-Scale Structure and Stress Release Mechanism in Core-Shell Nanoparticles".
+
+ACS Nano .
+
+12 (12): 12296– 12304.
+
+doi : 10.1021/acsnano.8b06118 .
+
+PMID 30457827 .
+
+S2CID 53764446 .
+
+^ Ruiz, Victor G.; Liu, Wei; Tkatchenko, Alexandre (2016-01-15). "Density-functional theory with screened van der Waals interactions applied to atomic and molecular adsorbates on close-packed and non-close-packed surfaces".
+
+Physical Review B .
+
+93 (3): 035118.
+
+Bibcode : 2016PhRvB..93c5118R .
+
+doi : 10.1103/physrevb.93.035118 .
+
+hdl : 11858/00-001M-0000-0029-3035-8 .
+
+ISSN 2469-9950 .
+
+^ Ruiz VG, Liu W, Zojer E, Scheffler M, Tkatchenko A (April 2012).
+
+"Density-functional theory with screened van der Waals interactions for the modeling of hybrid inorganic-organic systems" .
+
+Physical Review Letters .
+
+108 (14): 146103.
+
+Bibcode : 2012PhRvL.108n6103R .
+
+doi : 10.1103/physrevlett.108.146103 .
+
+hdl : 11858/00-001M-0000-000F-C6EA-3 .
+
+PMID 22540809 .
+
+^ Ercolessi, F; Adams, J. B (10 June 1994). "Interatomic Potentials from First-Principles Calculations: The Force-Matching Method".
+
+Europhysics Letters .
+
+26 (8): 583– 588.
+
+arXiv : cond-mat/9306054 .
+
+Bibcode : 1994EL.....26..583E .
+
+doi : 10.1209/0295-5075/26/8/005 .
+
+ISSN 0295-5075 .
+
+S2CID 18043298 .
+
+^ Mishin, Y.; Mehl, M. J.; Papaconstantopoulos, D. A. (12 June 2002). "Embedded-atom potential forB2−NiAl".
+
+Physical Review B .
+
+65 (22): 224114.
+
+Bibcode : 2002PhRvB..65v4114M .
+
+doi : 10.1103/physrevb.65.224114 .
+
+ISSN 0163-1829 .
+
+^ Beardmore, Keith; Smith, Roger (1996). "Empirical potentials for C-Si-H systems with application to C 60 interactions with Si crystal surfaces".
+
+Philosophical Magazine A .
+
+74 (6): 1439– 1466.
+
+Bibcode : 1996PMagA..74.1439B .
+
+doi : 10.1080/01418619608240734 .
+
+ISSN 0141-8610 .
+
+^ Mishra, Ratan K.; Flatt, Robert J.; Heinz, Hendrik (2013-04-19). "Force Field for Tricalcium Silicate and Insight into Nanoscale Properties: Cleavage, Initial Hydration, and Adsorption of Organic Molecules".
+
+The Journal of Physical Chemistry C .
+
+117 (20): 10417– 10432.
+
+doi : 10.1021/jp312815g .
+
+ISSN 1932-7447 .
+
+^ Ramezani-Dakhel, Hadi; Ruan, Lingyan; Huang, Yu; Heinz, Hendrik (2015-01-21). "Molecular Mechanism of Specific Recognition of Cubic Pt Nanocrystals by Peptides and of the Concentration-Dependent Formation from Seed Crystals".
+
+Advanced Functional Materials .
+
+25 (9): 1374– 1384.
+
+doi : 10.1002/adfm.201404136 .
+
+ISSN 1616-301X .
+
+S2CID 94001655 .
+
+^ Chen J, Zhu E, Liu J, Zhang S, Lin Z, Duan X, et al. (December 2018).
+
+"Building two-dimensional materials one row at a time: Avoiding the nucleation barrier" .
+
+Science .
+
+362 (6419): 1135– 1139.
+
+Bibcode : 2018Sci...362.1135C .
+
+doi : 10.1126/science.aau4146 .
+
+PMID 30523105 .
+
+S2CID 54456982 .
+
+^ Swamy, Varghese; Gale, Julian D. (1 August 2000). "Transferable variable-charge interatomic potential for atomistic simulation of titanium oxides".
+
+Physical Review B .
+
+62 (9): 5406– 5412.
+
+Bibcode : 2000PhRvB..62.5406S .
+
+doi : 10.1103/physrevb.62.5406 .
+
+ISSN 0163-1829 .
+
+^ Aguado, Andrés; Bernasconi, Leonardo; Madden, Paul A. (2002). "A transferable interatomic potential for MgO from ab initio molecular dynamics".
+
+Chemical Physics Letters .
+
+356 ( 5– 6): 437– 444.
+
+Bibcode : 2002CPL...356..437A .
+
+doi : 10.1016/s0009-2614(02)00326-3 .
+
+ISSN 0009-2614 .
+
+^ Technology, U.S. Department of Commerce, National Institute of Standards and.
+
+"Interatomic Potentials Repository Project" .
+
+www.ctcms.nist.gov .
+
+{{ cite web }} :  CS1 maint: multiple names: authors list ( link ) ^ "Open Knowledgebase of Interatomic Models (OpenKIM)" .
+
+^ Behler, Jörg; Csányi, Gábor (2021-07-19).
+
+"Machine learning potentials for extended systems: a perspective" .
+
+The European Physical Journal B .
+
+94 (7): 142.
+
+Bibcode : 2021EPJB...94..142B .
+
+doi : 10.1140/epjb/s10051-021-00156-1 .
+
+ISSN 1434-6036 .
+
+^ a b Rosenbrock, Conrad W.; Gubaev, Konstantin; Shapeev, Alexander V.; Pártay, Livia B.; Bernstein, Noam; Csányi, Gábor; Hart, Gus L. W. (2021-01-29).
+
+"Machine-learned interatomic potentials for alloys and alloy phase diagrams" .
+
+npj Computational Materials .
+
+7 (1): 24.
+
+arXiv : 1906.07816 .
+
+Bibcode : 2021npjCM...7...24R .
+
+doi : 10.1038/s41524-020-00477-2 .
+
+ISSN 2057-3960 .
+
+^ a b c Kocer, Emir; Ko, Tsz Wai; Behler, Jorg (2022). "Neural Network Potentials: A Concise Overview of Methods".
+
+Annual Review of Physical Chemistry .
+
+73 : 163– 86.
+
+arXiv : 2107.03727 .
+
+Bibcode : 2022ARPC...73..163K .
+
+doi : 10.1146/annurev-physchem-082720-034254 .
+
+PMID 34982580 .
+
+S2CID 235765258 .
+
+^ Blank, TB; Brown, SD; Calhoun, AW; Doren, DJ (1995). "Neural network models of potential energy surfaces".
+
+The Journal of Chemical Physics .
+
+103 (10): 4129– 37.
+
+Bibcode : 1995JChPh.103.4129B .
+
+doi : 10.1063/1.469597 .
+
+^ Behler, J; Parrinello, M (2007). "Generalized neural-network representation of high-dimensional potential-energy surfaces".
+
+Physical Review Letters .
+
+148 (14): 146401.
+
+Bibcode : 2007PhRvL..98n6401B .
+
+doi : 10.1103/PhysRevLett.98.146401 .
+
+PMID 17501293 .
+
+^ Schutt, KT; Arbabzadah, F; Chmiela, S; Muller, KR; Tkatchenko, A (2017).
+
+"Quantum-chemical insights from deep tensor neural networks" .
+
+Nature Communications .
+
+8 : 13890.
+
+arXiv : 1609.08259 .
+
+Bibcode : 2017NatCo...813890S .
+
+doi : 10.1038/ncomms13890 .
+
+PMC 5228054 .
+
+PMID 28067221 .
+
+^ Takamoto, So; Shinagawa, Chikashi; Motoki, Daisuke; Nakago, Kosuke (May 30, 2022).
+
+"Towards universal neural network potential for material discovery applicable to arbitrary combinations of 45 elements" .
+
+Nature Communications .
+
+13 (1): 2991.
+
+arXiv : 2106.14583 .
+
+Bibcode : 2022NatCo..13.2991T .
+
+doi : 10.1038/s41467-022-30687-9 .
+
+PMC 9151783 .
+
+PMID 35637178 .
+
+^ Anonymous (2010-04-05).
+
+"Modeling sans electrons" .
+
+Physics .
+
+3 (13): s48.
+
+arXiv : 0910.1019 .
+
+Bibcode : 2010PhRvL.104m6403B .
+
+doi : 10.1103/PhysRevLett.104.136403 .
+
+PMID 20481899 .
+
+^ Bartók, Albert P.; Payne, Mike C.; Kondor, Risi; Csányi, Gábor (2010-04-01).
+
+"Gaussian Approximation Potentials: The Accuracy of Quantum Mechanics, without the Electrons" .
+
+Physical Review Letters .
+
+104 (13): 136403.
+
+arXiv : 0910.1019 .
+
+Bibcode : 2010PhRvL.104m6403B .
+
+doi : 10.1103/PhysRevLett.104.136403 .
+
+PMID 20481899 .
+
+^ Bartók, Albert P.; De, Sandip; Poelking, Carl; Bernstein, Noam; Kermode, James R.; Csányi, Gábor; Ceriotti, Michele (December 2017).
+
+"Machine learning unifies the modeling of materials and molecules" .
+
+Science Advances .
+
+3 (12): e1701816.
+
+arXiv : 1706.00179 .
+
+Bibcode : 2017SciA....3E1816B .
+
+doi : 10.1126/sciadv.1701816 .
+
+ISSN 2375-2548 .
+
+PMC 5729016 .
+
+PMID 29242828 .
+
+^ Bartók, Albert P.; Kondor, Risi; Csányi, Gábor (2013-05-28).
+
+"On representing chemical environments" .
+
+Physical Review B .
+
+87 (18): 184115.
+
+arXiv : 1209.3140 .
+
+Bibcode : 2013PhRvB..87r4115B .
+
+doi : 10.1103/PhysRevB.87.184115 .
+
+^ Rasmussen, Carl Edward; Williams, Christopher K. I. (2008).
+
+Gaussian processes for machine learning . Adaptive computation and machine learning (3. print ed.). Cambridge, Mass.: MIT Press.
+
+ISBN 978-0-262-18253-9 .
+
+^ Rowe, Patrick; Deringer, Volker L.; Gasparotto, Piero; Csányi, Gábor; Michaelides, Angelos (2020-07-21).
+
+"An accurate and transferable machine learning potential for carbon" .
+
+The Journal of Chemical Physics .
+
+153 (3): 034702.
+
+arXiv : 2006.13655 .
+
+doi : 10.1063/5.0005084 .
+
+ISSN 0021-9606 .
+
+PMID 32716159 .
+
+^ Deringer, Volker L.; Csányi, Gábor (2017-03-03).
+
+"Machine learning based interatomic potential for amorphous carbon" .
+
+Physical Review B .
+
+95 (9): 094203.
+
+arXiv : 1611.03277 .
+
+Bibcode : 2017PhRvB..95i4203D .
+
+doi : 10.1103/PhysRevB.95.094203 .
+
+^ Bartók, Albert P.; Kermode, James; Bernstein, Noam; Csányi, Gábor (2018-12-14).
+
+"Machine Learning a General-Purpose Interatomic Potential for Silicon" .
+
+Physical Review X .
+
+8 (4): 041048.
+
+arXiv : 1805.01568 .
+
+Bibcode : 2018PhRvX...8d1048B .
+
+doi : 10.1103/PhysRevX.8.041048 .
+
+^ Szlachta, Wojciech J.; Bartók, Albert P.; Csányi, Gábor (2014-09-24).
+
+"Accuracy and transferability of Gaussian approximation potential models for tungsten" .
+
+Physical Review B .
+
+90 (10): 104108.
+
+Bibcode : 2014PhRvB..90j4108S .
+
+doi : 10.1103/PhysRevB.90.104108 .
+
+^ Mocanu, Felix C.; Konstantinou, Konstantinos; Lee, Tae Hoon; Bernstein, Noam; Deringer, Volker L.; Csányi, Gábor; Elliott, Stephen R. (2018-09-27).
+
+"Modeling the Phase-Change Memory Material, Ge 2 Sb 2 Te 5 , with a Machine-Learned Interatomic Potential" .
+
+The Journal of Physical Chemistry B .
+
+122 (38): 8998– 9006.
+
+doi : 10.1021/acs.jpcb.8b06476 .
+
+ISSN 1520-6106 .
+
+PMID 30173522 .
+
+^ Shenoy, Lakshmi; Woodgate, Christopher D.; Staunton, Julie B.; Bartók, Albert P.; Becquart, Charlotte S.; Domain, Christophe; Kermode, James R. (2024-03-22).
+
+"Collinear-spin machine learned interatomic potential for ${\mathrm{Fe}}_{7}{\mathrm{Cr}}_{2}\mathrm{Ni}$ alloy" .
+
+Physical Review Materials .
+
+8 (3): 033804.
+
+arXiv : 2309.08689 .
+
+doi : 10.1103/PhysRevMaterials.8.033804 .
+
+^ Acevedo O, Jorgensen WL (January 2010).
+
+"Advances in quantum and molecular mechanical (QM/MM) simulations for organic and enzymatic reactions" .
+
+Accounts of Chemical Research .
+
+43 (1): 142– 51.
+
+doi : 10.1021/ar900171c .
+
+PMC 2880334 .
+
+PMID 19728702 .
+
+External links [ edit ] NIST interatomic potential repository NIST JARVIS-FF Open Knowledgebase of Interatomic Models (OpenKIM) NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐8s6cn
+Cached time: 20250812050254
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.910 seconds
+Real time usage: 1.220 seconds
+Preprocessor visited node count: 5988/1000000
+Revision size: 61053/2097152 bytes
+Post‐expand include size: 241561/2097152 bytes
+Template argument size: 580/2097152 bytes
+Highest expansion depth: 8/100
+Expensive parser function count: 3/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 381037/5000000 bytes
+Lua time usage: 0.578/10.000 seconds
+Lua memory usage: 5576396/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  784.979      1 -total
+ 85.70%  672.728      1 Template:Reflist
+ 74.40%  583.991     87 Template:Cite_journal
+  7.73%   60.688      1 Template:Short_description
+  4.63%   36.378      2 Template:Pagetype
+  2.08%   16.361      3 Template:Main_other
+  2.06%   16.181      2 Template:Main
+  1.88%   14.764      1 Template:SDcat
+  1.16%    9.099      2 Template:Cite_web
+  1.06%    8.337      1 Template:Cite_book Saved in parser cache with key enwiki:pcache:44847430:|#|:idhash:canonical and timestamp 20250812050254 and revision id 1297079206. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Interatomic_potential&oldid=1297079206 " Categories : Condensed matter physics Computational physics Materials science Quantum mechanical potentials Hidden categories: CS1 maint: multiple names: authors list Articles with short description Short description matches Wikidata This page was last edited on 24 June 2025, at 01:45 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Interatomic potential 10 languages Add topic
+

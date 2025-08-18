@@ -1,0 +1,128 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Raw moments Toggle Raw moments subsection 1.1 Examples 2 Central moments Toggle Central moments subsection 2.1 Examples 3 Moment invariants Toggle Moment invariants subsection 3.1 Translation invariants 3.2 Scale invariants 3.3 Rotation invariants 4 Applications 5 External links 6 References Toggle the table of contents Image moment 9 languages العربية Deutsch Español Italiano Português Русский Türkçe Українська 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia (Redirected from Image moments ) Weighted average/moment of some pixel intensities In image processing , computer vision and related fields, an image moment is a certain particular weighted average ( moment ) of the image pixels' intensities, or a function of such moments, usually chosen to have some attractive property or interpretation.
+
+Image moments are useful to describe objects after segmentation .
+
+Simple properties of the image which are found via image moments include area (or total intensity), its centroid , and information about its orientation .
+
+Raw moments [ edit ] For a 2D continuous function f ( x , y ) the moment (sometimes called "raw moment") of order ( p + q ) is defined as M p q = ∫ ∫ − − ∞ ∞ ∞ ∞ ∫ ∫ − − ∞ ∞ ∞ ∞ x p y q f ( x , y ) d x d y {\displaystyle M_{pq}=\int \limits _{-\infty }^{\infty }\int \limits _{-\infty }^{\infty }x^{p}y^{q}f(x,y)\,dx\,dy} for p , q = 0,1,2,...
+Adapting this to scalar ( grayscale ) image with pixel intensities I ( x , y ), raw image moments M ij are calculated by M i j = ∑ ∑ x ∑ ∑ y x i y j I ( x , y ) {\displaystyle M_{ij}=\sum _{x}\sum _{y}x^{i}y^{j}I(x,y)\,\!} In some cases, this may be calculated by considering the image as a probability density function , i.e.
+
+, by dividing the above by ∑ ∑ x ∑ ∑ y I ( x , y ) {\displaystyle \sum _{x}\sum _{y}I(x,y)\,\!} A uniqueness theorem [ 1 ] states that if f ( x , y ) 
+is piecewise continuous and has nonzero values only in a finite part of the xy plane, moments of all orders exist, and the moment sequence ( M pq ) is uniquely determined by f ( x , y ).
+
+[ 2 ] Conversely, ( M pq ) uniquely determines f ( x , y ).  In practice, the image is summarized with functions of a few lower order moments.
+
+Examples [ edit ] Simple image properties derived via raw moments include: Area (for binary images) or sum of grey level (for greytone images): M 00 {\displaystyle M_{00}} Centroid: { x ¯ ¯ , y ¯ ¯ } = { M 10 M 00 , M 01 M 00 } {\displaystyle \{{\bar {x}},\ {\bar {y}}\}=\left\{{\frac {M_{10}}{M_{00}}},{\frac {M_{01}}{M_{00}}}\right\}} Central moments [ edit ] Central moments are defined as μ μ p q = ∫ ∫ − − ∞ ∞ ∞ ∞ ∫ ∫ − − ∞ ∞ ∞ ∞ ( x − − x ¯ ¯ ) p ( y − − y ¯ ¯ ) q f ( x , y ) d x d y {\displaystyle \mu _{pq}=\int \limits _{-\infty }^{\infty }\int \limits _{-\infty }^{\infty }(x-{\bar {x}})^{p}(y-{\bar {y}})^{q}f(x,y)\,dx\,dy} where x ¯ ¯ = M 10 M 00 {\displaystyle {\bar {x}}={\frac {M_{10}}{M_{00}}}} and y ¯ ¯ = M 01 M 00 {\displaystyle {\bar {y}}={\frac {M_{01}}{M_{00}}}} are the components of the centroid .
+
+If ƒ ( x , y ) is a digital image, then the previous equation becomes μ μ p q = ∑ ∑ x ∑ ∑ y ( x − − x ¯ ¯ ) p ( y − − y ¯ ¯ ) q f ( x , y ) {\displaystyle \mu _{pq}=\sum _{x}\sum _{y}(x-{\bar {x}})^{p}(y-{\bar {y}})^{q}f(x,y)} The central moments of order up to 3 are: μ μ 00 = M 00 , μ μ 01 = 0 , μ μ 10 = 0 , μ μ 11 = M 11 − − x ¯ ¯ M 01 = M 11 − − y ¯ ¯ M 10 , μ μ 20 = M 20 − − x ¯ ¯ M 10 , μ μ 02 = M 02 − − y ¯ ¯ M 01 , μ μ 21 = M 21 − − 2 x ¯ ¯ M 11 − − y ¯ ¯ M 20 + 2 x ¯ ¯ 2 M 01 , μ μ 12 = M 12 − − 2 y ¯ ¯ M 11 − − x ¯ ¯ M 02 + 2 y ¯ ¯ 2 M 10 , μ μ 30 = M 30 − − 3 x ¯ ¯ M 20 + 2 x ¯ ¯ 2 M 10 , μ μ 03 = M 03 − − 3 y ¯ ¯ M 02 + 2 y ¯ ¯ 2 M 01 .
+
+{\displaystyle {\begin{aligned}\mu _{00}&=M_{00},&\mu _{01}&=0,\\\mu _{10}&=0,&\mu _{11}&=M_{11}-{\bar {x}}M_{01}=M_{11}-{\bar {y}}M_{10},\\\mu _{20}&=M_{20}-{\bar {x}}M_{10},&\mu _{02}&=M_{02}-{\bar {y}}M_{01},\\\mu _{21}&=M_{21}-2{\bar {x}}M_{11}-{\bar {y}}M_{20}+2{\bar {x}}^{2}M_{01},&\mu _{12}&=M_{12}-2{\bar {y}}M_{11}-{\bar {x}}M_{02}+2{\bar {y}}^{2}M_{10},\\\mu _{30}&=M_{30}-3{\bar {x}}M_{20}+2{\bar {x}}^{2}M_{10},&\mu _{03}&=M_{03}-3{\bar {y}}M_{02}+2{\bar {y}}^{2}M_{01}.\end{aligned}}} It can be shown that: μ μ p q = ∑ ∑ m p ∑ ∑ n q ( p m ) ( q n ) ( − − x ¯ ¯ ) ( p − − m ) ( − − y ¯ ¯ ) ( q − − n ) M m n {\displaystyle \mu _{pq}=\sum _{m}^{p}\sum _{n}^{q}{p \choose m}{q \choose n}(-{\bar {x}})^{(p-m)}(-{\bar {y}})^{(q-n)}M_{mn}} Central moments are translational invariant .
+
+Examples [ edit ] Information about image orientation can be derived by first using the second order central moments to construct a covariance matrix .
+
+μ μ 20 ′ = μ μ 20 / μ μ 00 = M 20 / M 00 − − x ¯ ¯ 2 μ μ 02 ′ = μ μ 02 / μ μ 00 = M 02 / M 00 − − y ¯ ¯ 2 μ μ 11 ′ = μ μ 11 / μ μ 00 = M 11 / M 00 − − x ¯ ¯ y ¯ ¯ {\displaystyle {\begin{aligned}\mu '_{20}&=\mu _{20}/\mu _{00}=M_{20}/M_{00}-{\bar {x}}^{2}\\\mu '_{02}&=\mu _{02}/\mu _{00}=M_{02}/M_{00}-{\bar {y}}^{2}\\\mu '_{11}&=\mu _{11}/\mu _{00}=M_{11}/M_{00}-{\bar {x}}{\bar {y}}\end{aligned}}} The covariance matrix of the image I ( x , y ) {\displaystyle I(x,y)} is now cov ⁡ ⁡ [ I ( x , y ) ] = [ μ μ 20 ′ μ μ 11 ′ μ μ 11 ′ μ μ 02 ′ ] .
+
+{\displaystyle \operatorname {cov} [I(x,y)]={\begin{bmatrix}\mu '_{20}&\mu '_{11}\\\mu '_{11}&\mu '_{02}\end{bmatrix}}.} The eigenvectors of this matrix correspond to the major and minor axes of the image intensity, so the orientation can thus be extracted from the angle of the eigenvector associated with the largest eigenvalue towards the axis closest to this eigenvector. It can be shown that this angle Θ is given by the following formula: Θ Θ = 1 2 arctan ⁡ ⁡ ( 2 μ μ 11 ′ μ μ 20 ′ − − μ μ 02 ′ ) {\displaystyle \Theta ={\frac {1}{2}}\arctan \left({\frac {2\mu '_{11}}{\mu '_{20}-\mu '_{02}}}\right)} The above formula holds as long as: μ μ 20 ′ − − μ μ 02 ′ ≠ ≠ 0 {\displaystyle \mu '_{20}-\mu '_{02}\neq 0} The eigenvalues of the covariance matrix can easily be shown to be λ λ i = μ μ 20 ′ + μ μ 02 ′ 2 ± ± 4 μ μ ′ 11 2 + ( μ μ ′ 20 − − μ μ ′ 02 ) 2 2 , {\displaystyle \lambda _{i}={\frac {\mu '_{20}+\mu '_{02}}{2}}\pm {\frac {\sqrt {4{\mu '}_{11}^{2}+({\mu '}_{20}-{\mu '}_{02})^{2}}}{2}},} and are proportional to the squared length of the eigenvector axes.  The relative difference in magnitude of the eigenvalues are thus an indication of the eccentricity of the image, or how elongated it is. The eccentricity is 1 − − λ λ 2 λ λ 1 .
+
+{\displaystyle {\sqrt {1-{\frac {\lambda _{2}}{\lambda _{1}}}}}.} Moment invariants [ edit ] Moments are well-known for their application in image analysis, since they can be used to derive invariants with respect to specific transformation classes.
+
+The term invariant moments is often abused in this context. However, while moment invariants are invariants that are formed from moments, the only moments that are invariants themselves are the central moments.
+
+[ citation needed ] Note that the invariants detailed below are exactly invariant only in the continuous domain. In a discrete domain, neither scaling nor rotation are well defined: a discrete image transformed in such a way is generally an approximation, and the transformation is not reversible. These invariants therefore are only approximately invariant when describing a shape in a discrete image.
+
+Translation invariants [ edit ] The central moments μ i j of any order are, by construction, invariant with respect to translations .
+
+Scale invariants [ edit ] Invariants η i j with respect to both translation and scale can be constructed from central moments by dividing through a properly scaled zero-th central moment: η η i j = μ μ i j μ μ 00 ( 1 + i + j 2 ) {\displaystyle \eta _{ij}={\frac {\mu _{ij}}{\mu _{00}^{\left(1+{\frac {i+j}{2}}\right)}}}\,\!} where i + j ≥ 2.
+Note that translational invariance directly follows by only using central moments.
+
+Rotation invariants [ edit ] As shown in the work of Hu, [ 3 ] [ 4 ] invariants with respect to translation , scale , and rotation can be constructed: I 1 = η η 20 + η η 02 {\displaystyle I_{1}=\eta _{20}+\eta _{02}} I 2 = ( η η 20 − − η η 02 ) 2 + 4 η η 11 2 {\displaystyle I_{2}=(\eta _{20}-\eta _{02})^{2}+4\eta _{11}^{2}} I 3 = ( η η 30 − − 3 η η 12 ) 2 + ( 3 η η 21 − − η η 03 ) 2 {\displaystyle I_{3}=(\eta _{30}-3\eta _{12})^{2}+(3\eta _{21}-\eta _{03})^{2}} I 4 = ( η η 30 + η η 12 ) 2 + ( η η 21 + η η 03 ) 2 {\displaystyle I_{4}=(\eta _{30}+\eta _{12})^{2}+(\eta _{21}+\eta _{03})^{2}} I 5 = ( η η 30 − − 3 η η 12 ) ( η η 30 + η η 12 ) [ ( η η 30 + η η 12 ) 2 − − 3 ( η η 21 + η η 03 ) 2 ] + ( 3 η η 21 − − η η 03 ) ( η η 21 + η η 03 ) [ 3 ( η η 30 + η η 12 ) 2 − − ( η η 21 + η η 03 ) 2 ] {\displaystyle I_{5}=(\eta _{30}-3\eta _{12})(\eta _{30}+\eta _{12})[(\eta _{30}+\eta _{12})^{2}-3(\eta _{21}+\eta _{03})^{2}]+(3\eta _{21}-\eta _{03})(\eta _{21}+\eta _{03})[3(\eta _{30}+\eta _{12})^{2}-(\eta _{21}+\eta _{03})^{2}]} I 6 = ( η η 20 − − η η 02 ) [ ( η η 30 + η η 12 ) 2 − − ( η η 21 + η η 03 ) 2 ] + 4 η η 11 ( η η 30 + η η 12 ) ( η η 21 + η η 03 ) {\displaystyle I_{6}=(\eta _{20}-\eta _{02})[(\eta _{30}+\eta _{12})^{2}-(\eta _{21}+\eta _{03})^{2}]+4\eta _{11}(\eta _{30}+\eta _{12})(\eta _{21}+\eta _{03})} I 7 = ( 3 η η 21 − − η η 03 ) ( η η 30 + η η 12 ) [ ( η η 30 + η η 12 ) 2 − − 3 ( η η 21 + η η 03 ) 2 ] − − ( η η 30 − − 3 η η 12 ) ( η η 21 + η η 03 ) [ 3 ( η η 30 + η η 12 ) 2 − − ( η η 21 + η η 03 ) 2 ] .
+
+{\displaystyle I_{7}=(3\eta _{21}-\eta _{03})(\eta _{30}+\eta _{12})[(\eta _{30}+\eta _{12})^{2}-3(\eta _{21}+\eta _{03})^{2}]-(\eta _{30}-3\eta _{12})(\eta _{21}+\eta _{03})[3(\eta _{30}+\eta _{12})^{2}-(\eta _{21}+\eta _{03})^{2}].} These are well-known as Hu moment invariants .
+
+The first one, I 1 , is analogous to the moment of inertia around the image's centroid, where the pixels' intensities are analogous to physical density. The first six, I 1 ...
+
+I 6 , are reflection symmetric, i.e. they are unchanged if the image is changed to a mirror image. The last one, I 7 , is reflection antisymmetric (changes sign under reflection), which enables it to distinguish mirror images of otherwise identical images.
+
+A general theory on deriving complete and independent sets of rotation moment invariants was proposed by J. Flusser.
+
+[ 5 ] He showed that the traditional set of Hu moment invariants is neither independent nor complete.
+
+I 3 is not very useful as it is dependent on the others ( I 3 = ( I 5 2 + I 7 2 ) / I 4 3 {\displaystyle I_{3}=(I_{5}^{2}+I_{7}^{2})/I_{4}^{3}} ). In the original Hu's set there is a missing third order independent moment invariant: I 8 = η η 11 [ ( η η 30 + η η 12 ) 2 − − ( η η 03 + η η 21 ) 2 ] − − ( η η 20 − − η η 02 ) ( η η 30 + η η 12 ) ( η η 03 + η η 21 ) {\displaystyle I_{8}=\eta _{11}[(\eta _{30}+\eta _{12})^{2}-(\eta _{03}+\eta _{21})^{2}]-(\eta _{20}-\eta _{02})(\eta _{30}+\eta _{12})(\eta _{03}+\eta _{21})} Like I 7 , I 8 is also reflection antisymmetric.
+
+Later, J. Flusser and T. Suk [ 6 ] specialized the theory for N-rotationally symmetric shapes case.
+
+Applications [ edit ] Zhang et al. applied Hu moment invariants to solve the Pathological Brain Detection (PBD) problem.
+
+[ 7 ] Doerr and Florence used information of the object orientation related to the second order central moments to effectively extract translation- and rotation-invariant object cross-sections from micro-X-ray tomography image data.
+
+[ 8 ] D. A. Hoeltzel and Wei-Hua Chieng used Hu moment invariant to perform on a dimensionally-parameterized four bar mechanism which yielded 15 distinct coupler curve groups (patterns) from a total of 356 generated coupler curves.
+
+[ 9 ] External links [ edit ] Analysis of Binary Images , University of Edinburgh Statistical Moments , University of Edinburgh Variant moments , Machine Perception and Computer Vision page (Matlab and Python source code) Hu Moments introductory video on YouTube Gist Implementation of this page, jupyter and python.
+
+References [ edit ] ^ Hu, Ming-Kuei (1962).
+
+"Visual pattern recognition by moment invariants" .
+
+IRE Transactions on Information Theory .
+
+8 (2): 179– 187.
+
+doi : 10.1109/TIT.1962.1057692 .
+
+ISSN 2168-2712 .
+
+^ Gonzalez, Rafael C.; Woods, Richard E. (2001).
+
+Digital Image Processing . Prentice Hall. p. 672.
+
+ISBN 0-201-18075-8 .
+
+^ M. K. Hu, "Visual Pattern Recognition by Moment Invariants", IRE Trans. Info. Theory, vol. IT-8, pp.179–187, 1962 ^ http://docs.opencv.org/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html?highlight=cvmatchshapes#humoments Hu Moments' OpenCV method ^ J. Flusser: " On the Independence of Rotation Moment Invariants ",  Pattern Recognition, vol. 33, pp. 1405–1410, 2000.
+
+^ J. Flusser and T. Suk,  " Rotation Moment Invariants for Recognition of Symmetric Objects ",  IEEE Trans.  Image Proc., vol. 15, pp. 3784–3790, 2006.
+
+^ Zhang, Y. (2015).
+
+"Pathological Brain Detection based on wavelet entropy and Hu moment invariants" .
+
+Bio-Medical Materials and Engineering .
+
+26 : 1283– 1290.
+
+doi : 10.3233/BME-151426 .
+
+PMID 26405888 .
+
+^ Doerr, Frederik; Florence, Alastair (2020).
+
+"A micro-XRT image analysis and machine learning methodology for the characterisation of multi-particulate capsule formulations" .
+
+International Journal of Pharmaceutics: X .
+
+2 : 100041.
+
+doi : 10.1016/j.ijpx.2020.100041 .
+
+PMC 6997304 .
+
+PMID 32025658 .
+
+^ Hoeltzel, D.A.; Chieng, Wei-Hua (1990).
+
+"Pattern Matching Synthesis as an Automated Approach to Mechanism Design" .
+
+Journal of Mechanical Design .
+
+112 (2): 190-199.
+
+doi : 10.1115/1.2912592 .
+
+Retrieved from " https://en.wikipedia.org/w/index.php?title=Image_moment&oldid=1295914676 " Categories : Computer vision Digital imaging Image processing Moment (physics) Hidden categories: Articles with short description Short description matches Wikidata Use American English from January 2019 All Wikipedia articles written in American English All articles with unsourced statements Articles with unsourced statements from October 2019 This page was last edited on 16 June 2025, at 16:42 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Image moment 9 languages Add topic
+

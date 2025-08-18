@@ -1,0 +1,274 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Method 2 Relation to parametric tests 3 Advantages 4 Limitations 5 Monte Carlo testing 6 Example tests 7 See also 8 Literature Toggle Literature subsection 8.1 Current research on permutation tests 9 References Toggle the table of contents Permutation test 5 languages Deutsch Polski Українська 粵語 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Exact statistical hypothesis test A permutation test (also called re-randomization test or shuffle test) is an exact statistical hypothesis test .
+A permutation test involves two or more samples. The (possibly counterfactual ) null hypothesis is that all samples come from the same distribution H 0 : F = G {\displaystyle H_{0}:F=G} . Under the null hypothesis , the distribution of the test statistic is obtained by calculating all possible values of the test statistic under possible rearrangements of the observed data. Permutation tests are, therefore, a form of resampling .
+
+Permutation tests can be understood as surrogate data testing where the surrogate data under the null hypothesis are obtained through permutations of the original data.
+
+[ 1 ] In other words, the method by which treatments are allocated to subjects in an experimental design is mirrored in the analysis of that design. If the labels are exchangeable under the null hypothesis, then the resulting tests yield exact significance levels; see also exchangeability . Confidence intervals can then be derived from the tests. The theory has evolved from the works of Ronald Fisher and E. J. G. Pitman in the 1930s.
+
+Permutation tests should not be confused with randomized tests .
+
+[ 2 ] Method [ edit ] Animation of a permutation test being computed on sets of 4 and 5 random values. The 4 values in red are drawn from one distribution, and the 5 values in blue from another; we'd like to test whether the mean values of the two distributions are different. The hypothesis is that the mean of the first distribution is higher than the mean of the second; the null hypothesis is that both groups of samples are drawn from the same distribution. There are 126 distinct ways to put 4 values into one group and 5 into another (9-choose-4 or 9-choose-5). Of these, one is per the original labeling, and the other 125 are "permutations" that generate the histogram of mean differences μ μ ^ ^ 1 − − μ μ ^ ^ 2 {\displaystyle {\hat {\mu }}_{1}-{\hat {\mu }}_{2}} shown. The p-value of the hypothesis is estimated as the proportion of permutations that give a difference as large or larger than the difference of means of the original samples.  In this example, the null hypothesis cannot be rejected at the p = 5% level.
+
+To illustrate the basic idea of a permutation test, suppose we collect random variables X A {\displaystyle X_{A}} and X B {\displaystyle X_{B}} for each individual from two groups A {\displaystyle A} and B {\displaystyle B} whose sample means are x ¯ ¯ A {\displaystyle {\bar {x}}_{A}} and x ¯ ¯ B {\displaystyle {\bar {x}}_{B}} , and that we want to know whether X A {\displaystyle X_{A}} and X B {\displaystyle X_{B}} come from the same distribution. Let n A {\displaystyle n_{A}} and n B {\displaystyle n_{B}} be the sample size collected from each group. The permutation test is designed to determine whether the observed difference between the sample means is large enough to reject, at some significance level, the null hypothesis H 0 {\displaystyle _{0}} that the data drawn from A {\displaystyle A} is from the same distribution as the data drawn from B {\displaystyle B} .
+
+The test proceeds as follows. First, the difference in means between the two samples is calculated: this is the observed value of the test statistic, T obs {\displaystyle T_{\text{obs}}} .
+
+Next, the observations of groups A {\displaystyle A} and B {\displaystyle B} are pooled, and the difference in sample means is calculated and recorded for every possible way of dividing the pooled values into two groups of size n A {\displaystyle n_{A}} and n B {\displaystyle n_{B}} (i.e., for every permutation of the group labels A and B).  The set of these calculated differences is the exact distribution of possible differences (for this sample) under the null hypothesis that group labels are exchangeable (i.e., are randomly assigned).
+
+The one-sided p-value of the test is calculated as the proportion of sampled permutations where the difference in means was greater than T obs {\displaystyle T_{\text{obs}}} . The two-sided p-value of the test is calculated as the proportion of sampled permutations where the absolute difference was greater than | T obs | {\displaystyle |T_{\text{obs}}|} .
+Many implementations of permutation tests require that the observed data itself be counted as one of the permutations so that the permutation p-value will never be zero.
+
+[ 3 ] Alternatively, if the only purpose of the test is to reject or not reject the null hypothesis, one could sort the recorded differences, and then observe if T obs {\displaystyle T_{\text{obs}}} is contained within the middle ( 1 − − α α ) × × 100 {\displaystyle (1-\alpha )\times 100} % of them, for some significance level α α {\displaystyle \alpha } . If it is not, we reject the hypothesis of identical probability curves at the α α × × 100 % % {\displaystyle \alpha \times 100\%} significance level.
+
+To exploit variance reduction with paired samples , a paired permutation test must be applied, see paired difference test . This is equivalent to performing a normal, unpaired permutation test, but restricting the set of valid permutations to only those which respect the paired nature of the data by forbidding both halves of any pair from being included in the same partition. In the specific but common case where the test statistic is the mean, this is also equivalent to computing a single set of differences of each pair and iterating over all of the 2 n {\displaystyle 2^{n}} sign-reversals instead of the usual partitioning approach.
+
+Relation to parametric tests [ edit ] Permutation tests are a subset of non-parametric statistics . Assuming that our experimental data come from data measured from two treatment groups, the method simply generates the distribution of mean differences under the assumption that the two groups are not distinct in terms of the measured variable. From this, one then uses the observed statistic ( T obs {\displaystyle T_{\text{obs}}} above) to see to what extent this statistic is special, i.e., the likelihood of observing the magnitude of such a value (or larger) if the treatment labels had simply been randomized after treatment.
+
+In contrast to permutation tests, the distributions underlying many popular "classical" statistical tests, such as the t -test , F -test , z -test , and χ 2 test , are obtained from theoretical probability distributions .
+
+Fisher's exact test is an example of a commonly used parametric test for evaluating the association between two dichotomous variables. When sample sizes are very large, the Pearson's chi-square test will give accurate results. For small samples, the chi-square reference distribution cannot be assumed to give a correct description of the probability distribution of the test statistic, and in this situation the use of Fisher's exact test becomes more appropriate.
+
+Permutation tests exist in many situations where parametric tests do not (e.g., when deriving an optimal test when losses are proportional to the size of an error rather than its square).  All simple and many relatively complex parametric tests have a corresponding permutation test version that is defined by using the same test statistic as the parametric test, but obtains the p-value from the sample-specific permutation distribution of that statistic, rather than from the theoretical distribution derived from the parametric assumption.  For example, it is possible in this manner to construct a permutation t -test , a permutation χ χ 2 {\textstyle \chi ^{2}} test of association, a permutation version of Aly's test for comparing variances and so on.
+
+The major drawbacks to permutation tests are that they Can be computationally intensive and may require "custom" code for difficult-to-calculate statistics. This must be rewritten for every case.
+
+Are primarily used to provide a p-value. The inversion of the test to get confidence regions/intervals requires even more computation.
+
+Advantages [ edit ] Permutation tests exist for any test statistic, regardless of whether or not its distribution is known. Thus one is always free to choose the statistic which best discriminates between hypothesis and alternative and which minimizes losses.
+
+Permutation tests can be used for analyzing unbalanced designs [ 4 ] and for combining dependent tests on mixtures of categorical, ordinal, and metric data (Pesarin, 2001) [ citation needed ] . They can also be used to analyze qualitative data that has been quantitized (i.e., turned into numbers). Permutation tests may be ideal for analyzing quantitized data that do not satisfy statistical assumptions underlying traditional parametric tests (e.g., t-tests, ANOVA), [ 5 ] see PERMANOVA .
+
+Before the 1980s, the burden of creating the reference distribution was overwhelming except for data sets with small sample sizes.
+
+Since the 1980s, the confluence of relatively inexpensive fast computers and the development of new sophisticated path algorithms applicable in special situations made the application of permutation test methods practical for a wide range of problems. It also initiated the addition of exact-test options in the main statistical software packages and the appearance of specialized software for performing a wide range of uni- and multi-variable exact tests and computing test-based "exact" confidence intervals.
+
+Limitations [ edit ] An important assumption behind a permutation test is that the observations are exchangeable under the null hypothesis.  An important consequence of this assumption is that tests of difference in location (like a permutation t-test) require equal variance under the normality assumption. In this respect, the classic permutation t-test shares the same weakness as the classical Student's t-test (the Behrens–Fisher problem ). This can be addressed in the same way the classic t-test has been extended to handle unequal variances: by employing the Welch statistic with Satterthwaite adjustment to the degrees of freedom.
+
+[ 6 ] A third alternative in this situation is to use a bootstrap-based test . Statistician Phillip Good explains the difference between permutation tests and bootstrap tests the following way: "Permutations test hypotheses concerning distributions; bootstraps test hypotheses concerning parameters. As a result, the bootstrap entails less-stringent assumptions." [ 7 ] Bootstrap tests are not exact. In some cases, a permutation test based on a properly studentized statistic can be asymptotically exact even when the exchangeability assumption is violated.
+
+[ 8 ] Bootstrap-based tests can test with the null hypothesis H 0 : F ≠ ≠ G {\displaystyle H_{0}:F\neq G} and, therefore, are suited for performing equivalence testing .
+
+Monte Carlo testing [ edit ] An asymptotically equivalent permutation test can be created when there are too many possible orderings of the data to allow complete enumeration in a convenient manner. This is done by generating the reference distribution by Monte Carlo sampling , which takes a small (relative to the total number of permutations) random sample of the possible replicates.
+The realization that this could be applied to any permutation test on any dataset was an important breakthrough in the area of applied statistics.  The earliest known references to this approach are Eden and Yates (1933) and Dwass (1957).
+
+[ 9 ] [ 10 ] This type of permutation test is known under various names: approximate permutation test , Monte Carlo permutation tests or random permutation tests .
+
+[ 11 ] After N {\displaystyle N} random permutations, it is possible to obtain a confidence interval for the p-value based on the Binomial distribution, see Binomial proportion confidence interval . For example, if after N = 10000 {\displaystyle N=10000} random permutations the p-value is estimated to be p ^ ^ = 0.05 {\displaystyle {\widehat {p}}=0.05} , then a 99% confidence interval for the true p {\displaystyle p} (the one that would result from trying all possible permutations) is [ p ^ ^ − − z 0.05 ( 1 − − 0.05 ) 10000 , p ^ ^ + z 0.05 ( 1 − − 0.05 ) 10000 ] = [ 0.045 , 0.055 ] {\displaystyle \left[{\hat {p}}-z{\sqrt {\frac {0.05(1-0.05)}{10000}}},{\hat {p}}+z{\sqrt {\frac {0.05(1-0.05)}{10000}}}\right]=[0.045,0.055]} .
+
+On the other hand, the purpose of estimating the p-value is most often to decide whether p ≤ ≤ α α {\displaystyle p\leq \alpha } , where α α {\displaystyle \scriptstyle \ \alpha } is the threshold at which the null hypothesis will be rejected (typically α α = 0.05 {\displaystyle \alpha =0.05} ). In the example above, the confidence interval only tells us that there is roughly a 50% chance that the p-value is smaller than 0.05, i.e. it is completely unclear whether the null hypothesis should be rejected at a level α α = 0.05 {\displaystyle \alpha =0.05} .
+
+If it is only important to know whether p ≤ ≤ α α {\displaystyle p\leq \alpha } for a given α α {\displaystyle \alpha } , it is logical to continue simulating until the statement p ≤ ≤ α α {\displaystyle p\leq \alpha } can be established to be true or false with a very low probability of error. Given a bound ϵ ϵ {\displaystyle \epsilon } on the admissible probability of error (the probability of finding that p ^ ^ > α α {\displaystyle {\widehat {p}}>\alpha } when in fact p ≤ ≤ α α {\displaystyle p\leq \alpha } or vice versa), the question of how many permutations to generate can be seen as the question of when to stop generating permutations, based on the outcomes of the simulations so far, in order to guarantee that the conclusion (which is either p ≤ ≤ α α {\displaystyle p\leq \alpha } or p > α α {\displaystyle p>\alpha } ) is correct with probability at least as large as 1 − − ϵ ϵ {\displaystyle 1-\epsilon } . ( ϵ ϵ {\displaystyle \epsilon } will typically be chosen to be extremely small, e.g. 1/1000.) Stopping rules to achieve this have been developed [ 12 ] which can be incorporated with minimal additional computational cost. In fact, depending on the true underlying p-value it will often be found that the number of simulations required is remarkably small (e.g. as low as 5 and often not larger than 100) before a decision can be reached with virtual certainty.
+
+Example tests [ edit ] Permutational analysis of variance Rank product See also [ edit ] Rank test Lepage test Literature [ edit ] Original references: Fisher, R.A.
+
+(1935) The Design of Experiments , New York: Hafner Pitman, E. J. G.
+
+(1937) "Significance tests which may be applied to samples from any population", Royal Statistical Society Supplement , 4: 119-130 and 225-32 (parts I and II).
+
+JSTOR 2984124 JSTOR 2983647 Pitman, E. J. G.
+
+(1938). "Significance tests which may be applied to samples from any population. Part III. The analysis of variance test".
+
+Biometrika .
+
+29 ( 3– 4): 322– 335.
+
+doi : 10.1093/biomet/29.3-4.322 .
+
+Modern references: Collingridge, D.S. (2013). "A Primer on Quantitized Data Analysis and Permutation Testing".
+
+Journal of Mixed Methods Research .
+
+7 (1): 79– 95.
+
+doi : 10.1177/1558689812454457 .
+
+S2CID 124618343 .
+
+Edgington, E. S., & Onghena, P. (2007) Randomization tests , 4th ed. New York: Chapman and Hall/CRC ISBN 9780367577711 Good, Phillip I. (2005) Permutation, Parametric and Bootstrap Tests of Hypotheses , 3rd ed., Springer ISBN 0-387-98898-X Good, P (2002).
+
+"Extensions of the concept of exchangeability and their applications" .
+
+Journal of Modern Applied Statistical Methods .
+
+1 (2): 243– 247.
+
+doi : 10.22237/jmasm/1036110240 .
+
+Lunneborg, Cliff. (1999) Data Analysis by Resampling , Duxbury Press.
+
+ISBN 0-534-22110-6 .
+
+Pesarin, F. (2001).
+
+Multivariate Permutation Tests : With Applications in Biostatistics , John Wiley & Sons .
+
+ISBN 978-0471496700 Welch, W. J. (1990). "Construction of permutation tests".
+
+Journal of the American Statistical Association .
+
+85 (411): 693– 698.
+
+doi : 10.1080/01621459.1990.10474929 .
+
+Computational methods: Mehta, C. R.; Patel, N. R. (1983). "A network algorithm for performing Fisher's exact test in r x c contingency tables".
+
+Journal of the American Statistical Association .
+
+78 (382): 427– 434.
+
+doi : 10.1080/01621459.1983.10477989 .
+
+Mehta, C. R.; Patel, N. R.; Senchaudhuri, P. (1988). "Importance sampling for estimating exact probabilities in permutational inference".
+
+Journal of the American Statistical Association .
+
+83 (404): 999– 1005.
+
+doi : 10.1080/01621459.1988.10478691 .
+
+Gill, P. M. W. (2007).
+
+"Efficient calculation of p-values in linear-statistic permutation significance tests" (PDF) .
+
+Journal of Statistical Computation and Simulation .
+
+77 (1): 55– 61.
+
+CiteSeerX 10.1.1.708.1957 .
+
+doi : 10.1080/10629360500108053 .
+
+S2CID 1813706 .
+
+Current research on permutation tests [ edit ] Good, P.I. (2012) Practitioner's Guide to Resampling Methods.
+
+Good, P.I. (2005) Permutation, Parametric, and Bootstrap Tests of Hypotheses Hesterberg, T. C., D. S. Moore, S. Monaghan, A. Clipson, and R. Epstein (2005): Bootstrap Methods and Permutation Tests , software .
+
+Moore, D. S., G. McCabe, W. Duckworth, and S. Sclove (2003): Bootstrap Methods and Permutation Tests Simon, J. L. (1997): Resampling: The New Statistics .
+
+Yu, Chong Ho (2003): Resampling methods: concepts, applications, and justification. Practical Assessment, Research & Evaluation, 8(19) .
+
+(statistical bootstrapping) Resampling: A Marriage of Computers and Statistics (ERIC Digests) Pesarin, F., Salmaso, L. (2010). Permutation Tests for Complex Data: Theory, Applications and Software. Wiley.
+
+https://books.google.com/books?id=9PWVTOanxPUC&hl=de References [ edit ] ^ Moore, Jason H. "Bootstrapping, permutation testing and the method of surrogate data." Physics in Medicine & Biology 44.6 (1999): L11.
+
+^ Onghena, Patrick (2017-10-30), Berger, Vance W. (ed.), "Randomization Tests or Permutation Tests? A Historical and Terminological Clarification" , Randomization, Masking, and Allocation Concealment (1 ed.), Boca Raton, FL: Chapman and Hall/CRC, pp.
+
+209– 228, doi : 10.1201/9781315305110-14 , ISBN 978-1-315-30511-0 , retrieved 2021-10-08 ^ Phipson, Belinda; Smyth, Gordon K (2010). "Permutation p-values should never be zero: calculating exact p-values when permutations are randomly drawn".
+
+Statistical Applications in Genetics and Molecular Biology .
+
+9 (1) 39.
+
+arXiv : 1603.05766 .
+
+doi : 10.2202/1544-6115.1585 .
+
+PMID 21044043 .
+
+S2CID 10735784 .
+
+^ "Invited Articles" (PDF) .
+
+Journal of Modern Applied Statistical Methods .
+
+1 (2): 202– 522. Fall 2011. Archived from the original (PDF) on May 5, 2003.
+
+^ Collingridge, Dave S. (11 September 2012). "A Primer on Quantitized Data Analysis and Permutation Testing".
+
+Journal of Mixed Methods Research .
+
+7 (1): 81– 97.
+
+doi : 10.1177/1558689812454457 .
+
+S2CID 124618343 .
+
+^ Janssen, Arnold (1997). "Studentized Permutation Tests for Non-I.i.d. Hypotheses and the Generalized Behrens-Fisher Problem".
+
+Statistics & Probability Letters .
+
+36 (1): 9– 21.
+
+doi : 10.1016/s0167-7152(97)00043-6 .
+
+^ Good, Phillip I. (2005).
+
+Resampling Methods: A Practical Guide to Data Analysis (3rd ed.). Birkhäuser.
+
+ISBN 978-0817643867 .
+
+^ Chung, EY; Romano, JP (2013).
+
+"Exact and asymptotically robust permutation tests" .
+
+The Annals of Statistics .
+
+41 (2): 487– 507.
+
+arXiv : 1304.5939 .
+
+doi : 10.1214/13-AOS1090 .
+
+^ Eden, T; Yates, F (1933).
+
+"On the validity of Fisher's z test when applied to an actual example of non-normal data. (With five text-figures.)" .
+
+The Journal of Agricultural Science .
+
+23 (1): 6– 17.
+
+doi : 10.1017/S0021859600052862 .
+
+S2CID 84802682 . Retrieved 3 June 2021 .
+
+^ Dwass, Meyer (1957).
+
+"Modified Randomization Tests for Nonparametric Hypotheses" .
+
+Annals of Mathematical Statistics .
+
+28 (1): 181– 187.
+
+doi : 10.1214/aoms/1177707045 .
+
+JSTOR 2237031 .
+
+^ Thomas E. Nichols , Andrew P. Holmes (2001).
+
+"Nonparametric Permutation Tests For Functional Neuroimaging: A Primer with Examples" (PDF) .
+
+Human Brain Mapping .
+
+15 (1): 1– 25.
+
+doi : 10.1002/hbm.1058 .
+
+hdl : 2027.42/35194 .
+
+PMC 6871862 .
+
+PMID 11747097 .
+
+^ Gandy, Axel (2009). "Sequential implementation of Monte Carlo tests with uniformly bounded resampling risk".
+
+Journal of the American Statistical Association .
+
+104 (488): 1504– 1511.
+
+arXiv : math/0612488 .
+
+doi : 10.1198/jasa.2009.tm08368 .
+
+S2CID 15935787 .
+
+v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject Retrieved from " https://en.wikipedia.org/w/index.php?title=Permutation_test&oldid=1298683943 " Categories : Statistical tests Nonparametric statistics Hidden categories: Articles with short description Short description matches Wikidata All articles with unsourced statements Articles with unsourced statements from January 2020 This page was last edited on 4 July 2025, at 01:01 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Permutation test 5 languages Add topic
+

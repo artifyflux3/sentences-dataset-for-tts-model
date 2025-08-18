@@ -1,0 +1,274 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 General case 2 Proof 3 Finding inverse matrix 4 Applications Toggle Applications subsection 4.1 Explicit formulas for small systems 4.2 Differential geometry 4.2.1 Ricci calculus 4.2.2 Computing derivatives implicitly 4.3 Integer programming 4.4 Ordinary differential equations 5 Example Toggle Example subsection 5.1 2x2 System 5.2 3x3 System 6 Geometric interpretation 7 Other proofs Toggle Other proofs subsection 7.1 A proof by abstract linear algebra 7.2 A short proof 7.3 Using Geometric Algebra 8 Inconsistent and indeterminate cases 9 See also 10 References 11 External links Toggle the table of contents Cramer's rule 40 languages العربية Azərbaycanca বাংলা Català Čeština Deutsch Ελληνικά Español Esperanto Euskara فارسی Français Galego 한국어 Հայերեն हिन्दी Bahasa Indonesia Íslenska Italiano עברית Latina Latviešu Magyar Nederlands 日本語 Nordfriisk Norsk bokmål Polski Português Русский Shqip Slovenčina Slovenščina Српски / srpski Suomi Svenska தமிழ் Українська Tiếng Việt 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Formula for systems of linear equations In linear algebra , Cramer's rule is an explicit formula for the solution of a system of linear equations with as many equations as unknowns, valid whenever the system has a unique solution. It expresses the solution in terms of the determinants of the (square) coefficient matrix and of matrices obtained from it by replacing one column by the column vector of right-sides of the equations. It is named after Gabriel Cramer , who published the rule for an arbitrary number of unknowns in 1750, [ 1 ] [ 2 ] although Colin Maclaurin also published special cases of the rule in 1748, [ 3 ] and possibly knew of it as early as 1729.
+
+[ 4 ] [ 5 ] [ 6 ] Cramer's rule, implemented in a naive way, is computationally inefficient for systems of more than two or three equations.
+
+[ 7 ] In the case of n equations in n unknowns, it requires computation of n + 1 determinants, while Gaussian elimination produces the result with the same (up to a constant factor independent of ⁠ n {\displaystyle n} ⁠ ) computational complexity as the computation of a single determinant.
+
+[ 8 ] [ 9 ] Moreover, Bareiss algorithm is a simple modification of Gaussian elimination that produces in a single computation a matrix whose nonzero entries are the determinants involved in Cramer's rule.
+
+General case [ edit ] Consider a system of n linear equations for n unknowns, represented in matrix multiplication form as follows: A x = b {\displaystyle A\mathbf {x} =\mathbf {b} } where the n × n matrix A has a nonzero determinant, and the vector x = ( x 1 , … … , x n ) T {\displaystyle \mathbf {x} =(x_{1},\ldots ,x_{n})^{\mathsf {T}}} is the column vector of the variables. Then the theorem states that in this case the system has a unique solution, whose individual values for the unknowns are given by: x i = det ( A i ) det ( A ) i = 1 , … … , n {\displaystyle x_{i}={\frac {\det(A_{i})}{\det(A)}}\qquad i=1,\ldots ,n} where A i {\displaystyle A_{i}} is the matrix formed by replacing the i -th column of A by the column vector b .
+
+A more general version of Cramer's rule [ 10 ] considers the matrix equation A X = B {\displaystyle AX=B} where the n × n matrix A has a nonzero determinant, and X , B are n × m matrices. Given sequences 1 ≤ ≤ i 1 < i 2 < ⋯ ⋯ < i k ≤ ≤ n {\displaystyle 1\leq i_{1}<i_{2}<\cdots <i_{k}\leq n} and 1 ≤ ≤ j 1 < j 2 < ⋯ ⋯ < j k ≤ ≤ m {\displaystyle 1\leq j_{1}<j_{2}<\cdots <j_{k}\leq m} , let X I , J {\displaystyle X_{I,J}} be the k × k submatrix of X with rows in I := ( i 1 , … … , i k ) {\displaystyle I:=(i_{1},\ldots ,i_{k})} and columns in J := ( j 1 , … … , j k ) {\displaystyle J:=(j_{1},\ldots ,j_{k})} . Let A B ( I , J ) {\displaystyle A_{B}(I,J)} be the n × n matrix formed by replacing the i s {\displaystyle i_{s}} column of A by the j s {\displaystyle j_{s}} column of B , for all s = 1 , … … , k {\displaystyle s=1,\ldots ,k} . Then det X I , J = det ( A B ( I , J ) ) det ( A ) .
+
+{\displaystyle \det X_{I,J}={\frac {\det(A_{B}(I,J))}{\det(A)}}.} In the case k = 1 {\displaystyle k=1} , this reduces to the normal Cramer's rule.
+
+The rule holds for systems of equations with coefficients and unknowns in any field , not just in the real numbers .
+
+Proof [ edit ] The proof for Cramer's rule uses the following properties of the determinants : linearity with respect to any given column and the fact that the determinant is zero whenever two columns are equal, which is implied by the property that the sign of the determinant flips if you switch two columns.
+
+Fix the index j of a column, and consider that the entries of the other columns have fixed values. This makes the determinant a function of the entries of the j th column. Linearity with respect to this column means that this function has the form D j ( a 1 , j , … … , a n , j ) = C 1 , j a 1 , j + ⋯ ⋯ , C n , j a n , j , {\displaystyle D_{j}(a_{1,j},\ldots ,a_{n,j})=C_{1,j}a_{1,j}+\cdots ,C_{n,j}a_{n,j},} where the C i , j {\displaystyle C_{i,j}} are coefficients that depend on the entries of A that are not in column j . So, one has det ( A ) = D j ( a 1 , j , … … , a n , j ) = C 1 , j a 1 , j + ⋯ ⋯ , C n , j a n , j {\displaystyle \det(A)=D_{j}(a_{1,j},\ldots ,a_{n,j})=C_{1,j}a_{1,j}+\cdots ,C_{n,j}a_{n,j}} ( Laplace expansion provides a formula for computing the C i , j {\displaystyle C_{i,j}} but their expression is not important here.) If the function D j {\displaystyle D_{j}} is applied to any other column k of A , then the result is the determinant of the matrix obtained from A by replacing column j by a copy of column k , so the resulting determinant is 0 (the case of two equal columns).
+
+Now consider a system of n linear equations in n unknowns x 1 , … … , x n {\displaystyle x_{1},\ldots ,x_{n}} , whose coefficient matrix is A , with det( A ) assumed to be nonzero: a 11 x 1 + a 12 x 2 + ⋯ ⋯ + a 1 n x n = b 1 a 21 x 1 + a 22 x 2 + ⋯ ⋯ + a 2 n x n = b 2 ⋮ ⋮ a n 1 x 1 + a n 2 x 2 + ⋯ ⋯ + a n n x n = b n .
+
+{\displaystyle {\begin{matrix}a_{11}x_{1}+a_{12}x_{2}+\cdots +a_{1n}x_{n}&=&b_{1}\\a_{21}x_{1}+a_{22}x_{2}+\cdots +a_{2n}x_{n}&=&b_{2}\\&\vdots &\\a_{n1}x_{1}+a_{n2}x_{2}+\cdots +a_{nn}x_{n}&=&b_{n}.\end{matrix}}} If one combines these equations by taking C 1, j times the first equation, plus C 2, j times the second, and so forth until C n , j times the last, then for every k the resulting coefficient of x k becomes D j ( a 1 , k , … … , a n , k ) .
+
+{\displaystyle D_{j}(a_{1,k},\ldots ,a_{n,k}).} So, all coefficients become zero, except the coefficient of x j {\displaystyle x_{j}} that becomes det ( A ) .
+
+{\displaystyle \det(A).} Similarly, the constant coefficient becomes D j ( b 1 , … … , b n ) , {\displaystyle D_{j}(b_{1},\ldots ,b_{n}),} and the resulting equation is thus det ( A ) x j = D j ( b 1 , … … , b n ) , {\displaystyle \det(A)x_{j}=D_{j}(b_{1},\ldots ,b_{n}),} which gives the value of x j {\displaystyle x_{j}} as x j = 1 det ( A ) D j ( b 1 , … … , b n ) .
+
+{\displaystyle x_{j}={\frac {1}{\det(A)}}D_{j}(b_{1},\ldots ,b_{n}).} As, by construction, the numerator is the determinant of the matrix obtained from A by replacing column j by b , we get the expression of Cramer's rule as a necessary condition for a solution.
+
+It remains to prove that these values for the unknowns form a solution. Let M be the n × n matrix that has the coefficients of D j {\displaystyle D_{j}} as j th row, for j = 1 , … … , n {\displaystyle j=1,\ldots ,n} (this is the adjugate matrix for A ). Expressed in matrix terms, we have thus to prove that x = 1 det ( A ) M b {\displaystyle \mathbf {x} ={\frac {1}{\det(A)}}M\mathbf {b} } is a solution; that is, that A ( 1 det ( A ) M ) b = b .
+
+{\displaystyle A\left({\frac {1}{\det(A)}}M\right)\mathbf {b} =\mathbf {b} .} For that, it suffices to prove that A ( 1 det ( A ) M ) = I n , {\displaystyle A\,\left({\frac {1}{\det(A)}}M\right)=I_{n},} where I n {\displaystyle I_{n}} is the identity matrix .
+
+The above properties of the functions D j {\displaystyle D_{j}} show that one has MA = det( A ) I n , and therefore, ( 1 det ( A ) M ) A = I n .
+
+{\displaystyle \left({\frac {1}{\det(A)}}M\right)\,A=I_{n}.} This completes the proof, since a left inverse of a square matrix is also a right-inverse (see Invertible matrix theorem ).
+
+For other proofs, see below .
+
+Finding inverse matrix [ edit ] Main article: Invertible matrix § Methods of matrix inversion Let A be an n × n matrix with entries in a field F . Then A adj ⁡ ⁡ ( A ) = adj ⁡ ⁡ ( A ) A = det ( A ) I {\displaystyle A\,\operatorname {adj} (A)=\operatorname {adj} (A)\,A=\det(A)I} where adj( A ) denotes the adjugate matrix , det( A ) is the determinant, and I is the identity matrix . If det( A ) is nonzero, then the inverse matrix of A is A − − 1 = 1 det ( A ) adj ⁡ ⁡ ( A ) .
+
+{\displaystyle A^{-1}={\frac {1}{\det(A)}}\operatorname {adj} (A).} This gives a formula for the inverse of A , provided det( A ) ≠ 0 . In fact, this formula works whenever F is a commutative ring , provided that det( A ) is a unit . If det( A ) is not a unit, then A is not invertible over the ring (it may be invertible over a larger ring in which some non-unit elements of F may be invertible).
+
+Applications [ edit ] Explicit formulas for small systems [ edit ] Consider the linear system { a 1 x + b 1 y = c 1 a 2 x + b 2 y = c 2 {\displaystyle \left\{{\begin{matrix}a_{1}x+b_{1}y&={\color {red}c_{1}}\\a_{2}x+b_{2}y&={\color {red}c_{2}}\end{matrix}}\right.} which in matrix format is [ a 1 b 1 a 2 b 2 ] [ x y ] = [ c 1 c 2 ] .
+
+{\displaystyle {\begin{bmatrix}a_{1}&b_{1}\\a_{2}&b_{2}\end{bmatrix}}{\begin{bmatrix}x\\y\end{bmatrix}}={\begin{bmatrix}{\color {red}c_{1}}\\{\color {red}c_{2}}\end{bmatrix}}.} Assume a 1 b 2 − b 1 a 2 is nonzero. Then, with the help of determinants , x and y can be found with Cramer's rule as x = | c 1 b 1 c 2 b 2 | | a 1 b 1 a 2 b 2 | = c 1 b 2 − − b 1 c 2 a 1 b 2 − − b 1 a 2 , y = | a 1 c 1 a 2 c 2 | | a 1 b 1 a 2 b 2 | = a 1 c 2 − − c 1 a 2 a 1 b 2 − − b 1 a 2 .
+
+{\displaystyle {\begin{aligned}x&={\frac {\begin{vmatrix}{\color {red}{c_{1}}}&b_{1}\\{\color {red}{c_{2}}}&b_{2}\end{vmatrix}}{\begin{vmatrix}a_{1}&b_{1}\\a_{2}&b_{2}\end{vmatrix}}}={{\color {red}c_{1}}b_{2}-b_{1}{\color {red}c_{2}} \over a_{1}b_{2}-b_{1}a_{2}},\quad y={\frac {\begin{vmatrix}a_{1}&{\color {red}{c_{1}}}\\a_{2}&{\color {red}{c_{2}}}\end{vmatrix}}{\begin{vmatrix}a_{1}&b_{1}\\a_{2}&b_{2}\end{vmatrix}}}={a_{1}{\color {red}c_{2}}-{\color {red}c_{1}}a_{2} \over a_{1}b_{2}-b_{1}a_{2}}\end{aligned}}.} The rules for 3 × 3 matrices are similar. Given { a 1 x + b 1 y + c 1 z = d 1 a 2 x + b 2 y + c 2 z = d 2 a 3 x + b 3 y + c 3 z = d 3 {\displaystyle \left\{{\begin{matrix}a_{1}x+b_{1}y+c_{1}z&={\color {red}d_{1}}\\a_{2}x+b_{2}y+c_{2}z&={\color {red}d_{2}}\\a_{3}x+b_{3}y+c_{3}z&={\color {red}d_{3}}\end{matrix}}\right.} which in matrix format is [ a 1 b 1 c 1 a 2 b 2 c 2 a 3 b 3 c 3 ] [ x y z ] = [ d 1 d 2 d 3 ] .
+
+{\displaystyle {\begin{bmatrix}a_{1}&b_{1}&c_{1}\\a_{2}&b_{2}&c_{2}\\a_{3}&b_{3}&c_{3}\end{bmatrix}}{\begin{bmatrix}x\\y\\z\end{bmatrix}}={\begin{bmatrix}{\color {red}d_{1}}\\{\color {red}d_{2}}\\{\color {red}d_{3}}\end{bmatrix}}.} Then the values of x, y and z can be found as follows: x = | d 1 b 1 c 1 d 2 b 2 c 2 d 3 b 3 c 3 | | a 1 b 1 c 1 a 2 b 2 c 2 a 3 b 3 c 3 | , y = | a 1 d 1 c 1 a 2 d 2 c 2 a 3 d 3 c 3 | | a 1 b 1 c 1 a 2 b 2 c 2 a 3 b 3 c 3 | , and z = | a 1 b 1 d 1 a 2 b 2 d 2 a 3 b 3 d 3 | | a 1 b 1 c 1 a 2 b 2 c 2 a 3 b 3 c 3 | .
+
+{\displaystyle x={\frac {\begin{vmatrix}{\color {red}d_{1}}&b_{1}&c_{1}\\{\color {red}d_{2}}&b_{2}&c_{2}\\{\color {red}d_{3}}&b_{3}&c_{3}\end{vmatrix}}{\begin{vmatrix}a_{1}&b_{1}&c_{1}\\a_{2}&b_{2}&c_{2}\\a_{3}&b_{3}&c_{3}\end{vmatrix}}},\quad y={\frac {\begin{vmatrix}a_{1}&{\color {red}d_{1}}&c_{1}\\a_{2}&{\color {red}d_{2}}&c_{2}\\a_{3}&{\color {red}d_{3}}&c_{3}\end{vmatrix}}{\begin{vmatrix}a_{1}&b_{1}&c_{1}\\a_{2}&b_{2}&c_{2}\\a_{3}&b_{3}&c_{3}\end{vmatrix}}},{\text{ and }}z={\frac {\begin{vmatrix}a_{1}&b_{1}&{\color {red}d_{1}}\\a_{2}&b_{2}&{\color {red}d_{2}}\\a_{3}&b_{3}&{\color {red}d_{3}}\end{vmatrix}}{\begin{vmatrix}a_{1}&b_{1}&c_{1}\\a_{2}&b_{2}&c_{2}\\a_{3}&b_{3}&c_{3}\end{vmatrix}}}.} Differential geometry [ edit ] Ricci calculus [ edit ] Cramer's rule is used in the Ricci calculus in various calculations involving the Christoffel symbols of the first and second kind.
+
+[ 11 ] In particular, Cramer's rule can be used to prove that the divergence operator on a Riemannian manifold is invariant with respect to change of coordinates. We give a direct proof, suppressing the role of the Christoffel symbols.
+Let ( M , g ) {\displaystyle (M,g)} be a Riemannian manifold equipped with local coordinates ( x 1 , x 2 , … … , x n ) {\displaystyle (x^{1},x^{2},\dots ,x^{n})} . Let A = A i ∂ ∂ ∂ ∂ x i {\displaystyle A=A^{i}{\frac {\partial }{\partial x^{i}}}} be a vector field . We use the summation convention throughout.
+
+Theorem .
+
+The divergence of A {\displaystyle A} , div ⁡ ⁡ A = 1 det g ∂ ∂ ∂ ∂ x i ( A i det g ) , {\displaystyle \operatorname {div} A={\frac {1}{\sqrt {\det g}}}{\frac {\partial }{\partial x^{i}}}\left(A^{i}{\sqrt {\det g}}\right),} is invariant under change of coordinates.
+
+Proof Let ( x 1 , x 2 , … … , x n ) ↦ ↦ ( x ¯ ¯ 1 , … … , x ¯ ¯ n ) {\displaystyle (x^{1},x^{2},\ldots ,x^{n})\mapsto ({\bar {x}}^{1},\ldots ,{\bar {x}}^{n})} be a coordinate transformation with non-singular Jacobian .  Then the classical transformation laws imply that A = A ¯ ¯ k ∂ ∂ ∂ ∂ x ¯ ¯ k {\displaystyle A={\bar {A}}^{k}{\frac {\partial }{\partial {\bar {x}}^{k}}}} where A ¯ ¯ k = ∂ ∂ x ¯ ¯ k ∂ ∂ x j A j {\displaystyle {\bar {A}}^{k}={\frac {\partial {\bar {x}}^{k}}{\partial x^{j}}}A^{j}} .  Similarly, if g = g m k d x m ⊗ ⊗ d x k = g ¯ ¯ i j d x ¯ ¯ i ⊗ ⊗ d x ¯ ¯ j {\displaystyle g=g_{mk}\,dx^{m}\otimes dx^{k}={\bar {g}}_{ij}\,d{\bar {x}}^{i}\otimes d{\bar {x}}^{j}} , then g ¯ ¯ i j = ∂ ∂ x m ∂ ∂ x ¯ ¯ i ∂ ∂ x k ∂ ∂ x ¯ ¯ j g m k {\displaystyle {\bar {g}}_{ij}=\,{\frac {\partial x^{m}}{\partial {\bar {x}}^{i}}}{\frac {\partial x^{k}}{\partial {\bar {x}}^{j}}}g_{mk}} .  
+Writing this transformation law in terms of matrices yields g ¯ ¯ = ( ∂ ∂ x ∂ ∂ x ¯ ¯ ) T g ( ∂ ∂ x ∂ ∂ x ¯ ¯ ) {\displaystyle {\bar {g}}=\left({\frac {\partial x}{\partial {\bar {x}}}}\right)^{\text{T}}g\left({\frac {\partial x}{\partial {\bar {x}}}}\right)} , which implies det g ¯ ¯ = ( det ( ∂ ∂ x ∂ ∂ x ¯ ¯ ) ) 2 det g {\displaystyle \det {\bar {g}}=\left(\det \left({\frac {\partial x}{\partial {\bar {x}}}}\right)\right)^{2}\det g} .
+
+Now one computes div ⁡ ⁡ A = 1 det g ∂ ∂ ∂ ∂ x i ( A i det g ) = det ( ∂ ∂ x ∂ ∂ x ¯ ¯ ) 1 det g ¯ ¯ ∂ ∂ x ¯ ¯ k ∂ ∂ x i ∂ ∂ ∂ ∂ x ¯ ¯ k ( ∂ ∂ x i ∂ ∂ x ¯ ¯ ℓ ℓ A ¯ ¯ ℓ ℓ det ( ∂ ∂ x ∂ ∂ x ¯ ¯ ) − − 1 det g ¯ ¯ ) .
+
+{\displaystyle {\begin{aligned}\operatorname {div} A&={\frac {1}{\sqrt {\det g}}}{\frac {\partial }{\partial x^{i}}}\left(A^{i}{\sqrt {\det g}}\right)\\&=\det \left({\frac {\partial x}{\partial {\bar {x}}}}\right){\frac {1}{\sqrt {\det {\bar {g}}}}}{\frac {\partial {\bar {x}}^{k}}{\partial x^{i}}}{\frac {\partial }{\partial {\bar {x}}^{k}}}\left({\frac {\partial x^{i}}{\partial {\bar {x}}^{\ell }}}{\bar {A}}^{\ell }\det \!\left({\frac {\partial x}{\partial {\bar {x}}}}\right)^{\!\!-1}\!{\sqrt {\det {\bar {g}}}}\right).\end{aligned}}} In order to show that this equals 1 det g ¯ ¯ ∂ ∂ ∂ ∂ x ¯ ¯ k ( A ¯ ¯ k det g ¯ ¯ ) {\displaystyle {\frac {1}{\sqrt {\det {\bar {g}}}}}{\frac {\partial }{\partial {\bar {x}}^{k}}}\left({\bar {A}}^{k}{\sqrt {\det {\bar {g}}}}\right)} ,
+it is necessary and sufficient to show that ∂ ∂ x ¯ ¯ k ∂ ∂ x i ∂ ∂ ∂ ∂ x ¯ ¯ k ( ∂ ∂ x i ∂ ∂ x ¯ ¯ ℓ ℓ det ( ∂ ∂ x ∂ ∂ x ¯ ¯ ) − − 1 ) = 0 for all ℓ ℓ , {\displaystyle {\frac {\partial {\bar {x}}^{k}}{\partial x^{i}}}{\frac {\partial }{\partial {\bar {x}}^{k}}}\left({\frac {\partial x^{i}}{\partial {\bar {x}}^{\ell }}}\det \!\left({\frac {\partial x}{\partial {\bar {x}}}}\right)^{\!\!\!-1}\right)=0\qquad {\text{for all }}\ell ,} which is equivalent to ∂ ∂ ∂ ∂ x ¯ ¯ ℓ ℓ det ( ∂ ∂ x ∂ ∂ x ¯ ¯ ) = det ( ∂ ∂ x ∂ ∂ x ¯ ¯ ) ∂ ∂ x ¯ ¯ k ∂ ∂ x i ∂ ∂ 2 x i ∂ ∂ x ¯ ¯ k ∂ ∂ x ¯ ¯ ℓ ℓ .
+
+{\displaystyle {\frac {\partial }{\partial {\bar {x}}^{\ell }}}\det \left({\frac {\partial x}{\partial {\bar {x}}}}\right)=\det \left({\frac {\partial x}{\partial {\bar {x}}}}\right){\frac {\partial {\bar {x}}^{k}}{\partial x^{i}}}{\frac {\partial ^{2}x^{i}}{\partial {\bar {x}}^{k}\partial {\bar {x}}^{\ell }}}.} Carrying out the differentiation on the left-hand side, we get: ∂ ∂ ∂ ∂ x ¯ ¯ ℓ ℓ det ( ∂ ∂ x ∂ ∂ x ¯ ¯ ) = ( − − 1 ) i + j ∂ ∂ 2 x i ∂ ∂ x ¯ ¯ ℓ ℓ ∂ ∂ x ¯ ¯ j det M ( i | j ) = ∂ ∂ 2 x i ∂ ∂ x ¯ ¯ ℓ ℓ ∂ ∂ x ¯ ¯ j det ( ∂ ∂ x ∂ ∂ x ¯ ¯ ) ( − − 1 ) i + j det ( ∂ ∂ x ∂ ∂ x ¯ ¯ ) det M ( i | j ) = ( ∗ ∗ ) , {\displaystyle {\begin{aligned}{\frac {\partial }{\partial {\bar {x}}^{\ell }}}\det \left({\frac {\partial x}{\partial {\bar {x}}}}\right)&=(-1)^{i+j}{\frac {\partial ^{2}x^{i}}{\partial {\bar {x}}^{\ell }\partial {\bar {x}}^{j}}}\det M(i|j)\\&={\frac {\partial ^{2}x^{i}}{\partial {\bar {x}}^{\ell }\partial {\bar {x}}^{j}}}\det \left({\frac {\partial x}{\partial {\bar {x}}}}\right){\frac {(-1)^{i+j}}{\det \left({\frac {\partial x}{\partial {\bar {x}}}}\right)}}\det M(i|j)=(\ast ),\end{aligned}}} where M ( i | j ) {\displaystyle M(i|j)} denotes the matrix obtained from ( ∂ ∂ x ∂ ∂ x ¯ ¯ ) {\displaystyle \left({\frac {\partial x}{\partial {\bar {x}}}}\right)} by deleting the i {\displaystyle i} th row and j {\displaystyle j} th column.
+But Cramer's Rule says that ( − − 1 ) i + j det ( ∂ ∂ x ∂ ∂ x ¯ ¯ ) det M ( i | j ) {\displaystyle {\frac {(-1)^{i+j}}{\det \left({\frac {\partial x}{\partial {\bar {x}}}}\right)}}\det M(i|j)} is the ( j , i ) {\displaystyle (j,i)} th entry of the matrix ( ∂ ∂ x ¯ ¯ ∂ ∂ x ) {\displaystyle \left({\frac {\partial {\bar {x}}}{\partial x}}\right)} .
+Thus ( ∗ ∗ ) = det ( ∂ ∂ x ∂ ∂ x ¯ ¯ ) ∂ ∂ 2 x i ∂ ∂ x ¯ ¯ ℓ ℓ ∂ ∂ x ¯ ¯ j ∂ ∂ x ¯ ¯ j ∂ ∂ x i , {\displaystyle (\ast )=\det \left({\frac {\partial x}{\partial {\bar {x}}}}\right){\frac {\partial ^{2}x^{i}}{\partial {\bar {x}}^{\ell }\partial {\bar {x}}^{j}}}{\frac {\partial {\bar {x}}^{j}}{\partial x^{i}}},} completing the proof.
+
+Computing derivatives implicitly [ edit ] Consider the two equations F ( x , y , u , v ) = 0 {\displaystyle F(x,y,u,v)=0} and G ( x , y , u , v ) = 0 {\displaystyle G(x,y,u,v)=0} . When u and v are independent variables, we can define x = X ( u , v ) {\displaystyle x=X(u,v)} and y = Y ( u , v ) .
+
+{\displaystyle y=Y(u,v).} An equation for ∂ ∂ x ∂ ∂ u {\displaystyle {\dfrac {\partial x}{\partial u}}} can be found by applying Cramer's rule.
+
+Calculation of ∂ ∂ x ∂ ∂ u {\displaystyle {\dfrac {\partial x}{\partial u}}} First, calculate the first derivatives of F , G , x , and y : d F = ∂ ∂ F ∂ ∂ x d x + ∂ ∂ F ∂ ∂ y d y + ∂ ∂ F ∂ ∂ u d u + ∂ ∂ F ∂ ∂ v d v = 0 d G = ∂ ∂ G ∂ ∂ x d x + ∂ ∂ G ∂ ∂ y d y + ∂ ∂ G ∂ ∂ u d u + ∂ ∂ G ∂ ∂ v d v = 0 d x = ∂ ∂ X ∂ ∂ u d u + ∂ ∂ X ∂ ∂ v d v d y = ∂ ∂ Y ∂ ∂ u d u + ∂ ∂ Y ∂ ∂ v d v .
+
+{\displaystyle {\begin{aligned}dF&={\frac {\partial F}{\partial x}}dx+{\frac {\partial F}{\partial y}}dy+{\frac {\partial F}{\partial u}}du+{\frac {\partial F}{\partial v}}dv=0\\[6pt]dG&={\frac {\partial G}{\partial x}}dx+{\frac {\partial G}{\partial y}}dy+{\frac {\partial G}{\partial u}}du+{\frac {\partial G}{\partial v}}dv=0\\[6pt]dx&={\frac {\partial X}{\partial u}}du+{\frac {\partial X}{\partial v}}dv\\[6pt]dy&={\frac {\partial Y}{\partial u}}du+{\frac {\partial Y}{\partial v}}dv.\end{aligned}}} Substituting dx , dy into dF and dG , we have: d F = ( ∂ ∂ F ∂ ∂ x ∂ ∂ x ∂ ∂ u + ∂ ∂ F ∂ ∂ y ∂ ∂ y ∂ ∂ u + ∂ ∂ F ∂ ∂ u ) d u + ( ∂ ∂ F ∂ ∂ x ∂ ∂ x ∂ ∂ v + ∂ ∂ F ∂ ∂ y ∂ ∂ y ∂ ∂ v + ∂ ∂ F ∂ ∂ v ) d v = 0 d G = ( ∂ ∂ G ∂ ∂ x ∂ ∂ x ∂ ∂ u + ∂ ∂ G ∂ ∂ y ∂ ∂ y ∂ ∂ u + ∂ ∂ G ∂ ∂ u ) d u + ( ∂ ∂ G ∂ ∂ x ∂ ∂ x ∂ ∂ v + ∂ ∂ G ∂ ∂ y ∂ ∂ y ∂ ∂ v + ∂ ∂ G ∂ ∂ v ) d v = 0.
+
+{\displaystyle {\begin{aligned}dF&=\left({\frac {\partial F}{\partial x}}{\frac {\partial x}{\partial u}}+{\frac {\partial F}{\partial y}}{\frac {\partial y}{\partial u}}+{\frac {\partial F}{\partial u}}\right)du+\left({\frac {\partial F}{\partial x}}{\frac {\partial x}{\partial v}}+{\frac {\partial F}{\partial y}}{\frac {\partial y}{\partial v}}+{\frac {\partial F}{\partial v}}\right)dv=0\\[6pt]dG&=\left({\frac {\partial G}{\partial x}}{\frac {\partial x}{\partial u}}+{\frac {\partial G}{\partial y}}{\frac {\partial y}{\partial u}}+{\frac {\partial G}{\partial u}}\right)du+\left({\frac {\partial G}{\partial x}}{\frac {\partial x}{\partial v}}+{\frac {\partial G}{\partial y}}{\frac {\partial y}{\partial v}}+{\frac {\partial G}{\partial v}}\right)dv=0.\end{aligned}}} Since u , v are both independent, the coefficients of du , dv must be zero.  So we can write out equations for the coefficients: ∂ ∂ F ∂ ∂ x ∂ ∂ x ∂ ∂ u + ∂ ∂ F ∂ ∂ y ∂ ∂ y ∂ ∂ u = − − ∂ ∂ F ∂ ∂ u ∂ ∂ G ∂ ∂ x ∂ ∂ x ∂ ∂ u + ∂ ∂ G ∂ ∂ y ∂ ∂ y ∂ ∂ u = − − ∂ ∂ G ∂ ∂ u ∂ ∂ F ∂ ∂ x ∂ ∂ x ∂ ∂ v + ∂ ∂ F ∂ ∂ y ∂ ∂ y ∂ ∂ v = − − ∂ ∂ F ∂ ∂ v ∂ ∂ G ∂ ∂ x ∂ ∂ x ∂ ∂ v + ∂ ∂ G ∂ ∂ y ∂ ∂ y ∂ ∂ v = − − ∂ ∂ G ∂ ∂ v .
+
+{\displaystyle {\begin{aligned}{\frac {\partial F}{\partial x}}{\frac {\partial x}{\partial u}}+{\frac {\partial F}{\partial y}}{\frac {\partial y}{\partial u}}&=-{\frac {\partial F}{\partial u}}\\[6pt]{\frac {\partial G}{\partial x}}{\frac {\partial x}{\partial u}}+{\frac {\partial G}{\partial y}}{\frac {\partial y}{\partial u}}&=-{\frac {\partial G}{\partial u}}\\[6pt]{\frac {\partial F}{\partial x}}{\frac {\partial x}{\partial v}}+{\frac {\partial F}{\partial y}}{\frac {\partial y}{\partial v}}&=-{\frac {\partial F}{\partial v}}\\[6pt]{\frac {\partial G}{\partial x}}{\frac {\partial x}{\partial v}}+{\frac {\partial G}{\partial y}}{\frac {\partial y}{\partial v}}&=-{\frac {\partial G}{\partial v}}.\end{aligned}}} Now, by Cramer's rule, we see that: ∂ ∂ x ∂ ∂ u = | − − ∂ ∂ F ∂ ∂ u ∂ ∂ F ∂ ∂ y − − ∂ ∂ G ∂ ∂ u ∂ ∂ G ∂ ∂ y | | ∂ ∂ F ∂ ∂ x ∂ ∂ F ∂ ∂ y ∂ ∂ G ∂ ∂ x ∂ ∂ G ∂ ∂ y | .
+
+{\displaystyle {\frac {\partial x}{\partial u}}={\frac {\begin{vmatrix}-{\frac {\partial F}{\partial u}}&{\frac {\partial F}{\partial y}}\\-{\frac {\partial G}{\partial u}}&{\frac {\partial G}{\partial y}}\end{vmatrix}}{\begin{vmatrix}{\frac {\partial F}{\partial x}}&{\frac {\partial F}{\partial y}}\\{\frac {\partial G}{\partial x}}&{\frac {\partial G}{\partial y}}\end{vmatrix}}}.} This is now a formula in terms of two Jacobians : ∂ ∂ x ∂ ∂ u = − − ( ∂ ∂ ( F , G ) ∂ ∂ ( u , y ) ) ( ∂ ∂ ( F , G ) ∂ ∂ ( x , y ) ) .
+
+{\displaystyle {\frac {\partial x}{\partial u}}=-{\frac {\left({\frac {\partial (F,G)}{\partial (u,y)}}\right)}{\left({\frac {\partial (F,G)}{\partial (x,y)}}\right)}}.} Similar formulas can be derived for ∂ ∂ x ∂ ∂ v , ∂ ∂ y ∂ ∂ u , ∂ ∂ y ∂ ∂ v .
+
+{\displaystyle {\frac {\partial x}{\partial v}},{\frac {\partial y}{\partial u}},{\frac {\partial y}{\partial v}}.} Integer programming [ edit ] Cramer's rule can be used to prove that an integer programming problem whose constraint matrix is totally unimodular and whose right-hand side is integer, has integer basic solutions. This makes the integer program substantially easier to solve.
+
+Ordinary differential equations [ edit ] Cramer's rule is used to derive the general solution to an inhomogeneous linear differential equation by the method of variation of parameters .
+
+Example [ edit ] 2x2 System [ edit ] Consider the linear system 12 x + 3 y = 15 2 x − − 3 y = 13 {\displaystyle {\begin{matrix}12x+3y&=15\\2x-3y&=13\end{matrix}}} Applying Cramer's Rule gives x = | 15 3 13 − − 3 | | 12 3 2 − − 3 | = − − 84 − − 42 = 2 , y = | 12 15 2 13 | | 12 3 2 − − 3 | = − − 126 42 = − − 3 .
+
+{\displaystyle {\begin{aligned}x&={\frac {\begin{vmatrix}15&3\\{13}&-3\end{vmatrix}}{\begin{vmatrix}12&3\\2&-3\end{vmatrix}}}={-84 \over -42}={\color {red}2},\quad y={\frac {\begin{vmatrix}12&15\\2&{13}\end{vmatrix}}{\begin{vmatrix}12&3\\2&-3\end{vmatrix}}}=-{126 \over 42}={\color {red}-3}\end{aligned}}.} These values can be verified by substituting back into the original equations: 12 x + 3 y = ( 12 × × 2 ) + ( 3 × × ( − − 3 ) ) = 24 − − 9 = 15 {\displaystyle 12x+3y=(12\times {\color {red}2})+(3\times ({\color {red}-3}))=24-9=15} and 2 x − − 3 y = ( 2 × × 2 ) − − ( 3 × × ( − − 3 ) ) = 4 − − ( − − 9 ) = 13 , {\displaystyle 2x-3y=(2\times {\color {red}2})-(3\times ({\color {red}-3}))=4-(-9)=13,} as required.
+
+3x3 System [ edit ] Consider the linear system 3 x − − 2 y + 5 z = 2 4 x − − 7 y − − z = 19 5 x − − 6 y + 4 z = 13 {\displaystyle {\begin{matrix}3x-2y+5z&=2\\4x-7y-z&=19\\5x-6y+4z&=13\end{matrix}}} To simplify notation, define A = [ 3 − − 2 5 4 − − 7 − − 1 5 − − 6 4 ] {\displaystyle \mathbf {A} ={\begin{bmatrix}3&-2&5\\4&-7&-1\\5&-6&4\end{bmatrix}}} as the matrix of coefficients, and A 1 = [ 2 − − 2 5 19 − − 7 − − 1 13 − − 6 4 ] , A 2 = [ 3 2 5 4 19 − − 1 5 13 4 ] , A 3 = [ 3 − − 2 2 4 − − 7 19 5 − − 6 13 ] .
+
+{\displaystyle \mathbf {A_{1}} ={\begin{bmatrix}\color {red}{2}&-2&5\\\color {red}{19}&-7&-1\\\color {red}{13}&-6&4\end{bmatrix}},\mathbf {A_{2}} ={\begin{bmatrix}3&\color {red}{2}&5\\4&\color {red}{19}&-1\\5&\color {red}{13}&4\end{bmatrix}},\mathbf {A_{3}} ={\begin{bmatrix}3&-2&\color {red}{2}\\4&-7&\color {red}{19}\\5&-6&\color {red}{13}\end{bmatrix}}.} Calculating the required determinants by cofactor expansion yields | A | = 3 ⋅ ⋅ | − − 7 − − 1 − − 6 4 | + 2 ⋅ ⋅ | 4 − − 1 5 4 | + 5 ⋅ ⋅ | 4 − − 7 5 − − 6 | = 3 ⋅ ⋅ ( − − 34 ) + 3 ⋅ ⋅ ( 21 ) + 3 ⋅ ⋅ ( 11 ) = − − 5 {\displaystyle {\begin{aligned}{\begin{vmatrix}A\end{vmatrix}}&=3\cdot {\begin{vmatrix}-7&-1\\-6&4\end{vmatrix}}+2\cdot {\begin{vmatrix}4&-1\\5&4\end{vmatrix}}+5\cdot {\begin{vmatrix}4&-7\\5&-6\end{vmatrix}}\\&=3\cdot (-34)+3\cdot (21)+3\cdot (11)\\&=-5\end{aligned}}} | A 1 | = 2 ⋅ ⋅ | − − 7 − − 1 − − 6 4 | + 2 ⋅ ⋅ | 19 − − 1 13 4 | + 5 ⋅ ⋅ | 19 − − 7 13 − − 6 | = 2 ⋅ ⋅ ( − − 34 ) + 2 ⋅ ⋅ ( 89 ) + 5 ⋅ ⋅ ( − − 23 ) = − − 5 {\displaystyle {\begin{aligned}{\begin{vmatrix}A_{1}\end{vmatrix}}&=2\cdot {\begin{vmatrix}-7&-1\\-6&4\end{vmatrix}}+2\cdot {\begin{vmatrix}19&-1\\13&4\end{vmatrix}}+5\cdot {\begin{vmatrix}19&-7\\13&-6\end{vmatrix}}\\&=2\cdot (-34)+2\cdot (89)+5\cdot (-23)\\&=-5\end{aligned}}} | A 2 | = 3 ⋅ ⋅ | 19 − − 1 13 4 | − − 2 ⋅ ⋅ | 4 − − 1 5 4 | + 5 ⋅ ⋅ | 4 19 5 13 | = 3 ⋅ ⋅ ( 89 ) − − 2 ⋅ ⋅ ( 21 ) + 5 ⋅ ⋅ ( − − 43 ) = 10 {\displaystyle {\begin{aligned}{\begin{vmatrix}A_{2}\end{vmatrix}}&=3\cdot {\begin{vmatrix}19&-1\\13&4\end{vmatrix}}-2\cdot {\begin{vmatrix}4&-1\\5&4\end{vmatrix}}+5\cdot {\begin{vmatrix}4&19\\5&13\end{vmatrix}}\\&=3\cdot (89)-2\cdot (21)+5\cdot (-43)\\&=10\end{aligned}}} | A 3 | = 3 ⋅ ⋅ | − − 7 9 − − 6 13 | + 2 ⋅ ⋅ | 4 19 5 13 | + 2 ⋅ ⋅ | 4 − − 7 5 − − 6 | = 3 ⋅ ⋅ ( 23 ) + 2 ⋅ ⋅ ( − − 43 ) + 2 ⋅ ⋅ ( 11 ) = 5 {\displaystyle {\begin{aligned}{\begin{vmatrix}A_{3}\end{vmatrix}}&=3\cdot {\begin{vmatrix}-7&9\\-6&13\end{vmatrix}}+2\cdot {\begin{vmatrix}4&19\\5&13\end{vmatrix}}+2\cdot {\begin{vmatrix}4&-7\\5&-6\end{vmatrix}}\\&=3\cdot (23)+2\cdot (-43)+2\cdot (11)\\&=5\end{aligned}}} Applying Cramer's Rule gives x = | A 1 | | A | = − − 5 − − 5 = 1 , y = | A 2 | | A | = 10 − − 5 = − − 2 , z = | A 3 | | A | = 5 − − 5 = − − 1 .
+
+{\displaystyle {\begin{aligned}x&={\frac {\begin{vmatrix}A_{1}\end{vmatrix}}{\begin{vmatrix}A\end{vmatrix}}}={-5 \over -5}={\color {red}1},\quad y={\frac {\begin{vmatrix}A_{2}\end{vmatrix}}{\begin{vmatrix}A\end{vmatrix}}}={10 \over -5}={\color {red}-2},\quad z={\frac {\begin{vmatrix}A_{3}\end{vmatrix}}{\begin{vmatrix}A\end{vmatrix}}}={5 \over -5}={\color {red}-1}\end{aligned}}.} These values can be verified by substituting back into the original equations: 3 x − − 2 y + 5 z = ( 3 × × 1 ) − − ( 2 × × ( − − 2 ) ) + ( 5 × × ( − − 1 ) ) = 3 + 4 − − 5 = 2 {\displaystyle 3x-2y+5z=(3\times {\color {red}1})-(2\times ({\color {red}-2}))+(5\times ({\color {red}-1}))=3+4-5=2} 4 x − − 7 y − − z = ( 4 × × 1 ) − − ( 7 × × ( − − 2 ) ) − − ( 1 × × ( − − 1 ) ) = 4 + 14 + 1 = 19 {\displaystyle 4x-7y-z=(4\times {\color {red}1})-(7\times ({\color {red}-2}))-(1\times ({\color {red}-1}))=4+14+1=19} and 5 x − − 6 y + 4 z = ( 5 × × 1 ) − − ( 6 × × ( − − 2 ) ) + ( 4 × × ( − − 1 ) ) = 5 + 12 − − 4 = 13 , {\displaystyle 5x-6y+4z=(5\times {\color {red}1})-(6\times ({\color {red}-2}))+(4\times ({\color {red}-1}))=5+12-4=13,} as required.
+
+Example implementation in Python import numpy as np from copy import deepcopy def replace_column ( matrix , column , column_index ): index = 0 for row_matrix in matrix : row_matrix [ column_index ] = column [ index ] index = index + 1 return matrix def cramer ( coefficient_matrix , rhs_column ): solutions = [] det_coeff = np .
+
+linalg .
+
+det ( coefficient_matrix ) column_index = 0 for rhs_values in rhs_column : other_coeff_matrix = replace_column ( deepcopy ( coefficient_matrix ), rhs_column , column_index ) solutions .
+
+append (( np .
+
+linalg .
+
+det ( other_coeff_matrix ) / det_coeff )) column_index = column_index + 1 print ( "Solutions =" , solutions ) cramer ([[ 3 , - 2 , 5 ], [ 4 , - 7 , - 1 ], [ 5 , - 6 , 4 ]], [ 2 , 19 , 13 ]) # Solutions = [1.0000000000000107, -1.999999999999993, -1.000000000000002] Geometric interpretation [ edit ] Geometric interpretation of Cramer's rule. The areas of the second and third shaded parallelograms are the same and the second is x 1 {\displaystyle x_{1}} times the first. From this equality Cramer's rule follows.
+
+Cramer's rule has a geometric interpretation that can be considered also a proof or simply giving insight about its geometric nature. These geometric arguments work in general and not only in the case of two equations with two unknowns presented here.
+
+Given the system of equations a 11 x 1 + a 12 x 2 = b 1 a 21 x 1 + a 22 x 2 = b 2 {\displaystyle {\begin{matrix}a_{11}x_{1}+a_{12}x_{2}&=b_{1}\\a_{21}x_{1}+a_{22}x_{2}&=b_{2}\end{matrix}}} it can be considered as an equation between vectors x 1 ( a 11 a 21 ) + x 2 ( a 12 a 22 ) = ( b 1 b 2 ) .
+
+{\displaystyle x_{1}{\binom {a_{11}}{a_{21}}}+x_{2}{\binom {a_{12}}{a_{22}}}={\binom {b_{1}}{b_{2}}}.} The area of the parallelogram determined by ( a 11 a 21 ) {\displaystyle {\binom {a_{11}}{a_{21}}}} and ( a 12 a 22 ) {\displaystyle {\binom {a_{12}}{a_{22}}}} is given by the determinant of the system of equations: | a 11 a 12 a 21 a 22 | .
+
+{\displaystyle {\begin{vmatrix}a_{11}&a_{12}\\a_{21}&a_{22}\end{vmatrix}}.} In general, when there are more variables and equations, the determinant of n vectors of length n will give the volume of the parallelepiped determined by those vectors in the n -th dimensional Euclidean space .
+
+Therefore, the area of the parallelogram determined by x 1 ( a 11 a 21 ) {\displaystyle x_{1}{\binom {a_{11}}{a_{21}}}} and ( a 12 a 22 ) {\displaystyle {\binom {a_{12}}{a_{22}}}} has to be x 1 {\displaystyle x_{1}} times the area of the first one since one of the sides has been multiplied by this factor. Now, this last parallelogram, by Cavalieri's principle , has the same area as the parallelogram determined by ( b 1 b 2 ) = x 1 ( a 11 a 21 ) + x 2 ( a 12 a 22 ) {\displaystyle {\binom {b_{1}}{b_{2}}}=x_{1}{\binom {a_{11}}{a_{21}}}+x_{2}{\binom {a_{12}}{a_{22}}}} and ( a 12 a 22 ) .
+
+{\displaystyle {\binom {a_{12}}{a_{22}}}.} Equating the areas of this last and the second parallelogram gives the equation | b 1 a 12 b 2 a 22 | = | a 11 x 1 a 12 a 21 x 1 a 22 | = x 1 | a 11 a 12 a 21 a 22 | {\displaystyle {\begin{vmatrix}b_{1}&a_{12}\\b_{2}&a_{22}\end{vmatrix}}={\begin{vmatrix}a_{11}x_{1}&a_{12}\\a_{21}x_{1}&a_{22}\end{vmatrix}}=x_{1}{\begin{vmatrix}a_{11}&a_{12}\\a_{21}&a_{22}\end{vmatrix}}} from which Cramer's rule follows.
+
+Other proofs [ edit ] A proof by abstract linear algebra [ edit ] This is a restatement of the proof above in abstract language.
+
+Consider the map x = ( x 1 , … … , x n ) ↦ ↦ 1 det A ( det ( A 1 ) , … … , det ( A n ) ) , {\displaystyle \mathbf {x} =(x_{1},\ldots ,x_{n})\mapsto {\frac {1}{\det A}}\left(\det(A_{1}),\ldots ,\det(A_{n})\right),} where A i {\displaystyle A_{i}} is the matrix A {\displaystyle A} with x {\displaystyle \mathbf {x} } substituted in the i {\displaystyle i} th column, as in Cramer's rule. Because of linearity of determinant in every column, this map is linear. Observe that it sends the i {\displaystyle i} th column of A {\displaystyle A} to the i {\displaystyle i} th basis vector e i = ( 0 , … … , 1 , … … , 0 ) {\displaystyle \mathbf {e} _{i}=(0,\ldots ,1,\ldots ,0)} (with 1 in the i {\displaystyle i} th place), because determinant of a matrix with a repeated column is 0. So we have a linear map which agrees with the inverse of A {\displaystyle A} on the column space; hence it agrees with A − − 1 {\displaystyle A^{-1}} on the span of the column space. Since A {\displaystyle A} is invertible, the column vectors span all of R n {\displaystyle \mathbb {R} ^{n}} , so our map really is the inverse of A {\displaystyle A} . Cramer's rule follows.
+
+A short proof [ edit ] A short proof of Cramer's rule [ 12 ] can be given by noticing that x 1 {\displaystyle x_{1}} is the determinant of the matrix X 1 = [ x 1 0 0 ⋯ ⋯ 0 x 2 1 0 ⋯ ⋯ 0 x 3 0 1 ⋯ ⋯ 0 ⋮ ⋮ ⋮ ⋮ ⋮ ⋮ ⋱ ⋱ ⋮ ⋮ x n 0 0 ⋯ ⋯ 1 ] {\displaystyle X_{1}={\begin{bmatrix}x_{1}&0&0&\cdots &0\\x_{2}&1&0&\cdots &0\\x_{3}&0&1&\cdots &0\\\vdots &\vdots &\vdots &\ddots &\vdots \\x_{n}&0&0&\cdots &1\end{bmatrix}}} On the other hand, assuming that our original matrix A is invertible, this matrix X 1 {\displaystyle X_{1}} has columns A − − 1 b , A − − 1 v 2 , … … , A − − 1 v n {\displaystyle A^{-1}\mathbf {b} ,A^{-1}\mathbf {v} _{2},\ldots ,A^{-1}\mathbf {v} _{n}} , where v n {\displaystyle \mathbf {v} _{n}} is the n -th column of the matrix A . Recall that the matrix A 1 {\displaystyle A_{1}} has columns b , v 2 , … … , v n {\displaystyle \mathbf {b} ,\mathbf {v} _{2},\ldots ,\mathbf {v} _{n}} , and therefore X 1 = A − − 1 A 1 {\displaystyle X_{1}=A^{-1}A_{1}} . Hence, by using that the determinant of the product of two matrices is the product of the determinants, we have x 1 = det ( X 1 ) = det ( A − − 1 ) det ( A 1 ) = det ( A 1 ) det ( A ) .
+
+{\displaystyle x_{1}=\det(X_{1})=\det(A^{-1})\det(A_{1})={\frac {\det(A_{1})}{\det(A)}}.} The proof for other x j {\displaystyle x_{j}} is similar.
+
+Using Geometric Algebra [ edit ] Main article: Comparison of vector algebra and geometric algebra § Matrix related Inconsistent and indeterminate cases [ edit ] A system of equations is said to be inconsistent when there are no solutions and it is called indeterminate when there is more than one solution. For linear equations, an indeterminate system will have infinitely many solutions (if it is over an infinite field), since the solutions can be expressed in terms of one or more parameters that can take arbitrary values.
+
+Cramer's rule applies to the case where the coefficient determinant is nonzero. In the 2×2 case, if the coefficient determinant is zero, then the system is inconsistent if the numerator determinants are nonzero, or indeterminate if the numerator determinants are zero.
+
+For 3×3 or higher systems, the only thing one can say when the coefficient determinant equals zero is that if any of the numerator determinants are nonzero, then the system must be inconsistent. However, having all determinants zero does not imply that the system is indeterminate. A simple example where all determinants vanish (equal zero) but the system is still inconsistent is the 3×3 system x + y + z =1, x + y + z =2, x + y + z =3.
+
+See also [ edit ] Rouché–Capelli theorem Gaussian elimination References [ edit ] ^ Cramer, Gabriel (1750).
+
+"Introduction à l'Analyse des lignes Courbes algébriques" (in French). Geneva: Europeana. pp.
+
+656– 659 . Retrieved 2012-05-18 .
+
+^ Kosinski, A. A. (2001). "Cramer's Rule is due to Cramer".
+
+Mathematics Magazine .
+
+74 (4): 310– 312.
+
+doi : 10.2307/2691101 .
+
+JSTOR 2691101 .
+
+^ MacLaurin, Colin (1748).
+
+A Treatise of Algebra, in Three Parts . Printed for A. Millar & J. Nourse.
+
+^ Boyer, Carl B.
+
+(1968).
+
+A History of Mathematics (2nd ed.). Wiley. p. 431.
+
+^ Katz, Victor (2004).
+
+A History of Mathematics (Brief ed.). Pearson Education. pp.
+
+378– 379.
+
+^ Hedman, Bruce A. (1999).
+
+"An Earlier Date for "Cramer's Rule" " (PDF) .
+
+Historia Mathematica .
+
+26 (4): 365– 368.
+
+doi : 10.1006/hmat.1999.2247 .
+
+S2CID 121056843 .
+
+^ David Poole (2014).
+
+Linear Algebra: A Modern Introduction . Cengage Learning. p. 276.
+
+ISBN 978-1-285-98283-0 .
+
+^ Joe D. Hoffman; Steven Frankel (2001).
+
+Numerical Methods for Engineers and Scientists, Second Edition . CRC Press. p. 30.
+
+ISBN 978-0-8247-0443-8 .
+
+^ Thomas S. Shores (2007).
+
+Applied Linear Algebra and Matrix Analysis . Springer Science & Business Media. p. 132.
+
+ISBN 978-0-387-48947-6 .
+
+^ Zhiming Gong; M. Aldeen; L. Elsner (2002).
+
+"A note on a generalized Cramer's rule" .
+
+Linear Algebra and Its Applications .
+
+340 ( 1– 3): 253– 254.
+
+doi : 10.1016/S0024-3795(01)00469-4 .
+
+^ Levi-Civita, Tullio (1926).
+
+The Absolute Differential Calculus (Calculus of Tensors) . Dover. pp.
+
+111– 112.
+
+ISBN 9780486634012 .
+
+{{ cite book }} : ISBN / Date incompatibility ( help ) ^ Robinson, Stephen M. (1970). "A Short Proof of Cramer's Rule".
+
+Mathematics Magazine .
+
+43 (2): 94– 95.
+
+doi : 10.1080/0025570X.1970.11976018 .
+
+External links [ edit ] Wikibooks has a book on the topic of: Linear Algebra/Cramer's Rule Proof of Cramer's Rule at PlanetMath .
+
+Weisstein, Eric W.
+
+"Cramer's rule" .
+
+MathWorld .
+
+v t e Linear algebra Outline Glossary Basic concepts Scalar Vector Vector space Scalar multiplication Vector projection Linear span Linear map Linear projection Linear independence Linear combination Multilinear map Basis Change of basis Row and column vectors Row and column spaces Kernel Eigenvalues and eigenvectors Transpose Linear equations Matrices Block Decomposition Invertible Minor Multiplication Rank Transformation Cramer's rule Gaussian elimination Productive matrix Gram matrix Bilinear Orthogonality Dot product Hadamard product Inner product space Outer product Kronecker product Gram–Schmidt process Multilinear algebra Determinant Cross product Triple product Seven-dimensional cross product Geometric algebra Exterior algebra Bivector Multivector Tensor Outermorphism Vector space constructions Dual Direct sum Function space Quotient Subspace Tensor product Numerical Floating-point Numerical stability Basic Linear Algebra Subprograms Sparse matrix Comparison of linear algebra libraries Category NewPP limit report
+Parsed by mw‐api‐ext.codfw.main‐77f755c49c‐66vv5
+Cached time: 20250816122904
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.622 seconds
+Real time usage: 0.894 seconds
+Preprocessor visited node count: 3812/1000000
+Revision size: 32007/2097152 bytes
+Post‐expand include size: 50861/2097152 bytes
+Template argument size: 3704/2097152 bytes
+Highest expansion depth: 13/100
+Expensive parser function count: 5/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 65480/5000000 bytes
+Lua time usage: 0.302/10.000 seconds
+Lua memory usage: 5623666/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  523.314      1 -total
+ 32.17%  168.348      1 Template:Reflist
+ 17.30%   90.519      1 Template:Short_description
+ 16.61%   86.928      1 Template:Linear_algebra
+ 16.19%   84.734      1 Template:Navbox
+ 15.80%   82.705      1 Template:Cite_web
+ 12.20%   63.833      2 Template:Pagetype
+  8.21%   42.976      7 Template:Cite_book
+  8.08%   42.295     30 Template:Math
+  4.94%   25.864      1 Template:Wikibooks Saved in parser cache with key enwiki:pcache:166008:|#|:idhash:canonical and timestamp 20250816122904 and revision id 1306194691. Rendering was triggered because: unknown Retrieved from " https://en.wikipedia.org/w/index.php?title=Cramer%27s_rule&oldid=1306194691 " Categories : Theorems in linear algebra Determinants 1750 in science Hidden categories: CS1 French-language sources (fr) CS1 errors: ISBN date Use American English from January 2019 All Wikipedia articles written in American English Articles with short description Short description is different from Wikidata This page was last edited on 16 August 2025, at 12:28 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Cramer's rule 40 languages Add topic
+

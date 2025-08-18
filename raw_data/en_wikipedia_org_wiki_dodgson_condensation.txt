@@ -1,0 +1,135 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 General method 2 Examples Toggle Examples subsection 2.1 Without zeros 2.2 With zeros 3 Desnanot–Jacobi identity and proof of correctness of the condensation algorithm Toggle Desnanot–Jacobi identity and proof of correctness of the condensation algorithm subsection 3.1 Desnanot–Jacobi identity 3.2 Proof of the correctness of Dodgson condensation 3.3 Proof of the Desnanot–Jacobi identity 4 References 5 Further reading 6 External links Toggle the table of contents Dodgson condensation 4 languages Français ქართული Русский Slovenščina Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Method of computing determinants This article includes a list of general references , but it lacks sufficient corresponding inline citations .
+
+Please help to improve this article by introducing more precise citations.
+
+( January 2019 ) ( Learn how and when to remove this message ) In mathematics , Dodgson condensation or method of contractants is a method of computing the determinants of square matrices . It is named for its inventor, Charles Lutwidge Dodgson (better known by his pseudonym, as Lewis Carroll, the popular author), who discovered it in 1866.
+
+[ 1 ] The method in the case of an n × n matrix is to construct an ( n − 1) × ( n − 1) matrix, an ( n − 2) × ( n − 2), and so on, finishing with a 1 × 1 matrix, which has one entry, the determinant of the original matrix.
+
+General method [ edit ] This algorithm can be described in the following four steps: Let A be the given n × n matrix. Arrange A so that no zeros occur in its interior. An explicit definition of interior would be all a i,j with i , j ≠ ≠ 1 , n {\displaystyle i,j\neq 1,n} . One can do this using any operation that one could normally perform without changing the value of the determinant, such as adding a multiple of one row to another.
+
+Create an ( n − 1) × ( n − 1) matrix B, consisting of the determinants of every 2 × 2 submatrix of A. Explicitly, we write b i , j = | a i , j a i , j + 1 a i + 1 , j a i + 1 , j + 1 | .
+
+{\displaystyle b_{i,j}={\begin{vmatrix}a_{i,j}&a_{i,j+1}\\a_{i+1,j}&a_{i+1,j+1}\end{vmatrix}}.} Using this ( n − 1) × ( n − 1) matrix, perform step 2 to obtain an ( n − 2) × ( n − 2) matrix C. Divide each term in C by the corresponding term in the interior of A so c i , j = | b i , j b i , j + 1 b i + 1 , j b i + 1 , j + 1 | / a i + 1 , j + 1 {\displaystyle c_{i,j}={\begin{vmatrix}b_{i,j}&b_{i,j+1}\\b_{i+1,j}&b_{i+1,j+1}\end{vmatrix}}/a_{i+1,j+1}} .
+
+Let A = B, and B = C. Repeat step 3 as necessary until the 1 × 1 matrix is found; its only entry is the determinant.
+
+Examples [ edit ] Without zeros [ edit ] One wishes to find | − − 2 − − 1 − − 1 − − 4 − − 1 − − 2 − − 1 − − 6 − − 1 − − 1 2 4 2 1 − − 3 − − 8 | .
+
+{\displaystyle {\begin{vmatrix}-2&-1&-1&-4\\-1&-2&-1&-6\\-1&-1&2&4\\2&1&-3&-8\end{vmatrix}}.} All of the interior elements are non-zero, so there is no need to re-arrange the matrix.
+
+We make a matrix of its 2 × 2 submatrices.
+
+[ | − − 2 − − 1 − − 1 − − 2 | | − − 1 − − 1 − − 2 − − 1 | | − − 1 − − 4 − − 1 − − 6 | | − − 1 − − 2 − − 1 − − 1 | | − − 2 − − 1 − − 1 2 | | − − 1 − − 6 2 4 | | − − 1 − − 1 2 1 | | − − 1 2 1 − − 3 | | 2 4 − − 3 − − 8 | ] = [ 3 − − 1 2 − − 1 − − 5 8 1 1 − − 4 ] .
+
+{\displaystyle {\begin{bmatrix}{\begin{vmatrix}-2&-1\\-1&-2\end{vmatrix}}&{\begin{vmatrix}-1&-1\\-2&-1\end{vmatrix}}&{\begin{vmatrix}-1&-4\\-1&-6\end{vmatrix}}\\\\{\begin{vmatrix}-1&-2\\-1&-1\end{vmatrix}}&{\begin{vmatrix}-2&-1\\-1&2\end{vmatrix}}&{\begin{vmatrix}-1&-6\\2&4\end{vmatrix}}\\\\{\begin{vmatrix}-1&-1\\2&1\end{vmatrix}}&{\begin{vmatrix}-1&2\\1&-3\end{vmatrix}}&{\begin{vmatrix}2&4\\-3&-8\end{vmatrix}}\end{bmatrix}}={\begin{bmatrix}3&-1&2\\-1&-5&8\\1&1&-4\end{bmatrix}}.} We then find another matrix of determinants: [ | 3 − − 1 − − 1 − − 5 | | − − 1 2 − − 5 8 | | − − 1 − − 5 1 1 | | − − 5 8 1 − − 4 | ] = [ − − 16 2 4 12 ] .
+
+{\displaystyle {\begin{bmatrix}{\begin{vmatrix}3&-1\\-1&-5\end{vmatrix}}&{\begin{vmatrix}-1&2\\-5&8\end{vmatrix}}\\\\{\begin{vmatrix}-1&-5\\1&1\end{vmatrix}}&{\begin{vmatrix}-5&8\\1&-4\end{vmatrix}}\end{bmatrix}}={\begin{bmatrix}-16&2\\4&12\end{bmatrix}}.} We must then divide each element by the corresponding element of our original matrix. The interior of the original matrix is [ − − 2 − − 1 − − 1 2 ] {\displaystyle {\begin{bmatrix}-2&-1\\-1&2\end{bmatrix}}} , so after dividing we get [ 8 − − 2 − − 4 6 ] {\displaystyle {\begin{bmatrix}8&-2\\-4&6\end{bmatrix}}} .
+The process must be repeated to arrive at a 1 × 1 matrix.
+
+[ | 8 − − 2 − − 4 6 | ] = [ 40 ] .
+
+{\displaystyle {\begin{bmatrix}{\begin{vmatrix}8&-2\\-4&6\end{vmatrix}}\end{bmatrix}}={\begin{bmatrix}40\end{bmatrix}}.} Dividing by the interior of the 3 × 3 matrix, which is just −5, gives [ − − 8 ] {\displaystyle {\begin{bmatrix}-8\end{bmatrix}}} and −8 is indeed the determinant of the original matrix.
+
+With zeros [ edit ] Simply writing out the matrices: [ 2 − − 1 2 1 − − 3 1 2 1 − − 1 2 1 − − 1 − − 2 − − 1 − − 1 2 1 − − 1 − − 2 − − 1 1 − − 2 − − 1 − − 1 2 ] → → [ 5 − − 5 − − 3 − − 1 − − 3 − − 3 − − 3 3 3 3 3 − − 1 − − 5 − − 3 − − 1 − − 5 ] → → [ − − 15 6 12 0 0 6 6 − − 6 8 ] .
+
+{\displaystyle {\begin{bmatrix}2&-1&2&1&-3\\1&2&1&-1&2\\1&-1&-2&-1&-1\\2&1&-1&-2&-1\\1&-2&-1&-1&2\end{bmatrix}}\to {\begin{bmatrix}5&-5&-3&-1\\-3&-3&-3&3\\3&3&3&-1\\-5&-3&-1&-5\end{bmatrix}}\to {\begin{bmatrix}-15&6&12\\0&0&6\\6&-6&8\end{bmatrix}}.} Here we run into trouble. If we continue the process, we will eventually be dividing by 0. We can perform four row exchanges on the initial matrix to preserve the determinant and repeat the process, with most of the determinants precalculated: [ 1 2 1 − − 1 2 1 − − 1 − − 2 − − 1 − − 1 2 1 − − 1 − − 2 − − 1 1 − − 2 − − 1 − − 1 2 2 − − 1 2 1 − − 3 ] → → [ − − 3 − − 3 − − 3 3 3 3 3 − − 1 − − 5 − − 3 − − 1 − − 5 3 − − 5 1 1 ] → → [ 0 0 6 6 − − 6 8 − − 17 8 − − 4 ] → → [ 0 12 18 40 ] → → [ 36 ] .
+
+{\displaystyle {\begin{bmatrix}1&2&1&-1&2\\1&-1&-2&-1&-1\\2&1&-1&-2&-1\\1&-2&-1&-1&2\\2&-1&2&1&-3\end{bmatrix}}\to {\begin{bmatrix}-3&-3&-3&3\\3&3&3&-1\\-5&-3&-1&-5\\3&-5&1&1\end{bmatrix}}\to {\begin{bmatrix}0&0&6\\6&-6&8\\-17&8&-4\end{bmatrix}}\to {\begin{bmatrix}0&12\\18&40\end{bmatrix}}\to {\begin{bmatrix}36\end{bmatrix}}.} Hence, we arrive at a determinant of 36.
+
+Desnanot–Jacobi identity and proof of correctness of the condensation algorithm [ edit ] The proof that the condensation method computes the determinant of the matrix if no divisions by zero are encountered is based on an identity known as the Desnanot–Jacobi identity (1841) or, more generally, the Sylvester determinant identity (1851).
+
+[ 2 ] Let M = ( m i , j ) i , j = 1 k {\displaystyle M=(m_{i,j})_{i,j=1}^{k}} be a square matrix, and for each 1 ≤ ≤ i , j ≤ ≤ k {\displaystyle 1\leq i,j\leq k} , denote by M i j {\displaystyle M_{i}^{j}} the matrix that results from M {\displaystyle M} by deleting the i {\displaystyle i} -th row and the j {\displaystyle j} -th column. Similarly, for 1 ≤ ≤ i , j , p , q ≤ ≤ k {\displaystyle 1\leq i,j,p,q\leq k} , denote by M i , j p , q {\displaystyle M_{i,j}^{p,q}} the matrix that results from M {\displaystyle M} by deleting the i {\displaystyle i} -th and j {\displaystyle j} -th rows and the p {\displaystyle p} -th and q {\displaystyle q} -th columns.
+
+Desnanot–Jacobi identity [ edit ] det ( M ) det ( M 1 , k 1 , k ) = det ( M 1 1 ) det ( M k k ) − − det ( M 1 k ) det ( M k 1 ) .
+
+{\displaystyle \det(M)\det(M_{1,k}^{1,k})=\det(M_{1}^{1})\det(M_{k}^{k})-\det(M_{1}^{k})\det(M_{k}^{1}).} Proof of the correctness of Dodgson condensation [ edit ] Rewrite the identity as det ( M ) = det ( M 1 1 ) det ( M k k ) − − det ( M 1 k ) det ( M k 1 ) det ( M 1 , k 1 , k ) .
+
+{\displaystyle \det(M)={\frac {\det(M_{1}^{1})\det(M_{k}^{k})-\det(M_{1}^{k})\det(M_{k}^{1})}{\det(M_{1,k}^{1,k})}}.} Now note that by induction it follows that when applying the Dodgson condensation procedure to a square matrix A {\displaystyle A} of order n {\displaystyle n} , the matrix in the k {\displaystyle k} -th stage of the computation (where the first stage k = 1 {\displaystyle k=1} corresponds to the matrix A {\displaystyle A} itself) consists of all the connected minors of order k {\displaystyle k} of A {\displaystyle A} , where a connected minor is the determinant of a connected k × × k {\displaystyle k\times k} sub-block of adjacent entries of A {\displaystyle A} . In particular, in the last stage k = n {\displaystyle k=n} , one gets a matrix containing a single element equal to the unique connected minor of order n {\displaystyle n} , namely the determinant of A {\displaystyle A} .
+
+Proof of the Desnanot–Jacobi identity [ edit ] We follow the treatment in the book Proofs and Confirmations: The Story of the Alternating Sign Matrix Conjecture ; [ 3 ] an alternative combinatorial proof was given in a paper by Doron Zeilberger .
+
+[ 4 ] Denote a i , j = ( − − 1 ) i + j det ( M i j ) {\displaystyle a_{i,j}=(-1)^{i+j}\det(M_{i}^{j})} (up to sign, the ( i , j ) {\displaystyle (i,j)} -th minor of M {\displaystyle M} ), and define a k × × k {\displaystyle k\times k} matrix M ′ {\displaystyle M'} by M ′ = ( a 1 , 1 0 0 0 … … 0 a k , 1 a 1 , 2 1 0 0 … … 0 a k , 2 a 1 , 3 0 1 0 … … 0 a k , 3 a 1 , 4 0 0 1 … … 0 a k , 4 ⋮ ⋮ ⋮ ⋮ ⋮ ⋮ ⋮ ⋮ ⋮ ⋮ ⋮ ⋮ a 1 , k − − 1 0 0 0 … … 1 a k , k − − 1 a 1 , k 0 0 0 … … 0 a k , k ) .
+
+{\displaystyle M'={\begin{pmatrix}a_{1,1}&0&0&0&\ldots &0&a_{k,1}\\a_{1,2}&1&0&0&\ldots &0&a_{k,2}\\a_{1,3}&0&1&0&\ldots &0&a_{k,3}\\a_{1,4}&0&0&1&\ldots &0&a_{k,4}\\\vdots &\vdots &\vdots &\vdots &&\vdots &\vdots \\a_{1,k-1}&0&0&0&\ldots &1&a_{k,k-1}\\a_{1,k}&0&0&0&\ldots &0&a_{k,k}\end{pmatrix}}.} (Note that the first and last column of M ′ {\displaystyle M'} are equal to those of the adjugate matrix of A {\displaystyle A} ). The identity is now obtained by computing det ( M M ′ ) {\displaystyle \det(MM')} in two ways. First, we can directly compute the matrix product M M ′ {\displaystyle MM'} (using simple properties of the adjugate matrix, or alternatively using the formula for the expansion of a matrix determinant in terms of a row or a column)
+to arrive at M M ′ = ( det ( M ) m 1 , 2 m 1 , 3 … … m 1 , k − − 1 0 0 m 2 , 2 m 2 , 3 … … m 2 , k − − 1 0 0 m 3 , 2 m 3 , 3 … … m 3 , k − − 1 0 ⋮ ⋮ ⋮ ⋮ ⋮ ⋮ ⋮ ⋮ ⋮ ⋮ ⋮ ⋮ 0 m k − − 1 , 2 m k − − 1 , 3 … … m k − − 1 , k − − 1 0 0 m k , 2 m k , 3 … … m k , k − − 1 det ( M ) ) {\displaystyle MM'={\begin{pmatrix}\det(M)&m_{1,2}&m_{1,3}&\ldots &m_{1,k-1}&0\\0&m_{2,2}&m_{2,3}&\ldots &m_{2,k-1}&0\\0&m_{3,2}&m_{3,3}&\ldots &m_{3,k-1}&0\\\vdots &\vdots &\vdots &&\vdots &\vdots &\vdots \\0&m_{k-1,2}&m_{k-1,3}&\ldots &m_{k-1,k-1}&0\\0&m_{k,2}&m_{k,3}&\ldots &m_{k,k-1}&\det(M)\end{pmatrix}}} where we use m i , j {\displaystyle m_{i,j}} to denote the ( i , j ) {\displaystyle (i,j)} -th entry of M {\displaystyle M} . The determinant of this matrix is det ( M ) 2 ⋅ ⋅ det ( M 1 , k 1 , k ) {\displaystyle \det(M)^{2}\cdot \det(M_{1,k}^{1,k})} .
+
+Second, this is equal to the product of the determinants, det ( M ) ⋅ ⋅ det ( M ′ ) {\displaystyle \det(M)\cdot \det(M')} . But clearly det ( M ′ ) = a 1 , 1 a k , k − − a k , 1 a 1 , k = det ( M 1 1 ) det ( M k k ) − − det ( M 1 k ) det ( M k 1 ) , {\displaystyle \det(M')=a_{1,1}a_{k,k}-a_{k,1}a_{1,k}=\det(M_{1}^{1})\det(M_{k}^{k})-\det(M_{1}^{k})\det(M_{k}^{1}),} so the identity follows from equating the two expressions we obtained for det ( M M ′ ) {\displaystyle \det(MM')} and dividing out by det ( M ) {\displaystyle \det(M)} (this is allowed if one thinks of the identities as polynomial identities over the ring of polynomials in the k 2 {\displaystyle k^{2}} indeterminate variables ( m i , j ) i , j = 1 k {\displaystyle (m_{i,j})_{i,j=1}^{k}} ).
+
+References [ edit ] ^ Dodgson, C. L. (1866–1867).
+
+"Condensation of Determinants, Being a New and Brief Method for Computing their Arithmetical Values" (PDF) .
+
+Proceedings of the Royal Society of London .
+
+15 : 150– 155.
+
+Bibcode : 1866RSPS...15..150D .
+
+^ Sylvester, James Joseph (1851). "On the relation between the minor determinants of linearly equivalent quadratic functions".
+
+Philosophical Magazine .
+
+1 : 295– 305.
+
+Cited in Akritas, A. G.; Akritas, E. K.; Malaschonok, G. I. (1996). "Various proofs of Sylvester's (determinant) identity".
+
+Mathematics and Computers in Simulation .
+
+42 ( 4– 6): 585.
+
+doi : 10.1016/S0378-4754(96)00035-3 .
+
+^ Bressoud, David (1999).
+
+Proofs and Confirmations: The Story of the Alternating Sign Matrix Conjecture . Cambridge University Press.
+
+ISBN 9781316582756 .
+
+^ Zeilberger, Doron (1997).
+
+"Dodgson's Determinant-Evaluation Rule Proved by Two-Timing Men and Women" .
+
+Electron. J. Comb .
+
+4 (2) R22.
+
+doi : 10.37236/1337 . Retrieved October 27, 2023 .
+
+Further reading [ edit ] Bressoud, David M.
+
+and Propp, James, How the alternating sign matrix conjecture was solved , Notices of the American Mathematical Society , 46 (1999), 637-646.
+
+Knuth, Donald , Overlapping Pfaffians , Electronic Journal of Combinatorics , 3 no. 2 (1996).
+
+Lotkin, Mark (1959). "Note on the Method of Contractants".
+
+The American Mathematical Monthly .
+
+66 (6): 476– 479.
+
+doi : 10.2307/2310629 .
+
+JSTOR 2310629 .
+
+Mills, William H., Robbins, David P., and Rumsey, Howard, Jr., Proof of the Macdonald conjecture, Inventiones Mathematicae , 66 (1982), 73-87.
+
+Mills, William H., Robbins, David P., and Rumsey, Howard, Jr., Alternating sign matrices and descending plane partitions, Journal of Combinatorial Theory , Series A , 34 (1983), 340-359.
+
+Robbins, David P., The story of 1 , 2 , 7 , 42 , 429 , 7436 , ⋯ ⋯ {\displaystyle 1,2,7,42,429,7436,\cdots } , The Mathematical Intelligencer , 13 (1991), 12-19.
+
+External links [ edit ] Weisstein, Eric W.
+
+"Dodgson condensation" .
+
+MathWorld .
+
+Retrieved from " https://en.wikipedia.org/w/index.php?title=Dodgson_condensation&oldid=1298743152 " Categories : Determinants Lewis Carroll Hidden categories: Articles with short description Short description matches Wikidata Articles lacking in-text citations from January 2019 All articles lacking in-text citations This page was last edited on 4 July 2025, at 11:36 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Dodgson condensation 4 languages Add topic
+

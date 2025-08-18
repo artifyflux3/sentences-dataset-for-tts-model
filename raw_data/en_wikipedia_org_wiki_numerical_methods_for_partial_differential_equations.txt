@@ -1,0 +1,205 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Overview of methods Toggle Overview of methods subsection 1.1 Finite difference method 1.2 Method of lines 1.3 Finite element method 1.4 Gradient discretization method 1.5 Finite volume method 1.6 Spectral method 1.7 Meshfree methods 1.8 Domain decomposition methods 1.9 Multigrid methods 2 Comparison 3 See also 4 Further reading 5 References 6 External links Toggle the table of contents Numerical methods for partial differential equations 6 languages Català 日本語 Scots Simple English Tiếng Việt 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Branch of numerical analysis For the academic journal, see Numerical Methods for Partial Differential Equations .
+
+Numerical methods for partial differential equations is the branch of numerical analysis that studies the numerical solution of partial differential equations (PDEs).
+
+[ 1 ] [ 2 ] In principle, specialized methods for hyperbolic , [ 3 ] parabolic [ 4 ] or elliptic partial differential equations [ 5 ] exist.
+
+[ 6 ] [ 7 ] Overview of methods [ edit ] Finite difference method [ edit ] Main article: Finite difference method In this method, functions are represented by their values at certain grid points and derivatives are approximated through differences in these values.
+
+Method of lines [ edit ] Main article: Method of lines The method of lines (MOL, NMOL, NUMOL [ 8 ] [ 9 ] [ 10 ] ) is a technique for solving partial differential equations (PDEs) in which all dimensions except one are discretized.  MOL allows standard, general-purpose methods and software, developed for the numerical integration of ordinary differential equations (ODEs) and differential algebraic equations (DAEs), to be used. A large number of integration routines have been developed over the years in many different programming languages, and some have been published as open source resources.
+
+[ 11 ] The method of lines most often refers to the construction or analysis of numerical methods for partial differential equations that proceeds by first discretizing the spatial derivatives only and leaving the time variable continuous.  This leads to a system of ordinary differential equations to which a numerical method for initial value ordinary equations can be applied.  The method of lines in this context dates back to at least the early 1960s.
+
+[ 12 ] Finite element method [ edit ] Main article: Finite element method The finite element method (FEM) is a numerical technique for finding approximate solutions to boundary value problems for differential equations . It uses variational methods (the calculus of variations ) to minimize an error function and produce a stable solution. Analogous to the idea that connecting many tiny straight lines can approximate a larger circle, FEM encompasses all the methods for connecting many simple element equations over many small subdomains, named finite elements, to approximate a more complex equation over a larger domain .
+
+Gradient discretization method [ edit ] Main article: Gradient discretization method The gradient discretization method (GDM) is a numerical technique that encompasses a few standard or recent methods. It is based on the separate approximation of a function and of its gradient. Core properties allow the convergence of the method for a series of linear and nonlinear problems, and therefore all the methods that enter the GDM framework (conforming and nonconforming finite element, mixed finite element, mimetic finite difference...) inherit these convergence properties.
+
+Finite volume method [ edit ] Main article: Finite volume method The finite-volume method is a numerical technique for representing and evaluating partial differential equations in the form of algebraic equations [LeVeque, 2002; Toro, 1999].  
+Similar to the finite difference method or finite element method , values are calculated at discrete places on a meshed geometry. "Finite volume" refers to the small volume surrounding each node point on a mesh. In the finite volume method, volume integrals in a partial differential equation that contain a divergence term are converted to surface integrals , using the divergence theorem . These terms are then evaluated as fluxes at the surfaces of each finite volume. Because the flux entering a given volume is identical to that leaving the adjacent volume, these methods are conservative . Another advantage of the finite volume method is that it is easily formulated to allow for unstructured meshes. The method is used in many computational fluid dynamics packages.
+
+Spectral method [ edit ] Main article: Spectral method Spectral methods are techniques used in applied mathematics and scientific computing to numerically solve certain differential equations , often involving the use of the fast Fourier transform . The idea is to write the solution of the differential equation as a sum of certain "basis functions" (for example, as a Fourier series , which is a sum of sinusoids ) and then to choose the coefficients in the sum that best satisfy the differential equation.
+
+Spectral methods and finite element methods are closely related and built on the same ideas; the main difference between them is that spectral methods use basis functions that are nonzero over the whole domain, while finite element methods use basis functions that are nonzero only on small subdomains. In other words, spectral methods take on a global approach while finite element methods use a local approach . Partially for this reason, spectral methods have excellent error properties, with the so-called "exponential convergence" being the fastest possible, when the solution is smooth . However, there are no known three-dimensional single domain spectral shock capturing results.
+
+[ 13 ] In the finite element community, a method where the degree of the elements is very high or increases as the grid parameter h decreases to zero is sometimes called a spectral element method .
+
+Meshfree methods [ edit ] Main article: Meshfree methods Meshfree methods do not require a mesh connecting the data points of the simulation domain.
+
+[ 14 ] Meshfree methods enable the simulation of some otherwise difficult types of problems, at the cost of extra computing time and programming effort.
+
+Domain decomposition methods [ edit ] Main article: Domain decomposition method Domain decomposition methods solve a boundary value problem by splitting it into smaller boundary value problems on subdomains and iterating to coordinate the solution between adjacent subdomains. A coarse problem with one or few unknowns per subdomain is used to further coordinate the solution between the subdomains globally. The problems on the subdomains are independent, which makes domain decomposition methods suitable for parallel computing . Domain decomposition methods are typically used as preconditioners for Krylov space iterative methods , such as the conjugate gradient method or GMRES .
+
+In overlapping domain decomposition methods, the subdomains overlap by more than the interface. Overlapping domain decomposition methods include the Schwarz alternating method and the additive Schwarz method . Many domain decomposition methods can be written and analyzed as a special case of the abstract additive Schwarz method .
+
+In non-overlapping methods, the subdomains intersect only on their interface. In primal methods, such as Balancing domain decomposition and BDDC , the continuity of the solution across subdomain interface is enforced by representing the value of the solution on all neighboring subdomains by the same unknown. In dual methods, such as FETI , the continuity of the solution across the subdomain interface is enforced by Lagrange multipliers . The FETI-DP method is hybrid between a dual and a primal method.
+
+Non-overlapping domain decomposition methods are also called iterative substructuring methods .
+
+Mortar methods are discretization methods for partial differential equations, which use separate discretization on nonoverlapping subdomains. The meshes on the subdomains do not match on the interface, and the equality of the solution is enforced by Lagrange multipliers, judiciously chosen to preserve the accuracy of the solution. In the engineering practice in the finite element method, continuity of solutions between non-matching subdomains is implemented by multiple-point constraints .
+
+Finite element simulations of moderate size models require solving linear systems with millions of unknowns. Several hours per time step is an average sequential run time, therefore, parallel computing is a necessity. Domain decomposition methods embody large potential for a parallelization of the finite element methods, and serve a basis for distributed, parallel computations.
+
+Multigrid methods [ edit ] Main article: Multigrid method Multigrid (MG) methods in numerical analysis are a group of algorithms for solving differential equations using a hierarchy of discretizations . They are an example of a class of techniques called multiresolution methods , very useful in (but not limited to) problems exhibiting multiple scales of behavior. For example, many basic relaxation methods exhibit different rates of convergence for short- and long-wavelength components, suggesting these different scales be treated differently, as in a Fourier analysis approach to multigrid.
+
+[ 15 ] MG methods can be used as solvers as well as preconditioners .
+
+The main idea of multigrid is to accelerate the convergence of a basic iterative method by global correction from time to time, accomplished by solving a coarse problem . This principle is similar to interpolation between coarser and finer grids. The typical application for multigrid is in the numerical solution of elliptic partial differential equations in two or more dimensions.
+
+[ 16 ] Multigrid methods can be applied in combination with any of the common discretization techniques. For example, the finite element method may be recast as a multigrid method.
+
+[ 17 ] In these cases, multigrid methods are among the fastest solution techniques known today. In contrast to other methods, multigrid methods are general in that they can treat arbitrary regions and boundary conditions . They do not depend on the separability of the equations or other special properties of the equation.  They have also been widely used for more-complicated non-symmetric and nonlinear systems of equations, like the Lamé system of elasticity or the Navier–Stokes equations .
+
+[ 18 ] Comparison [ edit ] The finite difference method is often regarded as the simplest method to learn and use.  The finite element and finite volume methods are widely used in engineering and in computational fluid dynamics , and are well suited to problems in complicated geometries.
+Spectral methods are generally the most accurate, provided that the solutions are sufficiently smooth.
+
+See also [ edit ] List of numerical analysis topics § Numerical methods for partial differential equations Numerical methods for ordinary differential equations Further reading [ edit ] LeVeque, Randall J. (1992).
+
+Numerical Methods for Conservation Laws . Basel: Birkhäuser Basel.
+
+doi : 10.1007/978-3-0348-8629-1 .
+
+ISBN 9783764327231 . Retrieved 2021-11-15 .
+
+Anderson, Dale A.; Pletcher, Richard H.; Tannehill, John C. (2013).
+
+Computational fluid mechanics and heat transfer . Series in computational and physical processes in mechanics and thermal sciences (3rd. ed.). Boca Raton: CRC Press, Taylor & Francis Group.
+
+ISBN 9781591690375 .
+
+References [ edit ] ^ Pinder, George F. (2018).
+
+Numerical methods for solving partial differential equations : a comprehensive introduction for scientists and engineers . Hoboken, NJ.
+
+ISBN 978-1-119-31636-7 .
+
+OCLC 1015215158 .
+
+{{ cite book }} :  CS1 maint: location missing publisher ( link ) ^ Rubinstein, Jacob; Pinchover, Yehuda, eds. (2005), "Numerical methods" , An Introduction to Partial Differential Equations , Cambridge: Cambridge University Press, pp.
+
+309– 336, doi : 10.1017/cbo9780511801228.012 , ISBN 978-0-511-80122-8 , retrieved 2021-11-15 ^ "Hyperbolic partial differential equation, numerical methods - Encyclopedia of Mathematics" .
+
+encyclopediaofmath.org . Retrieved 2021-11-15 .
+
+^ "Parabolic partial differential equation, numerical methods - Encyclopedia of Mathematics" .
+
+encyclopediaofmath.org . Retrieved 2021-11-15 .
+
+^ "Elliptic partial differential equation, numerical methods - Encyclopedia of Mathematics" .
+
+encyclopediaofmath.org . Retrieved 2021-11-15 .
+
+^ Evans, Gwynne (2000).
+
+Numerical methods for partial differential equations . J. M. Blackledge, P. Yardley. London: Springer.
+
+ISBN 3-540-76125-X .
+
+OCLC 41572731 .
+
+^ Grossmann, Christian (2007).
+
+Numerical treatment of partial differential equations . Hans-Görg Roos, M. Stynes. Berlin: Springer.
+
+ISBN 978-3-540-71584-9 .
+
+OCLC 191468303 .
+
+^ Schiesser, W. E. (1991).
+
+The Numerical Method of Lines . Academic Press.
+
+ISBN 0-12-624130-9 .
+
+^ Hamdi, S., W. E. Schiesser and G. W. Griffiths (2007), Method of lines , Scholarpedia , 2(7):2859.
+
+^ Schiesser, W. E.; Griffiths, G. W. (2009).
+
+A Compendium of Partial Differential Equation Models: Method of Lines Analysis with Matlab . Cambridge University Press.
+
+ISBN 978-0-521-51986-1 .
+
+^ Lee, H. J.; Schiesser, W. E. (2004).
+
+Ordinary and Partial Differential Equation Routines in C, C++, Fortran, Java, Maple and Matlab . CRC Press.
+
+ISBN 1-58488-423-1 .
+
+^ E. N. Sarmin, L. A. Chudov (1963), On the stability of the numerical integration of systems of ordinary differential equations arising in the use of the straight line method, USSR Computational Mathematics and Mathematical Physics , 3 (6), (1537–1543).
+
+^ pp 235, Spectral Methods : evolution to complex geometries and applications to fluid dynamics, By Canuto, Hussaini, Quarteroni and Zang, Springer, 2007.
+
+^ Chen, Shang-Ying; Wei, Jian-Yu; Hsu, Kuo-Chin (2023-10-01).
+
+"Data assimilation for real-time subsurface flow modeling with dynamically adaptive meshless node adjustments" .
+
+Engineering with Computers .
+
+40 (3): 1893– 1925.
+
+doi : 10.1007/s00366-023-01897-6 .
+
+ISSN 1435-5663 .
+
+^ Roman Wienands; Wolfgang Joppich (2005).
+
+Practical Fourier analysis for multigrid methods . CRC Press. p. 17.
+
+ISBN 1-58488-492-4 .
+
+^ U. Trottenberg; C. W. Oosterlee; A. Schüller (2001).
+
+Multigrid . Academic Press.
+
+ISBN 0-12-701070-X .
+
+^ Yu Zhu; Andreas C. Cangellaris (2006).
+
+Multigrid finite element methods for electromagnetic field modeling . Wiley. p. 132 ff .
+
+ISBN 0-471-74110-8 .
+
+^ Shah, Tasneem Mohammad (1989).
+
+Analysis of the multigrid method (Thesis). Oxford University.
+
+Bibcode : 1989STIN...9123418S .
+
+External links [ edit ] Numerical Methods for Partial Differential Equations course at MIT OpenCourseWare .
+
+IMS , the Open Source IMTEK Mathematica Supplement (IMS) Numerical PDE Techniques for Scientists and Engineers , open access Lectures and Codes for Numerical PDEs v t e Numerical methods for partial differential equations Finite difference Parabolic Forward-time central-space (FTCS) Crank–Nicolson Hyperbolic Lax–Friedrichs Lax–Wendroff MacCormack Upwind Method of characteristics Others Alternating direction-implicit (ADI) Finite-difference frequency-domain (FDFD) Finite-difference time-domain (FDTD) Finite volume Godunov High-resolution Monotonic upstream-centered (MUSCL) Advection upstream-splitting (AUSM) Riemann solver Essentially non-oscillatory (ENO) Weighted essentially non-oscillatory (WENO) Finite element hp-FEM Extended (XFEM) Discontinuous Galerkin (DG) Spectral element (SEM) Mortar Gradient discretisation (GDM) Loubignac iteration Smoothed (S-FEM) Meshless/Meshfree Smoothed-particle hydrodynamics (SPH) Peridynamics (PD) Moving particle semi-implicit method (MPS) Material point method (MPM) Particle-in-cell (PIC) Domain decomposition Schur complement Fictitious domain Schwarz alternating additive abstract additive Neumann–Dirichlet Neumann–Neumann Poincaré–Steklov operator Balancing (BDD) Balancing by constraints (BDDC) Tearing and interconnect (FETI) FETI-DP Others Spectral Pseudospectral (DVR) Method of lines Multigrid Collocation Level-set Boundary element Method of moments Immersed boundary Analytic element Isogeometric analysis Infinite difference method Infinite element method Galerkin method Petrov–Galerkin method Validated numerics Computer-assisted proof Integrable algorithm Method of fundamental solutions Related Numerical methods for ordinary differential equations Numerical integration v t e Industrial and applied mathematics Computational Algorithms design analysis Automata theory Automated theorem proving Coding theory Computational geometry Constraint satisfaction Constraint programming Computational logic Cryptography Information theory Statistics Mathematical software Arbitrary-precision arithmetic Finite element analysis Tensor software Interactive geometry software Optimization software Statistical software Numerical-analysis software Numerical libraries Solvers Discrete Computer algebra Computational number theory Combinatorics Graph theory Discrete geometry Analysis Approximation theory Clifford analysis Clifford algebra Differential equations Ordinary differential equations Partial differential equations Stochastic differential equations Differential geometry Differential forms Gauge theory Geometric analysis Dynamical systems Chaos theory Control theory Functional analysis Operator algebra Operator theory Harmonic analysis Fourier analysis Multilinear algebra Exterior Geometric Tensor Vector Multivariable calculus Exterior Geometric Tensor Vector Numerical analysis Numerical linear algebra Numerical methods for ordinary differential equations Numerical methods for partial differential equations Validated numerics Variational calculus Probability theory Distributions ( random variables ) Stochastic processes / analysis Path integral Stochastic variational calculus Mathematical physics Analytical mechanics Lagrangian Hamiltonian Field theory Classical Conformal Effective Gauge Quantum Statistical Topological Perturbation theory in quantum mechanics Potential theory String theory Bosonic Topological Supersymmetry Supersymmetric quantum mechanics Supersymmetric theory of stochastic dynamics Algebraic structures Algebra of physical space Feynman integral Poisson algebra Quantum group Renormalization group Representation theory Spacetime algebra Superalgebra Supersymmetry algebra Decision sciences Game theory Operations research Optimization Social choice theory Statistics Mathematical economics Mathematical finance Other applications Biology Chemistry Psychology Sociology " The Unreasonable Effectiveness of Mathematics in the Natural Sciences " Related Mathematics Organizations Society for Industrial and Applied Mathematics Japan Society for Industrial and Applied Mathematics Société de Mathématiques Appliquées et Industrielles International Council for Industrial and Applied Mathematics European Community on Computational Methods in Applied Sciences Category Mathematics portal / outline / topics list NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐gtwkj
+Cached time: 20250812005445
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.417 seconds
+Real time usage: 0.519 seconds
+Preprocessor visited node count: 1418/1000000
+Revision size: 17302/2097152 bytes
+Post‐expand include size: 87371/2097152 bytes
+Template argument size: 408/2097152 bytes
+Highest expansion depth: 8/100
+Expensive parser function count: 11/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 79939/5000000 bytes
+Lua time usage: 0.277/10.000 seconds
+Lua memory usage: 5904550/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  438.917      1 -total
+ 36.16%  158.716     11 Template:Cite_book
+ 22.05%   96.777      5 Template:Navbox
+ 18.85%   82.721      1 Template:Numerical_PDE
+ 16.51%   72.458      1 Template:Short_description
+  9.62%   42.214      2 Template:Pagetype
+  5.11%   22.407      1 Template:For
+  4.74%   20.805      9 Template:Main
+  4.05%   17.777      2 Template:Main_other
+  3.95%   17.355      3 Template:Cite_web Saved in parser cache with key enwiki:pcache:1634583:|#|:idhash:canonical and timestamp 20250812005445 and revision id 1301153887. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Numerical_methods_for_partial_differential_equations&oldid=1301153887 " Categories : Numerical differential equations Partial differential equations Hidden categories: CS1 maint: location missing publisher Articles with short description Short description is different from Wikidata This page was last edited on 18 July 2025, at 10:04 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Numerical methods for partial differential equations 6 languages Add topic
+

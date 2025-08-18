@@ -1,0 +1,558 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Introduction 2 DNA evolution as a continuous-time Markov chain Toggle DNA evolution as a continuous-time Markov chain subsection 2.1 Continuous-time Markov chains 2.2 Deriving the dynamics of substitution 2.3 Ergodicity 2.4 Time reversibility 2.5 Scaling of branch lengths 3 Most common models of DNA evolution Toggle Most common models of DNA evolution subsection 3.1 JC69 model (Jukes and Cantor 1969) 3.2 K80 model (Kimura 1980) 3.3 K81 model (Kimura 1981) 3.4 F81 model (Felsenstein 1981) 3.5 HKY85 model (Hasegawa, Kishino and Yano 1985) 3.6 T92 model (Tamura 1992) 3.7 TN93 model (Tamura and Nei 1993) 3.8 GTR model (Tavaré 1986) 4 Two-state substitution models 5 Lie Markov models 6 See also 7 References Toggle References subsection 7.1 Further reading 8 External links Toggle the table of contents Models of DNA evolution 3 languages العربية Català فارسی Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Mathematical models of changing DNA This article includes a list of general references , but it lacks sufficient corresponding inline citations .
+
+Please help to improve this article by introducing more precise citations.
+
+( November 2010 ) ( Learn how and when to remove this message ) A number of different Markov models of DNA sequence evolution have been proposed.
+
+[ 1 ] These substitution models differ in terms of the parameters used to describe the rates at which one nucleotide replaces another during evolution. These models are frequently used in molecular phylogenetic analyses . In particular, they are used during the calculation of likelihood of a tree (in Bayesian and maximum likelihood approaches to tree estimation) and they are used to estimate the evolutionary distance between sequences from the observed differences between the sequences.
+
+Introduction [ edit ] These models are phenomenological descriptions of the evolution of DNA as a string of four discrete states. These Markov models do not explicitly depict the mechanism of mutation nor the action of natural selection. Rather they describe the relative rates of different changes.  For example, mutational biases and purifying selection favoring conservative changes are probably both responsible for the relatively high rate of transitions compared to transversions in evolving sequences.  However, the Kimura (K80) model described below only attempts to capture the effect of both forces in a parameter that reflects the relative rate of transitions to transversions.
+
+Evolutionary analyses of sequences are conducted on a wide variety of time scales. Thus, it is convenient to express these models in terms of the instantaneous rates of change between different states (the Q matrices below).  If we are given a starting (ancestral) state at one position, the model's Q matrix and a branch length expressing the expected number of changes to have occurred since the ancestor, then we can derive the probability of the descendant sequence having each of the four states.  The mathematical details of this transformation from rate-matrix to probability matrix are described in the mathematics of substitution models section of the substitution model page. By expressing models in terms of the instantaneous rates of change we can avoid estimating a large numbers of parameters for each branch on a phylogenetic tree (or each comparison if the analysis involves many pairwise sequence comparisons).
+
+The models described on this page describe the evolution of a single site within a set of sequences. They are often used for analyzing the evolution of an entire locus by making the simplifying assumption that different sites evolve independently and are identically distributed . This assumption may be justifiable if the sites can be assumed to be evolving neutrally . If the primary effect of natural selection on the evolution of the sequences is to constrain some sites, then models of among-site rate-heterogeneity can be used. This approach allows one to estimate only one matrix of relative rates of substitution, and another set of parameters describing the variance in the total rate of substitution across sites.
+
+DNA evolution as a continuous-time Markov chain [ edit ] Continuous-time Markov chains [ edit ] Continuous-time Markov chains have the usual transition matrices 
+which are, in addition, parameterized by time, t {\displaystyle t} .  Specifically, if E 1 , E 2 , E 3 , E 4 {\displaystyle E_{1},E_{2},E_{3},E_{4}} are the states, then the transition matrix P ( t ) = ( P i j ( t ) ) {\displaystyle P(t)={\big (}P_{ij}(t){\big )}} where each individual entry, P i j ( t ) {\displaystyle P_{ij}(t)} refers to the probability that state E i {\displaystyle E_{i}} will change to state E j {\displaystyle E_{j}} in time t {\displaystyle t} .
+
+Example: We would like to model the substitution process in DNA sequences ( i.e.
+
+Jukes–Cantor , Kimura, etc.
+
+) in a continuous-time fashion.  The corresponding transition matrices will look like: P ( t ) = ( p A A ( t ) p A G ( t ) p A C ( t ) p A T ( t ) p G A ( t ) p G G ( t ) p G C ( t ) p G T ( t ) p C A ( t ) p C G ( t ) p C C ( t ) p C T ( t ) p T A ( t ) p T G ( t ) p T C ( t ) p T T ( t ) ) {\displaystyle P(t)={\begin{pmatrix}p_{\mathrm {AA} }(t)&p_{\mathrm {AG} }(t)&p_{\mathrm {AC} }(t)&p_{\mathrm {AT} }(t)\\p_{\mathrm {GA} }(t)&p_{\mathrm {GG} }(t)&p_{\mathrm {GC} }(t)&p_{\mathrm {GT} }(t)\\p_{\mathrm {CA} }(t)&p_{\mathrm {CG} }(t)&p_{\mathrm {CC} }(t)&p_{\mathrm {CT} }(t)\\p_{\mathrm {TA} }(t)&p_{\mathrm {TG} }(t)&p_{\mathrm {TC} }(t)&p_{\mathrm {TT} }(t)\end{pmatrix}}} where the top-left and bottom-right 2 × 2 blocks correspond to transition probabilities and the top-right and bottom-left 2 × 2 blocks corresponds to transversion probabilities .
+
+Assumption: If at some time t 0 {\displaystyle t_{0}} , the Markov chain is in state E i {\displaystyle E_{i}} , then the probability that at time t 0 + t {\displaystyle t_{0}+t} , it will be in state E j {\displaystyle E_{j}} depends only upon i {\displaystyle i} , j {\displaystyle j} and t {\displaystyle t} .  This then allows us to write that probability as p i j ( t ) {\displaystyle p_{ij}(t)} .
+
+Theorem: Continuous-time transition matrices satisfy: P ( t + τ τ ) = P ( t ) P ( τ τ ) {\displaystyle P(t+\tau )=P(t)P(\tau )} Note: There is here a possible confusion between two meanings of the word transition . (i) In the context of Markov chains , transition is the general term for the change between two states. (ii) In the context of nucleotide changes in DNA sequences , transition is a specific term for the exchange between either the two purines (A ↔ G) or the two pyrimidines (C ↔ T) (for additional details, see the article about transitions in genetics ). By contrast, an exchange between one purine and one pyrimidine is called a transversion .
+
+Deriving the dynamics of substitution [ edit ] Consider a DNA sequence of fixed length m evolving in time by base replacement.  Assume that the processes followed by the m sites are Markovian independent, identically distributed and that the process is constant over time.  For a particular site, let E = { A , G , C , T } {\displaystyle {\mathcal {E}}=\{A,\,G,\,C,\,T\}} be the set of possible states for the site, and p ( t ) = ( p A ( t ) , p G ( t ) , p C ( t ) , p T ( t ) ) {\displaystyle \mathbf {p} (t)=(p_{A}(t),\,p_{G}(t),\,p_{C}(t),\,p_{T}(t))} their respective probabilities at time t {\displaystyle t} . For two distinct x , y ∈ ∈ E {\displaystyle x,y\in {\mathcal {E}}} , let μ μ x y {\displaystyle \mu _{xy}\ } be the transition rate from state x {\displaystyle x} to state y {\displaystyle y} . Similarly, for any x {\displaystyle x} , let the total rate of change from x {\displaystyle x} be μ μ x = ∑ ∑ y ≠ ≠ x μ μ x y .
+
+{\displaystyle \mu _{x}=\sum _{y\neq x}\mu _{xy}\,.} The changes in the probability distribution p A ( t ) {\displaystyle p_{A}(t)} for small increments of time Δ Δ t {\displaystyle \Delta t} are given by p A ( t + Δ Δ t ) = p A ( t ) − − p A ( t ) μ μ A Δ Δ t + ∑ ∑ x ≠ ≠ A p x ( t ) μ μ x A Δ Δ t .
+
+{\displaystyle p_{A}(t+\Delta t)=p_{A}(t)-p_{A}(t)\mu _{A}\Delta t+\sum _{x\neq A}p_{x}(t)\mu _{xA}\Delta t\,.} In other words, (in frequentist language), the frequency of A {\displaystyle A} 's at time t + Δ Δ t {\displaystyle t+\Delta t} is equal to the frequency at time t {\displaystyle t} minus the frequency of the lost A {\displaystyle A} 's plus the frequency of the newly created A {\displaystyle A} 's.
+
+Similarly for the probabilities p G ( t ) {\displaystyle p_{G}(t)} , p C ( t ) {\displaystyle p_{C}(t)} and p T ( t ) {\displaystyle p_{T}(t)} . These equations can be written compactly as p ( t + Δ Δ t ) = p ( t ) + p ( t ) Q Δ Δ t , {\displaystyle \mathbf {p} (t+\Delta t)=\mathbf {p} (t)+\mathbf {p} (t)Q\Delta t\,,} where Q = ( − − μ μ A μ μ A G μ μ A C μ μ A T μ μ G A − − μ μ G μ μ G C μ μ G T μ μ C A μ μ C G − − μ μ C μ μ C T μ μ T A μ μ T G μ μ T C − − μ μ T ) {\displaystyle Q={\begin{pmatrix}-\mu _{A}&\mu _{AG}&\mu _{AC}&\mu _{AT}\\\mu _{GA}&-\mu _{G}&\mu _{GC}&\mu _{GT}\\\mu _{CA}&\mu _{CG}&-\mu _{C}&\mu _{CT}\\\mu _{TA}&\mu _{TG}&\mu _{TC}&-\mu _{T}\end{pmatrix}}} is known as the rate matrix .  Note that, by definition, the sum of the entries in each row of Q {\displaystyle Q} is equal to zero. It follows that p ′ ( t ) = p ( t ) Q .
+
+{\displaystyle \mathbf {p} '(t)=\mathbf {p} (t)Q\,.} For a stationary process , where Q {\displaystyle Q} does not depend on time t , this differential equation can be solved. First, P ( t ) = exp ⁡ ⁡ ( t Q ) , {\displaystyle P(t)=\exp(tQ),} where exp ⁡ ⁡ ( t Q ) {\displaystyle \exp(tQ)} denotes the exponential of the matrix t Q {\displaystyle tQ} . As a result, p ( t ) = p ( 0 ) P ( t ) = p ( 0 ) exp ⁡ ⁡ ( t Q ) .
+
+{\displaystyle \mathbf {p} (t)=\mathbf {p} (0)P(t)=\mathbf {p} (0)\exp(tQ)\,.} Ergodicity [ edit ] If the Markov chain is irreducible , i.e.
+
+if it is always possible to go from a state x {\displaystyle x} to a state y {\displaystyle y} (possibly in several steps), then it is also ergodic . As a result, it has a unique stationary distribution π π = { π π x , x ∈ ∈ E } {\displaystyle {\boldsymbol {\pi }}=\{\pi _{x},\,x\in {\mathcal {E}}\}} , where π π x {\displaystyle \pi _{x}} corresponds to the proportion of time spent in state x {\displaystyle x} after the Markov chain has run for an infinite amount of time. In DNA evolution, under the assumption of a common process for each site, the stationary frequencies π π A , π π G , π π C , π π T {\displaystyle \pi _{A},\,\pi _{G},\,\pi _{C},\,\pi _{T}} correspond to equilibrium base compositions. Indeed, note that since the stationary distribution π π {\displaystyle {\boldsymbol {\pi }}} satisfies π π Q = 0 {\displaystyle {\boldsymbol {\pi }}Q=0} , we see that when the current distribution p ( t ) {\displaystyle \mathbf {p} (t)} is the stationary distribution π π {\displaystyle {\boldsymbol {\pi }}} we have p ′ ( t ) = p ( t ) Q = π π Q = 0 .
+
+{\displaystyle {\mathbf {p} '(t)=\mathbf {p} (t)Q={\boldsymbol {\pi }}}Q=0\,.} In other words, the frequencies of p A ( t ) , p G ( t ) , p C ( t ) , p T ( t ) {\displaystyle p_{A}(t),\,p_{G}(t),\,p_{C}(t),\,p_{T}(t)} do not change.
+
+Time reversibility [ edit ] Definition : A stationary Markov process is time reversible if (in the steady state) the amount of change from state x {\displaystyle x\ } to y {\displaystyle y\ } is equal to the amount of change from y {\displaystyle y\ } to x {\displaystyle x\ } , (although the two states may occur with different frequencies).  This means that: π π x μ μ x y = π π y μ μ y x {\displaystyle \pi _{x}\mu _{xy}=\pi _{y}\mu _{yx}\ } Not all stationary processes are reversible, however, most commonly used DNA evolution models assume time reversibility, which is considered to be a reasonable assumption.
+
+Under the time reversibility assumption, let s x y = μ μ x y / π π y {\displaystyle s_{xy}=\mu _{xy}/\pi _{y}\ } , then it is easy to see that: s x y = s y x {\displaystyle s_{xy}=s_{yx}\ } Definition The symmetric term s x y {\displaystyle s_{xy}\ } is called the exchangeability between states x {\displaystyle x\ } and y {\displaystyle y\ } .  In other words, s x y {\displaystyle s_{xy}\ } is the fraction of the frequency of state x {\displaystyle x\ } that is the result of transitions from state y {\displaystyle y\ } to state x {\displaystyle x\ } .
+
+Corollary The 12 off-diagonal entries of the rate matrix, Q {\displaystyle Q\ } (note the off-diagonal entries determine the diagonal entries, since the rows of Q {\displaystyle Q\ } sum to zero) can be completely determined by 9 numbers; these are: 6 exchangeability terms and 3 stationary frequencies π π x {\displaystyle \pi _{x}\ } , (since the stationary frequencies sum to 1).
+
+Scaling of branch lengths [ edit ] By comparing extant sequences, one can determine the amount of sequence divergence. This raw measurement of divergence provides information about the number of changes that have occurred along the path separating the sequences. The simple count of differences (the Hamming distance ) between sequences will often underestimate the number of substitution because of multiple hits (see homoplasy ). Trying to estimate the exact number of changes that have occurred is difficult, and usually not necessary. Instead, branch lengths (and path lengths) in phylogenetic analyses are usually expressed in the expected number of changes per site. The path length is the product of the duration of the path in time and the mean rate of substitutions.  While their product can be estimated, the rate and time are not identifiable from sequence divergence.
+
+The descriptions of rate matrices on this page accurately reflect the relative magnitude of different substitutions, but these rate matrices are not scaled such that a branch length of 1 yields one expected change.  This scaling can be accomplished by multiplying every element of the matrix by the same factor, or simply by scaling the branch lengths. If we use the β to denote the scaling factor, and ν to denote the branch length measured in the expected number of substitutions per site then βν is used in the transition probability formulae below in place of μ t . Note that ν is a parameter to be estimated from data, and is referred to as the branch length, while β is simply a number that can be calculated from the rate matrix (it is not a separate free parameter).
+
+The value of β can be found by forcing the expected rate of flux of states to 1. The diagonal entries of the rate-matrix (the Q matrix) represent -1 times the rate of leaving each state. For time-reversible models, we know the equilibrium state frequencies (these are simply the π i parameter value for state i ). Thus we can find the expected rate of change by calculating the sum of flux out of each state weighted by the proportion of sites that are expected to be in that class. Setting β to be the reciprocal of this sum will guarantee that scaled process has an expected flux of 1: β β = 1 / ( − − ∑ ∑ i π π i μ μ i i ) {\displaystyle \beta =1/\left(-\sum _{i}\pi _{i}\mu _{ii}\right)} For example, in the Jukes–Cantor, the scaling factor would be 4/(3μ) because the rate of leaving each state is 3μ/4 .
+
+Most common models of DNA evolution [ edit ] JC69 model (Jukes and Cantor 1969) [ edit ] JC69, the Jukes and Cantor 1969 model, [ 2 ] is the simplest substitution model . There are several assumptions. It assumes equal base frequencies ( π π A = π π G = π π C = π π T = 1 4 ) {\displaystyle \left(\pi _{A}=\pi _{G}=\pi _{C}=\pi _{T}={1 \over 4}\right)} and equal mutation rates . The only parameter of this model is therefore μ μ {\displaystyle \mu } , the overall substitution rate. As previously mentioned, this variable becomes a constant when we normalize the mean-rate to 1.
+
+Q = ( ∗ ∗ μ μ 4 μ μ 4 μ μ 4 μ μ 4 ∗ ∗ μ μ 4 μ μ 4 μ μ 4 μ μ 4 ∗ ∗ μ μ 4 μ μ 4 μ μ 4 μ μ 4 ∗ ∗ ) {\displaystyle Q={\begin{pmatrix}{*}&{\mu  \over 4}&{\mu  \over 4}&{\mu  \over 4}\\{\mu  \over 4}&{*}&{\mu  \over 4}&{\mu  \over 4}\\{\mu  \over 4}&{\mu  \over 4}&{*}&{\mu  \over 4}\\{\mu  \over 4}&{\mu  \over 4}&{\mu  \over 4}&{*}\end{pmatrix}}} Probability P i j {\displaystyle P_{ij}} of changing from initial state i {\displaystyle i} to final state j {\displaystyle j} as a function of the branch length ( ν ν {\displaystyle \nu } ) for JC69. Red curve: nucleotide states i {\displaystyle i} and j {\displaystyle j} are different. Blue curve: initial and final states are the same. After a long time, probabilities tend to the nucleotide equilibrium frequencies (0.25: dashed line).
+
+P = ( 1 4 + 3 4 e − − t μ μ 1 4 − − 1 4 e − − t μ μ 1 4 − − 1 4 e − − t μ μ 1 4 − − 1 4 e − − t μ μ 1 4 − − 1 4 e − − t μ μ 1 4 + 3 4 e − − t μ μ 1 4 − − 1 4 e − − t μ μ 1 4 − − 1 4 e − − t μ μ 1 4 − − 1 4 e − − t μ μ 1 4 − − 1 4 e − − t μ μ 1 4 + 3 4 e − − t μ μ 1 4 − − 1 4 e − − t μ μ 1 4 − − 1 4 e − − t μ μ 1 4 − − 1 4 e − − t μ μ 1 4 − − 1 4 e − − t μ μ 1 4 + 3 4 e − − t μ μ ) {\displaystyle P={\begin{pmatrix}{{1 \over 4}+{3 \over 4}e^{-t\mu }}&{{1 \over 4}-{1 \over 4}e^{-t\mu }}&{{1 \over 4}-{1 \over 4}e^{-t\mu }}&{{1 \over 4}-{1 \over 4}e^{-t\mu }}\\\\{{1 \over 4}-{1 \over 4}e^{-t\mu }}&{{1 \over 4}+{3 \over 4}e^{-t\mu }}&{{1 \over 4}-{1 \over 4}e^{-t\mu }}&{{1 \over 4}-{1 \over 4}e^{-t\mu }}\\\\{{1 \over 4}-{1 \over 4}e^{-t\mu }}&{{1 \over 4}-{1 \over 4}e^{-t\mu }}&{{1 \over 4}+{3 \over 4}e^{-t\mu }}&{{1 \over 4}-{1 \over 4}e^{-t\mu }}\\\\{{1 \over 4}-{1 \over 4}e^{-t\mu }}&{{1 \over 4}-{1 \over 4}e^{-t\mu }}&{{1 \over 4}-{1 \over 4}e^{-t\mu }}&{{1 \over 4}+{3 \over 4}e^{-t\mu }}\end{pmatrix}}} When branch length, ν ν {\displaystyle \nu } , is measured in the expected number of changes per site then: P i j ( ν ν ) = { 1 4 + 3 4 e − − 4 ν ν / 3 if i = j 1 4 − − 1 4 e − − 4 ν ν / 3 if i ≠ ≠ j {\displaystyle P_{ij}(\nu )=\left\{{\begin{array}{cc}{1 \over 4}+{3 \over 4}e^{-4\nu /3}&{\mbox{ if }}i=j\\{1 \over 4}-{1 \over 4}e^{-4\nu /3}&{\mbox{ if }}i\neq j\end{array}}\right.} It is worth noticing that ν ν = 3 4 t μ μ = ( μ μ 4 + μ μ 4 + μ μ 4 ) t {\displaystyle \nu ={3 \over 4}t\mu =({\mu  \over 4}+{\mu  \over 4}+{\mu  \over 4})t} what stands for sum of any column (or row) of matrix Q {\displaystyle Q} multiplied by time and thus means expected number of substitutions in time t {\displaystyle t} (branch duration) for each particular site (per site) when the rate of substitution equals μ μ {\displaystyle \mu } .
+
+Given the proportion p {\displaystyle p} of sites that differ between the two sequences the Jukes–Cantor estimate of the evolutionary distance (in terms of the expected number of changes) between two sequences is given by d ^ ^ = − − 3 4 ln ⁡ ⁡ ( 1 − − 4 3 p ) = ν ν ^ ^ {\displaystyle {\hat {d}}=-{3 \over 4}\ln({1-{4 \over 3}p})={\hat {\nu }}} The p {\displaystyle p} in this formula is frequently referred to as the p {\displaystyle p} -distance. It is a sufficient statistic for calculating the Jukes–Cantor distance correction, but is not sufficient for the calculation of the evolutionary distance under the more complex models that follow (also note that p {\displaystyle p} used in subsequent formulae is not identical to the " p {\displaystyle p} -distance").
+
+K80 model (Kimura 1980) [ edit ] K80, the Kimura 1980 model, [ 3 ] often referred to as Kimura's two parameter model (or the K2P model ), distinguishes between transitions ( A ↔ ↔ G {\displaystyle A\leftrightarrow G} , i.e. from purine to purine, or C ↔ ↔ T {\displaystyle C\leftrightarrow T} , i.e. from pyrimidine to pyrimidine) and transversions (from purine to pyrimidine or vice versa). In Kimura's original description of the model the α and β were used to denote the rates of these types of substitutions, but it is now more common to set the rate of transversions to 1 and use κ to denote the transition/transversion rate ratio (as is done below). The K80 model assumes that all of the bases are equally frequent ( π π A = π π G = π π C = π π T = 1 4 {\displaystyle \pi _{A}=\pi _{G}=\pi _{C}=\pi _{T}={1 \over 4}} ).
+
+Rate matrix Q = ( ∗ ∗ κ κ 1 1 κ κ ∗ ∗ 1 1 1 1 ∗ ∗ κ κ 1 1 κ κ ∗ ∗ ) {\displaystyle Q={\begin{pmatrix}{*}&{\kappa }&{1}&{1}\\{\kappa }&{*}&{1}&{1}\\{1}&{1}&{*}&{\kappa }\\{1}&{1}&{\kappa }&{*}\end{pmatrix}}} with columns corresponding to A {\displaystyle A} , G {\displaystyle G} , C {\displaystyle C} , and T {\displaystyle T} , respectively.
+
+The Kimura two-parameter distance is given by: K = − − 1 2 ln ⁡ ⁡ ( ( 1 − − 2 p − − q ) 1 − − 2 q ) {\displaystyle K=-{1 \over 2}\ln((1-2p-q){\sqrt {1-2q}})} where p is the proportion of sites that show transitional differences and q is the proportion of sites that show transversional differences.
+
+K81 model (Kimura 1981) [ edit ] K81, the Kimura 1981 model, [ 4 ] often called Kimura's three parameter model (K3P model) or the Kimura three substitution type (K3ST) model, has distinct rates for transitions and two distinct types of transversions . The two transversion types are those that conserve the weak/strong properties of the nucleotides (i.e., A ↔ ↔ T {\displaystyle A\leftrightarrow T} and C ↔ ↔ G {\displaystyle C\leftrightarrow G} , denoted by symbol γ γ {\displaystyle \gamma } [ 4 ] ) and those that conserve the amino/keto properties of the nucleotides (i.e., A ↔ ↔ C {\displaystyle A\leftrightarrow C} and G ↔ ↔ T {\displaystyle G\leftrightarrow T} , denoted by symbol β β {\displaystyle \beta } [ 4 ] ). The K81 model assumes that all equilibrium base frequencies are equal (i.e., π π A = π π G = π π C = π π T = 0.25 {\displaystyle \pi _{A}=\pi _{G}=\pi _{C}=\pi _{T}=0.25} ).
+
+Rate matrix Q = ( ∗ ∗ α α β β γ γ α α ∗ ∗ γ γ β β β β γ γ ∗ ∗ α α γ γ β β α α ∗ ∗ ) {\displaystyle Q={\begin{pmatrix}{*}&{\alpha }&{\beta }&{\gamma }\\{\alpha }&{*}&{\gamma }&{\beta }\\{\beta }&{\gamma }&{*}&{\alpha }\\{\gamma }&{\beta }&{\alpha }&{*}\end{pmatrix}}} with columns corresponding to A {\displaystyle A} , G {\displaystyle G} , C {\displaystyle C} , and T {\displaystyle T} , respectively.
+
+The K81 model is used much less often than the K80 (K2P) model for distance estimation and it is seldom the best-fitting model in maximum likelihood phylogenetics. Despite these facts, the K81 model has continued to be studied in the context of mathematical phylogenetics.
+
+[ 5 ] [ 6 ] [ 7 ] One important property is the ability to perform a Hadamard transform assuming the site patterns were generated on a tree with nucleotides evolving under the K81 model.
+
+[ 8 ] [ 9 ] [ 10 ] When used in the context of phylogenetics the Hadamard transform provides an elegant and fully invertible means to calculate expected site pattern frequencies given a set of branch lengths (or vice versa). Unlike many maximum likelihood calculations, the relative values for α α {\displaystyle \alpha } , β β {\displaystyle \beta } , and γ γ {\displaystyle \gamma } can vary across branches and the Hadamard transform can even provide evidence that the data do not fit a tree. The Hadamard transform can also be combined with a wide variety of methods to accommodate among-sites rate heterogeneity, [ 11 ] using continuous distributions rather than the discrete approximations typically used in maximum likelihood phylogenetics [ 12 ] (although one must sacrifice the invertibility of the Hadamard transform to use certain among-sites rate heterogeneity distributions [ 11 ] ).
+
+F81 model (Felsenstein 1981) [ edit ] F81, the Felsenstein's 1981 model, [ 13 ] is an extension of the JC69 model in which base frequencies are allowed to vary from 0.25 ( π π A ≠ ≠ π π G ≠ ≠ π π C ≠ ≠ π π T {\displaystyle \pi _{A}\neq \pi _{G}\neq \pi _{C}\neq \pi _{T}} ) Rate matrix: Q = ( ∗ ∗ π π G π π C π π T π π A ∗ ∗ π π C π π T π π A π π G ∗ ∗ π π T π π A π π G π π C ∗ ∗ ) {\displaystyle Q={\begin{pmatrix}{*}&{\pi _{G}}&{\pi _{C}}&{\pi _{T}}\\{\pi _{A}}&{*}&{\pi _{C}}&{\pi _{T}}\\{\pi _{A}}&{\pi _{G}}&{*}&{\pi _{T}}\\{\pi _{A}}&{\pi _{G}}&{\pi _{C}}&{*}\end{pmatrix}}} When branch length, ν, is measured in the expected number of changes per site then: β β = 1 / ( 1 − − π π A 2 − − π π C 2 − − π π G 2 − − π π T 2 ) {\displaystyle \beta =1/(1-\pi _{A}^{2}-\pi _{C}^{2}-\pi _{G}^{2}-\pi _{T}^{2})} P i j ( ν ν ) = { e − − β β ν ν + π π j ( 1 − − e − − β β ν ν ) if i = j π π j ( 1 − − e − − β β ν ν ) if i ≠ ≠ j {\displaystyle P_{ij}(\nu )=\left\{{\begin{array}{cc}e^{-\beta \nu }+\pi _{j}\left(1-e^{-\beta \nu }\right)&{\mbox{ if }}i=j\\\pi _{j}\left(1-e^{-\beta \nu }\right)&{\mbox{ if }}i\neq j\end{array}}\right.} HKY85 model (Hasegawa, Kishino and Yano 1985) [ edit ] HKY85, the Hasegawa, Kishino and Yano 1985 model, [ 14 ] can be thought of as combining the extensions made in the Kimura80 and Felsenstein81 models. Namely, it distinguishes between the rate of transitions and transversions (using the κ parameter), and it allows unequal base frequencies ( π π A ≠ ≠ π π G ≠ ≠ π π C ≠ ≠ π π T {\displaystyle \pi _{A}\neq \pi _{G}\neq \pi _{C}\neq \pi _{T}} ). [ Felsenstein described a similar (but not equivalent) model in 1984 using a different parameterization; [ 15 ] that latter model is referred to as the F84 model.
+
+[ 16 ] ] Rate matrix Q = ( ∗ ∗ κ κ π π G π π C π π T κ κ π π A ∗ ∗ π π C π π T π π A π π G ∗ ∗ κ κ π π T π π A π π G κ κ π π C ∗ ∗ ) {\displaystyle Q={\begin{pmatrix}{*}&{\kappa \pi _{G}}&{\pi _{C}}&{\pi _{T}}\\{\kappa \pi _{A}}&{*}&{\pi _{C}}&{\pi _{T}}\\{\pi _{A}}&{\pi _{G}}&{*}&{\kappa \pi _{T}}\\{\pi _{A}}&{\pi _{G}}&{\kappa \pi _{C}}&{*}\end{pmatrix}}} If we express the branch length, ν in terms of the expected number of changes per site then: β β = 1 2 ( π π A + π π G ) ( π π C + π π T ) + 2 κ κ [ ( π π A π π G ) + ( π π C π π T ) ] {\displaystyle \beta ={\frac {1}{2(\pi _{A}+\pi _{G})(\pi _{C}+\pi _{T})+2\kappa [(\pi _{A}\pi _{G})+(\pi _{C}\pi _{T})]}}} P A A ( ν ν , κ κ , π π ) = [ π π A ( π π A + π π G + ( π π C + π π T ) e − − β β ν ν ) + π π G e − − ( 1 + ( π π A + π π G ) ( κ κ − − 1.0 ) ) β β ν ν ] / ( π π A + π π G ) {\displaystyle P_{AA}(\nu ,\kappa ,\pi )=\left[\pi _{A}\left(\pi _{A}+\pi _{G}+(\pi _{C}+\pi _{T})e^{-\beta \nu }\right)+\pi _{G}e^{-(1+(\pi _{A}+\pi _{G})(\kappa -1.0))\beta \nu }\right]/(\pi _{A}+\pi _{G})} P A C ( ν ν , κ κ , π π ) = π π C ( 1.0 − − e − − β β ν ν ) {\displaystyle P_{AC}(\nu ,\kappa ,\pi )=\pi _{C}\left(1.0-e^{-\beta \nu }\right)} P A G ( ν ν , κ κ , π π ) = [ π π G ( π π A + π π G + ( π π C + π π T ) e − − β β ν ν ) − − π π G e − − ( 1 + ( π π A + π π G ) ( κ κ − − 1.0 ) ) β β ν ν ] / ( π π A + π π G ) {\displaystyle P_{AG}(\nu ,\kappa ,\pi )=\left[\pi _{G}\left(\pi _{A}+\pi _{G}+(\pi _{C}+\pi _{T})e^{-\beta \nu }\right)-\pi _{G}e^{-(1+(\pi _{A}+\pi _{G})(\kappa -1.0))\beta \nu }\right]/\left(\pi _{A}+\pi _{G}\right)} P A T ( ν ν , κ κ , π π ) = π π T ( 1.0 − − e − − β β ν ν ) {\displaystyle P_{AT}(\nu ,\kappa ,\pi )=\pi _{T}\left(1.0-e^{-\beta \nu }\right)} and formula for the other combinations of states can be obtained by substituting in the appropriate base frequencies.
+
+T92 model (Tamura 1992) [ edit ] T92, the Tamura 1992 model, [ 17 ] is a mathematical method developed to estimate the number of nucleotide substitutions per site between two DNA sequences, by extending Kimura's (1980) two-parameter method to the case where a G+C content bias exists. This method will be useful when there are strong transition-transversion and G+C-content biases, as in the case of Drosophila mitochondrial DNA.
+
+[ 17 ] T92 involves a single, compound base frequency parameter θ θ ∈ ∈ ( 0 , 1 ) {\displaystyle \theta \in (0,1)} (also noted π π G C {\displaystyle \pi _{GC}} ) = π π G + π π C = 1 − − ( π π A + π π T ) {\displaystyle =\pi _{G}+\pi _{C}=1-(\pi _{A}+\pi _{T})} As T92 echoes the Chargaff's second parity rule — pairing nucleotides do have the same frequency on a single DNA strand, G and C on the one hand, and A and T on the other hand — it follows that the four base frequences can be expressed as a function of π π G C {\displaystyle \pi _{GC}} π π G = π π C = π π G C 2 {\displaystyle \pi _{G}=\pi _{C}={\pi _{GC} \over 2}} and π π A = π π T = ( 1 − − π π G C ) 2 {\displaystyle \pi _{A}=\pi _{T}={(1-\pi _{GC}) \over 2}} Rate matrix Q = ( ∗ ∗ κ κ π π G C / 2 π π G C / 2 ( 1 − − π π G C ) / 2 κ κ ( 1 − − π π G C ) / 2 ∗ ∗ π π G C / 2 ( 1 − − π π G C ) / 2 ( 1 − − π π G C ) / 2 π π G C / 2 ∗ ∗ κ κ ( 1 − − π π G C ) / 2 ( 1 − − π π G C ) / 2 π π G C / 2 κ κ π π G C / 2 ∗ ∗ ) {\displaystyle Q={\begin{pmatrix}{*}&{\kappa \pi _{GC}/2}&{\pi _{GC}/2}&{(1-\pi _{GC})/2}\\{\kappa (1-\pi _{GC})/2}&{*}&{\pi _{GC}/2}&{(1-\pi _{GC})/2}\\{(1-\pi _{GC})/2}&{\pi _{GC}/2}&{*}&{\kappa (1-\pi _{GC})/2}\\{(1-\pi _{GC})/2}&{\pi _{GC}/2}&{\kappa \pi _{GC}/2}&{*}\end{pmatrix}}} The evolutionary distance between two DNA sequences according to this model is given by d = − − h ln ⁡ ⁡ ( 1 − − p h − − q ) − − 1 2 ( 1 − − h ) ln ⁡ ⁡ ( 1 − − 2 q ) {\displaystyle d=-h\ln(1-{p \over h}-q)-{1 \over 2}(1-h)\ln(1-2q)} where h = 2 θ θ ( 1 − − θ θ ) {\displaystyle h=2\theta (1-\theta )} and θ θ {\displaystyle \theta } is the G+C content ( π π G C = π π G + π π C {\displaystyle \pi _{GC}=\pi _{G}+\pi _{C}} ).
+
+TN93 model (Tamura and Nei 1993) [ edit ] TN93, the Tamura and Nei 1993 model, [ 18 ] distinguishes between the two different types of transition ; i.e. ( A ↔ ↔ G {\displaystyle A\leftrightarrow G} ) is allowed to have a different rate to ( C ↔ ↔ T {\displaystyle C\leftrightarrow T} ).
+
+Transversions are all assumed to occur at the same rate, but that rate is allowed to be different from both of the rates for transitions.
+
+TN93 also allows unequal base frequencies ( π π A ≠ ≠ π π G ≠ ≠ π π C ≠ ≠ π π T {\displaystyle \pi _{A}\neq \pi _{G}\neq \pi _{C}\neq \pi _{T}} ).
+
+Rate matrix Q = ( ∗ ∗ κ κ 1 π π G π π C π π T κ κ 1 π π A ∗ ∗ π π C π π T π π A π π G ∗ ∗ κ κ 2 π π T π π A π π G κ κ 2 π π C ∗ ∗ ) {\displaystyle Q={\begin{pmatrix}{*}&{\kappa _{1}\pi _{G}}&{\pi _{C}}&{\pi _{T}}\\{\kappa _{1}\pi _{A}}&{*}&{\pi _{C}}&{\pi _{T}}\\{\pi _{A}}&{\pi _{G}}&{*}&{\kappa _{2}\pi _{T}}\\{\pi _{A}}&{\pi _{G}}&{\kappa _{2}\pi _{C}}&{*}\end{pmatrix}}} GTR model (Tavaré 1986) [ edit ] GTR, the Generalised time-reversible model of Tavaré 1986, [ 19 ] is the most general neutral, independent, finite-sites, time-reversible model possible. It was first described in a general form by Simon Tavaré in 1986.
+
+[ 19 ] GTR parameters consist of an equilibrium base frequency vector, Π Π = ( π π A , π π G , π π C , π π T ) {\displaystyle \Pi =(\pi _{A},\pi _{G},\pi _{C},\pi _{T})} , giving the frequency at which each base occurs at each site, and the rate matrix Q = ( − − ( α α π π G + β β π π C + γ γ π π T ) α α π π G β β π π C γ γ π π T α α π π A − − ( α α π π A + δ δ π π C + ϵ ϵ π π T ) δ δ π π C ϵ ϵ π π T β β π π A δ δ π π G − − ( β β π π A + δ δ π π G + η η π π T ) η η π π T γ γ π π A ϵ ϵ π π G η η π π C − − ( γ γ π π A + ϵ ϵ π π G + η η π π C ) ) {\displaystyle Q={\begin{pmatrix}{-(\alpha \pi _{G}+\beta \pi _{C}+\gamma \pi _{T})}&{\alpha \pi _{G}}&{\beta \pi _{C}}&{\gamma \pi _{T}}\\{\alpha \pi _{A}}&{-(\alpha \pi _{A}+\delta \pi _{C}+\epsilon \pi _{T})}&{\delta \pi _{C}}&{\epsilon \pi _{T}}\\{\beta \pi _{A}}&{\delta \pi _{G}}&{-(\beta \pi _{A}+\delta \pi _{G}+\eta \pi _{T})}&{\eta \pi _{T}}\\{\gamma \pi _{A}}&{\epsilon \pi _{G}}&{\eta \pi _{C}}&{-(\gamma \pi _{A}+\epsilon \pi _{G}+\eta \pi _{C})}\end{pmatrix}}} Where α α = r ( A → → G ) = r ( G → → A ) β β = r ( A → → C ) = r ( C → → A ) γ γ = r ( A → → T ) = r ( T → → A ) δ δ = r ( G → → C ) = r ( C → → G ) ϵ ϵ = r ( G → → T ) = r ( T → → G ) η η = r ( C → → T ) = r ( T → → C ) {\displaystyle {\begin{aligned}\alpha =r(A\rightarrow G)=r(G\rightarrow A)\\\beta =r(A\rightarrow C)=r(C\rightarrow A)\\\gamma =r(A\rightarrow T)=r(T\rightarrow A)\\\delta =r(G\rightarrow C)=r(C\rightarrow G)\\\epsilon =r(G\rightarrow T)=r(T\rightarrow G)\\\eta =r(C\rightarrow T)=r(T\rightarrow C)\end{aligned}}} are the transition rate parameters.
+
+Therefore, GTR (for four characters, as is often the case in phylogenetics) requires 6 substitution rate parameters, as well as 4 equilibrium base frequency parameters. However, this is usually eliminated down to 9 parameters plus μ μ {\displaystyle \mu } , the overall number of substitutions per unit time. When measuring time in substitutions ( μ μ {\displaystyle \mu } =1) only 8 free parameters remain.
+
+In general, to compute the number of parameters, one must count the number of entries above the diagonal in the matrix, i.e. for n trait values per site n 2 − − n 2 {\displaystyle {{n^{2}-n} \over 2}} , and then add n for the equilibrium base frequencies, and subtract 1 because μ μ {\displaystyle \mu } is fixed. One gets n 2 − − n 2 + n − − 1 = 1 2 n 2 + 1 2 n − − 1.
+
+{\displaystyle {{n^{2}-n} \over 2}+n-1={1 \over 2}n^{2}+{1 \over 2}n-1.} For example, for an amino acid sequence (there are 20 "standard" amino acids that make up proteins ), one would find there are 209 parameters. However, when studying coding regions of the genome, it is more common to work with a codon substitution model (a codon is three bases and codes for one amino acid in a protein). There are 4 3 = 64 {\displaystyle 4^{3}=64} codons, but the rates for transitions between codons which differ by more than one base is assumed to be zero. Hence, there are 20 × × 19 × × 3 2 + 64 − − 1 = 633 {\displaystyle {{20\times 19\times 3} \over 2}+64-1=633} parameters.
+
+Two-state substitution models [ edit ] An alternative way to analyze DNA sequence data is to recode the nucleotides as purines (R) and pyrimidines (Y); [ 20 ] [ 21 ] this practice is often called RY-coding.
+
+[ 22 ] Insertions and deletions in multiple sequence alignments can also be encoded as binary data [ 23 ] and analyzed in using a two-state model.
+
+[ 24 ] [ 25 ] The simplest two-state model of sequence evolution is called the Cavender-Farris model or the Cavender-Farris- Neyman (CFN) model; the name of this model reflects the fact that it was described independently in several different publications.
+
+[ 26 ] [ 27 ] [ 28 ] The CFN model is identical to the Jukes-Cantor model adapted to two states and it has even been implemented as the "JC2" model in the popular IQ-TREE software package (using this model in IQ-TREE requires coding the data as 0 and 1 rather than R and Y; the popular PAUP* software package can interpret a data matrix comprising only R and Y as data to be analyzed using the CFN model). It is also straightforward to analyze binary data using the phylogenetic Hadamard transform .
+
+[ 29 ] The alternative two-state model allows the equilibrium frequency parameters of R and Y (or 0 and 1) to take on values other than 0.5 by adding single free parameter; this model is variously called CFu [ 20 ] or GTR2 (in IQ-TREE).
+
+Other recoding methods are WS (weak-strong) and MK (amino-keto).
+
+Lie Markov models [ edit ] Lie Markov models are, from a mathematical point of view, Markov models that form a Lie algebra .
+
+[ 30 ] For the mathematician, this makes them closed under matrix multiplication . From a phylogeneticist's point of view, these models have the benefit of being able to add or remove taxa without affecting the site patterns that the model can generate over the remaining taxa. There is also a natural hierarchy of models based on how many parameters can be changed. Some existing models such as JC and F81 are already Lie Markov models, while GTR is not.
+
+[ 31 ] Lie Markov models (with RY, WS, or MK) are available in IQ-TREE.
+
+[ 32 ] See also [ edit ] Molecular evolution Molecular clock UPGMA References [ edit ] ^ Arenas, Miguel (2015).
+
+"Trends in substitution models of molecular evolution" .
+
+Frontiers in Genetics .
+
+6 : 319.
+
+doi : 10.3389/fgene.2015.00319 .
+
+ISSN 1664-8021 .
+
+PMC 4620419 .
+
+PMID 26579193 .
+
+^ Jukes TH, Cantor CR (1969).
+
+Evolution of Protein Molecules . New York: Academic Press. pp.
+
+21– 132.
+
+^ Kimura M (December 1980). "A simple method for estimating evolutionary rates of base substitutions through comparative studies of nucleotide sequences".
+
+Journal of Molecular Evolution .
+
+16 (2): 111– 20.
+
+Bibcode : 1980JMolE..16..111K .
+
+doi : 10.1007/BF01731581 .
+
+PMID 7463489 .
+
+S2CID 19528200 .
+
+^ a b c Kimura M (January 1981).
+
+"Estimation of evolutionary distances between homologous nucleotide sequences" .
+
+Proceedings of the National Academy of Sciences of the United States of America .
+
+78 (1): 454– 8.
+
+Bibcode : 1981PNAS...78..454K .
+
+doi : 10.1073/pnas.78.1.454 .
+
+PMC 319072 .
+
+PMID 6165991 .
+
+^ Bashford JD, Jarvis PD, Sumner JG, Steel MA (2004-02-25). "U (1) × U (1) × U (1) symmetry of the Kimura 3ST model and phylogenetic branching processes".
+
+Journal of Physics A: Mathematical and General .
+
+37 (8): L81 – L89 .
+
+arXiv : q-bio/0310037 .
+
+doi : 10.1088/0305-4470/37/8/L01 .
+
+S2CID 7845860 .
+
+^ Sumner JG, Charleston MA, Jermiin LS, Jarvis PD (August 2008). "Markov invariants, plethysms, and phylogenetics".
+
+Journal of Theoretical Biology .
+
+253 (3): 601– 15.
+
+arXiv : 0711.3503 .
+
+Bibcode : 2008JThBi.253..601S .
+
+doi : 10.1016/j.jtbi.2008.04.001 .
+
+PMID 18513747 .
+
+S2CID 6851591 .
+
+^ Sumner JG, Jarvis PD, Holland BR (December 2014).
+
+"A tensorial approach to the inversion of group-based phylogenetic models" .
+
+BMC Evolutionary Biology .
+
+14 (1) 236.
+
+arXiv : 1212.3888 .
+
+Bibcode : 2014BMCEE..14..236S .
+
+doi : 10.1186/s12862-014-0236-6 .
+
+PMC 4268818 .
+
+PMID 25472897 .
+
+^ Hendy MD, Penny D, Steel MA (April 1994).
+
+"A discrete Fourier analysis for evolutionary trees" .
+
+Proceedings of the National Academy of Sciences of the United States of America .
+
+91 (8): 3339– 43.
+
+Bibcode : 1994PNAS...91.3339H .
+
+doi : 10.1073/pnas.91.8.3339 .
+
+PMC 43572 .
+
+PMID 8159749 .
+
+^ Hendy MD (2005).
+
+"Hadamard conjugation: an analytic tool for phylogenetics" . In Gascuel O (ed.).
+
+Mathematics of Evolution and Phylogeny . Oxford University Press. pp.
+
+143– 177.
+
+ISBN 978-0198566106 .
+
+^ Hendy MD, Snir S (July 2008). "Hadamard conjugation for the Kimura 3ST model: combinatorial proof using path sets".
+
+IEEE/ACM Transactions on Computational Biology and Bioinformatics .
+
+5 (3): 461– 71.
+
+arXiv : q-bio/0505055 .
+
+Bibcode : 2008ITCBB...5..461H .
+
+doi : 10.1109/TCBB.2007.70227 .
+
+PMID 18670048 .
+
+S2CID 20633916 .
+
+^ a b Waddell PJ, Penny D, Moore T (August 1997). "Hadamard conjugations and modeling sequence evolution with unequal rates across sites".
+
+Molecular Phylogenetics and Evolution .
+
+8 (1): 33– 50.
+
+Bibcode : 1997MolPE...8...33W .
+
+doi : 10.1006/mpev.1997.0405 .
+
+PMID 9242594 .
+
+^ Yang Z (September 1994). "Maximum likelihood phylogenetic estimation from DNA sequences with variable rates over sites: approximate methods".
+
+Journal of Molecular Evolution .
+
+39 (3): 306– 14.
+
+Bibcode : 1994JMolE..39..306Y .
+
+CiteSeerX 10.1.1.305.951 .
+
+doi : 10.1007/BF00160154 .
+
+PMID 7932792 .
+
+S2CID 17911050 .
+
+^ Felsenstein J (1981). "Evolutionary trees from DNA sequences: a maximum likelihood approach".
+
+Journal of Molecular Evolution .
+
+17 (6): 368– 76.
+
+Bibcode : 1981JMolE..17..368F .
+
+doi : 10.1007/BF01734359 .
+
+PMID 7288891 .
+
+S2CID 8024924 .
+
+^ Hasegawa M, Kishino H, Yano T (1985). "Dating of the human-ape splitting by a molecular clock of mitochondrial DNA".
+
+Journal of Molecular Evolution .
+
+22 (2): 160– 74.
+
+Bibcode : 1985JMolE..22..160H .
+
+doi : 10.1007/BF02101694 .
+
+PMID 3934395 .
+
+S2CID 25554168 .
+
+^ Kishino H, Hasegawa M (August 1989). "Evaluation of the maximum likelihood estimate of the evolutionary tree topologies from DNA sequence data, and the branching order in hominoidea".
+
+Journal of Molecular Evolution .
+
+29 (2): 170– 9.
+
+Bibcode : 1989JMolE..29..170K .
+
+doi : 10.1007/BF02100115 .
+
+PMID 2509717 .
+
+S2CID 8045061 .
+
+^ Felsenstein J, Churchill GA (January 1996).
+
+"A Hidden Markov Model approach to variation among sites in rate of evolution" .
+
+Molecular Biology and Evolution .
+
+13 (1): 93– 104.
+
+doi : 10.1093/oxfordjournals.molbev.a025575 .
+
+hdl : 1813/31897 .
+
+PMID 8583911 .
+
+^ a b Tamura K (July 1992).
+
+"Estimation of the number of nucleotide substitutions when there are strong transition-transversion and G+C-content biases" .
+
+Molecular Biology and Evolution .
+
+9 (4): 678– 87.
+
+doi : 10.1093/oxfordjournals.molbev.a040752 .
+
+PMID 1630306 .
+
+^ Tamura K, Nei M (May 1993).
+
+"Estimation of the number of nucleotide substitutions in the control region of mitochondrial DNA in humans and chimpanzees" .
+
+Molecular Biology and Evolution .
+
+10 (3): 512– 26.
+
+doi : 10.1093/oxfordjournals.molbev.a040023 .
+
+PMID 8336541 .
+
+^ a b Tavaré S (1986).
+
+"Some Probabilistic and Statistical Problems in the Analysis of DNA Sequences" (PDF) .
+
+Lectures on Mathematics in the Life Sciences .
+
+17 : 57– 86.
+
+^ a b Braun EL, Kimball RT (August 2002). Kjer K (ed.).
+
+"Examining Basal avian divergences with mitochondrial sequences: model complexity, taxon sampling, and sequence length" .
+
+Systematic Biology .
+
+51 (4): 614– 625.
+
+doi : 10.1080/10635150290102294 .
+
+PMID 12228003 .
+
+^ Phillips MJ, Delsuc F, Penny D (July 2004).
+
+"Genome-scale phylogeny and the detection of systematic biases" .
+
+Molecular Biology and Evolution .
+
+21 (7): 1455– 1458.
+
+doi : 10.1093/molbev/msh137 .
+
+PMID 15084674 .
+
+^ Ishikawa SA, Inagaki Y, Hashimoto T (January 2012).
+
+"RY-Coding and Non-Homogeneous Models Can Ameliorate the Maximum-Likelihood Inferences From Nucleotide Sequence Data with Parallel Compositional Heterogeneity" .
+
+Evolutionary Bioinformatics Online .
+
+8 EBO.S9017: 357– 371.
+
+doi : 10.4137/EBO.S9017 .
+
+PMC 3394461 .
+
+PMID 22798721 .
+
+^ Simmons MP, Ochoterena H (June 2000).
+
+"Gaps as characters in sequence-based phylogenetic analyses" .
+
+Systematic Biology .
+
+49 (2): 369– 381.
+
+doi : 10.1093/sysbio/49.2.369 .
+
+PMID 12118412 .
+
+^ Yuri T, Kimball RT, Harshman J, Bowie RC, Braun MJ, Chojnowski JL, et al. (March 2013).
+
+"Parsimony and model-based analyses of indels in avian nuclear genes reveal congruent and incongruent phylogenetic signals" .
+
+Biology .
+
+2 (1): 419– 444.
+
+doi : 10.3390/biology2010419 .
+
+PMC 4009869 .
+
+PMID 24832669 .
+
+^ Houde P, Braun EL, Narula N, Minjares U, Mirarab S (2019-07-06).
+
+"Phylogenetic Signal of Indels and the Neoavian Radiation" .
+
+Diversity .
+
+11 (7): 108.
+
+Bibcode : 2019Diver..11..108H .
+
+doi : 10.3390/d11070108 .
+
+^ Cavender JA (August 1978). "Taxonomy with confidence".
+
+Mathematical Biosciences .
+
+40 ( 3– 4): 271– 280.
+
+doi : 10.1016/0025-5564(78)90089-5 .
+
+^ Farris JS (1973-09-01).
+
+"A Probability Model for Inferring Evolutionary Trees" .
+
+Systematic Biology .
+
+22 (3): 250– 256.
+
+doi : 10.1093/sysbio/22.3.250 .
+
+ISSN 1063-5157 .
+
+^ Neyman J (1971). Gupta SS, Yackel J (eds.).
+
+Molecular Studies of Evolution: A Source of Novel Statistical Problems . New York, NY, USA: New York Academic Press. pp.
+
+1– 27.
+
+^ Waddell PJ, Penny D, Moore T (August 1997). "Hadamard conjugations and modeling sequence evolution with unequal rates across sites".
+
+Molecular Phylogenetics and Evolution .
+
+8 (1): 33– 50.
+
+Bibcode : 1997MolPE...8...33W .
+
+doi : 10.1006/mpev.1997.0405 .
+
+PMID 9242594 .
+
+^ Sumner, J.G.; Fernández-Sánchez, J.; Jarvis, P.D. (April 2012). "Lie Markov models".
+
+Journal of Theoretical Biology .
+
+298 : 16– 31.
+
+arXiv : 1105.4680 .
+
+Bibcode : 2012JThBi.298...16S .
+
+doi : 10.1016/j.jtbi.2011.12.017 .
+
+PMID 22212913 .
+
+^ Woodhams, Michael D.; Fernández-Sánchez, Jesús; Sumner, Jeremy G. (1 July 2015).
+
+"A New Hierarchy of Phylogenetic Models Consistent with Heterogeneous Substitution Rates" .
+
+Systematic Biology .
+
+64 (4): 638– 650.
+
+doi : 10.1093/sysbio/syv021 .
+
+PMC 4468350 .
+
+PMID 25858352 .
+
+^ "Substitution Models" .
+
+iqtree.github.io .
+
+Further reading [ edit ] Gu X, Li WH (September 1992).
+
+"Higher rates of amino acid substitution in rodents than in humans" .
+
+Molecular Phylogenetics and Evolution .
+
+1 (3): 211– 4.
+
+Bibcode : 1992MolPE...1..211G .
+
+doi : 10.1016/1055-7903(92)90017-B .
+
+PMID 1342937 .
+
+Li WH, Ellsworth DL, Krushkal J, Chang BH, Hewett-Emmett D (February 1996). "Rates of nucleotide substitution in primates and rodents and the generation-time effect hypothesis".
+
+Molecular Phylogenetics and Evolution .
+
+5 (1): 182– 7.
+
+Bibcode : 1996MolPE...5..182L .
+
+doi : 10.1006/mpev.1996.0012 .
+
+PMID 8673286 .
+
+External links [ edit ] DAWG: DNA Assembly With Gaps — free software for simulating sequence evolution v t e Molecular evolution Natural selection Balancing selection Directional selection Disruptive selection Negative selection Stabilizing selection Selective sweep Models Models of DNA evolution Models of nucleotide substitution Allele frequency Ka/Ks ratio Tajima's D Fay and Wu's H Molecular processes Gene conversion Gene duplication Silent mutation Synonymous substitution Nonsynonymous substitution v t e Evolutionary biology Introduction Outline Timeline of evolution History of life Index Evolution Abiogenesis Adaptation Adaptive radiation Altruism Cheating Reciprocal Baldwin effect Cladistics Coevolution Mutualism Common descent Convergence Divergence Earliest known life forms Evidence of evolution Evolutionary arms race Evolutionary pressure Exaptation Extinction Event Homology Last universal common ancestor Macroevolution Microevolution Mismatch Non-adaptive radiation Origin of life Panspermia Parallel evolution Signalling theory Handicap principle Speciation Species Species complex Taxonomy Unit of selection Gene-centered view of evolution Population genetics Artificial selection Biodiversity Evolutionarily stable strategy Fisher's principle Fitness Inclusive Gene flow Genetic drift Kin selection Inbreeding avoidance Kin recognition Parental investment Parent–offspring conflict Mutation Population Natural selection Sexual dimorphism Sexual selection Flowering plants Fungi Mate choice Social selection Trivers–Willard hypothesis Variation Development Canalisation Evolutionary developmental biology Genetic assimilation Inversion Modularity Phenotypic plasticity Of taxa Bacteria Birds origin Brachiopods Molluscs Cephalopods Dinosaurs Fish Fungi Insects butterflies Life Mammals cats canids wolves dogs hyenas dolphins and whales horses Kangaroos primates humans lemurs sea cows Plants pollinator-mediated Reptiles Spiders Tetrapods Viruses Of organs Cell DNA Flagella Eukaryotes symbiogenesis chromosome endomembrane system mitochondria nucleus plastids In animals eye hair auditory ossicle nervous system brain Of processes Aging Death Programmed cell death Avian flight Biological complexity Cooperation Color vision in primates Emotion Empathy Ethics Eusociality Immune system Metabolism Monogamy Morality Mosaic evolution Multicellularity Sexual reproduction Gamete differentiation/sexes Life cycles/nuclear phases Mating types Meiosis Sex-determination Snake venom Tempo and modes Gradualism / Punctuated equilibrium / Saltationism Micromutation / Macromutation Uniformitarianism / Catastrophism Speciation Allopatric Anagenesis Catagenesis Cladogenesis Cospeciation Ecological Hybrid Non-ecological Parapatric Peripatric Reinforcement Sympatric History Renaissance and Enlightenment Transmutation of species David Hume Dialogues Concerning Natural Religion Charles Darwin On the Origin of Species History of paleontology Transitional fossil Blending inheritance Mendelian inheritance The eclipse of Darwinism Neo-Darwinism Modern synthesis History of molecular evolution Extended evolutionary synthesis Philosophy Darwinism Alternatives Catastrophism Lamarckism Orthogenesis Mutationism Saltationism Structuralism Spandrel Theistic Vitalism Teleology in biology Related Biogeography Ecological genetics Evolutionary medicine Group selection Cultural evolution Cultural group selection Dual inheritance theory Hologenome theory of evolution Missing heritability problem Molecular evolution Astrobiology Phylogenetics Tree Polymorphism Protocell Systematics Transgenerational epigenetic inheritance Category Portal Retrieved from " https://en.wikipedia.org/w/index.php?title=Models_of_DNA_evolution&oldid=1306536208 " Categories : Bioinformatics Phylogenetics Computational phylogenetics Markov models Hidden categories: Articles with short description Short description is different from Wikidata Articles lacking in-text citations from November 2010 All articles lacking in-text citations This page was last edited on 18 August 2025, at 08:05 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Models of DNA evolution 3 languages Add topic
+

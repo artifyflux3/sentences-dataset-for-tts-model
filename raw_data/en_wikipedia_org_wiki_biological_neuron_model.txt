@@ -1,0 +1,1727 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Biological background, classification, and aims of neuron models 2 Electrical input–output membrane voltage models Toggle Electrical input–output membrane voltage models subsection 2.1 Hodgkin–Huxley 2.2 Perfect Integrate-and-fire 2.3 Leaky integrate-and-fire 2.4 Adaptive integrate-and-fire 2.5 Fractional-order leaky integrate-and-fire 2.6 'Exponential integrate-and-fire' and 'adaptive exponential integrate-and-fire' 2.7 Adaptive Threshold Neuron Model 2.8 Double Exponential Adaptive Threshold (DEXAT) 3 Stochastic models of membrane voltage and spike timing Toggle Stochastic models of membrane voltage and spike timing subsection 3.1 Noisy input model (diffusive noise) 3.2 Noisy output model (escape noise) 3.3 Spike response model (SRM) 3.4 SRM0 3.5 Galves–Löcherbach model 4 Didactic toy models of membrane voltage Toggle Didactic toy models of membrane voltage subsection 4.1 FitzHugh–Nagumo 4.2 Morris–Lecar 4.3 Hindmarsh–Rose 4.4 Theta model and quadratic integrate-and-fire 5 Sensory input-stimulus encoding neuron models Toggle Sensory input-stimulus encoding neuron models subsection 5.1 The non-homogeneous Poisson process model (Siebert) 5.2 Refractoriness and age-dependent point process model 5.3 Linear-nonlinear Poisson cascade model and GLM 5.4 The two-state Markov model (Nossenson & Messer) 6 Pharmacological input stimulus neuron models Toggle Pharmacological input stimulus neuron models subsection 6.1 Synaptic transmission (Koch & Segev) 7 HTM neuron model 8 Applications 9 Relation between artificial and biological neuron models 10 Cable theory and compartmental models 11 Conjectures regarding the role of the neuron in the wider context of the brain principle of operation Toggle Conjectures regarding the role of the neuron in the wider context of the brain principle of operation subsection 11.1 The neurotransmitter-based energy detection scheme 12 General comments regarding the modern perspective of scientific and engineering models 13 External links 14 See also 15 References Toggle the table of contents Biological neuron model 10 languages العربية Català Чӑвашла Deutsch فارسی Français Português Русский Українська 粵語 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Mathematical descriptions of the properties of certain cells in the nervous system This article has multiple issues.
+
+Please help improve it or discuss these issues on the talk page .
+
+( Learn how and when to remove these messages ) This article's tone or style may not reflect the encyclopedic tone used on Wikipedia .
+
+See Wikipedia's guide to writing better articles for suggestions.
+
+( August 2023 ) ( Learn how and when to remove this message ) This article may be too technical for most readers to understand .
+
+Please help improve it to make it understandable to non-experts , without removing the technical details.
+
+( August 2023 ) ( Learn how and when to remove this message ) ( Learn how and when to remove this message ) Fig. 1. Neuron and myelinated axon, with signal flow from inputs at dendrites to outputs at axon terminals. The signal is a short electrical pulse called action potential or 'spike'.
+
+Fig 2. Time course of neuronal action potential ("spike"). Note that the amplitude and the exact shape of the action potential can vary according to the exact experimental technique used for acquiring the signal.
+
+Biological neuron models , also known as spiking neuron models , [ 1 ] are mathematical descriptions of the conduction of electrical signals in neurons . Neurons (or nerve cells) are electrically excitable cells within the nervous system , able to fire electric signals, called action potentials , across a neural network.
+
+These mathematical models describe the role of the biophysical and geometrical characteristics of neurons on the conduction of electrical activity.
+
+Central to these models is the description of how the membrane potential (that is, the difference in electric potential between the interior and the exterior of a biological cell ) across the cell membrane changes over time. In an experimental setting, stimulating neurons with an electrical current generates an action potential (or spike), that propagates down the neuron's axon . This axon can branch out and connect to a large number of downstream neurons at sites called synapses . At these synapses, the spike can cause the release of neurotransmitters , which in turn can change the voltage potential of downstream neurons. This change can potentially lead to even more spikes in those downstream neurons, thus passing down the signal. As many as 95% of neurons in the neocortex , the outermost layer of the mammalian brain , consist of excitatory pyramidal neurons , [ 2 ] [ 3 ] and each pyramidal neuron receives tens of thousands of inputs from other neurons.
+
+[ 4 ] Thus, spiking neurons are a major information processing unit of the nervous system .
+
+One such example of a spiking neuron model may be a highly detailed mathematical model that includes spatial morphology . Another may be a conductance-based neuron model that views neurons as points and describes the membrane voltage dynamics as a function of trans-membrane currents. A mathematically simpler "integrate-and-fire" model significantly simplifies the description of ion channel and membrane potential dynamics (initially studied by Lapique in 1907).
+
+[ 5 ] [ 6 ] Biological background, classification, and aims of neuron models [ edit ] Non-spiking cells, spiking cells, and their measurement Not all the cells of the nervous system produce the type of spike that defines the scope of the spiking neuron models. For example, cochlear hair cells , retinal receptor cells , and retinal bipolar cells do not spike. Furthermore, many cells in the nervous system are not classified as neurons but instead are classified as glia .
+
+Neuronal activity can be measured with different experimental techniques, such as the "Whole cell" measurement technique, which captures the spiking activity of a single neuron and produces full amplitude action potentials.
+
+With extracellular measurement techniques, one or more electrodes are placed in the extracellular space . Spikes, often from several spiking sources, depending on the size of the electrode and its proximity to the sources, can be identified with signal processing techniques. Extracellular measurement has several advantages: It is easier to obtain experimentally; It is robust and lasts for a longer time; It can reflect the dominant effect, especially when conducted in an anatomical region with many similar cells.
+
+Overview of neuron models Neuron models can be divided into two categories according to the physical units of the interface of the model. Each category could be further divided according to the abstraction/detail level: Electrical input–output membrane voltage models – These models produce a prediction for membrane output voltage as a function of electrical stimulation given as current or voltage input. The various models in this category differ in the exact functional relationship between the input current and the output voltage and in the level of detail. Some models in this category predict only the moment of occurrence of the output spike (also known as "action potential"); other models are more detailed and account for sub-cellular processes. The models in this category can be either deterministic or probabilistic.
+
+Natural stimulus or pharmacological input neuron models – The models in this category connect the input stimulus, which can be either pharmacological or natural, to the probability of a spike event. The input stage of these models is not electrical but rather has either pharmacological (chemical) concentration units, or physical units that characterize an external stimulus such as light, sound, or other forms of physical pressure. Furthermore, the output stage represents the probability of a spike event and not an electrical voltage.
+
+Although it is not unusual in science and engineering to have several descriptive models for different abstraction/detail levels, the number of different, sometimes contradicting, biological neuron models is exceptionally high. This situation is partly the result of the many different experimental settings, and the difficulty to separate the intrinsic properties of a single neuron from measurement effects and interactions of many cells ( network effects).
+
+Aims of neuron models Ultimately, biological neuron models aim to explain the mechanisms underlying the operation of the nervous system. However, several approaches can be distinguished, from more realistic models (e.g., mechanistic models) to more pragmatic models (e.g., phenomenological models).
+
+[ 7 ] [ better source needed ] Modeling helps to analyze experimental data and address questions. Models are also important in the context of restoring lost brain functionality through neuroprosthetic devices.
+
+Electrical input–output membrane voltage models [ edit ] The models in this category describe the relationship between neuronal membrane currents at the input stage and membrane voltage at the output stage. This category includes (generalized) integrate-and-fire models and biophysical models inspired by the work of Hodgkin–Huxley in the early 1950s using an experimental setup that punctured the cell membrane and allowed to force a specific membrane voltage/current.
+
+[ 8 ] [ 9 ] [ 10 ] [ 11 ] Most modern electrical neural interfaces apply extra-cellular electrical stimulation to avoid membrane puncturing, which can lead to cell death and tissue damage. Hence, it is not clear to what extent the electrical neuron models hold for extra-cellular stimulation (see e.g.
+
+[ 12 ] ).
+
+Hodgkin–Huxley [ edit ] Experimental evidence supporting the model Property of the H&H model References The shape of an individual spike [ 8 ] [ 9 ] [ 10 ] [ 11 ] The identity of the ions involved [ 8 ] [ 9 ] [ 10 ] [ 11 ] Spike speed across the axon [ 8 ] Main article: Hodgkin–Huxley model The Hodgkin–Huxley model (H&H model) [ 8 ] [ 9 ] [ 10 ] [ 11 ] is a model of the relationship between the flow of ionic currents across the neuronal cell membrane and the membrane voltage of the cell.
+
+[ 8 ] [ 9 ] [ 10 ] [ 11 ] It consists of a set of nonlinear differential equations describing the behavior of ion channels that permeate the cell membrane of the squid giant axon . Hodgkin and Huxley were awarded the 1963 Nobel Prize in Physiology or Medicine for this work.
+
+It is important to note the voltage-current relationship, with multiple voltage-dependent currents charging the cell membrane of capacity C m C m d V ( t ) d t = − − ∑ ∑ i I i ( t , V ) .
+
+{\displaystyle C_{\mathrm {m} }{\frac {dV(t)}{dt}}=-\sum _{i}I_{i}(t,V).} The above equation is the time derivative of the law of capacitance , Q = CV where the change of the total charge must be explained as the sum over the currents. Each current is given by I ( t , V ) = g ( t , V ) ⋅ ⋅ ( V − − V e q ) {\displaystyle I(t,V)=g(t,V)\cdot (V-V_{\mathrm {eq} })} where g ( t , V ) is the conductance , or inverse resistance, which can be expanded in terms of its maximal conductance ḡ and the activation and inactivation fractions m and h , respectively, that determine how many ions can flow through available membrane channels. This expansion is given by g ( t , V ) = g ¯ ¯ ⋅ ⋅ m ( t , V ) p ⋅ ⋅ h ( t , V ) q {\displaystyle g(t,V)={\bar {g}}\cdot m(t,V)^{p}\cdot h(t,V)^{q}} and our fractions follow the first-order kinetics d m ( t , V ) d t = m ∞ ∞ ( V ) − − m ( t , V ) τ τ m ( V ) = α α m ( V ) ⋅ ⋅ ( 1 − − m ) − − β β m ( V ) ⋅ ⋅ m {\displaystyle {\frac {dm(t,V)}{dt}}={\frac {m_{\infty }(V)-m(t,V)}{\tau _{\mathrm {m} }(V)}}=\alpha _{\mathrm {m} }(V)\cdot (1-m)-\beta _{\mathrm {m} }(V)\cdot m} with similar dynamics for h , where we can use either τ and m ∞ or α and β to define our gate fractions.
+
+The Hodgkin–Huxley model may be extended to include additional ionic currents. Typically, these include inward Ca 2+ and Na + input currents, as well as several varieties of K + outward currents, including a "leak" current.
+
+The result can be at the small end of 20 parameters which one must estimate or measure for an accurate model.  In a model of a complex system of neurons, numerical integration of the equations are computationally expensive . Careful simplifications of the Hodgkin–Huxley model are therefore needed.
+
+The model can be reduced to two dimensions thanks to the dynamic relations which can be established between the gating variables.
+
+[ 13 ] it is also possible to extend it to take into account the evolution of the concentrations (considered fixed in the original model).
+
+[ 14 ] [ 15 ] Perfect Integrate-and-fire [ edit ] One of the earliest models of a neuron is the perfect integrate-and-fire model (also called non-leaky integrate-and-fire),  first investigated in 1907 by Louis Lapicque .
+
+[ 16 ] A neuron is represented by its membrane voltage V which evolves in time during stimulation with an input current I(t) according I ( t ) = C d V ( t ) d t {\displaystyle I(t)=C{\frac {dV(t)}{dt}}} which is just the time derivative of the law of capacitance , Q = CV . When an input current is applied, the membrane voltage increases with time until it reaches a constant threshold V th , at which point a delta function spike occurs and the voltage is reset to its resting potential, after which the model continues to run. The firing frequency of the model thus increases linearly without bound as input current increases.
+
+The model can be made more accurate by introducing a refractory period t ref that limits the firing frequency of a neuron by preventing it from firing during that period. For constant input I(t)=I the threshold voltage is reached after an integration time t int =CV thr /I after starting from zero. After a reset, the refractory period introduces a dead time so that the total time until the next firing is t ref + t int . The firing frequency is the inverse of the total inter-spike interval (including dead time). The firing frequency as a function of a constant input current, is therefore f ( I ) = I C V t h + t r e f I .
+
+{\displaystyle \,\!f(I)={\frac {I}{C_{\mathrm {} }V_{\mathrm {th} }+t_{\mathrm {ref} }I}}.} A shortcoming of this model is that it describes neither adaptation nor leakage.  If the model receives a below-threshold short current pulse at some time, it will retain that voltage boost forever - until another input later makes it fire. This characteristic is not in line with observed neuronal behavior. The following extensions make the integrate-and-fire model more plausible from a biological point of view.
+
+Leaky integrate-and-fire [ edit ] The leaky integrate-and-fire model, which can be traced back to Louis Lapicque , [ 16 ] contains a "leak" term in the membrane potential equation that reflects the diffusion of ions through the membrane, unlike the non-leaky integrate-and-fire model. The model equation looks like [ 1 ] C m d V m ( t ) d t = I ( t ) − − V m ( t ) R m {\displaystyle C_{\mathrm {m} }{\frac {dV_{\mathrm {m} }(t)}{dt}}=I(t)-{\frac {V_{\mathrm {m} }(t)}{R_{\mathrm {m} }}}} A neuron is represented by an RC circuit with a threshold. Each input pulse (e.g. caused by a spike from a different neuron) causes a short current pulse. Voltage decays exponentially. If the threshold is reached an output spike is generated and the voltage is reset.
+
+where V m is the voltage across the cell membrane and R m is the membrane resistance. (The non-leaky integrate-and-fire model is retrieved in the limit R m to infinity, i.e. if the membrane is a perfect insulator). The model equation is valid for arbitrary time-dependent input until a threshold V th is reached; thereafter the membrane potential is reset.
+
+For constant input, the minimum input to reach the threshold is I th = V th / R m .  Assuming a reset to zero, the firing frequency thus looks like f ( I ) = { 0 , I ≤ ≤ I t h [ t r e f − − R m C m log ⁡ ⁡ ( 1 − − V t h I R m ) ] − − 1 , I > I t h {\displaystyle f(I)={\begin{cases}0,&I\leq I_{\mathrm {th} }\\\left[t_{\mathrm {ref} }-R_{\mathrm {m} }C_{\mathrm {m} }\log \left(1-{\tfrac {V_{\mathrm {th} }}{IR_{\mathrm {m} }}}\right)\right]^{-1},&I>I_{\mathrm {th} }\end{cases}}} which converges for large input currents to the previous leak-free model with the refractory period.
+
+[ 17 ] The model can also be used for inhibitory neurons.
+
+[ 18 ] [ 19 ] The most significant disadvantage of this model is that it does not contain neuronal adaptation, so that it cannot describe an experimentally measured spike train in response to constant input current.
+
+[ 20 ] This disadvantage is removed in generalized integrate-and-fire models that also contain one or several adaptation-variables  and are able to predict spike times of cortical neurons under current injection to a high degree of accuracy.
+
+[ 21 ] [ 22 ] [ 23 ] Adaptive integrate-and-fire [ edit ] Experimental evidence supporting the model Adaptive integrate-and-fire model model References Sub-threshold voltage for time-dependent input current [ 22 ] [ 23 ] Firing times for time-dependent input current [ 22 ] [ 23 ] Firing Patterns in response to step current input [ 24 ] [ 25 ] [ 26 ] Neuronal adaptation refers to the fact that even in the presence of a constant current injection into the soma, the intervals between output spikes increase. An adaptive integrate-and-fire neuron model combines the leaky integration of voltage V with one or several adaptation variables w k (see Chapter 6.1. in the textbook Neuronal Dynamics [ 27 ] ) τ τ m d V m ( t ) d t = R I ( t ) − − [ V m ( t ) − − E m ] − − R ∑ ∑ k w k {\displaystyle \tau _{\mathrm {m} }{\frac {dV_{\mathrm {m} }(t)}{dt}}=RI(t)-[V_{\mathrm {m} }(t)-E_{\mathrm {m} }]-R\sum _{k}w_{k}} τ τ k d w k ( t ) d t = − − a k [ V m ( t ) − − E m ] − − w k + b k τ τ k ∑ ∑ f δ δ ( t − − t f ) {\displaystyle \tau _{k}{\frac {dw_{k}(t)}{dt}}=-a_{k}[V_{\mathrm {m} }(t)-E_{\mathrm {m} }]-w_{k}+b_{k}\tau _{k}\sum _{f}\delta (t-t^{f})} where τ τ m {\displaystyle \tau _{m}} is the membrane time constant, w k is the adaptation current number, with index k , τ τ k {\displaystyle \tau _{k}} is the time constant of adaptation current w k , E m is the resting potential and t f is the firing time of the neuron and the Greek delta denotes the Dirac delta function.  Whenever the voltage reaches the firing threshold the voltage is reset to a value V r below the firing threshold. The reset value is one of the important parameters of the model. The simplest model of adaptation has only a single adaptation variable w and the sum over k is removed.
+
+[ 28 ] Spike times and subthreshold voltage of cortical neuron models can be predicted by generalized integrate-and-fire models such as the adaptive integrate-and-fire model, the adaptive exponential integrate-and-fire model, or the spike response model. In the example here, adaptation is implemented by a dynamic threshold which increases after each spike.
+
+[ 22 ] [ 23 ] Integrate-and-fire neurons with one or several adaptation variables can account for a variety of neuronal firing patterns in response to constant stimulation, including adaptation, bursting, and initial bursting.
+
+[ 24 ] [ 25 ] [ 26 ] Moreover, adaptive integrate-and-fire neurons with several adaptation variables are able to predict spike times of cortical neurons under time-dependent current injection into the soma.
+
+[ 22 ] [ 23 ] Fractional-order leaky integrate-and-fire [ edit ] Recent advances in computational and theoretical fractional calculus lead to a new form of model called Fractional-order leaky integrate-and-fire.
+
+[ 29 ] [ 30 ] An advantage of this model is that it can capture adaptation effects with a single variable. The model has the following form [ 30 ] I ( t ) − − V m ( t ) R m = C m d α α V m ( t ) d α α t {\displaystyle I(t)-{\frac {V_{\mathrm {m} }(t)}{R_{\mathrm {m} }}}=C_{\mathrm {m} }{\frac {d^{\alpha }V_{\mathrm {m} }(t)}{d^{\alpha }t}}} Once the voltage hits the threshold it is reset. Fractional integration has been used to account for neuronal adaptation in experimental data.
+
+[ 29 ] 'Exponential integrate-and-fire' and 'adaptive exponential integrate-and-fire' [ edit ] Main article: Exponential integrate-and-fire Experimental evidence supporting the model Adaptive exponential integrate-and-fire References The sub-threshold current-voltage relation [ 31 ] Firing patterns in response to step current input [ 26 ] Refractoriness and adaptation [ 32 ] In the exponential integrate-and-fire model, [ 33 ] spike generation is exponential, following the equation: d V d t − − R τ τ m I ( t ) = 1 τ τ m [ E m − − V + Δ Δ T exp ⁡ ⁡ ( V − − V T Δ Δ T ) ] .
+
+{\displaystyle {\frac {dV}{dt}}-{\frac {R}{\tau _{m}}}I(t)={\frac {1}{\tau _{m}}}\left[E_{m}-V+\Delta _{T}\exp \left({\frac {V-V_{T}}{\Delta _{T}}}\right)\right].} where V {\displaystyle V} is the membrane potential, V T {\displaystyle V_{T}} is the intrinsic membrane potential threshold, τ τ m {\displaystyle \tau _{m}} is the membrane time constant, E m {\displaystyle E_{m}} is the resting potential, and Δ Δ T {\displaystyle \Delta _{T}} is the sharpness of action potential initiation, usually around 1 mV for cortical pyramidal neurons.
+
+[ 31 ] Once the membrane potential crosses V T {\displaystyle V_{T}} , it diverges to infinity in finite time.
+
+[ 34 ] In numerical simulation the integration is stopped if the membrane potential hits an arbitrary threshold (much larger than V T {\displaystyle V_{T}} ) at which the membrane potential is reset to a value V r . The voltage reset value V r is one of the important parameters of the model. Importantly, the right-hand side of the above equation contains a nonlinearity that can be directly extracted from experimental data.
+
+[ 31 ] In this sense the exponential nonlinearity is strongly supported by experimental evidence.
+
+In the adaptive exponential integrate-and-fire neuron [ 32 ] the above exponential nonlinearity of the voltage equation is combined with an adaptation variable w τ τ m d V d t = R I ( t ) + [ E m − − V + Δ Δ T exp ⁡ ⁡ ( V − − V T Δ Δ T ) ] − − R w {\displaystyle \tau _{m}{\frac {dV}{dt}}=RI(t)+\left[E_{m}-V+\Delta _{T}\exp \left({\frac {V-V_{T}}{\Delta _{T}}}\right)\right]-Rw} τ τ d w ( t ) d t = − − a [ V m ( t ) − − E m ] − − w + b τ τ δ δ ( t − − t f ) {\displaystyle \tau {\frac {dw(t)}{dt}}=-a[V_{\mathrm {m} }(t)-E_{\mathrm {m} }]-w+b\tau \delta (t-t^{f})} Firing pattern of initial bursting in response to a step current input generated with the Adaptive exponential integrate-and-fire model. Other Firing patterns can also be generated.
+
+[ 26 ] where w denotes the adaptation current with time scale τ τ {\displaystyle \tau } . Important model parameters are the voltage reset value V r , the intrinsic threshold V T {\displaystyle V_{T}} , the time constants τ τ {\displaystyle \tau } and τ τ m {\displaystyle \tau _{m}} as well as the coupling parameters a and b . The adaptive exponential integrate-and-fire model inherits the experimentally derived voltage nonlinearity [ 31 ] of the exponential integrate-and-fire model. But going beyond this model, it can also account for a variety of neuronal firing patterns in response to constant stimulation, including adaptation, bursting, and initial bursting.
+
+[ 26 ] However, since the adaptation is in the form of a current, aberrant hyperpolarization may appear. This problem was solved by expressing it as a conductance.
+
+[ 35 ] Adaptive Threshold Neuron Model [ edit ] In this model, a time-dependent function θ θ ( t ) {\displaystyle \theta (t)} is added to the fixed threshold, v t h 0 {\displaystyle v_{th0}} , after every spike, causing an adaptation of the threshold. The threshold potential, v t h {\displaystyle v_{th}} , gradually returns to its steady state value depending on the threshold adaptation time constant τ τ θ θ {\displaystyle \tau _{\theta }} .
+
+[ 36 ] This is one of the simpler techniques to achieve spike frequency adaptation.
+
+[ 37 ] The expression for the adaptive threshold is given by: v t h ( t ) = v t h 0 + ∑ ∑ θ θ ( t − − t f ) f = v t h 0 + ∑ ∑ θ θ 0 exp ⁡ ⁡ [ − − ( t − − t f ) τ τ θ θ ] f {\displaystyle v_{th}(t)=v_{th0}+{\frac {\sum \theta (t-t_{f})}{f}}=v_{th0}+{\frac {\sum \theta _{0}\exp \left[-{\frac {(t-t_{f})}{\tau _{\theta }}}\right]}{f}}} where θ θ ( t ) {\displaystyle \theta (t)} is defined by: θ θ ( t ) = θ θ 0 exp ⁡ ⁡ [ − − t τ τ θ θ ] {\displaystyle \theta (t)=\theta _{0}\exp \left[-{\frac {t}{\tau _{\theta }}}\right]} When the membrane potential, u ( t ) {\displaystyle u(t)} , reaches a threshold, it is reset to v r e s t {\displaystyle v_{rest}} : u ( t ) ≥ ≥ v t h ( t ) ⇒ ⇒ v ( t ) = v rest {\displaystyle u(t)\geq v_{th}(t)\Rightarrow v(t)=v_{\text{rest}}} A simpler version of this with a single time constant in threshold decay with an LIF neuron is realized in [ 38 ] to achieve LSTM like recurrent spiking neural networks to achieve accuracy nearer to ANNs on few spatio temporal tasks.
+
+Double Exponential Adaptive Threshold (DEXAT) [ edit ] The DEXAT neuron model is a flavor of adaptive neuron model in which the threshold voltage decays with a double exponential having two time constants. Double exponential decay is governed by a fast initial decay and then a slower decay over a longer period of time.
+
+[ 39 ] [ 40 ] This neuron used in SNNs through surrogate gradient creates an adaptive learning rate yielding higher accuracy and faster convergence, and flexible long short-term memory compared to existing counterparts in the literature. The membrane potential dynamics are described through equations and the threshold adaptation rule is: v t h ( t ) = b 0 + β β 1 b 1 ( t ) + β β 2 b 2 ( t ) {\displaystyle v_{th}(t)=b_{0}+\beta _{1}b_{1}(t)+\beta _{2}b_{2}(t)} The dynamics of b 1 ( t ) {\displaystyle b_{1}(t)} and b 2 ( t ) {\displaystyle b_{2}(t)} are given by b 1 ( t + δ δ t ) = p j 1 b 1 ( t ) + ( 1 − − p j 1 ) z ( t ) δ δ ( t ) {\displaystyle b_{1}(t+\delta t)=p_{j1}b_{1}(t)+(1-p_{j1})z(t)\delta (t)} , b 2 ( t + δ δ t ) = p j 2 b 2 ( t ) + ( 1 − − p j 2 ) z ( t ) δ δ ( t ) {\displaystyle b_{2}(t+\delta t)=p_{j2}b_{2}(t)+(1-p_{j2})z(t)\delta (t)} , where p j 1 = exp ⁡ ⁡ [ − − δ δ t τ τ b 1 ] {\displaystyle p_{j1}=\exp \left[-{\frac {\delta t}{\tau _{b1}}}\right]} and p j 2 = exp ⁡ ⁡ [ − − δ δ t τ τ b 2 ] {\displaystyle p_{j2}=\exp \left[-{\frac {\delta t}{\tau _{b2}}}\right]} .
+
+Further, multi-time scale adaptive threshold neuron model showing more complex dynamics is shown in.
+
+[ 41 ] Stochastic models of membrane voltage and spike timing [ edit ] The models in this category are generalized integrate-and-fire models that include a certain level of stochasticity. Cortical neurons in experiments are found to respond reliably to time-dependent input, albeit with a small degree of variations between one trial and the next if the same stimulus is repeated.
+
+[ 42 ] [ 43 ] Stochasticity in neurons has two important sources. First, even in a very controlled experiment where input current is injected directly into the soma, ion channels open and close stochastically [ 44 ] and this channel noise leads to a small amount of variability in the exact value of the membrane potential and the exact timing of output spikes. Second, for a neuron embedded in a cortical network, it is hard to control the exact input because most inputs come from unobserved neurons somewhere else in the brain.
+
+[ 27 ] Stochasticity has been introduced into spiking neuron models in two fundamentally different forms: either (i) a noisy input current is added to the differential equation of the neuron model; [ 45 ] or (ii) the process of spike generation is noisy.
+
+[ 46 ] In both cases, the mathematical theory can be developed for continuous time, which is then, if desired for the use in computer simulations, transformed into a discrete-time model.
+
+The relation of noise in neuron models to the variability of spike trains and neural codes is discussed in Neural Coding and in Chapter 7 of the textbook Neuronal Dynamics.
+
+[ 27 ] Noisy input model (diffusive noise) [ edit ] A neuron embedded in a network receives spike input from other neurons. Since the spike arrival times are not controlled by an experimentalist they can be considered as stochastic. Thus a (potentially nonlinear) integrate-and-fire model with nonlinearity f(v) receives two inputs: an input I ( t ) {\displaystyle I(t)} controlled by the experimentalists and a noisy input current I n o i s e ( t ) {\displaystyle I^{\rm {noise}}(t)} that describes the uncontrolled background input.
+
+τ τ m d V d t = f ( V ) + R I ( t ) + R I noise ( t ) {\displaystyle \tau _{m}{\frac {dV}{dt}}=f(V)+RI(t)+RI^{\text{noise}}(t)} Stein's model [ 45 ] is the special case of a leaky integrate-and-fire neuron and a stationary white noise current I n o i s e ( t ) = ξ ξ ( t ) {\displaystyle I^{\rm {noise}}(t)=\xi (t)} with mean zero and unit variance. In the subthreshold regime, these assumptions yield the equation of the Ornstein–Uhlenbeck process τ τ m d V d t = [ E m − − V ] + R I ( t ) + R ξ ξ ( t ) {\displaystyle \tau _{m}{\frac {dV}{dt}}=[E_{m}-V]+RI(t)+R\xi (t)} However, in contrast to the standard Ornstein–Uhlenbeck process, the membrane voltage is reset whenever V hits the firing threshold V th .
+
+[ 45 ] Calculating the interval distribution of the Ornstein–Uhlenbeck model for constant input with threshold leads to a first-passage time problem.
+
+[ 45 ] [ 47 ] Stein's neuron model and variants thereof have been used to fit interspike interval distributions of spike trains from real neurons under constant input current.
+
+[ 47 ] In the mathematical literature, the above equation of the Ornstein–Uhlenbeck process is written in the form d V = [ E m − − V + R I ( t ) ] d t τ τ m + σ σ d W {\displaystyle dV=[E_{m}-V+RI(t)]{\frac {dt}{\tau _{m}}}+\sigma \,dW} where σ σ {\displaystyle \sigma } is the amplitude of the noise input and dW are increments of a Wiener process. For discrete-time implementations with time step dt the voltage updates are [ 27 ] Δ Δ V = [ E m − − V + R I ( t ) ] Δ Δ t τ τ m + σ σ τ τ m y {\displaystyle \Delta V=[E_{m}-V+RI(t)]{\frac {\Delta t}{\tau _{m}}}+\sigma {\sqrt {\tau _{m}}}y} where y is drawn from a Gaussian distribution with zero mean unit variance. The voltage is reset when it hits the firing threshold V th .
+
+The noisy input model can also be used in generalized integrate-and-fire models. For example, the exponential integrate-and-fire model with noisy input reads τ τ m d V d t = E m − − V + Δ Δ T exp ⁡ ⁡ ( V − − V T Δ Δ T ) + R I ( t ) + R ξ ξ ( t ) {\displaystyle \tau _{m}{\frac {dV}{dt}}=E_{m}-V+\Delta _{T}\exp \left({\frac {V-V_{T}}{\Delta _{T}}}\right)+RI(t)+R\xi (t)} For constant deterministic input I ( t ) = I 0 {\displaystyle I(t)=I_{0}} it is possible to calculate the mean firing rate as a function of I 0 {\displaystyle I_{0}} .
+
+[ 48 ] This is important because the frequency-current relation (f-I-curve) is often used by experimentalists to characterize a neuron.
+
+The leaky integrate-and-fire with noisy input has been widely used in the analysis of networks of spiking neurons.
+
+[ 49 ] Noisy input is also called 'diffusive noise' because it leads to a diffusion of the subthreshold membrane potential around the noise-free trajectory (Johannesma, [ 50 ] The theory of spiking neurons with noisy input is reviewed in Chapter 8.2 of the textbook Neuronal Dynamics .
+
+[ 27 ] Noisy output model (escape noise) [ edit ] In deterministic integrate-and-fire models, a spike is generated if the membrane potential V (t) hits the threshold V t h {\displaystyle V_{th}} . In noisy output models, the strict threshold is replaced by a noisy one as follows. At each moment in time t, a spike is generated stochastically with instantaneous stochastic intensity or 'escape rate' [ 27 ] ρ ρ ( t ) = f ( V ( t ) − − V t h ) {\displaystyle \rho (t)=f(V(t)-V_{th})} that depends on the momentary difference between the membrane voltage V (t) and the threshold V t h {\displaystyle V_{th}} .
+
+[ 46 ] A common choice for the 'escape rate' f {\displaystyle f} (that is consistent with biological data [ 22 ] ) is f ( V − − V t h ) = 1 τ τ 0 exp ⁡ ⁡ [ β β ( V − − V t h ) ] {\displaystyle f(V-V_{th})={\frac {1}{\tau _{0}}}\exp[\beta (V-V_{th})]} Stochastic spike generation (noisy output) depends on the momentary difference between the membrane potential V(t) and the threshold. The membrane potential V of the spike response model (SRM)  has two contributions.
+
+[ 51 ] [ 52 ] First, input current I  is filtered by a first filter k.  Second the sequence of output spikes S(t) is filtered by a second filter η and fed back. The resulting membrane V(t) potential is used to generate output spikes by a stochastic process ρ(t) with an intensity that depends on the distance between membrane potential and threshold. The spike response model (SRM) is closely related to the Generalized Linear Model (GLM).
+
+[ 53 ] [ 54 ] where τ τ 0 {\displaystyle \tau _{0}} is a time constant that describes how quickly a spike is fired once the membrane potential reaches the threshold and β β {\displaystyle \beta } is a sharpness parameter. For β β → → ∞ ∞ {\displaystyle \beta \to \infty } the threshold becomes sharp and spike firing occurs deterministically at the moment when the membrane potential hits the threshold from below. The sharpness value found in experiments [ 22 ] is 1 / β β ≈ ≈ 4 m V {\displaystyle 1/\beta \approx 4mV} which  means that neuronal firing becomes non-negligible as soon as the membrane potential is a few mV below the formal firing threshold.
+
+The escape rate process via a soft threshold is reviewed in Chapter 9 of the textbook Neuronal Dynamics.
+
+[ 27 ] For models in discrete time, a spike is generated with probability P F ( t n ) = F [ V ( t n ) − − V t h ] {\displaystyle P_{F}(t_{n})=F[V(t_{n})-V_{th}]} that depends on the momentary difference between the membrane voltage V at time t n {\displaystyle t_{n}} and the threshold V t h {\displaystyle V_{th}} .
+
+[ 55 ] The function F is often taken as a standard sigmoidal F ( x ) = 0.5 [ 1 + tanh ⁡ ⁡ ( γ γ x ) ] {\displaystyle F(x)=0.5[1+\tanh(\gamma x)]} with steepness parameter γ γ {\displaystyle \gamma } , [ 46 ] similar to the update dynamics in artificial neural networks. But the functional form of F can also be derived from the stochastic intensity f {\displaystyle f} in continuous time introduced above as F ( y n ) ≈ ≈ 1 − − exp ⁡ ⁡ [ y n Δ Δ t ] {\displaystyle F(y_{n})\approx 1-\exp[y_{n}\Delta t]} where y n = V ( t n ) − − V t h {\displaystyle y_{n}=V(t_{n})-V_{th}} is the threshold distance.
+
+[ 46 ] Integrate-and-fire models with output noise can be used to predict the peristimulus time histogram (PSTH) of real neurons under arbitrary time-dependent input.
+
+[ 22 ] For non-adaptive integrate-and-fire neurons, the interval distribution under constant stimulation can be calculated from stationary renewal theory .
+
+[ 27 ] Spike response model (SRM) [ edit ] Experimental evidence supporting the model Spike response model References Sub-threshold voltage for time-dependent input current [ 23 ] [ 22 ] Firing times for time-dependent input current [ 23 ] [ 22 ] Firing Patterns in response to step current input [ 56 ] [ 57 ] Interspike interval distribution [ 56 ] [ 46 ] Spike-afterpotential [ 23 ] refractoriness and dynamic firing threshold [ 23 ] [ 22 ] main article : Spike response model The spike response model (SRM) is a generalized linear model for the subthreshold membrane voltage combined with a nonlinear output noise process for spike generation.
+
+[ 46 ] [ 58 ] [ 56 ] The membrane voltage V (t) at time t is V ( t ) = ∑ ∑ f η η ( t − − t f ) + ∫ ∫ 0 ∞ ∞ κ κ ( s ) I ( t − − s ) d s + V r e s t {\displaystyle V(t)=\sum _{f}\eta (t-t^{f})+\int \limits _{0}^{\infty }\kappa (s)I(t-s)\,ds+V_{\mathrm {rest} }} where t f is the firing time of spike number f of the neuron, V rest is the resting voltage in the absence of input, I(t-s) is the input current at time t-s and κ κ ( s ) {\displaystyle \kappa (s)} is a linear filter (also called kernel) that describes the contribution of an input current pulse at time t-s to the voltage at time t. The contributions to the voltage caused by a spike at time t f {\displaystyle t^{f}} are described by the refractory kernel η η ( t − − t f ) {\displaystyle \eta (t-t^{f})} .  In particular, η η ( t − − t f ) {\displaystyle \eta (t-t^{f})} describes the reset after the spike and the time course of the spike-afterpotential following a spike. It therefore expresses the consequences of refractoriness and adaptation.
+
+[ 46 ] [ 23 ] The voltage V(t) can be interpreted as the result of an integration of the differential equation of a leaky integrate-and-fire model coupled to  an arbitrary number of spike-triggered adaptation variables.
+
+[ 24 ] Spike firing is stochastic and happens with a time-dependent stochastic intensity (instantaneous rate) f ( V − − ϑ ϑ ( t ) ) = 1 τ τ 0 exp ⁡ ⁡ [ β β ( V − − ϑ ϑ ( t ) ) ] {\displaystyle f(V-\vartheta (t))={\frac {1}{\tau _{0}}}\exp[\beta (V-\vartheta (t))]} with parameters τ τ 0 {\displaystyle \tau _{0}} and β β {\displaystyle \beta } and a dynamic threshold ϑ ϑ ( t ) {\displaystyle \vartheta (t)} given by ϑ ϑ ( t ) = ϑ ϑ 0 + ∑ ∑ f θ θ 1 ( t − − t f ) {\displaystyle \vartheta (t)=\vartheta _{0}+\sum _{f}\theta _{1}(t-t^{f})} Here ϑ ϑ 0 {\displaystyle \vartheta _{0}} is the firing threshold of an inactive neuron and θ θ 1 ( t − − t f ) {\displaystyle \theta _{1}(t-t^{f})} describes the increase of the threshold after a spike at time t f {\displaystyle t^{f}} .
+
+[ 22 ] [ 23 ] In case of a fixed threshold, one sets θ θ 1 ( t − − t f ) = 0 {\displaystyle \theta _{1}(t-t^{f})=0} . For β β → → ∞ ∞ {\displaystyle \beta \to \infty } the threshold process is deterministic.
+
+[ 27 ] The time course of the filters η η , κ κ , θ θ 1 {\displaystyle \eta ,\kappa ,\theta _{1}} that characterize the spike response model can be directly extracted from experimental data.
+
+[ 23 ] With optimized parameters the SRM describes the time course of the subthreshold  membrane voltage for time-dependent input with a precision of 2mV and can predict the timing of most output spikes with a precision of 4ms.
+
+[ 22 ] [ 23 ] The SRM is closely related to linear-nonlinear-Poisson cascade models (also called Generalized Linear Model).
+
+[ 54 ] The estimation of parameters of probabilistic neuron models such as the SRM using methods developed for Generalized Linear Models [ 59 ] is discussed in Chapter 10 of the textbook Neuronal Dynamics .
+
+[ 27 ] Spike arrival causes postsynaptic potentials (red lines) which are summed. If the total voltage V reaches a threshold (dashed blue line) a spike is initiated (green) which also includes a spike-afterpotential. The threshold increases after each spike. Postsynaptic potentials are the response to incoming spikes while the spike-afterpotential is the response to outgoing spikes.
+
+The name spike response model arises because, in a network, the input current for neuron i is  generated by the spikes of other neurons so that in the case of a network the voltage equation becomes V i ( t ) = ∑ ∑ f η η i ( t − − t i f ) + ∑ ∑ j = 1 N w i j ∑ ∑ f ′ ε ε i j ( t − − t j f ′ ) + V r e s t {\displaystyle V_{i}(t)=\sum _{f}\eta _{i}(t-t_{i}^{f})+\sum _{j=1}^{N}w_{ij}\sum _{f'}\varepsilon _{ij}(t-t_{j}^{f'})+V_{\mathrm {rest} }} where t j f ′ {\displaystyle t_{j}^{f'}} is the firing times of neuron j (i.e., its spike train); η η i ( t − − t i f ) {\displaystyle \eta _{i}(t-t_{i}^{f})} describes the time course of the spike and the spike after-potential for neuron i; and w i j {\displaystyle w_{ij}} and ε ε i j ( t − − t j f ′ ) {\displaystyle \varepsilon _{ij}(t-t_{j}^{f'})} describe the amplitude and time course of an excitatory or inhibitory postsynaptic potential (PSP) caused by the spike t j f ′ {\displaystyle t_{j}^{f'}} of the presynaptic neuron j. The time course ε ε i j ( s ) {\displaystyle \varepsilon _{ij}(s)} of the PSP results from the convolution of the  postsynaptic current I ( t ) {\displaystyle I(t)} caused by the arrival of a presynaptic spike from neuron j with the membrane filter κ κ ( s ) {\displaystyle \kappa (s)} .
+
+[ 27 ] SRM0 [ edit ] The SRM 0 [ 56 ] [ 60 ] [ 61 ] is a stochastic neuron model related to time-dependent nonlinear renewal theory and a simplification of the Spike Response Model (SRM). The main difference to the voltage equation of the SRM introduced above is that in the term containing the refractory kernel η η ( s ) {\displaystyle \eta (s)} there is no summation sign over past spikes: only the most recent spike (denoted as the time t ^ ^ {\displaystyle {\hat {t}}} ) matters. Another difference is that the threshold is constant.  The model SRM0 can be formulated in discrete or continuous time. For example, in continuous time, the single-neuron equation is V ( t ) = η η ( t − − t ^ ^ ) + ∫ ∫ 0 ∞ ∞ κ κ ( s ) I ( t − − s ) d s + V r e s t {\displaystyle V(t)=\eta (t-{\hat {t}})+\int _{0}^{\infty }\kappa (s)I(t-s)\,ds+V_{\mathrm {rest} }} and the network equations of the SRM 0 are [ 56 ] V i ( t ∣ ∣ t ^ ^ i ) = η η i ( t − − t ^ ^ i ) + ∑ ∑ j w i j ∑ ∑ f ε ε i j ( t − − t ^ ^ i , t − − t f ) + V r e s t {\displaystyle V_{i}(t\mid {\hat {t}}_{i})=\eta _{i}(t-{\hat {t}}_{i})+\sum _{j}w_{ij}\sum _{f}\varepsilon _{ij}(t-{\hat {t}}_{i},t-t^{f})+V_{\mathrm {rest} }} where t ^ ^ i {\displaystyle {\hat {t}}_{i}} is the last firing time neuron i. Note that the time course of the postsynaptic potential ε ε i j {\displaystyle \varepsilon _{ij}} is also allowed to depend on the time since the last spike of neuron i to describe a change in membrane conductance during refractoriness.
+
+[ 60 ] The instantaneous firing rate (stochastic intensity) is f ( V − − ϑ ϑ ) = 1 τ τ 0 exp ⁡ ⁡ [ β β ( V − − V t h ) ] {\displaystyle f(V-\vartheta )={\frac {1}{\tau _{0}}}\exp[\beta (V-V_{th})]} where V t h {\displaystyle V_{th}} is a fixed firing threshold.  Thus spike firing of neuron i depends only on its input and the time since neuron i has fired its last spike.
+
+With the SRM 0 , the interspike-interval distribution for constant input can be mathematically linked to the shape of the refractory kernel η η {\displaystyle \eta } .
+
+[ 46 ] [ 56 ] Moreover the stationary frequency-current relation can be calculated from the escape rate in combination with the refractory kernel η η {\displaystyle \eta } .
+
+[ 46 ] [ 56 ] With an appropriate choice of the kernels, the SRM 0 approximates the dynamics of the Hodgkin-Huxley model to a high degree of accuracy.
+
+[ 60 ] Moreover, the PSTH response to arbitrary time-dependent input can be predicted.
+
+[ 56 ] Galves–Löcherbach model [ edit ] 3D visualization of the Galves–Löcherbach model for biological neural nets. This visualization is set for 4,000 neurons (4 layers with one population of inhibitory neurons and one population of excitatory neurons each) at 180 intervals of time.
+
+Main article: Galves–Löcherbach model The Galves–Löcherbach model [ 62 ] is a stochastic neuron model closely related to the spike response model SRM 0 [ 61 ] [ 56 ] and the leaky integrate-and-fire model. It is inherently stochastic and, just like the SRM 0 , it is linked to time-dependent nonlinear renewal theory . Given the model specifications, the probability that a given neuron i {\displaystyle i} spikes in a period t {\displaystyle t} may be described by P r o b ⁡ ⁡ ( X t ( i ) = 1 ∣ ∣ F t − − 1 ) = φ φ i ( ∑ ∑ j ∈ ∈ I W j → → i ∑ ∑ s = L t i t − − 1 g j ( t − − s ) X s ( j ) , t − − L t i ) , {\displaystyle \mathop {\mathrm {Prob} } (X_{t}(i)=1\mid {\mathcal {F}}_{t-1})=\varphi _{i}{\Biggl (}\sum _{j\in I}W_{j\rightarrow i}\sum _{s=L_{t}^{i}}^{t-1}g_{j}(t-s)X_{s}(j),~~~t-L_{t}^{i}{\Biggl )},} where W j → → i {\displaystyle W_{j\rightarrow i}} is a synaptic weight , describing the influence of neuron j {\displaystyle j} on neuron i {\displaystyle i} , g j {\displaystyle g_{j}} expresses the leak, and L t i {\displaystyle L_{t}^{i}} provides the spiking history of neuron i {\displaystyle i} before t {\displaystyle t} , according to L t i = sup { s < t : X s ( i ) = 1 } .
+
+{\displaystyle L_{t}^{i}=\sup\{s<t:X_{s}(i)=1\}.} Importantly, the spike probability of neuron i {\displaystyle i} depends only on its spike input (filtered with a kernel g j {\displaystyle g_{j}} and weighted with a factor W j → → i {\displaystyle W_{j\to i}} ) and the timing of its most recent output spike (summarized by t − − L t i {\displaystyle t-L_{t}^{i}} ).
+
+Didactic toy models of membrane voltage [ edit ] The models in this category are highly simplified toy models that qualitatively describe the membrane voltage as a function of input. They are mainly used for didactic reasons in teaching but are not considered valid neuron models for large-scale simulations or data fitting.
+
+FitzHugh–Nagumo [ edit ] Main article: FitzHugh–Nagumo model Sweeping simplifications to Hodgkin–Huxley were introduced by FitzHugh and Nagumo in 1961 and 1962. Seeking to describe "regenerative self-excitation" by a nonlinear positive-feedback membrane voltage and recovery by a linear negative-feedback gate voltage, they developed the model described by [ 63 ] r c l d V d t = V − − V 3 / 3 − − w + I e x t τ τ d w d t = V − − a − − b w {\displaystyle {\begin{aligned}{rcl}{\dfrac {dV}{dt}}&=V-V^{3}/3-w+I_{\mathrm {ext} }\\\tau {\dfrac {dw}{dt}}&=V-a-bw\end{aligned}}} where we again have a membrane-like voltage and input current with a slower general gate voltage w and experimentally-determined parameters a = -0.7, b = 0.8, τ = 1/0.08 . Although not derivable from biology, the model allows for a simplified, immediately available dynamic, without being a trivial simplification.
+
+[ 64 ] The experimental support is weak, but the model is useful as a didactic tool to introduce dynamics of spike generation through phase plane analysis. See Chapter 7 in the textbook Methods of Neuronal Modeling .
+
+[ 65 ] Morris–Lecar [ edit ] Main article: Morris–Lecar model In 1981, Morris and Lecar combined the Hodgkin–Huxley and FitzHugh–Nagumo models into a voltage-gated calcium channel model with a delayed-rectifier potassium channel represented by C d V d t = − − I i o n ( V , w ) + I d w d t = φ φ ⋅ ⋅ w ∞ ∞ − − w τ τ w {\displaystyle {\begin{aligned}C{\frac {dV}{dt}}&=-I_{\mathrm {ion} }(V,w)+I\\{\frac {dw}{dt}}&=\varphi \cdot {\frac {w_{\infty }-w}{\tau _{w}}}\end{aligned}}} where I i o n ( V , w ) = g ¯ ¯ C a m ∞ ∞ ⋅ ⋅ ( V − − V C a ) + g ¯ ¯ K w ⋅ ⋅ ( V − − V K ) + g ¯ ¯ L ⋅ ⋅ ( V − − V L ) {\displaystyle I_{\mathrm {ion} }(V,w)={\bar {g}}_{\mathrm {Ca} }m_{\infty }\cdot (V-V_{\mathrm {Ca} })+{\bar {g}}_{\mathrm {K} }w\cdot (V-V_{\mathrm {K} })+{\bar {g}}_{\mathrm {L} }\cdot (V-V_{\mathrm {L} })} .
+
+[ 17 ] The experimental support of the model is weak, but the model is useful as a didactic tool to introduce dynamics of spike generation through phase plane analysis. See Chapter 7 [ 66 ] in the textbook Methods of Neuronal Modeling .
+
+[ 65 ] A two-dimensional neuron model very similar to the Morris-Lecar model can be derived step-by-step starting from the Hodgkin-Huxley model. See Chapter 4.2 in the textbook Neuronal Dynamics.
+
+[ 27 ] Hindmarsh–Rose [ edit ] Main article: Hindmarsh–Rose model Building upon the FitzHugh–Nagumo model, Hindmarsh and Rose proposed in 1984 [ 67 ] a model of neuronal activity described by three coupled first-order differential equations: d x d t = y + 3 x 2 − − x 3 − − z + I d y d t = 1 − − 5 x 2 − − y d z d t = r ⋅ ⋅ ( 4 ( x + 8 5 ) − − z ) {\displaystyle {\begin{aligned}{\frac {dx}{dt}}&=y+3x^{2}-x^{3}-z+I\\{\frac {dy}{dt}}&=1-5x^{2}-y\\{\frac {dz}{dt}}&=r\cdot (4(x+{\tfrac {8}{5}})-z)\end{aligned}}} with r 2 = x 2 + y 2 + z 2 , and r ≈ 10 −2 so that the z variable only changes very slowly. This extra mathematical complexity allows a great variety of dynamic behaviors for the membrane potential, described by the x variable of the model, which includes chaotic dynamics. This makes the Hindmarsh–Rose neuron model very useful, because it is still simple, allows a good qualitative description of the many different firing patterns of the action potential, in particular bursting,  observed in experiments. Nevertheless, it remains a toy model and has not been fitted to experimental data. It is widely used as a reference model for bursting dynamics.
+
+[ 67 ] Theta model and quadratic integrate-and-fire [ edit ] Main article: Theta model The theta model , or Ermentrout–Kopell canonical Type I model, is mathematically equivalent to the quadratic integrate-and-fire model which in turn is an approximation to the exponential integrate-and-fire model and the Hodgkin-Huxley model. It is called a canonical model because it is one of the generic models for constant input close to the bifurcation point, which means close to the transition from silent to repetitive firing.
+
+[ 68 ] [ 69 ] The standard formulation of the theta model is [ 27 ] [ 68 ] [ 69 ] d θ θ ( t ) d t = ( I − − I 0 ) [ 1 + cos ⁡ ⁡ ( θ θ ) ] + [ 1 − − cos ⁡ ⁡ ( θ θ ) ] {\displaystyle {\frac {d\theta (t)}{dt}}=(I-I_{0})[1+\cos(\theta )]+[1-\cos(\theta )]} The equation for the quadratic integrate-and-fire model is (see Chapter 5.3 in the textbook Neuronal Dynamics [ 27 ] ) τ τ m d V m ( t ) d t = ( I − − I 0 ) R + [ V m ( t ) − − E m ] [ V m ( t ) − − V T ] {\displaystyle \tau _{\mathrm {m} }{\frac {dV_{\mathrm {m} }(t)}{dt}}=(I-I_{0})R+[V_{\mathrm {m} }(t)-E_{\mathrm {m} }][V_{\mathrm {m} }(t)-V_{\mathrm {T} }]} The equivalence of theta model and quadratic integrate-and-fire is for example reviewed in Chapter 4.1.2.2  of spiking neuron models.
+
+[ 1 ] For input I ( t ) {\displaystyle I(t)} that changes over time or is far away from the bifurcation point, it is preferable to work with the exponential integrate-and-fire model (if one wants to stay in the class of one-dimensional neuron models), because real neurons exhibit the nonlinearity of the exponential integrate-and-fire model.
+
+[ 31 ] Sensory input-stimulus encoding neuron models [ edit ] The models in this category were derived following experiments involving natural stimulation such as light, sound, touch, or odor. In these experiments, the spike pattern resulting from each stimulus presentation varies from trial to trial, but the averaged response from several trials often converges to a clear pattern. Consequently, the models in this category generate a probabilistic relationship between the input stimulus to spike occurrences. Importantly, the recorded neurons are often located several processing steps after the sensory neurons, so that these models summarize the effects of the sequence of processing steps in a compact form The non-homogeneous Poisson process model (Siebert) [ edit ] Siebert [ 70 ] [ 71 ] modeled the neuron spike firing pattern using a non- homogeneous Poisson process model, following experiments involving the auditory system.
+
+[ 70 ] [ 71 ] According to Siebert, the probability of a spiking event at the time interval [ t , t + Δ Δ t ] {\displaystyle [t,t+\Delta _{t}]} is proportional to a non-negative function g [ s ( t ) ] {\displaystyle g[s(t)]} , where s ( t ) {\displaystyle s(t)} is the raw stimulus.: P spike ( t ∈ ∈ [ t ′ , t ′ + Δ Δ t ] ) = Δ Δ t ⋅ ⋅ g [ s ( t ) ] {\displaystyle P_{\text{spike}}(t\in [t',t'+\Delta _{t}])=\Delta _{t}\cdot g[s(t)]} Siebert considered several functions as g [ s ( t ) ] {\displaystyle g[s(t)]} , including g [ s ( t ) ] ∝ ∝ s 2 ( t ) {\displaystyle g[s(t)]\propto s^{2}(t)} for low stimulus intensities.
+
+The main advantage of Siebert's model is its simplicity. The shortcomings of the model is its inability to reflect properly the following phenomena: The transient enhancement of the neuronal firing activity in response to a step stimulus.
+
+The saturation of the firing rate.
+
+The values of inter-spike-interval- histogram at short intervals values (close to zero).
+
+These shortcomings are addressed by the age-dependent point process model and the two-state Markov Model.
+
+[ 72 ] [ 73 ] [ 74 ] Refractoriness and age-dependent point process model [ edit ] Berry and Meister [ 75 ] studied neuronal refractoriness using a stochastic model that predicts spikes as a product of two terms, a function f(s(t))  that depends on the time-dependent  stimulus s(t) and one a recovery function w ( t − − t ^ ^ ) {\displaystyle w(t-{\hat {t}})} that depends on the time since the last spike ρ ρ ( t ) = f ( s ( t ) ) w ( t − − t ^ ^ ) {\displaystyle \rho (t)=f(s(t))w(t-{\hat {t}})} The model is also called an inhomogeneous Markov interval (IMI) process .
+
+[ 76 ] Similar models have been used for many years in auditory neuroscience.
+
+[ 77 ] [ 78 ] [ 79 ] Since the model keeps memory of the last spike time it is non-Poisson and falls in the class of time-dependent renewal models.
+
+[ 27 ] It is closely related to the model SRM0 with exponential escape rate.
+
+[ 27 ] Importantly, it is possible to fit parameters of the age-dependent point process model so as to describe not just the PSTH response, but also the interspike-interval statistics.
+
+[ 76 ] [ 77 ] [ 79 ] Linear-nonlinear Poisson cascade model and GLM [ edit ] Main article: Linear-nonlinear-Poisson cascade model The linear-nonlinear-Poisson cascade model is a cascade of a linear filtering process followed by a nonlinear spike generation step.
+
+[ 80 ] In the case that output spikes feed back, via a linear filtering process, we arrive at a model that is known in the neurosciences as Generalized Linear Model (GLM).
+
+[ 54 ] [ 59 ] The GLM is mathematically equivalent to the spike response model SRM) with  escape noise; but whereas in the SRM the internal variables are interpreted as the membrane potential and the firing threshold,  in the GLM the internal variables are abstract quantities that summarizes the net effect of input (and recent output spikes) before spikes are generated in the final step.
+
+[ 27 ] [ 54 ] The two-state Markov model (Nossenson & Messer) [ edit ] The spiking neuron model by Nossenson & Messer [ 72 ] [ 73 ] [ 74 ] produces the probability of the neuron firing a spike as a function of either an external or pharmacological stimulus.
+
+[ 72 ] [ 73 ] [ 74 ] The model consists of a cascade of a receptor layer model and a spiking neuron model, as shown in Fig 4. The connection between the external stimulus to the spiking probability is made in two steps: First, a receptor cell model translates the raw external stimulus to neurotransmitter concentration, and then, a spiking neuron model connects neurotransmitter concentration to the firing rate (spiking probability).  Thus, the spiking neuron model by itself depends on neurotransmitter concentration at the input stage.
+
+[ 72 ] [ 73 ] [ 74 ] Fig 4: High level block diagram of the receptor layer and neuron model by Nossenson & Messer.
+
+[ 72 ] [ 74 ] Fig 5. The prediction for the firing rate in response to a pulse stimulus as given by the model by Nossenson & Messer.
+
+[ 72 ] [ 74 ] An important feature of this model is the prediction for neurons firing rate pattern which captures, using a low number of free parameters, the characteristic edge emphasized response of neurons to a stimulus pulse, as shown in Fig. 5. The firing rate is identified both as a normalized probability for neural spike firing and as a quantity proportional to the current of neurotransmitters released by the cell. The expression for the firing rate takes the following form: R fire ( t ) = P spike ( t ; Δ Δ t ) Δ Δ t = [ y ( t ) + R 0 ] ⋅ ⋅ P 0 ( t ) {\displaystyle R_{\text{fire}}(t)={\frac {P_{\text{spike}}(t;\Delta _{t})}{\Delta _{t}}}=[y(t)+R_{0}]\cdot P_{0}(t)} where, P0 is the probability of the neuron being "armed" and ready to fire. It is given by the following differential equation: P ˙ ˙ 0 = − − [ y ( t ) + R 0 + R 1 ] ⋅ ⋅ P 0 ( t ) + R 1 {\displaystyle {\dot {P}}_{0}=-[y(t)+R_{0}+R_{1}]\cdot P_{0}(t)+R_{1}} P0 could be generally calculated recursively using the Euler method, but in the case of a pulse of stimulus, it yields a simple closed-form expression.
+
+[ 72 ] [ 81 ] y ( t ) is the input of the model and is interpreted as the neurotransmitter concentration on the cell surrounding (in most cases glutamate). For an external stimulus it can be estimated through the receptor layer model: y ( t ) ≃ ≃ g gain ⋅ ⋅ ⟨ ⟨ s 2 ( t ) ⟩ ⟩ , {\displaystyle y(t)\simeq g_{\text{gain}}\cdot \langle s^{2}(t)\rangle ,} with ⟨ ⟨ s 2 ( t ) ⟩ ⟩ {\displaystyle \langle s^{2}(t)\rangle } being a short temporal average of stimulus power (given in Watt or other energy per time unit).
+
+R 0 corresponds to the intrinsic spontaneous firing rate of the neuron.
+
+R 1 is the recovery rate of the neuron from the refractory state.
+
+Other predictions by this model include: 1) The averaged evoked response potential (ERP) due to the population of many neurons in unfiltered measurements resembles the firing rate.
+
+[ 74 ] 2) The voltage variance of activity due to multiple neuron activity resembles the firing rate (also known as Multi-Unit-Activity power or MUA).
+
+[ 73 ] [ 74 ] 3) The inter-spike-interval probability distribution takes the form a gamma-distribution like function.
+
+[ 72 ] [ 81 ] Experimental evidence supporting the model by Nossenson & Messer [ 72 ] [ 73 ] [ 74 ] Property of the Model by Nossenson & Messer References Description of experimental evidence The shape of the firing rate in response to an auditory stimulus pulse [ 82 ] [ 83 ] [ 84 ] [ 85 ] [ 86 ] The Firing Rate has the same shape of Fig 5.
+
+The shape of the firing rate in response to a visual stimulus pulse [ 87 ] [ 88 ] [ 89 ] [ 90 ] The Firing Rate has the same shape of Fig 5.
+
+The shape of the firing rate in response to an olfactory stimulus pulse [ 91 ] The Firing Rate has the same shape as Fig 5.
+
+The shape of the firing rate in response to a somatosensory stimulus [ 92 ] The Firing Rate has the same shape as Fig 5.
+
+The change in firing rate in response to neurotransmitter application  (mostly glutamate) [ 93 ] [ 94 ] Firing Rate change in response to neurotransmitter application (Glutamate) Square dependence between an auditory stimulus pressure and the firing rate [ 95 ] Square Dependence between Auditory Stimulus pressure and the Firing Rate (- Linear dependence in pressure square (power)).
+
+Square dependence between visual stimulus electric field (volts) and the firing rate [ 88 ] Square dependence between visual stimulus electric field (volts) - Linear Dependence between Visual Stimulus Power and the Firing Rate.
+
+The shape of the Inter-Spike-Interval Statistics (ISI) [ 96 ] ISI shape resembles the gamma-function-like The ERP resembles the firing rate in unfiltered measurements [ 97 ] The shape of the averaged evoked response potential in response to stimulus resembles the firing rate (Fig. 5).
+
+MUA power resembles the firing rate [ 74 ] [ 98 ] The shape of the empirical variance of extra-cellular measurements in response to stimulus pulse resembles the firing rate (Fig. 5).
+
+Pharmacological input stimulus neuron models [ edit ] The models in this category produce predictions for experiments involving pharmacological stimulation.
+
+Synaptic transmission (Koch & Segev) [ edit ] See also: Neurotransmission According to the model by Koch and Segev, [ 17 ] the response of a neuron to individual neurotransmitters can be modeled as an extension of the classical Hodgkin–Huxley model with both standard and nonstandard kinetic currents. Four neurotransmitters primarily influence the CNS.
+
+AMPA/kainate receptors are fast excitatory mediators while NMDA receptors mediate considerably slower currents. Fast inhibitory currents go through GABA A receptors , while GABA B receptors mediate by secondary G -protein-activated potassium channels. This range of mediation produces the following current dynamics: I A M P A ( t , V ) = g ¯ ¯ A M P A ⋅ ⋅ [ O ] ⋅ ⋅ ( V ( t ) − − E A M P A ) {\displaystyle I_{\mathrm {AMPA} }(t,V)={\bar {g}}_{\mathrm {AMPA} }\cdot [O]\cdot (V(t)-E_{\mathrm {AMPA} })} I N M D A ( t , V ) = g ¯ ¯ N M D A ⋅ ⋅ B ( V ) ⋅ ⋅ [ O ] ⋅ ⋅ ( V ( t ) − − E N M D A ) {\displaystyle I_{\mathrm {NMDA} }(t,V)={\bar {g}}_{\mathrm {NMDA} }\cdot B(V)\cdot [O]\cdot (V(t)-E_{\mathrm {NMDA} })} I G A B A A ( t , V ) = g ¯ ¯ G A B A A ⋅ ⋅ ( [ O 1 ] + [ O 2 ] ) ⋅ ⋅ ( V ( t ) − − E C l ) {\displaystyle I_{\mathrm {GABA_{A}} }(t,V)={\bar {g}}_{\mathrm {GABA_{A}} }\cdot ([O_{1}]+[O_{2}])\cdot (V(t)-E_{\mathrm {Cl} })} I G A B A B ( t , V ) = g ¯ ¯ G A B A B ⋅ ⋅ [ G ] n [ G ] n + K d ⋅ ⋅ ( V ( t ) − − E K ) {\displaystyle I_{\mathrm {GABA_{B}} }(t,V)={\bar {g}}_{\mathrm {GABA_{B}} }\cdot {\tfrac {[G]^{n}}{[G]^{n}+K_{\mathrm {d} }}}\cdot (V(t)-E_{\mathrm {K} })} where ḡ is the maximal [ 8 ] [ 17 ] conductance (around 1 S ) and E is the equilibrium potential of the given ion or transmitter (AMDA, NMDA, Cl , or K ), while [ O ] describes the fraction of open receptors. For NMDA, there is a significant effect of magnesium block that depends sigmoidally on the concentration of intracellular magnesium by B ( V ) . For GABA B , [ G ] is the concentration of the G -protein, and K d describes the dissociation of G in binding to the potassium gates.
+
+The dynamics of this more complicated model have been well-studied experimentally and produce important results in terms of very quick synaptic potentiation and depression , that is fast, short-term learning.
+
+The stochastic model by Nossenson and Messer translates neurotransmitter concentration at the input stage to the probability of releasing neurotransmitter at the output stage.
+
+[ 72 ] [ 73 ] [ 74 ] For a more detailed description of this model, see the Two state Markov model section above.
+
+HTM neuron model [ edit ] The HTM neuron model was developed by Jeff Hawkins and researchers at Numenta and is based on a theory called Hierarchical Temporal Memory , originally described in the book On Intelligence . It is based on neuroscience and the physiology and interaction of pyramidal neurons in the neocortex of the human brain.
+
+Comparing the artificial neural network (A), the biological neuron (B), and the HTM neuron (C).
+
+Artificial Neural Network (ANN) Neocortical Pyramidal Neuron (Biological Neuron) HTM Model Neuron - Few synapses - No dendrites - Sum input x weights - Learns by modifying the weights of synapses - Thousands of synapses on the dendrites - Active dendrites: cell recognizes hundreds of unique patterns - Co-activation of a set of synapses on a dendritic segment causes an NMDA spike and depolarization at the soma - Sources of input to the cell: Feedforward inputs that form synapses proximal to the soma and directly lead to action potentials NMDA spikes generated in the more distal basal Apical dendrites that depolarize the soma (usually insufficient to generate a somatic action potential) - Learns by growing new synapses - Inspired by the pyramidal cells in neocortex layers 2/3 and 5 - Thousands of synapses - Active dendrites: cell recognizes hundreds of unique patterns - Models dendrites and NMDA spikes with each array of coincident detectors having a set of synapses - Learns by modeling the growth of new synapses Applications [ edit ] Main article: Brain–computer interface Spiking Neuron Models are used in a variety of applications that need encoding into or decoding from neuronal spike trains in the context of neuroprosthesis and brain-computer interfaces such as retinal prosthesis : [ 12 ] [ 99 ] [ 100 ] [ 101 ] or artificial limb control and sensation.
+
+[ 102 ] [ 103 ] [ 104 ] Applications are not part of this article; for more information on this topic please refer to the main article.
+
+Relation between artificial and biological neuron models [ edit ] The most basic model of a neuron consists of an input with some synaptic weight vector and an activation function or transfer function inside the neuron determining output. This is the basic structure used for artificial neurons, which in a neural network often looks like y i = φ φ ( ∑ ∑ j w i j x j ) {\displaystyle y_{i}=\varphi \left(\sum _{j}w_{ij}x_{j}\right)} where y i is the output of the i th neuron, x j is the j th input neuron signal, w ij is the synaptic weight (or strength of connection) between the neurons i and j , and φ is the activation function . While this model has seen success in machine-learning applications, it is a poor model for real (biological) neurons, because it lacks time-dependence  in input and output.
+
+When an input is switched on at a time t and kept constant thereafter, biological neurons emit a spike train. Importantly, this spike train is not regular but exhibits a temporal structure characterized by adaptation, bursting, or initial bursting followed by regular spiking. Generalized integrate-and-fire models such as the Adaptive Exponential Integrate-and-Fire model, the spike response model, or the (linear) adaptive integrate-and-fire model can capture these neuronal firing patterns.
+
+[ 24 ] [ 25 ] [ 26 ] Moreover, neuronal input in the brain is time-dependent. Time-dependent input is transformed by complex linear and nonlinear filters into a spike train in the output. Again, the spike response model or the adaptive integrate-and-fire model enables to prediction of the spike train in the output for arbitrary time-dependent input, [ 22 ] [ 23 ] whereas an artificial neuron or a simple leaky integrate-and-fire does not.
+
+If we take the Hodkgin-Huxley model as a starting point, generalized integrate-and-fire models can be derived systematically in a step-by-step simplification procedure. This has been shown explicitly for the exponential integrate-and-fire [ 33 ] model and the spike response model .
+
+[ 60 ] In the case of modeling a biological neuron, physical analogs are used in place of abstractions such as "weight" and "transfer function". A neuron is filled and surrounded with water-containing ions, which carry electric charge. The neuron is bound by an insulating cell membrane and can maintain a concentration of charged ions on either side that determines a capacitance C m . The firing of a neuron involves the movement of ions into the cell, that occurs when neurotransmitters cause ion channels on the cell membrane to open. We describe this by a physical time-dependent current I ( t ) . With this comes a change in voltage , or the electrical potential energy difference between the cell and its surroundings, which is observed to sometimes result in a voltage spike called an action potential which travels the length of the cell and triggers the release of further neurotransmitters. The voltage, then, is the quantity of interest and is given by V m ( t ) .
+
+[ 19 ] If the input current is constant, most neurons emit after some time of adaptation or initial bursting a regular spike train. The frequency of regular firing in response to a constant current I is described by the frequency-current relation, which corresponds to the transfer function φ φ {\displaystyle \varphi } of artificial neural networks. Similarly, for all spiking neuron models, the transfer function φ φ {\displaystyle \varphi } can be calculated numerically (or analytically).
+
+Cable theory and compartmental models [ edit ] See also: Cable theory All of the above deterministic models are point-neuron models because they do not consider the spatial structure of a neuron. However, the dendrite contributes to transforming input into output.
+
+[ 105 ] [ 65 ] Point neuron models are valid description in three cases. (i) If input current is directly injected into the soma. (ii) If synaptic input arrives predominantly at or close to the soma (closeness is defined by a length scale λ λ {\displaystyle \lambda } introduced below.  (iii) If synapse arrives anywhere on the dendrite, but the dendrite is completely linear. In the last case, the cable acts as a linear filter; these linear filter properties can be included in the formulation of generalized integrate-and-fire models such as the spike response model .
+
+The filter properties can be calculated from a cable equation .
+
+Let us consider a cell membrane in the form of a cylindrical cable. The position on the cable is denoted by x and the voltage across the cell membrane by V. The cable is characterized by a longitudinal resistance r l {\displaystyle r_{l}} per unit length and a membrane resistance r m {\displaystyle r_{m}} . If everything is linear, the voltage changes as a function of time r m r l ∂ ∂ 2 V ∂ ∂ x 2 = c m r m ∂ ∂ V ∂ ∂ t + V {\displaystyle {\frac {r_{m}}{r_{l}}}{\frac {\partial ^{2}V}{\partial x^{2}}}=c_{m}r_{m}{\frac {\partial V}{\partial t}}+V} 19 We introduce a length scale λ λ 2 = r m / r l {\displaystyle \lambda ^{2}={r_{m}}/{r_{l}}} on the left side and time constant τ τ = c m r m {\displaystyle \tau =c_{m}r_{m}} on the right side. The cable equation can now be written in its perhaps best-known form: λ λ 2 ∂ ∂ 2 V ∂ ∂ x 2 = τ τ ∂ ∂ V ∂ ∂ t + V {\displaystyle \lambda ^{2}{\frac {\partial ^{2}V}{\partial x^{2}}}=\tau {\frac {\partial V}{\partial t}}+V} 20 The above cable equation is valid for a single cylindrical cable.
+
+Linear cable theory describes the dendritic arbor of a neuron as a cylindrical structure undergoing a regular pattern of bifurcation , like branches in a tree. For a single cylinder or an entire tree, the static input conductance at the base (where the tree meets the cell body or any such boundary) is defined as G i n = G ∞ ∞ tanh ⁡ ⁡ ( L ) + G L 1 + ( G L / G ∞ ∞ ) tanh ⁡ ⁡ ( L ) {\displaystyle G_{in}={\frac {G_{\infty }\tanh(L)+G_{L}}{1+(G_{L}/G_{\infty })\tanh(L)}}} , where L is the electrotonic length of the cylinder, which depends on its length, diameter, and resistance. A simple recursive algorithm scales linearly with the number of branches and can be used to calculate the effective conductance of the tree. This is given by G D = G m A D tanh ⁡ ⁡ ( L D ) / L D {\displaystyle \,\!G_{D}=G_{m}A_{D}\tanh(L_{D})/L_{D}} where A D = πld is the total surface area of the tree of total length l , and L D is its total electrotonic length. For an entire neuron in which the cell body conductance is G S and the membrane conductance per unit area is G md = G m / A , we find the total neuron conductance G N for n dendrite trees by adding up all tree and soma conductances, given by G N = G S + ∑ ∑ j = 1 n A D j F d g a j , {\displaystyle G_{N}=G_{S}+\sum _{j=1}^{n}A_{D_{j}}F_{dga_{j}},} where we can find the general correction factor F dga experimentally by noting G D = G md A D F dga .
+
+The linear cable model makes several simplifications to give closed analytic results, namely that the dendritic arbor must branch in diminishing pairs in a fixed pattern and that dendrites are linear. A compartmental model [ 65 ] allows for any desired tree topology with arbitrary branches and lengths, as well as arbitrary nonlinearities. It is essentially a discretized computational implementation of nonlinear dendrites.
+
+Each piece, or compartment, of a dendrite, is modeled by a straight cylinder of arbitrary length l and diameter d which connects with fixed resistance to any number of branching cylinders. We define the conductance ratio of the i th cylinder as B i = G i / G ∞ , where G ∞ ∞ = π π d 3 / 2 2 R i R m {\displaystyle G_{\infty }={\tfrac {\pi d^{3/2}}{2{\sqrt {R_{i}R_{m}}}}}} and R i is the resistance between the current compartment and the next. We obtain a series of equations for conductance ratios in and out of a compartment by making corrections to the normal dynamic B out, i = B in, i+1 , as B o u t , i = B i n , i + 1 ( d i + 1 / d i ) 3 / 2 R m , i + 1 / R m , i {\displaystyle B_{\mathrm {out} ,i}={\frac {B_{\mathrm {in} ,i+1}(d_{i+1}/d_{i})^{3/2}}{\sqrt {R_{\mathrm {m} ,i+1}/R_{\mathrm {m} ,i}}}}} B i n , i = B o u t , i + tanh ⁡ ⁡ X i 1 + B o u t , i tanh ⁡ ⁡ X i {\displaystyle B_{\mathrm {in} ,i}={\frac {B_{\mathrm {out} ,i}+\tanh X_{i}}{1+B_{\mathrm {out} ,i}\tanh X_{i}}}} B o u t , p a r = B i n , d a u 1 ( d d a u 1 / d p a r ) 3 / 2 R m , d a u 1 / R m , p a r + B i n , d a u 2 ( d d a u 2 / d p a r ) 3 / 2 R m , d a u 2 / R m , p a r + … … {\displaystyle B_{\mathrm {out,par} }={\frac {B_{\mathrm {in,dau1} }(d_{\mathrm {dau1} }/d_{\mathrm {par} })^{3/2}}{\sqrt {R_{\mathrm {m,dau1} }/R_{\mathrm {m,par} }}}}+{\frac {B_{\mathrm {in,dau2} }(d_{\mathrm {dau2} }/d_{\mathrm {par} })^{3/2}}{\sqrt {R_{\mathrm {m,dau2} }/R_{\mathrm {m,par} }}}}+\ldots } where the last equation deals with parents and daughters at branches, and X i = l i 4 R i d i R m {\displaystyle X_{i}={\tfrac {l_{i}{\sqrt {4R_{i}}}}{\sqrt {d_{i}R_{m}}}}} . We can iterate these equations through the tree until we get the point where the dendrites connect to the cell body (soma), where the conductance ratio is B in,stem . Then our total neuron conductance for static input is given by G N = A s o m a R m , s o m a + ∑ ∑ j B i n , s t e m , j G ∞ ∞ , j .
+
+{\displaystyle G_{N}={\frac {A_{\mathrm {soma} }}{R_{\mathrm {m,soma} }}}+\sum _{j}B_{\mathrm {in,stem} ,j}G_{\infty ,j}.} Importantly, static input is a very special case. In biology, inputs are time-dependent. Moreover, dendrites are not always linear.
+
+Compartmental models enable to include nonlinearities via ion channels positioned at arbitrary locations along the dendrites.
+
+[ 105 ] [ 106 ] For static inputs, it is sometimes possible to reduce the number of compartments (increase the computational speed) and yet retain the salient electrical characteristics.
+
+[ 107 ] See also: Multi-compartment model Conjectures regarding the role of the neuron in the wider context of the brain principle of operation [ edit ] The neurotransmitter-based energy detection scheme [ edit ] The neurotransmitter-based energy detection scheme [ 74 ] [ 81 ] suggests that the neural tissue chemically executes a Radar-like detection procedure.
+
+Fig. 6 The biological neural detection scheme as suggested by Nossenson et al.
+
+[ 74 ] [ 81 ] As shown in Fig. 6, the key idea of the conjecture is to account for neurotransmitter concentration, neurotransmitter generation, and neurotransmitter removal rates as the important quantities in executing the detection task, while referring to the measured electrical potentials as a side effect that only in certain conditions coincide with the functional purpose of each step.  The detection scheme is similar to a radar-like "energy detection" because it includes signal squaring, temporal summation, and a threshold switch mechanism, just like the energy detector, but it also includes a unit that emphasizes stimulus edges and a variable memory length (variable memory). According to this conjecture, the physiological equivalent of the energy test statistics is neurotransmitter concentration, and the firing rate corresponds to neurotransmitter current. The advantage of this interpretation is that it leads to a unit-consistent explanation which allows for bridge between electrophysiological measurements, biochemical measurements, and psychophysical results.
+
+The evidence reviewed in [ 74 ] [ 81 ] suggests the following association between functionality to histological classification: Stimulus squaring is likely to be performed by receptor cells.
+
+Stimulus edge emphasizing and signal transduction is performed by neurons.
+
+Temporal accumulation of neurotransmitters is performed by glial cells. Short-term neurotransmitter accumulation is likely to occur also in some types of neurons.
+
+Logical switching is executed by glial cells, and it results from exceeding a threshold level of neurotransmitter concentration. This threshold crossing is also accompanied by a change in neurotransmitter leak rate.
+
+Physical all-or-non movement switching is due to muscle cells and results from exceeding a certain neurotransmitter concentration threshold on muscle surroundings.
+
+Note that although the electrophysiological signals in Fig.6 are often similar to the functional signal (signal power/neurotransmitter concentration / muscle force), there are some stages in which the electrical observation differs from the functional purpose of the corresponding step. In particular, Nossenson et al. suggested that glia threshold crossing has a completely different functional operation compared to the radiated electrophysiological signal and that the latter might only be a side effect of glia break.
+
+General comments regarding the modern perspective of scientific and engineering models [ edit ] The models above are still idealizations. Corrections must be made for the increased membrane surface area given by numerous dendritic spines, temperatures significantly hotter than room-temperature experimental data, and nonuniformity in the cell's internal structure.
+
+[ 17 ] Certain observed effects do not fit into some of these models. For instance, the temperature cycling (with minimal net temperature increase) of the cell membrane during action potential propagation is not compatible with models that rely on modeling the membrane as a resistance that must dissipate energy when current flows through it. The transient thickening of the cell membrane during action potential propagation is also not predicted by these models, nor is the changing capacitance and voltage spike that results from this thickening incorporated into these models. The action of some anesthetics such as inert gases is problematic for these models as well. New models, such as the soliton model attempt to explain these phenomena, but are less developed than older models and have yet to be widely applied.
+
+Modern views regarding the role of the scientific model suggest that "All models are wrong but some are useful" (Box and Draper, 1987, Gribbin, 2009; Paninski et al., 2009).
+
+Recent conjecture suggests that each neuron might function as a collection of independent threshold units. It is suggested that a neuron could be anisotropically activated following the origin of its arriving signals to the membrane, via its dendritic trees. The spike waveform was also proposed to be dependent on the origin of the stimulus.
+
+[ 108 ] External links [ edit ] Neuronal Dynamics: from single neurons to networks and models of cognition (W. Gerstner, W. Kistler, R. Naud, L. Paninski, Cambridge University Press, 2014) .
+
+[ 27 ] In particular, Chapters 6 - 10, html online version .
+
+Spiking Neuron Models [ 1 ] (W. Gerstner and W. Kistler, Cambridge University Press, 2002) See also [ edit ] Binding neuron Bayesian approaches to brain function Brain-computer interfaces Free energy principle Models of neural computation Neural coding Neural oscillation Quantitative models of the action potential Spiking neural network References [ edit ] ^ a b c d Gerstner W, Kistler WM (2002).
+
+Spiking neuron models : single neurons, populations, plasticity . Cambridge, U.K.: Cambridge University Press.
+
+ISBN 0-511-07817-X .
+
+OCLC 57417395 .
+
+^ DeFelipe, Javier; Farinas, Isabel (1992). "The pyramidal neuron of the cerebral cortex: morphological and chemical characteristics of the synaptic inputs".
+
+Progress in Neurobiology .
+
+39 (6): 563– 607.
+
+doi : 10.1016/0301-0082(92)90015-7 .
+
+PMID 1410442 .
+
+S2CID 34889543 .
+
+^ Markram, Henry; Muller, Eilif; Ramaswamy, Srikanth; Reimann, Michael; Abdellah, Marwan (2015).
+
+"Reconstruction and simulation of neocortical microcircuitry" .
+
+Cell .
+
+163 (2): 456– 492.
+
+doi : 10.1016/j.cell.2015.09.029 .
+
+PMID 26451489 .
+
+S2CID 14466831 .
+
+^ Wong, R. K. S.; Traub, R. D. (2009-01-01), "NETWORKS | Cellular Properties and Synaptic Connectivity of CA3 Pyramidal Cells: Mechanisms for Epileptic Synchronization and Epileptogenesis" , in Schwartzkroin, Philip A. (ed.), Encyclopedia of Basic Epilepsy Research , Oxford: Academic Press, pp.
+
+815– 819, doi : 10.1016/b978-012373961-2.00215-0 , ISBN 978-0-12-373961-2 , retrieved 2020-11-18 ^ Lapicque, LM (1907). "Recherches quantitatives sur l'excitation electrique des nerfs".
+
+J Physiol Paris .
+
+9 : 620– 635.
+
+^ Abbott, Larry (1999). "Lapicque's introduction of the integrate-and-fire model neuron (1907)".
+
+Brain Research Bulletin .
+
+50 (5): 303– 304.
+
+doi : 10.1016/S0361-9230(99)00161-6 .
+
+PMID 10643408 .
+
+S2CID 46170924 .
+
+^ Gauld, Christophe; Brun, Cédric; Boraud, Thomas; Carlu, Mallory; Depannemaecker, Damien (2022-01-14).
+
+"Computational Models in Neurosciences Between Mechanistic and Phenomenological Characterizations" .
+
+doi : 10.20944/preprints202201.0206.v1 .
+
+S2CID 246059455 .
+
+^ a b c d e f g Hodgkin AL, Huxley AF (August 1952).
+
+"A quantitative description of membrane current and its application to conduction and excitation in nerve" .
+
+The Journal of Physiology .
+
+117 (4): 500– 44.
+
+doi : 10.1113/jphysiol.1952.sp004764 .
+
+PMC 1392413 .
+
+PMID 12991237 .
+
+^ a b c d e Hodgkin AL, Huxley AF, Katz B (April 1952).
+
+"Measurement of current-voltage relations in the membrane of the giant axon of Loligo" .
+
+The Journal of Physiology .
+
+116 (4): 424– 48.
+
+doi : 10.1113/jphysiol.1952.sp004716 .
+
+PMC 1392219 .
+
+PMID 14946712 .
+
+^ a b c d e Hodgkin AL, Huxley AF (April 1952).
+
+"Currents carried by sodium and potassium ions through the membrane of the giant axon of Loligo" .
+
+The Journal of Physiology .
+
+116 (4): 449– 72.
+
+doi : 10.1113/jphysiol.1952.sp004717 .
+
+PMC 1392213 .
+
+PMID 14946713 .
+
+^ a b c d e Hodgkin AL, Huxley AF (April 1952).
+
+"The components of membrane conductance in the giant axon of Loligo" .
+
+The Journal of Physiology .
+
+116 (4): 473– 96.
+
+doi : 10.1113/jphysiol.1952.sp004718 .
+
+PMC 1392209 .
+
+PMID 14946714 .
+
+^ a b Mathieson K, Loudin J, Goetz G, Huie P, Wang L, Kamins TI, et al. (June 2012).
+
+"Photovoltaic Retinal Prosthesis with High Pixel Density" .
+
+Nature Photonics .
+
+6 (6): 391– 397.
+
+Bibcode : 2012NaPho...6..391M .
+
+doi : 10.1038/nphoton.2012.104 .
+
+PMC 3462820 .
+
+PMID 23049619 .
+
+^ Izhikevich EM (2010).
+
+Dynamical systems in neuroscience: the geometry of excitability and bursting . Cambridge, MA: MIT Press.
+
+ISBN 978-0-262-51420-0 .
+
+OCLC 457159828 .
+
+^ Cressman JR, Ullah G, Ziburkus J, Schiff SJ, Barreto E (April 2009).
+
+"The influence of sodium and potassium dynamics on excitability, seizures, and the stability of persistent states: I. Single neuron dynamics" .
+
+Journal of Computational Neuroscience .
+
+26 (2): 159– 70.
+
+doi : 10.1007/s10827-008-0132-4 .
+
+PMC 2704057 .
+
+PMID 19169801 .
+
+^ Depannemaecker D, Ivanov A, Lillo D, Spek L, Bernard C, Jirsa V (2021-02-17).
+
+"A unified physiological framework of transitions between seizures, sustained ictal activity and depolarization block at the single neuron level" .
+
+bioRxiv : 2020.10.23.352021.
+
+doi : 10.1101/2020.10.23.352021 .
+
+S2CID 225962412 .
+
+^ a b Abbott LF (1999).
+
+"Lapicque's introduction of the integrate-and-fire model neuron (1907)" (PDF) .
+
+Brain Research Bulletin .
+
+50 ( 5– 6): 303– 4.
+
+doi : 10.1016/S0361-9230(99)00161-6 .
+
+PMID 10643408 .
+
+S2CID 46170924 . Archived from the original (PDF) on 2007-06-13.
+
+^ a b c d e Koch C, Segev I (1999).
+
+Methods in neuronal modeling: from ions to networks (2nd ed.). Cambridge, Massachusetts: MIT Press. p. 687.
+
+ISBN 978-0-262-11231-4 . Archived from the original on 2011-07-07 . Retrieved 2013-01-10 .
+
+^ Brunel N (2000-05-01). "Dynamics of sparsely connected networks of excitatory and inhibitory spiking neurons".
+
+Journal of Computational Neuroscience .
+
+8 (3): 183– 208.
+
+doi : 10.1023/A:1008925309027 .
+
+PMID 10809012 .
+
+S2CID 1849650 .
+
+^ a b Cejnar P, Vyšata O, Kukal J, Beránek M, Vališ M, Procházka A (April 2020).
+
+"Simple capacitor-switch model of excitatory and inhibitory neuron with all parts biologically explained allows input fire pattern dependent chaotic oscillations" .
+
+Scientific Reports .
+
+10 (1) 7353.
+
+Bibcode : 2020NatSR..10.7353C .
+
+doi : 10.1038/s41598-020-63834-7 .
+
+PMC 7192907 .
+
+PMID 32355185 .
+
+^ Fuortes MG, Mantegazzini F (July 1962).
+
+"Interpretation of the repetitive firing of nerve cells" .
+
+The Journal of General Physiology .
+
+45 (6): 1163– 79.
+
+doi : 10.1085/jgp.45.6.1163 .
+
+PMC 2195242 .
+
+PMID 13895926 .
+
+^ La Camera G, Rauch A, Lüscher HR, Senn W, Fusi S (October 2004).
+
+"Minimal models of adapted neuronal response to in vivo-like input currents" .
+
+Neural Computation .
+
+16 (10): 2101– 24.
+
+doi : 10.1162/0899766041732468 .
+
+PMID 15333209 .
+
+S2CID 1428381 .
+
+^ a b c d e f g h i j k l m n Jolivet R, Rauch A, Lüscher HR, Gerstner W (August 2006).
+
+"Predicting spike timing of neocortical pyramidal neurons by simple threshold models" .
+
+Journal of Computational Neuroscience .
+
+21 (1): 35– 49.
+
+doi : 10.1007/s10827-006-7074-5 .
+
+PMID 16633938 .
+
+S2CID 8911457 .
+
+^ a b c d e f g h i j k l m n Pozzorini C, Naud R, Mensi S, Gerstner W (July 2013).
+
+"Temporal whitening by power-law adaptation in neocortical neurons" .
+
+Nature Neuroscience .
+
+16 (7): 942– 8.
+
+doi : 10.1038/nn.3431 .
+
+PMID 23749146 .
+
+S2CID 1873019 .
+
+^ a b c d Gerstner W, van Hemmen JL, Cowan JD (November 1996).
+
+"What matters in neuronal locking?" .
+
+Neural Computation .
+
+8 (8): 1653– 76.
+
+doi : 10.1162/neco.1996.8.8.1653 .
+
+PMID 8888612 .
+
+S2CID 1301248 .
+
+^ a b c Izhikevich EM (November 2003). "Simple model of spiking neurons".
+
+IEEE Transactions on Neural Networks .
+
+14 (6): 1569– 72.
+
+doi : 10.1109/TNN.2003.820440 .
+
+PMID 18244602 .
+
+S2CID 814743 .
+
+^ a b c d e f Naud R, Marcille N, Clopath C, Gerstner W (November 2008).
+
+"Firing patterns in the adaptive exponential integrate-and-fire model" .
+
+Biological Cybernetics .
+
+99 ( 4– 5): 335– 47.
+
+doi : 10.1007/s00422-008-0264-7 .
+
+PMC 2798047 .
+
+PMID 19011922 .
+
+^ a b c d e f g h i j k l m n o p q r Wulfram Gerstner W, Kistler WM, Naud R, Paninski L (24 July 2014).
+
+Neuronal dynamics : from single neurons to networks and models of cognition . Cambridge, United Kingdom.
+
+ISBN 978-1-107-06083-8 .
+
+OCLC 861774542 .
+
+{{ cite book }} :  CS1 maint: location missing publisher ( link ) ^ Richardson MJ, Brunel N, Hakim V (May 2003). "From subthreshold to firing-rate resonance".
+
+Journal of Neurophysiology .
+
+89 (5): 2538– 54.
+
+doi : 10.1152/jn.00955.2002 .
+
+PMID 12611957 .
+
+^ a b Lundstrom BN, Higgs MH, Spain WJ, Fairhall AL (November 2008).
+
+"Fractional differentiation by neocortical pyramidal neurons" .
+
+Nature Neuroscience .
+
+11 (11): 1335– 42.
+
+doi : 10.1038/nn.2212 .
+
+PMC 2596753 .
+
+PMID 18931665 .
+
+^ a b Teka W, Marinov TM, Santamaria F (March 2014).
+
+"Neuronal spike timing adaptation described with a fractional leaky integrate-and-fire model" .
+
+PLOS Computational Biology .
+
+10 (3): e1003526.
+
+Bibcode : 2014PLSCB..10E3526T .
+
+doi : 10.1371/journal.pcbi.1003526 .
+
+PMC 3967934 .
+
+PMID 24675903 .
+
+^ a b c d e Badel L, Lefort S, Brette R, Petersen CC, Gerstner W , Richardson MJ (February 2008). "Dynamic I-V curves are reliable predictors of naturalistic pyramidal-neuron voltage traces".
+
+Journal of Neurophysiology .
+
+99 (2): 656– 66.
+
+CiteSeerX 10.1.1.129.504 .
+
+doi : 10.1152/jn.01107.2007 .
+
+PMID 18057107 .
+
+^ a b Brette R, Gerstner W (November 2005).
+
+"Adaptive exponential integrate-and-fire model as an effective description of neuronal activity" .
+
+Journal of Neurophysiology .
+
+94 (5): 3637– 42.
+
+doi : 10.1152/jn.00686.2005 .
+
+PMID 16014787 .
+
+^ a b Fourcaud-Trocmé N, Hansel D, van Vreeswijk C, Brunel N (December 2003).
+
+"How spike generation mechanisms determine the neuronal response to fluctuating inputs" .
+
+The Journal of Neuroscience .
+
+23 (37): 11628– 40.
+
+doi : 10.1523/JNEUROSCI.23-37-11628.2003 .
+
+PMC 6740955 .
+
+PMID 14684865 .
+
+^ Ostojic S, Brunel N, Hakim V (August 2009).
+
+"How connectivity, background activity, and synaptic properties shape the cross-correlation between spike trains" .
+
+The Journal of Neuroscience .
+
+29 (33): 10234– 53.
+
+doi : 10.1523/JNEUROSCI.1275-09.2009 .
+
+PMC 6665800 .
+
+PMID 19692598 .
+
+^ Górski T, Depannemaecker D, Destexhe A (January 2021).
+
+"Conductance-Based Adaptive Exponential Integrate-and-Fire Model" .
+
+Neural Computation .
+
+33 (1): 41– 66.
+
+doi : 10.1162/neco_a_01342 .
+
+PMID 33253029 .
+
+^ "Neuronal Dynamics - a neuroscience textbook by Wulfram Gerstner, Werner M. Kistler, Richard Naud and Liam Paninski" .
+
+neuronaldynamics.epfl.ch . Retrieved 2024-02-14 .
+
+^ Ganguly, Chittotosh; Bezugam, Sai Sukruth; Abs, Elisabeth; Payvand, Melika; Dey, Sounak; Suri, Manan (2024-02-01).
+
+"Spike frequency adaptation: bridging neural models and neuromorphic applications" .
+
+Communications Engineering .
+
+3 (1): 22.
+
+doi : 10.1038/s44172-024-00165-9 .
+
+ISSN 2731-3395 .
+
+PMC 11053160 .
+
+^ Bellec, Guillaume Emmanuel Fernand; Salaj, Darjan; Subramoney, Anand; Legenstein, Robert; Maass, Wolfgang (2018).
+
+"Long short-term memory and learning-to-learn in networks of spiking neurons" .
+
+Advances in Neural Information Processing Systems .
+
+arXiv : 1803.09574 .
+
+^ Shaban, Ahmed; Bezugam, Sai Sukruth; Suri, Manan (2021-07-09).
+
+"An adaptive threshold neuron for recurrent spiking neural networks with nanodevice hardware implementation" .
+
+Nature Communications .
+
+12 (1): 4234.
+
+Bibcode : 2021NatCo..12.4234S .
+
+doi : 10.1038/s41467-021-24427-8 .
+
+ISSN 2041-1723 .
+
+PMC 8270926 .
+
+PMID 34244491 .
+
+^ Bezugam, Sai Sukruth; Shaban, Ahmed; Suri, Manan (2023-05-21). "Neuromorphic Recurrent Spiking Neural Networks for EMG Gesture Classification and Low Power Implementation on Loihi".
+
+2023 IEEE International Symposium on Circuits and Systems (ISCAS) . IEEE. pp.
+
+1– 5.
+
+arXiv : 2206.02061 .
+
+doi : 10.1109/ISCAS46773.2023.10181510 .
+
+ISBN 978-1-6654-5109-3 .
+
+S2CID 260004324 .
+
+^ Kobayashi, Ryota; Tsubo, Yasuhiro; Shinomoto, Shigeru (2009).
+
+"Made-to-order spiking neuron model equipped with a multi-timescale adaptive threshold" .
+
+Frontiers in Computational Neuroscience .
+
+3 : 9.
+
+doi : 10.3389/neuro.10.009.2009 .
+
+ISSN 1662-5188 .
+
+PMC 2722979 .
+
+PMID 19668702 .
+
+^ Bryant HL, Segundo JP (September 1976).
+
+"Spike initiation by transmembrane current: a white-noise analysis" .
+
+The Journal of Physiology .
+
+260 (2): 279– 314.
+
+doi : 10.1113/jphysiol.1976.sp011516 .
+
+PMC 1309092 .
+
+PMID 978519 .
+
+^ Mainen ZF, Sejnowski TJ (June 1995). "Reliability of spike timing in neocortical neurons".
+
+Science .
+
+268 (5216): 1503– 6.
+
+Bibcode : 1995Sci...268.1503M .
+
+doi : 10.1126/science.7770778 .
+
+PMID 7770778 .
+
+^ Manwani A, Koch C (November 1999).
+
+"Detecting and estimating signals in noisy cable structure, I: neuronal noise sources" .
+
+Neural Computation .
+
+11 (8): 1797– 829.
+
+doi : 10.1162/089976699300015972 .
+
+PMID 10578033 .
+
+S2CID 12298894 . Archived from the original on 2021-03-07 . Retrieved 2021-04-04 .
+
+^ a b c d Stein RB (March 1965).
+
+"A Theoretical Analysis of Neuronal Variability" .
+
+Biophysical Journal .
+
+5 (2): 173– 94.
+
+Bibcode : 1965BpJ.....5..173S .
+
+doi : 10.1016/s0006-3495(65)86709-1 .
+
+PMC 1367716 .
+
+PMID 14268952 .
+
+^ a b c d e f g h i Gerstner W, van Hemmen JL (January 1992).
+
+"Associative memory in a network of 'spiking' neurons" .
+
+Network: Computation in Neural Systems .
+
+3 (2): 139– 164.
+
+doi : 10.1088/0954-898X_3_2_004 .
+
+ISSN 0954-898X .
+
+^ a b Ditlevsen S, Lansky P (January 2005). "Estimation of the input parameters in the Ornstein–Uhlenbeck neuronal model".
+
+Physical Review E .
+
+71 (1 Pt 1) 011907.
+
+Bibcode : 2005PhRvE..71a1907D .
+
+doi : 10.1103/PhysRevE.71.011907 .
+
+PMID 15697630 .
+
+^ Richardson MJ (August 2007). "Firing-rate response of linear and nonlinear integrate-and-fire neurons to modulated current-based and conductance-based synaptic drive".
+
+Physical Review E .
+
+76 (2 Pt 1) 021919.
+
+Bibcode : 2007PhRvE..76b1919R .
+
+doi : 10.1103/PhysRevE.76.021919 .
+
+PMID 17930077 .
+
+^ Brunel N (2000-05-01).
+
+"Dynamics of sparsely connected networks of excitatory and inhibitory spiking neurons" .
+
+Journal of Computational Neuroscience .
+
+8 (3): 183– 208.
+
+doi : 10.1023/A:1008925309027 .
+
+PMID 10809012 .
+
+S2CID 1849650 .
+
+^ Johannesma PI (1968).
+
+"Diffusion models for the stochastic activity of neurons" . In Caianelleo ER (ed.).
+
+Neural Networks . Springer. pp.
+
+116– 144.
+
+ISBN 9783642875960 .
+
+^ Gerstner W, van Hemmen JL (1992-01-01).
+
+"Associative memory in a network of 'spiking' neurons" .
+
+Network: Computation in Neural Systems .
+
+3 (2): 139– 164.
+
+doi : 10.1088/0954-898X_3_2_004 .
+
+ISSN 0954-898X .
+
+^ Gerstner W (January 1995).
+
+"Time structure of the activity in neural network models" (PDF) .
+
+Physical Review E .
+
+51 (1): 738– 758.
+
+Bibcode : 1995PhRvE..51..738G .
+
+doi : 10.1103/PhysRevE.51.738 .
+
+PMID 9962697 .
+
+^ Truccolo W, Eden UT, Fellows MR, Donoghue JP, Brown EN (February 2005). "A point process framework for relating neural spiking activity to spiking history, neural ensemble, and extrinsic covariate effects".
+
+Journal of Neurophysiology .
+
+93 (2): 1074– 89.
+
+doi : 10.1152/jn.00697.2004 .
+
+PMID 15356183 .
+
+^ a b c d Pillow JW, Shlens J, Paninski L, Sher A, Litke AM, Chichilnisky EJ, Simoncelli EP (August 2008).
+
+"Spatio-temporal correlations and visual signalling in a complete neuronal population" .
+
+Nature .
+
+454 (7207): 995– 9.
+
+Bibcode : 2008Natur.454..995P .
+
+doi : 10.1038/nature07140 .
+
+PMC 2684455 .
+
+PMID 18650810 .
+
+^ Weiss TF (November 1966). "A model of the peripheral auditory system".
+
+Kybernetik .
+
+3 (4): 153– 75.
+
+doi : 10.1007/BF00290252 .
+
+PMID 5982096 .
+
+S2CID 30861035 .
+
+^ a b c d e f g h i Gerstner W (January 2000).
+
+"Population dynamics of spiking neurons: fast transients, asynchronous states, and locking" (PDF) .
+
+Neural Computation .
+
+12 (1): 43– 89.
+
+doi : 10.1162/089976600300015899 .
+
+PMID 10636933 .
+
+S2CID 7832768 .
+
+^ Naud R, Gerstner W (2012-10-04). Sporns O (ed.).
+
+"Coding and decoding with adapting neurons: a population approach to the peri-stimulus time histogram" .
+
+PLOS Computational Biology .
+
+8 (10): e1002711.
+
+Bibcode : 2012PLSCB...8E2711N .
+
+doi : 10.1371/journal.pcbi.1002711 .
+
+PMC 3464223 .
+
+PMID 23055914 .
+
+^ Gerstner W, Ritz R, van Hemmen JL (October 1993). "Why spikes? Hebbian learning and retrieval of time-resolved excitation patterns".
+
+Biological Cybernetics .
+
+69 ( 5– 6): 503– 15.
+
+doi : 10.1007/BF00199450 .
+
+PMID 7903867 .
+
+S2CID 6195748 .
+
+^ a b Paninski L (November 2004).
+
+"Maximum likelihood estimation of cascade point-process neural encoding models" .
+
+Network: Computation in Neural Systems .
+
+15 (4): 243– 62.
+
+doi : 10.1088/0954-898X_15_4_002 .
+
+PMID 15600233 .
+
+S2CID 848548 .
+
+^ a b c d Kistler WM, Gerstner W, Hemmen JL (1997-07-01).
+
+"Reduction of the Hodgkin-Huxley Equations to a Single-Variable Threshold Model" .
+
+Neural Computation .
+
+9 (5): 1015– 1045.
+
+doi : 10.1162/neco.1997.9.5.1015 .
+
+ISSN 0899-7667 .
+
+S2CID 9861477 .
+
+^ a b Gerstner W (January 1995).
+
+"Time structure of the activity in neural network models" .
+
+Physical Review E .
+
+51 (1): 738– 758.
+
+Bibcode : 1995PhRvE..51..738G .
+
+doi : 10.1103/PhysRevE.51.738 .
+
+PMID 9962697 .
+
+^ Galves A, Löcherbach E (2013). "Infinite Systems of Interacting Chains with Memory of Variable Length — A Stochastic Model for Biological Neural Nets".
+
+Journal of Statistical Physics .
+
+151 (5): 896– 921.
+
+arXiv : 1212.5505 .
+
+Bibcode : 2013JSP...151..896G .
+
+doi : 10.1007/s10955-013-0733-9 .
+
+S2CID 119161279 .
+
+^ Fitzhugh R (July 1961).
+
+"Impulses and Physiological States in Theoretical Models of Nerve Membrane" .
+
+Biophysical Journal .
+
+1 (6): 445– 66.
+
+Bibcode : 1961BpJ.....1..445F .
+
+doi : 10.1016/S0006-3495(61)86902-6 .
+
+PMC 1366333 .
+
+PMID 19431309 .
+
+^ FitzHugh R, Izhikevich E (2006).
+
+"FitzHugh-Nagumo model" .
+
+Scholarpedia .
+
+1 (9): 1349.
+
+Bibcode : 2006SchpJ...1.1349I .
+
+doi : 10.4249/scholarpedia.1349 .
+
+^ a b c d Methods in neuronal modeling: from ions to networks (02 ed.). [Place of publication not identified]: Mit Press. 2003.
+
+ISBN 0-262-51713-2 .
+
+OCLC 947133821 .
+
+^ Rinzel J, Ermentrout B (August 1998). "Chapter 7: Analysis of Neural Excitability and Oscillations". In Segev I, Koch C (eds.).
+
+Methods in Neuronal Modeling . MIT Press. p. 251.
+
+ISBN 978-0262517133 .
+
+^ a b Hindmarsh J, Cornelius P (2005-10-01). "The development of the hindmarsh-rose model for bursting".
+
+Bursting . WORLD SCIENTIFIC. pp.
+
+3– 18.
+
+doi : 10.1142/9789812703231_0001 .
+
+ISBN 978-981-256-506-8 .
+
+^ a b Ermentrout G, Kopell N (1986). "Parabolic Bursting in an Excitable System Coupled with a Slow Oscillation".
+
+SIAM Journal on Applied Mathematics .
+
+46 (2): 233– 253.
+
+doi : 10.1137/0146017 .
+
+ISSN 0036-1399 .
+
+^ a b Ermentrout B (July 1996). "Type I membranes, phase resetting curves, and synchrony".
+
+Neural Computation .
+
+8 (5): 979– 1001.
+
+doi : 10.1162/neco.1996.8.5.979 .
+
+PMID 8697231 .
+
+S2CID 17168880 .
+
+^ a b Siebert WM (1970-05-01). "Frequency discrimination in the auditory system: Place or periodicity mechanisms?".
+
+Proceedings of the IEEE .
+
+58 (5): 723– 730.
+
+doi : 10.1109/PROC.1970.7727 .
+
+ISSN 0018-9219 .
+
+^ a b Siebert WM (June 1965). "Some implications of the stochastic behavior of primary auditory neurons".
+
+Kybernetik .
+
+2 (5): 206– 15.
+
+doi : 10.1007/BF00306416 .
+
+PMID 5839007 .
+
+S2CID 9744183 .
+
+^ a b c d e f g h i j Nossenson N, Messer H (2010). "Modeling neuron firing pattern using a two-state Markov chain".
+
+2010 IEEE Sensor Array and Multichannel Signal Processing Workshop .
+
+doi : 10.1109/SAM.2010.5606761 .
+
+ISBN 978-1-4244-8978-7 .
+
+S2CID 10973225 .
+
+^ a b c d e f g Nossenson N, Messer H (April 2012). "Optimal sequential detection of stimuli from multiunit recordings taken in densely populated brain regions".
+
+Neural Computation .
+
+24 (4): 895– 938.
+
+doi : 10.1162/NECO_a_00257 .
+
+PMID 22168560 .
+
+S2CID 16994688 .
+
+^ a b c d e f g h i j k l m n Nossenson N, Magal N, Messer H (2016). "Detection of stimuli from multi-neuron activity: Empirical study and theoretical implications".
+
+Neurocomputing .
+
+174 : 822– 837.
+
+doi : 10.1016/j.neucom.2015.10.007 .
+
+^ Berry MJ, Meister M (March 1998).
+
+"Refractoriness and neural precision" .
+
+The Journal of Neuroscience .
+
+18 (6): 2200– 11.
+
+doi : 10.1523/JNEUROSCI.18-06-02200.1998 .
+
+PMC 6792934 .
+
+PMID 9482804 .
+
+^ a b Kass RE, Ventura V (August 2001). "A spike-train probability model".
+
+Neural Computation .
+
+13 (8): 1713– 20.
+
+doi : 10.1162/08997660152469314 .
+
+PMID 11506667 .
+
+S2CID 9909632 .
+
+^ a b Gaumond RP, Molnar CE, Kim DO (September 1982). "Stimulus and recovery dependence of cat cochlear nerve fiber spike discharge probability".
+
+Journal of Neurophysiology .
+
+48 (3): 856– 73.
+
+doi : 10.1152/jn.1982.48.3.856 .
+
+PMID 6290620 .
+
+^ Miller MI, Mark KE (July 1992). "A statistical study of cochlear nerve discharge patterns in response to complex speech stimuli".
+
+The Journal of the Acoustical Society of America .
+
+92 (1): 202– 9.
+
+Bibcode : 1992ASAJ...92..202M .
+
+doi : 10.1121/1.404284 .
+
+PMID 1324958 .
+
+^ a b Johnson DH, Swami A (August 1983). "The transmission of signals by auditory-nerve fiber discharge patterns".
+
+The Journal of the Acoustical Society of America .
+
+74 (2): 493– 501.
+
+Bibcode : 1983ASAJ...74..493J .
+
+doi : 10.1121/1.389815 .
+
+PMID 6311884 .
+
+^ Chichilnisky EJ (May 2001). "A simple white noise analysis of neuronal light responses".
+
+Network: Computation in Neural Systems .
+
+12 (2): 199– 213.
+
+doi : 10.1080/713663221 .
+
+PMID 11405422 .
+
+^ a b c d e Nossenson N (2013).
+
+Model Based Detection of a Stimulus Presence from Neurophysiological Signals (PDF) (Ph.D. thesis). The Neiman Library of Exact Sciences & Engineering, Tel Aviv University: University of Tel-Aviv. Archived from the original (PDF) on 2017-03-05 . Retrieved 2016-04-12 .
+
+^ Koehler SD, Pradhan S, Manis PB, Shore SE (February 2011).
+
+"Somatosensory inputs modify auditory spike timing in dorsal cochlear nucleus principal cells" .
+
+The European Journal of Neuroscience .
+
+33 (3): 409– 20.
+
+doi : 10.1111/j.1460-9568.2010.07547.x .
+
+PMC 3059071 .
+
+PMID 21198989 .
+
+^ Reches A, Gutfreund Y (February 2008).
+
+"Stimulus-specific adaptations in the gaze control system of the barn owl" .
+
+The Journal of Neuroscience .
+
+28 (6): 1523– 33.
+
+doi : 10.1523/JNEUROSCI.3785-07.2008 .
+
+PMC 6671572 .
+
+PMID 18256273 .
+
+^ Wang X, Lu T, Snider RK, Liang L (May 2005). "Sustained firing in auditory cortex evoked by preferred stimuli".
+
+Nature .
+
+435 (7040): 341– 6.
+
+Bibcode : 2005Natur.435..341W .
+
+doi : 10.1038/nature03565 .
+
+PMID 15902257 .
+
+S2CID 4312195 .
+
+^ Taberner AM, Liberman MC (January 2005). "Response properties of single auditory nerve fibers in the mouse".
+
+Journal of Neurophysiology .
+
+93 (1): 557– 69.
+
+doi : 10.1152/jn.00574.2004 .
+
+PMID 15456804 .
+
+^ Hennevin E, Hars B, Maho C, Bloch V (1995-07-01). "Processing of learned information in paradoxical sleep: relevance for memory".
+
+Behavioural Brain Research . The Function of Sleep.
+
+69 ( 1– 2): 125– 35.
+
+doi : 10.1016/0166-4328(95)00013-J .
+
+PMID 7546303 .
+
+S2CID 4034082 .
+
+^ Rodieck RW (December 1965). "Quantitative analysis of cat retinal ganglion cell response to visual stimuli".
+
+Vision Research .
+
+5 (11): 583– 601.
+
+doi : 10.1016/0042-6989(65)90033-7 .
+
+PMID 5862581 .
+
+^ a b Enroth-Cugell C, Lennie P (June 1975).
+
+"The control of retinal ganglion cell discharge by receptive field surrounds" .
+
+The Journal of Physiology .
+
+247 (3): 551– 78.
+
+doi : 10.1113/jphysiol.1975.sp010947 .
+
+PMC 1309488 .
+
+PMID 1142301 .
+
+^ Enroth-Cugell C, Shapley RM (September 1973).
+
+"Adaptation and dynamics of cat retinal ganglion cells" .
+
+The Journal of Physiology .
+
+233 (2): 271– 309.
+
+doi : 10.1113/jphysiol.1973.sp010308 .
+
+PMC 1350567 .
+
+PMID 4747229 .
+
+^ Sagdullaev BT, McCall MA (2005-09-01). "Stimulus size and intensity alter fundamental receptive-field properties of mouse retinal ganglion cells in vivo".
+
+Visual Neuroscience .
+
+22 (5): 649– 59.
+
+doi : 10.1017/S0952523805225142 .
+
+PMID 16332276 .
+
+S2CID 7699161 .
+
+^ Nagel KI, Wilson RI (February 2011).
+
+"Biophysical mechanisms underlying olfactory receptor neuron dynamics" .
+
+Nature Neuroscience .
+
+14 (2): 208– 16.
+
+doi : 10.1038/nn.2725 .
+
+PMC 3030680 .
+
+PMID 21217763 .
+
+^ Tommerdahl M, Delemos KA, Whitsel BL, Favorov OV, Metz CB (July 1999). "Response of anterior parietal cortex to cutaneous flutter versus vibration".
+
+Journal of Neurophysiology .
+
+82 (1): 16– 33.
+
+doi : 10.1152/jn.1999.82.1.16 .
+
+PMID 10400931 .
+
+S2CID 14729461 .
+
+^ Hadipour Niktarash A, Shahidi GA (2004-03-01). "Effects of the activity of the internal globus pallidus-pedunculopontine loop on the transmission of the subthalamic nucleus-external globus pallidus-pacemaker oscillatory activities to the cortex".
+
+Journal of Computational Neuroscience .
+
+16 (2): 113– 27.
+
+doi : 10.1023/B:JCNS.0000014105.87625.5f .
+
+PMID 14758061 .
+
+S2CID 20728260 .
+
+^ Yamanaka Y, Kitamura N, Shinohara H, Takahashi K, Shibuya I (January 2013). "Glutamate evokes firing through activation of kainate receptors in chick accessory lobe neurons".
+
+Journal of Comparative Physiology A: Neuroethology, Sensory, Neural & Behavioral Physiology .
+
+199 (1): 35– 43.
+
+doi : 10.1007/s00359-012-0766-6 .
+
+PMID 23064516 .
+
+S2CID 15527085 .
+
+^ Müller M, Robertson D, Yates GK (September 1991). "Rate-versus-level functions of primary auditory nerve fibres: evidence for square law behaviour of all fibre categories in the guinea pig".
+
+Hearing Research .
+
+55 (1): 50– 6.
+
+doi : 10.1016/0378-5955(91)90091-M .
+
+PMID 1752794 .
+
+S2CID 40343090 .
+
+^ Johnson DH, Kiang NY (July 1976).
+
+"Analysis of discharges recorded simultaneously from pairs of auditory nerve fibers" .
+
+Biophysical Journal .
+
+16 (7): 719– 34.
+
+Bibcode : 1976BpJ....16..719J .
+
+doi : 10.1016/s0006-3495(76)85724-4 .
+
+PMC 1334896 .
+
+PMID 938715 .
+
+^ Bullock TH (1997-01-01). "Comparative physiology of acoustic and allied central analyzers".
+
+Acta Oto-Laryngologica. Supplementum .
+
+532 (sup532): 13– 21.
+
+doi : 10.3109/00016489709126139 .
+
+PMID 9442839 .
+
+^ Holstein SB, Buchwald JS, Schwafel JA (November 1969). "Progressive changes in auditory response patterns to repeated tone during normal wakefulness and paralysis".
+
+Brain Research .
+
+16 (1): 133– 48.
+
+doi : 10.1016/0006-8993(69)90090-0 .
+
+PMID 5348845 .
+
+^ Rizzo JF (June 2011). "Update on retinal prosthetic research: the Boston Retinal Implant Project".
+
+Journal of Neuro-Ophthalmology .
+
+31 (2): 160– 8.
+
+doi : 10.1097/wno.0b013e31821eb79e .
+
+PMID 21593628 .
+
+S2CID 17213342 .
+
+^ Peterman MC, Mehenti NZ, Bilbao KV, Lee CJ, Leng T, Noolandi J, et al. (November 2003). "The Artificial Synapse Chip: a flexible retinal interface based on directed retinal cell growth and neurotransmitter stimulation".
+
+Artificial Organs .
+
+27 (11): 975– 85.
+
+doi : 10.1046/j.1525-1594.2003.07307.x .
+
+PMID 14616516 .
+
+^ Iezzi R, Finlayson P, Xu Y, Katragadda R (6–9 September 2009).
+
+Microfluidic neurotransmiter-based neural interfaces for retinal prosthesis . 2009 Annual International Conference of the IEEE Engineering in Medicine and Biology Society. Minneapolis: IEEE Engineering in Medicine and Biology Society. pp.
+
+4563– 5.
+
+doi : 10.1109/IEMBS.2009.5332694 .
+
+ISBN 978-1-4244-3296-7 .
+
+PMID 19963838 .
+
+S2CID 2751102 .
+
+^ Yoshida K, Farina D, Akay M, Jensen W (2010-03-01). "Multichannel Intraneural and Intramuscular Techniques for Multiunit Recording and Use in Active Prostheses".
+
+Proceedings of the IEEE .
+
+98 (3): 432– 449.
+
+doi : 10.1109/JPROC.2009.2038613 .
+
+ISSN 0018-9219 .
+
+S2CID 23631268 .
+
+^ Bruns TM, Wagenaar JB, Bauman MJ, Gaunt RA, Weber DJ (April 2013).
+
+"Real-time control of hind limb functional electrical stimulation using feedback from dorsal root ganglia recordings" .
+
+Journal of Neural Engineering .
+
+10 (2): 026020.
+
+Bibcode : 2013JNEng..10b6020B .
+
+doi : 10.1088/1741-2560/10/2/026020 .
+
+PMC 3640462 .
+
+PMID 23503062 .
+
+^ "BrainGate - Home" .
+
+braingate2.org . 2015-12-04 . Retrieved 2016-04-06 .
+
+^ a b Hay E, Hill S, Schürmann F, Markram H, Segev I (July 2011).
+
+"Models of neocortical layer 5b pyramidal cells capturing a wide range of dendritic and perisomatic active properties" .
+
+PLOS Computational Biology .
+
+7 (7): e1002107.
+
+Bibcode : 2011PLSCB...7E2107H .
+
+doi : 10.1371/journal.pcbi.1002107 .
+
+PMC 3145650 .
+
+PMID 21829333 .
+
+^ Markram H, Muller E, Ramaswamy S, Reimann MW, Abdellah M, Sanchez CA, et al. (October 2015).
+
+"Reconstruction and Simulation of Neocortical Microcircuitry" .
+
+Cell .
+
+163 (2): 456– 92.
+
+doi : 10.1016/j.cell.2015.09.029 .
+
+PMID 26451489 .
+
+S2CID 14466831 .
+
+^ Forrest MD (April 2015).
+
+"Simulation of alcohol action upon a detailed Purkinje neuron model and a simpler surrogate model that runs >400 times faster" .
+
+BMC Neuroscience .
+
+16 (27) 27.
+
+doi : 10.1186/s12868-015-0162-6 .
+
+PMC 4417229 .
+
+PMID 25928094 .
+
+^ Sardi S, Vardi R, Sheinin A, Goldental A, Kanter I (December 2017).
+
+"New Types of Experiments Reveal that a Neuron Functions as Multiple Independent Threshold Units" .
+
+Scientific Reports .
+
+7 (1) 18036.
+
+Bibcode : 2017NatSR...718036S .
+
+doi : 10.1038/s41598-017-18363-1 .
+
+PMC 5740076 .
+
+PMID 29269849 .
+
+NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐mwg64
+Cached time: 20250812020639
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 1.807 seconds
+Real time usage: 2.156 seconds
+Preprocessor visited node count: 12542/1000000
+Revision size: 117653/2097152 bytes
+Post‐expand include size: 329100/2097152 bytes
+Template argument size: 15381/2097152 bytes
+Highest expansion depth: 17/100
+Expensive parser function count: 16/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 497743/5000000 bytes
+Lua time usage: 0.944/10.000 seconds
+Lua memory usage: 6475344/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00% 1483.426      1 -total
+ 64.88%  962.441      1 Template:Reflist
+ 43.51%  645.425     92 Template:Cite_journal
+ 11.01%  163.270     10 Template:Cite_book
+  7.13%  105.841     88 Template:Math
+  6.86%  101.808      1 Template:Short_description
+  5.13%   76.083      1 Template:Multiple_issues
+  4.92%   73.057      2 Template:Pagetype
+  2.68%   39.708      2 Template:Ambox
+  2.66%   39.417      2 Template:NumBlk Saved in parser cache with key enwiki:pcache:14408479:|#|:idhash:canonical and timestamp 20250812020639 and revision id 1305271377. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Biological_neuron_model&oldid=1305271377 " Categories : Biophysics Computational neuroscience Neuroscience Hidden categories: CS1 maint: location missing publisher Articles with short description Short description is different from Wikidata Wikipedia articles with style issues from August 2023 All articles with style issues Wikipedia articles that are too technical from August 2023 All articles that are too technical Articles with multiple maintenance issues All articles lacking reliable references Articles lacking reliable references from October 2023 This page was last edited on 11 August 2025, at 02:35 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Biological neuron model 10 languages Add topic
+

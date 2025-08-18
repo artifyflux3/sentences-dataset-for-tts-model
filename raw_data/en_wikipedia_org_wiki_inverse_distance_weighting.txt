@@ -1,0 +1,95 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Definition of the problem 2 Shepard's method Toggle Shepard's method subsection 2.1 Historical reference 2.2 Basic form 2.3 Example in 1 dimension 2.4 Modified Shepard's method 2.5 Additional weightings 3 See also 4 References 5 External links Toggle the table of contents Inverse distance weighting 7 languages Čeština Deutsch Français Polski Português Suomi 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Type of deterministic method for multivariate interpolation Inverse Distance Weighting as a sum of all weighting functions for each sample point. Each function has the value of one of the samples at its sample point and zero at every other sample point.
+
+Inverse distance weighting ( IDW ) is a type of deterministic method for multivariate interpolation with a known homogeneously scattered set of points. The assigned values to unknown points are calculated with a weighted average of the values available at the known points. This method can also be used to create spatial weights matrices in spatial autocorrelation analyses (e.g.
+
+Moran's I ).
+
+[ 1 ] The name given to this type of method was motivated by the weighted average applied, since it resorts to the inverse of the distance to each known point ("amount of proximity") when assigning weights.
+
+Definition of the problem [ edit ] The expected result is a discrete assignment of the unknown function u {\displaystyle u} in a study region: u ( x ) : x → → R , x ∈ ∈ D ⊂ ⊂ R n , {\displaystyle u(x):x\to \mathbb {R} ,\quad x\in \mathbf {D} \subset \mathbb {R} ^{n},} where D {\displaystyle \mathbf {D} } is the study region.
+
+The set of N {\displaystyle N} known data points can be described as a list of tuples : [ ( x 1 , u 1 ) , ( x 2 , u 2 ) , .
+
+.
+
+.
+
+, ( x N , u N ) ] .
+
+{\displaystyle [(x_{1},u_{1}),(x_{2},u_{2}),...,(x_{N},u_{N})].} The function is to be "smooth" (continuous and once differentiable), to be exact ( u ( x i ) = u i {\displaystyle u(x_{i})=u_{i}} ) and to meet the user's intuitive expectations about the phenomenon under investigation. Furthermore, the function should be suitable for a computer application at a reasonable cost (nowadays, a basic implementation will probably make use of parallel resources ).
+
+Shepard's method [ edit ] Historical reference [ edit ] At the Harvard Laboratory for Computer Graphics and Spatial Analysis, beginning in 1965, a varied collection of scientists converged to rethink, among other things, what are now called geographic information systems .
+
+[ 2 ] The motive force behind the Laboratory, Howard Fisher , conceived an improved computer mapping program that he called SYMAP, which, from the start, Fisher wanted to improve on the interpolation. He showed Harvard College freshmen his work on SYMAP, and many of them participated in Laboratory events. One freshman, Donald Shepard, decided to overhaul the interpolation in SYMAP, resulting in his famous article from 1968.
+
+[ 3 ] Shepard's algorithm was also influenced by the theoretical approach of William Warntz and others at the Lab who worked with spatial analysis. He conducted a number of experiments with the exponent of distance, deciding on something closer to the gravity model (exponent of -2). Shepard implemented not just basic inverse distance weighting, but also allowed barriers (permeable and absolute) to interpolation.
+
+Other research centers were working on interpolation at this time, particularly University of Kansas and their SURFACE II program. Still, the features of SYMAP were state-of-the-art, even though programmed by an undergraduate.
+
+Basic form [ edit ] Shepard's interpolation for different power parameters p , from scattered points on the surface z = exp ⁡ ⁡ ( − − x 2 − − y 2 ) {\displaystyle z=\exp(-x^{2}-y^{2})} Given a set of sample points { x i , u i | for x i ∈ ∈ R n , u i ∈ ∈ R } i = 1 N {\displaystyle \{\mathbf {x} _{i},u_{i}|{\text{for }}\mathbf {x} _{i}\in \mathbb {R} ^{n},u_{i}\in \mathbb {R} \}_{i=1}^{N}} , the IDW interpolation function u ( x ) : R n → → R {\displaystyle u(\mathbf {x} ):\mathbb {R} ^{n}\to \mathbb {R} } is defined as: u ( x ) = { ∑ ∑ i = 1 N w i ( x ) u i ∑ ∑ i = 1 N w i ( x ) , if d ( x , x i ) ≠ ≠ 0 for all i , u i , if d ( x , x i ) = 0 for some i , {\displaystyle u(\mathbf {x} )={\begin{cases}{\dfrac {\sum _{i=1}^{N}{w_{i}(\mathbf {x} )u_{i}}}{\sum _{i=1}^{N}{w_{i}(\mathbf {x} )}}},&{\text{if }}d(\mathbf {x} ,\mathbf {x} _{i})\neq 0{\text{ for all }}i,\\u_{i},&{\text{if }}d(\mathbf {x} ,\mathbf {x} _{i})=0{\text{ for some }}i,\end{cases}}} where w i ( x ) = 1 d ( x , x i ) p {\displaystyle w_{i}(\mathbf {x} )={\frac {1}{d(\mathbf {x} ,\mathbf {x} _{i})^{p}}}} is a simple IDW weighting function, as defined by Shepard, [ 3 ] x denotes an interpolated (arbitrary) point, x i is an interpolating (known) point, d {\displaystyle d} is a given distance ( metric operator) from the known point x i to the unknown point x , N is the total number of known points used in interpolation and p {\displaystyle p} is a positive real number, called the power parameter.
+
+Here weight decreases as distance increases from the interpolated points. Greater values of p {\displaystyle p} assign greater influence to values closest to the interpolated point, with the result turning into a mosaic of tiles (a Voronoi diagram ) with nearly constant interpolated value for large values of p . For two dimensions, power parameters p ≤ ≤ 2 {\displaystyle p\leq 2} cause the interpolated values to be dominated by points far away, since with a density ρ ρ {\displaystyle \rho } of data points and neighboring points between distances r 0 {\displaystyle r_{0}} to R {\displaystyle R} , the summed weight is approximately ∑ ∑ j w j ≈ ≈ ∫ ∫ r 0 R 2 π π r ρ ρ d r r p = 2 π π ρ ρ ∫ ∫ r 0 R r 1 − − p d r , {\displaystyle \sum _{j}w_{j}\approx \int _{r_{0}}^{R}{\frac {2\pi r\rho \,dr}{r^{p}}}=2\pi \rho \int _{r_{0}}^{R}r^{1-p}\,dr,} which diverges for R → → ∞ ∞ {\displaystyle R\rightarrow \infty } and p ≤ ≤ 2 {\displaystyle p\leq 2} . For M dimensions, the same argument holds for p ≤ ≤ M {\displaystyle p\leq M} . For the choice of value for p , one can consider the degree of smoothing desired in the interpolation, the density and distribution of samples being interpolated, and the maximum distance over which an individual sample is allowed to influence the surrounding ones.
+
+Shepard's method is a consequence of minimization of a functional related to a measure of deviations between tuples of interpolating points { x , u } and i tuples of interpolated points { x i , u i }, defined as: ϕ ϕ ( x , u ) = ( ∑ ∑ i = 0 N ( u − − u i ) 2 d ( x , x i ) p ) 1 p , {\displaystyle \phi (\mathbf {x} ,u)=\left(\sum _{i=0}^{N}{\frac {(u-u_{i})^{2}}{d(\mathbf {x} ,\mathbf {x} _{i})^{p}}}\right)^{\frac {1}{p}},} derived from the minimizing condition: ∂ ∂ ϕ ϕ ( x , u ) ∂ ∂ u = 0.
+
+{\displaystyle {\frac {\partial \phi (\mathbf {x} ,u)}{\partial u}}=0.} The method can easily be extended to other dimensional spaces and it is in fact a generalization of Lagrange approximation into a multidimensional spaces. A modified version of the algorithm designed for trivariate interpolation was developed by Robert J. Renka [ 4 ] and is available in Netlib as algorithm 661 in the TOMS Library .
+
+Example in 1 dimension [ edit ] Shepard's interpolation in 1 dimension, from 4 scattered points and using p = 2 Modified Shepard's method [ edit ] Another modification of Shepard's method calculates interpolated value using only nearest neighbors within R -sphere (instead of full sample). Weights are slightly modified in this case: w k ( x ) = ( max ( 0 , R − − d ( x , x k ) ) R d ( x , x k ) ) 2 .
+
+{\displaystyle w_{k}(\mathbf {x} )=\left({\frac {\max(0,R-d(\mathbf {x} ,\mathbf {x} _{k}))}{Rd(\mathbf {x} ,\mathbf {x} _{k})}}\right)^{2}.} When combined with fast spatial search structure (like kd-tree ), it becomes efficient N log N interpolation method suitable for large-scale problems.
+
+Additional weightings [ edit ] Additional weightings can be incorporated into the Inverse Distance Weighting (IDW) method to enhance interpolation accuracy by incorporating more relevant information. These additional weightings act as multipliers to the basic inverse distance weighting function. The decision to use additional weightings should be guided by cross-validation to ensure optimal performance.  For example: Elevation difference – applied for wind speed interpolation.
+
+[ 5 ] CUTHI – is used when data is non-homogeneously distributed with clusters and when IDW exhibits the bullseye effect.
+
+[ 6 ] See also [ edit ] Field (geography) Gravity model Kernel density estimation Spatial analysis Tobler's first law of geography Tobler's second law of geography Kriging References [ edit ] ^ "Spatial Autocorrelation (Global Moran's I) (Spatial Statistics)" .
+
+ArcGIS Pro Documentation . ESRI . Retrieved 13 September 2022 .
+
+^ Chrisman, Nicholas.
+
+"History of the Harvard Laboratory for Computer Graphics: a Poster Exhibit" (PDF) .
+
+^ a b Shepard, Donald (1968).
+
+"A two-dimensional interpolation function for irregularly-spaced data" .
+
+Proceedings of the 1968 ACM National Conference . pp.
+
+517– 524.
+
+doi : 10.1145/800186.810616 .
+
+^ Robert Renka, Professor Emeritus , University of North Texas ^ Palomino, I.; Martín, F. (1995-07-01).
+
+"A Simple Method for Spatial Interpolation of the Wind in Complex Terrain" .
+
+Journal of Applied Meteorology and Climatology .
+
+34 (7): 1678– 1693.
+
+Bibcode : 1995JApMe..34.1678P .
+
+doi : 10.1175/1520-0450-34.7.1678 .
+
+ISSN 1520-0450 .
+
+^ Nir, Benmoshe (March 2025).
+
+"A Simple Solution for the Inverse Distance Weighting Interpolation (IDW) Clustering Problem" .
+
+Sci .
+
+7 (1): 30.
+
+doi : 10.3390/sci7010030 .
+
+External links [ edit ] Source code for IDW interpolation and CUTHI Retrieved from " https://en.wikipedia.org/w/index.php?title=Inverse_distance_weighting&oldid=1297011403 " Categories : Geostatistics Multivariate interpolation Hidden categories: Articles with short description Short description is different from Wikidata This page was last edited on 23 June 2025, at 17:23 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Inverse distance weighting 7 languages Add topic
+

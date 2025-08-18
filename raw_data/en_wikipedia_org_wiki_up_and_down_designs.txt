@@ -1,0 +1,293 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Mathematical description Toggle Mathematical description subsection 1.1 Definition 1.2 Transition probability matrix 1.3 Balance point 1.4 Stationary distribution of dose allocations 2 Common UDDs Toggle Common UDDs subsection 2.1 Original ("simple" or "classical") UDD 2.2 Durham and Flournoy's biased coin design 2.3 Group (cohort) UDDs 2.4 '"`UNIQ--postMath-00000061-QINU`"'-in-a-row (or "transformed" or "geometric") UDD 3 Estimating the target dose 4 References Toggle the table of contents Up-and-down design Add languages Add links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia (Redirected from Up-and-Down Designs ) Statistical experiment designs Simulated experiments from three different UDDs. 0 and 1 responses are marked by o and x, respectively. Top to bottom: the original "simple" UDD that targets the median, a Durham-Flournoy biased-coin UDD targeting approximately the 20.6% percentile, and a k-in-a-row / "transformed" UDD targeting the same percentile.
+
+Up-and-down designs (UDDs) are a family of statistical experiment designs used in dose -finding experiments in science, engineering, and medical research. Dose-finding experiments have binary responses : each individual outcome can be described as one of two possible values, such as success vs. failure or toxic vs. non-toxic. Mathematically the binary responses are coded as 1 and 0. The goal of dose-finding experiments is to estimate the strength of treatment (i.e., the "dose") that would trigger the "1" response a pre-specified proportion of the time. This dose can be envisioned as a percentile of the distribution of response thresholds. An example where dose-finding is used is in an experiment to estimate the LD 50 of some toxic chemical with respect to mice.
+
+Dose-finding designs are sequential and response-adaptive: the dose at a given point in the experiment depends upon previous outcomes, rather than be fixed a priori . Dose-finding designs are generally more efficient for this task than fixed designs, but their properties are harder to analyze, and some require specialized design software. UDDs use a discrete set of doses rather than vary the dose continuously. They are relatively simple to implement, and are also among the best understood dose-finding designs. Despite this simplicity, UDDs generate random walks with intricate properties.
+
+[ 1 ] The original UDD aimed to find the median threshold by increasing the dose one level after a "0" response, and decreasing it one level after a "1" response. Hence the name "up-and-down". Other UDDs break this symmetry in order to estimate percentiles other than the median, or are able to treat groups of subjects rather than one at a time.
+
+UDDs were developed in the 1940s by several research groups independently.
+
+[ 2 ] [ 3 ] [ 4 ] The 1950s and 1960s saw rapid diversification with UDDs targeting percentiles other than the median, and expanding into numerous applied fields. The 1970s to early 1990s saw little UDD methods research, even as the design continued to be used extensively. A revival of UDD research since the 1990s has provided deeper understanding of UDDs and their properties, [ 5 ] and new and better estimation methods.
+
+[ 6 ] [ 7 ] UDDs are still used extensively in the two applications for which they were originally developed: psychophysics where they are used to estimate sensory thresholds and are often known as fixed forced-choice staircase procedures , [ 8 ] and explosive sensitivity testing, where the median-targeting UDD is often known as the Bruceton test . UDDs are also very popular in toxicity and anesthesiology research.
+
+[ 9 ] They are also considered a viable choice for Phase I clinical trials .
+
+[ 10 ] Mathematical description [ edit ] Definition [ edit ] Let n {\displaystyle n} be the sample size of a UDD experiment, and assuming for now that subjects are treated one at a time. Then the doses these subjects receive, denoted as random variables X 1 , … … , X n {\displaystyle X_{1},\ldots ,X_{n}} , are chosen from a discrete, finite set of M {\displaystyle M} increasing dose levels X = { d 1 , … … , d M : d 1 < ⋯ ⋯ < d M } .
+
+{\displaystyle {\mathcal {X}}=\left\{d_{1},\ldots ,d_{M}:\ d_{1}<\cdots <d_{M}\right\}.} Furthermore, if X i = d m {\displaystyle X_{i}=d_{m}} , then X i + 1 ∈ ∈ { d m − − 1 , d m , d m + 1 } , {\displaystyle X_{i+1}\in \{d_{m-1},d_{m},d_{m+1}\},} according to simple constant rules based on recent responses. The next subject must be treated one level up, one level down, or at the same level as the current subject. The responses themselves are denoted Y 1 , … … , Y n ∈ ∈ { 0 , 1 } ; {\displaystyle Y_{1},\ldots ,Y_{n}\in \left\{0,1\right\};} hereafter the "1" responses are positive and "0" negative. The repeated application of the same rules (known as dose-transition rules ) over a finite set of dose levels, turns X 1 , … … , X n {\displaystyle X_{1},\ldots ,X_{n}} into a random walk over X {\displaystyle {\mathcal {X}}} . Different dose-transition rules produce different UDD "flavors", such as the three shown in the figure above.
+
+Despite the experiment using only a discrete set of dose levels, the dose-magnitude variable itself, x {\displaystyle x} , is assumed to be continuous, and the probability of positive response is assumed to increase continuously with increasing x {\displaystyle x} . The goal of dose-finding experiments is to estimate the dose x {\displaystyle x} (on a continuous scale) that would trigger positive responses at a pre-specified target rate Γ Γ = P { Y = 1 ∣ ∣ X = x } , Γ Γ ∈ ∈ ( 0 , 1 ) {\displaystyle \Gamma =P\left\{Y=1\mid X=x\right\},\ \ \Gamma \in (0,1)} ; often known as the "target dose". This problem can be also expressed as estimation of the quantile F − − 1 ( Γ Γ ) {\displaystyle F^{-1}(\Gamma )} of a cumulative distribution function describing the dose-toxicity curve F ( x ) {\displaystyle F(x)} . The density function f ( x ) {\displaystyle f(x)} associated with F ( x ) {\displaystyle F(x)} is interpretable as the distribution of response thresholds of the population under study.
+
+Transition probability matrix [ edit ] Given that a subject receives dose d m {\displaystyle d_{m}} , denote the probability that the next subject receives dose d m − − 1 , d m {\displaystyle d_{m-1},d_{m}} , or d m + 1 {\displaystyle d_{m+1}} , as p m , m − − 1 , p m m {\displaystyle p_{m,m-1},p_{mm}} or p m , m + 1 {\displaystyle p_{m,m+1}} , respectively. These transition probabilities obey the constraints p m , m − − 1 + p m m + p m , m + 1 = 1 {\displaystyle p_{m,m-1}+p_{mm}+p_{m,m+1}=1} and the boundary conditions p 1 , 0 = p M , M + 1 = 0 {\displaystyle p_{1,0}=p_{M,M+1}=0} .
+
+Each specific set of UDD rules enables the symbolic calculation of these probabilities, usually as a function of F ( x ) {\displaystyle F(x)} . Assuming that transition probabilities are fixed in time, depending only upon the current allocation and its outcome, i.e., upon ( X i , Y i ) {\displaystyle \left(X_{i},Y_{i}\right)} and through them upon F ( x ) {\displaystyle F(x)} (and possibly on a set of fixed parameters). The probabilities are then best represented via a tri-diagonal transition probability matrix (TPM) P {\displaystyle \mathbf {P} } : P = ( p 11 p 12 0 ⋯ ⋯ ⋯ ⋯ 0 p 21 p 22 p 23 0 ⋱ ⋱ ⋮ ⋮ 0 ⋱ ⋱ ⋱ ⋱ ⋱ ⋱ ⋱ ⋱ ⋮ ⋮ ⋮ ⋮ ⋱ ⋱ ⋱ ⋱ ⋱ ⋱ ⋱ ⋱ 0 ⋮ ⋮ ⋱ ⋱ 0 p M − − 1 , M − − 2 p M − − 1 , M − − 1 p M − − 1 , M 0 ⋯ ⋯ ⋯ ⋯ 0 p M , M − − 1 p M M ) .
+
+{\displaystyle {\bf {{P}=\left({\begin{array}{cccccc}p_{11}&p_{12}&0&\cdots &\cdots &0\\p_{21}&p_{22}&p_{23}&0&\ddots &\vdots \\0&\ddots &\ddots &\ddots &\ddots &\vdots \\\vdots &\ddots &\ddots &\ddots &\ddots &0\\\vdots &\ddots &0&p_{M-1,M-2}&p_{M-1,M-1}&p_{M-1,M}\\0&\cdots &\cdots &0&p_{M,M-1}&p_{MM}\\\end{array}}\right).}}} Balance point [ edit ] Usually, UDD dose-transition rules bring the dose down (or at least bar it from escalating) after positive responses, and vice versa. Therefore, UDD random walks have a central tendency: dose assignments tend to meander back and forth around some dose x ∗ ∗ {\displaystyle x^{*}} that can be calculated from the transition rules, when those are expressed as a function of F ( x ) {\displaystyle F(x)} .
+
+[ 1 ] This dose has often been confused with the experiment's formal target F − − 1 ( Γ Γ ) {\displaystyle F^{-1}(\Gamma )} , and the two are often identical - but they do not have to be. The target is the dose that the experiment is tasked with estimating, while x ∗ ∗ {\displaystyle x^{*}} , known as the "balance point", is approximately where the UDD's random walk revolves around.
+
+[ 11 ] Stationary distribution of dose allocations [ edit ] Since UDD random walks are regular Markov chains , they generate a stationary distribution of dose allocations, π π {\displaystyle \pi } , once the effect of the manually-chosen starting dose wears off. This means, long-term visit frequencies to the various doses will approximate a steady state described by π π {\displaystyle \pi } . According to Markov chain theory the starting-dose effect wears off rather quickly, at a geometric rate.
+
+[ 12 ] Numerical studies suggest that it would typically take between 2 / M {\displaystyle 2/M} and 4 / M {\displaystyle 4/M} subjects for the effect to wear off nearly completely.
+
+[ 11 ] π π {\displaystyle \pi } is also the asymptotic distribution of cumulative dose allocations.
+
+UDDs' central tendencies ensure that long-term, the most frequently visited dose (i.e., the mode of π π {\displaystyle \pi } ) will be one of the two doses closest to the balance point x ∗ ∗ {\displaystyle x^{*}} .
+
+[ 1 ] If x ∗ ∗ {\displaystyle x^{*}} is outside the range of allowed doses, then the mode will be on the boundary dose closest to it. Under the original median-finding UDD, the mode will be at the closest dose to x ∗ ∗ {\displaystyle x^{*}} in any case. Away from the mode, asymptotic visit frequencies decrease sharply, at a faster-than-geometric rate. Even though a UDD experiment is still a random walk, long excursions away from the region of interest are very unlikely.
+
+Examples of UDD stationary distributions with M = 10 {\displaystyle M=10} . Left: original ("classical") UDD, x ∗ ∗ = 5.6 {\displaystyle x^{*}=5.6} . Right: biased-coin targeting the 30th percentile, x ∗ ∗ ≈ ≈ 3.9.
+
+{\displaystyle x^{*}\approx 3.9.} Common UDDs [ edit ] Original ("simple" or "classical") UDD [ edit ] The original "simple" or "classical" UDD moves the dose up one level upon a negative response, and vice versa. Therefore, the transition probabilities are p m , m + 1 = P { Y i = 0 | X i = d m } = 1 − − F ( d m ) ; p m , m − − 1 = P { Y i = 1 | X i = d m } = F ( d m ) .
+
+{\displaystyle {\begin{array}{rl}p_{m,m+1}&=P\{Y_{i}=0|X_{i}=d_{m}\}=1-F(d_{m});\\p_{m,m-1}&=P\{Y_{i}=1|X_{i}=d_{m}\}=F(d_{m}).\end{array}}} We use the original UDD as an example for calculating the balance point x ∗ ∗ {\displaystyle x^{*}} . The design's 'up', 'down' functions are p ( x ) = 1 − − F ( x ) , q ( x ) = F ( x ) .
+
+{\displaystyle p(x)=1-F(x),q(x)=F(x).} We equate them to find F ∗ ∗ {\displaystyle F^{*}} : 1 − − F ∗ ∗ = F ∗ ∗ ⟶ ⟶ F ∗ ∗ = 0.5.
+
+{\displaystyle 1-F^{*}=F^{*}\ \longrightarrow \ F^{*}=0.5.} The "classical" UDD is designed to find the median threshold. This is a case where F ∗ ∗ = Γ Γ .
+
+{\displaystyle F^{*}=\Gamma .} The "classical" UDD can be seen as a special case of each of the more versatile designs described below.
+
+Durham and Flournoy's biased coin design [ edit ] This UDD shifts the balance point, by adding the option of treating the next subject at the same dose rather than move only up or down. Whether to stay is determined by a random toss of a metaphoric "coin" with probability b = P { heads } .
+
+{\displaystyle b=P\{{\textrm {heads}}\}.} This biased-coin design (BCD) has two "flavors", one for F ∗ ∗ > 0.5 {\displaystyle F^{*}>0.5} and one for F ∗ ∗ < 0.5 , {\displaystyle F^{*}<0.5,} whose rules are shown below: X i + 1 = d m + 1 if Y i = 0 & & 'heads' ; d m − − 1 if Y _ _ i = 1 ; d m if Y i = 0 & & 'tails' .
+
+{\displaystyle X_{i+1}={\begin{array}{ll}d_{m+1}&{\textrm {if}}\ \ Y_{i}=0\ \ \&\ \ {\textrm {'heads'}};\\d_{m-1}&{\textrm {if}}\ \ Y\_i=1;\\d_{m}&{\textrm {if}}\ \ Y_{i}=0\ \ \&\ \ {\textrm {'tails'}}.\\\end{array}}} The heads probability b {\displaystyle b} can take any value in [ 0 , 1 ] {\displaystyle [0,1]} . The balance point is b ( 1 − − F ∗ ∗ ) = F ∗ ∗ F ∗ ∗ = b 1 + b ∈ ∈ [ 0 , 0.5 ] .
+
+{\displaystyle {\begin{array}{rcl}b\left(1-F^{*}\right)&=&F^{*}\\F^{*}&=&{\frac {b}{1+b}}\in [0,0.5].\end{array}}} The BCD balance point can made identical to a target rate F − − 1 ( Γ Γ ) {\displaystyle F^{-1}(\Gamma )} by setting the heads probability to b = Γ Γ / ( 1 − − Γ Γ ) {\displaystyle b=\Gamma /(1-\Gamma )} . For example, for Γ Γ = 0.3 {\displaystyle \Gamma =0.3} set b = 3 / 7 {\displaystyle b=3/7} . Setting b = 1 {\displaystyle b=1} makes this design identical to the classical UDD, and inverting the rules by imposing the coin toss upon positive rather than negative outcomes, produces above-median balance points. Versions with two coins, one for each outcome, have also been published, but they do not seem to offer an advantage over the simpler single-coin BCD.
+
+Group (cohort) UDDs [ edit ] Some dose-finding experiments, such as phase I trials, require a waiting period of weeks before determining each individual outcome. It may preferable then, to be able treat several subjects at once or in rapid succession. With group UDDs, the transition rules apply rules to cohorts of fixed size s {\displaystyle s} rather than to individuals.
+
+X i {\displaystyle X_{i}} becomes the dose given to cohort i {\displaystyle i} , and Y i {\displaystyle Y_{i}} is the number of positive responses in the i {\displaystyle i} -th cohort, rather than a binary outcome. Given that the i {\displaystyle i} -th cohort is treated at X i = d m {\displaystyle X_{i}=d_{m}} on the interior of X {\displaystyle {\mathcal {X}}} the i + 1 {\displaystyle i+1} -th cohort is assigned to X i + 1 = { d m + 1 if Y i ≤ ≤ l ; d m − − 1 if Y i ≥ ≥ u ; d m if l < Y i < u .
+
+{\displaystyle X_{i+1}={\begin{cases}d_{m+1}&{\textrm {if}}\ \ Y_{i}\leq l;\\d_{m-1}&{\textrm {if}}\ \ Y_{i}\geq u;\\d_{m}&{\textrm {if}}\ \ l<Y_{i}<u.\end{cases}}} Y i {\displaystyle Y_{i}} follow a binomial distribution conditional on X i {\displaystyle X_{i}} , with parameters s {\displaystyle s} and F ( X i ) {\displaystyle F(X_{i})} . The up and down probabilities are the binomial distribution's tails, and the stay probability its center (it is zero if u = l + 1 {\displaystyle u=l+1} ). A specific choice of parameters can be abbreviated as GUD ( s , l , u ) .
+
+{\displaystyle _{(s,l,u)}.} Nominally, group UDDs generate s {\displaystyle s} -order random walks, since the s {\displaystyle s} most recent observations are needed to determine the next allocation. However, with cohorts viewed as single mathematical entities, these designs generate a first-order random walk having a tri-diagonal TPM as above. Some relevant group UDD subfamilies: Symmetric designs with l + u = s {\displaystyle l+u=s} (e.g., GUD ( 2 , 0 , 2 ) {\displaystyle _{(2,0,2)}} ) target the median.
+
+The family GUD ( s , 0 , 1 ) , {\displaystyle _{(s,0,1)},} encountered in toxicity studies, allows escalation only with zero positive responses, and de-escalate upon any positive response. The escalation probability at x {\displaystyle x} is ( 1 − − F ( x ) ) s , {\displaystyle \left(1-F(x)\right)^{s},} and since this design does not allow for remaining at the same dose, at the balance point it will be exactly 1 / 2 {\displaystyle 1/2} . Therefore, F ∗ ∗ = 1 − − ( 1 2 ) 1 / s .
+
+{\displaystyle F^{*}=1-\left({\frac {1}{2}}\right)^{1/s}.} With s = 2 , 3 , 4 {\displaystyle s=2,3,4} would be associated with F ∗ ∗ ≈ ≈ 0.293 , 0.206 {\displaystyle F^{*}\approx 0.293,0.206} and 0.159 {\displaystyle 0.159} , respectively. The mirror-image family GUD ( s , s − − 1 , s ) {\displaystyle _{(s,s-1,s)}} has its balance points at one minus these probabilities.
+
+For general group UDDs, the balance point can be calculated only numerically, by finding the dose x ∗ ∗ {\displaystyle x^{*}} with toxicity rate F ∗ ∗ {\displaystyle F^{*}} such that ∑ ∑ r = u s ( s r ) ( F ∗ ∗ ) r ( 1 − − F ∗ ∗ ) s − − r = ∑ ∑ t = 0 l ( s t ) ( F ∗ ∗ ) t ( 1 − − F ∗ ∗ ) s − − t .
+
+{\displaystyle \sum _{r=u}^{s}\left({\begin{array}{c}s\\r\\\end{array}}\right)\left(F^{*}\right)^{r}(1-F^{*})^{s-r}=\sum _{t=0}^{l}\left({\begin{array}{c}s\\t\\\end{array}}\right)\left(F^{*}\right)^{t}(1-F^{*})^{s-t}.} Any numerical root-finding algorithm, e.g., Newton–Raphson , can be used to solve for F ∗ ∗ {\displaystyle F^{*}} .
+
+[ 13 ] k {\displaystyle k} -in-a-row (or "transformed" or "geometric") UDD [ edit ] This is the most commonly used non-median UDD. It was introduced by Wetherill in 1963, [ 14 ] and proliferated by him and colleagues shortly thereafter to psychophysics, [ 15 ] where it remains one of the standard methods to find sensory thresholds.
+
+[ 8 ] Wetherill called it "transformed" UDD; Misrak Gezmu who was the first to analyze its random-walk properties, called it "Geometric" UDD in the 1990s; [ 16 ] and in the 2000s the more straightforward name " k {\displaystyle k} -in-a-row" UDD was adopted.
+
+[ 11 ] The design's rules are deceptively simple: X i + 1 = { d m + 1 if Y i − − k + 1 = ⋯ ⋯ = Y i = 0 , all observed at d m ; d m − − 1 if Y i = 1 ; d m otherwise , {\displaystyle X_{i+1}={\begin{cases}d_{m+1}&{\textrm {if}}\ \ Y_{i-k+1}=\cdots =Y_{i}=0,\ \ {\textrm {all}}\ {\textrm {observed}}\ {\textrm {at}}\ \ d_{m};\\d_{m-1}&{\textrm {if}}\ \ Y_{i}=1;\\d_{m}&{\textrm {otherwise}},\end{cases}}} Every dose escalation requires k {\displaystyle k} non-toxicities observed on consecutive data points, all at the current dose, while de-escalation only requires a single toxicity. It closely resembles GUD ( s , 0 , 1 ) {\displaystyle _{(s,0,1)}} described above, and indeed shares the same balance point. The difference is that k {\displaystyle k} -in-a-row can bail out of a dose level upon the first toxicity, whereas its group UDD sibling might treat the entire cohort at once, and therefore might see more than one toxicity before descending.
+
+The method used in sensory studies is actually the mirror-image of the one defined above, with k {\displaystyle k} successive responses required for a de-escalation and only one non-response for escalation, yielding F ∗ ∗ ≈ ≈ 0.707 , 0.794 , 0.841 , … … {\displaystyle F^{*}\approx 0.707,0.794,0.841,\ldots } for k = 2 , 3 , 4 , … … {\displaystyle k=2,3,4,\ldots } .
+
+[ 17 ] k {\displaystyle k} -in-a-row generates a k {\displaystyle k} -th order random walk because knowledge of the last k {\displaystyle k} responses might be needed. It can be represented as a first-order chain with M k {\displaystyle Mk} states, or as a Markov chain with M {\displaystyle M} levels, each having k {\displaystyle k} internal states labeled 0 {\displaystyle 0} to k − − 1 {\displaystyle k-1} The internal state serves as a counter of the number of immediately recent consecutive non-toxicities observed at the current dose. This description is closer to the physical dose-allocation process, because subjects at different internal states of the level m {\displaystyle m} , are all assigned the same dose d m {\displaystyle d_{m}} . Either way, the TPM is M k × × M k {\displaystyle Mk\times Mk} (or more precisely, [ ( M − − 1 ) k + 1 ) ] × × [ ( M − − 1 ) k + 1 ) ] {\displaystyle \left[(M-1)k+1)\right]\times \left[(M-1)k+1)\right]} , because the internal counter is meaningless at the highest dose) - and it is not tridiagonal.
+
+Here is the expanded k {\displaystyle k} -in-a-row TPM with k = 2 {\displaystyle k=2} and M = 5 {\displaystyle M=5} , using the abbreviation F m ≡ ≡ F ( d m ) .
+
+{\displaystyle F_{m}\equiv F\left(d_{m}\right).} Each level's internal states are adjacent to each other.
+
+[ F 1 1 − − F 1 0 0 0 0 0 0 0 F 1 0 1 − − F 1 0 0 0 0 0 0 F 2 0 0 1 − − F 2 0 0 0 0 0 F 2 0 0 0 1 − − F 2 0 0 0 0 0 0 F 3 0 0 1 − − F 3 0 0 0 0 0 F 3 0 0 0 1 − − F 3 0 0 0 0 0 0 F 4 0 0 1 − − F 4 0 0 0 0 0 F 4 0 0 0 1 − − F 4 0 0 0 0 0 0 F 5 0 1 − − F 5 ] .
+
+{\displaystyle {\begin{bmatrix}F_{1}&1-F_{1}&0&0&0&0&0&0&0\\F_{1}&0&1-F_{1}&0&0&0&0&0&0\\F_{2}&0&0&1-F_{2}&0&0&0&0&0\\F_{2}&0&0&0&1-F_{2}&0&0&0&0\\0&0&F_{3}&0&0&1-F_{3}&0&0&0\\0&0&F_{3}&0&0&0&1-F_{3}&0&0\\0&0&0&0&F_{4}&0&0&1-F_{4}&0\\0&0&0&0&F_{4}&0&0&0&1-F_{4}\\0&0&0&0&0&0&F_{5}&0&1-F_{5}\\\end{bmatrix}}.} k {\displaystyle k} -in-a-row is often considered for clinical trials targeting a low-toxicity dose. In this case, the balance point and the target are not identical; rather, k {\displaystyle k} is chosen to aim close to the target rate, e.g., k = 2 {\displaystyle k=2} for studies targeting the 30th percentile, and k = 3 {\displaystyle k=3} for studies targeting the 20th percentile.
+
+Estimating the target dose [ edit ] Example for reversal-averaging estimation of a psychophysics experiment. Reversal points are circled, and the first reversal was excluded from the average. The design is a two-stage, with the second (and main) stage k {\displaystyle k} -in-a-row targeting the 70.7% percentile. The first stage (until the first reversal) uses the "classical" UDD, a commonly-employed scheme to speed up the arrival to the region of interest.
+
+Unlike other design approaches, UDDs do not have a specific estimation method "bundled in" with the design as a default choice. Historically, the more common choice has been some weighted average of the doses administered, usually excluding the first few doses to mitigate the starting-point bias. This approach antedates deeper understanding of UDDs' Markov properties, but its success in numerical evaluations relies upon the eventual sampling from π π {\displaystyle \pi } , since the latter is centered roughly around x ∗ ∗ .
+
+{\displaystyle x^{*}.} [ 5 ] The single most popular among these averaging estimators was introduced by Wetherill et al. in 1966, and only includes reversal points (points where the outcome switches from 0 to 1 or vice versa) in the average.
+
+[ 18 ] In recent years, the limitations of averaging estimators have come to light, in particular the many sources of bias that are very difficult to mitigate. Reversal estimators suffer from both multiple biases (although there is some inadvertent cancelling out of biases), and increased variance due to using a subsample of doses. However, the knowledge about averaging-estimator limitations has yet to disseminate outside the methodological literature and affect actual practice.
+
+[ 5 ] By contrast, regression estimators attempt to approximate the curve y = F ( x ) {\displaystyle y=F(x)} describing the dose-response relationship , in particular around the target percentile. The raw data for the regression are the doses d m {\displaystyle d_{m}} on the horizontal axis, and the observed toxicity frequencies, F ^ ^ m = ∑ ∑ i = 1 n Y i I [ X i = d m ] ∑ ∑ i = 1 n I [ X i = d m ] , m = 1 , … … , M , {\displaystyle {\hat {F}}_{m}={\frac {\sum _{i=1}^{n}Y_{i}I\left[X_{i}=d_{m}\right]}{\sum _{i=1}^{n}I\left[X_{i}=d_{m}\right]}},\ m=1,\ldots ,M,} on the vertical axis. The target estimate is the abscissa of the point where the fitted curve crosses y = Γ Γ .
+
+{\displaystyle y=\Gamma .} Probit regression has been used for many decades to estimate UDD targets, although far less commonly than the reversal-averaging estimator. In 2002, Stylianou and Flournoy introduced an interpolated version of isotonic regression (IR) to estimate UDD targets and other dose-response data.
+
+[ 6 ] More recently, a modification called "centered isotonic regression" (CIR) was developed by Oron and Flournoy, promising substantially better estimation performance than ordinary isotonic regression in most cases, and also offering the first viable interval estimator for isotonic regression in general.
+
+[ 7 ] Isotonic regression estimators appear to be the most compatible with UDDs, because both approaches are nonparametric and relatively robust.
+
+[ 5 ] The publicly available R package "cir" implements both CIR and IR for dose-finding and other applications.
+
+[ 19 ] References [ edit ] ^ a b c Durham, SD; Flournoy, N. "Up-and-down designs. I. Stationary treatment distributions.". In Flournoy, N; Rosenberger, WF (eds.).
+
+IMS Lecture Notes Monograph Series . Vol. 25: Adaptive Designs. pp.
+
+139– 157.
+
+^ Dixon, WJ; Mood, AM (1948). "A method for obtaining and analyzing sensitivity data".
+
+Journal of the American Statistical Association .
+
+43 (241): 109– 126.
+
+doi : 10.1080/01621459.1948.10483254 .
+
+^ von Békésy, G (1947). "A new audiometer".
+
+Acta Oto-Laryngologica .
+
+35 ( 5– 6): 411– 422.
+
+doi : 10.3109/00016484709123756 .
+
+^ Anderson, TW; McCarthy, PJ; Tukey, JW (1946).
+
+'Staircase' method of sensitivity testing (Technical report). Naval Ordnance Report. 65-46.
+
+^ a b c d Flournoy, N; Oron, AP. "Up-and-Down Designs for Dose-Finding". In Dean, A (ed.).
+
+Handbook of Design and Analysis of Experiments . CRC Press. pp.
+
+858– 894.
+
+^ a b Stylianou, MP; Flournoy, N (2002). "Dose finding using the biased coin up-and-down design and isotonic regression".
+
+Biometrics .
+
+58 (1): 171– 177.
+
+doi : 10.1111/j.0006-341x.2002.00171.x .
+
+PMID 11890313 .
+
+S2CID 8743090 .
+
+^ a b Oron, AP; Flournoy, N (2017). "Centered Isotonic Regression: Point and Interval Estimation for Dose-Response Studies".
+
+Statistics in Biopharmaceutical Research .
+
+9 (3): 258– 267.
+
+arXiv : 1701.05964 .
+
+doi : 10.1080/19466315.2017.1286256 .
+
+S2CID 88521189 .
+
+^ a b Leek, MR (2001).
+
+"Adaptive procedures in psychophysical research" .
+
+Perception and Psychophysics .
+
+63 (8): 1279– 1292.
+
+doi : 10.3758/bf03194543 .
+
+PMID 11800457 .
+
+^ Pace, NL; Stylianou, MP (2007).
+
+"Advances in and Limitations of Up-and-down Methodology: A Precis of Clinical Use, Study Design, and Dose Estimation in Anesthesia Research" .
+
+Anesthesiology .
+
+107 (1): 144– 152.
+
+doi : 10.1097/01.anes.0000267514.42592.2a .
+
+PMID 17585226 .
+
+^ Oron, AP; Hoff, PD (2013). "Small-Sample Behavior of Novel Phase I Cancer Trial Designs".
+
+Clinical Trials .
+
+10 (1): 63– 80.
+
+arXiv : 1202.4962 .
+
+doi : 10.1177/1740774512469311 .
+
+PMID 23345304 .
+
+S2CID 5667047 .
+
+^ a b c Oron, AP; Hoff, PD (2009). "The k-in-a-row up-and-down design, revisited".
+
+Statistics in Medicine .
+
+28 (13): 1805– 1820.
+
+doi : 10.1002/sim.3590 .
+
+PMID 19378270 .
+
+S2CID 25904900 .
+
+^ Diaconis, P; Stroock, D (1991).
+
+"Geometric bounds for eigenvalues of Markov chain" .
+
+The Annals of Applied Probability .
+
+1 : 36– 61.
+
+doi : 10.1214/aoap/1177005980 .
+
+^ Gezmu, M ; Flournoy, N (2006). "Group up-and-down designs for dose-finding".
+
+Journal of Statistical Planning and Inference .
+
+136 (6): 1749– 1764.
+
+doi : 10.1016/j.jspi.2005.08.002 .
+
+^ Wetherill, GB; Levitt, H (1963). "Sequential estimation of quantal response curves".
+
+Journal of the Royal Statistical Society, Series B .
+
+25 : 1– 48.
+
+doi : 10.1111/j.2517-6161.1963.tb00481.x .
+
+^ Wetherill, GB (1965). "Sequential estimation of points on a Psychometric Function".
+
+British Journal of Mathematical and Statistical Psychology .
+
+18 : 1– 10.
+
+doi : 10.1111/j.2044-8317.1965.tb00689.x .
+
+PMID 14324842 .
+
+^ Gezmu, Misrak (1996).
+
+The Geometric Up-and-Down Design for Allocating Dosage Levels (PhD). American University.
+
+^ Garcia-Perez, MA (1998).
+
+"Forced-choice staircases with fixed step sizes: asymptotic and small-sample properties" .
+
+Vision Research .
+
+38 (12): 1861– 81.
+
+doi : 10.1016/s0042-6989(97)00340-4 .
+
+PMID 9797963 .
+
+^ Wetherill, GB; Chen, H; Vasudeva, RB (1966). "Sequential estimation of quantal response curves: a new method of estimation".
+
+Biometrika .
+
+53 ( 3– 4): 439– 454.
+
+doi : 10.1093/biomet/53.3-4.439 .
+
+^ Oron, Assaf.
+
+"Package 'cir' " .
+
+CRAN . R Foundation for Statistical Computing . Retrieved 26 December 2020 .
+
+v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject Retrieved from " https://en.wikipedia.org/w/index.php?title=Up-and-down_design&oldid=1291648906 " Categories : Design of experiments Statistical process control Hidden categories: CS1: long volume value Articles with short description Short description matches Wikidata This page was last edited on 22 May 2025, at 15:20 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Up-and-down design Add languages Add topic
+

@@ -1,0 +1,145 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Axioms 2 Expressive power 3 Idea of decidability 4 Complexity 5 Decidable extensions 6 Undecidable extensions 7 See also 8 References 9 Bibliography Toggle the table of contents Skolem arithmetic Add languages Add links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Mathematical logic For other uses, see Skolem arithmetic (disambiguation) .
+
+In mathematical logic , Skolem arithmetic is the first-order theory of the natural numbers with multiplication , named in honor of Thoralf Skolem . The signature of Skolem arithmetic contains only the multiplication operation and equality, omitting the addition operation entirely.
+
+Skolem arithmetic is weaker than Peano arithmetic , which includes both addition and multiplication operations.
+
+[ 1 ] Unlike Peano arithmetic, Skolem arithmetic is a decidable theory . This means it is possible to effectively determine, for any sentence in the language of Skolem arithmetic, whether that sentence is provable from the axioms of Skolem arithmetic. The asymptotic running-time computational complexity of this decision problem is triply exponential.
+
+[ 2 ] Axioms [ edit ] We define the following abbreviations.
+
+a | b := ∃ n .( an = b ) One( e ) := ∀ n .( ne = n ) Prime( p ) := ¬One( p ) ∧ ∀ a .( a | p → (One( a ) ∨ a = p )) PrimePower( p , P ) := Prime( p ) ∧ p | P ∧ ∀ q .(Prime( q ) ∧ ¬( q = p ) →  ¬( q | P )) InvAdicAbs( p , n , P ) := PrimePower( p , P ) ∧ P | n ∧ ∀Q.((PrimePower( p , Q ) ∧ Q | n ) → Q | P ) [ P is the largest power of p dividing n ] AdicAbsDiff n ( p , a , b ) := Prime( p ) ∧ p | ab ∧ ∃ P .∃ Q .(InvAdicAbs( p , a , P ) ∧ InvAdicAbs( p , b , Q ) ∧ Q = p n P ) for each integer n > 0. [The largest power of p dividing b is p n times the largest power of p dividing a ] The axioms of Skolem arithmetic are: [ 3 ] ∀ a .∀ b .( ab = ba ) ∀ a .∀ b .∀ c .(( ab ) c = a ( bc )) ∃ e .One( e ) ∀ a .∀ b .(One( ab ) → One( a ) ∨ One( b )) ∀ a .∀ b .∀ c .( ac = bc → a = b ) ∀ a .∀ b .( a n = b n → a = b ) for each integer n > 0 ∀ x .∃ a .∃ r .( x = ar n ∧ ∀ b .∀ s .( x = bs n → a | b )) for each integer n > 0 ∀ a .∃ p .(Prime( p ) ∧ ¬( p | a )) [Infinitude of primes] ∀ p .∀ P .∀ Q .((PrimePower( p , P ) ∧ PrimePower( p , Q )) → ( P | Q ∨ Q | P )) ∀ p .∀ n .(Prime( p ) → ∃ P .InvAdicAbs( p , n , P )) ∀ n .∀ m .( n = m ↔ ∀ p .(Prime( p ) → ∃ P .(InvAdicAbs( p , n , P ) ∧ InvAdicAbs( p , m , P )))) [Unique factorization] ∀ p .∀ n .∀ m .(Prime( p ) → ∃ P .∃ Q .(InvAdicAbs( p , n , P ) ∧ InvAdicAbs( p , m , Q ) ∧ InvAdicAbs( p , nm , PQ ))) [ p -adic absolute value is multiplicative] ∀ a .∀ b .(∀ p .(Prime( p ) → ∃ P .∃ Q .(InvAdicAbs( p , a , P ) ∧ InvAdicAbs( p , b , Q ) ∧ P | Q )) → a | b ) [If the p -adic valuation of a is less than that of b for every prime p , then a | b ] ∀ a .∀ b .∃ c .∀ p (Prime( p ) → ((( p | a → ∃ P .(InvAdicAbs( p , b , P ) ∧ InvAdicAbs( p , c , P ))) ∧ (( p | b ) → ( p | a )))) [Deleting from the prime factorization of b all primes not dividing a ] ∀ a .∃ b .∀ p .(Prime( p ) → (∃ P .(InvAdicAbs( p , a , P ) ∧ InvAdicAbs( p , b , pP ))) ∧ ( p | b → p | a ))) [Increasing each exponent in the prime factorization of a by 1] ∀ a .∀ b .∃ c .∀ p .(Prime( p ) → ((AdicAbsDiff n ( p , a , b ) → InvAdicAbs( p , c , p )) ∧ ( p | c → AdicAbsDiff n ( p , a , b ))) for each integer n > 0 [Product of those primes p such that the largest power of p dividing b is p n times the largest power of p dividing a ] Expressive power [ edit ] First-order logic with equality and multiplication of positive integers can express the relation c = a ⋅ ⋅ b {\displaystyle c=a\cdot b} . Using this relation and equality, we can define the following relations on positive integers: Divisibility: b | c ⇔ ⇔ ∃ ∃ a .
+
+c = a ⋅ ⋅ b {\displaystyle b|c\ \Leftrightarrow \ \exists a.c=a\cdot b} Greatest common divisor : d = gcd ( a , b ) ⇔ ⇔ d | a ∧ ∧ d | b ∧ ∧ ∀ ∀ d ′ .
+
+( d ′ | a ∧ ∧ d ′ | b ) ⇒ ⇒ d ′ | d {\displaystyle d=\gcd(a,b)\ \Leftrightarrow \ d|a\land d|b\land \forall d'.(d'|a\land d'|b)\Rightarrow d'|d} Least common multiple : m = l c m ( a , b ) ⇔ ⇔ a | m ∧ ∧ b | m ∧ ∧ ∀ ∀ m ′ .
+
+( a | m ′ ∧ ∧ b | m ′ ) ⇒ ⇒ m | m ′ {\displaystyle m=\mathrm {lcm} (a,b)\ \Leftrightarrow \ a|m\land b|m\land \forall m'.(a|m'\land b|m')\Rightarrow m|m'} the constant 1 {\displaystyle 1} : ∀ ∀ a .1 | a {\displaystyle \forall a.1|a} Prime number : p r i m e ( p ) ⇔ ⇔ p ≠ ≠ 1 ∧ ∧ ∀ ∀ a .
+
+a | p ⇒ ⇒ ( a = 1 ∨ ∨ a = p ) {\displaystyle \mathrm {prime} (p)\ \Leftrightarrow \ p\neq 1\land \forall a.a|p\Rightarrow (a=1\lor a=p)} Number b {\displaystyle b} is a product of k {\displaystyle k} primes (for a fixed k {\displaystyle k} ): ∃ ∃ a 1 , .
+
+.
+
+.
+
+a k .
+
+p r i m e ( a 1 ) ∧ ∧ … … ∧ ∧ p r i m e ( a k ) ∧ ∧ b = a 1 ⋅ ⋅ … … ⋅ ⋅ a k {\displaystyle \exists a_{1},...a_{k}.\ \mathrm {prime} (a_{1})\land \ldots \land \mathrm {prime} (a_{k})\land b=a_{1}\cdot \ldots \cdot a_{k}} Number b {\displaystyle b} is a power of some prime: p p o w e r ( b ) ⇔ ⇔ ∃ ∃ p .
+
+p r i m e ( p ) ∧ ∧ ∀ ∀ a .
+
+( a ≠ ≠ 1 ∧ ∧ a | b ) ⇒ ⇒ p | a {\displaystyle \mathrm {ppower} (b)\ \Leftrightarrow \ \exists p.\mathrm {prime} (p)\land \forall a.(a\neq 1\land a|b)\Rightarrow p|a} Number b {\displaystyle b} is a product of exactly k {\displaystyle k} prime powers: ∃ ∃ a 1 , .
+
+.
+
+.
+
+a k .
+
+p p o w e r ( a 1 ) ∧ ∧ … … ∧ ∧ p p o w e r ( a k ) ∧ ∧ b = a 1 ⋅ ⋅ … … ⋅ ⋅ a k {\displaystyle \exists a_{1},...a_{k}.\ \mathrm {ppower} (a_{1})\land \ldots \land \mathrm {ppower} (a_{k})\land b=a_{1}\cdot \ldots \cdot a_{k}} Idea of decidability [ edit ] The truth value of formulas of Skolem arithmetic can be reduced to the truth value of sequences of non-negative integers constituting their prime factor decomposition, with multiplication becoming point-wise addition of sequences. The decidability then follows from the Feferman–Vaught theorem that can be shown using quantifier elimination . Another way of stating this is that first-order theory of positive integers is isomorphic to the first-order theory of finite multisets of non-negative integers with the multiset sum operation, whose decidability reduces to the decidability of the theory of elements.
+
+In more detail, according to the fundamental theorem of arithmetic , a positive integer a > 1 {\displaystyle a>1} can be represented as a product of prime powers: a = p 1 a 1 p 2 a 2 ⋯ ⋯ {\displaystyle a=p_{1}^{a_{1}}p_{2}^{a_{2}}\cdots } If a prime number p k {\displaystyle p_{k}} does not appear as a factor, we define its exponent a k {\displaystyle a_{k}} to be zero. Thus, only finitely many exponents are non-zero in the infinite sequence a 1 , a 2 , … … {\displaystyle a_{1},a_{2},\ldots } . Denote such sequences of non-negative integers by N ∗ ∗ {\displaystyle N^{*}} .
+
+Now consider the decomposition of another positive number, b = p 1 b 1 p 2 b 2 ⋯ ⋯ {\displaystyle b=p_{1}^{b_{1}}p_{2}^{b_{2}}\cdots } The multiplication a b {\displaystyle ab} corresponds point-wise addition of the exponents: a b = p 1 a 1 + b 1 p 2 a 2 + b 2 ⋯ ⋯ {\displaystyle ab=p_{1}^{a_{1}+b_{1}}p_{2}^{a_{2}+b_{2}}\cdots } Define the corresponding point-wise addition on sequences by: ( a 1 , a 2 , … … ) + ¯ ¯ ( b 1 , b 2 , … … ) = ( a 1 + b 1 , a 2 + b 2 , … … ) {\displaystyle (a_{1},a_{2},\ldots ){\bar {+}}(b_{1},b_{2},\ldots )=(a_{1}+b_{1},a_{2}+b_{2},\ldots )} Thus we have an isomorphism between the structure of positive integers with multiplication, ( N , ⋅ ⋅ ) {\displaystyle (N,\cdot )} and of point-wise addition of the sequences of non-negative integers in which only finitely many elements are non-zero, ( N ∗ ∗ , + ¯ ¯ ) {\displaystyle (N^{*},{\bar {+}})} .
+
+From Feferman–Vaught theorem for first-order logic , the truth value of a first-order logic formula over sequences and pointwise addition on them reduces, in an algorithmic way, to the truth value of formulas in the theory of elements of the sequence with addition, which, in this case, is Presburger arithmetic . Because Presburger arithmetic is decidable, Skolem arithmetic is also decidable.
+
+Complexity [ edit ] Ferrante & Rackoff (1979 , Chapter 5) establish, using Ehrenfeucht–Fraïssé games , a method to prove upper bounds on decision problem complexity of weak direct powers of theories. They apply this method to obtain triply exponential space complexity for ( N ∗ ∗ , + ¯ ¯ ) {\displaystyle (N^{*},{\bar {+}})} , and thus of Skolem arithmetic.
+
+Grädel (1989 , Section 5) proves that the satisfiability problem for the quantifier-free fragment of Skolem arithmetic belongs to the NP complexity class .
+
+Decidable extensions [ edit ] Thanks to the above reduction using Feferman–Vaught theorem, we can obtain first-order theories whose open formulas define a larger set of relations if we strengthen the theory of multisets of prime factors. For example, consider the relation a ∼ ∼ b {\displaystyle a\sim b} that is true if and only if a {\displaystyle a} and b {\displaystyle b} have the equal number of distinct prime factors: | { p ∣ ∣ p r i m e ( p ) ∧ ∧ ( p | a ) } | = | { p ∣ ∣ p r i m e ( p ) ∧ ∧ ( p | b ) } | {\displaystyle |\{p\mid \mathrm {prime} (p)\land (p|a)\}|\ =\ |\{p\mid \mathrm {prime} (p)\land (p|b)\}|} For example, 2 10 ⋅ ⋅ 3 100 ∼ ∼ 5 8 ⋅ ⋅ 19 9 {\displaystyle 2^{10}\cdot 3^{100}\sim 5^{8}\cdot 19^{9}} because both sides denote a number that has two distinct prime factors.
+
+If we add the relation ∼ ∼ {\displaystyle \sim } to Skolem arithmetic, it remains decidable. This is because the theory of sets of indices remains decidable in the presence of the equinumerosity operator on sets, as shown by the Feferman–Vaught theorem .
+
+Undecidable extensions [ edit ] An extension of Skolem arithmetic with the successor predicate, s u c c ( n ) = n + 1 {\displaystyle succ(n)=n+1} can define the addition relation using Tarski's identity: [ 4 ] [ 5 ] ( c = 0 ∨ ∨ c = a + b ) ⇔ ⇔ ( a c + 1 ) ( b c + 1 ) = c 2 ( a b + 1 ) + 1 {\displaystyle (c=0\lor c=a+b)\Leftrightarrow (ac+1)(bc+1)=c^{2}(ab+1)+1} and defining the relation c = a + b {\displaystyle c=a+b} on positive integers by s u c c ( a c ) s u c c ( b c ) = s u c c ( c 2 s u c c ( a b ) ) {\displaystyle \mathrm {succ} (ac)\,\mathrm {succ} (bc)=\mathrm {succ} (c^{2}\mathrm {succ} (ab))} Because it can express both multiplication and addition, the resulting theory is undecidable.
+
+If we have an ordering predicate on natural numbers (less than, < {\displaystyle <} ), we can express s u c c {\displaystyle \mathrm {succ} } by s u c c ( a ) = b ⇔ ⇔ a < b ∧ ∧ ∀ ∀ c .
+
+( a < c ⇒ ⇒ ( b = c ∨ ∨ b < c ) ) {\displaystyle \mathrm {succ} (a)=b\ \ \Leftrightarrow \ \ a<b\land \forall c.{\big (}a<c\Rightarrow (b=c\lor b<c){\big )}} so the extension with < {\displaystyle <} is also undecidable.
+
+See also [ edit ] Presburger arithmetic Robinson arithmetic Quantifier elimination References [ edit ] ^ Nadel 1981 .
+
+^ Ferrante & Rackoff 1979 , p. 135.
+
+^ Cegielski 1981 .
+
+^ Robinson 1949 , p. 100.
+
+^ Bès & Richard 1998 .
+
+Bibliography [ edit ] Bès, Alexis (2001).
+
+"A Survey of Arithmetical Definability" (PDF) . In Crabbé, Marcel; Point, Françoise; Michaux, Christian (eds.).
+
+A Tribute to Maurice Boffa . Brussels: Societé mathématique de Belgique. pp.
+
+1– 54.
+
+Bès, Alexis; Richard, Denis (1998). "Undecidable Extensions of Skolem Arithmetic".
+
+Journal of Symbolic Logic .
+
+63 (2): 379– 401.
+
+CiteSeerX 10.1.1.2.1139 .
+
+doi : 10.2307/2586837 .
+
+JSTOR 2586837 .
+
+S2CID 14566619 .
+
+Cegielski, Patrick (1981), "Théorie élémentaire de la multiplication des entiers naturels", in Berline, Chantal; McAloon, Kenneth; Ressayre, Jean-Pierre (eds.), Model Theory and Arithmetic , Berlin: Springer, pp. 44–89.
+
+Ferrante, Jeanne; Rackoff, Charles W. (1979).
+
+The Computational Complexity of Logical Theories . Berlin Heidelberg New York: Springer-Verlag.
+
+doi : 10.1007/BFb0062837 .
+
+ISBN 3-540-09501-2 .
+
+Grädel, Erich (June 1989).
+
+"Dominoes and the complexity of subclasses of logical theories" .
+
+Annals of Pure and Applied Logic .
+
+43 (1): 1– 30.
+
+doi : 10.1016/0168-0072(89)90023-7 .
+
+Nadel, Mark E. (1981).
+
+"The completeness of Peano multiplication" .
+
+Israel Journal of Mathematics .
+
+39 (3): 225– 233.
+
+doi : 10.1007/bf02760851 . Retrieved 2022-09-08 .
+
+Robinson, Julia Hall Bowman (1949).
+
+"Definability and Decision Problems in Arithmetic" (PDF) .
+
+Journal of Symbolic Logic .
+
+14 (2): 98– 114.
+
+doi : 10.2307/2266510 .
+
+JSTOR 2266510 .
+
+S2CID 40861592 . Retrieved 2022-09-05 .
+
+Retrieved from " https://en.wikipedia.org/w/index.php?title=Skolem_arithmetic&oldid=1292211683 " Category : Formal theories of arithmetic Hidden categories: Articles with short description Short description is different from Wikidata This page was last edited on 25 May 2025, at 19:50 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Skolem arithmetic Add languages Add topic
+

@@ -1,0 +1,235 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 URIs, URNs, and URLs 2 Syntax 3 Namespaces Toggle Namespaces subsection 3.1 Formal 3.2 Informal 3.3 Experimental 4 Examples 5 See also 6 References Toggle References subsection 6.1 Citations 6.2 Sources 7 External links Toggle the table of contents Uniform Resource Name 22 languages العربية Беларуская (тарашкевіца) Čeština Deutsch Español Esperanto Français 한국어 Bahasa Indonesia Italiano Қазақша Nederlands 日本語 Norsk bokmål Polski Português Русский Српски / srpski Suomi Українська Tiếng Việt 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Uniform Resource Identifier (URI) that uses the urn scheme "URN" redirects here. For other uses, see URN (disambiguation) .
+
+A Uniform Resource Name ( URN ) is a Uniform Resource Identifier (URI) that uses the urn scheme . URNs are globally unique persistent identifiers assigned within defined namespaces so they will be available for a long period of time, even after the resource which they identify ceases to exist or becomes unavailable.
+
+[ 1 ] URNs cannot be used to directly locate an item and need not be resolvable, as they are simply templates that another parser may use to find an item.
+
+URIs, URNs, and URLs [ edit ] URNs were originally conceived to be part of a three-part information architecture for the Internet, along with Uniform Resource Locators (URLs) and Uniform Resource Characteristics (URCs) , a metadata framework.  As described in RFC 1737 , [ 2 ] and later in RFC 2141 , [ 3 ] URNs were distinguished from URLs, which identify resources by specifying their locations in the context of a particular access protocol, such as HTTP or FTP . In  contrast, URNs were conceived as persistent , location-independent identifiers assigned within defined namespaces , typically by an authority responsible for the namespace, so that they are globally unique and persistent over long periods of time, even after the resource which they identify ceases to exist or becomes unavailable.
+
+[ 1 ] URCs never progressed past the conceptual stage, [ 4 ] and other technologies such as the Resource Description Framework later took their place.  Since RFC 3986 [ 5 ] in 2005, use of the terms "Uniform Resource Name" and "Uniform Resource Locator" has been deprecated in technical standards in favor of the term Uniform Resource Identifier (URI), which encompasses both, a view proposed in 2001 by a joint working group between the World Wide Web Consortium (W3C) and Internet Engineering Task Force (IETF).
+
+[ 4 ] A URI is a string of characters used to identify or name a resource on the internet. URIs are used in many Internet protocols to refer to and access information resources. URI schemes include the http and ftp protocols, as well as hundreds of others.
+
+In the "contemporary view", as it is called, all URIs identify or name resources, perhaps uniquely and persistently, with some of them also being "locators" which are resolvable in conjunction with a specified protocol to a representation of the resources.
+
+Other URIs are not locators and are not necessarily resolvable within the bounds of the systems where they are found.  These URIs may serve as names or identifiers of resources.  Since resources can move, opaque identifiers which are not locators and are not bound to particular locations are arguably more likely than identifiers which are locators to remain unique and persistent over time.  But whether a URI is resolvable depends on many operational and practical details, irrespective of whether it is called a "name" or a "locator". In the contemporary view, there is no bright line between "names" and "locators".
+
+In accord with this way of thinking, the distinction between Uniform Resource Names and Uniform Resource Locators is now no longer used in formal Internet Engineering Task Force technical standards, though the latter term, URL, is still in wide informal use.
+
+The term "URN" continues now as one of more than a hundred URI "schemes", urn: , paralleling http: , ftp: , and so forth.  URIs of the urn: scheme are not locators, are not required to be associated with a particular protocol or access method, and need not be resolvable. They should be assigned by a procedure which provides some assurance that they will remain unique and identify the same resource persistently over a prolonged period.  Some namespaces under the urn: scheme, such as urn:uuid: assign identifiers in a manner which does not require a registration authority, but most of them do. A typical URN namespace is urn:isbn , for International Standard Book Numbers.  This view is continued in RFC 8141 (2017).
+
+[ 1 ] There are other URI schemes, such as tag: , info: (now largely deprecated), and ni: [ 6 ] which are similar to the urn: scheme in not being locators and not being associated with particular resolution or access protocols.
+
+Syntax [ edit ] The syntax of a urn: scheme URI is represented in the augmented Backus–Naur form as: [ 5 ] [ 7 ] namestring = assigned-name [ rq-components ] [ "#" f-component ] assigned-name = "urn" ":" NID ":" NSS NID = ( alphanum ) 0*30 ( ldh ) ( alphanum ) ldh = alphanum / "-" NSS = pchar * ( pchar / "/" ) rq-components = [ "?+" r-component ] [ "?=" q-component ] r-component = pchar * ( pchar / "/" / "?" ) q-component = pchar * ( pchar / "/" / "?" ) f-component = fragment ; general URI syntax rules (RFC3986) fragment = * ( pchar / "/" / "?" ) pchar = unreserved / pct-encoded / sub-delims / ":" / "@" pct-encoded = "%" HEXDIG HEXDIG unreserved = ALPHA / DIGIT / "-" / "." / "_" / "~" sub-delims = "!" / "$" / "&" / "'" / "(" / ")" / "*" / "+" / "," / ";" / "=" alphanum = ALPHA / DIGIT ; obsolete, usage is deprecated or, in the form of a syntax diagram , as: The leading scheme ( urn: )  is case-insensitive.
+
+<NID> is the namespace identifier, and may include letters, digits, and - .
+
+The NID is followed by the namespace-specific string <NSS> , the interpretation of which depends on the specified namespace. The NSS may contain ASCII letters and digits, and many punctuation and special characters. Disallowed ASCII and Unicode characters may be included if percent-encoded .
+
+In 2017, the syntax for URNs was updated: [ 1 ] The slash character ( / ) is now allowed in the NSS to represent names containing slashes from non-URN identifier systems.
+
+The q-component was added to enable passing of parameters to named resources.
+
+The r-component was added to enable passing of parameters to resolvers. However, the updated specification notes that it should not be used until its semantics are defined via further standardization.
+
+Namespaces [ edit ] In order to ensure the global uniqueness of URN namespaces, their identifiers (NIDs) are required to be registered with the IANA . Registered namespaces may be "formal" or "informal". An exception to the registration requirement was formerly made for "experimental namespaces", [ 8 ] since rescinded by RFC 8141.
+
+[ 1 ] Formal [ edit ] Approximately sixty formal URN namespace identifiers have been registered. These are namespaces where Internet users are expected to benefit from their publication, [ 1 ] and are subject to several restrictions. They must: Not be an already-registered NID Not start with urn- Be more than two letters long Not start with XY- , where XY is any combination of two ASCII letters Not start with x- (see "Experimental namespaces", below) Informal [ edit ] Informal namespaces are registered with IANA and assigned a number sequence (chosen by IANA on a first-come-first-served basis) as an identifier, [ 1 ] in the format "urn-" ⟨number⟩ Informal namespaces are fully fledged URN namespaces and can be registered in global registration services.
+
+[ 1 ] Experimental [ edit ] An exception to the registration requirement was formerly made for "experimental namespaces".
+
+[ 8 ] However, following the deprecation of the "X-" notation for new identifier names, [ 9 ] RFC 8141 [ 1 ] did away with experimental URN namespaces, indicating a preference for use of the urn:example namespace where appropriate.
+
+[ 10 ] Examples [ edit ] URN corresponds to urn:isbn:0451450523 The 1968 book The Last Unicorn , identified by its International Standard Book Number .
+
+urn:isan:0000-0000-2CEA-0000-1-0000-0000-Y The 2002 film Spider-Man , identified by its International Standard Audiovisual Number .
+
+urn:ISSN:0167-6423 The scientific journal Science of Computer Programming , identified by its International Standard Serial Number .
+
+urn:ietf:rfc:2648 The IETF 's RFC 2648.
+
+urn:mpeg:mpeg7:schema:2001 The default namespace rules for MPEG-7 video metadata.
+
+urn:oid:2.16.840 The OID for the United States .
+
+urn:uuid:6e8bc430-9c3a-11d9-9669-0800200c9a66 A version 1 UUID .
+
+urn:nbn:de:bvb:19-146642 A National Bibliography Number for a document, indicating country ( de ), regional network ( bvb = Bibliotheksverbund Bayern ), library number (19) and document number.
+
+urn:lex:eu:council:directive:2010-03-09;2010-19-UE A directive of the European Union , using the proposed Lex URN namespace .
+
+urn:lsid:zoobank.org:pub:CDC8D258-8F57-41DC-B560-247E17D3DC8C A Life Science Identifiers that may be resolved to http://zoobank.org/urn:lsid:zoobank.org:pub:CDC8D258-8F57-41DC-B560-247E17D3DC8C [ permanent dead link ] .
+
+urn:epc:class:lgtin:4012345.012345.998877 Global Trade Item Number with lot/batch number. As defined by Tag Data Standard [ 11 ] (TDS). See more examples at EPC Identification Keys .
+
+urn:epc:id:sgtin:0614141.112345.400 Global Trade Item Number with an individual serial number urn:epc:id:sscc:0614141.1234567890 Serial Shipping Container Code urn:epc:id:sgln:0614141.12345.400 Global Location Number with extension urn:epc:id:bic:CSQU3054383 BIC Intermodal container Code as per ISO 6346 urn:epc:id:imovn:9176187 IMO Vessel Number of marine vessels urn:epc:id:gdti:0614141.12345.400 Global Document Type Identifier of a document instance urn:mrn:iala:aton:us:1234.5 Identifier for Marine Aids to Navigation urn:mrn:iala:vts:ca:ecareg Identifier for Vessel Traffic Services urn:mrn:iala:wwy:us:atl:chba:potri Identifier for Waterways urn:mrn:iala:pub:g1143 Identifier for IALA publications urn:microsoft:adfs:claimsxray Identifier for federated identity; this example is from Claims X-Ray [ 12 ] urn:eic:10X1001A1001A450 European Network of Transmission System Operators for Electricity (ENTSO-E), identified by its Energy Identification Code See also [ edit ] Archival Resource Key (ARK) .arpa – urn.arpa is for dynamic discovery Extensible resource identifier (XRI) Handle System Info URI scheme Life Science Identifiers (LSID) The Magnet URI scheme , which uses URNs Persistent Uniform Resource Locator (PURL) Tag URI scheme is like urn: in its URIs not being resource locators Digital Object Identifier (DOI) EPC Identification Keys .
+
+Maritime Resource Names (MRN) References [ edit ] Citations [ edit ] ^ a b c d e f g h i RFC 8141 (2017) .
+
+^ RFC 1737 (1994) .
+
+^ RFC 2141 (1997) .
+
+^ a b W3C/IETF (2001) .
+
+^ a b RFC 3986 (2005) .
+
+^ RFC 6920 (2013) .
+
+^ RFC 8141, section 2 (2017) .
+
+^ a b RFC 3406 (2002) .
+
+^ RFC 6648 (2012) .
+
+^ RFC 6963 (2013) .
+
+^ "EPC Tag Data Standard, version 1.13" . GS1. Nov 2019 . Retrieved 7 March 2021 .
+
+^ "Claims X-Ray AD FS Help" .
+
+Sources [ edit ] K. Sollins; L. Masinter (December 1994).
+
+Functional Requirements for Uniform Resource Names . Network Working Group.
+
+doi : 10.17487/RFC1737 .
+
+RFC 1737 .
+
+Informational.
+
+R. Moats (May 1997).
+
+P. Vixie (ed.).
+
+URN Syntax .
+
+IETF Network Working Group.
+
+doi : 10.17487/RFC2141 .
+
+RFC 2141 .
+
+Proposed Standard.
+
+Obsoleted by RFC 8141 .
+
+L. Daigle; D.W. van Gulik; R. Iannella; P. Faltstrom (October 2002).
+
+Uniform Resource Names (URN) Namespace Definition Mechanisms . Network Working Group.
+
+doi : 10.17487/RFC3406 . BCP 66.
+
+RFC 3406 .
+
+Best Current Practice 66.
+
+Obsoleted by RFC 8141 . Obsoletes RFC 2611 .
+
+T. Berners-Lee ; R. Fielding ; L. Masinter (January 2005).
+
+Uniform Resource Identifier (URI): Generic Syntax . Network Working Group.
+
+doi : 10.17487/RFC3986 . STD 66.
+
+RFC 3986 .
+
+Internet Standard 66.
+
+Obsoletes RFC 2732 , 2396 and 1808 . Updated by RFC 6874 , 7320 and 8820 . Updates RFC 1738 .
+
+P. Saint-Andre; D. Crocker; M. Nottingham (June 2012).
+
+Deprecating the "X-" Prefix and Similar Constructs in Application Protocols .
+
+Internet Engineering Task Force .
+
+doi : 10.17487/RFC6648 .
+
+ISSN 2070-1721 .
+
+RFC 6648 .
+
+Best Current Practice.
+
+S. Farrell; D. Kutscher; C. Dannewitz; B. Ohlman; A. Keranen; P. Hallam-Baker (April 2013).
+
+Naming Things with Hashes .
+
+Internet Engineering Task Force .
+
+doi : 10.17487/RFC6920 .
+
+ISSN 2070-1721 .
+
+RFC 6920 .
+
+Proposed Standard.
+
+P. Saint-Andre (May 2013).
+
+A Uniform Resource Name (URN) Namespace for Examples .
+
+Internet Engineering Task Force .
+
+doi : 10.17487/RFC6963 .
+
+ISSN 2070-1721 . BCP 183.
+
+RFC 6963 .
+
+Best Current Practice 183.
+
+Updates RFC 1930 .
+
+P. Saint-Andre; J. Klensin (April 2017).
+
+Uniform Resource Names (URNs) .
+
+Internet Engineering Task Force .
+
+doi : 10.17487/RFC8141 .
+
+ISSN 2070-1721 .
+
+RFC 8141 .
+
+Proposed Standard.
+
+Obsoletes RFC 2141 , 3406 .
+
+P. Saint-Andre; J. Klensin (April 2017).
+
+Uniform Resource Names (URNs) .
+
+Internet Engineering Task Force .
+
+doi : 10.17487/RFC8141 .
+
+ISSN 2070-1721 .
+
+RFC 8141 .
+
+Proposed Standard.
+
+sec. 2. Obsoletes RFC 2141 , 3406 .
+
+§ 2. URN Syntax "Factsheet: DOI System and Internet Identifier Specifications" . International DOI Foundation. October 2012 . Retrieved 2012-12-06 .
+
+W3C/IETF URI Planning Interest Group (21 September 2001).
+
+"URIs, URLs, and URNs: Clarifications and Recommendations 1.0" .
+
+W3C . Retrieved 2012-12-07 .
+
+{{ cite web }} :  CS1 maint: numeric names: authors list ( link ) External links [ edit ] Official IANA Registry of URN Namespaces Uniform Resource Names working group at the IETF URNs and bibliographic citations in web authoring An example server-side URN resolver is described in RFC 2169 .
+
+v t e Uniform Resource Identifier (URI) schemes Official about acct crid data file ftp geo gopher http https info ldap mailto nfs nntp sip / sips tag telnet urn view-source ws / wss xmpp Unofficial coffee ed2k gemini feed finger irc / irc6 / ircs ldaps magnet rsync ymsgr Protocol list Authority control databases : National Germany Czech Republic Retrieved from " https://en.wikipedia.org/w/index.php?title=Uniform_Resource_Name&oldid=1303316752 " Categories : URI schemes Identifiers Hidden categories: Articles with short description Short description matches Wikidata All articles with dead external links Articles with dead external links from July 2025 Articles with permanently dead external links CS1 maint: numeric names: authors list This page was last edited on 30 July 2025, at 07:32 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Uniform Resource Name 22 languages Add topic
+

@@ -1,0 +1,149 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Physics engines 2 Formulation Toggle Formulation subsection 2.1 Particle model 2.2 Inertial model 2.3 Euler model 2.4 Symmetric/torque model 3 Multiple bodies 4 See also 5 References Toggle the table of contents Dynamical simulation 1 language Français Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Not to be confused with Dynamical system simulation .
+
+For simulations using physical objects instead of computer models, see Simulation § Classification and terminology .
+
+This article needs additional citations for verification .
+
+Please help improve this article by adding citations to reliable sources . Unsourced material may be challenged and removed.
+
+Find sources: "Dynamical simulation" – news · newspapers · books · scholar · JSTOR ( March 2023 ) ( Learn how and when to remove this message ) Animation based on piston motion equations ; the crank is driving the piston, with variations in the speed of rotation, the crank radius, and the rod length.
+
+Dynamical simulation , in computational physics , is the simulation of systems of objects that are free to move, usually in three dimensions according to Newton's laws of classical dynamics , or approximations thereof. Dynamical simulation is used in computer animation to assist animators to produce realistic motion, in industrial design (for example to simulate crashes as an early step in crash testing ), and in video games . Body movement is calculated using time integration methods .
+
+Physics engines [ edit ] Main article: Physics engines In computer science , a program called a physics engine is used to model the behaviors of objects in space. These engines allow simulation of the way bodies of many types are affected by a variety of physical stimuli. They are also used to create dynamical simulations without having to know anything about physics. Physics engines are used throughout the video game and movie industry, but not all physics engines are alike. They are generally broken into real-time and the high precision, but these are not the only options. Most real-time physics engines are inaccurate and yield only the barest approximation of the real world, whereas most high-precision engines are far too slow for use in everyday applications.
+
+To understand how these Physics engines are built, a basic understanding of physics is required. Physics engines are based on the actual behaviors of the world as described by classical mechanics . Engines do not typically account for non-classical mechanics (see theory of relativity and quantum mechanics ) because most visualization deals with large bodies moving relatively slowly. The models used in dynamical simulations determine how accurate these simulations are.
+
+Formulation [ edit ] Main article: Rigid-body dynamics Particle model [ edit ] Main article: Newton's laws The first model which may be used in physics engines governs the motion of infinitesimal objects with finite mass called “particles.” This equation, called Newton’s Second law (see Newton's laws ) or the definition of force, is the fundamental behavior governing all motion: F → → = m a → → {\displaystyle {\vec {F}}=m{\vec {a}}} [ 1 ] This equation allows us to fully model the behavior of particles, but it is not sufficient for most simulations because it does not account for the rotational motion of rigid bodies . This is the simplest model that can be used in a physics engine and was extensively used in early video games.
+
+Inertial model [ edit ] Main articles: Rigid body dynamics and Moment of inertia Bodies in the real world deform as forces are applied to them, so we call them “soft,” but often the deformation is negligibly small compared to the motion, and it is very complicated to model, so most physics engines ignore deformation.  A body that is assumed to be non-deformable is called a rigid body .
+
+Rigid body dynamics deals with the motion of objects that cannot change shape, size, or mass but can change orientation and position.
+
+To account for rotational energy and momentum, we must describe how force is applied to the object using a moment , and account for the mass distribution of the object using an inertia tensor . We describe these complex interactions with an equation somewhat similar to the definition of force above: d ( I ω ω ) d t = ∑ ∑ j = 1 N τ τ j {\displaystyle {\frac {\mathrm {d} (\mathbf {I} {\boldsymbol {\omega }})}{\mathrm {d} t}}=\sum _{j=1}^{N}\tau _{j}} where I {\displaystyle \mathbf {I} } is the central inertia tensor , ω ω → → {\displaystyle {\vec {\omega }}} is the angular velocity vector, and τ τ j {\displaystyle \tau _{j}} is the moment of the j th external force about the mass center .
+
+The inertia tensor describes the location of each particle of mass in a given object in relation to the object's center of mass. This allows us to determine how an object will rotate dependent on the forces applied to it. This angular motion is quantified by the angular velocity vector.
+
+As long as we stay below relativistic speeds (see Relativistic dynamics ), this model will accurately simulate all relevant behavior. This method requires the Physics engine to solve six ordinary differential equations at every instant we want to render, which is a simple task for modern computers.
+
+Euler model [ edit ] Main article: Euler's equations (rigid body dynamics) The inertial model is much more complex than we typically need but it is the most simple to use. In this model, we do not need to change our forces or constrain our system. However, if we make a few intelligent changes to our system, simulation will become much easier, and our calculation time will decrease. The first constraint will be to put each torque in terms of the principal axes. This makes each torque much more difficult to program, but it simplifies our equations significantly. When we apply this constraint, we diagonalize the moment of inertia tensor, which simplifies our three equations into a special set of equations called Euler's equations . These equations describe all rotational momentum in terms of the principal axes: I 1 ω ω ˙ ˙ 1 + ( I 3 − − I 2 ) ω ω 2 ω ω 3 = N 1 I 2 ω ω ˙ ˙ 2 + ( I 1 − − I 3 ) ω ω 3 ω ω 1 = N 2 I 3 ω ω ˙ ˙ 3 + ( I 2 − − I 1 ) ω ω 1 ω ω 2 = N 3 {\displaystyle {\begin{matrix}I_{1}{\dot {\omega }}_{1}+(I_{3}-I_{2})\omega _{2}\omega _{3}&=&N_{1}\\I_{2}{\dot {\omega }}_{2}+(I_{1}-I_{3})\omega _{3}\omega _{1}&=&N_{2}\\I_{3}{\dot {\omega }}_{3}+(I_{2}-I_{1})\omega _{1}\omega _{2}&=&N_{3}\end{matrix}}} The N terms are applied torques about the principal axes The I terms are the principal moments of inertia The ω ω {\displaystyle {\omega }} terms are angular velocities about the principal axes The drawback to this model is that all the computation is on the front end, so it is still slower than we would like. The real usefulness is not apparent because it still relies on a system of non-linear differential equations. To alleviate this problem, we have to find a method that can remove the second term from the equation. This will allow us to integrate much more easily. The easiest way to do this is to assume a certain amount of symmetry.
+
+Symmetric/torque model [ edit ] The two types of symmetric objects that will simplify Euler's equations are “symmetric tops” and “symmetric spheres.” The first assumes one degree of symmetry, this makes two of the I terms equal. These objects, like cylinders and tops, can be expressed with one very simple equation and two slightly simpler equations. This does not do us much good, because with one more symmetry we can get a large jump in speed with almost no change in appearance. The symmetric sphere makes all of the I terms equal (the Moment of inertia scalar), which makes all of these equations simple: I ω ω ˙ ˙ 1 = N 1 I ω ω ˙ ˙ 2 = N 2 I ω ω ˙ ˙ 3 = N 3 {\displaystyle {\begin{matrix}I{\dot {\omega }}_{1}&=&N_{1}\\I{\dot {\omega }}_{2}&=&N_{2}\\I{\dot {\omega }}_{3}&=&N_{3}\end{matrix}}} The N terms are applied torques about the principal axes The ω ω {\displaystyle {\omega }} terms are angular velocities about the principal axes The I term is the scalar Moment of inertia : I = d e f ∫ ∫ V l 2 ( m ) d m = ∭ ∭ V l 2 ( v ) ρ ρ ( v ) d v = ∭ ∭ V l 2 ( x , y , z ) ρ ρ ( x , y , z ) d x d y d z {\displaystyle I\ {\stackrel {\mathrm {def} }{=}}\ \int _{V}l^{2}(m)\,dm=\iiint _{V}l^{2}(v)\,\rho (v)\,dv=\iiint _{V}l^{2}(x,y,z)\,\rho (x,y,z)\,dx\,dy\,dz\!} where V is the volume region of the object, r is the distance from the axis of rotation, m is mass, v is volume, ρ is the pointwise density function of the object, x , y , z are the Cartesian coordinates.
+
+These equations allow us to simulate the behavior of an object that can spin in a way very close to the method simulate motion without spin. This is a simple model but it is accurate enough to produce realistic output in real-time Dynamical simulations . It also allows a Physics engine to focus on the changing forces and torques rather than varying inertia.
+
+Multiple bodies [ edit ] Multibody simulation ( MBS ) is a method of numerical simulation in which multibody systems are composed of various rigid or elastic bodies. Connections between the bodies can be modeled with kinematic constraints (such as joints) or force elements (such as spring dampers). Unilateral constraints and Coulomb-friction can also be used to model frictional contacts between bodies.
+
+[ 2 ] Multibody simulation is a useful tool for conducting motion analysis. It is often used during product development to evaluate characteristics of comfort, safety, and performance.
+
+[ 3 ] For example, multibody simulation has been widely used since the 1990s as a component of automotive suspension design .
+
+[ 4 ] It can also be used to study issues of biomechanics , with applications including sports medicine , osteopathy , and human-machine interaction.
+
+[ 5 ] [ 6 ] [ 7 ] The heart of any multibody simulation software program is the solver . The solver is a set of computation algorithms that solve equations of motion. Types of components that can be studied through multibody simulation range from electronic control systems to noise, vibration and harshness.
+
+[ 8 ] Complex models such as engines are composed of individually designed components, e.g.
+
+pistons and crankshafts .
+
+[ 9 ] The MBS process often can be divided in 5 main activities. The first activity of the MBS process chain is the "3D CAD master model", in which product developers, designers and engineers are using the CAD system to generate a CAD model and its assembly structure related to given specifications. This 3D CAD master model is converted during the activity "Data transfer" to the MBS input data formats i.e.
+
+STEP . The "MBS Modeling" is the most complex activity in the process chain. Following rules and experiences, the 3D model in MBS format, multiple boundaries, kinematics, forces, moments or degrees of freedom are used as input to generate the MBS model. Engineers have to use MBS software and their knowledge and skills in the field of engineering mechanics and machine dynamics to build the MBS model including joints and links. The generated MBS model is used during the next activity "Simulation". Simulations, which are specified by time increments and boundaries like starting conditions are run by MBS Software. It is also possible to perform MBS simulations using free and open source packages .  The last activity is the "Analysis and evaluation". Engineers use case-dependent directives to analyze and evaluate moving paths, speeds, accelerations, forces or moments. The results are used to enable releases or to improve the MBS model, in case the results are insufficient. One of the most important benefits of the MBS process chain is the usability of the results to optimize the 3D CAD master model components. Due to the fact that the process chain enables the optimization of component design, the resulting loops can be used to achieve a high level of design and MBS model optimization in an iterative process.
+
+[ 10 ] See also [ edit ] Bounding volume Collision detection Euler's equations (rigid body dynamics) Moment of inertia Physics engine Rigid body dynamics References [ edit ] ^ An Introduction to Physically Based Modeling: Particle System Dynamics .
+
+https://www.cs.cmu.edu/~baraff/pbm/particles.pdf .
+
+^ Schindler, Thorsten.
+
+"Multi-Body Simulation" .
+
+Courses: Technische Universität München . Technische Universität München . Retrieved 20 August 2013 .
+
+^ Larsson, Tobias.
+
+"Multibody Dynamic Simulation in Product Development" (PDF) .
+
+Division of Computer Aided Design Department of Mechanical Engineering Luleå University of Technology . Luleå University of Technology . Retrieved 29 August 2013 .
+
+^ Blundell, Mike and Damian Harty (2004).
+
+The Multibody Systems Approach to Vehicle Dynamics . Oxford, MA: Elsevier Butterworth-Heinemann.
+
+ISBN 0750651121 .
+
+^ Al Nazar, R.; T. Rantalainen; A. Heinonen; H. Sievänend; A. Mikkola (2008).
+
+"Flexible multibody simulation approach in the analysis of tibial strain during walking" (PDF) .
+
+Journal of Biomechanics .
+
+41 (5): 1036– 1043.
+
+doi : 10.1016/j.jbiomech.2007.12.002 .
+
+hdl : 10536/DRO/DU:30036187 .
+
+PMID 18191865 .
+
+^ O’Riordain, K.; P.M. Thomas; J.P. Phillips; M.D. Gilchrist (August 2003). "Reconstruction of real world head injury accidents resulting from falls using multibody dynamics".
+
+Clinical Biomechanics .
+
+18 (7): 590– 600.
+
+doi : 10.1016/S0268-0033(03)00111-6 .
+
+hdl : 10197/5951 .
+
+PMID 12880706 .
+
+S2CID 41827906 .
+
+^ "Industrial Sectors: Biomechanics" .
+
+SIMPACK . SIMPACK AG . Retrieved 27 August 2013 .
+
+^ "Definition of MultiBody Dynamics Simulation" . Function Bay: RecurDyn . Retrieved 20 August 2013 .
+
+^ "SimMechanics Introduction" .
+
+MathWorks . Retrieved 20 August 2013 .
+
+^ Faath, A. and Anderl, R. Interdisciplinary and Consistent Use of a 3D CAD Model for CAx Education in Engineering Studies. In ASME 2016 International Mechanical Engineering Congress and Exposition (pp. V005T06A031-V005T06A031). American Society of Mechanical Engineers. November 2016 v t e Computer simulation software Biology Protein structure prediction Nucleic acid simulation Chemistry Chemical process simulators Quantum chemistry Molecular modeling Monte Carlo molecular modeling Molecular design Physics Finite element Cosmological simulation Dynamic simulation Dynamical simulation Electronic circuit simulation EM simulation Multiphysics simulation Reservoir simulation Social science Social simulation Sociology Organizational studies NewPP limit report
+Parsed by mw‐api‐ext.codfw.main‐5cf8f5fb49‐gxn97
+Cached time: 20250812023617
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.340 seconds
+Real time usage: 0.467 seconds
+Preprocessor visited node count: 816/1000000
+Revision size: 14510/2097152 bytes
+Post‐expand include size: 36474/2097152 bytes
+Template argument size: 94/2097152 bytes
+Highest expansion depth: 9/100
+Expensive parser function count: 9/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 43795/5000000 bytes
+Lua time usage: 0.229/10.000 seconds
+Lua memory usage: 5615939/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  368.232      1 -total
+ 46.13%  169.883      1 Template:Reflist
+ 31.32%  115.323      5 Template:Cite_web
+ 19.34%   71.233      1 Template:Computer_simulation
+ 18.90%   69.585      1 Template:Navbox
+ 17.02%   62.680      1 Template:More_citations_needed
+ 15.63%   57.554      1 Template:Ambox
+  9.73%   35.835      1 Template:Distinguish
+  5.06%   18.625      2 Template:Cite_journal
+  4.00%   14.732      5 Template:Main Saved in parser cache with key enwiki:pcache:779587:|#|:idhash:canonical and timestamp 20250812023617 and revision id 1303527788. Rendering was triggered because: unknown Retrieved from " https://en.wikipedia.org/w/index.php?title=Dynamical_simulation&oldid=1303527788 " Categories : Computational physics Computer physics engines Dynamics (mechanics) Hidden categories: Articles needing additional references from March 2023 All articles needing additional references This page was last edited on 31 July 2025, at 14:19 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Dynamical simulation 1 language Add topic
+

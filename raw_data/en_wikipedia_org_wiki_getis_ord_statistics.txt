@@ -1,0 +1,61 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Local statistics 2 Global statistics 3 Relation to Moran's I 4 See also 5 References Toggle the table of contents Getis–Ord statistics Add languages Add links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Spatial autocorrelation statistic Getis–Ord statistics , also known as G i * , are used in spatial analysis to measure the local and global spatial autocorrelation . Developed by statisticians Arthur Getis and J. Keith Ord they are commonly used for Hot Spot Analysis [ 1 ] [ 2 ] to identify where features with high or low values are spatially clustered in a statistically significant way. Getis-Ord statistics are available in a number of software libraries such as CrimeStat , GeoDa , ArcGIS , PySAL [ 3 ] and R .
+
+[ 4 ] [ 5 ] Local statistics [ edit ] Hot spot map showing hot and cold spots in the 2020 USA Contiguous Unemployment Rate, calculated using Getis Ord Gi* There are two different versions of the statistic, depending on whether the data point at the target location i {\displaystyle i} is included or not [ 6 ] G i = ∑ ∑ j ≠ ≠ i w i j x j ∑ ∑ j ≠ ≠ i x j {\displaystyle G_{i}={\frac {\sum _{j\neq i}w_{ij}x_{j}}{\sum _{j\neq i}x_{j}}}} G i ∗ ∗ = ∑ ∑ j w i j x j ∑ ∑ j x j {\displaystyle G_{i}^{*}={\frac {\sum _{j}w_{ij}x_{j}}{\sum _{j}x_{j}}}} Here x i {\displaystyle x_{i}} is the value observed at the i t h {\displaystyle i^{th}} spatial site and w i j {\displaystyle w_{ij}} is the spatial weight matrix which constrains which sites are connected to one another. For G i ∗ ∗ {\displaystyle G_{i}^{*}} the denominator is constant across all observations.
+
+A value larger (or smaller) than the mean suggests a hot (or cold) spot corresponding to a high-high (or low-low) cluster.
+
+Statistical significance can be estimated using analytical approximations as in the original work [ 7 ] [ 8 ] however in practice permutation testing is used to obtain more reliable estimates of significance for statistical inference .
+
+[ 6 ] Global statistics [ edit ] The Getis-Ord statistics of overall spatial association are [ 7 ] [ 9 ] G = ∑ ∑ i j , i ≠ ≠ j w i j x i x j ∑ ∑ i j , i ≠ ≠ j x i x j {\displaystyle G={\frac {\sum _{ij,i\neq j}w_{ij}x_{i}x_{j}}{\sum _{ij,i\neq j}x_{i}x_{j}}}} G ∗ ∗ = ∑ ∑ i j w i j x i x j ∑ ∑ i j x i x j {\displaystyle G^{*}={\frac {\sum _{ij}w_{ij}x_{i}x_{j}}{\sum _{ij}x_{i}x_{j}}}} The local and global G ∗ ∗ {\displaystyle G^{*}} statistics are related through the weighted average ∑ ∑ i x i G i ∗ ∗ ∑ ∑ i x i = ∑ ∑ i j x i w i j x j ∑ ∑ i x i ∑ ∑ j x j = G ∗ ∗ {\displaystyle {\frac {\sum _{i}x_{i}G_{i}^{*}}{\sum _{i}x_{i}}}={\frac {\sum _{ij}x_{i}w_{ij}x_{j}}{\sum _{i}x_{i}\sum _{j}x_{j}}}=G^{*}} The relationship of the G {\displaystyle G} and G i {\displaystyle G_{i}} statistics is more complicated due to the dependence of the denominator of G i {\displaystyle G_{i}} on i {\displaystyle i} .
+
+Relation to Moran's I [ edit ] Moran's I is another commonly used measure of spatial association defined by I = N W ∑ ∑ i j w i j ( x i − − x ¯ ¯ ) ( x j − − x ¯ ¯ ) ∑ ∑ i ( x i − − x ¯ ¯ ) 2 {\displaystyle I={\frac {N}{W}}{\frac {\sum _{ij}w_{ij}(x_{i}-{\bar {x}})(x_{j}-{\bar {x}})}{\sum _{i}(x_{i}-{\bar {x}})^{2}}}} where N {\displaystyle N} is the number of spatial sites and W = ∑ ∑ i j w i j {\displaystyle W=\sum _{ij}w_{ij}} is the sum of the entries in the spatial weight matrix. Getis and Ord show [ 7 ] that I = ( K 1 / K 2 ) G − − K 2 x ¯ ¯ ∑ ∑ i ( w i ⋅ ⋅ + w ⋅ ⋅ i ) x i + K 2 x ¯ ¯ 2 W {\displaystyle I=(K_{1}/K_{2})G-K_{2}{\bar {x}}\sum _{i}(w_{i\cdot }+w_{\cdot i})x_{i}+K_{2}{\bar {x}}^{2}W} Where w i ⋅ ⋅ = ∑ ∑ j w i j {\displaystyle w_{i\cdot }=\sum _{j}w_{ij}} , w ⋅ ⋅ i = ∑ ∑ j w j i {\displaystyle w_{\cdot i}=\sum _{j}w_{ji}} , K 1 = ( ∑ ∑ i j , i ≠ ≠ j x i x j ) − − 1 {\displaystyle K_{1}=\left(\sum _{ij,i\neq j}x_{i}x_{j}\right)^{-1}} and K 2 = W N ( ∑ ∑ i ( x i − − x ¯ ¯ ) 2 ) − − 1 {\displaystyle K_{2}={\frac {W}{N}}\left(\sum _{i}(x_{i}-{\bar {x}})^{2}\right)^{-1}} . They are equal if w i j = w {\displaystyle w_{ij}=w} is constant, but not in general.
+
+Ord and Getis [ 8 ] also show that Moran's I can be written in terms of G i ∗ ∗ {\displaystyle G_{i}^{*}} I = 1 W ( ∑ ∑ i z i V i G i ∗ ∗ − − N ) {\displaystyle I={\frac {1}{W}}\left(\sum _{i}z_{i}V_{i}G_{i}^{*}-N\right)} where z i = ( x i − − x ¯ ¯ ) / s {\displaystyle z_{i}=(x_{i}-{\bar {x}})/s} , s {\displaystyle s} is the standard deviation of x {\displaystyle x} and V i 2 = 1 N − − 1 ∑ ∑ j ( w i j − − 1 N ∑ ∑ k w i k ) 2 {\displaystyle V_{i}^{2}={\frac {1}{N-1}}\sum _{j}\left(w_{ij}-{\frac {1}{N}}\sum _{k}w_{ik}\right)^{2}} is an estimate of the variance of w i j {\displaystyle w_{ij}} .
+
+See also [ edit ] Spatial analysis Indicators of spatial association Tobler's first law of geography Moran's I Geary's C References [ edit ] ^ "RPubs - R Tutorial: Hotspot Analysis Using Getis Ord Gi" .
+
+^ "Hot Spot Analysis (Getis-Ord Gi*) (Spatial Statistics)—ArcGIS Pro | Documentation" .
+
+^ https://pysal.org/ ^ "R-spatial/Spdep" .
+
+GitHub .
+
+^ Bivand, R.S.; Wong, D.W. (2018). "Comparing implementations of global and local indicators of spatial association".
+
+Test .
+
+27 (3): 716– 748.
+
+doi : 10.1007/s11749-018-0599-x .
+
+hdl : 11250/2565494 .
+
+^ a b "Local Spatial Autocorrelation (2)" .
+
+^ a b c Getis, A.; Ord, J.K. (1992). "The analysis of spatial association by use of distance statistics".
+
+Geographical Analysis .
+
+24 (3): 189– 206.
+
+doi : 10.1111/j.1538-4632.1992.tb00261.x .
+
+^ a b Ord, J.K.; Getis, A. (1995). "Local spatial autocorrelation statistics: distributional issues and an application".
+
+Geographical Analysis .
+
+27 (4): 286– 306.
+
+doi : 10.1111/j.1538-4632.1995.tb00912.x .
+
+^ "How High/Low Clustering (Getis-Ord General G) works—ArcGIS Pro | Documentation" .
+
+Retrieved from " https://en.wikipedia.org/w/index.php?title=Getis–Ord_statistics&oldid=1222989590 " Categories : Spatial analysis Covariance and correlation Hidden categories: Articles with short description Short description matches Wikidata This page was last edited on 9 May 2024, at 05:29 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Getis–Ord statistics Add languages Add topic
+

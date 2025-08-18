@@ -1,0 +1,148 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Constraint logic programming 2 Constraint satisfaction problem 3 Constraint optimization problem 4 Perturbation vs refinement models 5 Domains 6 Constraint propagation 7 Constraint solving Toggle Constraint solving subsection 7.1 Backtracking search 7.2 Local Search 7.3 Dynamic programming 8 Example 9 See also 10 References 11 External links Toggle the table of contents Constraint programming 18 languages Català Deutsch Español فارسی Français Galego 한국어 Italiano 日本語 Polski Português Русский Српски / srpski Svenska Українська Tiếng Việt 粵語 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Programming paradigm wherein relations between variables are stated in the form of constraints This article possibly contains original research .
+
+Please improve it by verifying the claims made and adding inline citations . Statements consisting only of original research should be removed.
+
+( June 2011 ) ( Learn how and when to remove this message ) Constraint programming (CP) [ 1 ] is a paradigm for solving combinatorial problems that draws on a wide range of techniques from artificial intelligence , computer science , and operations research . In constraint programming, users declaratively state the constraints on the feasible solutions for a set of decision variables. Constraints differ from the common primitives of imperative programming languages in that they do not specify a step or sequence of steps to execute, but rather the properties of a solution to be found. In addition to constraints, users also need to specify a method to solve these constraints. This typically draws upon standard methods like chronological backtracking and constraint propagation , but may use customized code like a problem-specific branching heuristic .
+
+Constraint programming takes its root from and can be expressed in the form of constraint logic programming , which embeds constraints into a logic program . This variant of logic programming is due to Jaffar and Lassez, [ 2 ] who extended in 1987 a specific class of constraints that were introduced in Prolog II . The first implementations of constraint logic programming were Prolog III , CLP(R) , and CHIP .
+
+Instead of logic programming, constraints can be mixed with functional programming , term rewriting , and imperative languages .
+Programming languages with built-in support for constraints include Oz (functional programming) and Kaleidoscope (imperative programming). Mostly, constraints are implemented in imperative languages via constraint solving toolkits , which are separate libraries for an existing imperative language.
+
+Constraint logic programming [ edit ] Main article: Constraint logic programming Constraint programming is an embedding of constraints in a host language. The first host languages used were logic programming languages, so the field was initially called constraint logic programming . The two paradigms share many important features, like logical variables and backtracking . Today most Prolog implementations include one or more libraries for constraint logic programming.
+
+The difference between the two is largely in their styles and approaches to modeling the world. Some problems are more natural (and thus, simpler) to write as logic programs, while some are more natural to write as constraint programs.
+
+The constraint programming approach is to search for a state of the world in which a large number of constraints are satisfied at the same time. A problem is typically stated as a state of the world containing a number of unknown variables. The constraint program searches for values for all the variables.
+
+Temporal concurrent constraint programming (TCC) and non-deterministic temporal concurrent constraint programming (MJV) are variants of constraint programming that can deal with time.
+
+Constraint satisfaction problem [ edit ] Main article: Constraint satisfaction problem A constraint is a relation between multiple variables that limits the values these variables can take simultaneously.
+
+Definition — A constraint satisfaction problem on finite domains (or CSP) is defined by a triplet ( X , D , C ) {\displaystyle ({\mathcal {X}},{\mathcal {D}},{\mathcal {C}})} where: X = { x 1 , … … , x n } {\displaystyle {\mathcal {X}}=\{x_{1},\dots ,x_{n}\}} is the set of variables of the problem; D = { D 1 , … … , D n } {\displaystyle {\mathcal {D}}=\{{\mathcal {D}}_{1},\dots ,{\mathcal {D}}_{n}\}} is the set of domains of the variables, i.e., for all k ∈ ∈ [ 1 ; n ] {\displaystyle k\in [1;n]} we have x k ∈ ∈ D k {\displaystyle x_{k}\in {\mathcal {D}}_{k}} ; C = { C 1 , … … , C m } {\displaystyle {\mathcal {C}}=\{C_{1},\dots ,C_{m}\}} is a set of constraints. A constraint C i = ( X i , R i ) {\displaystyle C_{i}=({\mathcal {X}}_{i},{\mathcal {R}}_{i})} is defined by a set X i = { x i 1 , … … , x i k } {\displaystyle {\mathcal {X}}_{i}=\{x_{i_{1}},\dots ,x_{i_{k}}\}} of variables and a relation R i ⊆ ⊆ D i 1 × × ⋯ ⋯ × × D i k {\displaystyle {\mathcal {R}}_{i}\subseteq {\mathcal {D}}_{i_{1}}\times \dots \times {\mathcal {D}}_{i_{k}}} that defines the set of values allowed simultaneously for the variables of X i {\displaystyle {\mathcal {X}}_{i}} .
+
+Three categories of constraints exist: extensional constraints: constraints are defined by enumerating the set of values that would satisfy them; arithmetic constraints: constraints are defined by an arithmetic expression, i.e., using < , > , ≤ ≤ , ≥ ≥ , = , ≠ ≠ , .
+
+.
+
+.
+
+{\displaystyle <,>,\leq ,\geq ,=,\neq ,...} ; logical constraints: constraints are defined with an explicit semantics, i.e., AllDifferent , AtMost , ...
+
+Definition — An assignment (or model) A {\displaystyle {\mathcal {A}}} of a CSP P = ( X , D , C ) {\displaystyle P=({\mathcal {X}},{\mathcal {D}},{\mathcal {C}})} is defined by the couple A = ( X A , V A ) {\displaystyle {\mathcal {A}}=({\mathcal {X_{\mathcal {A}}}},{\mathcal {V_{\mathcal {A}}}})} where: X A ⊆ ⊆ X {\displaystyle {\mathcal {X_{\mathcal {A}}}}\subseteq {\mathcal {X}}} is a subset of variable; V A = { v A 1 , … … , v A k } ∈ ∈ { D A 1 , … … , D A k } {\displaystyle {\mathcal {V_{\mathcal {A}}}}=\{v_{{\mathcal {A}}_{1}},\dots ,v_{{\mathcal {A}}_{k}}\}\in \{{\mathcal {D}}_{{\mathcal {A}}_{1}},\dots ,{\mathcal {D}}_{{\mathcal {A}}_{k}}\}} is the tuple of the values taken by the assigned variables.
+
+Assignment is the association of a variable to a value from its domain. A partial assignment is when a subset of the variables of the problem has been assigned. A total assignment is when all the variables of the problem have been assigned.
+
+Property — Given A = ( X A , V A ) {\displaystyle {\mathcal {A}}=({\mathcal {X_{\mathcal {A}}}},{\mathcal {V_{\mathcal {A}}}})} an assignment (partial or total) of a CSP P = ( X , D , C ) {\displaystyle P=({\mathcal {X}},{\mathcal {D}},{\mathcal {C}})} , and C i = ( X i , R i ) {\displaystyle C_{i}=({\mathcal {X}}_{i},{\mathcal {R}}_{i})} a constraint of P {\displaystyle P} such as X i ⊆ ⊆ X A {\displaystyle {\mathcal {X}}_{i}\subseteq {\mathcal {X_{\mathcal {A}}}}} , the assignment A {\displaystyle {\mathcal {A}}} satisfies the constraint C i {\displaystyle C_{i}} if and only if all the values V A i = { v i ∈ ∈ V A such that x i ∈ ∈ X i } {\displaystyle {\mathcal {V}}_{{\mathcal {A}}_{i}}=\{v_{i}\in {\mathcal {V}}_{\mathcal {A}}{\mbox{ such that }}x_{i}\in {\mathcal {X}}_{i}\}} of the variables of the constraint C i {\displaystyle C_{i}} belongs to R i {\displaystyle {\mathcal {R}}_{i}} .
+
+Definition — A solution of a CSP is a total assignment that satisfies all the constraints of the problem.
+
+During the search of the solutions of a CSP, a user can wish for: finding a solution (satisfying all the constraints); finding all the solutions of the problem; proving the unsatisfiability of the problem.
+
+Constraint optimization problem [ edit ] Main article: Constrained optimization A constraint optimization problem (COP) is a constraint satisfaction problem associated to an objective function.
+
+An optimal solution to a minimization (maximization) COP is a solution that minimizes (maximizes) the value of the objective function .
+
+During the search of the solutions of a COP, a user can wish for: finding a solution (satisfying all the constraints); finding the best solution with respect to the objective; proving the optimality of the best found solution; proving the unsatisfiability of the problem.
+
+Perturbation vs refinement models [ edit ] Languages for constraint-based programming follow one of two approaches: [ 3 ] Refinement model: variables in the problem are initially unassigned, and each variable is assumed to be able to contain any value included in its range or domain. As computation progresses, values in the domain of a variable are pruned if they are shown to be incompatible with the possible values of other variables, until a single value is found for each variable.
+
+Perturbation model: variables in the problem are assigned a single initial value. At different times one or more variables receive perturbations (changes to their old value), and the system propagates the change trying to assign new values to other variables that are consistent with the perturbation.
+
+Constraint propagation in constraint satisfaction problems is a typical example of a refinement model, and formula evaluation in spreadsheets are a typical example of a perturbation model.
+
+The refinement model is more general, as it does not restrict variables to have a single value, it can lead to several solutions to the same problem. However, the perturbation model is more intuitive for programmers using mixed imperative constraint object-oriented languages.
+
+[ 4 ] Domains [ edit ] The constraints used in constraint programming are typically over some specific domains. Some popular domains for constraint programming are: Boolean domains, where only true/false constraints apply ( SAT problem ) integer domains, rational domains interval domains, in particular for scheduling problems [ 5 ] linear domains, where only linear functions are described and analyzed (although approaches to non-linear problems do exist) finite domains, where constraints are defined over finite sets mixed domains, involving two or more of the above Finite domains is one of the most successful domains of constraint programming. In some areas (like operations research ) constraint programming is often identified with constraint programming over finite domains.
+
+Constraint propagation [ edit ] Main article: Constraint propagation Local consistency conditions are properties of constraint satisfaction problems related to the consistency of subsets of variables or constraints. They can be used to reduce the search space and make the problem easier to solve. Various kinds of local consistency conditions are leveraged, including node consistency , arc consistency , and path consistency .
+
+Every local consistency condition can be enforced by a transformation that changes the problem without changing its solutions. Such a transformation is called constraint propagation .
+
+[ 6 ] Constraint propagation works by reducing domains of variables, strengthening constraints, or creating new ones. This leads to a reduction of the search space, making the problem easier to solve by some algorithms. Constraint propagation can also be used as an unsatisfiability checker, incomplete in general but complete in some particular cases.
+
+Constraint solving [ edit ] There are three main algorithmic techniques for solving constraint satisfaction problems: backtracking search, local search, and dynamic programming.
+
+[ 1 ] Backtracking search [ edit ] Main article: Backtracking Backtracking search is a general algorithm for finding all (or some) solutions to some computational problems , notably constraint satisfaction problems , that incrementally builds candidates to the solutions, and abandons a candidate ("backtracks") as soon as it determines that the candidate cannot possibly be completed to a valid solution.
+
+Local Search [ edit ] Main article: Local search (constraint satisfaction) Local search is an incomplete method for finding a solution to a problem . It is based on iteratively improving an assignment of the variables until all constraints are satisfied. In particular, local search algorithms typically modify the value of a variable in an assignment at each step. The new assignment is close to the previous one in the space of assignment, hence the name local search .
+
+Dynamic programming [ edit ] Main article: Dynamic programming Dynamic programming is both a mathematical optimization method and a computer programming method. It refers to simplifying a complicated problem by breaking it down into simpler sub-problems in a recursive manner. While some decision problems cannot be taken apart this way, decisions that span several points in time do often break apart recursively. Likewise, in computer science, if a problem can be solved optimally by breaking it into sub-problems and then recursively finding the optimal solutions to the sub-problems, then it is said to have optimal substructure .
+
+Example [ edit ] The syntax for expressing constraints over finite domains depends on the host language. The following is a Prolog program that solves the classical alphametic puzzle SEND+MORE=MONEY in constraint logic programming: % This code works in both YAP and SWI-Prolog using the environment-supplied % CLPFD constraint solver library.  It may require minor modifications to work % in other Prolog environments or using other constraint solvers.
+
+:- use_module ( library ( clpfd )).
+
+sendmore ( Digits ) :- Digits = [ S , E , N , D , M , O , R , Y ], % Create variables Digits ins 0..9 , % Associate domains to variables S #\= 0 , % Constraint: S must be different from 0 M #\= 0 , all_different ( Digits ), % all the elements must take different values 1000 * S + 100 * E + 10 * N + D % Other constraints + 1000 * M + 100 * O + 10 * R + E #= 10000 * M + 1000 * O + 100 * N + 10 * E + Y , label ( Digits ).
+
+% Start the search The interpreter creates a variable for each letter in the puzzle. The operator ins is used to specify the domains of these variables, so that they range over the set of values {0,1,2,3, ..., 9}. The constraints S#\=0 and M#\=0 means that these two variables cannot take the value zero. When the interpreter evaluates these constraints, it reduces the domains of these two variables by removing the value 0 from them. Then, the constraint all_different(Digits) is considered; it does not reduce any domain, so it is simply stored. The last constraint specifies that the digits assigned to the letters must be such that "SEND+MORE=MONEY" holds when each letter is replaced by its corresponding digit. From this constraint, the solver infers that M=1. All stored constraints involving variable M are awakened: in this case, constraint propagation on the all_different constraint removes value 1 from the domain of all the remaining variables. Constraint propagation may solve the problem by reducing all domains to a single value, it may prove that the problem has no solution by reducing a domain to the empty set, but may also terminate without proving satisfiability or unsatisfiability. The label literals are used to actually perform search for a solution.
+
+See also [ edit ] Combinatorial optimization Concurrent constraint logic programming Constraint logic programming Heuristic algorithms List of constraint programming languages Mathematical optimization Nurse scheduling problem Regular constraint Satisfiability modulo theories Traveling tournament problem References [ edit ] ^ a b Rossi, Francesca ; Beek, Peter van; Walsh, Toby (2006-08-18).
+
+Handbook of Constraint Programming . Elsevier.
+
+ISBN 9780080463803 .
+
+^ Jaffar, Joxan, and J-L. Lassez. " Constraint logic programming ." Proceedings of the 14th ACM SIGPLAN-SIGACT Symposium on Principles of Programming Languages . ACM, 1987.
+
+^ Mayoh, Brian; Tyugu, Enn; Penjam, Jaan (1993).
+
+Constraint Programming .
+
+Springer Science+Business Media . p. 76.
+
+ISBN 9783642859830 .
+
+^ Lopez, G., Freeman-Benson, B., & Borning, A. (1994, January).
+
+Kaleidoscope: A constraint imperative programming language.
+
+[ dead link ] In Constraint Programming (pp. 313-329). Springer Berlin Heidelberg.
+
+^ Baptiste, Philippe ; Pape, Claude Le; Nuijten, Wim (2012-12-06).
+
+Constraint-Based Scheduling: Applying Constraint Programming to Scheduling Problems . Springer Science & Business Media.
+
+ISBN 978-1-4615-1479-4 .
+
+^ Bessiere, Christian (2006), "Constraint Propagation", Handbook of Constraint Programming , Foundations of Artificial Intelligence, vol. 2, Elsevier, pp.
+
+29– 83, CiteSeerX 10.1.1.398.4070 , doi : 10.1016/s1574-6526(06)80007-6 , ISBN 9780444527264 External links [ edit ] Wikimedia Commons has media related to Constraint programming .
+
+Association for Constraint Programming CP Conference Series Guide to Constraint Programming The Mozart Programming System at archive.today (archived December 5, 2012), an Oz -based free software ( X Window System style) Cork Constraint Computation Centre at archive.today (archived January 7, 2013) v t e Programming paradigms ( Comparison by language ) Imperative Structured Jackson structures Block-structured Modular Non-structured Procedural Programming in the large and in the small Design by contract Invariant-based Nested function Object-oriented ( comparison , list ) Class-based , Prototype-based , Object-based Agent Immutable object Persistent Uniform function call syntax Declarative Functional ( comparison ) Recursive Anonymous function ( Partial application ) Higher-order Purely functional Total Strict GADTs Dependent types Functional logic Point-free style Expression-oriented Applicative , Concatenative Function-level , Value-level Dataflow Flow-based Reactive ( Functional reactive ) Signals Streams Synchronous Logic Abductive logic Answer set Constraint ( Constraint logic ) Inductive logic Nondeterministic Ontology Probabilistic logic Query Domain- specific language (DSL) Algebraic modeling Array Automata-based ( Action ) Command ( Spacecraft ) Differentiable End-user Grammar-oriented Interface description Language-oriented List comprehension Low-code Modeling Natural language Non-English-based Page description Pipes and filters Probabilistic Quantum Scientific Scripting Set-theoretic Simulation Stack-based System Tactile Templating Transformation ( Graph rewriting , Production , Pattern ) Visual Concurrent , distributed , parallel Actor-based Automatic mutual exclusion Choreographic programming Concurrent logic ( Concurrent constraint logic ) Concurrent OO Macroprogramming Multitier programming Organic computing Parallel programming models Partitioned global address space Process-oriented Relativistic programming Service-oriented Structured concurrency Metaprogramming Attribute-oriented Automatic ( Inductive ) Dynamic Extensible Generic Homoiconicity Interactive Macro ( Hygienic ) Metalinguistic abstraction Multi-stage Program synthesis ( Bayesian , Inferential , by demonstration , by example ) Reflective Self-modifying code Symbolic Template Separation of concerns Aspects Components Data-driven Data-oriented Event-driven Features Literate Roles Subjects v t e Types of programming languages Level Machine Assembly Compiled Interpreted Low-level High-level Very high-level Esoteric Generation First Second Third Fourth Fifth Authority control databases National United States France BnF data Israel Other Yale LUX NewPP limit report
+Parsed by mw‐web.codfw.main‐7c956d68b4‐9gs8l
+Cached time: 20250817054202
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.378 seconds
+Real time usage: 0.525 seconds
+Preprocessor visited node count: 1439/1000000
+Revision size: 17967/2097152 bytes
+Post‐expand include size: 75822/2097152 bytes
+Template argument size: 5232/2097152 bytes
+Highest expansion depth: 17/100
+Expensive parser function count: 11/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 49994/5000000 bytes
+Lua time usage: 0.221/10.000 seconds
+Lua memory usage: 5851187/52428800 bytes
+Number of Wikibase entities loaded: 1/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  365.064      1 -total
+ 28.17%  102.829      1 Template:Reflist
+ 20.22%   73.819      3 Template:Cite_book
+ 18.81%   68.656      4 Template:Navbox
+ 17.78%   64.917      1 Template:Programming_paradigms_navbox
+ 15.74%   57.446      1 Template:Short_description
+ 12.09%   44.140      1 Template:Commonscat
+ 11.44%   41.779      1 Template:Sister_project
+ 11.02%   40.216      1 Template:Side_box
+  9.74%   35.562      1 Template:Original_research Saved in parser cache with key enwiki:pcache:189899:|#|:idhash:canonical and timestamp 20250817054202 and revision id 1292513929. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Constraint_programming&oldid=1292513929 " Categories : Constraint programming Programming paradigms Declarative programming Hidden categories: All articles with dead external links Articles with dead external links from May 2025 Articles with short description Short description matches Wikidata Articles that may contain original research from June 2011 All articles that may contain original research Commons category link from Wikidata Webarchive template archiveis links Articles with example code This page was last edited on 27 May 2025, at 10:26 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Constraint programming 18 languages Add topic
+

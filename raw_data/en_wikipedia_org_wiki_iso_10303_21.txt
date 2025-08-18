@@ -1,0 +1,111 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Example 2 History 3 ISO 10303-21 building blocks Toggle ISO 10303-21 building blocks subsection 3.1 Example 3.2 HEADER section 3.3 DATA section 4 Criticism 5 See also 6 External links 7 References Toggle the table of contents ISO 10303-21 4 languages Català Svenska Yorùbá 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Widely used CAD 3D data exchange file format STEP Filename extension .stp, .step, .stpnc, .p21, .210 Internet media type model/step, model/step+xml, model/step+zip, model/step-xml+zip Magic number ISO-10303-21 Developed by ISO Initial release 1994 Website Specification STEP-file is a widely used [ 1 ] data exchange form of STEP . ISO 10303 can represent 3D objects in computer-aided design (CAD) and related information. A STEP-file is ASCII text with the format defined in ISO 10303-21 Clear Text Encoding of the Exchange Structure .
+
+[ 2 ] ISO 10303-21 defines the encoding mechanism for representing data conforming to a particular schema in the EXPRESS data modeling language specified in ISO 10303-11 . A STEP-File is also called p21-File and STEP Physical File . The file extensions .stp and .step indicate that the file contains data conforming to STEP application protocols while the extension .p21 should be used for all other purposes.
+
+[ 3 ] The use of ISO 10303-21 is not limited to STEP. The Industry Foundation Classes and earlier CIMSteel Integration Standard (CIS/2) define an EXPRESS schema for building information modeling data and specify ISO 10303-21 as an exchange encoding .
+
+Example [ edit ] This graph shows the entity instances and the references between them in a file representing a solid model of a cylinder.
+
+Entity instances for a single part file History [ edit ] Some details to take note of: The first edition, ISO 10303-21:1994, had some bugs, which were corrected by a Technical Corrigendum. Therefore, it is recommended that users study the second edition instead (see below).
+
+The second edition, ISO 10303-21:2002, included the corrigendum and extensions for several data sections.
+
+The third edition, ISO 10303-21:2016, added anchor, reference and signature sections to support external references, support for compressed exchange structures in a ZIP-based archive, digital signatures, and UTF-8 character encoding.
+
+[ 4 ] Part 21 defined two conformance classes. They differ only in how to encode complex entity instances.
+
+Conformance class 1 is always used enforce the so-called internal mapping , which is more compact.
+
+Conformance class 2, which is not used in practice, always enforces the external mapping . In theory this would allow better AP interoperability, since a post-processor may know how to handle some supertypes, but may not know the specified subtypes.
+
+The 1st edition of part 21 enforces the use of so-called short names , which are optional in the 2nd edition. In practice, however, short names are rarely used.
+
+The 2nd edition allows multiple data sections to be used. In practice, however, most implementations only use a single data section (1st edition encoding).
+
+ISO 10303-21 building blocks [ edit ] Example [ edit ] A typical example looks like this: ISO-10303-21; HEADER; FILE_DESCRIPTION( /* description */ ('A minimal AP214 example with a single part'), /* implementation_level */ '2;1'); FILE_NAME( /* name */ 'demo', /* time_stamp */ '2003-12-27T11:57:53', /* author */ ('Lothar Klein'), /* organization */ ('LKSoft'), /* preprocessor_version */ ' ', /* originating_system */ 'IDA-STEP', /* authorization */ ' '); FILE_SCHEMA (('AUTOMOTIVE_DESIGN { 1 0 10303 214 2 1 1}')); ENDSEC; DATA; #10=ORGANIZATION('O0001','LKSoft','company'); #11=PRODUCT_DEFINITION_CONTEXT('part definition',#12,'manufacturing'); #12=APPLICATION_CONTEXT('mechanical design'); #13=APPLICATION_PROTOCOL_DEFINITION('','automotive_design',2003,#12); #14=PRODUCT_DEFINITION('0',$,#15,#11); #15=PRODUCT_DEFINITION_FORMATION('1',$,#16); #16=PRODUCT('A0001','Test Part 1','',(#18)); #17=PRODUCT_RELATED_PRODUCT_CATEGORY('part',$,(#16)); #18=PRODUCT_CONTEXT('',#12,''); #19=APPLIED_ORGANIZATION_ASSIGNMENT(#10,#20,(#16)); #20=ORGANIZATION_ROLE('id owner'); ENDSEC; END-ISO-10303-21; HEADER section [ edit ] As seen in the above example, the file is split into two sections following the initial keyword ISO-10303-21; : The HEADER section has a fixed structure consisting of 3 to 6 groups in the given order. Except for the data fields time_stamp and FILE_SCHEMA all fields may contain empty strings.
+
+FILE_DESCRIPTION description . A brief description of the contents of the file.
+
+implementation_level . The version and conformance option of this file. Possible versions are "1" for the original standard back in 1994, "2" for the technical corrigendum in 1995 and "3" for the second edition. The conformance option is either "1" for internal and "2" for external mapping of complex entity instances. Often, one will find here the value __'2;1'__. The value '2;2' enforcing external mapping is also possible but only very rarely used. The values '3;1' and '3;2' indicate extended STEP-Files as defined in the 2001 standard with several DATA sections, multiple schemas and FILE_POPULATION support.
+
+FILE_NAME name of this exchange structure. It may correspond to the name of the file in a file system or reflect data in this file. There is no strict rule how to use this field.
+
+time_stamp indicates the time when this file was created. The time is given in the international data time format ISO 8601 , e.g.
+
+2003-12-27T11:57:53 for 27 of December 2003, 2 minutes to noon time.
+
+author the name and mailing address of the person creating this exchange structure organization the organization to whom the person belongs to preprocessor_version the name of the system and its version which produces this STEP-file originating_system the name of the system and its version which originally created the information contained in this STEP-file.
+
+authorization the name and mailing address of the person who authorized this file.
+
+FILE_SCHEMA. Specifies one or several Express schema governing the information in the data section(s). For first edition files, only one EXPRESS schema together with an optional ASN.1 object identifier of the schema version can be listed here. Second edition files may specify several EXPRESS schema.
+
+The last three header groups are only valid in second edition files.
+
+FILE_POPULATION, indicating a valid population (set of entity instances) which conforms to an EXPRESS schemas. This is done by collecting data from several data_sections and referenced instances from other data sections.
+
+governing_schema , the EXPRESS schema to which the indicated population belongs to and by which it can be validated.
+
+determination_method to figure out which instances belong to the population. Three methods are predefined: SECTION_BOUNDARY, INCLUDE_ALL_COMPATIBLE, and INCLUDE_REFERENCED.
+
+governed_sections , the data sections whose entity instances fully belongs to the population.
+
+The concept of FILE_POPULATION is very close to schema_instance of SDAI. Unfortunately, during the standardization process, it was not possible to come to an agreement to merge these concepts. Therefore, JSDAI adds further attributes to FILE_POPULATION as intelligent comments to cover all missing information from schema_instance. This is supported for both import and export.
+
+SECTION_LANGUAGE allows assignment of a default language for either all or a specific data section. This is needed for those Express schemas that do not provide the capability to specify in which language string attributes of entities such as name and description are given.
+
+SECTION_CONTEXT provide the capability to specify additional context information for all or single data sections. This can be used e.g. for STEP-APs to indicate which conformance class is covered by a particular data section.
+
+DATA section [ edit ] The DATA section contains application data according to one specific express schema. The encoding of this data follows some simple principles.
+
+Instance name: Every entity instance in the exchange structure is given a unique name in the form #1234 . The instance name must consist of a positive number (>0) and is typically smaller than 2 63 . The instance name is only valid locally within the STEP-file. If the same content is exported again from a system the instance names may be different for the same instances. The instance name is also used to reference other entity instances through attribute values or aggregate members. The referenced instance may be defined before or after the current instance.
+
+Instances of single entity data types are represented by writing the name of the entity in capital letters and then followed by the attribute values in the defined order within parentheses. See e.g.
+
+#16=PRODUCT(...) above.
+
+Instances of complex entity data types are represented in the STEP file by using either the internal mapping or the external mapping.
+
+External mapping has always to be used if the complex entity instance consist of more than one leaf entity. In this case all the single entity instance values are given independently from each other in alphabetical order as defined above with all entity values grouped together in parentheses.
+
+Internal mapping is used by default for conformance option 1 when the complex entity instance consists of only one leaf entity. The encoding is similar to the one of a single entity instance with the additional order given by the subtype definition.
+
+Mapping of attribute values: Only explicit attributes get mapped. Inverse, derived and re-declared attributes are not listed since their values can be deduced from the other ones.
+
+Unset attribute values are given as $ .
+
+Explicit attributes which got re-declared as derived in a subtype are encoded as * in the position of the supertype attribute.
+
+Mapping of other data types: Enumeration, Boolean and logical values are given in capital letters with a leading and trailing dot such as .TRUE.
+
+.
+
+String values are given in single quotes '...' . For characters with a code greater than 126 a special encoding is used. The character sets as defined in ISO 8859 and 10646 are supported. Note that typical 8 (e.g. west European) or 16 (Unicode) bit character sets cannot directly be taken for STEP-file strings. They have to be decoded in a very special way.
+
+Integers and real values are used identical to typical programming languages Binary values (bit sequences) are encoded as hexadecimal and surrounded by double quotes, with a leading character indicating the number of unused bits (0, 1, 2, or 3) followed by uppercase hexadecimal encoding of data. It is important to note that the entire binary value is encoded as a single hexadecimal number, with the highest order bits in the first hex character and the lowest order bits in the last one.
+
+The elements of aggregates (SET, BAG, LIST, ARRAY) are given in parentheses, separated by , .
+
+Care has to be taken for select data types based on defined data types. Here the name of the defined data type gets mapped too.
+
+See also "Mapping of Express to Java" for more details of this.
+
+[ clarification needed ] Criticism [ edit ] Possibly the only advantage of STEP files is that they are widely adopted in many CAD software. On the other hand, its format, and specially the EXPRESS data modelling language has a few disadvantages: [ opinion ] the specification is not freely available (you have to pay for it) it is not possible to sequentially read a STEP file. Entities can be in any order and can reference other entities forwards and backwards in the file (see entity #14 in the example above). Therefore the entire file has to be read into memory and tokenized before parsing.
+
+[ citation needed ] the format is not storage-efficient. For example assigning an RGB color code to an edge requires at least 6 other entities, and specifying a transformation requires at least 5 additional entities (PLANE, AXIS2_PLACEMENT_3D, a CARTESIAN_POINT, and 2 DIRECTION entities) [ citation needed ] the format is not well-defined. For example the same triangle can be encoded in a STEP file in many different ways (with FACET_BREP, ADVANCED_FACE, POLY_LOOP, EDGE_LOOP, as a MANIFOLD_SOLID_REPRESENTATION or as a SHELL_BASED_REPRESENTATION, etc.). An importer needs to recognize all variants in order to read a STEP file consistently. Most CAD software does not support the full set of STEP entries, and as such, are limited to a specific subset of STEP entities. For example Autodesk Help, list of supported STEP entities .
+
+[ citation needed ] As a result, most CAD software have some sort of "repair geometry data after import" feature, which may or may not work.
+
+[ citation needed ] See also [ edit ] Industry Foundation Classes (IFC) Boundary representation IGES STL (file format) DXF Open CASCADE Technology - An Open Source STEP library which was used to build FreeCAD External links [ edit ] ANSI ISO-10303-21 - Official specification at ANSI STEP File Analyzer and Viewer - Analyze and view an ISO 10303 Part 21 STEP file Online STEP File Viewer STEP File Viewers STEPcode - Successor to NIST's STEP Class Library, the official C++ library to create STEP file importers and exporters References [ edit ] ^ "STEP-file, ISO 10303-21" .
+
+Library of Congress . 3 January 2017.
+
+^ ISO 10303-21:2002 Industrial automation systems and integration -- Product data representation and exchange -- Part 21: Implementation methods: Clear text encoding of the exchange structure ^ ISO TC184/SC4 Secretary "Cumulative list of resolutions" Resolution 583 (Stuttgart, Germany, - June 2003) "Registration of SC4 MIME-Types", [1] [ usurped ] ^ ISO 10303-21:2016.  Industrial automation systems and integration -- Product data representation and exchange -- Part 21: Implementation methods: Clear text encoding of the exchange structure [2] v t e International Organization for Standardization (ISO) standards List of ISO standards – ISO romanizations – IEC standards 1–9999 1 2 3 4 6 7 9 16 17 31 -0 -1 -3 -4 -5 -6 -7 -8 -9 -10 -11 -12 -13 68-1 128 216 217 226 228 233 259 261 262 302 306 361 500 518 519 639 -1 -2 -3 -5 -6 646 657 668 690 704 732 764 838 843 860 898 965 999 1000 1004 1007 1073-1 1073-2 1155 1413 1538 1629 1745 1989 2014 2015 2022 2033 2047 2108 2145 2146 2240 2281 2533 2709 2711 2720 2788 2848 2852 2921 3029 3103 3166 -1 -2 -3 3297 3307 3601 3602 3864 3901 3950 3977 4031 4157 4165 4217 4909 5218 5426 5427 5428 5725 5775 5776 5800 5807 5964 6166 6344 6346 6373 6385 6425 6429 6438 6523 6709 6943 7001 7002 7010 7027 7064 7098 7185 7200 7498 -1 7637 7736 7810 7811 7812 7813 7816 7942 8000 8093 8178 8217 8373 8501-1 8571 8583 8601 8613 8632 8651 8652 8691 8805/8806 8807 8820-5 8859 -1 -2 -3 -4 -5 -6 -7 -8 -8-I -9 -10 -11 -12 -13 -14 -15 -16 8879 9000/9001 9036 9075 9126 9141 9227 9241 9293 9314 9362 9407 9496 9506 9529 9564 9592/9593 9594 9660 9797-1 9897 9899 9945 9984 9985 9995 10000–19999 10006 10007 10116 10118-3 10160 10161 10165 10179 10206 10218 10279 10303 -11 -21 -22 -28 -238 10383 10585 10589 10628 10646 10664 10746 10861 10957 10962 10967 11073 11170 11172 11179 11404 11544 11783 11784 11785 11801 11889 11898 11940 ( -2 ) 11941 11941 (TR) 11992 12006 12052 12182 12207 12234-2 12620 13211 -1 -2 13216 13250 13399 13406-2 13450 13485 13490 13567 13568 13584 13616 13816 13818 14000 14031 14224 14289 14396 14443 14496 -2 -3 -6 -10 -11 -12 -14 -17 -20 14617 14644 14649 14651 14698 14764 14882 14971 15022 15189 15288 15291 15398 15408 15444 -3 -9 15445 15438 15504 15511 15686 15693 15706 -2 15707 15897 15919 15924 15926 15926 WIP 15930 15938 16023 16262 16355-1 16485 16612-2 16750 16949 (TS) 17024 17025 17100 17203 17369 17442 17506 17799 18004 18014 18181 18245 18629 18760 18916 19005 19011 19092 -1 -2 19114 19115 19125 19136 19407 19439 19500 19501 19502 19503 19505 19506 19507 19508 19509 19510 19600 19752 19757 19770 19775-1 19794-5 19831 20000–29999 20000 20022 20121 20400 20802 20830 21000 21001 21047 21122 21500 21778 21827 22000 22275 22300 22301 22395 22537 23000 23003 23008 23009 23090-3 23092 23094-1 23094-2 23270 23271 23360 23941 24517 24613 24617 24707 24728 25178 25964 26000 26262 26300 26324 27000 series 27000 27001 27002 27005 27006 27729 28000 29110 29148 29199-2 29500 30000+ 30170 31000 32000 37001 38500 39075 40314 40500 42010 45001 50001 55000 56000 80000 Category Retrieved from " https://en.wikipedia.org/w/index.php?title=ISO_10303-21&oldid=1301725180 " Category : ISO 10303 Hidden categories: Articles with short description Short description is different from Wikidata Wikipedia articles needing clarification from January 2014 All articles with minor POV problems Articles with minor POV problems from January 2023 All articles with unsourced statements Articles with unsourced statements from January 2023 This page was last edited on 21 July 2025, at 10:05 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents ISO 10303-21 4 languages Add topic
+

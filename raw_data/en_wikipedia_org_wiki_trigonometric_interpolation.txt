@@ -1,0 +1,116 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Formulation of the interpolation problem 2 Formulation in the complex plane 3 Solution of the problem Toggle Solution of the problem subsection 3.1 Odd number of points 3.2 Even number of points 4 Equidistant nodes Toggle Equidistant nodes subsection 4.1 Odd number of points 4.2 Even number of points 4.3 Implementation 4.4 Relation with the discrete Fourier transform 5 Applications in numerical computing 6 References 7 External links Toggle the table of contents Trigonometric interpolation 6 languages Čeština Deutsch Español Polski Português Simple English Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Interpolation with trigonometric polynomials In mathematics , trigonometric interpolation is interpolation with trigonometric polynomials . Interpolation is the process of finding a function which goes through some given data points . For trigonometric interpolation, this function has to be a trigonometric polynomial, that is, a sum of sines and cosines of given periods. This form is especially suited for interpolation of periodic functions .
+
+An important special case is when the given data points are equally spaced, in which case the solution is given by the discrete Fourier transform .
+
+Formulation of the interpolation problem [ edit ] A trigonometric polynomial of degree K has the form p ( x ) = a 0 + ∑ ∑ k = 1 K a k cos ⁡ ⁡ ( k x ) + ∑ ∑ k = 1 K b k sin ⁡ ⁡ ( k x ) .
+
+{\displaystyle p(x)=a_{0}+\sum _{k=1}^{K}a_{k}\cos(kx)+\sum _{k=1}^{K}b_{k}\sin(kx).\,} 1 This expression contains 2 K + 1 coefficients, a 0 , a 1 , … a K , b 1 , …, b K , and we wish to compute those coefficients so that the function passes through N points: p ( x n ) = y n , n = 0 , … … , N − − 1.
+
+{\displaystyle p(x_{n})=y_{n},\quad n=0,\ldots ,N-1.\,} Since the trigonometric polynomial is periodic with period 2π, the N points can be distributed and ordered in one period as 0 ≤ ≤ x 0 < x 1 < x 2 < … … < x N − − 1 < 2 π π .
+
+{\displaystyle 0\leq x_{0}<x_{1}<x_{2}<\ldots <x_{N-1}<2\pi .\,} (Note that we do not in general require these points to be equally spaced.) The interpolation problem is now to find coefficients such that the trigonometric polynomial p satisfies the interpolation conditions.
+
+Formulation in the complex plane [ edit ] The problem becomes more natural if we formulate it in the complex plane . We can rewrite the formula for a trigonometric polynomial as p ( x ) = ∑ ∑ k = − − K K c k e i k x , {\displaystyle p(x)=\sum _{k=-K}^{K}c_{k}e^{ikx},\,} where i is the imaginary unit . If we set z = e ix , then this becomes q ( z ) = ∑ ∑ k = − − K K c k z k , {\displaystyle q(z)=\sum _{k=-K}^{K}c_{k}z^{k},\,} with q ( e i x ) ≜ ≜ p ( x ) .
+
+{\displaystyle q(e^{ix})\triangleq p(x).\,} This reduces the problem of trigonometric interpolation to that of polynomial interpolation on the unit circle . Existence and uniqueness for trigonometric interpolation now follows immediately from the corresponding results for polynomial interpolation.
+
+For more information on formulation of trigonometric interpolating polynomials in the complex plane, see p. 156 of Interpolation using Fourier Polynomials .
+
+Solution of the problem [ edit ] Under the above conditions, there exists a solution to the problem for any given set of data points { x k , y k } as long as N , the number of data points, is not larger than the number of coefficients in the polynomial, i.e., N ≤ 2 K +1  (a solution may or may not exist if N >2 K +1 depending upon the particular set of data points). Moreover, the  interpolating polynomial is unique if and only if the number of adjustable coefficients is equal to the number of data points, i.e., N = 2 K + 1. In the remainder of this article, we will assume this condition to hold true.
+
+Odd number of points [ edit ] If the number of points N is odd, say N=2K+1 , applying the Lagrange formula for polynomial interpolation to the polynomial formulation in the complex plane yields that the solution can be written in the form p ( x ) = ∑ ∑ k = 0 2 K y k t k ( x ) , {\displaystyle p(x)=\sum _{k=0}^{2K}y_{k}\,t_{k}(x),} 5 where t k ( x ) = e − − i K x + i K x k ∏ ∏ m = 0 m ≠ ≠ k 2 K e i x − − e i x m e i x k − − e i x m .
+
+{\displaystyle t_{k}(x)=e^{-iKx+iKx_{k}}\prod _{\begin{aligned}m&=0\\[-4mu]m&\neq k\end{aligned}}^{2K}{\frac {e^{ix}-e^{ix_{m}}}{e^{ix_{k}}-e^{ix_{m}}}}.} The factor e − − i K x + i K x k {\displaystyle e^{-iKx+iKx_{k}}} in this formula compensates for the fact that the complex plane formulation contains also negative powers of e i x {\displaystyle e^{ix}} and is therefore not a polynomial expression in e i x {\displaystyle e^{ix}} . The correctness of this expression can easily be verified by observing that t k ( x k ) = 1 {\displaystyle t_{k}(x_{k})=1} and that t k ( x ) {\displaystyle t_{k}(x)} is a linear combination of the right powers of e i x {\displaystyle e^{ix}} .
+Upon using the identity e i z 1 − − e i z 2 = 2 i sin ⁡ ⁡ 1 2 ( z 1 − − z 2 ) e ( z 1 + z 2 ) i / 2 , {\displaystyle e^{iz_{1}}-e^{iz_{2}}=2i\sin {\tfrac {1}{2}}(z_{1}-z_{2})\,e^{(z_{1}+z_{2})i/2},} 2 the coefficient t k ( x ) {\displaystyle t_{k}(x)} can be written in the form t k ( x ) = ∏ ∏ m = 0 m ≠ ≠ k 2 K sin ⁡ ⁡ 1 2 ( x − − x m ) sin ⁡ ⁡ 1 2 ( x k − − x m ) .
+
+{\displaystyle t_{k}(x)=\prod _{\begin{aligned}m&=0\\[-4mu]m&\neq k\end{aligned}}^{2K}{\frac {\sin {\tfrac {1}{2}}(x-x_{m})}{\sin {\tfrac {1}{2}}(x_{k}-x_{m})}}.} 4 Even number of points [ edit ] If the number of points N is even, say N=2K , applying the Lagrange formula for polynomial interpolation to the polynomial formulation in the complex plane yields that the solution can be written in the form p ( x ) = ∑ ∑ k = 0 2 K − − 1 y k t k ( x ) , {\displaystyle p(x)=\sum _{k=0}^{2K-1}y_{k}\,t_{k}(x),} 6 where t k ( x ) = e − − i K x + i K x k e i x − − e i α α k e i x k − − e i α α k ∏ ∏ m = 0 m ≠ ≠ k 2 K − − 1 e i x − − e i x m e i x k − − e i x m .
+
+{\displaystyle t_{k}(x)=e^{-iKx+iKx_{k}}{\frac {e^{ix}-e^{i\alpha _{k}}}{e^{ix_{k}}-e^{i\alpha _{k}}}}\prod _{\begin{aligned}m&=0\\[-4mu]m&\neq k\end{aligned}}^{2K-1}{\frac {e^{ix}-e^{ix_{m}}}{e^{ix_{k}}-e^{ix_{m}}}}.} 3 Here, the constants α α k {\displaystyle \alpha _{k}} can be chosen freely. This is caused by the fact that the interpolating function ( 1 ) contains an odd number of unknown constants. A common choice is to require that the highest frequency is of the form a constant times cos ⁡ ⁡ ( K x ) {\displaystyle \cos(Kx)} , i.e. the sin ⁡ ⁡ ( K x ) {\displaystyle \sin(Kx)} term vanishes, but in general the phase of the highest frequency can be chosen to be φ φ K {\displaystyle \varphi _{K}} . To get an expression for α α k {\displaystyle \alpha _{k}} , we obtain by using ( 2 ) that ( 3 ) can be written on the form t k ( x ) = cos ⁡ ⁡ 1 2 ( 2 K x − − α α k + ∑ ∑ m = 0 , m ≠ ≠ k 2 K − − 1 x m ) + ∑ ∑ m = − − ( K − − 1 ) K − − 1 c k e i m x 2 N sin ⁡ ⁡ 1 2 ( x k − − α α k ) ∏ ∏ m = 0 , m ≠ ≠ k 2 K − − 1 sin ⁡ ⁡ 1 2 ( x k − − x m ) .
+
+{\displaystyle t_{k}(x)={\frac {\cos {\tfrac {1}{2}}{\Biggl (}2Kx-\alpha _{k}+\displaystyle \sum \limits _{m=0,\,m\neq k}^{2K-1}x_{m}{\Biggr )}+\sum \limits _{m=-(K-1)}^{K-1}c_{k}e^{imx}}{2^{N}\sin {\tfrac {1}{2}}(x_{k}-\alpha _{k})\displaystyle \prod \limits _{m=0,\,m\neq k}^{2K-1}\sin {\tfrac {1}{2}}(x_{k}-x_{m})}}.} This yields α α k = ∑ ∑ m = 0 m ≠ ≠ k 2 K − − 1 x m − − 2 φ φ K {\displaystyle \alpha _{k}=\sum _{\begin{aligned}m&=0\\[-4mu]m&\neq k\end{aligned}}^{2K-1}x_{m}-2\varphi _{K}} and t k ( x ) = sin ⁡ ⁡ 1 2 ( x − − α α k ) sin ⁡ ⁡ 1 2 ( x k − − α α k ) ∏ ∏ m = 0 m ≠ ≠ k 2 K − − 1 sin ⁡ ⁡ 1 2 ( x − − x m ) sin ⁡ ⁡ 1 2 ( x k − − x m ) .
+
+{\displaystyle t_{k}(x)={\frac {\sin {\tfrac {1}{2}}(x-\alpha _{k})}{\sin {\tfrac {1}{2}}(x_{k}-\alpha _{k})}}\prod _{\begin{aligned}m&=0\\[-4mu]m&\neq k\end{aligned}}^{2K-1}{\frac {\sin {\tfrac {1}{2}}(x-x_{m})}{\sin {\tfrac {1}{2}}(x_{k}-x_{m})}}.} Note that care must be taken in order to avoid infinities caused by zeros in the denominators.
+
+Equidistant nodes [ edit ] Further simplification of the problem is possible if nodes x m {\displaystyle x_{m}} are equidistant, i.e.
+
+x m = 2 π π m N , {\displaystyle x_{m}={\frac {2\pi m}{N}},} see Zygmund for more details.
+
+Odd number of points [ edit ] Further simplification by using ( 4 ) would be an obvious approach, but is obviously involved. A much simpler approach is to consider the Dirichlet kernel D ( x , N ) = 1 N + 2 N ∑ ∑ k = 1 ( N − − 1 ) / 2 cos ⁡ ⁡ ( k x ) = sin ⁡ ⁡ 1 2 N x N sin ⁡ ⁡ 1 2 x , {\displaystyle D(x,N)={\frac {1}{N}}+{\frac {2}{N}}\sum _{k=1}^{(N-1)/2}\cos(kx)={\frac {\sin {\tfrac {1}{2}}Nx}{N\sin {\tfrac {1}{2}}x}},} where N > 0 {\displaystyle N>0} is odd. It can easily be seen that D ( x , N ) {\displaystyle D(x,N)} is a linear combination of the right powers of e i x {\displaystyle e^{ix}} and satisfies D ( x m , N ) = { 0 for m ≠ ≠ 0 1 for m = 0 .
+
+{\displaystyle D(x_{m},N)={\begin{cases}0{\text{ for }}m\neq 0\\1{\text{ for }}m=0\end{cases}}.} Since these two properties uniquely define the coefficients t k ( x ) {\displaystyle t_{k}(x)} in ( 5 ), it follows that t k ( x ) = D ( x − − x k , N ) = { sin ⁡ ⁡ 1 2 N ( x − − x k ) N sin ⁡ ⁡ 1 2 ( x − − x k ) for x ≠ ≠ x k lim x → → 0 sin ⁡ ⁡ 1 2 N x N sin ⁡ ⁡ 1 2 x = 1 for x = x k = s i n c 1 2 N ( x − − x k ) s i n c 1 2 ( x − − x k ) .
+
+{\displaystyle {\begin{aligned}t_{k}(x)&=D(x-x_{k},N)={\begin{cases}{\dfrac {\sin {\tfrac {1}{2}}N(x-x_{k})}{N\sin {\tfrac {1}{2}}(x-x_{k})}}{\text{ for }}x\neq x_{k}\\[10mu]\lim \limits _{x\to 0}{\dfrac {\sin {\tfrac {1}{2}}Nx}{N\sin {\tfrac {1}{2}}x}}=1{\text{ for }}x=x_{k}\end{cases}}\\&={\frac {\mathrm {sinc} \,{\tfrac {1}{2}}N(x-x_{k})}{\mathrm {sinc} \,{\tfrac {1}{2}}(x-x_{k})}}.\end{aligned}}} Here, the sinc -function prevents any singularities and is defined by s i n c x = sin ⁡ ⁡ x x .
+
+{\displaystyle \mathrm {sinc} \,x={\frac {\sin x}{x}}.} Even number of points [ edit ] For N {\displaystyle N} even, we define the Dirichlet kernel as D ( x , N ) = 1 N + 1 N cos ⁡ ⁡ 1 2 N x + 2 N ∑ ∑ k = 1 ( N − − 1 ) / 2 cos ⁡ ⁡ ( k x ) = sin ⁡ ⁡ 1 2 N x N tan ⁡ ⁡ 1 2 x .
+
+{\displaystyle D(x,N)={\frac {1}{N}}+{\frac {1}{N}}\cos {\tfrac {1}{2}}Nx+{\frac {2}{N}}\sum _{k=1}^{(N-1)/2}\cos(kx)={\frac {\sin {\tfrac {1}{2}}Nx}{N\tan {\tfrac {1}{2}}x}}.} Again, it can easily be seen that D ( x , N ) {\displaystyle D(x,N)} is a linear combination of the right powers of e i x {\displaystyle e^{ix}} , does not contain the term sin ⁡ ⁡ 1 2 N x {\displaystyle \sin {\tfrac {1}{2}}Nx} and satisfies D ( x m , N ) = { 0 for m ≠ ≠ 0 1 for m = 0 .
+
+{\displaystyle D(x_{m},N)={\begin{cases}0{\text{ for }}m\neq 0\\1{\text{ for }}m=0\end{cases}}.} Using these properties, it follows that the coefficients t k ( x ) {\displaystyle t_{k}(x)} in ( 6 ) are given by t k ( x ) = D ( x − − x k , N ) = { sin ⁡ ⁡ 1 2 N ( x − − x k ) N tan ⁡ ⁡ 1 2 ( x − − x k ) for x ≠ ≠ x k lim x → → 0 sin ⁡ ⁡ 1 2 N x N tan ⁡ ⁡ 1 2 x = 1 for x = x k .
+
+= s i n c 1 2 N ( x − − x k ) s i n c 1 2 ( x − − x k ) cos ⁡ ⁡ 1 2 ( x − − x k ) {\displaystyle {\begin{aligned}t_{k}(x)&=D(x-x_{k},N)={\begin{cases}{\dfrac {\sin {\tfrac {1}{2}}N(x-x_{k})}{N\tan {\tfrac {1}{2}}(x-x_{k})}}{\text{ for }}x\neq x_{k}\\[10mu]\lim \limits _{x\to 0}{\dfrac {\sin {\tfrac {1}{2}}Nx}{N\tan {\tfrac {1}{2}}x}}=1{\text{ for }}x=x_{k}.\end{cases}}\\&={\frac {\mathrm {sinc} \,{\tfrac {1}{2}}N(x-x_{k})}{\mathrm {sinc} \,{\tfrac {1}{2}}(x-x_{k})}}\cos {\tfrac {1}{2}}(x-x_{k})\end{aligned}}} Note that t k ( x ) {\displaystyle t_{k}(x)} does not contain the sin ⁡ ⁡ 1 2 N x {\displaystyle \sin {\tfrac {1}{2}}Nx} as well. Finally, note that the function sin ⁡ ⁡ 1 2 N x {\displaystyle \sin {\tfrac {1}{2}}Nx} vanishes at all the points x m {\displaystyle x_{m}} . Multiples of this term can, therefore, always be added, but it is commonly left out.
+
+Implementation [ edit ] A MATLAB implementation of the above can be found here and is given by: function P = triginterp ( xi,x,y ) % TRIGINTERP Trigonometric interpolation.
+
+% Input: %   xi  evaluation points for the interpolant (vector) %   x   equispaced interpolation nodes (vector, length N) %   y   interpolation values (vector, length N) % Output: %   P   values of the trigonometric interpolant (vector) N = length ( x ); % Adjust the spacing of the given independent variable.
+
+h = 2 / N ; scale = ( x ( 2 ) - x ( 1 )) / h ; x = x / scale ; xi = xi / scale ; % Evaluate interpolant.
+
+P = zeros ( size ( xi )); for k = 1 : N P = P + y ( k ) * trigcardinal ( xi - x ( k ), N ); end function tau = trigcardinal ( x,N ) ws = warning ( 'off' , 'MATLAB:divideByZero' ); % Form is different for even and odd N.
+
+if rem ( N , 2 ) == 1 % odd tau = sin ( N * pi * x / 2 ) ./ ( N * sin ( pi * x / 2 )); else % even tau = sin ( N * pi * x / 2 ) ./ ( N * tan ( pi * x / 2 )); end warning ( ws ) tau ( x == 0 ) = 1 ; % fix value at x=0 Relation with the discrete Fourier transform [ edit ] The special case in which the points x n are equally spaced is especially important. In this case, we have x n = 2 π π n N , 0 ≤ ≤ n < N .
+
+{\displaystyle x_{n}=2\pi {\frac {n}{N}},\qquad 0\leq n<N.} The transformation that maps the data points y n to the coefficients a k , b k is obtained from the discrete Fourier transform (DFT) of order N.
+
+Y k = ∑ ∑ n = 0 N − − 1 y n e − − i 2 π π n k / N {\displaystyle Y_{k}=\sum _{n=0}^{N-1}y_{n}\ e^{-i2\pi nk/N}\,} y n = p ( x n ) = 1 N ∑ ∑ k = 0 N − − 1 Y k e i 2 π π n k / N {\displaystyle y_{n}=p(x_{n})={\frac {1}{N}}\sum _{k=0}^{N-1}Y_{k}\ e^{i2\pi nk/N}\,} (Because of the way the problem was formulated above, we have restricted ourselves to odd numbers of points.  This is not strictly necessary; for even numbers of points, one includes another cosine term corresponding to the Nyquist frequency .) The case of the cosine-only interpolation for equally spaced points, corresponding to a trigonometric interpolation when the points have even symmetry , was treated by Alexis Clairaut in 1754.  In this case the solution is equivalent to a discrete cosine transform .  The sine-only expansion for equally spaced points, corresponding to odd symmetry, was solved by Joseph Louis Lagrange in 1762, for which the solution is a discrete sine transform .  The full cosine and sine interpolating polynomial, which gives rise to the DFT, was solved by Carl Friedrich Gauss in unpublished work around 1805, at which point he also derived a fast Fourier transform algorithm to evaluate it rapidly. Clairaut, Lagrange, and Gauss were all concerned with studying the problem of inferring the orbit of planets , asteroids , etc., from a finite set of observation points; since the orbits are periodic, a trigonometric interpolation was a natural choice.  See also Heideman et al.
+
+(1984).
+
+Applications in numerical computing [ edit ] Chebfun , a fully integrated software system written in MATLAB for computing with functions, uses trigonometric interpolation and Fourier expansions for computing with periodic functions. Many algorithms related to trigonometric interpolation are readily available in Chebfun ; several examples are available here .
+
+References [ edit ] Kendall E. Atkinson, An Introduction to Numerical Analysis (2nd edition), Section 3.8. John Wiley & Sons, New York, 1988.
+
+ISBN 0-471-50023-2 .
+
+M. T. Heideman, D. H. Johnson, and C. S. Burrus, " Gauss and the history of the fast Fourier transform ," IEEE ASSP Magazine 1 (4), 14–21 (1984).
+
+G.B. Wright, M. Javed, H. Montanelli, and L.N. Trefethen, " Extension of Chebfun to periodic functions ," SIAM. J. Sci. Comput.
+
+, 37 (2015), C554-C573 A. Zygmund, Trigonometric Series , Volume II, Chapter X, Cambridge University Press, 1988.
+
+External links [ edit ] www.chebfun.org NewPP limit report
+Parsed by mw‐web.eqiad.main‐74cbc45b88‐84vg8
+Cached time: 20250812000858
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.252 seconds
+Real time usage: 0.590 seconds
+Preprocessor visited node count: 851/1000000
+Revision size: 13296/2097152 bytes
+Post‐expand include size: 5508/2097152 bytes
+Template argument size: 1753/2097152 bytes
+Highest expansion depth: 10/100
+Expensive parser function count: 2/500
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 24860/5000000 bytes
+Lua time usage: 0.097/10.000 seconds
+Lua memory usage: 2307506/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  425.205      1 -total
+ 23.53%  100.030      1 Template:Short_description
+ 14.46%   61.505      2 Template:Pagetype
+ 13.82%   58.766      1 Template:ISBN
+ 13.02%   55.362      6 Template:NumBlk
+  5.84%   24.828      2 Template:Main_other
+  5.35%   22.741      1 Template:SDcat
+  1.45%    6.154      6 Template:Trim
+  0.63%    2.673      1 Template:Short_description/lowercasecheck
+  0.59%    2.522      6 Template:EquationRef Saved in parser cache with key enwiki:pcache:879681:|#|:idhash:canonical and timestamp 20250812000858 and revision id 1304478376. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Trigonometric_interpolation&oldid=1304478376 " Categories : Interpolation Trigonometry Hidden categories: Articles with short description Short description is different from Wikidata Articles with example MATLAB/Octave code This page was last edited on 6 August 2025, at 07:48 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Trigonometric interpolation 6 languages Add topic
+

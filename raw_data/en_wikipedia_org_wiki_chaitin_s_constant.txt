@@ -1,0 +1,185 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Background 2 Definition 3 Relationship to the halting problem 4 Interpretation as a probability 5 Properties 6 Uncomputability 7 Algorithmic randomness 8 Incompleteness theorem for halting probabilities 9 Super Omega 10 See also 11 References Toggle References subsection 11.1 Works cited 12 External links Toggle the table of contents Chaitin's constant 13 languages Català Čeština Deutsch Español Français 한국어 Italiano Lombard 日本語 Português Русский Svenska 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Halting probability of  a random computer program "Omega number" redirects here. For other uses, see Omega (disambiguation) § Mathematics .
+
+In the computer science subfield of algorithmic information theory , a Chaitin constant ( Chaitin omega number ) [ 1 ] or halting probability is a real number that, informally speaking, represents the probability that a randomly constructed program will halt. These numbers are formed from a construction due to Gregory Chaitin .
+
+Although there are infinitely many halting probabilities, one for each (universal, see below) method of encoding programs, it is common to use the letter Ω to refer to them as if there were only one.  Because Ω depends on the program encoding used, it is sometimes called Chaitin's construction when not referring to any specific encoding.
+
+Each halting probability is a normal and transcendental real number that is not computable , which means that there is no algorithm to compute its digits. Each halting probability is Martin-Löf random , meaning there is not even any algorithm which can reliably guess its digits.
+
+Background [ edit ] The definition of a halting probability relies on the existence of a prefix-free universal computable function. Such a function, intuitively, represents a program in a programming language with the property that no valid program can be obtained as a proper extension of another valid program.
+
+Suppose that F is a partial function that takes one argument, a finite binary string, and possibly returns a single binary string as output. The function F is called computable if there is a Turing machine that computes it, in the sense that for any finite binary strings x and y , F ( x ) = y if and only if the Turing machine halts with y on its tape when given the input x .
+
+The function F is called universal if for every computable function f of a single variable there is a string w such that for all x , F ( w x ) = f ( x ) ; here w x represents the concatenation of the two strings w and x .  This means that F can be used to simulate any computable function of one variable.  Informally, w represents a "script" for the computable function f , and F represents an "interpreter" that parses the script as a prefix of its input and then executes it on the remainder of input.
+
+The domain of F is the set of all inputs p on which it is defined. For F that are universal, such a p can generally be seen both as the concatenation of a program part and a data part, and as a single program for the function F .
+
+The function F is called prefix-free if there are no two elements p , p′ in its domain such that p′ is a proper extension of p . This can be rephrased as: the domain of F is a prefix-free code (instantaneous code) on the set of finite binary strings. A simple way to enforce prefix-free-ness is to use machines whose means of input is a binary stream from which bits can be read one at a time. There is no end-of-stream marker; the end of input is determined by when the universal machine decides to stop reading more bits, and the remaining bits are not considered part of the accepted string. Here, the difference between the two notions of program mentioned in the last paragraph becomes clear: one is easily recognized by some grammar, while the other requires arbitrary computation to recognize.
+
+The domain of any universal computable function is a computably enumerable set but never a computable set .  The domain is always Turing equivalent to the halting problem .
+
+Definition [ edit ] Let P F be the domain of a prefix-free universal computable function F .  The constant Ω F is then defined as Ω Ω F = ∑ ∑ p ∈ ∈ P F 2 − − | p | , {\displaystyle \Omega _{F}=\sum _{p\in P_{F}}2^{-|p|},} where | p | denotes the length of a string p . This is an infinite sum which has one summand for every p in the domain of F . The requirement that the domain be prefix-free, together with Kraft's inequality , ensures that this sum converges to a real number between 0 and 1. If F is clear from context then Ω F may be denoted simply Ω , although different prefix-free universal computable functions lead to different values of Ω .
+
+Relationship to the halting problem [ edit ] Knowing the first N bits of Ω , one could calculate the halting problem for all programs of a size up to N . Let the program p for which the halting problem is to be solved be N bits long. In dovetailing fashion, all programs of all lengths are run, until enough have halted to jointly contribute enough probability to match these first N bits. If the program p has not halted yet, then it never will, since its contribution to the halting probability would affect the first N bits. Thus, the halting problem would be solved for p .
+
+Because many outstanding problems in number theory , such as Goldbach's conjecture , are equivalent to solving the halting problem for special programs (which would basically search for counter-examples and halt if one is found), knowing enough bits of Chaitin's constant would also imply knowing the answer to these problems. But as the halting problem is not generally solvable, calculating any but the first few bits of Chaitin's constant is not possible for a universal language. This reduces hard problems to impossible ones, much like trying to build an oracle machine for the halting problem would be.
+
+Interpretation as a probability [ edit ] The Cantor space is the collection of all infinite sequences of 0s and 1s. A halting probability can be interpreted as the measure of a certain subset of Cantor space under the usual probability measure on Cantor space.  It is from this interpretation that halting probabilities take their name.
+
+The probability measure on Cantor space, sometimes called the fair-coin measure, is defined so that for any binary string x the set of sequences that begin with x has measure 2 −| x | . This implies that for each natural number n , the set of sequences f in Cantor space such that f ( n ) = 1 has measure ⁠ 1 / 2 ⁠ , and the set of sequences whose n th element is 0 also has measure ⁠ 1 / 2 ⁠ .
+
+Let F be a prefix-free universal computable function. The domain P of F consists of an infinite set of binary strings P = { p 1 , p 2 , … … } .
+
+{\displaystyle P=\{p_{1},p_{2},\ldots \}.} Each of these strings p i determines a subset S i of Cantor space; the set S i contains all sequences in cantor space that begin with p i . These sets are disjoint because P is a prefix-free set. The sum ∑ ∑ p ∈ ∈ P 2 − − | p | {\displaystyle \sum _{p\in P}2^{-|p|}} represents the measure of the set ⋃ ⋃ i ∈ ∈ N S i .
+
+{\displaystyle \bigcup _{i\in \mathbb {N} }S_{i}.} In this way, Ω F represents the probability that a randomly selected infinite sequence of 0s and 1s begins with a bit string (of some finite length) that is in the domain of F . It is for this reason that Ω F is called a halting probability.
+
+Properties [ edit ] Each Chaitin constant Ω has the following properties: It is algorithmically random (also known as Martin-Löf random or 1-random).
+
+[ 2 ] This means that the shortest program to output the first n bits of Ω must be of size at least n − O(1) . This is because, as in the Goldbach example, those n bits enable us to find out exactly which programs halt among all those of length at most n .
+
+As a consequence, it is a normal number , which means that its digits are equidistributed as if they were generated by tossing a fair coin .
+
+It is not a computable number ; there is no computable function that enumerates its binary expansion, as discussed below.
+
+The set of rational numbers q such that q < Ω is computably enumerable ; [ 3 ] a real number with such a property is called a left-c.e. real number in recursion theory .
+
+The set of rational numbers q such that q > Ω is not computably enumerable. (Reason: every left-c.e. real with this property is computable, which Ω is not.) It is an arithmetical number .
+
+It is Turing equivalent to the halting problem and thus at level Δ 0 2 of the arithmetical hierarchy .
+
+Not every set that is Turing equivalent to the halting problem is a halting probability. A finer equivalence relation, Solovay equivalence, can be used to characterize the halting probabilities among the left-c.e. reals.
+
+[ 4 ] One can show that a real number in [0,1] is a Chaitin constant (i.e. the halting probability of some prefix-free universal computable function) if and only if it is left-c.e. and algorithmically random.
+
+[ 4 ] Ω is among the few definable algorithmically random numbers and is the best-known algorithmically random number, but it is not at all typical of all algorithmically random numbers.
+
+[ 5 ] Uncomputability [ edit ] A real number is called computable if there is an algorithm which, given n , returns the first n digits of the number. This is equivalent to the existence of a program that enumerates the digits of the real number.
+
+No halting probability is computable. The proof of this fact relies on an algorithm which, given the first n digits of Ω , solves Turing's halting problem for programs of length up to n . Since the halting problem is undecidable , Ω cannot be computed.
+
+The algorithm proceeds as follows.  Given the first n digits of Ω and a k ≤ n , the algorithm enumerates the domain of F until enough elements of the domain have been found so that the probability they represent is within 2 −( k +1) of Ω . After this point, no additional program of length k can be in the domain, because each of these would add 2 − k to the measure, which is impossible. Thus the set of strings of length k in the domain is exactly the set of such strings already enumerated.
+
+Algorithmic randomness [ edit ] A real number is random if the binary sequence representing the real number is an algorithmically random sequence . Calude, Hertling, Khoussainov, and Wang showed [ 6 ] that a recursively enumerable real number is an algorithmically random sequence if and only if it is a Chaitin's Ω number.
+
+Incompleteness theorem for halting probabilities [ edit ] Main article: Chaitin's incompleteness theorem For each specific consistent effectively represented axiomatic system for the natural numbers , such as Peano arithmetic , there exists a constant N such that no bit of Ω after the N th can be proven to be 1 or 0 within that system. The constant N depends on how the formal system is effectively represented, and thus does not directly reflect the complexity of the axiomatic system. This incompleteness result is similar to Gödel's incompleteness theorem in that it shows that no consistent formal theory for arithmetic can be complete.
+
+Super Omega [ edit ] The first n bits of Gregory Chaitin 's constant Ω are random or incompressible in the sense that they cannot be computed by a halting algorithm with fewer than n − O(1) bits. However, consider the short but never halting algorithm which systematically lists and runs all possible programs; whenever one of them halts its probability gets added to the output (initialized by zero). After finite time the first n bits of the output will never change any more (it does not matter that this time itself is not computable by a halting program). So there is a short non-halting algorithm whose output converges (after finite time) onto the first n bits of Ω . In other words, the enumerable first n bits of Ω are highly compressible in the sense that they are limit-computable by a very short algorithm; they are not random with respect to the set of enumerating algorithms.
+
+Jürgen Schmidhuber constructed a limit-computable "Super Ω " which in a sense is much more random than the original limit-computable Ω , as one cannot significantly compress the Super Ω by any enumerating non-halting algorithm.
+
+[ 7 ] For an alternative "Super Ω ", the universality probability of a prefix-free universal Turing machine (UTM) –  namely, the probability that it remains universal even when every input of it (as a binary string ) is prefixed by a random binary string –  can be seen as the non-halting probability of a machine with oracle the third iteration of the halting problem (i.e., O (3) using Turing jump notation).
+
+[ 8 ] See also [ edit ] Gödel's incompleteness theorems Kolmogorov complexity References [ edit ] ^ Weisstein, Eric W.
+
+"Chaitin's Constant" .
+
+Wolfram MathWorld . Retrieved 3 September 2024 .
+
+^ Downey & Hirschfeldt 2010 , Theorem 6.1.3.
+
+^ Downey & Hirschfeldt 2010 , Theorem 5.1.11.
+
+^ a b Downey & Hirschfeldt 2010 , p. 405.
+
+^ Downey & Hirschfeldt 2010 , pp. 228–229.
+
+^ Calude, Cristian S.; Hertling, Peter H.; Khoussainov, Bakhadyr; Wang, Yongge (1998).
+
+Recursively Enumerable Reals and Chaitin Ω numbers (PDF) .
+
+STACS 98 . Vol. 1373. Berlin, Heidelberg: Springer. pp.
+
+596– 606.
+
+Bibcode : 1998LNCS.1373..596C .
+
+doi : 10.1007/bfb0028594 .
+
+ISBN 978-3-540-64230-5 .
+
+S2CID 5493426 .
+
+Archived (PDF) from the original on 19 January 2004 . Retrieved 20 March 2022 .
+
+^ Schmidhuber, Jürgen (2002). "Hierarchies of generalized Kolmogorov complexities and nonenumerable universal measures computable in the limit".
+
+International Journal of Foundations of Computer Science .
+
+13 (4): 587– 612.
+
+arXiv : quant-ph/0011122 .
+
+doi : 10.1142/S0129054102001291 .
+
+^ Barmpalias, G.; D. L., Dowe (2012). Cooper, Barry; Abramsky, Samson (eds.).
+
+"Universality probability of a prefix-free machine" .
+
+Philosophical Transactions of the Royal Society A .
+
+370 (1): 3488– 3511.
+
+Bibcode : 2012RSPTA.370.3488B .
+
+doi : 10.1098/rsta.2011.0319 .
+
+PMID 22711870 .
+
+Works cited [ edit ] Calude, Cristian S. (2002).
+
+Information and Randomness: An Algorithmic Perspective (second ed.). Springer.
+
+ISBN 3-540-43466-6 .
+
+Downey, R.; Hirschfeldt, D. (2010).
+
+Algorithmic Randomness and Complexity . Springer.
+
+Li, Ming; Vitányi, Paul (1997).
+
+An Introduction to Kolmogorov Complexity and Its Applications . Springer.
+
+External links [ edit ] Aspects of Chaitin's Omega Survey article discussing recent advances in the study of Chaitin's Ω .
+
+Omega and why maths has no TOEs article based on one written by Gregory Chaitin which appeared in the August 2004 edition of Mathematics Today , on the occasion of the 50th anniversary of Alan Turing's death.
+
+The Limits of Reason , Gregory Chaitin, originally appeared in Scientific American , March 2006.
+
+Limit-computable Super Omega more random than Omega and generalizations of algorithmic information, by Jürgen Schmidhuber v t e Irrational numbers Chaitin's ( Ω ) Liouville Prime ( ρ ) Omega Cahen Logarithm of 2 Dottie Lemniscate ( ϖ ) Twelfth root of 2 Apéry's ( ζ (3) ) Cube root of 2 Plastic ratio ( ρ ) Square root of 2 Supergolden ratio ( ψ ) Erdős–Borwein ( E ) Golden ratio ( φ ) Square root of 3 Supersilver ratio ( ς ) Square root of 5 Silver ratio ( σ ) Square root of 6 Square root of 7 Euler's ( e ) Pi ( π ) Square root of 10 Schizophrenic Transcendental Trigonometric NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐h559b
+Cached time: 20250811235632
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.394 seconds
+Real time usage: 0.536 seconds
+Preprocessor visited node count: 4123/1000000
+Revision size: 18084/2097152 bytes
+Post‐expand include size: 43830/2097152 bytes
+Template argument size: 5940/2097152 bytes
+Highest expansion depth: 12/100
+Expensive parser function count: 5/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 35660/5000000 bytes
+Lua time usage: 0.240/10.000 seconds
+Lua memory usage: 6361828/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  431.676      1 -total
+ 21.45%   92.576      1 Template:Cite_web
+ 16.42%   70.888      1 Template:Short_description
+ 16.41%   70.835      1 Template:Irrational_number
+ 15.93%   68.746      1 Template:Navbox
+ 12.30%   53.103     50 Template:Math
+  9.83%   42.451      2 Template:Pagetype
+  8.25%   35.616      5 Template:Sfn
+  6.35%   27.431      1 Template:Redirect
+  6.12%   26.418     58 Template:Main_other Saved in parser cache with key enwiki:pcache:6205:|#|:idhash:canonical and timestamp 20250811235632 and revision id 1299053977. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Chaitin%27s_constant&oldid=1299053977 " Categories : Algorithmic information theory Theory of computation Real transcendental numbers Hidden categories: Articles with short description Short description is different from Wikidata Use dmy dates from December 2020 This page was last edited on 6 July 2025, at 08:25 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Chaitin's constant 13 languages Add topic
+

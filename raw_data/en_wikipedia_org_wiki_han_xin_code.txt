@@ -1,0 +1,248 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 History and standards 2 Application 3 Barcode design Toggle Barcode design subsection 3.1 Finder pattern 3.2 Alignment pattern 3.3 Structural information 3.4 Data masking 3.5 Error correction 3.6 Data region 4 Encoding Toggle Encoding subsection 4.1 Encoding modes 4.2 Numeric mode 4.3 Text mode 4.4 Binary byte mode 4.5 Chinese Characters modes 4.6 Unicode mode 4.7 GS1 mode 4.8 URI mode 5 See also 6 References 7 External links Toggle the table of contents Han Xin code 1 language 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Type of matrix barcode Han Xin Code version 22 Han Xin code (汉信码 in Chinese, Chinese-sensible code ) is two-dimensional (2D) matrix barcode symbology invented in 2007 [ 1 ] by Chinese company The Article Numbering Center of China [ 2 ] (中国物品编码中心 in Chinese) to break the monopoly of QR code . As a QR code, Han Xin code consists of black squares and white square spaces arranged in a square grid on a white background. It has four finder patterns and other markers which allow to recognize it with camera-based readers . Han Xin code contains Reed–Solomon error correction with ability to read corrupted images. At this time, it is issued as ISO/IEC 20830:2021.
+
+[ 3 ] The main advantage (and invention requirement), comparable to QR code, is an embedded ability to natively encode Chinese characters instead of Japanese in QR code. Han Xin code in maximal 84 version (189×189 size) [ 4 ] allows to encode 7827 numeric characters, 4350 English text characters, 3261 bytes and 1044–2174 Chinese characters (it depends on Unicode region). Han Xin code encodes full ISO/IEC 646 Latin characters instead of restricted amount Latin characters which is supported by QR code . It makes Han Xin code more suitable for English text encoding or GS1 Application Identifiers [ 5 ] data encoding.
+
+Additionally, Han Xin code can encode Unicode characters from other languages with special Unicode mode, [ 3 ] : 5.4.12 which has embedded lossless compression for UTF-8 characters set and Extended Channel Interpretation support. Han Xin code has special compactification mode for URI encoding and can reduce barcode size which encodes links to web pages.
+
+History and standards [ edit ] The Article Numbering Center of China (中国物品编码中心 in Chinese) started research [ 6 ] during the 10th Five-year plans of China of a home-grown QR code replacement to replace QR codes, which were considered a Japanese monopoly in 2D barcodes. In 2007, the new barcodes standard, at this time known as Han Xin code, was published as GB/T 21049-2007 [ 1 ] with the name Chinese-sensible code.
+
+In 2011, [ 7 ] USA company Association for Automatic Identification and Mobility (AIM) brought out ISS Han Xin Code symbology as official encoding standard and published it in the own store.
+
+[ 8 ] In 2015, the ISO/IEC JTC 1/SC 31 group started implementation [ 9 ] of Han Xin code as an international standard and published it as ISO/IEC 20830:2021 [ 3 ] in 2021.
+
+In 2022, the Chinese-sensible code standard was reviewed as GB/T 21049-2022 [ 10 ] and renamed as Han Xin code to be compliant with ISO standard.
+
+The following patents relating to Han Xin code encoding and decoding are registered in Europe and the United States: European Patent Office EP3330887B1 by Fujian Landi Commercial Equipment Co Ltd  "Chinese-sensitive code feature pattern detection method and system" [ 11 ] United States Patent US10095903B2 by Ingenico Fujian Technology Co Ltd  "Block decoding method and system for two-dimensional code" [ 12 ] United States Patent US10528781B2 by Ingenico Fujian Technology Co Ltd  "Detection method and system for characteristic patterns of Han Xin codes" [ 13 ] Application [ edit ] Han Xin code can be used in the same way as QR code . At this time Han Xin code is used mostly in China, [ 14 ] because it has embedded encoding ability to encode Chinese characters. However, most of barcode printers [ 15 ] and barcode scanners [ 16 ] support Han Xin code. Han Xin code can be scanned on iOS [ 17 ] and Android [ 18 ] mobile devices and many barcode libraries [ 19 ] [ 20 ] support reading and writing Han Xin code.
+
+Main advantages of Han Xin code are: ability to encode Chinese characters with embedded methods; [ 21 ] Extended Channel Interpretation support; embedded method for compact UTF-8 encoding with embedded lossless compression; embedded method for URI compact encoding; compact GS1 Application Identifiers data encoding comparable to QR code; full ISO/IEC 646 support for compact numeric and text encoding.
+
+Barcode design [ edit ] Barcode structure of Han Xin Code Han Xin code represents data in black and white square modules, where dark module is a binary one and a light module is a zero. Additionally, Han Xin code can be encoded in inverse colors, [ 3 ] : 4.1.2 but this option in many barcode readers is disabled by default. Black and white modules are arranged into square region with sizes from 23 × 23 modules (Version 1) to 189 × 189 modules (Version 84). As QR code, Han Xin code does not have rectangular versions like DataMatrix has and this restricts usage of Han Xin code in some cases. Han Xin code version size can be calculated with the following formula: S i z e = 23 + ( V e r s i o n − − 1 ) ∗ ∗ 2 {\displaystyle Size=23+(Version-1)*2} Han Xin code symbol is constructed from the following elements: [ 3 ] : 4.2 Quiet Zone – is surrounding the symbol on all four sides with at least 3X size; Finder Pattern – consists from 4 Position Detection Patterns which is placed on all four corners of symbol and used to detect symbol position and area; Alignment Patterns and Assistant Alignment Patterns – is started from Version 4 and helps with the decoding of distorted code; Structural Information Regions – is surrounding all four Finder Patterns and used to encode symbol parameters like version, mask and error correction mode; Data Regions – masked binary data encoded in black and white modules.
+
+Finder pattern [ edit ] Han Xin Code finder pattern Finder Pattern [ 3 ] : 4.2.3 consists from four Position Detection Patterns located at the four corners of the barcode. The size of Position Detection Pattern is 7×7 modules and it is constructed from 5 elements: dark 7 × 7 modules, light 6 × 6 modules, dark 5 × 5 modules, light 4 × 4 modules, dark 3 × 3 modules respectively.
+
+The scanning ratio of each Position Detection Pattern is 1:1:1:1:3 or 3:1:1:1:1 (depends on scanning direction). The four patterns orientation allows to detect unambiguously the barcode location and orientation.
+
+Every pattern has Position Detection Pattern separator [ 3 ] : 4.2.4 with Structural Information Region aligned to it.
+
+Alignment pattern [ edit ] The Alignment Patterns [ 3 ] : 4.2.5 are added to the Han Xin code from Version 4 (Versions 1–3 do not have alignment patterns) and used to precise cell position in the distorted barcodes. Alignment Patterns in Han Xin code are split into: Alignment Pattern – set of step-wise alignment lines; Assistant Alignment Pattern - 6 modules, including 5 light modules and 1 dark module.
+
+The Alignment Pattern is made up of a dark line and a downside adjacent light line which are one module wide. Assistant Alignment Pattern consisting from 5 light modules and 1 dark module indicates edge of region block with its dark module.
+
+Below you can see examples of Han Xin code with different Alignment pattern placement.
+
+Han Xin Code version 1 Han Xin Code version 4 Han Xin Code version 22 Han Xin Code version 84 Structural information [ edit ] Structural information placement of Han Xin Code Han Xin code Structural Information Region [ 3 ] : 4.2.7 is a one module wide region surrounding the four Position Detection Patterns. Han Xin code has two Structural Information identical arrays, which are made from 34 data modules. Every Structural Information array is split on 17 modules which are placed around each Position Detection Pattern.
+
+Structural Information Region encodes the following data: [ 3 ] : Annex E Version + 20 (bits 0–7); Error correction level (bits 8–9); Mask index (bits 10–11); Error correction Reed–Solomon error correction data (bits 12–27); Bits 28–33 are ignored and can be any (sometimes they can be filled with white, black sequence).
+
+Metadata bits from 0–11 are split into 4 bits tetrads(m2, m1, m0) and supplemented with four error correction tetrads (r3, r2, r1, r0).
+
+Han Xin Code Structural information bits Version + 20 Error correction level Mask index Error correction codewords m2 m1 m0 r3 r2 r1 r0 X0 X1 X2 X3 X4 X5 X6 X7 X8 X9 X10 X11 X12 X13 X14 X15 X16 X17 X18 X19 X20 X21 X22 X23 X24 X25 X26 X27 Data masking [ edit ] To make Han Xin code dark and light modules amount to be closely to 1:1 in the symbol, masking algorithm [ 3 ] : 5.8.4 is used. Masking sequence is applied to Data Region through the XOR operation. Finder Pattern, Alignment Patterns and Structural Information Regions are excluded from masking operation. The following table shows mask pattern algorithms (which is placed to Structural Information Region).
+
+Han Xin Code masking pattern algorithm Condition of masking solution Data mask pattern reference Non-masking 00 (i+j) mod 2=0 01 ((i+j)mod 3+( j mod 3)) mod 2=0 10 (i mod j +j mod i + i mod 3+ j mod 3) mod 2=0 11 i - Row index of the symbol.
+
+j - Column index of the symbol.
+
+Both i and j start from (1,1), the top left corner module of the symbol. When the masking solution condition is true, the resulting mask bit is 1.
+
+Error correction [ edit ] Han Xin code uses Reed–Solomon error correction . Encoded data is represented as byte (8-bit) array. Data array divided into blocks [ 3 ] : Annex B and error correction codewords sequence is generated for each block which is added to the end of the error correction block. After this, all blocks are merged sequentially into byte stream.
+
+The polynomial arithmetic for Han Xin Code uses finite field generation polynomial: x^8 + x^6 + x^5 + x (355 or 101100011b) [ 3 ] : 5.5 with initial root = 1.
+
+The amount of error correction codewords depends on symbol version and error correction level and can be from 16% to 60%, which allows to correct from 8% to 30% damage.
+
+[ 3 ] : 5.6.2 Han Xin Code error correction levels features Error correction level Recovery capacity % (approximation) Encoding of error correction level L1 8% 00 L2 15% 01 L3 23% 10 L4 30% 11 Data region [ edit ] Han Xin code data is encoded as byte array. Data byte array is split into error correction blocks, where error correction codewords (bytes) are added. Error correction blocks are united into one codewords array: [ 3 ] : 5.8.3 (Encoded byte array) => (Error correction block 1) + ... + (Error correction block N) => (Codewords array) As an example, this can be demonstrated on Han Xin code version 5 with error correction level L4. It has 27 encoded codewords and 2 error correction blocks with each block size of data codewords and error correction codewords: (14, 20), (13, 22): (D1...D14, D15...D27) => (D1...D14, E1.1...1.20) + (D15...D27, E2.1...2.22) => (D1...D14, E1.1...1.20, D15...D27, E2.1...2.22) => (C1...C69) D(x) - Data codewords.
+
+E(b.x) - error codeword, where b is block number and x position in block.
+
+C(x) - resulted codewords.
+
+As the next operation, resulted codewords array C(x) is split into blocks with size of 13 bytes which connects codewords in the same position of each block and form new codewords array. The result is byte array of the same size but mixed by position of 13.
+
+(С1...С13, С14...С26, Сn...Cn+12) => (С1, C14, Cn...С13, С26, Cn+12) => (CM1...CMn+12) CM(x) – mixed by position of 13 array of codewords (bytes).
+
+After the upper operations the resulted codewords are placed into data region row by row from left to right and from up to down. Horizontal line damage would affect fewer codewords, vertical line damage would affect more codewords.
+
+Encoding [ edit ] Han Xin code can encode 7827 numeric characters, 4350 English text characters, 3261 bytes and 1044–2174 Chinese characters in the maximal version 84 version.
+
+[ 3 ] : Annex C Additionally, it supports special Unicode and industrial modes. All modes can be mixed to obtain best compactification level for the data. The following table demonstrates abilities to encode data with different barcode version and error correction level.
+
+Han Xin Code versions and information capacity Version Size Error correction level Data codewords Error correction codewords Numeric Text Bytes Chinese characters 1 23×23 L1 21 4 45 26 18 6–12 L4 9 16 15 10 6 2–4 ...
+
+22 65×65 L1 354 68 843 470 351 113–234 L4 168 254 399 222 165 53–110 ...
+
+84 189×189 L1 3264 622 7827 4350 3261 1044–2174 L4 1554 2332 3723 2070 1551 497–1034 Encoding modes [ edit ] All encoding modes can be split into the following groups: [ 3 ] : 5.3.1 Numeric mode which includes digits encoding: 0–9; Text mode which supports full ISO/IEC 646 characters set; Binary (Byte) mode which encodes bytes values 0–255; Chinese Characters modes which encodes 1587600 different Chinese characters from GB 18030 codepage in 4 modes; Unicode encoding with Extended Channel Interpretation(ECI) mode; Unicode with Unicode adaptive mode which encodes UTF-8 encoding with embedded lossless compression ; GS1 mode which encodes GS1 Application Identifiers [ 5 ] data; URI mode which encodes URI links in compact encoding.
+
+Han Xin Code mode characteristics Mode Mode indicators Bits per character Numeric 0001b 3.3 (10 bits for three digits) Text 0010b 6 Binary Byte 0011b 8 Common Chinese Characters in Region One 0100b 12 Common Chinese Characters in Region Two 0101b 12 GB18030 2-byte Region 0110b 15 GB18030 4-byte Region 0111b 21 ECI 1000b Variable (multi-bytes mode) Unicode 1001b Adaptive (lossless compression) GS1 11100001b Variable (Numeric + Text modes) URI 11100010b Variable (2–7 bits per character) Numeric mode [ edit ] The input data string in Numeric mode [ 3 ] : 5.4.4 is divided into blocks of three digits (the last block can be less than three) and encoded in 10 bits (0000000000b - 1111100111b). The mode data is prefixed with mode indicator 0001b and terminates with mode terminator which also indicates number of digits in last group.
+
+Han Xin Code numeric mode terminators Numeric characters in last group Mode terminator 1 1111111101b 2 1111111110b 3 1111111111b As an example, we need to encode digits sequence 12700402: Prefix => 0001b 127 => 0001111111 004 => 0000000100 02 => 0000000010 Terminator => 1111111110b Text mode [ edit ] Text mode encodes data characters set from ISO/IEC 646 . Each character is represented by 6 bits.
+
+[ 3 ] : 5.4.5 All characters are divided into two subsets: Text1 sub-mode and Text2 sub-mode. 11110b value is used to switch between text sub-modes, 111111b is a mode terminator. Text mode starts from Text1 sub-mode.
+
+Han Xin Code Text1 sub-mode Character ASCII value Encoding value Character ASCII value Encoding value Character ASCII value Encoding value 0 48 000000b L 76 010101b g 103 101010b 1 49 000001b M 77 010110b h 104 101011b 2 50 000010b N 78 010111b i 105 101100b 3 51 000011b O 79 011000b j 106 101101b 4 52 000100b P 80 011001b k 107 101110b 5 53 000101b Q 81 011010b l 108 101111b 6 54 000110b R 82 011011b m 109 110000b 7 55 000111b S 83 011100b n 110 110001b 8 56 001000b T 84 011101b o 111 110010b 9 57 001001b U 85 011110b p 112 110011b A 65 001010b V 86 011111b q 113 110100b B 66 001011b W 87 100000b r 114 110101b C 67 001100b X 88 100001b s 115 110110b D 68 001101b Y 89 100010b t 116 110111b E 69 001110b Z 90 100011b u 117 111000b F 70 001111b a 97 100100b v 118 111001b G 71 010000b b 98 100101b w 119 111010b H 72 010001b c 99 100110b x 120 111011b I 73 010010b d 100 100111b y 121 111100b J 74 010011b e 101 101000b z 122 111101b K 75 010100b f 102 101001b Han Xin Code Text2 sub-mode Character ASCII value Encoding value Character ASCII value Encoding value Character ASCII value Encoding value NUL 0 000000b NAK 21 010101b .
+
+46 101010b SOH 1 000001b SYN 22 010110b / 47 101011b STX 2 000010b ETB 23 010111b : 58 101100b ETX 3 000011b CAN 24 011000b ; 59 101101b EOT 4 000100b EM 25 011001b < 60 101110b ENQ 5 000101b SUB 26 011010b = 61 101111b ACK 6 000110b ESC 27 011011b > 62 110000b BEL 7 000111b SP 32 011100b ?
+
+63 110001b BS 8 001000b !
+
+33 011101b @ 64 110010b HT 9 001001b ” 34 011110b [ 91 110011b LF 10 001010b # 35 011111b \ 92 110100b VT 11 001011b $ 36 100000b ] 93 110101b FF 12 001100b % 37 100001b ^ 94 110110b CR 13 001101b & 38 100010b _ 95 110111b SO 14 001110b ‘ 39 100011b ` 96 111000b SI 15 001111b ( 40 100100b { 123 111001b DLE 16 010000b ) 41 100101b | 124 111010b DC1 17 010001b * 42 100110b } 125 111011b DC2 18 010010b + 43 100111b ~ 126 111100b DC3 19 010011b , 44 101000b DEL 27 111101b DC4 20 010100b - 45 101001b Binary byte mode [ edit ] Binary mode encodes bytes array [0 – 255] in any form. Binary mode [ 3 ] : 5.4.6 consists from binary mode indicator 0011b, 13-bit binary counter and bytes data which are converted to 8-bit sequence. None mode terminator is required.
+
+Chinese Characters modes [ edit ] Chinese Characters modes is a set of 4 modes which encodes Chinese characters from GB 18030 codepage.
+
+Han Xin Code Chinese Characters modes Mode Mode indicator Bits Encoding characters count Description Common Chinese Characters in Region One mode [ 3 ] : 5.4.7 0100b 12 4074 Encodes characters from GB 18030 regions, which: first byte value is in the range of B0 to D7 and second byte value is in the range of A1 to FE (3760 characters), first byte value is in the range of A1 to A3 and second byte value is in the range of A1 to FE (282 characters), in the range of A8A1 to A8C0 (32 characters).
+
+Common Chinese Characters in Region Two mode [ 3 ] : 5.4.8 0101b 12 3008 Encodes characters from GB 18030 region, which first byte value is in the range of D8 to F7 and second byte value is in the range of A1 to FE (3008 characters).
+
+GB18030 2-byte Region mode [ 3 ] : 5.4.9 0110b 15 23940 Encodes characters from GB 18030 region, which first byte value is in the range of 81 to FE and second byte value is in the range of 40 to 7E or 80 to FE (23940 characters).
+
+GB18030 4-byte Region mode [ 3 ] : 5.4.10 0111b 21 1587600 Encodes characters from GB 18030 region, which first byte value is in the range of 81 to FE, and second byte value is in the range of 30 to 39, and third byte value is in the range of 81 to FE, and fourth byte value is in the range of 30 to 39 (1587600 characters).
+
+Unicode mode [ edit ] Unicode mode [ 3 ] : 5.4.12 encodes UTF-8 charset with embedded lossless compression . In the Unicode mode, the input data is analysed by using self-adaptive algorithm. Firstly, input data is divided and combined into the 1, 2, 3, or 4 byte pattern preencoding sub-sequences, and secondly a run-length data compression algorithm is applied to encode each sub-sequences of the input data.
+
+Shortly, the Unicode mode searches characters sub-pages which can have the same prefix sequence for all of characters of the same language (Cyrillic, Greek, French, German... languages) and encodes only differences from prefix bytes sequence.
+
+GS1 mode [ edit ] Han Xin code GS1 mode [ 3 ] : 5.4.13 is an indicator that the represented data is defined by GS1 General Specification. GS1 mode encodes data in Numeric and Text modes. Other modes may be used but GS1 mode must be first
+mode in the symbol and encoded data must be returned with GS1 flag. <FNC1> (if required) must be encoded as 1111101000b in Numeric mode (Numeric mode encodes only three digits, so 1111101000b => 1000 value is counted as special character). In case <FNC1> identifier must be inserted and encoder is in any mode different from Numeric, the mode must be terminated and Numeric mode must be started. GS1 mode indicator is 11100001b and GS1 mode terminator is 11111111b.
+
+The data in GS1 mode is split into GS1 Application Identifiers chinks and then compacted with the best modes. As an example, the following data can be encoded: (10)123456ABC<FNC1>(240)DATA The data is encoded in the following way: <11100001b> <Numeric 10123456> <Text ABC> <Numeric mode selector> <1111101000b> <Numeric 240> <Text DATA> <11111111b> URI mode [ edit ] Han Xin code URI mode [ 3 ] : 5.4.14 encodes URI links in compact encoding. URI mode indicator is 11100010b and URI mode terminator is 111b. URI mode can encode data in three charsets: URI-A, URI-B, URI-C [ 3 ] : Annex M with own sub-mode terminators. URI mode can encode %XX data in special Percent-Encoding sub-mode, where three symbols is encoded in 8 bits.
+
+Han Xin Code URI submodes Charset Charset indicator URI-A 001b URI-B 010b URI-C 011b Percent-Encoding 100b URI Mode Teminator 111b Percent-Encoding sub-mode encodes %XX data in 8 bits sequence. The mode does not require any terminator. To encode URI %XX data in this mode, sub-mode indicator (100b) must be added, then 8-bit indicator of sub-mode 8 bits sequence must be added (counter = Length of %XX / 3) and after this sequence, where %FF, or %ff, or %00, must be added as xFF or x00 bytes.
+
+Han Xin Code URI-A and URI-B charsets URI-A charset URI-B charset Character / URI fragment Encoding value Encoding bits Character / URI fragment Encoding value Encoding bits a 0 000000 A 0 000000 b 1 000001 B 1 000001 c 2 000010 C 2 000010 d 3 000011 D 3 000011 e 4 000100 E 4 000100 f 5 000101 F 5 000101 g 6 000110 G 6 000110 h 7 000111 H 7 000111 i 8 001000 I 8 001000 j 9 001001 J 9 001001 k 10 001010 K 10 001010 l 11 001011 L 11 001011 m 12 001100 M 12 001100 n 13 001101 N 13 001101 o 14 001110 O 14 001110 p 15 001111 P 15 001111 q 16 010000 Q 16 010000 r 17 010001 R 17 010001 s 18 010010 S 18 010010 t 19 010011 T 19 010011 u 20 010100 U 20 010100 v 21 010101 V 21 010101 w 22 010110 W 22 010110 x 23 010111 X 23 010111 y 24 011000 Y 24 011000 z 25 011001 Z 25 011001 0 26 011010 !
+
+26 011010 1 27 011011 * 27 011011 2 28 011100 ( 28 011100 3 29 011101 ) 29 011101 4 30 011110 , 30 011110 5 31 011111 { 31 011111 6 32 100000 } 32 100000 7 33 100001 | 33 100001 8 34 100010 \ 34 100010 9 35 100011 ^ 35 100011 .
+
+36 100100 [ 36 100100 / 37 100101 ] 37 100101 - 38 100110 ' 38 100110 _ 39 100111 < 39 100111 ~ 40 101000 > 40 101000 : 41 101001 % 41 101001 @ 42 101010 " 42 101010 ?
+
+43 101011 ; 43 101011 # 44 101100 .htm 44 101100 = 45 101101 .html 45 101101 + 46 101110 .asp 46 101110 $ 47 101111 .aspx 47 101111 & 48 110000 .php 48 110000 http:// 49 110001 .jsp 49 110001 https:// 50 110010 gtin 50 110010 ftp:// 51 110011 ser 51 110011 mailto: 52 110100 bat 52 110100 ldap:// 53 110101 exp 53 110101 tel: 54 110110 search 54 110110 urn: 55 110111 id 55 110111 www.
+
+56 111000 .jp 56 111000 .com 57 111001 .it 57 111001 .net 58 111010 .de 58 111010 .gov 59 111011 .br 59 111011 .org 60 111100 .fr 60 111100 .cn 61 111101 gs1 61 111101 Jump to URI-B 62 111110 Jump to URI-A 62 111110 Terminator of URI-A 63 111111 Terminator of URI-B 63 111111 Han Xin Code URI-C charset Character / URI fragment Encoding value Encoding bits Character / URI fragment Encoding value Encoding bits Character / URI fragment Encoding value Encoding bits A 0 0000000 R 43 0101011 ; 86 1010110 B 1 0000001 S 44 0101100 / 87 1010111 C 2 0000010 T 45 0101101 ?
+
+88 1011000 D 3 0000011 U 46 0101110 : 89 1011001 E 4 0000100 V 47 0101111 @ 90 1011010 F 5 0000101 W 48 0110000 & 91 1011011 G 6 0000110 X 49 0110001 = 92 1011100 H 7 0000111 Y 50 0110010 http:// 93 1011101 I 8 0001000 Z 51 0110011 https:// 94 1011110 J 9 0001001 0 52 0110100 ftp:// 95 1011111 K 10 0001010 1 53 0110101 mailto: 96 1100000 L 11 0001011 2 54 0110110 ldap:// 97 1100001 m 12 0001100 3 55 0110111 tel: 98 1100010 N 13 0001101 4 56 0111000 urn: 99 1100011 O 14 0001110 5 57 0111001 www.
+
+100 1100100 P 15 0001111 6 58 0111010 .com 101 1100101 Q 16 0010000 7 59 0111011 .net 102 1100110 R 17 0010001 8 60 0111100 .gov 103 1100111 S 18 0010010 9 61 0111101 .org 104 1101000 T 19 0010011 $ 62 0111110 .cn 105 1101001 U 20 0010100 - 63 0111111 .htm 106 1101010 V 21 0010101 _ 64 1000000 .html 107 1101011 w 22 0010110 .
+
+65 1000001 .asp 108 1101100 X 23 0010111 + 66 1000010 .aspx 109 1101101 Y 24 0011000 !
+
+67 1000011 .php 110 1101110 Z 25 0011001 * 68 1000100 .jsp 111 1101111 A 26 0011010 ( 69 1000101 gtin 112 1110000 B 27 0011011 ) 70 1000110 ser 113 1110001 C 28 0011100 , 71 1000111 bat 114 1110010 D 29 0011101 { 72 1001000 exp 115 1110011 E 30 0011110 } 73 1001001 search 116 1110100 F 31 0011111 | 74 1001010 id 117 1110101 G 32 0100000 \ 75 1001011 .jp 118 1110110 H 33 0100001 ^ 76 1001100 .it 119 1110111 I 34 0100010 ~ 77 1001101 .de 120 1111000 J 35 0100011 [ 78 1001110 .br 121 1111001 K 36 0100100 ] 79 1001111 .fr 122 1111010 L 37 0100101 ' 80 1010000 gs1 123 1111011 M 38 0100110 < 81 1010001 search 124 1111100 N 39 0100111 > 82 1010010 Jump to URI-A 125 1111101 O 40 0101000 # 83 1010011 Jump to URI-B 126 1111110 P 41 0101001 % 84 1010100 Terminator of URI-C 127 1111111 Q 42 0101010 " 85 1010101 See also [ edit ] Automated identification and data capture (AIDC) Barcode Extended Channel Interpretation GB National Standard GS1 QR code References [ edit ] ^ a b GB/T (2007).
+
+"GB/T 21049-2007 "Chinese-sensible code" " .
+
+www.chinesestandardslibrary.com (in Chinese).
+
+GB National Standard . GB/T 21049-2007.
+
+^ "中国物品编码中心 (The Article Numbering Center of China)" .
+
+www.ancc.org.cn (in Chinese).
+
+^ a b c d e f g h i j k l m n o p q r s t u v w x y z aa ab ISO/IEC (2021).
+
+"ISO/IEC 20830:2021 "Information technology Automatic identification and data capture techniques Han Xin Code bar code symbology specification" " .
+
+iso.org .
+
+International Organization for Standardization(ISO) . ISO/IEC 20830.
+
+^ Stefania Zocco.
+
+"QR codes in contemporary China: digital money and people's perception" (PDF) .
+
+dspace.unive.it . Ca'Foscari University of Venice.
+
+^ a b "GS1 Application Identifiers" .
+
+www.gs1.org .
+
+^ Dong Xiaowen; Deng Huipeng; Wang Li (31 August 2021).
+
+"中国主导的首个二维码码制国际标准正式发布(The first international standard for QR code coding led by China is officially released)" .
+
+www.ancc.org.cn (in Chinese). 中国物品编码中心 (The Article Numbering Center of China).
+
+^ "RFID and AIDC News: New Bar Code Symbology for Double Byte Characters" .
+
+www.scdigest.com . Supply Chain Digest.
+
+^ "ISS Han Xin Code symbology specification - Rev. 3.0" .
+
+aimglobal.org . AIM Global.
+
+^ Liu Jia (16 September 2015).
+
+"汉信码正式成为国际ISO标准工作项目(Hanxin code officially becomes an international ISO standard work item)" .
+
+www.ancc.org.cn (in Chinese). 中国物品编码中心 (The Article Numbering Center of China).
+
+^ GB/T (2022).
+
+"GB/T 21049-2022 "Han Xin code" " .
+
+www.chinesestandard.net (in Chinese).
+
+GB National Standard . GB/T 21049-2022.
+
+^ Shengzhang Jiang; Weidong Wu (2 August 2016).
+
+"European Patent Office EP3330887B1 by Fujian Landi Commercial Equipment Co Ltd "Chinese-sensitive code feature pattern detection method and system" " .
+
+patents.google.com . European Patent Office.
+
+^ Shengzhang Jiang; Weidong Wu (15 January 2018).
+
+"United States Patent US10095903B2 by Ingenico Fujian Technology Co Ltd "Block decoding method and system for two-dimensional code" " .
+
+patents.google.com . United States Patent and Trademark Office.
+
+^ Shengzhang Jiang; Weidong Wu (13 February 2018).
+
+"United States Patent US10528781B2 by Ingenico Fujian Technology Co Ltd "Detection method and system for characteristic patterns of Han Xin codes" " .
+
+patents.google.com . United States Patent and Trademark Office.
+
+^ "Han Xin Code" .
+
+www.ancc.org.cn . GS1 China.
+
+^ "PC42D Desktop Direct Thermal Barcode Printer" .
+
+www.honeywell.com .
+
+^ "Unitech MS852B" .
+
+dcs.aero .
+
+^ Shi Yu.
+
+"Han Xin Code" .
+
+han-xin-code.appstor.io (in Chinese).
+
+^ Zheng Yu (2 September 2013).
+
+"中国的二维码，您用了吗(Have you used China's QR code)?" .
+
+www.ancc.org.cn (in Chinese). 中国物品编码中心 (The Article Numbering Center of China).
+
+^ "Generate Han Xin Code Barcodes in C#" .
+
+www.aspose.com .
+
+^ "AIM International Technical Specification - Han Xin Code Encoding Library for .Net" .
+
+github.com .
+
+^ Xiaolei Yu; Donghua Wang; Zhimin Zhao (2018).
+
+Semi-physical Verification Technology for Dynamic Performance of Internet of Things System . Springer. p. 181.
+
+ISBN 978-9811317590 .
+
+External links [ edit ] Free Han Xin code generator Free Han Xin code reader Han Xin code description v t e Barcodes Linear barcodes Automatic Car Identification Code 11 Code 39 Code 93 Code 128 Codabar European Article Number GS1 DataBar Industrial 2 of 5 Interleaved 2 of 5 ITF-14 Matrix 2 of 5 MSI Barcode Patch Code Pharmacode Plessey Telepen UPC UPC-A MaxiCode Post office barcodes CPC Binary Barcode Facing Identification Mark PostBar POSTNET RM4SCC Intelligent Mail barcode PLANET 2D barcodes (stacked) Codablock GS1 DataBar MicroPDF417 PDF417 2D barcodes ( matrix ) Aztec Code Data Matrix ( Semacode ) DotCode Han Xin code JAB Code MaxiCode QR code rMQR Code Boxing Polar coordinate barcodes MaxiCode ShotCode Other High Capacity Color Barcode (Microsoft Tag) Technological issues Barcode library Barcode printer Barcode reader Other data tags RFID Bokode Related topics Supply chain management Object hyperlinking Matrix Mobile tagging CueCat Category Commons v t e International Organization for Standardization (ISO) standards List of ISO standards – ISO romanizations – IEC standards 1–9999 1 2 3 4 6 7 9 16 17 31 -0 -1 -3 -4 -5 -6 -7 -8 -9 -10 -11 -12 -13 68-1 128 216 217 226 228 233 259 261 262 302 306 361 500 518 519 639 -1 -2 -3 -5 -6 646 657 668 690 704 732 764 838 843 860 898 965 999 1000 1004 1007 1073-1 1073-2 1155 1413 1538 1629 1745 1989 2014 2015 2022 2033 2047 2108 2145 2146 2240 2281 2533 2709 2711 2720 2788 2848 2852 2921 3029 3103 3166 -1 -2 -3 3297 3307 3601 3602 3864 3901 3950 3977 4031 4157 4165 4217 4909 5218 5426 5427 5428 5725 5775 5776 5800 5807 5964 6166 6344 6346 6373 6385 6425 6429 6438 6523 6709 6943 7001 7002 7010 7027 7064 7098 7185 7200 7498 -1 7637 7736 7810 7811 7812 7813 7816 7942 8000 8093 8178 8217 8373 8501-1 8571 8583 8601 8613 8632 8651 8652 8691 8805/8806 8807 8820-5 8859 -1 -2 -3 -4 -5 -6 -7 -8 -8-I -9 -10 -11 -12 -13 -14 -15 -16 8879 9000/9001 9036 9075 9126 9141 9227 9241 9293 9314 9362 9407 9496 9506 9529 9564 9592/9593 9594 9660 9797-1 9897 9899 9945 9984 9985 9995 10000–19999 10006 10007 10116 10118-3 10160 10161 10165 10179 10206 10218 10279 10303 -11 -21 -22 -28 -238 10383 10585 10589 10628 10646 10664 10746 10861 10957 10962 10967 11073 11170 11172 11179 11404 11544 11783 11784 11785 11801 11889 11898 11940 ( -2 ) 11941 11941 (TR) 11992 12006 12052 12182 12207 12234-2 12620 13211 -1 -2 13216 13250 13399 13406-2 13450 13485 13490 13567 13568 13584 13616 13816 13818 14000 14031 14224 14289 14396 14443 14496 -2 -3 -6 -10 -11 -12 -14 -17 -20 14617 14644 14649 14651 14698 14764 14882 14971 15022 15189 15288 15291 15398 15408 15444 -3 -9 15445 15438 15504 15511 15686 15693 15706 -2 15707 15897 15919 15924 15926 15926 WIP 15930 15938 16023 16262 16355-1 16485 16612-2 16750 16949 (TS) 17024 17025 17100 17203 17369 17442 17506 17799 18004 18014 18181 18245 18629 18760 18916 19005 19011 19092 -1 -2 19114 19115 19125 19136 19407 19439 19500 19501 19502 19503 19505 19506 19507 19508 19509 19510 19600 19752 19757 19770 19775-1 19794-5 19831 20000–29999 20000 20022 20121 20400 20802 20830 21000 21001 21047 21122 21500 21778 21827 22000 22275 22300 22301 22395 22537 23000 23003 23008 23009 23090-3 23092 23094-1 23094-2 23270 23271 23360 23941 24517 24613 24617 24707 24728 25178 25964 26000 26262 26300 26324 27000 series 27000 27001 27002 27005 27006 27729 28000 29110 29148 29199-2 29500 30000+ 30170 31000 32000 37001 38500 39075 40314 40500 42010 45001 50001 55000 56000 80000 Category Retrieved from " https://en.wikipedia.org/w/index.php?title=Han_Xin_code&oldid=1299516797 " Categories : Automatic identification and data capture Barcodes Encodings Information technology in China Science and technology in China Hidden categories: CS1 Chinese-language sources (zh) Articles with short description Short description matches Wikidata This page was last edited on 8 July 2025, at 22:05 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Han Xin code 1 language Add topic
+

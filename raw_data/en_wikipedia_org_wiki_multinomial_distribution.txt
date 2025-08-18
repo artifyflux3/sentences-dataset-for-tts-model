@@ -1,0 +1,325 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Definitions Toggle Definitions subsection 1.1 Probability mass function 1.2 Example 2 Properties Toggle Properties subsection 2.1 Normalization 2.2 Expected value and variance 2.3 Matrix notation 2.4 Visualization 2.4.1 As slices of generalized Pascal's triangle 2.4.2 As polynomial coefficients 2.5 Large deviation theory 2.5.1 Asymptotics 2.5.2 Concentration at large n 2.5.3 Conditional concentration at large n 3 Related distributions 4 Statistical inference Toggle Statistical inference subsection 4.1 Equivalence tests for multinomial distributions 4.2 Confidence intervals for the difference of two proportions 5 Occurrence and applications Toggle Occurrence and applications subsection 5.1 Confidence intervals for the difference in matched-pairs binary data (using multinomial with k=4 ) 6 Computational methods Toggle Computational methods subsection 6.1 Random variate generation 6.2 Sampling using repeated conditional binomial samples 6.2.1 Algorithm: Sequential conditional binomial sampling 7 Software implementations 8 See also 9 References 10 Further reading Toggle the table of contents Multinomial distribution 23 languages বাংলা Беларуская Català Čeština Deutsch Ελληνικά Español فارسی Français 한국어 Italiano עברית Nederlands 日本語 Norsk nynorsk Polski Português Русский Tagalog ไทย Türkçe Українська 粵語 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia In probability theory , the multinomial distribution is a generalization of the binomial distribution . For example, it models the probability of counts for each side of a k -sided die rolled n times. For n independent trials each of which leads to a success for exactly one of k categories, with each category having a given fixed success probability, the multinomial distribution gives the probability of any particular combination of numbers of successes for the various categories.
+
+When k is 2 and n is 1, the multinomial distribution is the Bernoulli distribution . When k is 2 and n is bigger than 1, it is the binomial distribution . When k is bigger than 2 and n is 1, it is the categorical distribution . The term "multinoulli" is sometimes used for the categorical distribution to emphasize this four-way relationship (so n determines the suffix, and k the prefix).
+
+The Bernoulli distribution models the outcome of a single Bernoulli trial . In other words, it models whether flipping a (possibly biased ) coin one time will result in either a success (obtaining a head) or failure (obtaining a tail). The binomial distribution generalizes this to the number of heads from performing n independent flips (Bernoulli trials) of the same coin. The multinomial distribution models the outcome of n experiments, where the outcome of each trial has a categorical distribution , such as rolling a (possibly biased ) k -sided die n times.
+
+Let k be a fixed finite number. Mathematically, we have k possible mutually exclusive outcomes, with corresponding probabilities p 1 , ..., p k , and n independent trials. Since the k outcomes are mutually exclusive and one must occur we have p i ≥ 0 for i = 1, ..., k and ∑ ∑ i = 1 k p i = 1 {\textstyle \sum _{i=1}^{k}p_{i}=1} .  Then if the random variables X i indicate the number of times outcome number i is observed over the n trials, the vector X = ( X 1 , ..., X k ) follows a multinomial distribution with parameters n and p , where p = ( p 1 , ..., p k ). While the trials are independent, their outcomes X i are dependent because they must sum to n.
+
+Generalization of the binomial distribution Multinomial Distribution Parameters n ∈ ∈ { 0 , 1 , 2 , … … } {\displaystyle n\in \{0,1,2,\ldots \}} number of trials k > 0 {\displaystyle k>0} number of mutually exclusive events (integer) p 1 , … … , p k {\displaystyle p_{1},\ldots ,p_{k}} event probabilities, where p 1 + ⋯ ⋯ + p k = 1 {\displaystyle p_{1}+\dots +p_{k}=1} Support { ( x 1 , … … , x k ) | ∑ ∑ i = 1 k x i = n , x i ≥ ≥ 0 ( i = 1 , … … , k ) } {\displaystyle \left\lbrace (x_{1},\dots ,x_{k})\,{\Big \vert }\,\sum _{i=1}^{k}x_{i}=n,x_{i}\geq 0\ (i=1,\dots ,k)\right\rbrace } PMF n !
+
+x 1 !
+
+⋯ ⋯ x k !
+
+p 1 x 1 ⋯ ⋯ p k x k {\displaystyle {\frac {n!}{x_{1}!\cdots x_{k}!}}p_{1}^{x_{1}}\cdots p_{k}^{x_{k}}} Mean E ⁡ ⁡ ( X i ) = n p i {\displaystyle \operatorname {E} (X_{i})=np_{i}} Variance Var ⁡ ⁡ ( X i ) = n p i ( 1 − − p i ) {\displaystyle \operatorname {Var} (X_{i})=np_{i}(1-p_{i})} Cov ⁡ ⁡ ( X i , X j ) = − − n p i p j ( i ≠ ≠ j ) {\displaystyle \operatorname {Cov} (X_{i},X_{j})=-np_{i}p_{j}~~(i\neq j)} Entropy − − log ⁡ ⁡ ( n !
+
+) − − n ∑ ∑ i = 1 k p i log ⁡ ⁡ ( p i ) + ∑ ∑ i = 1 k ∑ ∑ x i = 0 n ( n x i ) p i x i ( 1 − − p i ) n − − x i log ⁡ ⁡ ( x i !
+
+) {\displaystyle {\begin{aligned}&-\log(n!)-n\sum _{i=1}^{k}p_{i}\log(p_{i})\\&+\sum _{i=1}^{k}\sum _{x_{i}=0}^{n}{\binom {n}{x_{i}}}p_{i}^{x_{i}}(1-p_{i})^{n-x_{i}}\log(x_{i}!)\end{aligned}}} MGF ( ∑ ∑ i = 1 k p i e t i ) n {\displaystyle \left(\sum _{i=1}^{k}p_{i}e^{t_{i}}\right)^{n}} CF ( ∑ ∑ j = 1 k p j e i t j ) n {\displaystyle \left(\sum _{j=1}^{k}p_{j}e^{it_{j}}\right)^{n}} where i 2 = − − 1 {\displaystyle i^{2}=-1} PGF ( ∑ ∑ i = 1 k p i z i ) n {\displaystyle \left(\sum _{i=1}^{k}p_{i}z_{i}\right)^{n}} for ( z 1 , … … , z k ) ∈ ∈ C k {\displaystyle (z_{1},\ldots ,z_{k})\in \mathbb {C} ^{k}} Definitions [ edit ] Probability mass function [ edit ] Suppose one does an experiment of extracting n balls of k different colors from a bag, replacing the extracted balls after each draw. Balls of the same color are equivalent. Denote the variable which is the number of extracted balls of color i ( i = 1, ..., k ) as X i , and denote as p i the probability that a given extraction will be in color i . The probability mass function of this multinomial distribution is: f ( x 1 , … … , x k ; n , p 1 , … … , p k ) = Pr ( X 1 = x 1 and … … and X k = x k ) = { n !
+
+x 1 !
+
+⋯ ⋯ x k !
+
+p 1 x 1 × × ⋯ ⋯ × × p k x k , when ∑ ∑ i = 1 k x i = n 0 otherwise, {\displaystyle {\begin{aligned}f(x_{1},\ldots ,x_{k};n,p_{1},\ldots ,p_{k})&{}=\Pr(X_{1}=x_{1}{\text{ and }}\dots {\text{ and }}X_{k}=x_{k})\\[1ex]&{}={\begin{cases}{\displaystyle {n! \over x_{1}!\cdots x_{k}!}p_{1}^{x_{1}}\times \cdots \times p_{k}^{x_{k}}},\quad &{\text{when }}\sum _{i=1}^{k}x_{i}=n\\\\0&{\text{otherwise,}}\end{cases}}\end{aligned}}} for non-negative integers x 1 , ..., x k .
+
+The probability mass function can be expressed using the gamma function as: f ( x 1 , … … , x k ; p 1 , … … , p k ) = Γ Γ ( ∑ ∑ i x i + 1 ) ∏ ∏ i Γ Γ ( x i + 1 ) ∏ ∏ i = 1 k p i x i .
+
+{\displaystyle f(x_{1},\dots ,x_{k};p_{1},\ldots ,p_{k})={\frac {\Gamma (\sum _{i}x_{i}+1)}{\prod _{i}\Gamma (x_{i}+1)}}\prod _{i=1}^{k}p_{i}^{x_{i}}.} This form shows its resemblance to the Dirichlet distribution , which is its conjugate prior .
+
+Example [ edit ] Suppose that in a three-way election for a large country, candidate A received 20% of the votes, candidate B received 30% of the votes, and candidate C received 50% of the votes.  If six voters are selected randomly, what is the probability that there will be exactly one supporter for candidate A, two supporters for candidate B and three supporters for candidate C in the sample?
+
+Note: Since we’re assuming that the voting population is large, it is reasonable and permissible to think of the probabilities as unchanging once a voter is selected for the sample.  Technically speaking this is sampling without replacement, so the correct distribution is the multivariate hypergeometric distribution , but the distributions converge as the population grows large in comparison to a fixed sample size [ 1 ] .
+
+Pr ( A = 1 , B = 2 , C = 3 ) = 6 !
+
+1 !
+
+2 !
+
+3 !
+
+( 0.2 1 ) ( 0.3 2 ) ( 0.5 3 ) = 0.135 {\displaystyle \Pr(A{=}1,B{=}2,C{=}3)={\frac {6!}{1!2!3!}}\left(0.2^{1}\right)\left(0.3^{2}\right)\left(0.5^{3}\right)=0.135} Properties [ edit ] Normalization [ edit ] The multinomial distribution is normalized according to: ∑ ∑ ∑ ∑ j = 1 k x j = n f ( x 1 , … … , x k ; n , p 1 , … … , p k ) = 1 {\displaystyle \sum _{\sum _{j=1}^{k}x_{j}=n}f(x_{1},\dots ,x_{k};n,p_{1},\dots ,p_{k})=1} where the sum is over all permutations of x j {\displaystyle x_{j}} such that ∑ ∑ j = 1 k x j = n {\textstyle \sum _{j=1}^{k}x_{j}=n} .
+
+Expected value and variance [ edit ] The expected number of times the outcome i was observed over n trials is E ⁡ ⁡ ( X i ) = n p i .
+
+{\displaystyle \operatorname {E} (X_{i})=np_{i}.\,} The covariance matrix is as follows.  Each diagonal entry is the variance of a binomially distributed random variable, and is therefore Var ⁡ ⁡ ( X i ) = n p i ( 1 − − p i ) .
+
+{\displaystyle \operatorname {Var} (X_{i})=np_{i}(1-p_{i}).\,} The off-diagonal entries are the covariances : Cov ⁡ ⁡ ( X i , X j ) = − − n p i p j {\displaystyle \operatorname {Cov} (X_{i},X_{j})=-np_{i}p_{j}\,} for i , j distinct.
+
+All covariances are negative because for fixed n , an increase in one component of a multinomial vector requires a decrease in another component.
+
+When these expressions are combined into a matrix with i, j element cov ⁡ ⁡ ( X i , X j ) , {\displaystyle \operatorname {cov} (X_{i},X_{j}),} the result is a k × k positive-semidefinite covariance matrix of rank k − 1. In the special case where k = n and where the p i are all equal, the covariance matrix is the centering matrix .
+
+The entries of the corresponding correlation matrix are ρ ρ ( X i , X i ) = 1 ρ ρ ( X i , X j ) = Cov ⁡ ⁡ ( X i , X j ) Var ⁡ ⁡ ( X i ) Var ⁡ ⁡ ( X j ) = − − p i p j p i ( 1 − − p i ) p j ( 1 − − p j ) = − − p i p j ( 1 − − p i ) ( 1 − − p j ) .
+
+{\displaystyle {\begin{aligned}\rho (X_{i},X_{i})&=1\\[1ex]\rho (X_{i},X_{j})&={\frac {\operatorname {Cov} (X_{i},X_{j})}{\sqrt {\operatorname {Var} (X_{i})\operatorname {Var} (X_{j})}}}\\&={\frac {-p_{i}p_{j}}{\sqrt {p_{i}(1-p_{i})p_{j}(1-p_{j})}}}\\&=-{\sqrt {\frac {p_{i}p_{j}}{(1-p_{i})(1-p_{j})}}}.\end{aligned}}} Note that the number of trials n drops out of this expression.
+
+Each of the k components separately has a binomial distribution with parameters n and p i , for the appropriate value of the subscript i .
+
+The support of the multinomial distribution is the set { ( n 1 , … … , n k ) ∈ ∈ N k ∣ ∣ n 1 + ⋯ ⋯ + n k = n } .
+
+{\displaystyle \left\{(n_{1},\dots ,n_{k})\in \mathbb {N} ^{k}\mid n_{1}+\cdots +n_{k}=n\right\}.} Its number of elements is ( n + k − − 1 k − − 1 ) .
+
+{\displaystyle {\binom {n+k-1}{k-1}}.} Matrix notation [ edit ] In matrix notation, E ⁡ ⁡ ( X ) = n p , {\displaystyle \operatorname {E} (\mathbf {X} )=n\mathbf {p} ,\,} and Var ⁡ ⁡ ( X ) = n { diag ⁡ ⁡ ( p ) − − p p T } , {\displaystyle \operatorname {Var} (\mathbf {X} )=n\lbrace \operatorname {diag} (\mathbf {p} )-\mathbf {p} \mathbf {p} ^{\rm {T}}\rbrace ,\,} with p T = the row vector transpose of the column vector p .
+
+Visualization [ edit ] As slices of generalized Pascal's triangle [ edit ] Just like one can interpret the binomial distribution as (normalized) one-dimensional (1D) slices of Pascal's triangle , so too can one interpret the multinomial distribution as 2D (triangular) slices of Pascal's pyramid , or 3D/4D/+ (pyramid-shaped) slices of higher-dimensional analogs of Pascal's triangle. This reveals an interpretation of the range of the distribution: discretized equilateral "pyramids" in arbitrary dimension—i.e. a simplex with a grid.
+
+[ citation needed ] As polynomial coefficients [ edit ] Similarly, just like one can interpret the binomial distribution as the polynomial coefficients of ( p + q ) n {\displaystyle (p+q)^{n}} when expanded, one can interpret the multinomial distribution as the coefficients of ( p 1 + p 2 + p 3 + ⋯ ⋯ + p k ) n {\displaystyle (p_{1}+p_{2}+p_{3}+\cdots +p_{k})^{n}} when expanded, noting that just the coefficients must sum up to 1.
+
+Large deviation theory [ edit ] See also: Sanov's theorem Asymptotics [ edit ] By Stirling's formula , at the limit of n , x 1 , … … , x k → → ∞ ∞ {\displaystyle n,x_{1},\dots ,x_{k}\to \infty } , we have ln ⁡ ⁡ ( n x 1 , … … , x k ) + ∑ ∑ i = 1 k x i ln ⁡ ⁡ p i = − − n D KL ( p ^ ^ ‖ ‖ p ) − − k − − 1 2 ln ⁡ ⁡ ( 2 π π n ) − − 1 2 ∑ ∑ i = 1 k ln ⁡ ⁡ ( p ^ ^ i ) + o ( 1 ) {\displaystyle \ln {\binom {n}{x_{1},\dots ,x_{k}}}+\sum _{i=1}^{k}x_{i}\ln p_{i}=-nD_{\text{KL}}({\hat {p}}\|p)-{\frac {k-1}{2}}\ln(2\pi n)-{\frac {1}{2}}\sum _{i=1}^{k}\ln({\hat {p}}_{i})+o(1)} where relative frequencies p ^ ^ i = x i / n {\displaystyle {\hat {p}}_{i}=x_{i}/n} in the data can be interpreted as probabilities from the empirical distribution p ^ ^ {\displaystyle {\hat {p}}} , and D KL {\displaystyle D_{\text{KL}}} is the Kullback–Leibler divergence .
+
+This formula can be interpreted as follows.
+
+Consider Δ Δ k {\displaystyle \Delta _{k}} , the space of all possible distributions over the categories { 1 , 2 , … … , k } {\displaystyle \{1,2,\dots ,k\}} . It is a simplex . After n {\displaystyle n} independent samples from the categorical distribution p {\displaystyle p} (which is how we construct the multinomial distribution), we obtain an empirical distribution p ^ ^ {\displaystyle {\hat {p}}} .
+
+By the asymptotic formula, the probability that empirical distribution p ^ ^ {\displaystyle {\hat {p}}} deviates from the actual distribution p {\displaystyle p} decays exponentially, at a rate n D KL ( p ^ ^ ‖ ‖ p ) {\displaystyle nD_{\text{KL}}({\hat {p}}\|p)} . The more experiments and the more different p ^ ^ {\displaystyle {\hat {p}}} is from p {\displaystyle p} , the less likely it is to see such an empirical distribution.
+
+If A {\displaystyle A} is a closed subset of Δ Δ k {\displaystyle \Delta _{k}} , then by dividing up A {\displaystyle A} into pieces, and reasoning about the growth rate of P r ( p ^ ^ ∈ ∈ A ϵ ϵ ) {\displaystyle Pr({\hat {p}}\in A_{\epsilon })} on each piece A ϵ ϵ {\displaystyle A_{\epsilon }} , we obtain Sanov's theorem , which states that lim n → → ∞ ∞ 1 n ln ⁡ ⁡ Pr ( p ^ ^ ∈ ∈ A ) = − − inf p ^ ^ ∈ ∈ A D KL ( p ^ ^ ‖ ‖ p ) {\displaystyle \lim _{n\to \infty }{\frac {1}{n}}\ln \Pr({\hat {p}}\in A)=-\inf _{{\hat {p}}\in A}D_{\text{KL}}({\hat {p}}\|p)} Concentration at large n [ edit ] Due to the exponential decay , at large n {\displaystyle n} , almost all the probability mass is concentrated in a small neighborhood of p {\displaystyle p} . In this small neighborhood, we can take the first nonzero term in the Taylor expansion of D K L {\displaystyle D_{KL}} , to obtain ln ⁡ ⁡ ( n x 1 , ⋯ ⋯ , x k ) p 1 x 1 ⋯ ⋯ p k x k ≈ ≈ − − n 2 ∑ ∑ i = 1 k ( p ^ ^ i − − p i ) 2 p i = − − 1 2 ∑ ∑ i = 1 k ( x i − − n p i ) 2 n p i {\displaystyle {\begin{aligned}\ln {\binom {n}{x_{1},\cdots ,x_{k}}}p_{1}^{x_{1}}\cdots p_{k}^{x_{k}}&\approx -{\frac {n}{2}}\sum _{i=1}^{k}{\frac {({\hat {p}}_{i}-p_{i})^{2}}{p_{i}}}\\&=-{\frac {1}{2}}\sum _{i=1}^{k}{\frac {(x_{i}-np_{i})^{2}}{np_{i}}}\end{aligned}}} This resembles the Gaussian distribution, which suggests the following theorem: Theorem.
+
+At the n → → ∞ ∞ {\displaystyle n\to \infty } limit, n ∑ ∑ i = 1 k ( p ^ ^ i − − p i ) 2 p i = ∑ ∑ i = 1 k ( x i − − n p i ) 2 n p i {\displaystyle n\sum _{i=1}^{k}{\frac {({\hat {p}}_{i}-p_{i})^{2}}{p_{i}}}=\sum _{i=1}^{k}{\frac {(x_{i}-np_{i})^{2}}{np_{i}}}} converges in distribution to the chi-squared distribution χ χ 2 ( k − − 1 ) {\displaystyle \chi ^{2}(k-1)} .
+
+If we sample from the multinomial distribution M u l t i n o m i a l ( n ; 0.2 , 0.3 , 0.5 ) {\displaystyle \mathrm {Multinomial} (n;0.2,0.3,0.5)} , and plot the heatmap of the samples within the 2-dimensional simplex (here shown as a black triangle), we notice that as n → → ∞ ∞ {\displaystyle n\to \infty } , the distribution converges to a Gaussian around the point ( 0.2 , 0.3 , 0.5 ) {\displaystyle (0.2,0.3,0.5)} , with the contours converging in shape to ellipses, with radii converging as 1 / n {\displaystyle 1/{\sqrt {n}}} . Meanwhile, the separation between the discrete points converge as 1 / n {\displaystyle 1/n} , and so the discrete multinomial distribution converges to a continuous Gaussian distribution.
+
+[Proof] The space of all distributions over categories { 1 , 2 , … … , k } {\displaystyle \{1,2,\ldots ,k\}} is a simplex : Δ Δ k = { ( y 1 , … … , y k ) : : y 1 , … … , y k ≥ ≥ 0 , ∑ ∑ i y i = 1 } {\displaystyle \Delta _{k}=\left\{(y_{1},\ldots ,y_{k})\colon y_{1},\ldots ,y_{k}\geq 0,\sum _{i}y_{i}=1\right\}} , and the set of all possible empirical distributions after n {\displaystyle n} experiments is a subset of the simplex: Δ Δ k , n = { ( x 1 / n , … … , x k / n ) : : x 1 , … … , x k ∈ ∈ N , ∑ ∑ i x i = n } {\displaystyle \Delta _{k,n}=\left\{(x_{1}/n,\ldots ,x_{k}/n)\colon x_{1},\ldots ,x_{k}\in \mathbb {N} ,\sum _{i}x_{i}=n\right\}} . That is, it is the intersection between Δ Δ k {\displaystyle \Delta _{k}} and the lattice ( Z k ) / n {\displaystyle (\mathbb {Z} ^{k})/n} .
+
+As n {\displaystyle n} increases, most of the probability mass is concentrated in a subset of Δ Δ k , n {\displaystyle \Delta _{k,n}} near p {\displaystyle p} , and the probability distribution near p {\displaystyle p} becomes well-approximated by ( n x 1 , ⋯ ⋯ , x k ) p 1 x 1 ⋯ ⋯ p k x k ≈ ≈ e − − n 2 ∑ ∑ i ( p ^ ^ i − − p i ) 2 p i {\displaystyle {\binom {n}{x_{1},\cdots ,x_{k}}}p_{1}^{x_{1}}\cdots p_{k}^{x_{k}}\approx e^{-{\frac {n}{2}}\sum _{i}{\frac {\left({\hat {p}}_{i}-p_{i}\right)^{2}}{p_{i}}}}} From this, we see that the subset upon which the mass is concentrated has radius on the order of 1 / n {\displaystyle 1/{\sqrt {n}}} , but the points in the subset are separated by distance on the order of 1 / n {\displaystyle 1/n} , so at large n {\displaystyle n} , the points merge into a continuum.
+To convert this from a discrete probability distribution to a continuous probability density, we need to multiply by the volume occupied by each point of Δ Δ k , n {\displaystyle \Delta _{k,n}} in Δ Δ k {\displaystyle \Delta _{k}} . However, by symmetry, every point occupies exactly the same volume (except a negligible set on the boundary), so we obtain a probability density ρ ρ ( p ^ ^ ) = C e − − n 2 ∑ ∑ i ( p ^ ^ i − − p i ) 2 p i {\displaystyle \rho ({\hat {p}})=Ce^{-{\frac {n}{2}}\sum _{i}{\frac {\left({\hat {p}}_{i}-p_{i}\right)^{2}}{p_{i}}}}} , where C {\displaystyle C} is a constant.
+
+Finally, since the simplex Δ Δ k {\displaystyle \Delta _{k}} is not all of R k {\displaystyle \mathbb {R} ^{k}} , but only within a ( k − − 1 ) {\displaystyle (k-1)} -dimensional plane, we obtain the desired result.
+
+Conditional concentration at large n [ edit ] The above concentration phenomenon can be easily generalized to the case where we condition upon linear constraints. This is the theoretical justification for Pearson's chi-squared test .
+
+Theorem.
+
+Given frequencies x i ∈ ∈ N {\displaystyle x_{i}\in \mathbb {N} } observed in a dataset with n {\displaystyle n} points, we impose ℓ ℓ + 1 {\displaystyle \ell +1} independent linear constraints { ∑ ∑ i p ^ ^ i = 1 , ∑ ∑ i a 1 i p ^ ^ i = b 1 , ∑ ∑ i a 2 i p ^ ^ i = b 2 , ⋯ ⋯ , ∑ ∑ i a ℓ ℓ i p ^ ^ i = b ℓ ℓ {\displaystyle {\begin{cases}\sum _{i}{\hat {p}}_{i}=1,\\\sum _{i}a_{1i}{\hat {p}}_{i}=b_{1},\\\sum _{i}a_{2i}{\hat {p}}_{i}=b_{2},\\\cdots ,\\\sum _{i}a_{\ell i}{\hat {p}}_{i}=b_{\ell }\end{cases}}} (notice that the first constraint is simply the requirement that the empirical distributions sum to one), such that empirical p ^ ^ i = x i / n {\displaystyle {\hat {p}}_{i}=x_{i}/n} satisfy all these constraints simultaneously. Let q {\displaystyle q} denote the I {\displaystyle I} -projection of prior distribution p {\displaystyle p} on the sub-region of the simplex allowed by the linear constraints. At the n → → ∞ ∞ {\displaystyle n\to \infty } limit, sampled counts n p ^ ^ i {\displaystyle n{\hat {p}}_{i}} from the multinomial distribution conditional on the linear constraints  are governed by 2 n D KL ( p ^ ^ | | q ) ≈ ≈ n ∑ ∑ i ( p ^ ^ i − − q i ) 2 q i {\displaystyle 2nD_{\text{KL}}({\hat {p}}\vert \vert q)\approx n\sum _{i}{\frac {({\hat {p}}_{i}-q_{i})^{2}}{q_{i}}}} which converges in distribution to the chi-squared distribution χ χ 2 ( k − − 1 − − ℓ ℓ ) {\displaystyle \chi ^{2}(k-1-\ell )} .
+
+[Proof] An analogous proof applies in this Diophantine problem of coupled linear equations in count variables n p ^ ^ i {\displaystyle n{\hat {p}}_{i}} , [ 2 ] but this time Δ Δ k , n {\displaystyle \Delta _{k,n}} is the intersection of ( Z k ) / n {\displaystyle (\mathbb {Z} ^{k})/n} with Δ Δ k {\displaystyle \Delta _{k}} and ℓ ℓ {\displaystyle \ell } hyperplanes, all linearly independent, so the probability density ρ ρ ( p ^ ^ ) {\displaystyle \rho ({\hat {p}})} is restricted to a ( k − − ℓ ℓ − − 1 ) {\displaystyle (k-\ell -1)} -dimensional plane. In particular, expanding the KL divergence D K L ( p ^ ^ | | p ) {\displaystyle D_{KL}({\hat {p}}\vert \vert p)} around its minimum q {\displaystyle q} (the I {\displaystyle I} -projection of p {\displaystyle p} on Δ Δ k , n {\displaystyle \Delta _{k,n}} ) in the constrained problem ensures by the Pythagorean theorem for I {\displaystyle I} -divergence that any constant and linear term in the counts n p ^ ^ i {\displaystyle n{\hat {p}}_{i}} vanishes from the conditional probability to multinationally sample those counts.
+
+Notice that by definition, every one of p ^ ^ 1 , p ^ ^ 2 , … … , p ^ ^ k {\displaystyle {\hat {p}}_{1},{\hat {p}}_{2},\dots ,{\hat {p}}_{k}} must be a rational number, whereas p 1 , p 2 , … … , p k {\displaystyle p_{1},p_{2},\dots ,p_{k}} may be chosen from any real number in [ 0 , 1 ] {\displaystyle [0,1]} and need not satisfy the Diophantine system of equations. Only asymptotically as n → → ∞ ∞ {\displaystyle n\to \infty } , the p ^ ^ i {\displaystyle {\hat {p}}_{i}} 's can be regarded as probabilities over [ 0 , 1 ] {\displaystyle [0,1]} .
+
+Away from empirically observed constraints b 1 , … … , b ℓ ℓ {\displaystyle b_{1},\ldots ,b_{\ell }} (such as moments or prevalences) the theorem can be generalized: Theorem.
+
+Given functions f 1 , … … , f ℓ ℓ {\displaystyle f_{1},\dots ,f_{\ell }} , such that they are continuously differentiable in a neighborhood of p {\displaystyle p} , and the vectors ( 1 , 1 , … … , 1 ) , ∇ ∇ f 1 ( p ) , … … , ∇ ∇ f ℓ ℓ ( p ) {\displaystyle (1,1,\dots ,1),\nabla f_{1}(p),\dots ,\nabla f_{\ell }(p)} are linearly independent; given sequences ϵ ϵ 1 ( n ) , … … , ϵ ϵ ℓ ℓ ( n ) {\displaystyle \epsilon _{1}(n),\dots ,\epsilon _{\ell }(n)} , such that asymptotically 1 n ≪ ≪ ϵ ϵ i ( n ) ≪ ≪ 1 n {\displaystyle {\frac {1}{n}}\ll \epsilon _{i}(n)\ll {\frac {1}{\sqrt {n}}}} for each i ∈ ∈ { 1 , … … , ℓ ℓ } {\displaystyle i\in \{1,\dots ,\ell \}} ; then for the multinomial distribution conditional on constraints f 1 ( p ^ ^ ) ∈ ∈ [ f 1 ( p ) − − ϵ ϵ 1 ( n ) , f 1 ( p ) + ϵ ϵ 1 ( n ) ] , … … , f ℓ ℓ ( p ^ ^ ) ∈ ∈ [ f ℓ ℓ ( p ) − − ϵ ϵ ℓ ℓ ( n ) , f ℓ ℓ ( p ) + ϵ ϵ ℓ ℓ ( n ) ] {\displaystyle f_{1}({\hat {p}})\in [f_{1}(p)-\epsilon _{1}(n),f_{1}(p)+\epsilon _{1}(n)],\dots ,f_{\ell }({\hat {p}})\in [f_{\ell }(p)-\epsilon _{\ell }(n),f_{\ell }(p)+\epsilon _{\ell }(n)]} , we have the quantity n ∑ ∑ i ( p ^ ^ i − − p i ) 2 p i = ∑ ∑ i ( x i − − n p i ) 2 n p i {\displaystyle n\sum _{i}{\frac {({\hat {p}}_{i}-p_{i})^{2}}{p_{i}}}=\sum _{i}{\frac {(x_{i}-np_{i})^{2}}{np_{i}}}} converging in distribution to χ χ 2 ( k − − 1 − − ℓ ℓ ) {\displaystyle \chi ^{2}(k-1-\ell )} at the n → → ∞ ∞ {\displaystyle n\to \infty } limit.
+
+In the case that all p ^ ^ i {\displaystyle {\hat {p}}_{i}} are equal, the Theorem reduces to the concentration of entropies around the Maximum Entropy.
+
+[ 3 ] [ 4 ] Related distributions [ edit ] In some fields such as natural language processing , categorical and multinomial distributions are synonymous and it is common to speak of a multinomial distribution when a categorical distribution is actually meant. This stems from the fact that it is sometimes convenient to express the outcome of a categorical distribution as a "1-of-k" vector (a vector with one element containing a 1 and all other elements containing a 0) rather than as an integer in the range 1 … … k {\displaystyle 1\dots k} ; in this form, a categorical distribution is equivalent to a multinomial distribution over a single trial.
+
+When k = 2, the multinomial distribution is the binomial distribution .
+
+Categorical distribution , the distribution of each trial; for k = 2, this is the Bernoulli distribution .
+
+The Dirichlet distribution is the conjugate prior of the multinomial in Bayesian statistics .
+
+Dirichlet-multinomial distribution .
+
+Beta-binomial distribution .
+
+Negative multinomial distribution Hardy–Weinberg principle ( a trinomial distribution with probabilities ( θ θ 2 , 2 θ θ ( 1 − − θ θ ) , ( 1 − − θ θ ) 2 ) {\displaystyle (\theta ^{2},2\theta (1-\theta ),(1-\theta )^{2})} ) Statistical inference [ edit ] This section needs expansion with: A new sub-section about simultaneous confidence intervals (with proper citations, e.g.: [1] ).. You can help by adding to it .
+
+( March 2024 ) Equivalence tests for multinomial distributions [ edit ] The goal of equivalence testing is to establish the agreement between a theoretical multinomial distribution and  observed counting frequencies. The theoretical distribution may be a fully specified multinomial distribution or a parametric family of multinomial distributions.
+
+Let q {\displaystyle q} denote a theoretical multinomial distribution and let p {\displaystyle p} be a true underlying distribution. The distributions p {\displaystyle p} and q {\displaystyle q} are considered equivalent if d ( p , q ) < ε ε {\displaystyle d(p,q)<\varepsilon } for a distance d {\displaystyle d} and a tolerance parameter ε ε > 0 {\displaystyle \varepsilon >0} . The equivalence test problem is H 0 = { d ( p , q ) ≥ ≥ ε ε } {\displaystyle H_{0}=\{d(p,q)\geq \varepsilon \}} versus H 1 = { d ( p , q ) < ε ε } {\displaystyle H_{1}=\{d(p,q)<\varepsilon \}} . The true underlying distribution p {\displaystyle p} is unknown. Instead, the counting frequencies p n {\displaystyle p_{n}} are observed, where n {\displaystyle n} is a sample size. An equivalence test uses p n {\displaystyle p_{n}} to reject H 0 {\displaystyle H_{0}} . If H 0 {\displaystyle H_{0}} can be rejected then the equivalence between p {\displaystyle p} and q {\displaystyle q} is shown at a given significance level. The equivalence test for Euclidean distance can be found in text book of Wellek (2010).
+
+[ 5 ] The equivalence test for the total variation distance is developed in Ostrovski (2017).
+
+[ 6 ] The exact equivalence test for the specific cumulative distance is proposed in Frey (2009).
+
+[ 7 ] The distance between the true underlying distribution p {\displaystyle p} and a family of the multinomial distributions M {\displaystyle {\mathcal {M}}} is defined by d ( p , M ) = min h ∈ ∈ M d ( p , h ) {\displaystyle d(p,{\mathcal {M}})=\min _{h\in {\mathcal {M}}}d(p,h)} . Then the equivalence test problem is given by H 0 = { d ( p , M ) ≥ ≥ ε ε } {\displaystyle H_{0}=\{d(p,{\mathcal {M}})\geq \varepsilon \}} and H 1 = { d ( p , M ) < ε ε } {\displaystyle H_{1}=\{d(p,{\mathcal {M}})<\varepsilon \}} . The distance d ( p , M ) {\displaystyle d(p,{\mathcal {M}})} is usually computed using numerical optimization. The tests for this case are developed recently in Ostrovski (2018).
+
+[ 8 ] Confidence intervals for the difference of two proportions [ edit ] In the setting of a multinomial distribution, constructing confidence intervals for the difference between the proportions of observations from two events, p i − − p j {\displaystyle p_{i}-p_{j}} , requires the incorporation of the negative covariance between the sample estimators p ^ ^ i = X i n {\displaystyle {\hat {p}}_{i}={\frac {X_{i}}{n}}} and p ^ ^ j = X j n {\displaystyle {\hat {p}}_{j}={\frac {X_{j}}{n}}} .
+
+Some of the literature on the subject focused on the use-case of matched-pairs binary data, which requires careful attention when translating the formulas to the general case of p i − − p j {\displaystyle p_{i}-p_{j}} for any multinomial distribution. Formulas in the current section will be generalized, while formulas in the next section will focus on the matched-pairs binary data use-case.
+
+Wald's standard error (SE) of the difference of proportion can be estimated using: [ 9 ] : 378 [ 10 ] SE ^ ^ ( p ^ ^ i − − p ^ ^ j ) = ( p ^ ^ i + p ^ ^ j ) − − ( p ^ ^ i − − p ^ ^ j ) 2 n {\displaystyle {\widehat {\operatorname {SE} }}({\hat {p}}_{i}-{\hat {p}}_{j})={\sqrt {\frac {\left({\hat {p}}_{i}+{\hat {p}}_{j}\right)-\left({\hat {p}}_{i}-{\hat {p}}_{j}\right)^{2}}{n}}}} For a 100 ( 1 − − α α ) % % {\displaystyle 100(1-\alpha )\%} approximate confidence interval , the margin of error may incorporate the appropriate quantile from the standard normal distribution , as follows: ( p ^ ^ i − − p ^ ^ j ) ± ± z α α / 2 ⋅ ⋅ SE ^ ^ ( p ^ ^ i − − p ^ ^ j ) {\displaystyle ({\hat {p}}_{i}-{\hat {p}}_{j})\pm z_{\alpha /2}\cdot {\widehat {\operatorname {SE} }}({\hat {p}}_{i}-{\hat {p}}_{j})} [Proof] As the sample size ( n {\displaystyle n} ) increases, the sample proportions will approximately follow a multivariate normal distribution , thanks to the multidimensional central limit theorem (and it could also be shown using the Cramér–Wold theorem ). Therefore, their difference will also be approximately normal. Also, these estimators are weakly consistent and plugging them into the SE estimator makes it also weakly consistent. Hence, thanks to Slutsky's theorem , the pivotal quantity ( p ^ ^ i − − p ^ ^ j ) − − ( p i − − p j ) SE ⁡ ⁡ ( p ^ ^ i − − p ^ ^ j ) ^ ^ {\displaystyle {\frac {({\hat {p}}_{i}-{\hat {p}}_{j})-(p_{i}-p_{j})}{\widehat {\operatorname {SE} ({\hat {p}}_{i}-{\hat {p}}_{j})}}}} approximately follows the standard normal distribution . And from that, the above approximate confidence interval is directly derived.
+
+The SE can be constructed using the calculus of the variance of the difference of two random variables : SE ^ ^ ( p ^ ^ i − − p ^ ^ j ) = p ^ ^ i ( 1 − − p ^ ^ i ) n + p ^ ^ j ( 1 − − p ^ ^ j ) n − − 2 ( − − p ^ ^ i p ^ ^ j n ) = 1 n ( p ^ ^ i + p ^ ^ j − − p ^ ^ i 2 − − p ^ ^ j 2 + 2 p ^ ^ i p ^ ^ j ) = ( p ^ ^ i + p ^ ^ j ) − − ( p ^ ^ i − − p ^ ^ j ) 2 n {\displaystyle {\begin{aligned}{\widehat {\operatorname {SE} }}({\hat {p}}_{i}-{\hat {p}}_{j})&={\sqrt {{\frac {{\hat {p}}_{i}(1-{\hat {p}}_{i})}{n}}+{\frac {{\hat {p}}_{j}(1-{\hat {p}}_{j})}{n}}-2\left(-{\frac {{\hat {p}}_{i}{\hat {p}}_{j}}{n}}\right)}}\\&={\sqrt {{\frac {1}{n}}\left({\hat {p}}_{i}+{\hat {p}}_{j}-{\hat {p}}_{i}^{2}-{\hat {p}}_{j}^{2}+2{\hat {p}}_{i}{\hat {p}}_{j}\right)}}\\&={\sqrt {\frac {({\hat {p}}_{i}+{\hat {p}}_{j})-({\hat {p}}_{i}-{\hat {p}}_{j})^{2}}{n}}}\end{aligned}}} A modification which includes a continuity correction adds 1 n {\displaystyle {\frac {1}{n}}} to the margin of error as follows: [ 11 ] : 102–103 ( p ^ ^ i − − p ^ ^ j ) ± ± ( z α α / 2 ⋅ ⋅ SE ^ ^ ( p ^ ^ i − − p ^ ^ j ) + 1 n ) {\displaystyle ({\hat {p}}_{i}-{\hat {p}}_{j})\pm \left(z_{\alpha /2}\cdot {\widehat {\operatorname {SE} }}({\hat {p}}_{i}-{\hat {p}}_{j})+{\frac {1}{n}}\right)} Another alternative is to rely on a Bayesian estimator using Jeffreys prior which leads to using a dirichlet distribution , with all parameters being equal to 0.5, as a prior. The posterior will be the calculations from above, but after adding 1/2 to each of the k elements, leading to an overall increase of the sample size by k 2 {\displaystyle {\frac {k}{2}}} . This was originally developed for a multinomial distribution with four events, and is known as wald+2 , for analyzing matched pairs data (see the next section for more details).
+
+[ 12 ] This leads to the following SE: SE ^ ^ ( p ^ ^ i − − p ^ ^ j ) w a l d + k 2 = ( p ^ ^ i + p ^ ^ j + 1 n ) n n + k 2 − − ( p ^ ^ i − − p ^ ^ j ) 2 ( n n + k 2 ) 2 n + k 2 {\displaystyle {\widehat {\operatorname {SE} }}{({\hat {p}}_{i}-{\hat {p}}_{j})}_{wald+{\frac {k}{2}}}={\sqrt {\frac {\left({\hat {p}}_{i}+{\hat {p}}_{j}+{\frac {1}{n}}\right){\frac {n}{n+{\frac {k}{2}}}}-\left({\hat {p}}_{i}-{\hat {p}}_{j}\right)^{2}\left({\frac {n}{n+{\frac {k}{2}}}}\right)^{2}}{n+{\frac {k}{2}}}}}} [Proof] SE ^ ^ ( p ^ ^ i − − p ^ ^ j ) w a l d + k 2 = ( x i + 1 / 2 n + k 2 + x j + 1 / 2 n + k 2 ) − − ( x i + 1 / 2 n + k 2 − − x j + 1 / 2 n + k 2 ) 2 n + k 2 = ( x i n + x j n + 1 n ) n n + k 2 − − ( x i n − − x j n ) 2 ( n n + k 2 ) 2 n + k 2 = ( p ^ ^ i + p ^ ^ j + 1 n ) n n + k 2 − − ( p ^ ^ i − − p ^ ^ j ) 2 ( n n + k 2 ) 2 n + k 2 {\displaystyle {\begin{aligned}{\widehat {\operatorname {SE} }}{({\hat {p}}_{i}-{\hat {p}}_{j})}_{wald+{\frac {k}{2}}}&={\sqrt {\frac {\left({\frac {x_{i}+1/2}{n+{\frac {k}{2}}}}+{\frac {x_{j}+1/2}{n+{\frac {k}{2}}}}\right)-\left({\frac {x_{i}+1/2}{n+{\frac {k}{2}}}}-{\frac {x_{j}+1/2}{n+{\frac {k}{2}}}}\right)^{2}}{n+{\frac {k}{2}}}}}\\&={\sqrt {\frac {\left({\frac {x_{i}}{n}}+{\frac {x_{j}}{n}}+{\frac {1}{n}}\right){\frac {n}{n+{\frac {k}{2}}}}-\left({\frac {x_{i}}{n}}-{\frac {x_{j}}{n}}\right)^{2}\left({\frac {n}{n+{\frac {k}{2}}}}\right)^{2}}{n+{\frac {k}{2}}}}}\\&={\sqrt {\frac {\left({\hat {p}}_{i}+{\hat {p}}_{j}+{\frac {1}{n}}\right){\frac {n}{n+{\frac {k}{2}}}}-\left({\hat {p}}_{i}-{\hat {p}}_{j}\right)^{2}\left({\frac {n}{n+{\frac {k}{2}}}}\right)^{2}}{n+{\frac {k}{2}}}}}\end{aligned}}} Which can just be plugged into the original Wald formula as follows: ( p i − − p j ) n n + k 2 ± ± z α α / 2 ⋅ ⋅ SE ^ ^ ( p ^ ^ i − − p ^ ^ j ) w a l d + k 2 {\displaystyle \left(p_{i}-p_{j}\right){\frac {n}{n+{\frac {k}{2}}}}\pm z_{\alpha /2}\cdot {\widehat {\operatorname {SE} }}{({\hat {p}}_{i}-{\hat {p}}_{j})}_{wald+{\frac {k}{2}}}} Occurrence and applications [ edit ] Confidence intervals for the difference in matched-pairs binary data (using multinomial with k=4 ) [ edit ] For the case of matched-pairs binary data, a common task is to build the confidence interval of the difference of the proportion of the matched events. For example, we might have a test for some disease, and we may want to check the results of it for some population at two points in time (1 and 2), to check if there was a change in the proportion of the positives for the disease during that time.
+
+Such scenarios can be represented using a two-by-two contingency table with the number of elements that had each of the combination of events. We can use small f for sampling frequencies: f 11 , f 10 , f 01 , f 00 {\displaystyle f_{11},f_{10},f_{01},f_{00}} , and capital F for population frequencies: F 11 , F 10 , F 01 , F 00 {\displaystyle F_{11},F_{10},F_{01},F_{00}} . These four combinations could be modeled as coming from a multinomial distribution (with four potential outcomes). The sizes of the sample and population can be n and N respectively. And in such a case, there is an interest in building a confidence interval for the difference of proportions from the marginals of the following (sampled) contingency table: Test 2 positive Test 2 negative Row total Test 1 positive f 11 {\displaystyle f_{11}} f 10 {\displaystyle f_{10}} f 1 ∗ ∗ = f 11 + f 10 {\displaystyle f_{1*}=f_{11}+f_{10}} Test 1 negative f 01 {\displaystyle f_{01}} f 00 {\displaystyle f_{00}} f 0 ∗ ∗ = f 01 + f 00 {\displaystyle f_{0*}=f_{01}+f_{00}} Column total f ∗ ∗ 1 = f 11 + f 01 {\displaystyle f_{*1}=f_{11}+f_{01}} f ∗ ∗ 0 = f 10 + f 00 {\displaystyle f_{*0}=f_{10}+f_{00}} n {\displaystyle n} In this case, checking the difference in marginal proportions means we are interested in using the following definitions: p 1 ∗ ∗ = F 1 ∗ ∗ N = F 11 + F 10 N {\displaystyle p_{1*}={\frac {F_{1*}}{N}}={\frac {F_{11}+F_{10}}{N}}} , p ∗ ∗ 1 = F ∗ ∗ 1 N = F 11 + F 01 N {\displaystyle p_{*1}={\frac {F_{*1}}{N}}={\frac {F_{11}+F_{01}}{N}}} .
+And the difference we want to build confidence intervals for is: p ∗ ∗ 1 − − p 1 ∗ ∗ = F 11 + F 01 N − − F 11 + F 10 N = F 01 N − − F 10 N = p 01 − − p 10 {\displaystyle p_{*1}-p_{1*}={\frac {F_{11}+F_{01}}{N}}-{\frac {F_{11}+F_{10}}{N}}={\frac {F_{01}}{N}}-{\frac {F_{10}}{N}}=p_{01}-p_{10}} Hence, a confidence intervals for the marginal positive proportions ( p ∗ ∗ 1 − − p 1 ∗ ∗ {\displaystyle p_{*1}-p_{1*}} ) is the same as building a confidence interval for the difference of the proportions from the secondary diagonal of the two-by-two contingency table ( p 01 − − p 10 {\displaystyle p_{01}-p_{10}} ).
+
+Calculating a p-value for such a difference is known as McNemar's test . Building confidence interval around it can be constructed using methods described above for Confidence intervals for the difference of two proportions .
+
+The Wald confidence intervals from the previous section can be applied to this setting, and appears in the literature using alternative notations. Specifically, the SE often presented is based on the contingency table frequencies instead of the sample proportions. For example, the Wald confidence intervals, provided above, can be written as: [ 11 ] : 102–103 SE ^ ^ ( p ∗ ∗ 1 − − p 1 ∗ ∗ ) = SE ^ ^ ( p 01 − − p 10 ) = n ( f 10 + f 01 ) − − ( f 10 − − f 01 ) 2 n n {\displaystyle {\begin{aligned}{\widehat {\operatorname {SE} }}(p_{*1}-p_{1*})&={\widehat {\operatorname {SE} }}(p_{01}-p_{10})\\[1ex]&={\frac {\sqrt {n\left(f_{10}+f_{01}\right)-\left(f_{10}-f_{01}\right)^{2}}}{n{\sqrt {n}}}}\end{aligned}}} Further research in the literature has identified several shortcomings in both the Wald and the Wald with continuity correction methods, and other methods have been proposed for practical application.
+
+[ 11 ] One such modification includes Agresti and Min’s Wald+2 (similar to some of their other works [ 13 ] ) in which each cell frequency had an extra 1 2 {\displaystyle {\frac {1}{2}}} added to it.
+
+[ 12 ] This leads to the Wald+2 confidence intervals. In a Bayesian interpretation, this is like building the estimators taking as prior a dirichlet distribution with all parameters being equal to 0.5 (which is, in fact, the Jeffreys prior ). The +2 in the name wald+2 can now be taken to mean that in the context of a two-by-two contingency table, which is a multinomial distribution with four possible events, then since we add 1/2 an observation to each of them, then this translates to an overall addition of 2 observations (due to the prior).
+
+This leads to the following modified SE for the case of matched pairs data: SE ^ ^ ( p ∗ ∗ 1 − − p 1 ∗ ∗ ) = ( n + 2 ) ( f 10 + f 01 + 1 ) − − ( f 10 − − f 01 ) 2 ( n + 2 ) n + 2 {\displaystyle {\widehat {\operatorname {SE} }}(p_{*1}-p_{1*})={\frac {\sqrt {\left(n+2\right)\left(f_{10}+f_{01}+1\right)-\left(f_{10}-f_{01}\right)^{2}}}{\left(n+2\right){\sqrt {n+2}}}}} Which can just be plugged into the original Wald formula as follows: ( p ∗ ∗ 1 − − p 1 ∗ ∗ ) n n + 2 ± ± z α α / 2 ⋅ ⋅ SE ^ ^ ( p ^ ^ i − − p ^ ^ j ) w a l d + 2 {\displaystyle \left(p_{*1}-p_{1*}\right){\frac {n}{n+2}}\pm z_{\alpha /2}\cdot {\widehat {\operatorname {SE} }}({\hat {p}}_{i}-{\hat {p}}_{j})_{wald+2}} Other modifications include Bonett and Price’s Adjusted Wald , and Newcombe’s Score .
+
+Computational methods [ edit ] Random variate generation [ edit ] Further information: Non-uniform random variate generation First, reorder the parameters p 1 , … … , p k {\displaystyle p_{1},\ldots ,p_{k}} such that they are sorted in descending order (this is only to speed up computation and not strictly necessary). Now, for each trial, draw an auxiliary variable X from a uniform (0, 1) distribution. The resulting outcome is the component j = min { j ′ ∈ ∈ { 1 , … … , k } : : ( ∑ ∑ i = 1 j ′ p i ) − − X ≥ ≥ 0 } .
+
+{\displaystyle j=\min \left\{j'\in \{1,\dots ,k\}\colon \left(\sum _{i=1}^{j'}p_{i}\right)-X\geq 0\right\}.} { X j = 1, X k = 0 for k ≠ j } is one observation from the multinomial distribution with p 1 , … … , p k {\displaystyle p_{1},\ldots ,p_{k}} and n = 1.  A sum of independent repetitions of this experiment is an observation from a multinomial distribution with n equal to the number of such repetitions.
+
+Sampling using repeated conditional binomial samples [ edit ] Given the parameters p 1 , p 2 , … … , p k {\displaystyle p_{1},p_{2},\ldots ,p_{k}} and a total for the sample n {\displaystyle n} such that ∑ ∑ i = 1 k X i = n {\textstyle \sum _{i=1}^{k}X_{i}=n} , it is possible to sample sequentially for the number in an arbitrary state X i {\displaystyle X_{i}} , by partitioning the state space into i {\displaystyle i} and not- i {\displaystyle i} , conditioned on any prior samples already taken, repeatedly.
+
+Algorithm: Sequential conditional binomial sampling [ edit ] S = n rho = 1 for i in [ 1 ,k-1 ] : if rho !
+
+= 0 : X [ i ] ~ Binom ( S,p [ i ] /rho ) else X [ i ] = 0 S = S - X [ i ] rho = rho - p [ i ] X [ k ] = S Heuristically, each application of the binomial sample reduces the available number to sample from and the conditional probabilities are likewise updated to ensure logical consistency.
+
+[ 14 ] Software implementations [ edit ] The MultinomialCI R package allows the computation of simultaneous confidence intervals for the probabilities of a multinomial distribution given a set of observations.
+
+[ 15 ] See also [ edit ] Additive smoothing References [ edit ] ^ "probability - multinomial distribution sampling" .
+
+Cross Validated . Retrieved 2022-07-28 .
+
+^ Loukas, Orestis; Chung, Ho Ryun (2023). "Total Empiricism: Learning from Data".
+
+arXiv : 2311.08315 [ math.ST ].
+
+^ Loukas, Orestis; Chung, Ho Ryun (April 2022). "Categorical Distributions of Maximum Entropy under Marginal Constraints".
+
+arXiv : 2204.03406 [ hep-th ].
+
+^ Loukas, Orestis; Chung, Ho Ryun (June 2022). "Entropy-based Characterization of Modeling Constraints".
+
+arXiv : 2206.14105 [ stat.ME ].
+
+^ Wellek, Stefan (2010).
+
+Testing statistical hypotheses of equivalence and noninferiority . Chapman and Hall/CRC.
+
+ISBN 978-1439808184 .
+
+^ Ostrovski, Vladimir (May 2017). "Testing equivalence of multinomial distributions".
+
+Statistics & Probability Letters .
+
+124 : 77– 82.
+
+doi : 10.1016/j.spl.2017.01.004 .
+
+S2CID 126293429 .
+
+Official web link (subscription required) .
+
+Alternate, free web link .
+
+^ Frey, Jesse (March 2009). "An exact multinomial test for equivalence".
+
+The Canadian Journal of Statistics .
+
+37 : 47– 59.
+
+doi : 10.1002/cjs.10000 .
+
+S2CID 122486567 .
+
+Official web link (subscription required) .
+
+^ Ostrovski, Vladimir (March 2018). "Testing equivalence to families of multinomial distributions with application to the independence model".
+
+Statistics & Probability Letters .
+
+139 : 61– 66.
+
+doi : 10.1016/j.spl.2018.03.014 .
+
+S2CID 126261081 .
+
+Official web link (subscription required) .
+
+Alternate, free web link .
+
+^ Fleiss, Joseph L.; Levin, Bruce; Paik, Myunghee Cho (2003).
+
+Statistical Methods for Rates and Proportions (3rd ed.). Hoboken, N.J: J. Wiley. p. 760.
+
+ISBN 9780471526292 .
+
+^ Newcombe, R. G. (1998). "Interval Estimation for the Difference Between Independent Proportions: Comparison of Eleven Methods".
+
+Statistics in Medicine .
+
+17 (8): 873– 890.
+
+doi : 10.1002/(SICI)1097-0258(19980430)17:8<873::AID-SIM779>3.0.CO;2-I .
+
+PMID 9595617 .
+
+^ a b c "Confidence Intervals for the Difference Between Two Correlated Proportions" (PDF) . NCSS . Retrieved 2022-03-22 .
+
+^ a b Agresti, Alan; Min, Yongyi (2005).
+
+"Simple improved confidence intervals for comparing matched proportions" (PDF) .
+
+Statistics in Medicine .
+
+24 (5): 729– 740.
+
+doi : 10.1002/sim.1781 .
+
+PMID 15696504 .
+
+^ Agresti, A.; Caffo, B. (2000). "Simple and effective confidence intervals for proportions and difference of proportions result from adding two successes and two failures".
+
+The American Statistician .
+
+54 (4): 280– 288.
+
+doi : 10.1080/00031305.2000.10474560 .
+
+^ "11.5: The Multinomial Distribution" .
+
+Statistics LibreTexts . 2020-05-05 . Retrieved 2023-09-13 .
+
+^ "MultinomialCI - Confidence Intervals for Multinomial Proportions" . CRAN. 11 May 2021 . Retrieved 2024-03-23 .
+
+Further reading [ edit ] Evans, Morton; Hastings, Nicholas; Peacock, Brian (2000).
+
+Statistical Distributions (3rd ed.). New York: Wiley. pp.
+
+134 –136.
+
+ISBN 0-471-37124-6 .
+
+Weisstein, Eric W.
+
+"Multinomial Distribution" .
+
+MathWorld .
+
+Wolfram Research .
+
+v t e Probability distributions ( list ) Discrete univariate with finite support Benford Bernoulli Beta-binomial Binomial Categorical Hypergeometric Negative Poisson binomial Rademacher Soliton Discrete uniform Zipf Zipf–Mandelbrot with infinite support Beta negative binomial Borel Conway–Maxwell–Poisson Discrete phase-type Delaporte Extended negative binomial Flory–Schulz Gauss–Kuzmin Geometric Logarithmic Mixed Poisson Negative binomial Panjer Parabolic fractal Poisson Skellam Yule–Simon Zeta Continuous univariate supported on a bounded interval Arcsine ARGUS Balding–Nichols Bates Beta Generalized Beta rectangular Continuous Bernoulli Irwin–Hall Kumaraswamy Logit-normal Noncentral beta PERT Raised cosine Reciprocal Triangular U-quadratic Uniform Wigner semicircle supported on a semi-infinite interval Benini Benktander 1st kind Benktander 2nd kind Beta prime Burr Chi Chi-squared Noncentral Inverse Scaled Dagum Davis Erlang Hyper Exponential Hyperexponential Hypoexponential Logarithmic F Noncentral Folded normal Fréchet Gamma Generalized Inverse gamma/Gompertz Gompertz Shifted Half-logistic Half-normal Hotelling's T -squared Hartman–Watson Inverse Gaussian Generalized Kolmogorov Lévy Log-Cauchy Log-Laplace Log-logistic Log-normal Log-t Lomax Matrix-exponential Maxwell–Boltzmann Maxwell–Jüttner Mittag-Leffler Nakagami Pareto Phase-type Poly-Weibull Rayleigh Relativistic Breit–Wigner Rice Truncated normal type-2 Gumbel Weibull Discrete Wilks's lambda supported on the whole real line Cauchy Exponential power Fisher's z Kaniadakis κ-Gaussian Gaussian q Generalized hyperbolic Generalized logistic (logistic-beta) Generalized normal Geometric stable Gumbel Holtsmark Hyperbolic secant Johnson's S U Landau Laplace Asymmetric Logistic Noncentral t Normal (Gaussian) Normal-inverse Gaussian Skew normal Slash Stable Student's t Tracy–Widom Variance-gamma Voigt with support whose type varies Generalized chi-squared Generalized extreme value Generalized Pareto Marchenko–Pastur Kaniadakis κ -exponential Kaniadakis κ -Gamma Kaniadakis κ -Weibull Kaniadakis κ -Logistic Kaniadakis κ -Erlang q -exponential q -Gaussian q -Weibull Shifted log-logistic Tukey lambda Mixed univariate continuous- discrete Rectified Gaussian Multivariate (joint) Discrete: Ewens Multinomial Dirichlet Negative Continuous: Dirichlet Generalized Multivariate Laplace Multivariate normal Multivariate stable Multivariate t Normal-gamma Inverse Matrix-valued: LKJ Matrix beta Matrix normal Matrix t Matrix gamma Inverse Wishart Normal Inverse Normal-inverse Complex Uniform distribution on a Stiefel manifold Directional Univariate (circular) directional Circular uniform Univariate von Mises Wrapped normal Wrapped Cauchy Wrapped exponential Wrapped asymmetric Laplace Wrapped Lévy Bivariate (spherical) Kent Bivariate (toroidal) Bivariate von Mises Multivariate von Mises–Fisher Bingham Degenerate and singular Degenerate Dirac delta function Singular Cantor Families Circular Compound Poisson Elliptical Exponential Natural exponential Location–scale Maximum entropy Mixture Pearson Tweedie Wrapped Category Commons Authority control databases : National Germany NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐qsn64
+Cached time: 20250812014356
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.735 seconds
+Real time usage: 1.230 seconds
+Preprocessor visited node count: 4203/1000000
+Revision size: 40726/2097152 bytes
+Post‐expand include size: 114640/2097152 bytes
+Template argument size: 4088/2097152 bytes
+Highest expansion depth: 15/100
+Expensive parser function count: 6/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 89730/5000000 bytes
+Lua time usage: 0.336/10.000 seconds
+Lua memory usage: 7374634/52428800 bytes
+Number of Wikibase entities loaded: 1/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  582.914      1 -total
+ 29.88%  174.190      1 Template:Reflist
+ 17.38%  101.318      4 Template:Navbox
+ 17.19%  100.181      1 Template:ProbDistributions
+ 16.06%   93.627      5 Template:Cite_web
+ 14.88%   86.731      1 Template:Short_description
+ 10.53%   61.354      2 Template:Pagetype
+  6.63%   38.651      3 Template:Rp
+  6.05%   35.279      6 Template:Cite_journal
+  6.02%   35.084      1 Template:Citation_needed Saved in parser cache with key enwiki:pcache:1045553:|#|:idhash:canonical and timestamp 20250812014356 and revision id 1304223992. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Multinomial_distribution&oldid=1304223992 " Categories : Discrete distributions Multivariate discrete distributions Factorial and binomial topics Exponential family distributions Hidden categories: Articles with short description Short description matches Wikidata All articles with unsourced statements Articles with unsourced statements from April 2020 Articles to be expanded from March 2024 All articles to be expanded Pages that use a deprecated format of the math tags This page was last edited on 4 August 2025, at 19:16 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Multinomial distribution 23 languages Add topic
+

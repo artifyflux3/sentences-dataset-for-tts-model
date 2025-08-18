@@ -1,0 +1,233 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Terminology 2 Obtaining ranges 3 Solution methods Toggle Solution methods subsection 3.1 Two Cartesian dimensions, two measured slant ranges (trilateration) 3.2 Three Cartesian dimensions, three measured slant ranges 3.3 Two spherical dimensions, two or more measured spherical ranges 3.4 Redundant range measurements 3.5 One-time application versus repetitive application 3.6 Hybrid multilateration systems 4 Preliminary and final computations 5 Applications 6 See also 7 References 8 External links Toggle the table of contents True-range multilateration Add languages Add links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia (Redirected from Trilaterate ) Using distance measures along a shape's edges to determine position in space For broader coverage of this topic, see Multilateration .
+
+This article needs additional citations for verification .
+
+Please help improve this article by adding citations to reliable sources . Unsourced material may be challenged and removed.
+
+Find sources: "True-range multilateration" – news · newspapers · books · scholar · JSTOR ( June 2017 ) ( Learn how and when to remove this message ) True-range multilateration (also termed range-range multilateration and spherical multilateration ) is a method to determine the location of a movable vehicle or stationary point in space using multiple ranges ( distances ) between the vehicle/point and multiple spatially-separated known locations (often termed "stations").
+
+[ 1 ] [ 2 ] Energy waves may be involved in determining range, but are not required.
+
+True-range multilateration is both a mathematical topic and an applied technique used in several fields. A practical application involving a fixed location occurs in surveying .
+
+[ 3 ] [ 4 ] Applications involving vehicle location are termed navigation when on-board persons/equipment are informed of its location, and are termed surveillance when off-vehicle entities are informed of the vehicle's location.
+
+Two slant ranges from two known locations can be used to locate a third point in a two-dimensional Cartesian space (plane), which is a frequently applied technique (e.g., in surveying). Similarly, two spherical ranges can be used to locate a point on a sphere, which is a fundamental concept of the ancient discipline of celestial navigation — termed the altitude intercept problem. Moreover, if more than the minimum number of ranges are available, it is good practice to utilize those as well. This article addresses the general issue of position determination using multiple ranges.
+
+In two-dimensional geometry , it is known that if a point lies on two circles, then the circle centers and the two radii provide sufficient information to narrow the possible locations down to two – one of which is the desired solution and the other is an ambiguous solution. Additional information often narrow the possibilities down to a unique location. In three-dimensional geometry, when it is known that a point lies on the surfaces of three spheres, then the centers of the three spheres along with their radii also provide sufficient information to narrow the possible locations down to no more than two (unless the centers lie on a straight line).
+
+True-range multilateration can be contrasted to the more frequently encountered pseudo-range multilateration , which employs range differences to locate a (typically, movable) point. Pseudo range multilateration is almost always implemented by measuring times-of-arrival (TOAs) of energy waves. True-range multilateration can also be contrasted to triangulation , which involves the measurement of angles .
+
+Terminology [ edit ] There is no accepted or widely-used general term for what is termed true-range multilateration here . That name is selected because it: (a) is an accurate description and partially familiar terminology ( multilateration is often used in this context); (b) avoids specifying the number of ranges involved (as does, e.g., range-range ; (c) avoids implying an application (as do, e.g., DME/DME navigation or trilateration ) and (d) and avoids confusion with the more common pseudo-range multilateration .
+
+Obtaining ranges [ edit ] Main article: Ranging For similar ranges and measurement errors, a navigation and surveillance system based on true-range multilateration provide service to a significantly larger 2-D area or 3-D volume than systems based on pseudo-range multilateration . However, it is often more difficult or costly to measure true-ranges than it is to measure pseudo ranges. For distances up to a few miles and fixed locations, true-range can be measured manually. This has been done in surveying for several thousand years  –  e.g., using ropes and chains.
+
+For longer distances and/or moving vehicles, a radio/radar system is generally needed. This technology was first developed circa 1940 in conjunction with radar. Since then, three methods have been employed: Two-way range measurement, one party active  –  This is the method used by traditional radars (sometimes termed primary radars) to determine the range of a non-cooperative target, and now used by laser rangefinders . Its major limitations are that: (a) the target does not identify itself, and in a multiple target situation, mis-assignment of a return can occur; (b) the return signal is attenuated (relative to the transmitted signal) by the fourth power of the vehicle-station range (thus, for distances of tens of miles or more, stations generally require high-power transmitters and/or large/sensitive antennas); and (c) many systems utilize line-of-sight propagation, which limits their ranges to less than 20 miles when both parties are at similar heights above sea level.
+
+Two-way range measurement, both parties active  –  This method was reportedly first used for navigation by the Y-Gerät aircraft guidance system fielded in 1941 by the Luftwaffe. It is now used globally in air traffic control – e.g., secondary radar surveillance and DME/DME navigation. It requires that both parties have both transmitters and receivers, and may require that interference issues be addressed.
+
+One-way range measurement  –  The time of flight (TOF) of electromagnetic energy between multiple stations and the vehicle is measured based on transmission by one party and reception by the other. This is the most recently developed method, and was enabled by the development of atomic clocks ; it requires that the vehicle (user) and stations having synchronized clocks. It has been successfully demonstrated (experimentally) with Loran-C and GPS.
+
+[ 2 ] [ 5 ] Solution methods [ edit ] This section needs expansion . You can help by adding to it .
+
+( June 2017 ) True-range multilateration algorithms may be partitioned based on problem space dimension (generally, two or three), problem space geometry (generally, Cartesian or spherical) and presence of redundant measurements (more than the problem space dimension).
+
+Any pseudo-range multilateration algorithm can be specialized for use with true-range multilateration.
+
+Two Cartesian dimensions, two measured slant ranges (trilateration) [ edit ] Fig. 1 2-D Cartesian true-range multilateration (trilateration) scenario.
+
+C1 and C2 are centers of circles having known separation U {\displaystyle U} .
+
+P is point whose ( x , y ) {\displaystyle (x,y)} coordinates are desired based on U {\displaystyle U} and measured ranges r 1 {\displaystyle r_{1}} and r 2 {\displaystyle r_{2}} .
+
+An analytic solution has likely been known for over 1,000 years, and is given in several texts.
+
+[ 6 ] Moreover, one can easily adapt algorithms for a three dimensional Cartesian space.
+
+The simplest algorithm employs analytic geometry and a station-based coordinate frame. Thus, consider the circle centers (or stations) C1 and C2 in Fig. 1 which have known coordinates (e.g., have already been surveyed) and thus whose separation U {\displaystyle U} is known. The figure 'page' contains C1 and C2 . If a third 'point of interest' P (e.g., a vehicle or another point to be surveyed) is at unknown point ( x , y ) {\displaystyle (x,y)} , then Pythagoras's theorem yields r 1 2 = x 2 + y 2 r 2 2 = ( U − − x ) 2 + y 2 {\displaystyle {\begin{aligned}r_{1}^{2}&=x^{2}+y^{2}\\[4pt]r_{2}^{2}&=(U-x)^{2}+y^{2}\end{aligned}}} Thus, x = r 1 2 − − r 2 2 + U 2 2 U y = ± ± r 1 2 − − x 2 {\displaystyle {\begin{aligned}x&={\frac {r_{1}^{2}-r_{2}^{2}+U^{2}}{2U}}\\[4pt]y&=\pm {\sqrt {r_{1}^{2}-x^{2}}}\end{aligned}}} 1 Note that y {\displaystyle y} has two values (i.e., solution is ambiguous); this is usually not a problem.
+
+While there are many enhancements, Equation 1 is the most fundamental true-range multilateration relationship. Aircraft DME/DME navigation and the trilateration method of surveying are examples of its application. During World War II Oboe and during the Korean War SHORAN used the same principle to guide aircraft based on measured ranges to two ground stations. SHORAN was later used for off-shore oil exploration and for aerial surveying. The Australian Aerodist aerial survey system utilized 2-D Cartesian true-range multilateration.
+
+[ 7 ] This 2-D scenario is sufficiently important that the term trilateration is often applied to all applications involving a known baseline and two range measurements.
+
+The baseline containing the centers of the circles is a line of symmetry. The correct and ambiguous solutions are perpendicular to and equally distant from (on opposite sides of) the baseline. Usually, the ambiguous solution is easily identified. For example, if P is a vehicle, any motion toward or away from the baseline will be opposite that of the ambiguous solution; thus, a crude measurement of vehicle heading is sufficient. A second example: surveyors are well aware of which side of the baseline that P lies. A third example: in applications where P is an aircraft and C1 and C2 are on the ground, the ambiguous solution is usually below ground.
+
+If needed, the interior angles of triangle C1-C2-P can be found using the trigonometric law of cosines . Also, if needed, the coordinates of P can be expressed in a second, better-known coordinate system—e.g., the Universal Transverse Mercator (UTM) system —provided the coordinates of C1 and C2 are known in that second system. Both are often done in surveying when the trilateration method is employed.
+
+[ 8 ] Once the coordinates of P are established, lines C1-P and C2-P can be used as new baselines, and additional points surveyed. Thus, large areas or distances can be surveyed based on multiple, smaller triangles—termed a traverse .
+
+An implied assumption for the above equation to be true is that r 1 {\displaystyle r_{1}} and r 2 {\displaystyle r_{2}} relate to the same position of P . When P is a vehicle, then typically r 1 {\displaystyle r_{1}} and r 2 {\displaystyle r_{2}} must be measured within a synchronization tolerance that depends on the vehicle speed and the allowable vehicle position error. Alternatively,  vehicle motion between range measurements may be accounted for, often by dead reckoning.
+
+A trigonometric solution is also possible (side-side-side case). Also, a solution employing graphics is possible. A graphical solution is sometimes employed during real-time navigation, as an overlay on a map.
+
+Three Cartesian dimensions, three measured slant ranges [ edit ] Fig. 2 3-D True-Range Multilateration Scenario. C1, C2 and C3 are known centers of spheres in the x,y plane. P is point whose (x,y,z) coordinates are desired based on its ranges to C1, C2 and C3.
+
+3-D Tri lateration limits the potential positions amount to two (here A or B) There are multiple algorithms that solve the 3-D Cartesian true-range multilateration problem directly (i.e., in closed-form) – e.g., Fang.
+
+[ 9 ] Moreover, one can adopt closed-form algorithms developed for pseudo range multilateration .
+
+[ 10 ] [ 6 ] Bancroft's algorithm [ 11 ] (adapted) employs vectors, which is an advantage in some situations.
+
+The simplest algorithm corresponds to the sphere centers in Fig. 2. The figure 'page' is the plane containing C1 , C2 and C3 . If P is a 'point of interest' (e.g., vehicle) at ( x , y , z ) {\displaystyle (x,y,z)} , then Pythagoras's theorem yields the slant ranges between P and the sphere centers: r 1 2 = x 2 + y 2 + z 2 r 2 2 = ( x − − U ) 2 + y 2 + z 2 r 3 2 = ( x − − V x ) 2 + ( y − − V y ) 2 + z 2 {\displaystyle {\begin{aligned}r_{1}^{2}&=x^{2}+y^{2}+z^{2}\\[4pt]r_{2}^{2}&=(x-U)^{2}+y^{2}+z^{2}\\[4pt]r_{3}^{2}&=(x-V_{x})^{2}+(y-V_{y})^{2}+z^{2}\end{aligned}}} Thus, the coordinates of P are: x = r 1 2 − − r 2 2 + U 2 2 U y = r 1 2 − − r 3 2 + V x 2 + V y 2 − − 2 V x x 2 V y z = ± ± r 1 2 − − x 2 − − y 2 {\displaystyle {\begin{aligned}x&={\frac {r_{1}^{2}-r_{2}^{2}+U^{2}}{2U}}\\[4pt]y&={\frac {r_{1}^{2}-r_{3}^{2}+V_{x}^{2}+V_{y}^{2}-2V_{x}x}{2V_{y}}}\\[4pt]z&=\pm {\sqrt {r_{1}^{2}-x^{2}-y^{2}}}\end{aligned}}} 2 The plane containing the sphere centers is a plane of symmetry. The correct and ambiguous solutions are perpendicular to it and equally distant from it, on opposite sides.
+
+Many applications of 3-D true-range multilateration involve short ranges—e.g., precision manufacturing.
+
+[ 12 ] Integrating range measurement from three or more radars (e.g., FAA's ERAM ) is a 3-D aircraft surveillance application. 3-D true-range multilateration has been used on an experimental basis with GPS satellites for aircraft navigation.
+
+[ 5 ] The requirement that an aircraft be equipped with an atomic clock precludes its general use. However, GPS receiver clock aiding is an area of active research, including aiding over a network. Thus, conclusions may change.
+
+[ 13 ] 3-D true-range multilateration was evaluated by the International Civil Aviation Organization as an aircraft landing system, but another technique was found to be more efficient.
+
+[ 14 ] Accurately measuring the altitude of aircraft during approach and landing requires many ground stations along the flight path.
+
+Two spherical dimensions, two or more measured spherical ranges [ edit ] Fig. 3 Example of celestial navigation altitude intercept problem (lines of position are distorted by the map projection) This is a classic celestial (or astronomical) navigation problem, termed the altitude intercept problem (Fig. 3). It's the spherical geometry equivalent of the trilateration method of surveying (although the distances involved are generally much larger). A solution at sea (not necessarily involving the Sun and Moon) was made possible by the marine chronometer (introduced in 1761) and the discovery of the 'line of position' (LOP) in 1837. The solution method now most taught at universities (e.g., U.S. Naval Academy) employs spherical trigonometry to solve an oblique spherical triangle based on sextant measurements of the 'altitude' of two heavenly bodies.
+
+[ 15 ] [ 16 ] This problem can also be addressed using vector analysis.
+
+[ 17 ] Historically, graphical techniques – e.g., the intercept method – were employed. These can accommodate more than two measured 'altitudes'. Owing to the difficulty of making measurements at sea, 3 to 5 'altitudes' are often recommended.
+
+As the earth is better modeled as an ellipsoid of revolution than a sphere, iterative techniques may be used in modern implementations.
+
+[ 18 ] In high-altitude aircraft and missiles, a celestial navigation subsystem is often integrated with an inertial navigation subsystem to perform automated navigation—e.g., U.S. Air Force SR-71 Blackbird and B-2 Spirit .
+
+While intended as a 'spherical' pseudo range multilateration system, Loran-C has also been used as a 'spherical' true-range multilateration system by well-equipped users (e.g., Canadian Hydrographic Service).
+
+[ 2 ] This enabled the coverage area of a Loran-C station triad to be extended significantly (e.g., doubled or tripled) and the minimum number of available transmitters to be reduced from three to two. In modern aviation, slant ranges rather than spherical ranges are more often measured; however, when aircraft altitude is known, slant ranges are readily converted to spherical ranges.
+
+[ 6 ] Redundant range measurements [ edit ] When there are more range measurements available than there are problem dimensions, either from the same C1 and C2 (or C1 , C2 and C3 ) stations, or from additional stations, at least these benefits accrue: 'Bad' measurements can be identified and rejected Ambiguous solutions can be identified automatically (i.e., without human involvement) -- requires an additional station Errors in 'good' measurements can be averaged, reducing their effect.
+
+The iterative Gauss–Newton algorithm for solving non-linear least squares (NLLS) problems is generally preferred when there are more 'good' measurements than the minimum necessary. An important advantage of the Gauss–Newton method over many closed-form algorithms is that it treats range errors linearly, which is often their nature, thereby reducing the effect of range errors by averaging.
+
+[ 10 ] The Gauss–Newton method may also be used with the minimum number of measured ranges. Since it is iterative, the Gauss–Newton method requires an initial solution estimate.
+
+In 3-D Cartesian space, a fourth sphere eliminates the ambiguous solution that occurs with three ranges, provided its center is not co-planar with the first three. In 2-D Cartesian or spherical space, a third circle eliminates the ambiguous solution that occurs with two ranges, provided its center is not co-linear with the first two.
+
+One-time application versus repetitive application [ edit ] This article largely describes 'one-time' application of the true-range multilateration technique, which is the most basic use of the technique. With reference to Fig. 1, the characteristic of 'one-time' situations is that point P and at least one of C1 and C2 change from one application of the true-range multilateration technique to the next. This is appropriate for surveying, celestial navigation using manual sightings, and some aircraft DME/DME navigation.
+
+However, in other situations, the true-range multilateration technique is applied repetitively (essentially continuously). In those situations, C1 and C2 (and perhaps Cn, n = 3,4,...
+
+) remain constant and P is the same vehicle. Example applications (and selected intervals between measurements) are: multiple radar aircraft surveillance (5 and 12 seconds, depending upon radar coverage range), aerial surveying, Loran-C navigation with a high-accuracy user clock (roughly 0.1 seconds), and some aircraft DME/DME navigation (roughly 0.1 seconds). Generally, implementations for repetitive use: (a) employ a 'tracker' algorithm [ 19 ] (in addition to the multilateration solution algorithm), which enables measurements collected at different times to be compared and averaged in some manner; and (b) utilize an iterative solution algorithm, as they (b1) admit varying numbers of measurements (including redundant measurements) and (b2) inherently have an initial guess each time the solution algorithm is invoked.
+
+Hybrid multilateration systems [ edit ] Hybrid multilateration systems – those that are neither true-range nor pseudo range systems – are also possible. For example, in Fig. 1, if the circle centers are shifted to the left so that C1 is at x 1 ′ ′ = − − 1 2 U , y 1 ′ ′ = 0 {\displaystyle x_{1}^{\prime }=-{\tfrac {1}{2}}U,y_{1}^{\prime }=0} and C2 is at x 2 ′ ′ = 1 2 U , y 2 ′ ′ = 0 {\displaystyle x_{2}^{\prime }={\tfrac {1}{2}}U,y_{2}^{\prime }=0} then the point of interest P is at x ′ ′ = ( r 1 ′ ′ + r 2 ′ ′ ) ( r 1 ′ ′ − − r 2 ′ ′ ) 2 U y ′ ′ = ± ± ( r 1 ′ ′ + r 2 ′ ′ ) 2 − − U 2 U 2 − − ( r 1 ′ ′ − − r 2 ′ ′ ) 2 2 U {\displaystyle {\begin{aligned}x^{\prime }&={\frac {(r_{1}^{\prime }+r_{2}^{\prime })(r_{1}^{\prime }-r_{2}^{\prime })}{2U}}\\[4pt]y^{\prime }&=\pm {\frac {{\sqrt {(r_{1}^{\prime }+r_{2}^{\prime })^{2}-U^{2}}}{\sqrt {U^{2}-(r_{1}^{\prime }-r_{2}^{\prime })^{2}}}}{2U}}\end{aligned}}} This form of the solution explicitly depends on the sum and difference of r 1 ′ ′ {\displaystyle r_{1}^{\prime }} and r 2 ′ ′ {\displaystyle r_{2}^{\prime }} and does not require 'chaining' from the x ′ ′ {\displaystyle x^{\prime }} -solution to the y ′ ′ {\displaystyle y^{\prime }} -solution. It could be implemented as a true-range multilateration system by measuring r 1 ′ ′ {\displaystyle r_{1}^{\prime }} and r 2 ′ ′ {\displaystyle r_{2}^{\prime }} .
+
+However, it could also be implemented as a hybrid multilateration system by measuring r 1 ′ ′ + r 2 ′ ′ {\displaystyle r_{1}^{\prime }+r_{2}^{\prime }} and r 1 ′ ′ − − r 2 ′ ′ {\displaystyle r_{1}^{\prime }-r_{2}^{\prime }} using different equipment – e.g., for surveillance by a multistatic radar with one transmitter and two receivers (rather than two monostatic radars ). While eliminating one transmitter  is a benefit, there is a countervailing 'cost': the synchronization tolerance for the two stations becomes dependent on the propagation speed (typically, the speed of light) rather that the speed of point P , in order to accurately measure both r 1 ′ ′ ± ± r 2 ′ ′ {\displaystyle r_{1}^{\prime }\pm r_{2}^{\prime }} .
+
+While not implemented operationally, hybrid multilateration systems have been investigated for aircraft surveillance near airports and as a GPS navigation backup system for aviation.
+
+[ 20 ] Preliminary and final computations [ edit ] This section needs expansion . You can help by adding to it .
+
+( June 2018 ) Fig. 4 2-D true-range multi-lateration (trilateration) system ranging measurements The position accuracy of a true-range multilateration system—e.g., accuracy of the ( x , y ) {\displaystyle (x,y)} coordinates of point P in Fig. 1 -- depends upon two factors: (1) the range measurement accuracy, and (2) the geometric relationship of P to the system's stations C1 and C2 . This can be understood from Fig. 4. The two stations are shown as dots, and BLU denotes baseline units. (The measurement pattern is symmetric about both the baseline and the perpendicular bisector of the baseline, and is truncated in the figure.) As is commonly done, individual range measurement errors are taken to be independent of range, statistically independent and identically distributed. This reasonable assumption separates the effects of user-station geometry and range measurement errors on the error in the calculated ( x , y ) {\displaystyle (x,y)} coordinates of P . Here, the measurement geometry is simply the angle at which two circles cross—or equivalently, the angle between lines P-C1 and P-C2 . When point P- is not on a circle, the error in its position is approximately proportional to the area bounded by the nearest two blue and nearest two magenta circles.
+
+Without redundant measurements, a true-range multilateration system can be no more accurate than the range measurements, but can be significantly less accurate if the measurement geometry is not chosen properly. Accordingly, some applications place restrictions on the location of point P . For a 2-D Cartesian (trilateration) situation, these restrictions take one of two equivalent forms: The allowable interior angle at P between lines P-C1 and P-C2 : The ideal is a right angle, which occurs at distances from the baseline of one-half or less of the baseline length; maximum allowable deviations from the ideal 90 degrees may be specified.
+
+The horizontal dilution of precision (HDOP), which multiplies the range error in determining the position error: For two dimensions, the ideal (minimum) HDOP is the square root of 2 ( 2 ≈ ≈ 1.414 {\displaystyle {\sqrt {2}}\approx 1.414} ), which occurs when the angle between P-C1 and P-C2 is 90 degrees; a maximum allowable HDOP value may be specified. (Here, equal HDOPs are simply the locus of points in Fig. 4 having the same crossing angle.) Fig. 5 HDOP contours for a 2-D true-range multilateration (trilateration) system Planning a true-range multilateration navigation or surveillance system often involves a dilution of precision (DOP) analysis to inform decisions on the number and location of the stations and the system's service area (two dimensions) or service volume (three dimensions).
+
+[ 21 ] [ 22 ] Fig. 5 shows horizontal DOPs (HDOPs) for a 2-D, two-station true-range multilateration system.  HDOP is infinite along the baseline and its extensions, as only one of the two dimensions is actually measured. A user of such a system should be roughly broadside of the baseline and within an application-dependent range band. For example, for DME/DME navigation fixes by aircraft, the maximum HDOP permitted by the U.S. FAA is twice the minimum possible value, or 2.828, [ 23 ] which limits the maximum usage range (which occurs along the baseline bisector) to 1.866 times the baseline length. (The plane containing two DME ground stations and an aircraft is not strictly horizontal, but usually is nearly so.) Similarly, surveyors select point P in Fig. 1 so that C1-C2-P roughly form an equilateral triangle (where HDOP = 1.633).
+
+Errors in trilateration surveys are discussed in several documents.
+
+[ 24 ] [ 25 ] Generally, emphasis is placed on the effects of range measurement errors, rather than on the effects of algorithm numerical errors.
+
+Applications [ edit ] Land surveying using the trilateration method Aerial surveying Maritime archeology surveying [ 26 ] DME/DME RNAV aircraft navigation [ 23 ] [ 27 ] Multiple radar integration (e.g., FAA ERAM ) [ 28 ] Celestial navigation using the altitude intercept method Intercept method —Graphical solution to the altitude intercept problem Calibrating laser interferometers [ 12 ] SHORAN , Oboe , Gee-H —Aircraft guidance systems developed for 'blind' bombing JTIDS ( Joint Tactical Information Distribution System ) -- U.S./NATO system that (among other capabilities) locates participants in a network using inter-participant ranges USAF SR-71 Blackbird aircraft—Employs astro-inertial navigation USAF B-2 Spirit aircraft—Employs astro-inertial navigation Experimental Loran-C technique [ 2 ] Navigation and surveillance systems typically involve vehicles and require that a government entity or other organization deploy multiple stations that employ a form of radio technology (i.e., utilize electromagnetic waves). The advantages and disadvantages of employing true-range multilateration for such a system are shown in the following table.
+
+Advantages and disadvantages for vehicle navigation and surveillance Advantages Disadvantages Station locations are flexible; they can be placed centrally or peripherally Accuracy degrades slowly with distance from station (generally better than pseudo-range multilateration) Requires one fewer station than a pseudo range multilateration system Station synchronization is not demanding (based on speed of point of interest, and may be addressed by dead reckoning ) Often a user is required to have both a transmitter and a receiver Cooperative system accuracy is sensitive to equipment turn-around error Cannot be used for stealth surveillance Non-cooperative surveillance involves path losses to the fourth power of distance True-range multilateration is often contrasted with (pseudo range) multilateration, as both require a form of user ranges to multiple stations. Complexity and cost of user equipage is likely the most important factor in limiting use of true-range multilateration for vehicle navigation and surveillance. Some uses are not the original purpose for system deployment – e.g., DME/DME aircraft navigation.
+
+See also [ edit ] Distance geometry problem , similar technique applied to molecules Celestial navigation —ancient technique of navigation based on heavenly bodies Distance measuring equipment (DME) -- System used to measure distance between an aircraft and a ground station Euclidean distance Intercept method —Graphical technique used in celestial navigation Laser rangefinder Multilateration – Addresses pseudo range multilateration Rangefinder —Systems used to measure distance between two points on the ground Resection (orientation) SHORAN —Developed as a military aircraft navigation system, later used for civil purposes Surveying Tellurometer —First microwave electronic rangefinder Triangulation – Surveying method based on measuring angles References [ edit ] ^ Accuracy limitations of range-range (spherical) multilateration systems , Harry B. Lee, Massachusetts Institute of Technology, Lincoln Laboratory, Report Number: DOT/TSC-RA-3-8-(1) (Technical note 1973-43), Oct. 11, 1973 ^ a b c d " Rho-Rho Loran-C Combined with Satellite Navigation for Offshore Surveys ". S.T. Grant, International Hydrographic Review , undated ^ Wirtanen, Theodore H. (1969). "Laser Multilateration".
+
+Journal of the Surveying and Mapping Division .
+
+95 (1). American Society of Civil Engineers (ASCE): 81– 92.
+
+doi : 10.1061/jsueax.0000322 .
+
+ISSN 0569-8073 .
+
+^ Escobal, P. R.; Fliegel, H. F.; Jaffe, R. M.; Muller, P. M.; Ong, K. M.; Vonroos, O. H. (2013-08-07).
+
+"A 3-D Multilateration: A Precision Geodetic Measurement System" .
+
+JPL Quart. Tech. Rev .
+
+2 (3) . Retrieved 2022-11-06 .
+
+^ a b Impact of Rubidium Clock Aiding on GPS Augmented Vehicular Navigation , Zhaonian Zhang; University of Calgary; December, 1997.
+
+^ a b c Geyer, Michael (June 2016).
+
+Earth-Referenced Aircraft Navigation and Surveillance Analysis . U.S. DOT National Transportation Library: U.S. DOT John A. Volpe National Transportation Systems Center.
+
+^ Adastra Aerial Surveys retrieved Jan. 22, 2019.
+
+^ "The Nature of Geographic Information: Trilateration" , Pennsylvania State Univ., 2018.
+
+^ "Trilateration and extension to global positioning system navigation", B.T. Fang, Journal of Guidance, Control, and Dynamics , vol. 9 (1986), pp 715–717.
+
+^ a b " Closed-form Algorithms in Mobile Positioning: Myths and Misconceptions ", Niilo Sirola, Proceedings of the 7th Workshop on Positioning, Navigation and Communication 2010 (WPNC'10) , March 11, 2010.
+
+^ "An Algebraic Solution of the GPS Equations" , Stephen Bancroft, IEEE Transactions on Aerospace and Electronic Systems , Volume: AES-21, Issue: 7 (Jan. 1985), pp 56–59.
+
+^ a b LaserTracer – A New Type of Self Tracking Laser Interferometer , Carl-Thomas Schneider, IWAA2004, CERN, Geneva, October 2004 ^ "How a Chip-Scale Atomic Clock Can Help Mitigate Broadband Interference" ; Fang-Cheng Chan, Mathieu Joerger, Samer Khanafseh, Boris Pervan, and Ondrej Jakubov; GPS World --  Innovations ; May 2014.
+
+^ "Microwave Landing System" ; Thomas E. Evans; IEEE Aerospace and Electronic Systems Magazine ; Vol. 1, Issue 5; May 1986.
+
+^ Spherical Trigonometry , Isaac Todhunter, MacMillan; 5th edition, 1886.
+
+^ A treatise on spherical trigonometry, and its application to geodesy and astronomy, with numerous examples , John Casey, Dublin, Hodges, Figgis & Co., 1889.
+
+^ "Vector-based geodesy" , Chris Veness. 2016.
+
+^ "STELLA (System To Estimate Latitude and Longitude Astronomically)", George Kaplan, John Bangert, Nancy Oliversen; U.S. Naval Observatory, 1999.
+
+^ Tracking and Data Fusion: A Handbook of Algorithms ; Y. Bar-Shalom, P.K. Willett, X. Tian; 2011 ^ "Alternative Position, Navigation, and Timing: The Need for Robust Radionavigation" ; M.J. Narins, L.V. Eldredge, P. Enge, S.C. Lo, M.J. Harrison, and R. Kenagy; Chapter in Global Navigation Satellite Systems Joint Workshop of the National Academy of Engineering and the Chinese Academy of Engineering (2012).
+
+^ "Dilution of Precision" , Richard Langeley, GPS World , May 1999, pp 52–59.
+
+^ Accuracy Limitations of Range-Range (Spherical) Multilateration Systems , Harry B. Lee, Massachusetts Institute of Technology, Lincoln Laboratory, Technical Note 1973-43, Oct. 11, 1973.
+
+^ a b "DME/DME for Alternate Position, Navigation, and Timing (APNT)" , Robert W. Lilley and Robert Erikson, Federal Aviation Administration, White Paper, July 23, 2012.
+
+^ Statistical Methods in Surveying by Trilateration ; William Navidi, William S Murphy, Jr and Willy Hereman; December 20, 1999.
+
+^ Comparison of the Accuracy of Triangulation, Trilateration and Triangulation-Trilateration ; K.L. Provoro; Novosibirsk Institute of Engineers of Geodesy; 1960.
+
+^ "Trilateration in Maritime Archeology" , YouTube, U.S. National Oceanic and Atmospheric Administration, 2006.
+
+^ "DME/DME Accuracy", Michael Tran, Proceedings of the 2008 National Technical Meeting of The Institute of Navigation , San Diego, CA, January 2008, pp. 443–451.
+
+^ "Radar Basics" , Christian Wolff, undated External links [ edit ] stackexchange.com , PHP / Python Implementation NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐9pm59
+Cached time: 20250812064931
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.319 seconds
+Real time usage: 0.507 seconds
+Preprocessor visited node count: 1380/1000000
+Revision size: 34772/2097152 bytes
+Post‐expand include size: 24767/2097152 bytes
+Template argument size: 1504/2097152 bytes
+Highest expansion depth: 10/100
+Expensive parser function count: 6/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 39911/5000000 bytes
+Lua time usage: 0.146/10.000 seconds
+Lua memory usage: 5686061/52428800 bytes
+Number of Wikibase entities loaded: 1/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  329.823      1 -total
+ 30.32%   99.988      1 Template:Reflist
+ 23.58%   77.758      2 Template:Cite_journal
+ 19.90%   65.625      1 Template:Short_description
+ 16.66%   54.937      3 Template:Ambox
+ 16.02%   52.845      1 Template:More_citations_needed
+ 12.70%   41.877      2 Template:Pagetype
+ 10.55%   34.780      2 Template:NumBlk
+  7.90%   26.067      1 Template:Broader
+  5.22%   17.208      1 Template:Authority_control Saved in parser cache with key enwiki:pcache:702847:|#|:idhash:canonical and timestamp 20250812064931 and revision id 1275301455. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=True-range_multilateration&oldid=1275301455 " Categories : Euclidean geometry Geodesy Geopositioning Hidden categories: Articles with short description Short description with empty Wikidata description Articles needing additional references from June 2017 All articles needing additional references Articles to be expanded from June 2017 All articles to be expanded Articles to be expanded from June 2018 This page was last edited on 12 February 2025, at 06:01 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents True-range multilateration Add languages Add topic
+

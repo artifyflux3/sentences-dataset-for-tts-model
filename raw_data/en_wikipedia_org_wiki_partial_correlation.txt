@@ -1,0 +1,169 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Formal definition 2 Computation Toggle Computation subsection 2.1 Using linear regression 2.1.1 Example 2.2 Using recursive formula 2.3 Using matrix inversion 3 Interpretation Toggle Interpretation subsection 3.1 Geometrical 3.2 As conditional independence test 4 Semipartial correlation (part correlation) 5 Use in time series analysis 6 Partial correlations with Shrinkage 7 See also 8 References 9 External links Toggle the table of contents Partial correlation 15 languages العربية Català Deutsch Español Euskara فارسی Français עברית Magyar Македонски 日本語 Polski Português Українська 粵語 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Concept in probability theory and statistics Not to be confused with Coefficient of partial determination .
+
+In probability theory and statistics , partial correlation measures the degree of association between two random variables , with the effect of a set of controlling random variables removed. When determining the numerical relationship between two variables of interest, using their correlation coefficient will give misleading results if there is another confounding variable that is numerically related to both variables of interest. This misleading information can be avoided by controlling for the confounding variable, which is done by computing the partial correlation coefficient. This is precisely the motivation for including other right-side variables in a multiple regression ; but while multiple regression gives unbiased results for the effect size , it does not give a numerical value of a measure of the strength of the relationship between the two variables of interest.
+
+For example, given economic data on the consumption, income, and wealth of various individuals, consider the relationship between consumption and income. Failing to control for wealth when computing a correlation coefficient between consumption and income would give a misleading result, since income might be numerically related to wealth which in turn might be numerically related to consumption; a measured correlation between consumption and income might actually be contaminated by these other correlations. The use of a partial correlation avoids this problem.
+
+Like the correlation coefficient, the partial correlation coefficient takes on a value in the range from –1 to 1. The value –1 conveys a perfect negative correlation controlling for some variables (that is, an exact linear relationship in which higher values of one variable are associated with lower values of the other); the value 1 conveys a perfect positive linear relationship, and the value 0 conveys that there is no linear relationship.
+
+The partial correlation coincides with the conditional correlation if the random variables are jointly distributed as the multivariate normal , other elliptical , multivariate hypergeometric , multivariate negative hypergeometric , multinomial , or Dirichlet distribution , but not in general otherwise.
+
+[ 1 ] Formal definition [ edit ] Formally, the partial correlation between X and Y given a set of n controlling variables Z = { Z 1 , Z 2 , ..., Z n }, written ρ XY · Z , is the correlation between the residuals e X and e Y resulting from the linear regression of X with Z and of Y with Z , respectively. The first-order partial correlation (i.e., when n = 1) is the difference between a correlation and the product of the removable correlations divided by the product of the coefficients of alienation of the removable correlations. The coefficient of alienation , and its relation with joint variance through correlation are available in Guilford (1973, pp. 344–345).
+
+[ 2 ] Computation [ edit ] Using linear regression [ edit ] A simple way to compute the sample partial correlation for some data is to solve the two associated linear regression problems and calculate the correlation between the residuals. Let X and Y be random variables taking real values, and let Z be the n -dimensional vector-valued random variable. Let x i , y i and z i denote the i th of N {\displaystyle N} i.i.d.
+
+observations from some joint probability distribution over real random variables X , Y , and Z , with z i having been augmented with a 1 to allow for a constant term in the regression. Solving the linear regression problem amounts to finding ( n +1)-dimensional regression coefficient vectors w X ∗ ∗ {\displaystyle \mathbf {w} _{X}^{*}} and w Y ∗ ∗ {\displaystyle \mathbf {w} _{Y}^{*}} such that w X ∗ ∗ = arg ⁡ ⁡ min w { ∑ ∑ i = 1 N ( x i − − ⟨ ⟨ w , z i ⟩ ⟩ ) 2 } {\displaystyle \mathbf {w} _{X}^{*}=\arg \min _{\mathbf {w} }\left\{\sum _{i=1}^{N}(x_{i}-\langle \mathbf {w} ,\mathbf {z} _{i}\rangle )^{2}\right\}} w Y ∗ ∗ = arg ⁡ ⁡ min w { ∑ ∑ i = 1 N ( y i − − ⟨ ⟨ w , z i ⟩ ⟩ ) 2 } {\displaystyle \mathbf {w} _{Y}^{*}=\arg \min _{\mathbf {w} }\left\{\sum _{i=1}^{N}(y_{i}-\langle \mathbf {w} ,\mathbf {z} _{i}\rangle )^{2}\right\}} where N {\displaystyle N} is the number of observations, and ⟨ ⟨ w , z i ⟩ ⟩ {\displaystyle \langle \mathbf {w} ,\mathbf {z} _{i}\rangle } is the scalar product between the vectors w {\displaystyle \mathbf {w} } and z i {\displaystyle \mathbf {z} _{i}} .
+
+The residuals are then e X , i = x i − − ⟨ ⟨ w X ∗ ∗ , z i ⟩ ⟩ {\displaystyle e_{X,i}=x_{i}-\langle \mathbf {w} _{X}^{*},\mathbf {z} _{i}\rangle } e Y , i = y i − − ⟨ ⟨ w Y ∗ ∗ , z i ⟩ ⟩ {\displaystyle e_{Y,i}=y_{i}-\langle \mathbf {w} _{Y}^{*},\mathbf {z} _{i}\rangle } and the sample partial correlation is then given by the usual formula for sample correlation , but between these new derived values: ρ ρ ^ ^ X Y ⋅ ⋅ Z = N ∑ ∑ i = 1 N e X , i e Y , i − − ∑ ∑ i = 1 N e X , i ∑ ∑ i = 1 N e Y , i N ∑ ∑ i = 1 N e X , i 2 − − ( ∑ ∑ i = 1 N e X , i ) 2 N ∑ ∑ i = 1 N e Y , i 2 − − ( ∑ ∑ i = 1 N e Y , i ) 2 = N ∑ ∑ i = 1 N e X , i e Y , i N ∑ ∑ i = 1 N e X , i 2 N ∑ ∑ i = 1 N e Y , i 2 .
+
+{\displaystyle {\begin{aligned}{\hat {\rho }}_{XY\cdot \mathbf {Z} }&={\frac {N\sum _{i=1}^{N}e_{X,i}e_{Y,i}-\sum _{i=1}^{N}e_{X,i}\sum _{i=1}^{N}e_{Y,i}}{{\sqrt {N\sum _{i=1}^{N}e_{X,i}^{2}-\left(\sum _{i=1}^{N}e_{X,i}\right)^{2}}}~{\sqrt {N\sum _{i=1}^{N}e_{Y,i}^{2}-\left(\sum _{i=1}^{N}e_{Y,i}\right)^{2}}}}}\\&={\frac {N\sum _{i=1}^{N}e_{X,i}e_{Y,i}}{{\sqrt {N\sum _{i=1}^{N}e_{X,i}^{2}}}~{\sqrt {N\sum _{i=1}^{N}e_{Y,i}^{2}}}}}.\end{aligned}}} In the first expression the three terms after minus signs all equal 0 since each contains the sum of residuals from an ordinary least squares regression.
+
+Example [ edit ] Consider the following data on three variables, X , Y , and Z : X Y Z 2 1 0 4 2 0 15 3 1 20 4 1 Computing the Pearson correlation coefficient between variables X and Y results in approximately 0.970, while computing the partial correlation between X and Y , using the formula given above, gives a partial correlation of 0.919. The computations were done using R with the following code.
+
+> X <- c ( 2 , 4 , 15 , 20 ) > Y <- c ( 1 , 2 , 3 , 4 ) > Z <- c ( 0 , 0 , 1 , 1 ) > mm1 <- lm ( X ~ Z ) > res1 <- mm1 $ residuals > mm2 <- lm ( Y ~ Z ) > res2 <- mm2 $ residuals > cor ( res1 , res2 ) [1] 0.919145 > cor ( X , Y ) [1] 0.9695016 > generalCorr :: parcorMany ( cbind ( X , Y , Z )) nami namj partij   partji rijMrji [1,] "X"  "Y"  "0.8844" "1"    "-0.1156" [2,] "X"  "Z"  "0.1581" "1"    "-0.8419" The lower part of the above code reports generalized nonlinear partial correlation coefficient between X and Y after removing the nonlinear effect of Z to be 0.8844. Also, the generalized nonlinear partial correlation coefficient between X and Z after removing the nonlinear effect of Y to be 0.1581. See the R package `generalCorr' and its vignettes for details. Simulation and other details are in Vinod (2017) "Generalized correlation and kernel causality with applications in development economics," Communications in Statistics - Simulation and Computation, vol. 46, [4513, 4534], available online: 29 Dec 2015, URL https://doi.org/10.1080/03610918.2015.1122048 .
+
+Using recursive formula [ edit ] It can be computationally expensive to solve the linear regression problems. Actually, the n th-order partial correlation (i.e., with | Z | = n ) can be easily computed from three ( n - 1)th-order partial correlations. The zeroth-order partial correlation ρ XY ·Ø is defined to be the regular correlation coefficient ρ XY .
+
+It holds, for any Z 0 ∈ ∈ Z , {\displaystyle Z_{0}\in \mathbf {Z} ,} that [ 3 ] ρ ρ X Y ⋅ ⋅ Z = ρ ρ X Y ⋅ ⋅ Z ∖ ∖ { Z 0 } − − ρ ρ X Z 0 ⋅ ⋅ Z ∖ ∖ { Z 0 } ρ ρ Z 0 Y ⋅ ⋅ Z ∖ ∖ { Z 0 } 1 − − ρ ρ X Z 0 ⋅ ⋅ Z ∖ ∖ { Z 0 } 2 1 − − ρ ρ Z 0 Y ⋅ ⋅ Z ∖ ∖ { Z 0 } 2 {\displaystyle \rho _{XY\cdot \mathbf {Z} }={\frac {\rho _{XY\cdot \mathbf {Z} \setminus \{Z_{0}\}}-\rho _{XZ_{0}\cdot \mathbf {Z} \setminus \{Z_{0}\}}\rho _{Z_{0}Y\cdot \mathbf {Z} \setminus \{Z_{0}\}}}{{\sqrt {1-\rho _{XZ_{0}\cdot \mathbf {Z} \setminus \{Z_{0}\}}^{2}}}{\sqrt {1-\rho _{Z_{0}Y\cdot \mathbf {Z} \setminus \{Z_{0}\}}^{2}}}}}} Naïvely implementing this computation as a recursive algorithm yields an exponential time complexity . However, this computation has the overlapping subproblems property, such that using dynamic programming or simply caching the results of the recursive calls yields a complexity of O ( n 3 ) {\displaystyle {\mathcal {O}}(n^{3})} .
+
+Note in the case where Z is a single variable, this reduces to: [ citation needed ] ρ ρ X Y ⋅ ⋅ Z = ρ ρ X Y − − ρ ρ X Z ρ ρ Z Y 1 − − ρ ρ X Z 2 1 − − ρ ρ Z Y 2 {\displaystyle \rho _{XY\cdot Z}={\frac {\rho _{XY}-\rho _{XZ}\rho _{ZY}}{{\sqrt {1-\rho _{XZ}^{2}}}{\sqrt {1-\rho _{ZY}^{2}}}}}} Using matrix inversion [ edit ] The partial correlation can also be written in terms of the joint precision matrix. Consider a set of random variables, V = X 1 , … … , X n {\displaystyle \mathbf {V} ={X_{1},\dots ,X_{n}}} of cardinality n . We want the partial correlation between two variables X i {\displaystyle X_{i}} and X j {\displaystyle X_{j}} given all others, i.e., V ∖ ∖ { X i , X j } {\displaystyle \mathbf {V} \setminus \{X_{i},X_{j}\}} . Suppose the (joint/full) covariance matrix Σ Σ = ( σ σ i j ) {\displaystyle \Sigma =(\sigma _{ij})} is positive definite and therefore invertible . If the precision matrix is defined as Ω Ω = ( p i j ) = Σ Σ − − 1 {\displaystyle \Omega =(p_{ij})=\Sigma ^{-1}} , then ρ ρ X i X j ⋅ ⋅ V ∖ ∖ { X i , X j } = − − p i j p i i p j j {\displaystyle \rho _{X_{i}X_{j}\cdot \mathbf {V} \setminus \{X_{i},X_{j}\}}=-{\frac {p_{ij}}{\sqrt {p_{ii}p_{jj}}}}} 1 Computing this requires Σ Σ − − 1 {\displaystyle \Sigma ^{-1}} , the inverse of the covariance matrix Σ Σ {\displaystyle \Sigma } which runs in O ( n 3 ) {\displaystyle {\mathcal {O}}(n^{3})} time (using the sample covariance matrix to obtain a sample partial correlation). Note that only a single matrix inversion is required to give all the partial correlations between pairs of variables in V {\displaystyle \mathbf {V} } .
+
+To prove Equation ( 1 ), return to the previous notation (i.e.
+
+X , Y , Z ↔ ↔ X i , X j , V ∖ ∖ { X i , X j } {\displaystyle X,Y,\mathbf {Z} \leftrightarrow X_{i},X_{j},\mathbf {V} \setminus \{X_{i},X_{j}\}} ) and start with the definition of partial correlation: ρ XY · Z is the correlation between the residuals e X and e Y resulting from the linear regression of X with Z and of Y with Z , respectively.
+
+First, suppose β β , γ γ {\displaystyle \beta ,\gamma } are the coefficients for linear regression fit; that is, β β = argmin β β ⁡ ⁡ E ‖ ‖ X − − β β T Z ‖ ‖ 2 {\displaystyle \beta =\operatorname {argmin} _{\beta }\mathbb {E} \|X-\beta ^{T}Z\|^{2}} γ γ = argmin γ γ ⁡ ⁡ E ‖ ‖ Y − − γ γ T Z ‖ ‖ 2 {\displaystyle \gamma =\operatorname {argmin} _{\gamma }\mathbb {E} \|Y-\gamma ^{T}Z\|^{2}} Write the joint covariance matrix for the vector ( X , Y , Z T ) T {\displaystyle (X,Y,Z^{T})^{T}} as Σ Σ = [ Σ Σ X X Σ Σ X Y Σ Σ X Z Σ Σ Y X Σ Σ Y Y Σ Σ Y Z Σ Σ Z X Σ Σ Z Y Σ Σ Z Z ] = [ C 11 C 12 C 21 C 22 ] {\displaystyle \Sigma ={\begin{bmatrix}\Sigma _{XX}&\Sigma _{XY}&\Sigma _{XZ}\\\Sigma _{YX}&\Sigma _{YY}&\Sigma _{YZ}\\\Sigma _{ZX}&\Sigma _{ZY}&\Sigma _{ZZ}\end{bmatrix}}={\begin{bmatrix}C_{11}&C_{12}\\C_{21}&C_{22}\\\end{bmatrix}}} where C 11 = [ Σ Σ X X Σ Σ X Y Σ Σ Y X Σ Σ Y Y ] , C 12 = [ Σ Σ X Z Σ Σ Y Z ] , C 21 = [ Σ Σ Z X Σ Σ Z Y ] , C 22 = Σ Σ Z Z {\displaystyle C_{11}={\begin{bmatrix}\Sigma _{XX}&\Sigma _{XY}\\\Sigma _{YX}&\Sigma _{YY}\end{bmatrix}},\qquad C_{12}={\begin{bmatrix}\Sigma _{XZ}\\\Sigma _{YZ}\end{bmatrix}},\qquad C_{21}={\begin{bmatrix}\Sigma _{ZX}&\Sigma _{ZY}\end{bmatrix}},\qquad C_{22}=\Sigma _{ZZ}} Then the standard formula for linear regression gives β β = ( Σ Σ Z Z ) − − 1 Σ Σ Z X {\displaystyle \beta =\left(\Sigma _{ZZ}\right)^{-1}\Sigma _{ZX}} Hence, the residuals can be written as R X = X − − β β T Z = X − − Σ Σ X Z ( Σ Σ Z Z ) − − 1 Z {\displaystyle R_{X}=X-\beta ^{T}Z=X-\Sigma _{XZ}\left(\Sigma _{ZZ}\right)^{-1}Z} Note that R X {\displaystyle R_{X}} has expectation zero because of the inclusion of an intercept term in Z {\displaystyle Z} . Computing the covariance now gives Cov ⁡ ⁡ ( R X , R Y ) = E ( R X , R Y ) = ⋯ ⋯ = Σ Σ X Y − − Σ Σ X Z ( Σ Σ Z Z ) − − 1 Σ Σ Z Y {\displaystyle \operatorname {Cov} (R_{X},R_{Y})=\mathbb {E} (R_{X},R_{Y})=\dots =\Sigma _{XY}-\Sigma _{XZ}\left(\Sigma _{ZZ}\right)^{-1}\Sigma _{ZY}} 2 Next, write the precision matrix Ω Ω = Σ Σ − − 1 {\displaystyle \Omega =\Sigma ^{-1}} in a similar block form: Ω Ω = [ Ω Ω X X Ω Ω X Y Ω Ω X Z Ω Ω Y X Ω Ω Y Y Ω Ω Y Z Ω Ω Z X Ω Ω Z Y Ω Ω Z Z ] = [ P 11 P 12 P 21 P 22 ] {\displaystyle \Omega ={\begin{bmatrix}\Omega _{XX}&\Omega _{XY}&\Omega _{XZ}\\\Omega _{YX}&\Omega _{YY}&\Omega _{YZ}\\\Omega _{ZX}&\Omega _{ZY}&\Omega _{ZZ}\end{bmatrix}}={\begin{bmatrix}P_{11}&P_{12}\\P_{21}&P_{22}\\\end{bmatrix}}} Then, by Schur's formula for block-matrix inversion , P 11 − − 1 = C 11 − − C 12 C 22 − − 1 C 21 {\displaystyle P_{11}^{-1}=C_{11}-C_{12}C_{22}^{-1}C_{21}} The entries of the right-hand-side matrix are precisely the covariances previously computed in ( 2 ), giving P 11 − − 1 = [ Cov ⁡ ⁡ ( R X , R X ) Cov ⁡ ⁡ ( R X , R Y ) Cov ⁡ ⁡ ( R Y , R X ) Cov ⁡ ⁡ ( R Y , R Y ) ] {\displaystyle P_{11}^{-1}={\begin{bmatrix}\operatorname {Cov} (R_{X},R_{X})&\operatorname {Cov} (R_{X},R_{Y})\\\operatorname {Cov} (R_{Y},R_{X})&\operatorname {Cov} (R_{Y},R_{Y})\\\end{bmatrix}}} Using the formula for the inverse of a 2×2 matrix gives P 11 − − 1 = 1 det P 11 ( [ P 11 ] 22 − − [ P 11 ] 12 − − [ P 11 ] 21 [ P 11 ] 11 ) = 1 det P 11 ( p Y Y − − p X Y − − p Y X p X X ) {\displaystyle {\begin{aligned}P_{11}^{-1}&={\frac {1}{{\text{det}}P_{11}}}{\begin{pmatrix}[P_{11}]_{22}&-[P_{11}]_{12}\\-[P_{11}]_{21}&[P_{11}]_{11}\\\end{pmatrix}}\\&={\frac {1}{{\text{det}}P_{11}}}{\begin{pmatrix}p_{YY}&-p_{XY}\\-p_{YX}&p_{XX}\\\end{pmatrix}}\end{aligned}}} So indeed, the partial correlation is ρ ρ X Y ⋅ ⋅ Z = Cov ⁡ ⁡ ( R X , R Y ) Cov ⁡ ⁡ ( R X , R X ) Cov ⁡ ⁡ ( R Y , R Y ) = − − 1 det P 11 p X Y 1 det P 11 p X X 1 det P 11 p Y Y = − − p X Y p X X p Y Y {\displaystyle \rho _{XY\cdot Z}={\frac {\operatorname {Cov} (R_{X},R_{Y})}{\sqrt {\operatorname {Cov} (R_{X},R_{X})\operatorname {Cov} (R_{Y},R_{Y})}}}={\frac {-{\tfrac {1}{{\text{det}}P_{11}}}p_{XY}}{\sqrt {{\tfrac {1}{{\text{det}}P_{11}}}p_{XX}{\tfrac {1}{{\text{det}}P_{11}}}p_{YY}}}}=-{\frac {p_{XY}}{\sqrt {p_{XX}p_{YY}}}}} as claimed in ( 1 ).
+
+Interpretation [ edit ] Geometrical interpretation of partial correlation for the case of N = 3 observations and thus a 2-dimensional hyperplane Geometrical [ edit ] Let three variables X , Y , Z (where Z is the "control" or "extra variable") be chosen from a joint probability distribution over n variables V . Further, let v i , 1 ≤ i ≤ N , be N n -dimensional i.i.d.
+
+observations taken from the joint probability distribution over V . The geometrical interpretation comes from considering the N -dimensional vectors x (formed by the successive values of X over the observations), y (formed by the values of Y ), and z (formed by the values of Z ).
+
+It can be shown that the residuals e X,i coming from the linear regression of X on Z , if also considered as an N -dimensional vector e X (denoted r X in the accompanying graph), have a zero scalar product with the vector z generated by Z . This means that the residuals vector lies on an ( N –1)-dimensional hyperplane S z that is perpendicular to z .
+
+The same also applies to the residuals e Y,i generating a vector e Y . The desired partial correlation is then the cosine of the angle φ between the projections e X and e Y of x and y , respectively, onto the hyperplane perpendicular to z .
+
+[ 4 ] : ch. 7 As conditional independence test [ edit ] See also: Fisher transformation With the assumption that all involved variables are multivariate Gaussian , the partial correlation ρ XY · Z is zero if and only if X is conditionally independent from Y given Z .
+
+[ 1 ] This property does not hold in the general case.
+
+To test if a sample partial correlation ρ ρ ^ ^ X Y ⋅ ⋅ Z {\displaystyle {\hat {\rho }}_{XY\cdot \mathbf {Z} }} implies that the true population partial correlation differs from 0, Fisher's z-transform of the partial correlation can be used: z ( ρ ρ ^ ^ X Y ⋅ ⋅ Z ) = 1 2 ln ⁡ ⁡ ( 1 + ρ ρ ^ ^ X Y ⋅ ⋅ Z 1 − − ρ ρ ^ ^ X Y ⋅ ⋅ Z ) {\displaystyle z({\hat {\rho }}_{XY\cdot \mathbf {Z} })={\frac {1}{2}}\ln \left({\frac {1+{\hat {\rho }}_{XY\cdot \mathbf {Z} }}{1-{\hat {\rho }}_{XY\cdot \mathbf {Z} }}}\right)} The null hypothesis is H 0 : ρ ρ X Y ⋅ ⋅ Z = 0 {\displaystyle H_{0}:\rho _{XY\cdot \mathbf {Z} }=0} , to be tested against the two-tail alternative H A : ρ ρ X Y ⋅ ⋅ Z ≠ ≠ 0 {\displaystyle H_{A}:\rho _{XY\cdot \mathbf {Z} }\neq 0} .
+
+H 0 {\displaystyle H_{0}} can be rejected if N − − | Z | − − 3 ⋅ ⋅ | z ( ρ ρ ^ ^ X Y ⋅ ⋅ Z ) | > Φ Φ − − 1 ( 1 − − α α / 2 ) {\displaystyle {\sqrt {N-|\mathbf {Z} |-3}}\cdot |z({\hat {\rho }}_{XY\cdot \mathbf {Z} })|>\Phi ^{-1}(1-\alpha /2)} where Φ Φ {\displaystyle \Phi } is the cumulative distribution function of a Gaussian distribution with zero mean and unit standard deviation , α α {\displaystyle \alpha } is the significance level of H 0 {\displaystyle H_{0}} , and N {\displaystyle N} is the sample size . This z -transform is approximate, and the actual distribution of the sample (partial) correlation coefficient is not straightforward. However, an exact t-test based on a combination of the partial regression coefficient, the partial correlation coefficient, and the partial variances is available.
+
+[ 5 ] The distribution of the sample partial correlation was described by Fisher.
+
+[ 6 ] Semipartial correlation (part correlation) [ edit ] The semipartial (or part) correlation statistic is similar to the partial correlation statistic; both compare variations of two variables after certain factors are controlled for. However, to calculate the semipartial correlation, one holds the third variable constant for either X or Y but not both; whereas for the partial correlation, one holds the third variable constant for both.
+
+[ 7 ] The semipartial correlation compares the unique variation of one variable (having removed variation associated with the Z variable(s)) with the unfiltered variation of the other, while the partial correlation compares the unique variation of one variable to the unique variation of the other.
+
+The semipartial correlation can be viewed as more practically relevant "because it is scaled to (i.e., relative to) the total variability in the dependent (response) variable." [ 8 ] Conversely, it is less theoretically useful because it is less precise about the role of the unique contribution of the independent variable.
+
+The absolute value of the semipartial correlation of X with Y is always less than or equal to that of the partial correlation of X with Y . The reason is this: Suppose the correlation of X with Z has been removed from X , giving the residual vector e x . In computing the semipartial correlation, Y still contains both unique variance and variance due to its association with Z . But e x , being uncorrelated with Z , can only explain some of the unique part of the variance of Y and not the part related to Z . In contrast, with the partial correlation, only e y (the part of the variance of Y that is unrelated to Z ) is to be explained, so there is less variance of the type that e x cannot explain.
+
+Use in time series analysis [ edit ] In time series analysis , the partial autocorrelation function (sometimes "partial correlation function") of a time series is defined, for lag h {\displaystyle h} , as [ citation needed ] φ φ ( h ) = ρ ρ X 0 X h ⋅ ⋅ { X 1 , … … , X h − − 1 } {\displaystyle \varphi (h)=\rho _{X_{0}X_{h}\,\cdot \,\{X_{1},\,\dots \,,X_{h-1}\}}} This function is used to determine the appropriate lag length for an autoregression .
+
+Partial correlations with Shrinkage [ edit ] When the sample size is smaller than the number of variables, a.k.a. high-dimensional setting, estimating partial correlations can be challenging. In this scenario, the sample covariance Σ Σ ^ ^ {\displaystyle {\hat {\Sigma }}} is not well-conditioned, and finding its inverse Ω Ω ^ ^ {\displaystyle {\hat {\Omega }}} turns problematic.
+
+Shrinkage_estimation methods improve Σ Σ ^ ^ {\displaystyle {\hat {\Sigma }}} or Ω Ω ^ ^ {\displaystyle {\hat {\Omega }}} and produces more reliable partial correlation estimates. One example is the Ledoit-Wolf shrinkage estimator, [ 9 ] Σ Σ ^ ^ [ λ λ ] = λ λ T + ( 1 − − λ λ ) Σ Σ {\displaystyle {\hat {\Sigma }}^{[\lambda ]}=\lambda T+(1-\lambda )\Sigma } where Σ Σ ^ ^ {\displaystyle {\hat {\Sigma }}} is the sample covariance matrix, T {\displaystyle T} is a target matrix (e.g., a diagonal matrix), and the shrinkage intensity λ λ ∈ ∈ ( 0 , 1 ) {\displaystyle \lambda \in (0,1)} .
+
+The partial correlation under the Ledoit-Wolf shrinkage [ 10 ] is then: P ^ ^ i j [ λ λ ] = Ω Ω ^ ^ i j [ λ λ ] Ω Ω ^ ^ i i [ λ λ ] Ω Ω ^ ^ j j [ λ λ ] {\displaystyle {\hat {P}}_{ij}^{[\lambda ]}={\frac {{\hat {\Omega }}_{ij}^{[\lambda ]}}{\sqrt {{\hat {\Omega }}_{ii}^{[\lambda ]}{\hat {\Omega }}_{jj}^{[\lambda ]}}}}} where Ω Ω ^ ^ i j [ λ λ ] {\displaystyle {\hat {\Omega }}_{ij}^{[\lambda ]}} is the inverse of Σ Σ ^ ^ i j [ λ λ ] {\displaystyle {\hat {\Sigma }}_{ij}^{[\lambda ]}} . This method is used in a variety of fields including finance and genomics.
+
+[ 11 ] See also [ edit ] Linear regression Conditional independence Multiple correlation Partial information decomposition References [ edit ] ^ a b Baba, Kunihiro; Ritei Shibata; Masaaki Sibuya (2004). "Partial correlation and conditional correlation as measures of conditional independence".
+
+Australian and New Zealand Journal of Statistics .
+
+46 (4): 657– 664.
+
+doi : 10.1111/j.1467-842X.2004.00360.x .
+
+S2CID 123130024 .
+
+^ Guilford J. P., Fruchter B. (1973).
+
+Fundamental statistics in psychology and education . Tokyo: McGraw-Hill Kogakusha, LTD.
+
+^ Kim, Seongho (November 2015).
+
+"ppcor: An R Package for a Fast Calculation to Semi-partial Correlation Coefficients" .
+
+Communications for Statistical Applications and Methods .
+
+22 (6): 665– 674.
+
+doi : 10.5351/CSAM.2015.22.6.665 .
+
+ISSN 2287-7843 .
+
+PMC 4681537 .
+
+PMID 26688802 .
+
+^ Rummel, R. J. (1976).
+
+"Understanding Correlation" .
+
+^ Kendall MG, Stuart A. (1973) The Advanced Theory of Statistics , Volume 2 (3rd Edition), ISBN 0-85264-215-6 , Section 27.22 ^ Fisher, R.A.
+
+(1924).
+
+"The distribution of the partial correlation coefficient" .
+
+Metron .
+
+3 ( 3– 4): 329– 332.
+
+^ "Partial and Semipartial Correlation" . Archived from the original on 6 February 2014.
+
+^ StatSoft, Inc. (2010).
+
+"Semi-Partial (or Part) Correlation" , Electronic Statistics Textbook. Tulsa, OK: StatSoft, accessed January 15, 2011.
+
+^ Ledoit, O., & Wolf, M. (2004). "A well-conditioned estimator for large-dimensional covariance matrices".
+
+Journal of Multivariate Analysis , 88(2), 365–411.
+
+https://doi.org/10.1016/S0047-259X(03)00096-4 ^ Schäfer, J., & Strimmer, K. (2005). "A shrinkage approach to large-scale covariance matrix estimation and implications for functional genomics".
+
+Statistical applications in genetics and molecular biology , 4(1).
+
+https://doi.org/10.2202/1544-6115.1175 ^ Ledoit, O., & Wolf, M. (2022). The power of (non-) linear shrinking: A review and guide to covariance matrix estimation.
+
+Journal of Financial Econometrics , 20(1), 187-218.
+
+https://doi.org/10.1093/jjfinec/nbaa007 External links [ edit ] Wikiversity has learning resources about Partial correlation Prokhorov, A.V. (2001) [1994], "Partial correlation coefficient" , Encyclopedia of Mathematics , EMS Press Mathematical formulae in the "Description" section of the IMSL Numerical Library PCORR routine A three-variable example v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐z7226
+Cached time: 20250812010418
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.565 seconds
+Real time usage: 0.889 seconds
+Preprocessor visited node count: 3033/1000000
+Revision size: 24301/2097152 bytes
+Post‐expand include size: 167672/2097152 bytes
+Template argument size: 3762/2097152 bytes
+Highest expansion depth: 16/100
+Expensive parser function count: 7/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 53641/5000000 bytes
+Lua time usage: 0.268/10.000 seconds
+Lua memory usage: 7355316/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  529.120      1 -total
+ 27.86%  147.408      1 Template:Statistics
+ 27.32%  144.558      1 Template:Navbox_with_collapsible_groups
+ 23.43%  123.955      1 Template:Reflist
+ 16.23%   85.877      3 Template:Cite_journal
+ 13.23%   70.011      1 Template:Short_description
+ 10.93%   57.821     11 Template:Navbox
+  8.28%   43.835      2 Template:Pagetype
+  6.99%   37.011      2 Template:Citation_needed
+  6.82%   36.072      2 Template:NumBlk Saved in parser cache with key enwiki:pcache:8771567:|#|:idhash:canonical and timestamp 20250812010418 and revision id 1282735083. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Partial_correlation&oldid=1282735083 " Categories : Covariance and correlation Autocorrelation Hidden categories: Use dmy dates from September 2023 Articles with short description Short description matches Wikidata All articles with unsourced statements Articles with unsourced statements from October 2019 Articles with unsourced statements from July 2023 Articles with example R code This page was last edited on 28 March 2025, at 08:17 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Partial correlation 15 languages Add topic
+

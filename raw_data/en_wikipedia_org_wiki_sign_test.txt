@@ -1,0 +1,163 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Method 2 Assumptions 3 Significance testing 4 Example of two-sided sign test for matched pairs 5 Examples Toggle Examples subsection 5.1 Example of one-sided sign test for matched pairs 5.2 Example of sign test for median of a single sample 6 Software implementations Toggle Software implementations subsection 6.1 Excel software for the sign test 6.2 R software for the sign test 7 History 8 Relationship to other statistical tests Toggle Relationship to other statistical tests subsection 8.1 Wilcoxon signed-rank test 8.2 Paired t-test 8.3 McNemar's test 8.4 Friedman test 8.5 Trinomial test 9 See also 10 References Toggle the table of contents Sign test 11 languages Deutsch Euskara فارسی Français 한국어 Italiano Nederlands Polski Português Русский Suomi Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Statistical test with teststatistic the number of signs of one type The sign test is a statistical test for consistent differences between pairs of observations, such as the weight of subjects before and after treatment. Given pairs of observations (such as weight pre- and post-treatment) for each subject, the sign test determines if one member of the pair (such as pre-treatment) tends to be greater than (or less than) the other member of the pair (such as post-treatment).
+
+The paired observations may be designated x and y . For comparisons of paired observations ( x ,y), the sign test is most useful if comparisons can only be expressed as x > y , x = y , or x < y . If, instead, the observations can be expressed as numeric quantities ( x = 7, y = 18), or as ranks (rank of x = 1st, rank of y = 8th), then the paired t-test [ 1 ] or the Wilcoxon signed-rank test [ 2 ] typically have greater power than the sign test for detecting consistent differences. However, they require more stringent assumptions, and when these assumptions are violated, they frequently yield incorrect results.
+
+[ 3 ] If X and Y are quantitative variables, the sign test can be used to test the hypothesis that the difference between the X and Y has zero median, assuming continuous distributions of the two random variables X and Y , in the situation when we can draw paired samples from X and Y .
+
+[ 4 ] The sign test can also test if the median of a collection of numbers is significantly greater than or less than a specified value. For example, given a list of student grades in a class, the sign test can determine if the median grade is significantly different from, say, 75 out of 100.
+
+The sign test is a non-parametric test which makes very few assumptions about the nature of the distributions under test – this means that it has very general applicability but may lack the statistical power of the alternative tests.
+
+The two conditions for the paired-sample sign test are that a sample must be randomly selected from each population, and the samples must be dependent, or paired. 
+Independent samples cannot be meaningfully paired. Since the test is nonparametric, the samples need not come from normally distributed populations. Also, the test works for left-tailed, right-tailed, and two-tailed tests.
+
+Method [ edit ] Let p = Pr( X > Y ), and then test the null hypothesis H 0 : p = 0.50. In other words, the null hypothesis states that given a random pair of measurements ( x i , y i ), then x i and y i are equally likely to be larger than the other.
+
+To test the null hypothesis, independent pairs of sample data are collected from the populations {( x 1 , y 1 ), ( x 2 , y 2 ), . . ., ( x n , y n )}. Pairs are omitted for which there is no difference so that there is a possibility of a reduced sample of m pairs.
+
+[ 5 ] Then let W be the number of pairs for which y i − x i > 0. Assuming that H 0 is true, then W follows a binomial distribution W ~ b( m , 0.5).
+
+Assumptions [ edit ] Let Z i = Y i – X i for i = 1, ... , n .
+
+The differences Z i are assumed to be independent.
+
+Each Z i comes from the same continuous population.
+
+The values X i and Y i represent are ordered (at least the ordinal scale ), so the comparisons "greater than", "less than", and "equal to" are meaningful.
+
+Significance testing [ edit ] Since the test statistic is expected to follow a binomial distribution , the standard binomial test is used to calculate significance . The normal approximation to the binomial distribution can be used for large sample sizes, m > 25.
+
+[ 5 ] The left-tail value is computed by Pr( W ≤ w ), which is the p-value for the alternative H 1 : p < 0.50. This alternative means that the X measurements tend to be higher.
+
+The right-tail value is computed by Pr( W ≥ w ), which is the p-value for the alternative H 1 : p > 0.50. This alternative means that the Y measurements tend to be higher.
+
+For a two-sided alternative H 1 the p-value is twice the smaller tail-value.
+
+Example of two-sided sign test for matched pairs [ edit ] Zar gives the following example of the sign test for matched pairs. Data are collected on the length of the left hind leg and left foreleg for 10 deer.
+
+[ 6 ] Deer Hind leg length (cm) Foreleg length (cm) Difference 1 142 138 + 2 140 136 + 3 144 147 − 4 144 139 + 5 142 143 − 6 146 141 + 7 149 143 + 8 150 145 + 9 142 136 + 10 148 146 + The null hypothesis is that there is no difference between the hind leg and foreleg length in deer. The alternative hypothesis is that there is a difference between hind leg length and foreleg length. This is a two-tailed test, rather than a one-tailed test. For the two tailed test, the alternative hypothesis is that hind leg length may be either greater than or less than foreleg length. A one-sided test could be that hind leg length is greater than foreleg length, so that the difference can only be in one direction (greater than).
+
+There are n=10 deer. There are 8 positive differences and 2 negative differences. If the null hypothesis is true, that there is no difference in hind leg and foreleg lengths, then the expected number of positive differences is 5 out of 10. What is the probability that the observed result of 8 positive differences, or a more extreme result, would occur if there is no difference in leg lengths?
+
+Because the test is two-sided, a result as extreme or more extreme than 8 positive differences includes the results of 8, 9, or 10 positive differences, and the results of 0, 1, or 2 positive differences. The probability of 8 or more positives among 10 deer or 2 or fewer positives among 10 deer is the same as the probability of 8 or more heads or 2 or fewer heads in 10 flips of a fair coin. The probabilities can be calculated using the binomial test , with the probability of heads = probability of tails = 0.5.
+
+Probability of 0 heads in 10 flips of fair coin = 0.00098 Probability of 1 heads in 10 flips of fair coin = 0.00977 Probability of 2 heads in 10 flips of fair coin = 0.04395 Probability of 8 heads in 10 flips of fair coin = 0.04395 Probability of 9 heads in 10 flips of fair coin = 0.00977 Probability of 10 heads in 10 flips of fair coin = 0.00098 The two-sided probability of a result as extreme as 8 of 10 positive difference is the sum of these probabilities: 0.00098 + 0.00977 + 0.04395 + 0.04395 + 0.00977 + 0.00098 = 0.109375.
+
+Thus, the probability of observing a results as extreme as 8 of 10 positive differences in leg lengths, if there is no difference in leg lengths, is p = 0.109375. The null hypothesis is not rejected at a significance level of p = 0.05. With a larger sample size, the evidence might be sufficient to reject the null hypothesis.
+
+Because the observations can be expressed as numeric quantities (actual leg length), the paired t-test or Wilcoxon signed rank test will usually have greater power than the sign test to detect consistent differences. For this example, the paired t-test for differences indicates that there is a significant difference between hind leg length and foreleg length ( p = 0.007).
+
+If the observed result was 9 positive differences in 10 comparisons, the sign test would be significant. Only coin flips with 0, 1, 9, or 10 heads would be as extreme as or more extreme than the observed result.
+
+Probability of 0 heads in 10 flips of fair coin = 0.00098 Probability of 1 heads in 10 flips of fair coin = 0.00977 Probability of 9 heads in 10 flips of fair coin = 0.00977 Probability of 10 heads in 10 flips of fair coin = 0.00098 The probability of a result as extreme as 9 of 10 positive difference is the sum of these probabilities: 0.00098 + 0.00977 + 0.00977 + 0.00098 = 0.0215.
+
+In general, 8 of 10 positive differences is not significant ( p = 0.11), but 9 of 10 positive differences is significant ( p = 0.0215).
+
+Examples [ edit ] Example of one-sided sign test for matched pairs [ edit ] Conover [ 7 ] gives the following example using a one-sided sign test for matched pairs. A manufacturer produces two products, A and B. The manufacturer wishes to know if consumers prefer product B over product A. A sample of 10 consumers are each given product A and product B, and asked which product they prefer.
+
+The null hypothesis is that consumers do not prefer product B over product A. The alternative hypothesis is that consumers prefer product B over product A. This is a one-sided (directional) test.
+
+At the end of the study, 8 consumers preferred product B, 1 consumer preferred product A, and one reported no preference.
+
+Number of +'s (preferred B) = 8 Number of –'s (preferred A) = 1 Number of ties (no preference) = 1 The tie is excluded from the analysis, giving n = number of +'s and –'s = 8 + 1 = 9.
+
+What is the probability of a result as extreme as 8 positives in favor of B in 9 pairs, if the null hypothesis is true, that consumers have no preference for B over A? This is the probability of 8 or more heads in 9 flips of a fair coin, and can be calculated using the binomial distribution with p(heads) = p(tails) = 0.5.
+
+P(8 or 9 heads in 9 flips of a fair coin) = 0.0195. The null hypothesis is rejected, and the manufacturer concludes that consumers prefer product B over product A.
+
+Example of sign test for median of a single sample [ edit ] Sprent [ 8 ] gives the following example of a sign test for a median. In a clinical trial, survival time (weeks) is collected for 10 subjects with non-Hodgkin's lymphoma. The exact survival time was not known for one subject who was still alive after 362 weeks, when the study ended. The subjects' survival times were 49, 58, 75, 110, 112, 132, 151, 276, 281, 362+ The plus sign indicates the subject still alive at the end of the study. The researcher wished to determine if the median survival time was less than or greater than 200 weeks.
+
+The null hypothesis is that median survival is 200 weeks.
+The alternative hypothesis is that median survival is not 200 weeks. This is a two-sided test: the alternative median may be greater than or less than 200 weeks.
+
+If the null hypothesis is true, that the median survival is 200 weeks, then, in a random sample approximately half the subjects should survive less than 200 weeks, and half should survive more than 200 weeks. Observations below 200 are assigned a minus (−); observations above 200 are assigned a plus (+). For the subject survival times, there are 7 observations below 200 weeks (−) and 3 observations above 200 weeks (+) for the n=10 subjects.
+
+Because any one observation is equally likely to be above or below the population median, the number of plus scores will have a binomial distribution with mean = 0.5. What is the probability of a result as extreme as 7 in 10 subjects being below the median? This is exactly the same as the probability of a result as extreme as 7 heads in 10 tosses of a fair coin. Because this is a two-sided test, an extreme result can be either three or fewer heads or seven or more heads.
+
+The probability of observing k heads in 10 tosses of a fair coin, with p(heads) = 0.5, is given by the binomial formula: Pr(Number of heads = k ) = Choose(10, k ) × 0.5 10 The probability for each value of k is given in the table below.
+
+k 0 1 2 3 4 5 6 7 8 9 10 Pr 0.0010 0.0098 0.0439 0.1172 0.2051 0.2461 0.2051 0.1172 0.0439 0.0098 0.0010 The probability of 0, 1, 2, 3, 7, 8, 9, or 10 heads in 10 tosses is the sum of their individual probabilities: 0.0010 + 0.0098 + 0.0439 + 0.1172 + 0.1172 + 0.0439 + 0.0098 + 0.0010 = 0.3438.
+
+Thus, the probability of observing 3 or fewer plus signs or 7 or more plus signs in the survival data, if the median survival is 200 weeks, is 0.3438. The expected number of plus signs is 5 if the null hypothesis is true. Observing 3 or fewer, or 7 or more pluses is not significantly different from 5. The null hypothesis is not rejected. Because of the extremely small sample size, this sample has low power to detect a difference.
+
+Software implementations [ edit ] The sign test is a special case of the binomial test where the probability of success under the null hypothesis is p=0.5. Thus, the sign test can be performed using the binomial test, which is provided in most statistical software programs. On-line calculators for the sign test can be founded by searching for "sign test calculator". Many websites offer the binomial test, but generally offer only a two-sided version.
+
+Excel software for the sign test [ edit ] A template for the sign test using Excel is available at http://www.real-statistics.com/non-parametric-tests/sign-test/ R software for the sign test [ edit ] In R , the binomial test can be performed using the function binom.test() .
+
+The syntax for the function is binom.test ( x , n , p = 0.5 , alternative = c ( "two.sided" , "less" , "greater" ), conf.level = 0.95 ) where x = number of successes, or a vector of length 2 giving the numbers of successes and failures, respectively n = number of trials; ignored if x has length 2 p = hypothesized probability of success alternative =indicates the alternative hypothesis and must be one of "two.sided", "greater" or "less" conf.level = confidence level for the returned confidence interval.
+
+Examples of the sign test using the R function binom.test The sign test example from Zar [ 6 ] compared the length of hind legs and forelegs of deer. The hind leg was longer than the foreleg in 8 of 10 deer. Thus, there are x=8 successes in n=10 trials. The hypothesized probability of success (defined as hind leg longer than foreleg) is p = 0.5 under the null hypothesis that hind legs and forelegs do not differ in length. The alternative hypothesis is that hind leg length may be either greater than or less than foreleg length, which is a two sided test, specified as alternative="two.sided".
+
+The R command binom.test ( x = 8 , n = 10 , p = 0.5 , alternative = "two.sided" ) gives p=0.1094, as in the example.
+
+The sign test example in Conover [ 7 ] examined consumer preference for product A vs. product B. The null hypothesis was that consumers do not prefer product B over product A. The alternative hypothesis was that consumers prefer product B over product A, a one-sided test. In the study, 8 of 9 consumers who expressed a preference preferred product B over product A.
+
+The R command binom.test ( x = 8 , n = 9 , p = 0.5 , alternative = "greater" ) gives p=0.01953, as in the example.
+
+History [ edit ] See also: History of statistics Conover [ 7 ] and Sprent [ 8 ] describe John Arbuthnot 's use of the sign test in 1710. Arbuthnot examined birth records in London for each of the 82 years from 1629 to 1710.  In every year, the number of males born in London exceeded the number of females. If the null hypothesis of equal number of births is true, the probability of the observed outcome is 1/2 82 , leading Arbuthnot to conclude that the probability of male and female births were not exactly equal.
+
+For his publications in 1692 and 1710, Arbuthnot is credited with "… the first use of significance tests …", [ 9 ] the first example of reasoning about statistical significance and moral certainty, [ 10 ] and "… perhaps the first published report of a nonparametric test …".
+
+[ 7 ] Hald [ 10 ] further describes the impact of Arbuthnot's research.
+
+"Nicholas Bernoulli (1710–1713) completes the analysis of Arbuthnot's data by showing that the larger part of the variation of the yearly number of male births can be explained as binomial with p = 18/35. This is the first example of fitting a binomial to data. Hence we here have a test of significance rejecting the hypothesis p = 0.5 followed by an estimation of p and a discussion of the goodness of fit …" Relationship to other statistical tests [ edit ] Wilcoxon signed-rank test [ edit ] The sign test requires only that the observations in a pair be ordered, for example x > y . In some cases, the observations for all subjects can be assigned a rank value (1, 2, 3, ...).  If the observations can be ranked, and each observation in a pair is a random sample from a symmetric distribution, then the Wilcoxon signed-rank test is appropriate. The Wilcoxon test will generally have greater power to detect differences than the sign test. The asymptotic relative efficiency of the sign test to the Wilcoxon signed rank test, under these circumstances, is 0.67.
+
+[ 7 ] Paired t-test [ edit ] If the paired observations are numeric quantities (such as the actual length of the hind leg and foreleg in the Zar example), and the differences between paired observations are random samples from a single normal distribution, then the paired t-test is appropriate. The paired t-test will generally have greater power to detect differences than the sign test. The asymptotic relative efficiency of the sign test to the paired t-test, under these circumstances, is 0.637. However, if the distribution of the differences between pairs is not normal, but instead is heavy-tailed ( platykurtic distribution ), the sign test can have more power than the paired t-test, with asymptotic relative efficiency of 2.0 relative to the paired t-test and 1.3 relative to the Wilcoxon signed rank test.
+
+[ 7 ] McNemar's test [ edit ] In some applications, the observations within each pair can only take the values 0 or 1. For example, 0 may indicate failure and 1 may indicate success. There are 4 possible pairs: {0,0}, {0,1}, {1,0}, and {1,1}. In these cases, the same procedure as the sign test is used, but is known as McNemar's test .
+
+[ 7 ] Friedman test [ edit ] Instead of paired observations such as (Product A, Product B), the data may consist of three or more levels (Product A, Product B, Product C). If the individual observations can be ordered in the same way as for the sign test, for example B > C > A, then the Friedman test may be used.
+
+[ 6 ] Trinomial test [ edit ] Bian, McAleer and Wong [ 11 ] proposed in 2011 a non-parametric test for paired data when there are many ties. They showed that their trinomial test is superior to the sign test in presence of ties.
+
+See also [ edit ] Wilcoxon signed-rank test – A more powerful variant of the sign test, but one which also assumes a symmetric distribution and interval data.
+
+Median test – An unpaired alternative to the sign test.
+
+References [ edit ] ^ Baguley, Thomas (2012), Serious Stats: A Guide to Advanced Statistics for the Behavioral Sciences , Palgrave Macmillan, p. 281, ISBN 9780230363557 .
+
+^ Corder, Gregory W.; Foreman, Dale I. (2014), "3.6 Statistical Power" , Nonparametric Statistics: A Step-by-Step Approach (2nd ed.), John Wiley & Sons, ISBN 9781118840429 .
+
+^ "Wilcoxon-Signed-Rank Test" , SpringerReference , Berlin/Heidelberg: Springer-Verlag , retrieved 2025-07-09 ^ The Sign Test for a Median // STAT 415 Intro Mathematical Statistics. Penn State University.
+
+^ a b Mendenhall W, Wackerly DD, Scheaffer RL (1989), "15: Nonparametric statistics", Mathematical statistics with applications (Fourth ed.), PWS-Kent, pp.
+
+674– 679, ISBN 0-534-92026-8 ^ a b c Zar, Jerold H. (1999), "Chapter 24: More on Dichotomous Variables", Biostatistical Analysis (Fourth ed.), Prentice-Hall, pp.
+
+516– 570, ISBN 0-13-081542-X ^ a b c d e f g Conover, W.J. (1999), "Chapter 3.4: The Sign Test", Practical Nonparametric Statistics (Third ed.), Wiley, pp.
+
+157– 176, ISBN 0-471-16068-7 ^ a b Sprent, P. (1989), Applied Nonparametric Statistical Methods (Second ed.), Chapman & Hall, ISBN 0-412-44980-3 ^ Bellhouse, P. (2001), "John Arbuthnot", in C.C. Heyde ; E. Seneta (eds.), in Statisticians of the Centuries , Springer, pp.
+
+39– 42, ISBN 0-387-95329-9 ^ a b Hald, Anders (1998), "Chapter 4. Chance or Design: Tests of Significance", A History of Mathematical Statistics from 1750 to 1930 , Wiley, p. 65 ^ Bian G, McAleer M, Wong WK (2011), A trinomial test for paired data when there are many ties.
+
+, Mathematics and Computers in Simulation, 81(6), pp.
+
+1153– 1160 Gibbons, J.D.
+
+and Chakraborti, S. (1992). Nonparametric Statistical Inference. Marcel Dekker Inc., New York.
+
+Kitchens, L.J.(2003).
+
+Basic Statistics and Data Analysis.
+
+Duxbury.
+
+Conover, W. J. (1980).
+
+Practical Nonparametric Statistics , 2nd ed. Wiley, New York.
+
+Lehmann, E. L. (1975).
+
+Nonparametrics: Statistical Methods Based on Ranks.
+
+Holden and Day, San Francisco.
+
+v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject Retrieved from " https://en.wikipedia.org/w/index.php?title=Sign_test&oldid=1301379362 " Categories : Statistical tests Nonparametric statistics Hidden categories: Articles with short description Short description matches Wikidata Articles with example R code This page was last edited on 19 July 2025, at 13:37 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Sign test 11 languages Add topic
+

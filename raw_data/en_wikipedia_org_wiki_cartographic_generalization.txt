@@ -1,0 +1,391 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 History 2 Theories of Map detail 3 Operators Toggle Operators subsection 3.1 Select 3.2 Simplify 3.3 Smooth 3.4 Merge 3.5 Aggregate 3.6 Typify 3.7 Collapse 3.8 Reclassify 3.9 Exaggerate 3.10 Displace 3.11 Enhance 4 GIS and automated generalization 5 Scaling law 6 The 'Baltimore phenomenon' 7 See also 8 References 9 Further reading 10 External links Toggle the table of contents Cartographic generalization 13 languages Deutsch Eesti Esperanto Français Italiano Lietuvių Magyar 日本語 پښتو Polski Русский Українська 粵語 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Reduction of information complexity on maps Cartographic generalization , or map generalization , includes all changes in a map that are made when one derives a smaller-scale map from a larger-scale map or map data. It is a core part of cartographic design . Whether done manually by a cartographer or by a computer or set of algorithms , generalization seeks to abstract spatial information at a high level of detail to information that can be rendered on a map at a lower level of detail.
+
+The cartographer has license to adjust the content within their maps to create a suitable and useful map that conveys spatial information, while striking the right balance between the map's purpose and the precise detail of the subject being mapped. Well generalized maps are those that emphasize the most important map elements while still representing the world in the most faithful and recognizable way.
+
+History [ edit ] During the first half of the 20th century, cartographers began to think seriously about how the features they drew depended on scale.
+
+Eduard Imhof , one of the most accomplished academic and professional cartographers at the time, published a study of city plans on maps at a variety of scales in 1937, itemizing several forms of generalization that occurred, including those later termed symbolization, merging, simplification, enhancement, and displacement.
+
+[ 1 ] As analytical approaches to geography arose in the 1950s and 1960s, generalization, especially line simplification and raster smoothing, was a target of study.
+
+[ 2 ] [ 3 ] [ 4 ] Generalization was probably the most thoroughly studied aspect of cartography from the 1970s to the 1990s. This is probably because it fit within both of the major two research trends of the era: cartographic communication (especially signal processing algorithms based on Information theory ), and the opportunities afforded by technological advance (because of its potential for automation). Early research focused primarily on algorithms for automating individual generalization operations.
+
+[ 5 ] By the late 1980s, academic cartographers were thinking bigger, developing a general theory of generalization, and exploring the use of expert systems and other nascent Artificial intelligence technologies to automate the entire process, including decisions on which tools to use when.
+
+[ 6 ] [ 7 ] These tracks foundered somewhat in the late 1990s, coinciding with a general loss of faith in the promise of AI, and the rise of post-modern criticisms of the impacts of the automation of design.
+
+In recent years, the generalization community has seen a resurgence, fueled in part by the renewed opportunities of AI. Another  recent trend has been a focus on multi-scale mapping , integrating GIS databases developed for several target scales, narrowing the scope of need for generalization to the scale "gaps" between them, a more manageable level for automation.
+
+[ 8 ] Theories of Map detail [ edit ] Generalization is often defined simply as removing detail, but it is based on the notion, originally adopted from Information theory , of the volume of information or detail found on the map, and how that volume is controlled by map scale, map purpose, and intended audience. If there is an optimal amount of information for a given map project, then generalization is the process of taking existing available data, often called (especially in Europe) the digital landscape model (DLM),  which usually but not always has a larger amount of information than needed, and processing it to create a new data set, often called the digital cartographic model (DCM), with the desired amount.
+
+[ 6 ] Many general conceptual models have been proposed for understanding this process, often attempting to capture the decision process of the human master cartographer. One of the most popular models, developed by McMaster and Shea in 1988, divides these decisions into three phases: Philosophical objectives , the general reasons why generalization is desirable or necessary, and criteria for evaluating its success; Cartometric evaluation , the characteristics of a given map (or feature within that map) that demands generalization; and Spatial and attribute transformations , the set of generalization operators available to use on a given feature, layer, or map.
+
+[ 7 ] In the first, most conceptual phase, McMaster and Shea show how generalization plays a central role in resolving the often conflicting goals of Cartographic design as a whole: functionality vs. aesthetics, information richness vs. clarity, and the desire to do more vs. the limitations of technology and medium. These conflicts can be reduced to a basic conflict between the need for more data on the map, and the need for less, with generalization as the tool for balancing them.
+
+One challenge with the information theory approach to generalization is its basis on measuring the amount of information on the map, before and after generalization procedures.
+
+[ 9 ] One could conceive of a map being quantified by its map information density , the average number of "bits" of information per unit area on the map (or its corollary, information resolution , the average distance between bits), and by its ground information density or resolution , the same measures per unit area on the Earth. Scale would thus be proportional to the ratio between them, and a change in scale would require the adjustment of one or both of them by means of generalization.
+
+But what counts as a "bit" of map information? In specific cases, that is not difficult, such as counting the total number of features on the map, or the number of vertices in a single line (possibly reduced to the number of salient vertices); such straightforwardness explains why these were early targets for generalization research.
+
+[ 4 ] However, it is a challenge for the map in general, in which questions arise such as "how much graphical information is there in a map label: one bit (the entire word), a bit for each character, or bits for each vertex or curve in every character, as if they were each area features?" Each option can be relevant at different times.
+
+This measurement is further complicated by the role of map symbology , which can affect the apparent information density . A map with a strong visual hierarchy (i.e., with less important layers being subdued but still present) carries an aesthetic of being "clear" because it appears at first glance to contain less data than it really does; conversely, a map with no visual hierarchy, in which all layers seem equally important, might be summarized as "cluttered" because one's first impression is that it contains more data than it really does.
+
+[ 10 ] Designing a map to achieve the desired gestalt aesthetic is therefore about managing the apparent information density more than the actual information density. In the words of Edward Tufte , [ 11 ] Confusion and clutter are failures of design, not attributes of information. And so the point is to find design strategies that reveal detail and complexity--rather than to fault the data for an excess of complication.
+
+There is recent work that recognizes the role of map symbols, including the Roth-Brewer typology of generalization operators, [ 12 ] although they clarify that symbology is not a form of generalization, just a partner with generalization in achieving a desired apparent information density.
+
+[ 13 ] Operators [ edit ] There are many cartographic techniques that are used to adjust the amount of geographic data on the map. Over the decades of generalization research, over a dozen unique lists of such generalization operators have been published, with significant differences. In fact, there are multiple reviews comparing the lists, [ 5 ] [ 12 ] [ 14 ] and even they miss a few salient ones, such as that found in John Keates' first textbook (1973) that was apparently ahead of its time.
+
+[ 15 ] Some of these operations have been automated by multiple algorithms, with tools available in Geographic information systems and other software; others have proven much more difficult, with most cartographers still performing them manually.
+
+This OpenStreetMap map of Oklahoma shows the challenges of automated Selection from raw GIS data. The gaps in the highways are not due to missing data, but to shortcomings in the selection process. Note also that the point and label for Oklahoma City is missing, although its suburbs Norman and Edmond are included.
+
+Select [ edit ] Also called filter, omission One of the first operators to be recognized and analyzed, first appearing in the 1973 Keates list, [ 4 ] [ 15 ] selection is the process of simply removing entire geographic features from the map. There are two types of selection, which are combined in some models, and separated in others: Layer Selection : (also called class selection or add [ 12 ] ) the choice of which data layers or themes to include or not (for example, a street map including streets but not geology).
+
+Feature Selection : (sometimes called refinement or eliminate [ 12 ] ) the choice of which specific features to include or remove within an included layers (for example, which 50 of the millions of cities to show on a world map).
+
+In feature selection, the choice of which features to keep or exclude is more challenging than it might seem. Using a simple attribute of real-world size (city population, road width or traffic volume, river flow volume), while often easily available in existing GIS data, often produces a selection that is excessively concentrated in some areas and sparse in others. Thus, cartographers often filter them using their degree of regional importance , their prominence in their local area rather than the map as a whole, which produces a more balanced map, but is more difficult to automate. Many formulas have been developed for automatically ranking the regional importance of features, for example by balancing the raw size with the distance to the nearest feature of significantly greater size, similar to measures of Topographic prominence , but this is much more difficult for line features than points, and sometimes produces undesirable results (such as the "Baltimore Problem," in which cities that seem important get left out).
+
+Another approach is to manually encode a subjective judgment of regional importance into the GIS data, which can subsequently be used to filter features; this was the approach taken for the Natural Earth dataset created by cartographers.
+
+Simplify [ edit ] Main article: Smoothing Comparison of several common line generalization algorithms. Gray: original line (394 vertices), orange: 1973 Douglas-Peucker simplification (11 vertices), blue: 2002 PAEK smoothing (483 vertices), red: 2004 Zhou-Jones simplification (31 vertices). All were run with the same tolerance parameters.
+
+Another early focus of generalization research, [ 4 ] [ 15 ] simplification is the removal of vertices in lines and area boundaries. A variety of algorithms have been developed, but most involve searching through the vertices of the line, removing those that contribute the least to the overall shape of the line. The Ramer–Douglas–Peucker algorithm (1972/1973) is one of the earliest and still most common techniques for line simplification.
+
+[ 16 ] Most of these algorithms, especially the early ones, placed a higher priority on reducing the size of datasets in the days of limited digital storage, than on quality appearance on maps, and often produce lines that look excessively angular, especially on curves such as rivers. Some other algorithms include the Wang-Müller algorithm (1998) which looks for critical bends and is typically more accurate at the cost of processing time, and the Zhou-Jones algorithm (2005) and Visvalingam-Whyatt algorithm (1992) which use properties of the triangles within the polygon to determine which vertices to remove.
+
+[ 17 ] 1:24,000 and 1:100,000 (inset) geological maps of the same area in Zion National Park , Utah . Deriving the smaller from the larger would require several generalization operations, including selection to eliminate less important features (e.g., minor faults), smoothing of area boundaries, classification of similar formations into broader categories (e.g., Qmsc + Qmsy > Qms), merging of small areas into dissimilar but larger ones (e.g., Qmt), exaggeration of very narrow areas (Jms/Jks), and displacement of areas adjacent to exaggerated areas. Actually, both maps were compiled independently.
+
+Smooth [ edit ] Main article: Smoothing For line features (and area boundaries), Smoothing seems similar to simplification, and in the past, was sometimes combined with simplification. The difference is that smoothing is designed to make the overall shape of the line look simpler by removing small details; which may actually require more vertices than the original. Simplification tends to make a curved line look angular, while Smoothing tends to do the opposite.
+
+The smoothing principle is also often used to generalize raster representations of fields , often using a Kernel smoother approach. This was actually one of the first published generalization algorithms, by Waldo Tobler in 1966.
+
+[ 3 ] Merge [ edit ] Also called dissolve, amalgamation, agglomeration, or combine This operation, identified by Imhof in 1937, [ 1 ] involves combining neighboring features into a single feature of the same type, at scales where the distinction between them is not important. For example, a mountain chain may consist of several isolated ridges in the natural environment, but shown as a continuous chain on a small scale the map. Or, adjacent buildings in a complex could be combined into a single "building." For proper interpretation, the map reader must be aware that because of scale limitations combined elements are not perfect depictions of natural or manmade features.
+
+[ 18 ] Dissolve is a common GIS tool that is used for this generalization operation, [ 19 ] but additional tools GIS tools have been developed for specific situations, such as finding very small polygons and merging them into neighboring larger polygons.  This operator is different from aggregation because there is no change in dimensionality (i.e. lines are dissolved into lines and polygons into polygons), and the original and final objects are of the same conceptual type (e.g., building becomes building).
+
+Aggregate [ edit ] Also called combine or regionalization Aggregation is the merger of multiple features into a new composite feature, often of increased Dimension (usually points to areas). The new feature is of an ontological type different than the original individuals, because it conceptualizes the group.  For example, a multitude of "buildings" can be turned into a single region representing an "urban area" (not a "building"), or a cluster of "trees" into a "forest".
+
+[ 16 ] Some GIS software has aggregation tools that identify clusters of features and combine them.
+
+[ 20 ] Aggregation differs from Merging in that it can operate across dimensions, such as aggregating points to lines, points to polygons, lines to polygons, and polygons to polygons, and that there is a conceptual difference between the source and product.
+
+Typify [ edit ] Also called distribution refinement Typify is a symbology operator that replaces a large set of similar features with a smaller number of representative symbols, resulting in a sparser, cleaner map.
+
+[ 21 ] For example, an area with dozens of mines might be symbolized with only 3 or 4 mine symbols that do not represent actual mine locations, just the general presence of mines in the area. Unlike the aggregation operator which replaces many related features with a single "group" feature, the symbols used in the typify operator still represent individuals, just "typical" individuals. It reduces the density of features while still maintaining its relative location and design. When using the typify operator, a new set of symbols is created, it does not change the spatial data. This operator can be used on point, line, and polygon features.
+
+Collapse [ edit ] Also called Symbolize This operator reduces the Dimension of a feature, such as the common practice of representing cities (2-dimensional) as points (0-dimensional), and roads (2-dimensional) as lines (1-dimensional). Frequently, a Map symbol is applied to the resultant geometry to give a general indication of its original extent, such as point diameter to represent city population or line thickness to represent the number of lanes in a road. Imhof (1937) discusses these particular generalizations at length.
+
+[ 1 ] This operator frequently mimics a similar cognitive generalization practice. For example, unambiguously discussing the distance between two cities implies a point conceptualization of a city, and using phrases like "up the road" or "along the road" or even street addresses implies a line conceptualization of a road.
+
+Reclassify [ edit ] Main article: Categorization This operator primarily simplifies the attributes of the features, although a geometric simplification may also result. While Categorization is used for a wide variety of purposes, in this case the task is to take a large range of values that is too complex to represent on the map of a given scale, and reduce it to a few categories that is much simpler to represent, especially if geographic patterns result in large regions of the same category. An example would be to take a land cover layer with 120 categories, and group them into 5 categories (urban, agriculture, forest, water, desert), which would make a spatially simpler map. For discrete fields (also known as categorical coverages or area-class maps) represented as vector polygons , such as land cover , climate type , soil type , city zoning , or surface geology , reclassification often results in adjacent polygons with the same category, necessitating a subsequent dissolve operation to merge them.
+
+Exaggerate [ edit ] In this OpenStreetMap map of Loveland Pass , Colorado , symbol exaggeration of the thickness of the roads has made them run together. Geometric exaggeration of the hairpin turns and displacement of the roads alongside the interstate are needed to clarify the road network.
+
+Exaggeration is the partial adjustment of geometry or symbology to make some aspect of a feature larger than it really is, in order to make them more visible, recognizable, or higher in the visual hierarchy . For example, a set of tight switchbacks in a road would run together on a small-scale map, so the road is redrawn with the loops larger and further apart than in reality. A symbology example would be drawing highways as thick lines in a small-scale map that would be miles wide if measured according to the scale. Exaggeration often necessitates a subsequent displacement operation because the exaggerated feature overlaps the actual location of nearby features, necessitating their adjustment.
+
+[ 16 ] Displace [ edit ] Also called conflict resolution Displacement can be employed when two objects are so close to each other that they would overlap at smaller scales, especially when an exaggerate operator has made the two objects larger than they really are. A common place where this would occur is the cities Brazzaville and Kinshasa on either side of the Congo river in Africa. They are both the capital city of their country and on overview maps they would be displayed with a slightly larger symbol than other cities. Depending on the scale of the map the symbols would overlap. By displacing both of them away from the river (and away from their true location) the symbol overlap can be avoided. Another common case is when a road and a railroad run parallel to each other. Keates (1973) was one of the first to use the modern terms for exaggeration and displacement and discuss their close relationship, but they were recognized as early as Imhof (1937) [ 1 ] [ 15 ] Enhance [ edit ] This is the addition of symbols or other details on a smaller scale map to make a particular feature make more sense, especially when such understanding is important the map purpose. A common example is the addition of a bridge symbol to emphasize that a road crossing is not at grade, but an overpass . At a large scale, such a symbol may not be necessary because of the different symbology and the increased space to show the actual relationship. This addition may seem counter-intuitive if one only thinks of generalization as the removal of detail. This is one of the least commonly listed operators.
+
+[ 12 ] GIS and automated generalization [ edit ] As GIS developed from about the late 1960s onward, the need for automatic, algorithmic generalization techniques became clear. Ideally, agencies responsible for collecting and maintaining spatial data should try to keep only one canonical representation of a given feature, at the highest possible level of detail. That way there is only one record to update when that feature changes in the real world.
+
+[ 5 ] From this large-scale data, it should ideally be possible, through automated generalization, to produce maps and other data products at any scale required. The alternative is to maintain separate databases each at the scale required for a given set of mapping projects, each of which requires attention when something changes in the real world.
+
+Several broad approaches to generalization were developed around this time: The representation-oriented view focuses on the representation of data on different scales, which is related to the field of Multi-Representation Databases (MRDB).
+
+[ citation needed ] The process-oriented view focuses on the process of generalization.
+
+[ citation needed ] The ladder-approach is a stepwise generalization, in which each derived dataset is based on the other database of the next larger scale.
+
+[ citation needed ] The star-approach is the derived data on all scales is based on a single (large-scale) data base.
+
+[ citation needed ] Scaling law [ edit ] There are far more small geographic features than large ones in the Earth's surface, or far more small things than large ones in maps. This notion of far more small things than large ones is also called spatial heterogeneity, which has been formulated as scaling law.
+
+[ 22 ] Cartographic generalization or any mapping practices in general is essentially to retain the underlying scaling of numerous smallest, a very few largest, and some in between the smallest and largest.
+
+[ 23 ] This mapping process can be efficiently and effectively achieved by head/tail breaks , [ 24 ] [ 25 ] a new classification scheme or visualization tool for data with a heavy tailed distribution. Scaling law is likely to replace Töpfer's radical law to be a universal law for various mapping practices. What underlies scaling law is something of paradigm shift from Euclidean geometry to fractal, from non-recursive thinking to recursive thinking.
+
+[ 26 ] The 'Baltimore phenomenon' [ edit ] The Baltimore phenomenon [ citation needed ] , or Baltimore effect is the tendency for a city (or other object) to be omitted from maps due to space constraints while smaller cities are included on the same map simply because space is available to display them. This phenomenon owes its name to the city of Baltimore, Maryland , which tends to be omitted on maps due to the presence of larger cities in close proximity within the Mid-Atlantic United States, namely Washington D.C , the capital of the United States . Inversely, as larger cities near Baltimore appear on maps, smaller and lesser known cities such as Alice Springs and Yulara in Australia may also appear at the same scale simply because there is enough space for them on the map.
+
+[ citation needed ] Although the Baltimore phenomenon occurs more frequently on automated mapping sites, it does not occur at every scale. Popular mapping sites like Google Maps, Bing Maps, OpenStreetMap, and Yahoo Maps will only begin displaying Baltimore at certain zoom levels: 5th, 6th, 7th, etc.
+
+[ citation needed ] See also [ edit ] Cartographic censorship References [ edit ] ^ a b c d Imhof, Eduard (1937).
+
+"Das Siedlungsbild in der Karte (The Settlement Plan on the Map)" .
+
+Announcements from the Zurich Geographical-Ethnographic Society .
+
+37 : 17.
+
+^ Perkal, Julian (1958) "Proba obiektywnej generalizacji," Geodezja i Karografia , VII:2 (1958), pp.130-142. English translation, 1965, " An Attempt at Objective Generalization ," Discussion Papers of The Michigan Inter-university Community of Mathematical Geographers ^ a b Tobler, Waldo R. (1966).
+
+"Numerical Map Generalization" (PDF) .
+
+Discussion Papers of the Michigan Inter-university Community of Mathematical Geographers (8).
+
+^ a b c d Töpfer, F.; Pillewizer, W. (1966).
+
+"The Principles of Selection" .
+
+The Cartographic Journal .
+
+3 (1): 10– 16.
+
+Bibcode : 1966CartJ...3...10T .
+
+doi : 10.1179/caj.1966.3.1.10 .
+
+^ a b c Li, Zhilin (February 2007). "Digital Map Generalization at the Age of the Enlightenment: A review of the First Forty Years".
+
+The Cartographic Journal .
+
+44 (1): 80– 93.
+
+Bibcode : 2007CartJ..44...80L .
+
+doi : 10.1179/000870407x173913 .
+
+hdl : 10397/29285 .
+
+S2CID 129964222 .
+
+^ a b Brassel, Kurt E.; Weibel, Robert (1988). "A review and conceptual framework of automated map generalization".
+
+International Journal of Geographical Information Systems .
+
+2 (3): 229– 244.
+
+doi : 10.1080/02693798808927898 .
+
+^ a b McMaster, Robert; Shea, K. Stuart (1992).
+
+Generalisation in Digital Cartography . Association of American Geographers.
+
+^ Mackaness, William A.; Ruas, Anne; Sarjakoski, L. Tiina (2007).
+
+Generalization of Geographic Information: Cartographic Modelling and Applications . International Cartographic Association, Elsevier.
+
+ISBN 978-0-08-045374-3 .
+
+^ Ciołkosz-Styk, Agata; Styk, Adam (2011).
+
+"Measuring maps graphical density via digital image processing method on the example of city maps" (PDF) .
+
+Geoinformation Issues .
+
+3 (1): 61– 76.
+
+Bibcode : 2012GeIss...3...61C .
+
+^ Touya, Guillaume; Hoarau, Charlotte; Christophe, Sidonie (2016).
+
+"Clutter and Map Legibility in Automated Cartography: A Research Agenda" .
+
+Cartographica .
+
+51 (4): 198– 207.
+
+doi : 10.3138/cart.51.4.3132 .
+
+S2CID 132136841 .
+
+^ Tufte, Edward (1990).
+
+Envisioning Information . Graphics Press. p. 53.
+
+^ a b c d e Roth, Robert E.; Brewer, Cynthia A.; Stryker, Michael S. (2011).
+
+"A typology of operators for maintaining legible map designs at multiple scales" .
+
+Cartographic Perspectives (68): 29– 64.
+
+doi : 10.14714/CP68.7 .
+
+^ Brewer, Cynthia A.; Buttenfield, Barbara P. (2010).
+
+"Mastering map scale: balancing workloads using display and geometry change in multi-scale mapping" .
+
+GeoInformatica .
+
+14 (2): 221– 239.
+
+Bibcode : 2010GInfo..14..221B .
+
+doi : 10.1007/s10707-009-0083-6 .
+
+^ Tyner, Judith (2010).
+
+Principles of Map Design . Guilford Press. pp.
+
+82– 90.
+
+ISBN 978-1-60623-544-7 .
+
+^ a b c d Keates, John S. (1973).
+
+Cartographic design and production . Longman. pp.
+
+22– 28.
+
+ISBN 0-582-48440-5 .
+
+^ a b c Stern, Boris (2014). "Generalisation of Map Data".
+
+Geographic Information Technology Training Alliance : 08– 11.
+
+^ "Simplify Polygon (Cartography)—ArcGIS Pro | Documentation" .
+
+^ Raveneau, Jean (1993).
+
+"[Review of] Monmonier, Mark (1991) How to Lie with Maps. Chicago, University of Chicago Press, 176 p. (ISBN 0-226-53415-4)" .
+
+Cahiers de Géographie du Québec .
+
+37 (101): 392.
+
+doi : 10.7202/022356ar .
+
+ISSN 0007-9766 .
+
+^ "How Dissolve (Data Management) Works" .
+
+ArcGIS Desktop . Retrieved 2018-12-13 .
+
+^ Jones, D.E.; Bundy, G.L.; Ware, J.M. (1995). "Map generalization with a triangulated data structure".
+
+Cartography and Geographic Information Systems .
+
+22 (4): 317– 331.
+
+^ "The ScaleMaster Typology: Literature Foundation" (PDF) . Retrieved 2018-12-20 .
+
+^ Jiang, Bin (2015a). "Geospatial analysis requires a different way of thinking: The problem of spatial heterogeneity".
+
+GeoJournal .
+
+80 (1): 1– 13.
+
+arXiv : 1401.5889 .
+
+Bibcode : 2015GeoJo..80....1J .
+
+doi : 10.1007/s10708-014-9537-y .
+
+S2CID 119248806 .
+
+^ Jiang, Bin (2015b). "The fractal nature of maps and mapping".
+
+International Journal of Geographical Information Science .
+
+29 (1): 159– 174.
+
+arXiv : 1406.5410 .
+
+Bibcode : 2015IJGIS..29..159J .
+
+doi : 10.1080/13658816.2014.953165 .
+
+S2CID 39170068 .
+
+^ Jiang, Bin (2015c). "Head/tail breaks for visualization of city structure and dynamics".
+
+Cities .
+
+43 (3): 69– 77.
+
+arXiv : 1501.03046 .
+
+doi : 10.1016/j.cities.2014.11.013 .
+
+S2CID 119221425 .
+
+^ Jiang, Bin (2013). "Head/tail breaks: A new classification scheme for data with a heavy-tailed distribution".
+
+The Professional Geographer .
+
+65 (3): 482– 494.
+
+arXiv : 1209.2801 .
+
+Bibcode : 2013ProfG..65..482J .
+
+doi : 10.1080/00330124.2012.700499 .
+
+S2CID 119297992 .
+
+^ Jiang, Bin (2017).
+
+"Scaling as a design principle for cartography" .
+
+Annals of GIS .
+
+23 (1): 67– 69.
+
+Bibcode : 2017AnGIS..23...67J .
+
+doi : 10.1080/19475683.2016.1251491 .
+
+Further reading [ edit ] Buttenfield, B. P., & McMaster, R. B. (Eds.). (1991).
+
+Map Generalization: making rules for knowledge representation . New York: John Wiley and Sons.
+
+Harrie, L. (2003). Weight-setting and quality assessment in simultaneous graphic generalization.
+
+Cartographic Journal , 40(3), 221–233.
+
+Lonergan, M., & Jones, C. B. (2001). An iterative displacement method for conflict resolution in map generalization.
+
+Algorithmica , 30, 287–301.
+
+Li, Z. (2006).
+
+Algorithmic Foundations of Multi-Scale Spatial Representation . Boca Raton: CRC Press.
+
+Qi, H., & Zhaloi, L. (2004). Progress in studies on automated generalization of spatial point cluster.
+
+IEEE Letters on Remote Sensing , 2994, 2841–2844.
+
+Burdziej J., Gawrysiak P. (2012) Using Web Mining for Discovering Spatial Patterns and Hot Spots for Spatial Generalization. In: Chen L., Felfernig A., Liu J., Raś Z.W. (eds) Foundations of Intelligent Systems. ISMIS 2012. Lecture Notes in Computer Science, vol 7661. Springer, Berlin, Heidelberg Jiang B. and Yin J. (2014), Ht-index for quantifying the fractal or scaling structure of geographic features, Annals of the Association of American Geographers , 104(3), 530–541.
+
+Jiang B., Liu X. and Jia T. (2013), Scaling of geographic space as a universal rule for map generalization, Annals of the Association of American Geographers , 103(4), 844–855.
+
+Chrobak T., Szombara S., Kozioł K., Lupa M. (2017), A method for assessing generalized data accuracy with linear object resolution verification, Geocarto International , 32(3), 238–256.
+
+External links [ edit ] The ICA commission on generalization NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐xbkgt
+Cached time: 20250812014512
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.377 seconds
+Real time usage: 0.448 seconds
+Preprocessor visited node count: 3070/1000000
+Revision size: 34882/2097152 bytes
+Post‐expand include size: 67320/2097152 bytes
+Template argument size: 5116/2097152 bytes
+Highest expansion depth: 12/100
+Expensive parser function count: 5/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 99333/5000000 bytes
+Lua time usage: 0.223/10.000 seconds
+Lua memory usage: 6094634/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  384.259      1 -total
+ 57.45%  220.765      1 Template:Reflist
+ 39.69%  152.508     17 Template:Cite_journal
+ 15.88%   61.018      7 Template:Citation_needed
+ 14.99%   57.585      1 Template:Short_description
+ 12.94%   49.705      7 Template:Fix
+  8.28%   31.815      2 Template:Pagetype
+  7.50%   28.829      5 Template:Cite_book
+  6.76%   25.993     14 Template:Category_handler
+  4.74%   18.209     11 Template:Main_other Saved in parser cache with key enwiki:pcache:19163673:|#|:idhash:canonical and timestamp 20250812014512 and revision id 1294696463. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Cartographic_generalization&oldid=1294696463 " Categories : Geographic information systems Communication design Graphic design Hidden categories: Articles with short description Short description is different from Wikidata All articles with unsourced statements Articles with unsourced statements from August 2016 Articles with unsourced statements from December 2017 This page was last edited on 9 June 2025, at 08:02 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Cartographic generalization 13 languages Add topic
+

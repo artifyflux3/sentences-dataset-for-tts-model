@@ -1,0 +1,165 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Applications 2 Problem statement and algorithms 3 Centered isotonic regression 4 References 5 Further reading Toggle the table of contents Isotonic regression 4 languages Català Deutsch Français 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Type of numerical analysis An example of isotonic regression (solid red line) compared to linear regression on the same data, both fit to minimize the mean squared error . The free-form property of isotonic regression means the line can be steeper where the data are steeper; the isotonicity constraint means the line does not decrease.
+
+Part of a series on Regression analysis Models Linear regression Simple regression Polynomial regression General linear model Generalized linear model Vector generalized linear model Discrete choice Binomial regression Binary regression Logistic regression Multinomial logistic regression Mixed logit Probit Multinomial probit Ordered logit Ordered probit Poisson Multilevel model Fixed effects Random effects Linear mixed-effects model Nonlinear mixed-effects model Nonlinear regression Nonparametric Semiparametric Robust Quantile Isotonic Principal components Least angle Local Segmented Errors-in-variables Estimation Least squares Linear Non-linear Ordinary Weighted Generalized Generalized estimating equation Partial Total Non-negative Ridge regression Regularized Least absolute deviations Iteratively reweighted Bayesian Bayesian multivariate Least-squares spectral analysis Background Regression validation Mean and predicted response Errors and residuals Goodness of fit Studentized residual Gauss–Markov theorem Mathematics portal v t e In statistics and numerical analysis , isotonic regression or monotonic regression is the technique of fitting a free-form line to a sequence of observations such that the fitted line is non-decreasing (or non-increasing) everywhere, and lies as close to the observations as possible.
+
+Applications [ edit ] Isotonic regression has applications in statistical inference . For example, one might use it to fit an isotonic curve to the means of some set of experimental results when an increase in those means according to some particular ordering is expected. A benefit of isotonic regression is that it is not constrained by any functional form, such as the linearity imposed by linear regression , as long as the function is monotonic increasing.
+
+Another application is nonmetric multidimensional scaling , [ 1 ] where a low-dimensional embedding for data points is sought such that order of distances between points in the embedding matches order of dissimilarity between points.  Isotonic regression is used iteratively to fit ideal distances to preserve relative dissimilarity order.
+
+Isotonic regression is also used in probabilistic classification to calibrate the predicted probabilities of supervised machine learning models.
+
+[ 2 ] Isotonic regression for the simply ordered case with univariate x , y {\displaystyle x,y} has been applied to estimating continuous dose-response relationships in fields such as anesthesiology and toxicology. Narrowly speaking, isotonic regression only provides point estimates at observed values of x .
+
+{\displaystyle x.} Estimation of the complete dose-response curve without any additional assumptions is usually done via linear interpolation between the point estimates.
+
+[ 3 ] Software for computing isotone (monotonic) regression has been developed for R , [ 4 ] [ 5 ] [ 6 ] Stata , and Python .
+
+[ 7 ] Problem statement and algorithms [ edit ] Let ( x 1 , y 1 ) , … … , ( x n , y n ) {\displaystyle (x_{1},y_{1}),\ldots ,(x_{n},y_{n})} be a given set of observations, where the y i ∈ ∈ R {\displaystyle y_{i}\in \mathbb {R} } and the x i {\displaystyle x_{i}} fall in some partially ordered set .  For generality, each observation ( x i , y i ) {\displaystyle (x_{i},y_{i})} may be given a weight w i ≥ ≥ 0 {\displaystyle w_{i}\geq 0} , although commonly w i = 1 {\displaystyle w_{i}=1} for all i {\displaystyle i} .
+
+Isotonic regression seeks a weighted least-squares fit y ^ ^ i ≈ ≈ y i {\displaystyle {\hat {y}}_{i}\approx y_{i}} for all i {\displaystyle i} , subject to the constraint that y ^ ^ i ≤ ≤ y ^ ^ j {\displaystyle {\hat {y}}_{i}\leq {\hat {y}}_{j}} whenever x i ≤ ≤ x j {\displaystyle x_{i}\leq x_{j}} .  This gives the following quadratic program (QP) in the variables y ^ ^ 1 , … … , y ^ ^ n {\displaystyle {\hat {y}}_{1},\ldots ,{\hat {y}}_{n}} : min ∑ ∑ i = 1 n w i ( y ^ ^ i − − y i ) 2 {\displaystyle \min \sum _{i=1}^{n}w_{i}({\hat {y}}_{i}-y_{i})^{2}} subject to y ^ ^ i ≤ ≤ y ^ ^ j for all ( i , j ) ∈ ∈ E {\displaystyle {\hat {y}}_{i}\leq {\hat {y}}_{j}{\text{ for all }}(i,j)\in E} where E = { ( i , j ) : x i ≤ ≤ x j } {\displaystyle E=\{(i,j):x_{i}\leq x_{j}\}} specifies the partial ordering of the observed inputs x i {\displaystyle x_{i}} (and may be regarded as the set of edges of some directed acyclic graph (dag) with vertices 1 , 2 , … … n {\displaystyle 1,2,\ldots n} ).  Problems of this form may be solved by generic quadratic programming techniques.
+
+In the usual setting where the x i {\displaystyle x_{i}} values fall in a totally ordered set such as R {\displaystyle \mathbb {R} } , we may assume WLOG that the observations have been sorted so that x 1 ≤ ≤ x 2 ≤ ≤ ⋯ ⋯ ≤ ≤ x n {\displaystyle x_{1}\leq x_{2}\leq \cdots \leq x_{n}} , and take E = { ( i , i + 1 ) : 1 ≤ ≤ i < n } {\displaystyle E=\{(i,i+1):1\leq i<n\}} .  In this case, a simple iterative algorithm for solving the quadratic program is the pool adjacent violators algorithm . Conversely, Best and Chakravarti [ 8 ] studied the problem as an active set identification problem, and proposed a primal algorithm. These two algorithms can be seen as each other's dual, and both have a computational complexity of O ( n ) {\displaystyle O(n)} on already sorted data.
+
+[ 8 ] To complete the isotonic regression task, we may then choose any non-decreasing function f ( x ) {\displaystyle f(x)} such that f ( x i ) = y ^ ^ i {\displaystyle f(x_{i})={\hat {y}}_{i}} for all i.  Any such function obviously solves min f ∑ ∑ i = 1 n w i ( f ( x i ) − − y i ) 2 {\displaystyle \min _{f}\sum _{i=1}^{n}w_{i}(f(x_{i})-y_{i})^{2}} subject to f {\displaystyle f} being nondecreasing and can be used to predict the y {\displaystyle y} values for new values of x {\displaystyle x} .  A common choice when x i ∈ ∈ R {\displaystyle x_{i}\in \mathbb {R} } would be to interpolate linearly between the points ( x i , y ^ ^ i ) {\displaystyle (x_{i},{\hat {y}}_{i})} , as illustrated in the figure, yielding a continuous piecewise linear function: f ( x ) = { y ^ ^ 1 if x ≤ ≤ x 1 y ^ ^ i + x − − x i x i + 1 − − x i ( y ^ ^ i + 1 − − y ^ ^ i ) if x i ≤ ≤ x ≤ ≤ x i + 1 y ^ ^ n if x ≥ ≥ x n {\displaystyle f(x)={\begin{cases}{\hat {y}}_{1}&{\text{if }}x\leq x_{1}\\{\hat {y}}_{i}+{\frac {x-x_{i}}{x_{i+1}-x_{i}}}({\hat {y}}_{i+1}-{\hat {y}}_{i})&{\text{if }}x_{i}\leq x\leq x_{i+1}\\{\hat {y}}_{n}&{\text{if }}x\geq x_{n}\end{cases}}} Centered isotonic regression [ edit ] As this article's first figure shows, in the presence of monotonicity violations the resulting interpolated curve will have flat (constant) intervals. In dose-response applications it is usually known that f ( x ) {\displaystyle f(x)} is not only monotone but also smooth . The flat intervals are incompatible with f ( x ) {\displaystyle f(x)} 's assumed shape, and can be shown to be biased. A simple improvement for such applications, named centered isotonic regression (CIR), was developed by Oron and Flournoy and shown to substantially reduce estimation error for both dose-response and dose-finding applications.
+
+[ 9 ] Both CIR and the standard isotonic regression for the univariate, simply ordered case, are implemented in the R package "cir".
+
+[ 4 ] This package also provides analytical confidence-interval estimates.
+
+References [ edit ] ^ Kruskal, J. B.
+
+(1964). "Nonmetric Multidimensional Scaling: A numerical method".
+
+Psychometrika .
+
+29 (2): 115– 129.
+
+doi : 10.1007/BF02289694 .
+
+S2CID 11709679 .
+
+^ Niculescu-Mizil, Alexandru; Caruana, Rich (2005). "Predicting good probabilities with supervised learning". In De Raedt, Luc; Wrobel, Stefan (eds.).
+
+Proceedings of the Twenty-Second International Conference on Machine Learning (ICML 2005), Bonn, Germany, August 7–11, 2005 . ACM International Conference Proceeding Series. Vol. 119. Association for Computing Machinery. pp.
+
+625– 632.
+
+doi : 10.1145/1102351.1102430 .
+
+^ Stylianou, MP; Flournoy, N (2002). "Dose finding using the biased coin up-and-down design and isotonic regression".
+
+Biometrics .
+
+58 (1): 171– 177.
+
+doi : 10.1111/j.0006-341x.2002.00171.x .
+
+PMID 11890313 .
+
+S2CID 8743090 .
+
+^ a b Oron, Assaf.
+
+"Package 'cir' " .
+
+CRAN . R Foundation for Statistical Computing . Retrieved 26 December 2020 .
+
+^ Leeuw, Jan de; Hornik, Kurt; Mair, Patrick (2009).
+
+"Isotone Optimization in R: Pool-Adjacent-Violators Algorithm (PAVA) and Active Set Methods" .
+
+Journal of Statistical Software .
+
+32 (5): 1– 24.
+
+doi : 10.18637/jss.v032.i05 .
+
+ISSN 1548-7660 .
+
+^ Xu, Zhipeng; Sun, Chenkai; Karunakaran, Aman.
+
+"Package UniIsoRegression" (PDF) .
+
+CRAN . R Foundation for Statistical Computing . Retrieved 29 October 2021 .
+
+^ Pedregosa, Fabian; et al. (2011). "Scikit-learn:Machine learning in Python".
+
+Journal of Machine Learning Research .
+
+12 : 2825– 2830.
+
+arXiv : 1201.0490 .
+
+Bibcode : 2011JMLR...12.2825P .
+
+^ a b Best, Michael J.; Chakravarti, Nilotpal (1990).
+
+"Active set algorithms for isotonic regression; A unifying framework" .
+
+Mathematical Programming .
+
+47 ( 1– 3): 425– 439.
+
+doi : 10.1007/bf01580873 .
+
+ISSN 0025-5610 .
+
+S2CID 31879613 .
+
+^ Oron, AP; Flournoy, N (2017). "Centered Isotonic Regression: Point and Interval Estimation for Dose-Response Studies".
+
+Statistics in Biopharmaceutical Research .
+
+9 (3): 258– 267.
+
+arXiv : 1701.05964 .
+
+doi : 10.1080/19466315.2017.1286256 .
+
+S2CID 88521189 .
+
+Further reading [ edit ] Wikibooks has a book on the topic of: Isotonic regression Robertson, T.; Wright, F. T.; Dykstra, R. L. (1988).
+
+Order restricted statistical inference . New York: Wiley.
+
+ISBN 978-0-471-91787-8 .
+
+Barlow, R. E.; Bartholomew, D. J.; Bremner, J. M.; Brunk, H. D. (1972).
+
+Statistical inference under order restrictions; the theory and application of isotonic regression . New York: Wiley.
+
+ISBN 978-0-471-04970-8 .
+
+Shively, T.S., Sager, T.W., Walker, S.G. (2009). "A Bayesian approach to non-parametric monotone function estimation".
+
+Journal of the Royal Statistical Society, Series B .
+
+71 (1): 159– 175.
+
+CiteSeerX 10.1.1.338.3846 .
+
+doi : 10.1111/j.1467-9868.2008.00677.x .
+
+S2CID 119761196 .
+
+{{ cite journal }} :  CS1 maint: multiple names: authors list ( link ) Wu, W. B.
+
+; Woodroofe, M.
+
+; Mentz, G. (2001). "Isotonic regression: Another look at the changepoint problem".
+
+Biometrika .
+
+88 (3): 793– 804.
+
+doi : 10.1093/biomet/88.3.793 .
+
+v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject Retrieved from " https://en.wikipedia.org/w/index.php?title=Isotonic_regression&oldid=1296403917 " Categories : Nonparametric regression Nonparametric Bayesian statistics Numerical analysis Hidden categories: Articles with short description Short description matches Wikidata CS1 maint: multiple names: authors list This page was last edited on 19 June 2025, at 20:24 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Isotonic regression 4 languages Add topic
+

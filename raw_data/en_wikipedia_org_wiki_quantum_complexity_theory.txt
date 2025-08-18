@@ -1,0 +1,273 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Background 2 Overview of complexity classes 3 BQP 4 Simulation of quantum circuits 5 Quantum query complexity Toggle Quantum query complexity subsection 5.1 Query models of directed graphs 5.1.1 Adjacency matrix model 5.1.2 Adjacency array model 5.2 Quantum query complexity of certain types of graph problems 5.3 Other types of quantum computational queries 5.3.1 Grover's algorithm 5.3.2 Deutsch-Jozsa algorithm 6 Other theories of quantum physics 7 See also 8 Notes 9 References 10 External links Toggle the table of contents Quantum complexity theory 8 languages العربية Català Español فارسی Русский Suomi 粵語 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Computational complexity of quantum algorithms This article includes a list of general references , but it lacks sufficient corresponding inline citations .
+
+Please help to improve this article by introducing more precise citations.
+
+( March 2020 ) ( Learn how and when to remove this message ) Quantum complexity theory is the subfield of computational complexity theory that deals with complexity classes defined using quantum computers , a computational model based on quantum mechanics . It studies the hardness of computational problems in relation to these complexity classes, as well as the relationship between quantum complexity classes and classical (i.e., non-quantum) complexity classes.
+
+Two important quantum complexity classes are BQP and QMA .
+
+Background [ edit ] See also: Computational complexity and Complexity class A complexity class is a collection of computational problems that can be solved by a computational model under certain resource constraints. For instance, the complexity class P is defined as the set of problems solvable by a Turing machine in polynomial time . Similarly, quantum complexity classes may be defined using quantum models of computation, such as the quantum circuit model or the equivalent quantum Turing machine . One of the main aims of quantum complexity theory is to find out how these classes relate to classical complexity classes such as P , NP , BPP , and PSPACE .
+
+One of the reasons quantum complexity theory is studied are the implications of quantum computing for the modern Church-Turing thesis . In short the modern Church-Turing thesis states that any computational model can be simulated in polynomial time with a probabilistic Turing machine .
+
+[ 1 ] [ 2 ] However, questions around the Church-Turing thesis arise in the context of quantum computing. It is unclear whether the Church-Turing thesis holds for the quantum computation model. There is much evidence that the thesis does not hold. It may not be possible for a probabilistic Turing machine to simulate quantum computation models in polynomial time.
+
+[ 1 ] Both quantum computational complexity of functions and classical computational complexity of functions are often expressed with asymptotic notation . Some common forms of asymptotic notion of functions are O ( T ( n ) ) {\displaystyle O(T(n))} , Ω Ω ( T ( n ) ) {\displaystyle \Omega (T(n))} , and Θ Θ ( T ( n ) ) {\displaystyle \Theta (T(n))} .
+
+O ( T ( n ) ) {\displaystyle O(T(n))} expresses that something is bounded above by c T ( n ) {\displaystyle cT(n)} where c {\displaystyle c} is a constant such that c > 0 {\displaystyle c>0} and T ( n ) {\displaystyle T(n)} is a function of n {\displaystyle n} , Ω Ω ( T ( n ) ) {\displaystyle \Omega (T(n))} expresses that something is bounded below by c T ( n ) {\displaystyle cT(n)} where c {\displaystyle c} is a constant such that c > 0 {\displaystyle c>0} and T ( n ) {\displaystyle T(n)} is a function of n {\displaystyle n} , and Θ Θ ( T ( n ) ) {\displaystyle \Theta (T(n))} expresses both O ( T ( n ) ) {\displaystyle O(T(n))} and Ω Ω ( T ( n ) ) {\displaystyle \Omega (T(n))} .
+
+[ 3 ] These notations also have their own names.
+
+O ( T ( n ) ) {\displaystyle O(T(n))} is called Big O notation , Ω Ω ( T ( n ) ) {\displaystyle \Omega (T(n))} is called Big Omega notation, and Θ Θ ( T ( n ) ) {\displaystyle \Theta (T(n))} is called Big Theta notation.
+
+Overview of complexity classes [ edit ] The important complexity classes P, BPP, BQP, PP, and PSPACE can be compared based on promise problems . A promise problem is a decision problem which has an input assumed to be selected from the set of all possible input strings. A promise problem is a pair A = ( A yes , A no ) {\displaystyle A=(A_{\text{yes}},A_{\text{no}})} , where A yes {\displaystyle A_{\text{yes}}} is the set of yes instances and A no {\displaystyle A_{\text{no}}} is the set of no instances, and the intersection of these sets is empty: A yes ∩ ∩ A no = ∅ ∅ {\displaystyle A_{\text{yes}}\cap A_{\text{no}}=\varnothing } . All of the previous complexity classes contain promise problems.
+
+[ 4 ] Complexity Class Criteria P Promise problems for which a polynomial time deterministic Turing machine accepts all strings in A yes {\displaystyle A_{\text{yes}}} and rejects all strings in A no {\displaystyle A_{\text{no}}} [ 4 ] BPP Promise problems for which a polynomial time Probabilistic Turing machine accepts every string in A yes {\displaystyle A_{\text{yes}}} with a probability of at least 2 3 {\displaystyle {\frac {2}{3}}} , and accepts every string in A no {\displaystyle A_{\text{no}}} with a probability of at most 1 3 {\displaystyle {\frac {1}{3}}} [ 4 ] BQP Promise problems such that for functions a , b : N → → [ 0 , 1 ] {\displaystyle a,b:\mathbb {N} \to [0,1]} , there exists a polynomial time generated family of quantum circuits Q = { Q n : n ∈ ∈ N } {\displaystyle Q={\{Q_{n}:n\in \mathbb {N} \}}} , where Q n {\displaystyle Q_{n}} is a circuit which accepts n {\displaystyle n} qubits and gives an output of one qubit. An element x {\displaystyle x} of A yes {\displaystyle A_{\text{yes}}} is accepted by Q {\displaystyle Q} with a probability greater than or equal to a ( | x | ) {\displaystyle a(\left\vert x\right\vert )} . An element x {\displaystyle x} of A no {\displaystyle A_{\text{no}}} is accepted by Q {\displaystyle Q} with a probability less than or equal to b ( | x | ) {\displaystyle b(\left\vert x\right\vert )} .
+
+[ 4 ] PP Promise problems for which a polynomial time Probabilistic Turing machine accepts every string in A yes {\displaystyle A_{\text{yes}}} with a probability greater than 1 2 {\displaystyle {\frac {1}{2}}} , and accepts every string in A no {\displaystyle A_{\text{no}}} with a probability of at most 1 2 {\displaystyle {\frac {1}{2}}} [ 4 ] PSPACE Promise problems for which a deterministic Turing machine, that runs in polynomial space, accepts every string in A yes {\displaystyle A_{\text{yes}}} and rejects all strings in A no {\displaystyle A_{\text{no}}} [ 4 ] BQP [ edit ] Main article: BQP BQP algorithm (1 run) Answer produced Correct answer Yes No Yes ≥ 2/3 ≤ 1/3 No ≤ 1/3 ≥ 2/3 The suspected relationship of BQP to other complexity classes [ 5 ] The class of problems that can be efficiently solved by a quantum computer with bounded error is called BQP ("bounded error, quantum, polynomial time"). More formally, BQP is the class of problems that can be solved by a polynomial-time quantum Turing machine with error probability of at most 1/3.
+
+As a class of probabilistic problems, BQP is the quantum counterpart to BPP ("bounded error, probabilistic, polynomial time"), the class of problems that can be efficiently solved by probabilistic Turing machines with bounded error.
+
+[ 6 ] It is known that B P P ⊆ ⊆ B Q P {\displaystyle {\mathsf {BPP\subseteq BQP}}} and widely suspected, but not proven, that B Q P ⊈ ⊈ B P P {\displaystyle {\mathsf {BQP\nsubseteq BPP}}} , which intuitively would mean that quantum computers are more powerful than classical computers in terms of time complexity.
+
+[ 7 ] BQP is a subset of PP .
+
+The exact relationship of BQP to P , NP , and PSPACE is not known. However, it is known that P ⊆ ⊆ B Q P ⊆ ⊆ P S P A C E {\displaystyle {\mathsf {P\subseteq BQP\subseteq PSPACE}}} ; that is, the class of problems that can be efficiently solved by quantum computers includes all problems that can be efficiently solved by deterministic classical computers but does not include any problems that cannot be solved by classical computers with polynomial space resources. It is further suspected that BQP is a strict superset of P, meaning there are problems that are efficiently solvable by quantum computers that are not efficiently solvable by deterministic classical computers. For instance, integer factorization and the discrete logarithm problem are known to be in BQP and are suspected to be outside of P. On the relationship of BQP to NP, little is known beyond the fact that some NP problems are in BQP (integer factorization and the discrete logarithm problem are both in NP, for example). It is suspected that N P ⊈ ⊈ B Q P {\displaystyle {\mathsf {NP\nsubseteq BQP}}} ; that is, it is believed that there are efficiently checkable problems that are not efficiently solvable by a quantum computer. As a direct consequence of this belief, it is also suspected that BQP is disjoint from the class of NP-complete problems (if any NP-complete problem were in BQP, then it follows from NP-hardness that all problems in NP are in BQP).
+
+[ 8 ] The relationship of BQP to the essential classical complexity classes can be summarized as: P ⊆ ⊆ B P P ⊆ ⊆ B Q P ⊆ ⊆ P P ⊆ ⊆ P S P A C E {\displaystyle {\mathsf {P\subseteq BPP\subseteq BQP\subseteq PP\subseteq PSPACE}}} It is also known that BQP is contained in the complexity class ⁠ # # P {\displaystyle \color {Blue}{\mathsf {\#P}}} ⁠ (or more precisely in the associated class of decision problems ⁠ P # # P {\displaystyle {\mathsf {P^{\#P}}}} ⁠ ), [ 8 ] which is a subset of PSPACE .
+
+Simulation of quantum circuits [ edit ] There is no known way to efficiently simulate a quantum computational model with a classical computer. This means that a classical computer cannot simulate a quantum computational model in polynomial time. However, a quantum circuit of S ( n ) {\displaystyle S(n)} qubits with T ( n ) {\displaystyle T(n)} quantum gates can be simulated by a classical circuit with O ( 2 S ( n ) T ( n ) 3 ) {\displaystyle O(2^{S(n)}T(n)^{3})} classical gates .
+
+[ 3 ] This number of classical gates is obtained by determining how many bit operations are necessary to simulate the quantum circuit. In order to do this, first the amplitudes associated with the S ( n ) {\displaystyle S(n)} qubits must be accounted for. Each of the states of the S ( n ) {\displaystyle S(n)} qubits can be described by a two-dimensional complex vector, or a state vector. These state vectors can also be described a linear combination of its component vectors with coefficients called amplitudes. These amplitudes are complex numbers which are normalized to one, meaning the sum of the squares of the absolute values of the amplitudes must be one.
+
+[ 3 ] The entries of the state vector are these amplitudes. The amplitudes, acting as coefficients in the linear combination description, each correspond to a non-zero component of the state vector. As an equation this is described as α α [ 1 0 ] + β β [ 0 1 ] = [ α α β β ] {\displaystyle \alpha {\begin{bmatrix}1\\0\end{bmatrix}}+\beta {\begin{bmatrix}0\\1\end{bmatrix}}={\begin{bmatrix}\alpha \\\beta \end{bmatrix}}} or α α | 1 ⟩ + β β | 0 ⟩ = [ α α β β ] {\displaystyle \alpha \left\vert 1\right\rangle +\beta \left\vert 0\right\rangle ={\begin{bmatrix}\alpha \\\beta \end{bmatrix}}} using Dirac notation . The state of the entire S ( n ) {\displaystyle S(n)} qubit system can be described by a single state vector. This state vector describing the entire system is the tensor product of the state vectors describing the individual qubits in the system. The result of the tensor products of the S ( n ) {\displaystyle S(n)} qubits is a single state vector which has 2 S ( n ) {\displaystyle 2^{S(n)}} dimensions and entries that are the amplitudes associated with each basis state or component vector. Therefore, 2 S ( n ) {\displaystyle 2^{S(n)}} amplitudes must be accounted for with a 2 S ( n ) {\displaystyle 2^{S(n)}} dimensional complex vector which is the state vector for the S ( n ) {\displaystyle S(n)} qubit system.
+
+[ 9 ] In order to obtain an upper bound for the number of gates required to simulate a quantum circuit we need a sufficient upper bound for the amount data used to specify the information about each of the 2 S ( n ) {\displaystyle 2^{S(n)}} amplitudes. To do this O ( T ( n ) ) {\displaystyle O(T(n))} bits of precision are sufficient for encoding each amplitude.
+
+[ 3 ] So it takes O ( 2 S ( n ) T ( n ) ) {\displaystyle O(2^{S(n)}T(n))} classical bits to account for the state vector of the S ( n ) {\displaystyle S(n)} qubit system. Next the application of the T ( n ) {\displaystyle T(n)} quantum gates on 2 S ( n ) {\displaystyle 2^{S(n)}} amplitudes must be accounted for. The quantum gates can be represented as 2 S ( n ) × × 2 S ( n ) {\displaystyle 2^{S(n)}\times 2^{S(n)}} sparse matrices .
+
+[ 3 ] So to account for the application of each of the T ( n ) {\displaystyle T(n)} quantum gates, the state vector must be multiplied by a 2 S ( n ) × × 2 S ( n ) {\displaystyle 2^{S(n)}\times 2^{S(n)}} sparse matrix for each of the T ( n ) {\displaystyle T(n)} quantum gates. Every time the state vector is multiplied by a 2 S ( n ) × × 2 S ( n ) {\displaystyle 2^{S(n)}\times 2^{S(n)}} sparse matrix, O ( 2 S ( n ) ) {\displaystyle O(2^{S(n)})} arithmetic operations must be performed.
+
+[ 3 ] Therefore, there are O ( 2 S ( n ) T ( n ) 2 ) {\displaystyle O(2^{S(n)}T(n)^{2})} bit operations for every quantum gate applied to the state vector. So O ( 2 S ( n ) T ( n ) 2 ) {\displaystyle O(2^{S(n)}T(n)^{2})} classical gate are needed to simulate S ( n ) {\displaystyle S(n)} qubit circuit with just one quantum gate. Therefore, O ( 2 S ( n ) T ( n ) 3 ) {\displaystyle O(2^{S(n)}T(n)^{3})} classical gates are needed to simulate a quantum circuit of S ( n ) {\displaystyle S(n)} qubits with T ( n ) {\displaystyle T(n)} quantum gates.
+
+[ 3 ] While there is no known way to efficiently simulate a quantum computer with a classical computer, it is possible to efficiently simulate a classical computer with a quantum computer. This is evident from the fact that B P P ⊆ ⊆ B Q P {\displaystyle {\mathsf {BPP\subseteq BQP}}} .
+
+[ 4 ] Quantum query complexity [ edit ] One major advantage of using a quantum computational system instead of a classical one, is that a quantum computer may be able to give a polynomial time algorithm for some problem for which no classical polynomial time algorithm exists, but more importantly, a quantum computer may significantly decrease the calculation time for a problem that a classical computer can already solve efficiently. Essentially, a quantum computer may be able to both determine how long it will take to solve a problem, while a classical computer may be unable to do so, and can also greatly improve the computational efficiency associated with the solution to a particular problem. Quantum query complexity refers to how complex, or how many queries to the graph associated with the solution of a particular problem, are required to solve the problem. Before we delve further into query complexity, let us consider some background regarding graphing solutions to particular problems, and the queries associated with these solutions.
+
+Query models of directed graphs [ edit ] One type of problem that quantum computing can make easier to solve are graph problems. If we are to consider the amount of queries to a graph that are required to solve a given problem, let us first consider  the most common types of graphs, called directed graphs , that are associated with this type of computational modelling. In brief, directed graphs are graphs where all edges between vertices are unidirectional. Directed graphs are formally defined as the graph G = ( N , E ) {\displaystyle G=(N,E)} , where N is the set of vertices, or nodes, and E is the set of edges.
+
+[ 10 ] Adjacency matrix model [ edit ] When considering quantum computation of the solution to directed graph problems, there are two important query models to understand. First, there is the adjacency matrix model, where the graph of the solution is given by the adjacency matrix: M ∈ ∈ { 0 , 1 } a n X n {\displaystyle M\in \{0,1\}a^{n\mathrm {X} n}} , with M i j = 1 {\displaystyle M_{ij}=1} , if and only if ( v i , v j ) ∈ ∈ E {\displaystyle (v_{i},v_{j})\in E} .
+
+[ 11 ] Adjacency array model [ edit ] Next, there is the slightly more complicated adjacency array model built on the idea of adjacency lists , where every vertex, u {\displaystyle u} , is associated with an array of neighboring vertices such that f i : [ d i + ] → → [ n ] {\displaystyle f_{i}:[d_{i}^{+}]\rightarrow [n]} , for the out-degrees of vertices d i + , .
+
+.
+
+.
+
+, d n + {\displaystyle d_{i}^{+},...,d_{n}^{+}} , where n {\displaystyle n} is the minimum value of the upper bound of this model, and f i ( j ) {\displaystyle f_{i}(j)} returns the " j t h {\displaystyle j^{th}} " vertex adjacent to i {\displaystyle i} . Additionally, the adjacency array model satisfies the simple graph condition, ∀ ∀ i ∈ ∈ [ n ] , j , j ′ ∈ ∈ [ k ] , j ≠ ≠ j ′ : f i ( j ) ≠ ≠ f i ( j ′ ) {\displaystyle \forall i\in [n],j,j'\in [k],j\neq j':f_{i}(j)\neq f_{i}(j')} , meaning that there is only one edge between any pair of vertices, and the number of edges is minimized throughout the entire model (see Spanning tree model for more background).
+
+[ 11 ] Quantum query complexity of certain types of graph problems [ edit ] Both of the above models can be used to determine the query complexity of particular types of graphing problems, including the connectivity , strong connectivity (a directed graph version of the connectivity model), minimum spanning tree , and single source shortest path models of graphs. An important caveat to consider is that the quantum complexity of a particular type of graphing problem can change based on the query model (namely either matrix or array) used to determine the solution. The following table showing the quantum query complexities of these types of graphing problems illustrates this point well.
+
+Quantum query complexity of certain types of graph problems Problem Matrix model Array model Minimum spanning tree Θ Θ ( n 3 / 2 ) {\displaystyle \Theta (n^{3/2})} Θ Θ ( n m ) {\displaystyle \Theta ({\sqrt {nm}})} Connectivity Θ Θ ( n 3 / 2 ) {\displaystyle \Theta (n^{3/2})} Θ Θ ( n ) {\displaystyle \Theta (n)} Strong connectivity Θ Θ ( n 3 / 2 ) {\displaystyle \Theta (n^{3/2})} Ω Ω ( n m ) {\displaystyle \Omega ({\sqrt {nm}})} , O ( n m log ⁡ ⁡ ( n ) ) {\displaystyle O({\sqrt {nm\log(n)}})} Single source shortest path Ω Ω ( n 3 / 2 ) {\displaystyle \Omega (n^{3/2})} , O ( n 3 / 2 log 2 ⁡ ⁡ n ) {\displaystyle O(n^{3/2}\log ^{2}n)} Ω Ω ( n m ) {\displaystyle \Omega ({\sqrt {nm}})} , O ( n m log 2 ⁡ ⁡ ( n ) ) {\displaystyle O({\sqrt {nm}}\log ^{2}(n))} Notice the discrepancy between the quantum query complexities associated with a particular type of problem, depending on which query model was used to determine the complexity. For example, when the matrix model is used, the quantum complexity of the connectivity model in Big O notation is Θ Θ ( n 3 / 2 ) {\displaystyle \Theta (n^{3/2})} , but when the array model is used, the complexity is Θ Θ ( n ) {\displaystyle \Theta (n)} . Additionally, for brevity, we use the shorthand m {\displaystyle m} in certain cases, where m = Θ Θ ( n 2 ) {\displaystyle m=\Theta (n^{2})} .
+
+[ 11 ] The important implication here is that the efficiency of the algorithm used to solve a graphing problem is dependent on the type of query model used to model the graph.
+
+Other types of quantum computational queries [ edit ] In the query complexity model, the input can also be given as an oracle (black box). The algorithm gets information about the input only by querying the oracle. The algorithm starts in some fixed quantum state and the state evolves as it queries the oracle.
+
+Similar to the case of graphing problems, the quantum query complexity of a black-box problem is the smallest number of queries to the oracle that are required in order to calculate the function. This makes the quantum query complexity a lower bound on the overall time complexity of a function.
+
+Grover's algorithm [ edit ] An example depicting the power of quantum computing is Grover's algorithm for searching unstructured databases. The algorithm's quantum query complexity is O ( N ) {\textstyle O{\left({\sqrt {N}}\right)}} , a quadratic improvement over the best possible classical query complexity O ( N ) {\displaystyle O(N)} , which is a linear search . Grover's algorithm is asymptotically optimal ; in fact, it uses at most a 1 + o ( 1 ) {\displaystyle 1+o(1)} fraction more queries than the best possible algorithm.
+
+[ 12 ] Deutsch-Jozsa algorithm [ edit ] The Deutsch-Jozsa algorithm is a quantum algorithm designed to solve a toy problem with a smaller query complexity than is possible with a classical algorithm. The toy problem asks whether a function f : { 0 , 1 } n → → { 0 , 1 } {\displaystyle f:\{0,1\}^{n}\rightarrow \{0,1\}} is constant or balanced, those being the only two possibilities.
+
+[ 2 ] The only way to evaluate the function f {\displaystyle f} is to consult a black box or oracle . A classical deterministic algorithm will have to check more than half of the possible inputs to be sure of whether or not the function is constant or balanced. With 2 n {\displaystyle 2^{n}} possible inputs, the query complexity of the most efficient classical deterministic algorithm is 2 n − − 1 + 1 {\displaystyle 2^{n-1}+1} .
+
+[ 2 ] The Deutsch-Jozsa algorithm takes advantage of quantum parallelism to check all of the elements of the domain at once and only needs to query the oracle once, making its query complexity 1 {\displaystyle 1} .
+
+[ 2 ] Other theories of quantum physics [ edit ] It has been speculated that further advances in physics could lead to even faster computers. For instance, it has been shown that a non-local, but non-signaling hidden variable quantum computer could implement a search of an N -item database in at most O ( N 3 ) {\displaystyle O({\sqrt[{3}]{N}})} steps, a slight speedup over Grover's algorithm , which runs in O ( N ) {\displaystyle O({\sqrt {N}})} steps. Note, however, that neither search method would allow quantum computers to solve NP-complete problems in polynomial time.
+
+[ 13 ] Theories of quantum gravity , such as M-theory and loop quantum gravity , may allow even faster computers to be built. However, defining computation in these theories is an open problem due to the problem of time ; that is, within these physical theories there is currently no obvious way to describe what it means for an observer to submit input to a computer at one point in time and then receive output at a later point in time.
+
+[ 14 ] [ 15 ] See also [ edit ] Quantum computing Quantum Turing machine Polynomial hierarchy (PH) Notes [ edit ] ^ a b Vazirani, Umesh V. (2002). "A survey of quantum complexity theory".
+
+Quantum Computation . Proceedings of Symposia in Applied Mathematics. Vol. 58. pp.
+
+193– 217.
+
+doi : 10.1090/psapm/058/1922899 .
+
+ISBN 9780821820841 .
+
+ISSN 2324-7088 .
+
+^ a b c d Nielsen, Michael A., 1974- (2010).
+
+Quantum computation and quantum information . Chuang, Isaac L., 1968- (10th anniversary ed.). Cambridge: Cambridge University Press.
+
+ISBN 978-1-107-00217-3 .
+
+OCLC 665137861 .
+
+{{ cite book }} :  CS1 maint: multiple names: authors list ( link ) CS1 maint: numeric names: authors list ( link ) ^ a b c d e f g Cleve, Richard (2000), "An Introduction to Quantum Complexity Theory" , Quantum Computation and Quantum Information Theory , WORLD SCIENTIFIC, pp.
+
+103– 127, arXiv : quant-ph/9906111 , Bibcode : 2000qcqi.book..103C , doi : 10.1142/9789810248185_0004 , ISBN 978-981-02-4117-9 , S2CID 958695 , retrieved October 10, 2020 ^ a b c d e f g Watrous, John (2008-04-21). "Quantum Computational Complexity".
+
+arXiv : 0804.3401 [ quant-ph ].
+
+^ Nielsen, p. 42 ^ Nielsen, Michael ; Chuang, Isaac (2000).
+
+Quantum Computation and Quantum Information . Cambridge: Cambridge University Press. p. 41.
+
+ISBN 978-0-521-63503-5 .
+
+OCLC 174527496 .
+
+^ Nielsen, p. 201 ^ a b Bernstein, Ethan; Vazirani, Umesh (1997).
+
+"Quantum Complexity Theory" .
+
+SIAM Journal on Computing .
+
+26 (5): 1411– 1473.
+
+CiteSeerX 10.1.1.144.7852 .
+
+doi : 10.1137/S0097539796300921 .
+
+^ Häner, Thomas; Steiger, Damian S. (2017-11-12).
+
+"0.5 petabyte simulation of a 45-qubit quantum circuit" .
+
+Proceedings of the International Conference for High Performance Computing, Networking, Storage and Analysis . New York, NY, USA: ACM. pp.
+
+1– 10.
+
+arXiv : 1704.01127 .
+
+doi : 10.1145/3126908.3126947 .
+
+ISBN 978-1-4503-5114-0 .
+
+S2CID 3338733 .
+
+^ Nykamp, D.Q.
+
+"Directed Graph Definition" .
+
+^ a b c Durr, Christoph; Heiligman, Mark; Hoyer, Peter; Mhalla, Mehdi (January 2006). "Quantum query complexity of some graph problems".
+
+SIAM Journal on Computing .
+
+35 (6): 1310– 1328.
+
+arXiv : quant-ph/0401091 .
+
+doi : 10.1137/050644719 .
+
+ISSN 0097-5397 .
+
+S2CID 27736397 .
+
+^ Zalka, Christof (1999-10-01).
+
+"Grover's quantum searching algorithm is optimal" .
+
+Physical Review A .
+
+60 (4): 2746– 2751.
+
+arXiv : quant-ph/9711070 .
+
+Bibcode : 1999PhRvA..60.2746Z .
+
+doi : 10.1103/PhysRevA.60.2746 .
+
+S2CID 1542077 .
+
+^ Aaronson, Scott (2005).
+
+"Quantum Computing and Hidden Variables" (PDF) .
+
+Phys. Rev. A .
+
+71 : 032325.
+
+arXiv : quant-ph/0408035 .
+
+doi : 10.1103/PhysRevA.71.032325 .
+
+^ Aaronson, Scott (2005). "NP-complete Problems and Physical Reality".
+
+ACM SIGACT News .
+
+2005 .
+
+arXiv : quant-ph/0502072 .
+
+Bibcode : 2005quant.ph..2072A .
+
+See section 7 "Quantum Gravity": "[...] to anyone who wants a test or benchmark for a favorite quantum gravity theory,[author's footnote: That is, one without all the bother of making numerical predictions and comparing them to observation] let me humbly propose the following: can you define Quantum Gravity Polynomial-Time?
+
+[...] until we can say what it means for a 'user' to specify an 'input' and 'later' receive an 'output'— there is no such thing as computation, not even theoretically.
+
+" (emphasis in original) ^ "D-Wave Systems sells its first Quantum Computing System to Lockheed Martin Corporation" . D-Wave. 25 May 2011. Archived from the original on 22 December 2020 . Retrieved 30 May 2011 .
+
+References [ edit ] Nielsen, Michael ; Chuang, Isaac (2000).
+
+Quantum Computation and Quantum Information . Cambridge: Cambridge University Press.
+
+ISBN 978-0-521-63503-5 .
+
+OCLC 174527496 .
+
+Arora, Sanjeev ; Barak, Boaz (2016).
+
+Computational Complexity: A Modern Approach . Cambridge University Press. pp.
+
+201 –236.
+
+ISBN 978-0-521-42426-4 .
+
+Watrous, John (2008). "Quantum Computational Complexity".
+
+arXiv : 0804.3401v1 [ quant-ph ].
+
+Watrous J. (2009) Quantum Computational Complexity . In: Meyers R. (eds) Encyclopedia of Complexity and Systems Science. Springer, New York, NY External links [ edit ] MIT lectures by Scott Aaronson v t e Quantum information science General DiVincenzo's criteria NISQ era Quantum computing timeline Quantum information Quantum programming Quantum simulation Qubit physical vs. logical Quantum processors cloud-based Theorems Bell's Eastin–Knill Gleason's Gottesman–Knill Holevo's No-broadcasting No-cloning No-communication No-deleting No-hiding No-teleportation PBR Quantum speed limit Threshold Solovay–Kitaev Schrödinger-HJW Quantum communication Classical capacity entanglement-assisted quantum capacity Entanglement distillation Entanglement swapping Monogamy of entanglement LOCC Quantum channel quantum network State purification Quantum teleportation quantum energy teleportation quantum gate teleportation Superdense coding Quantum cryptography Post-quantum cryptography Quantum coin flipping Quantum money Quantum key distribution BB84 SARG04 other protocols Quantum secret sharing Quantum algorithms Algorithmic cooling Amplitude amplification Bernstein–Vazirani BHT Boson sampling Deutsch–Jozsa Grover's HHL Hidden subgroup Magic state distillation Quantum annealing Quantum counting Quantum Fourier transform Quantum optimization Quantum phase estimation Shor's Simon's VQE Quantum complexity theory BQP DQC1 EQP QIP QMA PostBQP Quantum processor benchmarks Quantum supremacy Quantum volume Randomized benchmarking XEB Relaxation times T 1 T 2 Quantum computing models Adiabatic quantum computation Continuous-variable quantum information One-way quantum computer cluster state Quantum circuit quantum logic gate Quantum machine learning quantum neural network Quantum Turing machine Topological quantum computer Hamiltonian quantum computation Quantum error correction Codes 5 qubit CSS GKP quantum convolutional stabilizer Shor Bacon–Shor Steane Toric gnu Entanglement-assisted Physical implementations Quantum optics Cavity QED Circuit QED Linear optical QC KLM protocol Ultracold atoms Neutral atom QC Trapped-ion QC Spin -based Kane QC Spin qubit QC NV center NMR QC Superconducting Charge qubit Flux qubit Phase qubit Transmon Quantum programming OpenQASM – Qiskit – IBM QX Quil – Forest/Rigetti QCS Cirq Q# libquantum many others...
+
+Quantum information science Quantum mechanics topics v t e Quantum mechanics Background Introduction History Timeline Classical mechanics Old quantum theory Glossary Fundamentals Born rule Bra–ket notation Complementarity Density matrix Energy level Ground state Excited state Degenerate levels Zero-point energy Entanglement Hamiltonian Interference Decoherence Measurement Nonlocality Quantum state Superposition Tunnelling Scattering theory Symmetry in quantum mechanics Uncertainty Wave function Collapse Wave–particle duality Formulations Formulations Heisenberg Interaction Matrix mechanics Schrödinger Path integral formulation Phase space Equations Klein–Gordon Dirac Weyl Majorana Rarita–Schwinger Pauli Rydberg Schrödinger Interpretations Bayesian Consciousness causes collapse Consistent histories Copenhagen de Broglie–Bohm Ensemble Hidden-variable Local Superdeterminism Many-worlds Objective collapse Quantum logic Relational Transactional Experiments Bell test Davisson–Germer Delayed-choice quantum eraser Double-slit Franck–Hertz Mach–Zehnder interferometer Elitzur–Vaidman Popper Quantum eraser Stern–Gerlach Wheeler's delayed choice Science Quantum biology Quantum chemistry Quantum chaos Quantum cosmology Quantum differential calculus Quantum dynamics Quantum geometry Quantum measurement problem Quantum mind Quantum stochastic calculus Quantum spacetime Technology Quantum algorithms Quantum amplifier Quantum bus Quantum cellular automata Quantum finite automata Quantum channel Quantum circuit Quantum complexity theory Quantum computing Timeline Quantum cryptography Quantum electronics Quantum error correction Quantum imaging Quantum image processing Quantum information Quantum key distribution Quantum logic Quantum logic gates Quantum machine Quantum machine learning Quantum metamaterial Quantum metrology Quantum network Quantum neural network Quantum optics Quantum programming Quantum sensing Quantum simulator Quantum teleportation Extensions Quantum fluctuation Casimir effect Quantum statistical mechanics Quantum field theory History Quantum gravity Relativistic quantum mechanics Related Schrödinger's cat in popular culture Wigner's friend EPR paradox Quantum mysticism Category v t e Emerging technologies Fields Quantum algorithms amplifier bus cellular automata channel circuit complexity theory computing cryptography post-quantum dynamics electronics error correction finite automata image processing imaging information key distribution logic logic clock logic gate machine machine learning metamaterial network neural network optics programming sensing simulator teleportation Other Acoustic levitation Anti-gravity Cloak of invisibility Digital scent technology Force field Plasma window Immersive virtual reality Magnetic refrigeration Phased-array optics Thermoacoustic heat engine List NewPP limit report
+Parsed by mw‐web.codfw.main‐597b4b5bbd‐4wnsc
+Cached time: 20250815024936
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.530 seconds
+Real time usage: 0.849 seconds
+Preprocessor visited node count: 2730/1000000
+Revision size: 27688/2097152 bytes
+Post‐expand include size: 120028/2097152 bytes
+Template argument size: 1672/2097152 bytes
+Highest expansion depth: 13/100
+Expensive parser function count: 6/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 94417/5000000 bytes
+Lua time usage: 0.247/10.000 seconds
+Lua memory usage: 6059116/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  412.391      1 -total
+ 37.16%  153.244      1 Template:Reflist
+ 23.97%   98.845      6 Template:Navbox
+ 22.57%   93.075      6 Template:Cite_book
+ 19.01%   78.403      1 Template:Quantum_computing
+ 14.44%   59.569      1 Template:Short_description
+  9.88%   40.762      1 Template:More_footnotes
+  9.15%   37.724      2 Template:Pagetype
+  8.84%   36.452      1 Template:Ambox
+  7.16%   29.545      5 Template:Cite_journal Saved in parser cache with key enwiki:pcache:24092190:|#|:idhash:canonical and timestamp 20250815024936 and revision id 1304017446. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Quantum_complexity_theory&oldid=1304017446 " Categories : Quantum complexity theory Computational complexity theory Theoretical computer science Hidden categories: CS1 maint: multiple names: authors list CS1 maint: numeric names: authors list Articles with short description Short description matches Wikidata Use American English from January 2019 All Wikipedia articles written in American English Articles lacking in-text citations from March 2020 All articles lacking in-text citations This page was last edited on 3 August 2025, at 12:53 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Quantum complexity theory 8 languages Add topic
+

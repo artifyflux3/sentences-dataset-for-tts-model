@@ -1,0 +1,200 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Definition 2 Properties Toggle Properties subsection 2.1 Parameters 3 Empirical variogram 4 Variogram models 5 Discussion 6 Applications 7 Related concepts 8 References 9 Further reading 10 External links Toggle the table of contents Variogram 14 languages Čeština Deutsch Español Euskara Français Hrvatski Italiano Magyar Polski Português Русский Sunda Suomi Vèneto Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia (Redirected from Nugget effect ) Spatial statistics function In spatial statistics the theoretical variogram , denoted 2 γ γ ( s 1 , s 2 ) {\displaystyle 2\gamma (\mathbf {s} _{1},\mathbf {s} _{2})} , is a function describing the degree of spatial dependence of a spatial random field or stochastic process Z ( s ) {\displaystyle Z(\mathbf {s} )} . The semivariogram γ γ ( s 1 , s 2 ) {\displaystyle \gamma (\mathbf {s} _{1},\mathbf {s} _{2})} is half the variogram.
+
+Schematisation of a variogram. The points represent the measured data points (observed) and the curve represents the model function used (empirical). Range stands for the range sought, sill for the plateau value reached at maximum range, nugget for the nugget effect.
+
+For example, in gold mining , a variogram will give a measure of how much two samples taken from the mining area will vary in gold percentage depending on the distance between those samples. Samples taken far apart will vary more than samples taken close to each other.
+
+Definition [ edit ] "Semivariance" redirects here. For the measure of downside risk, see Variance § Semivariance .
+
+The semivariogram γ γ ( h ) {\displaystyle \gamma (h)} was first defined by Matheron (1963) as half the average squared difference between a function and a translated copy of the function separated at distance h {\displaystyle h} .
+
+[ 1 ] [ 2 ] Formally γ γ ( h ) = 1 2 ∭ ∭ V [ f ( M + h ) − − f ( M ) ] 2 d M , {\displaystyle \gamma (h)={\frac {1}{2}}\iiint _{V}\left[f(M+h)-f(M)\right]^{2}dM,} where M {\displaystyle M} is a point in the geometric field V {\displaystyle V} , and f ( M ) {\displaystyle f(M)} is the value at that point. The triple integral is over 3 dimensions.
+
+h {\displaystyle h} is the separation distance (e.g., in meters or km) of interest. 
+For example, the value f ( M ) {\displaystyle f(M)} could represent the iron content in soil, at some location M {\displaystyle M} (with geographic coordinates of latitude, longitude, and elevation) over some region V {\displaystyle V} with element of volume d V {\displaystyle dV} .
+To obtain the semivariogram for a given γ γ ( h ) {\displaystyle \gamma (h)} , all pairs of points at that exact distance would be sampled. In practice it is impossible to sample everywhere, so the empirical variogram is used instead.
+
+The variogram is twice the semivariogram and can be defined, differently, as the variance of the difference between field values at two locations ( s 1 {\displaystyle \mathbf {s} _{1}} and s 2 {\displaystyle \mathbf {s} _{2}} , note change of notation from M {\displaystyle M} to s {\displaystyle \mathbf {s} } and f {\displaystyle f} to Z {\displaystyle Z} ) across realizations of the field (Cressie 1993): 2 γ γ ( s 1 , s 2 ) = var ( Z ( s 1 ) − − Z ( s 2 ) ) = E [ ( ( Z ( s 1 ) − − Z ( s 2 ) ) − − E [ Z ( s 1 ) − − Z ( s 2 ) ] ) 2 ] .
+
+{\displaystyle 2\gamma (\mathbf {s} _{1},\mathbf {s} _{2})={\text{var}}\left(Z(\mathbf {s} _{1})-Z(\mathbf {s} _{2})\right)=E\left[((Z(\mathbf {s} _{1})-Z(\mathbf {s} _{2}))-E[Z(\mathbf {s} _{1})-Z(\mathbf {s} _{2})])^{2}\right].} If the spatial random field has constant mean μ μ {\displaystyle \mu } , this is equivalent to the expectation for the squared increment of the values between locations s 1 {\displaystyle \mathbf {s} _{1}} and s 2 {\displaystyle s_{2}} (Wackernagel 2003) (where s 1 {\displaystyle \mathbf {s} _{1}} and s 2 {\displaystyle \mathbf {s} _{2}} are points in space and possibly time): 2 γ γ ( s 1 , s 2 ) = E [ ( Z ( s 1 ) − − Z ( s 2 ) ) 2 ] .
+
+{\displaystyle 2\gamma (\mathbf {s} _{1},\mathbf {s} _{2})=E\left[\left(Z(\mathbf {s} _{1})-Z(\mathbf {s} _{2})\right)^{2}\right].} In the case of a stationary process , the variogram and semivariogram can be represented as a function γ γ s ( h ) = γ γ ( 0 , 0 + h ) {\displaystyle \gamma _{s}(h)=\gamma (0,0+h)} of the difference h = s 2 − − s 1 {\displaystyle h=\mathbf {s} _{2}-\mathbf {s} _{1}} between locations only, by the following relation (Cressie 1993): γ γ ( s 1 , s 2 ) = γ γ s ( s 2 − − s 1 ) .
+
+{\displaystyle \gamma (\mathbf {s} _{1},\mathbf {s} _{2})=\gamma _{s}(\mathbf {s} _{2}-\mathbf {s} _{1}).} If the process is furthermore isotropic , then the variogram and semivariogram can be represented by a function γ γ i ( h ) := γ γ s ( h e 1 ) {\displaystyle \gamma _{i}(h):=\gamma _{s}(he_{1})} of the distance h = ‖ ‖ s 2 − − s 1 ‖ ‖ {\displaystyle h=\|\mathbf {s} _{2}-\mathbf {s} _{1}\|} only (Cressie 1993): γ γ ( s 1 , s 2 ) = γ γ i ( h ) .
+
+{\displaystyle \gamma (\mathbf {s} _{1},\mathbf {s} _{2})=\gamma _{i}(h).} The indexes i {\displaystyle i} or s {\displaystyle s} are typically not written. The terms are used for all three forms of the function. Moreover, the term "variogram" is sometimes used to denote the semivariogram, and the symbol γ γ {\displaystyle \gamma } is sometimes used for the variogram, which brings some confusion.
+
+[ 3 ] Properties [ edit ] According to (Cressie 1993, Chiles and Delfiner 1999, Wackernagel 2003) the theoretical variogram has the following properties: The semivariogram is nonnegative γ γ ( s 1 , s 2 ) ≥ ≥ 0 {\displaystyle \gamma (\mathbf {s} _{1},\mathbf {s} _{2})\geq 0} , since it is the expectation of a square.
+
+The semivariogram γ γ ( s 1 , s 1 ) = γ γ i ( 0 ) = E ( ( Z ( s 1 ) − − Z ( s 1 ) ) 2 ) = 0 {\displaystyle \gamma (\mathbf {s} _{1},\mathbf {s} _{1})=\gamma _{i}(0)=E\left((Z(\mathbf {s} _{1})-Z(\mathbf {s} _{1}))^{2}\right)=0} at distance 0  is always 0, since Z ( s 1 ) − − Z ( s 1 ) = 0 {\displaystyle Z(\mathbf {s} _{1})-Z(\mathbf {s} _{1})=0} .
+
+A function is a semivariogram if and only if it is a conditionally negative definite function, i.e. for all weights w 1 , … … , w N {\displaystyle w_{1},\ldots ,w_{N}} subject to ∑ ∑ i = 1 N w i = 0 {\displaystyle \sum _{i=1}^{N}w_{i}=0} and locations s 1 , … … , s N {\displaystyle s_{1},\ldots ,s_{N}} it holds: ∑ ∑ i = 1 N ∑ ∑ j = 1 N w i γ γ ( s i , s j ) w j ≤ ≤ 0 {\displaystyle \sum _{i=1}^{N}\sum _{j=1}^{N}w_{i}\gamma (\mathbf {s} _{i},\mathbf {s} _{j})w_{j}\leq 0} which corresponds to the fact that the variance var ⁡ ⁡ ( X ) {\displaystyle \operatorname {var} (X)} of X = ∑ ∑ i = 1 N w i Z ( x i ) {\displaystyle X=\sum _{i=1}^{N}w_{i}Z(x_{i})} is given by the negative of this double sum and must be nonnegative.
+
+[ disputed – discuss ] If the covariance function C of a stationary process exists, it is related to variogram by 2 γ γ ( s 1 , s 2 ) = C ( s 1 , s 1 ) + C ( s 2 , s 2 ) − − 2 C ( s 1 , s 2 ) {\displaystyle 2\gamma (\mathbf {s} _{1},\mathbf {s} _{2})=C(\mathbf {s} _{1},\mathbf {s} _{1})+C(\mathbf {s} _{2},\mathbf {s} _{2})-2C(\mathbf {s} _{1},\mathbf {s} _{2})} If the variance V and correlation function c of a stationary process exist, they are related to semivariogram by γ γ ( s 1 , s 2 ) = V ( 1 − − c ( s 1 , s 2 ) ) {\displaystyle \gamma (\mathbf {s} _{1},\mathbf {s} _{2})=V(1-c(\mathbf {s} _{1},\mathbf {s} _{2}))} Conversely, the covariance function C of a stationary process can be obtained from the semivariogram and variance as C ( s 1 , s 2 ) = V − − γ γ ( s 1 , s 2 ) {\displaystyle C(\mathbf {s} _{1},\mathbf {s} _{2})=V-\gamma (\mathbf {s} _{1},\mathbf {s} _{2})} If a stationary random field has no spatial dependence (i.e.
+
+C ( h ) = 0 {\displaystyle C(h)=0} if h ≠ 0 {\displaystyle h\not =0} ), the semivariogram is the constant var ⁡ ⁡ ( Z ( s ) ) {\displaystyle \operatorname {var} (Z(\mathbf {s} ))} everywhere except at the origin, where it is zero.
+
+The semivariogram is a symmetric function, γ γ ( s 1 , s 2 ) = E [ | Z ( s 1 ) − − Z ( s 2 ) | 2 ] = γ γ ( s 2 , s 1 ) {\displaystyle \gamma (\mathbf {s} _{1},\mathbf {s} _{2})=E\left[|Z(\mathbf {s} _{1})-Z(\mathbf {s} _{2})|^{2}\right]=\gamma (\mathbf {s} _{2},\mathbf {s} _{1})} .
+
+Consequently, the isotropic semivariogram is an even function γ γ s ( h ) = γ γ s ( − − h ) {\displaystyle \gamma _{s}(h)=\gamma _{s}(-h)} .
+
+If the random field is stationary and ergodic , the lim h → → ∞ ∞ γ γ s ( h ) = var ⁡ ⁡ ( Z ( s ) ) {\displaystyle \lim _{h\to \infty }\gamma _{s}(h)=\operatorname {var} (Z(\mathbf {s} ))} corresponds to the variance of the field. The limit of the semivariogram with increasing distance is also called its sill .
+
+As a consequence the semivariogram might be non continuous only at the origin. The height of the jump at the origin is sometimes referred to as nugget or nugget effect.
+
+Parameters [ edit ] In summary, the following parameters are often used to describe variograms: nugget n {\displaystyle n} : The height of the jump of the semivariogram at the discontinuity at the origin.
+
+sill s {\displaystyle s} : Limit of the variogram tending to infinity lag distances.
+
+range r {\displaystyle r} : The distance in which the difference of the variogram from the sill becomes negligible. In models with a fixed sill, it is the distance at which this is first reached; for models with an asymptotic sill, it is conventionally taken to be the distance when the semivariance first reaches 95% of the sill.
+
+Empirical variogram [ edit ] Generally, an empirical variogram is needed for measured data, because sample information Z {\displaystyle Z} is not available for every location. The sample information for example could be concentration of iron in soil samples, or pixel intensity on a camera. Each piece of sample information has coordinates s = ( x , y ) {\displaystyle \mathbf {s} =(x,y)} for a 2D sample space where x {\displaystyle x} and y {\displaystyle y} are geographical coordinates. In the case of the iron in soil, the sample space could be 3 dimensional. If there is temporal variability as well (e.g., phosphorus content in a lake) then s {\displaystyle \mathbf {s} } could be a 4 dimensional vector ( x , y , z , t ) {\displaystyle (x,y,z,t)} . For the case where dimensions have different units (e.g., distance and time) then a scaling factor B {\displaystyle B} can be applied to each to obtain a modified Euclidean distance.
+
+[ 4 ] Sample observations are denoted Z ( s i ) = z i {\displaystyle Z(\mathbf {s} _{i})=z_{i}} . Observations may be taken at M {\displaystyle M} total different locations (the sample size ). This would provide as set of observations z 1 , … … , z M {\displaystyle z_{1},\ldots ,z_{M}} at locations s 1 , … … , s M {\displaystyle \mathbf {s} _{1},\ldots ,\mathbf {s} _{M}} . Generally, plots show the semivariogram values as a function of separation distance h k {\displaystyle h_{k}} for multiple steps k = 1 , … … {\displaystyle k=1,\ldots } . In the case of empirical semivariogram, separation distance interval h k ± ± δ δ {\displaystyle h_{k}\pm \delta } is used rather than exact distances, and usually isotropic conditions are assumed (i.e., that γ γ {\displaystyle \gamma } is only a function of h {\displaystyle h} and does not depend on other variables such as center position). Then, the empirical semivariogram γ γ ^ ^ ( h ± ± δ δ ) {\displaystyle {\hat {\gamma }}(h\pm \delta )} can be calculated for each bin : γ γ ^ ^ ( h k ± ± δ δ ) := 1 2 N k ∑ ∑ ( i , j ) ∈ ∈ S k | z i − − z j | 2 {\displaystyle {\hat {\gamma }}(h_{k}\pm \delta ):={\frac {1}{2N_{k}}}\sum _{(i,j)\in S_{k}}|z_{i}-z_{j}|^{2}} Or in other words, each pair of points separated by h k {\displaystyle h_{k}} (plus or minus some bin width tolerance range δ δ {\displaystyle \delta } ) are found. These form the set of points S k = S ( h k ± ± δ δ ) ≡ ≡ { ( s i , s j ) : h k − − δ δ < | s i − − s j | < h k + δ δ ; i , j = 1 , … … , M } {\displaystyle S_{k}=S(h_{k}\pm \delta )\equiv \{(\mathbf {s} _{i},\mathbf {s} _{j}):h_{k}-\delta <|\mathbf {s} _{i}-\mathbf {s} _{j}|<h_{k}+\delta ;i,j=1,\ldots ,M\}} The number of these points in this bin is N k = | S k | {\displaystyle N_{k}=|S_{k}|} (the set size ). Then for each pair of points i , j {\displaystyle i,j} , the square of the difference in the observation (e.g., soil sample content or pixel intensity) is found ( | z i − − z j | 2 {\displaystyle |z_{i}-z_{j}|^{2}} ). These squared differences are added together and normalized by the natural number N k {\displaystyle N_{k}} . By definition the result is divided by 2 for the semivariogram at this separation.
+
+For computational speed, only the unique pairs of points are needed. For example, for 2 observations pairs [ ( z a , z b ) , ( z c , z d ) {\displaystyle (z_{a},z_{b}),(z_{c},z_{d})} ] taken from locations with separation h ± ± δ δ {\displaystyle h\pm \delta } only [ ( z a , z b ) , ( z c , z d ) {\displaystyle (z_{a},z_{b}),(z_{c},z_{d})} ] need to be considered, as the pairs [ ( z b , z a ) , ( z d , z c ) {\displaystyle (z_{b},z_{a}),(z_{d},z_{c})} ] do not provide any additional information.
+
+Variogram models [ edit ] The empirical variogram cannot be computed at every lag distance h {\displaystyle h} and due to variation in the estimation it is not ensured that it is a valid variogram, as defined above. However some geostatistical methods such as kriging need valid semivariograms. In applied geostatistics the empirical variograms are thus often approximated by model function ensuring validity (Chiles&Delfiner 1999). Some important models are (Chiles&Delfiner 1999, Cressie 1993): The exponential variogram model γ γ ( h ) = ( s − − n ) ( 1 − − exp ⁡ ⁡ ( − − h / ( r a ) ) ) + n 1 ( 0 , ∞ ∞ ) ( h ) .
+
+{\displaystyle \gamma (h)=(s-n)(1-\exp(-h/(ra)))+n1_{(0,\infty )}(h).} The spherical variogram model γ γ ( h ) = ( s − − n ) ( ( 3 h 2 r − − h 3 2 r 3 ) 1 ( 0 , r ) ( h ) + 1 [ r , ∞ ∞ ) ( h ) ) + n 1 ( 0 , ∞ ∞ ) ( h ) .
+
+{\displaystyle \gamma (h)=(s-n)\left(\left({\frac {3h}{2r}}-{\frac {h^{3}}{2r^{3}}}\right)1_{(0,r)}(h)+1_{[r,\infty )}(h)\right)+n1_{(0,\infty )}(h).} The Gaussian variogram model γ γ ( h ) = ( s − − n ) ( 1 − − exp ⁡ ⁡ ( − − h 2 r 2 a ) ) + n 1 ( 0 , ∞ ∞ ) ( h ) .
+
+{\displaystyle \gamma (h)=(s-n)\left(1-\exp \left(-{\frac {h^{2}}{r^{2}a}}\right)\right)+n1_{(0,\infty )}(h).} The parameter a {\displaystyle a} has different values in different references, due to the ambiguity in the definition of the range. E.g.
+
+a = 1 / 3 {\displaystyle a=1/3} is the value used in (Chiles&Delfiner 1999). The indicator function 1 A ( h ) {\displaystyle 1_{A}(h)} is 1 if h ∈ ∈ A {\displaystyle h\in A} and 0 otherwise.
+
+Discussion [ edit ] This section does not cite any sources .
+
+Please help improve this section by adding citations to reliable sources . Unsourced material may be challenged and removed .
+
+( May 2015 ) ( Learn how and when to remove this message ) Three functions are used in geostatistics for describing the spatial or the temporal correlation of observations: these are the correlogram , the covariance , and the semivariogram . The last is also more simply called variogram .
+
+The variogram is the key function in geostatistics as it will be used to fit a model of the temporal/ spatial correlation of the observed phenomenon. One is thus making a distinction between the experimental variogram that is a visualization of a possible spatial/temporal correlation and the variogram model that is further used to define the weights of the kriging function. Note that the experimental variogram is an empirical estimate of the covariance of a Gaussian process . As such, it may not be positive definite and hence not directly usable in kriging, without constraints or further processing. This explains why only a limited number of variogram models are used: most commonly, the linear, the spherical, the Gaussian, and the exponential models.
+
+Applications [ edit ] The empirical variogram is used in geostatistics as a first estimate of the variogram model needed for spatial interpolation by kriging .
+
+Empirical variograms for the spatiotemporal variability of column-averaged carbon dioxide was used to determine coincidence criteria for satellite and ground-based measurements.
+
+[ 4 ] Empirical variograms were calculated for the density of a heterogeneous material (Gilsocarbon).
+
+[ 5 ] Empirical variograms are calculated from observations of strong ground motion from earthquakes .
+
+[ 6 ] These models are used for seismic risk and loss assessments of spatially-distributed infrastructure.
+
+[ 7 ] Related concepts [ edit ] The squared term in the variogram, for instance ( Z ( s 1 ) − − Z ( s 2 ) ) 2 {\displaystyle (Z(\mathbf {s} _{1})-Z(\mathbf {s} _{2}))^{2}} , can be replaced with different powers: A madogram is defined with the absolute difference , | Z ( s 1 ) − − Z ( s 2 ) | {\displaystyle |Z(\mathbf {s} _{1})-Z(\mathbf {s} _{2})|} , and a rodogram is defined with the square root of the absolute difference, | Z ( s 1 ) − − Z ( s 2 ) | 0.5 {\displaystyle |Z(\mathbf {s} _{1})-Z(\mathbf {s} _{2})|^{0.5}} .
+
+Estimators based on these lower powers are said to be more resistant to outliers . They can be generalized as a "variogram of order α ", 2 γ γ ( s 1 , s 2 ) = E [ | Z ( s 1 ) − − Z ( s 2 ) | α α ] {\displaystyle 2\gamma (\mathbf {s} _{1},\mathbf {s} _{2})=E\left[\left|Z(\mathbf {s} _{1})-Z(\mathbf {s} _{2})\right|^{\alpha }\right]} , in which a variogram is of order 2, a madogram is a variogram of order 1, and a rodogram is a variogram of order 0.5.
+
+[ 8 ] When a variogram is used to describe the correlation of different variables it is called cross-variogram . Cross-variograms are used in co-kriging .
+Should the variable be binary or represent classes of values, one is then talking about indicator variograms . Indicator variograms are used in indicator kriging .
+
+References [ edit ] ^ Matheron, Georges (1963). "Principles of geostatistics".
+
+Economic Geology .
+
+58 (8): 1246– 1266.
+
+doi : 10.2113/gsecongeo.58.8.1246 .
+
+ISSN 1554-0774 .
+
+^ Ford, David.
+
+"The Empirical Variogram" (PDF) .
+
+faculty.washington.edu/edford . Retrieved 31 October 2017 .
+
+^ Bachmaier, Martin; Backes, Matthias (2008-02-24). "Variogram or semivariogram? Understanding the variances in a variogram".
+
+Precision Agriculture .
+
+9 (3). Springer Science and Business Media LLC: 173– 175.
+
+doi : 10.1007/s11119-008-9056-2 .
+
+ISSN 1385-2256 .
+
+^ a b Nguyen, H.; Osterman, G.; Wunch, D.; O'Dell, C.; Mandrake, L.; Wennberg, P.; Fisher, B.; Castano, R. (2014).
+
+"A method for colocating satellite X CO 2 data to ground-based data and its application to ACOS-GOSAT and TCCON" .
+
+Atmospheric Measurement Techniques .
+
+7 (8): 2631– 2644.
+
+Bibcode : 2014AMT.....7.2631N .
+
+doi : 10.5194/amt-7-2631-2014 .
+
+ISSN 1867-8548 .
+
+^ Arregui Mena, J.D.; et al. (2018).
+
+"Characterisation of the spatial variability of material properties of Gilsocarbon and NBG-18 using random fields" .
+
+Journal of Nuclear Materials .
+
+511 : 91– 108.
+
+Bibcode : 2018JNuM..511...91A .
+
+doi : 10.1016/j.jnucmat.2018.09.008 .
+
+^ Schiappapietra, Erika; Douglas, John (April 2020).
+
+"Modelling the spatial correlation of earthquake ground motion: Insights from the literature, data from the 2016–2017 Central Italy earthquake sequence and ground-motion simulations" .
+
+Earth-Science Reviews .
+
+203 : 103139.
+
+Bibcode : 2020ESRv..20303139S .
+
+doi : 10.1016/j.earscirev.2020.103139 .
+
+^ Sokolov, Vladimir; Wenzel, Friedemann (2011-07-25). "Influence of spatial correlation of strong ground motion on uncertainty in earthquake loss estimation".
+
+Earthquake Engineering & Structural Dynamics .
+
+40 (9): 993– 1009.
+
+doi : 10.1002/eqe.1074 .
+
+^ Olea, Ricardo A. (1991).
+
+Geostatistical Glossary and Multilingual Dictionary . Oxford University Press. pp. 47, 67, 81.
+
+ISBN 9780195066890 .
+
+Further reading [ edit ] Cressie, N., 1993, Statistics for spatial data, Wiley Interscience.
+
+Chiles, J. P., P. Delfiner, 1999, Geostatistics, Modelling Spatial Uncertainty, Wiley-Interscience.
+
+Wackernagel, H., 2003, Multivariate Geostatistics, Springer.
+
+Burrough, P. A. and McDonnell, R. A., 1998, Principles of Geographical Information Systems.
+
+Isobel Clark, 1979, Practical Geostatistics, Applied Science Publishers .
+
+Clark, I., 1979, Practical Geostatistics , Applied Science Publishers.
+
+David, M., 1978, Geostatistical Ore Reserve Estimation , Elsevier Publishing.
+
+Hald, A., 1952, Statistical Theory with Engineering Applications , John Wiley & Sons, New York.
+
+Journel, A. G. and Huijbregts, Ch. J., 1978 Mining Geostatistics , Academic Press.
+
+Glass, H.J., 2003, Method for assessing quality of the variogram, The Journal of The South African Institute of Mining and Metallurgy .
+
+External links [ edit ] AI-GEOSTATS: an educational resource about geostatistics and spatial statistics Geostatistics: Lecture by Rudolf Dutter at the Technical University of Vienna Archived 2007-12-15 at the Wayback Machine Wikimedia Commons has media related to Variogram .
+
+Retrieved from " https://en.wikipedia.org/w/index.php?title=Variogram&oldid=1302492117#Variogram_parameters " Categories : Geostatistics Statistical deviation and dispersion Spatial processes Hidden categories: Articles with short description Short description is different from Wikidata All accuracy disputes Articles with disputed statements from July 2016 Articles needing additional references from May 2015 All articles needing additional references Webarchive template wayback links Commons category link is on Wikidata This page was last edited on 25 July 2025, at 19:12 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Variogram 14 languages Add topic
+

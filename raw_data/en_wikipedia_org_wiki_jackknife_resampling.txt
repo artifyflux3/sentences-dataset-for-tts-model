@@ -1,0 +1,258 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 A simple example: mean estimation 2 Estimating the bias of an estimator 3 Estimating the variance of an estimator 4 Literature 5 Notes 6 References Toggle the table of contents Jackknife resampling 9 languages Deutsch Español فارسی Français Italiano Polski Русский Українська 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Statistical method for resampling Schematic of jackknife resampling In statistics , the jackknife (jackknife cross-validation) is a cross-validation technique and, therefore, a form of resampling .
+It is especially useful for bias and variance estimation. The jackknife pre-dates other common resampling methods such as the bootstrap . Given a sample of size n {\displaystyle n} , a jackknife estimator can be built by aggregating the parameter estimates from each subsample of size ( n − − 1 ) {\displaystyle (n-1)} obtained by omitting one observation.
+
+[ 1 ] The jackknife is a linear approximation of the bootstrap .
+
+[ 2 ] The jackknife technique was developed by Maurice Quenouille (1924–1973) from 1949 and refined in 1956.
+
+John Tukey expanded on the technique in 1958 and proposed the name "jackknife" because, like a physical jack-knife (a compact folding knife), it is a rough-and-ready tool that can improvise a solution for a variety of problems even though specific problems may be more efficiently solved with a purpose-designed tool.
+
+[ 2 ] A simple example: mean estimation [ edit ] The jackknife estimator of a parameter is found by systematically leaving out each observation from a dataset and calculating the parameter estimate over the remaining observations and then aggregating these calculations.
+
+For example, if the parameter to be estimated is the population mean of random variable x {\displaystyle x} , then for a given set of i.i.d.
+
+observations x 1 , .
+
+.
+
+.
+
+, x n {\displaystyle x_{1},...,x_{n}} the natural estimator is the sample mean: x ¯ ¯ = 1 n ∑ ∑ i = 1 n x i = 1 n ∑ ∑ i ∈ ∈ [ n ] x i , {\displaystyle {\bar {x}}={\frac {1}{n}}\sum _{i=1}^{n}x_{i}={\frac {1}{n}}\sum _{i\in [n]}x_{i},} where the last sum used another way to indicate that the index i {\displaystyle i} runs over the set [ n ] = { 1 , … … , n } {\displaystyle [n]=\{1,\ldots ,n\}} .
+
+Then we proceed as follows: For each i ∈ ∈ [ n ] {\displaystyle i\in [n]} we compute the mean x ¯ ¯ ( i ) {\displaystyle {\bar {x}}_{(i)}} of the jackknife subsample consisting of all but the i {\displaystyle i} -th data point, and this is called the i {\displaystyle i} -th jackknife replicate: x ¯ ¯ ( i ) = 1 n − − 1 ∑ ∑ j ∈ ∈ [ n ] , j ≠ ≠ i x j , i = 1 , … … , n .
+
+{\displaystyle {\bar {x}}_{(i)}={\frac {1}{n-1}}\sum _{j\in [n],j\neq i}x_{j},\quad \quad i=1,\dots ,n.} It could help to think that these n {\displaystyle n} jackknife replicates x ¯ ¯ ( 1 ) , … … , x ¯ ¯ ( n ) {\displaystyle {\bar {x}}_{(1)},\ldots ,{\bar {x}}_{(n)}} approximate the distribution of the sample mean x ¯ ¯ {\displaystyle {\bar {x}}} . A larger n {\displaystyle n} improves the approximation. Then finally to get the jackknife estimator, the n {\displaystyle n} jackknife replicates are averaged: x ¯ ¯ j a c k = 1 n ∑ ∑ i = 1 n x ¯ ¯ ( i ) .
+
+{\displaystyle {\bar {x}}_{\mathrm {jack} }={\frac {1}{n}}\sum _{i=1}^{n}{\bar {x}}_{(i)}.} One may ask about the bias and the variance of x ¯ ¯ j a c k {\displaystyle {\bar {x}}_{\mathrm {jack} }} . From the definition of x ¯ ¯ j a c k {\displaystyle {\bar {x}}_{\mathrm {jack} }} as the average of the jackknife replicates one could try to calculate explicitly. The bias is a trivial calculation, but the variance of x ¯ ¯ j a c k {\displaystyle {\bar {x}}_{\mathrm {jack} }} is more involved since the jackknife replicates are not independent.
+
+For the special case of the mean, one can show explicitly that the jackknife estimate equals the usual estimate: 1 n ∑ ∑ i = 1 n x ¯ ¯ ( i ) = x ¯ ¯ .
+
+{\displaystyle {\frac {1}{n}}\sum _{i=1}^{n}{\bar {x}}_{(i)}={\bar {x}}.} This establishes the identity x ¯ ¯ j a c k = x ¯ ¯ {\displaystyle {\bar {x}}_{\mathrm {jack} }={\bar {x}}} . Then taking expectations we get E [ x ¯ ¯ j a c k ] = E [ x ¯ ¯ ] = E [ x ] {\displaystyle E[{\bar {x}}_{\mathrm {jack} }]=E[{\bar {x}}]=E[x]} , so x ¯ ¯ j a c k {\displaystyle {\bar {x}}_{\mathrm {jack} }} is unbiased, while taking variance we get V [ x ¯ ¯ j a c k ] = V [ x ¯ ¯ ] = V [ x ] / n {\displaystyle V[{\bar {x}}_{\mathrm {jack} }]=V[{\bar {x}}]=V[x]/n} . However, these properties do not generally hold for parameters other than the mean.
+
+This simple example for the case of mean estimation is just to illustrate the construction of a jackknife estimator, while the real subtleties (and the usefulness) emerge for the case of estimating other parameters, such as higher moments than the mean or other functionals of the distribution.
+
+x ¯ ¯ j a c k {\displaystyle {\bar {x}}_{\mathrm {jack} }} could be used to construct an empirical estimate of the bias of x ¯ ¯ {\displaystyle {\bar {x}}} , namely bias ^ ^ ( x ¯ ¯ ) j a c k = c ( x ¯ ¯ j a c k − − x ¯ ¯ ) {\displaystyle {\widehat {\operatorname {bias} }}({\bar {x}})_{\mathrm {jack} }=c({\bar {x}}_{\mathrm {jack} }-{\bar {x}})} with some suitable factor c > 0 {\displaystyle c>0} , although in this case we know that x ¯ ¯ j a c k = x ¯ ¯ {\displaystyle {\bar {x}}_{\mathrm {jack} }={\bar {x}}} so this construction does not add any meaningful knowledge, but it gives the correct estimation of the bias (which is zero).
+
+A jackknife estimate of the variance of x ¯ ¯ {\displaystyle {\bar {x}}} can be calculated from the variance of the jackknife replicates x ¯ ¯ ( i ) {\displaystyle {\bar {x}}_{(i)}} : [ 3 ] [ 4 ] var ^ ^ ( x ¯ ¯ ) j a c k = n − − 1 n ∑ ∑ i = 1 n ( x ¯ ¯ ( i ) − − x ¯ ¯ j a c k ) 2 = 1 n ( n − − 1 ) ∑ ∑ i = 1 n ( x i − − x ¯ ¯ ) 2 .
+
+{\displaystyle {\widehat {\operatorname {var} }}({\bar {x}})_{\mathrm {jack} }={\frac {n-1}{n}}\sum _{i=1}^{n}({\bar {x}}_{(i)}-{\bar {x}}_{\mathrm {jack} })^{2}={\frac {1}{n(n-1)}}\sum _{i=1}^{n}(x_{i}-{\bar {x}})^{2}.} The left equality defines the estimator var ^ ^ ( x ¯ ¯ ) j a c k {\displaystyle {\widehat {\operatorname {var} }}({\bar {x}})_{\mathrm {jack} }} and the right equality is an identity that can be verified directly. Then taking expectations we get E [ var ^ ^ ( x ¯ ¯ ) j a c k ] = V [ x ] / n = V [ x ¯ ¯ ] {\displaystyle E[{\widehat {\operatorname {var} }}({\bar {x}})_{\mathrm {jack} }]=V[x]/n=V[{\bar {x}}]} , so this is an unbiased estimator of the variance of x ¯ ¯ {\displaystyle {\bar {x}}} .
+
+Estimating the bias of an estimator [ edit ] The jackknife technique can be used to estimate (and correct) the bias of an estimator calculated over the entire sample.
+
+Suppose θ θ {\displaystyle \theta } is the target parameter of interest, which is assumed to be some functional of the distribution of x {\displaystyle x} . Based on a finite set of observations x 1 , .
+
+.
+
+.
+
+, x n {\displaystyle x_{1},...,x_{n}} , which is assumed to consist of i.i.d.
+
+copies of x {\displaystyle x} , the estimator θ θ ^ ^ {\displaystyle {\hat {\theta }}} is constructed: θ θ ^ ^ = f n ( x 1 , … … , x n ) .
+
+{\displaystyle {\hat {\theta }}=f_{n}(x_{1},\ldots ,x_{n}).} The value of θ θ ^ ^ {\displaystyle {\hat {\theta }}} is sample-dependent, so this value will change from one random sample to another.
+
+By definition, the bias of θ θ ^ ^ {\displaystyle {\hat {\theta }}} is as follows: bias ( θ θ ^ ^ ) = E [ θ θ ^ ^ ] − − θ θ .
+
+{\displaystyle {\text{bias}}({\hat {\theta }})=E[{\hat {\theta }}]-\theta .} One may wish to compute several values of θ θ ^ ^ {\displaystyle {\hat {\theta }}} from several samples, and average them, to calculate an empirical approximation of E [ θ θ ^ ^ ] {\displaystyle E[{\hat {\theta }}]} , but this is impossible when there are no "other samples" when the entire set of available observations x 1 , .
+
+.
+
+.
+
+, x n {\displaystyle x_{1},...,x_{n}} was used to calculate θ θ ^ ^ {\displaystyle {\hat {\theta }}} . In this kind of situation the jackknife resampling technique may be of help.
+
+We construct the jackknife replicates: θ θ ^ ^ ( 1 ) = f n − − 1 ( x 2 , x 3 … … , x n ) {\displaystyle {\hat {\theta }}_{(1)}=f_{n-1}(x_{2},x_{3}\ldots ,x_{n})} θ θ ^ ^ ( 2 ) = f n − − 1 ( x 1 , x 3 , … … , x n ) {\displaystyle {\hat {\theta }}_{(2)}=f_{n-1}(x_{1},x_{3},\ldots ,x_{n})} ⋮ ⋮ {\displaystyle \vdots } θ θ ^ ^ ( n ) = f n − − 1 ( x 1 , x 2 , … … , x n − − 1 ) {\displaystyle {\hat {\theta }}_{(n)}=f_{n-1}(x_{1},x_{2},\ldots ,x_{n-1})} where each replicate is a "leave-one-out" estimate based on the jackknife subsample consisting of all but one of the data points: θ θ ^ ^ ( i ) = f n − − 1 ( x 1 , … … , x i − − 1 , x i + 1 , … … , x n ) i = 1 , … … , n .
+
+{\displaystyle {\hat {\theta }}_{(i)}=f_{n-1}(x_{1},\ldots ,x_{i-1},x_{i+1},\ldots ,x_{n})\quad \quad i=1,\dots ,n.} Then we define their average: θ θ ^ ^ j a c k = 1 n ∑ ∑ i = 1 n θ θ ^ ^ ( i ) {\displaystyle {\hat {\theta }}_{\mathrm {jack} }={\frac {1}{n}}\sum _{i=1}^{n}{\hat {\theta }}_{(i)}} The jackknife estimate of the bias of θ θ ^ ^ {\displaystyle {\hat {\theta }}} is given by: bias ^ ^ ( θ θ ^ ^ ) j a c k = ( n − − 1 ) ( θ θ ^ ^ j a c k − − θ θ ^ ^ ) {\displaystyle {\widehat {\text{bias}}}({\hat {\theta }})_{\mathrm {jack} }=(n-1)({\hat {\theta }}_{\mathrm {jack} }-{\hat {\theta }})} and the resulting bias-corrected jackknife estimate of θ θ {\displaystyle \theta } is given by: θ θ ^ ^ jack ∗ ∗ = θ θ ^ ^ − − bias ^ ^ ( θ θ ^ ^ ) j a c k = n θ θ ^ ^ − − ( n − − 1 ) θ θ ^ ^ j a c k .
+
+{\displaystyle {\hat {\theta }}_{\text{jack}}^{*}={\hat {\theta }}-{\widehat {\text{bias}}}({\hat {\theta }})_{\mathrm {jack} }=n{\hat {\theta }}-(n-1){\hat {\theta }}_{\mathrm {jack} }.} This removes the bias in the special case that the bias is O ( n − − 1 ) {\displaystyle O(n^{-1})} and reduces it to O ( n − − 2 ) {\displaystyle O(n^{-2})} in other cases.
+
+[ 2 ] Estimating the variance of an estimator [ edit ] The jackknife technique can be also used to estimate the variance of an estimator calculated over the entire sample.
+
+Literature [ edit ] Berger, Y.G. (2007). "A jackknife variance estimator for unistage stratified samples with unequal probabilities".
+
+Biometrika .
+
+94 (4): 953– 964.
+
+doi : 10.1093/biomet/asm072 .
+
+Berger, Y.G.; Rao, J.N.K. (2006).
+
+"Adjusted jackknife for imputation under unequal probability sampling without replacement" .
+
+Journal of the Royal Statistical Society, Series B .
+
+68 (3): 531– 547.
+
+doi : 10.1111/j.1467-9868.2006.00555.x .
+
+Berger, Y.G.; Skinner, C.J. (2005). "A jackknife variance estimator for unequal probability sampling".
+
+Journal of the Royal Statistical Society, Series B .
+
+67 (1): 79– 89.
+
+doi : 10.1111/j.1467-9868.2005.00489.x .
+
+Jiang, J.; Lahiri, P.; Wan, S-M. (2002).
+
+"A unified jackknife theory for empirical best prediction with M-estimation" .
+
+The Annals of Statistics .
+
+30 (6): 1782– 810.
+
+doi : 10.1214/aos/1043351257 .
+
+Jones, H.L. (1974). "Jackknife estimation of functions of stratum means".
+
+Biometrika .
+
+61 (2): 343– 348.
+
+doi : 10.2307/2334363 .
+
+JSTOR 2334363 .
+
+Kish, L.; Frankel, M.R. (1974). "Inference from complex samples".
+
+Journal of the Royal Statistical Society, Series B .
+
+36 (1): 1– 37.
+
+Krewski, D.; Rao, J.N.K. (1981).
+
+"Inference from stratified samples: properties of the linearization, jackknife and balanced repeated replication methods" .
+
+The Annals of Statistics .
+
+9 (5): 1010– 1019.
+
+doi : 10.1214/aos/1176345580 .
+
+Quenouille, M.H. (1956). "Notes on bias in estimation".
+
+Biometrika .
+
+43 ( 3– 4): 353– 360.
+
+doi : 10.1093/biomet/43.3-4.353 .
+
+Rao, J.N.K.; Shao, J. (1992). "Jackknife variance estimation with survey data under hot deck imputation".
+
+Biometrika .
+
+79 (4): 811– 822.
+
+doi : 10.1093/biomet/79.4.811 .
+
+Rao, J.N.K.; Wu, C.F.J.; Yue, K. (1992). "Some recent work on resampling methods for complex surveys".
+
+Survey Methodology .
+
+18 (2): 209– 217.
+
+Shao, J. and Tu, D. (1995). The Jackknife and Bootstrap. Springer-Verlag, Inc.
+
+Tukey, J.W.
+
+(1958). "Bias and confidence in not-quite large samples (abstract)".
+
+The Annals of Mathematical Statistics .
+
+29 (2): 614.
+
+Wu, C.F.J.
+
+(1986).
+
+"Jackknife, Bootstrap and other resampling methods in regression analysis" .
+
+The Annals of Statistics .
+
+14 (4): 1261– 1295.
+
+doi : 10.1214/aos/1176350142 .
+
+Notes [ edit ] ^ Efron 1982 , p. 2.
+
+^ a b c Cameron & Trivedi 2005 , p. 375.
+
+^ Efron 1982 , p. 14.
+
+^ McIntosh, Avery I.
+
+"The Jackknife Estimation Method" (PDF) .
+
+Boston University . Avery I. McIntosh. Archived from the original (PDF) on 2016-05-14 . Retrieved 2016-04-30 .
+
+: p. 3.
+
+References [ edit ] Cameron, Adrian; Trivedi, Pravin K. (2005).
+
+Microeconometrics : methods and applications . Cambridge New York: Cambridge University Press.
+
+ISBN 9780521848053 .
+
+Efron, Bradley ; Stein, Charles (May 1981).
+
+"The Jackknife Estimate of Variance" .
+
+The Annals of Statistics .
+
+9 (3): 586– 596.
+
+doi : 10.1214/aos/1176345462 .
+
+JSTOR 2240822 .
+
+Efron, Bradley (1982).
+
+The jackknife, the bootstrap, and other resampling plans . Philadelphia, PA: Society for Industrial and Applied Mathematics.
+
+ISBN 9781611970319 .
+
+Quenouille, Maurice H. (September 1949).
+
+"Problems in Plane Sampling" .
+
+The Annals of Mathematical Statistics .
+
+20 (3): 355– 375.
+
+doi : 10.1214/aoms/1177729989 .
+
+JSTOR 2236533 .
+
+Quenouille, Maurice H. (1956). "Notes on Bias in Estimation".
+
+Biometrika .
+
+43 ( 3– 4): 353– 360.
+
+doi : 10.1093/biomet/43.3-4.353 .
+
+JSTOR 2332914 .
+
+Tukey, John W.
+
+(1958).
+
+"Bias and confidence in not quite large samples (abstract)" .
+
+The Annals of Mathematical Statistics .
+
+29 (2): 614.
+
+doi : 10.1214/aoms/1177706647 .
+
+v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject Retrieved from " https://en.wikipedia.org/w/index.php?title=Jackknife_resampling&oldid=1298730809 " Categories : Computational statistics Resampling (statistics) Hidden categories: Articles with short description Short description matches Wikidata This page was last edited on 4 July 2025, at 09:24 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Jackknife resampling 9 languages Add topic
+

@@ -1,0 +1,178 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Formulation Toggle Formulation subsection 1.1 Derivation 2 Distribution and use 3 Relation to other metrics Toggle Relation to other metrics subsection 3.1 Relation to the chi-squared test 3.1.1 Derivation (chi-squared) 3.2 Relation to Kullback–Leibler divergence 3.3 Relation to mutual information 4 Application 5 Statistical software 6 References 7 External links Toggle the table of contents G -test 3 languages Deutsch 日本語 Sunda Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Statistical test In statistics , G -tests are likelihood-ratio or maximum likelihood statistical significance tests that are increasingly being used in situations where chi-squared tests were previously recommended.
+
+[ 1 ] Formulation [ edit ] The general formula for G is G = 2 ∑ ∑ i O i ⋅ ⋅ ln ⁡ ⁡ ( O i E i ) , {\displaystyle G=2\sum _{i}{O_{i}\cdot \ln \left({\frac {O_{i}}{E_{i}}}\right)},} where O i ≥ ≥ 0 {\textstyle O_{i}\geq 0} is the observed count in a cell, E i > 0 {\textstyle E_{i}>0} is the expected count under the null hypothesis , ln {\textstyle \ln } denotes the natural logarithm , and the sum is taken over all non-empty cells. The resulting G {\textstyle G} is chi-squared distributed .
+
+Furthermore, the total observed count should be equal to the total expected count: ∑ ∑ i O i = ∑ ∑ i E i = N {\displaystyle \sum _{i}O_{i}=\sum _{i}E_{i}=N} where N {\textstyle N} is the total number of observations.
+
+Derivation [ edit ] We can derive the value of the G -test from the log-likelihood ratio test where the underlying model is a multinomial model.
+
+Suppose we had a sample x = ( x 1 , … … , x m ) {\textstyle x=(x_{1},\ldots ,x_{m})} where each x i {\textstyle x_{i}} is the number of times that an object of type i {\textstyle i} was observed. Furthermore, let n = ∑ ∑ i = 1 m x i {\textstyle n=\sum _{i=1}^{m}x_{i}} be the total number of objects observed. If we assume that the underlying model is multinomial, then the test statistic is defined by ln ⁡ ⁡ ( L ( θ θ ~ ~ | x ) L ( θ θ ^ ^ | x ) ) = ln ⁡ ⁡ ( ∏ ∏ i = 1 m θ θ ~ ~ i x i ∏ ∏ i = 1 m θ θ ^ ^ i x i ) {\displaystyle \ln \left({\frac {L({\tilde {\theta }}|x)}{L({\hat {\theta }}|x)}}\right)=\ln \left({\frac {\prod _{i=1}^{m}{\tilde {\theta }}_{i}^{x_{i}}}{\prod _{i=1}^{m}{\hat {\theta }}_{i}^{x_{i}}}}\right)} where θ θ ~ ~ {\textstyle {\tilde {\theta }}} is the null hypothesis and θ θ ^ ^ {\displaystyle {\hat {\theta }}} is the maximum likelihood estimate (MLE) of the parameters given the data. Recall that for the multinomial model, the MLE of θ θ ^ ^ i {\textstyle {\hat {\theta }}_{i}} given some data is defined by θ θ ^ ^ i = x i n {\displaystyle {\hat {\theta }}_{i}={\frac {x_{i}}{n}}} Furthermore, we may represent each null hypothesis parameter θ θ ~ ~ i {\displaystyle {\tilde {\theta }}_{i}} as θ θ ~ ~ i = e i n {\displaystyle {\tilde {\theta }}_{i}={\frac {e_{i}}{n}}} Thus, by substituting the representations of θ θ ~ ~ {\textstyle {\tilde {\theta }}} and θ θ ^ ^ {\textstyle {\hat {\theta }}} in the log-likelihood ratio, the equation simplifies to ln ⁡ ⁡ ( L ( θ θ ~ ~ | x ) L ( θ θ ^ ^ | x ) ) = ln ⁡ ⁡ ∏ ∏ i = 1 m ( e i x i ) x i = ∑ ∑ i = 1 m x i ln ⁡ ⁡ ( e i x i ) {\displaystyle {\begin{aligned}\ln \left({\frac {L({\tilde {\theta }}|x)}{L({\hat {\theta }}|x)}}\right)&=\ln \prod _{i=1}^{m}\left({\frac {e_{i}}{x_{i}}}\right)^{x_{i}}\\&=\sum _{i=1}^{m}x_{i}\ln \left({\frac {e_{i}}{x_{i}}}\right)\\\end{aligned}}} Relabel the variables e i {\textstyle e_{i}} with E i {\textstyle E_{i}} and x i {\textstyle x_{i}} with O i {\textstyle O_{i}} . Finally, multiply by a factor of − − 2 {\textstyle -2} (used to make the G test formula asymptotically equivalent to the Pearson's chi-squared test formula ) to achieve the form G = − − 2 ∑ ∑ i = 1 m O i ln ⁡ ⁡ ( E i O i ) = 2 ∑ ∑ i = 1 m O i ln ⁡ ⁡ ( O i E i ) {\displaystyle {\begin{alignedat}{2}G&=&\;-2\sum _{i=1}^{m}O_{i}\ln \left({\frac {E_{i}}{O_{i}}}\right)\\&=&2\sum _{i=1}^{m}O_{i}\ln \left({\frac {O_{i}}{E_{i}}}\right)\end{alignedat}}} Heuristically, one can imagine O i {\displaystyle ~O_{i}~} as continuous and approaching zero, in which case O i ln ⁡ ⁡ O i → → 0 , {\displaystyle ~O_{i}\ln O_{i}\to 0~,} and terms with zero observations can simply be dropped. However the expected count in each cell must be strictly greater than zero for each cell ( E i > 0 ∀ ∀ i {\displaystyle ~E_{i}>0~\forall \,i~} ) to apply the method.
+
+Distribution and use [ edit ] Given the null hypothesis that the observed frequencies result from random sampling from a distribution with the given expected frequencies, the distribution of G is approximately a chi-squared distribution , with the same number of degrees of freedom as in the corresponding chi-squared test.
+
+For very small samples the multinomial test for goodness of fit, and Fisher's exact test for contingency tables, or even Bayesian hypothesis selection are preferable to the G -test.
+
+[ 2 ] McDonald recommends to always use an exact test (exact test of goodness-of-fit, Fisher's exact test ) if the total sample size is less than 1 000 .
+
+There is nothing magical about a sample size of 1 000, it's just a nice round number that is well within the range where an exact test, chi-square test, and G –test will give almost identical p values. Spreadsheets, web-page calculators, and SAS shouldn't have any problem doing an exact test on a sample size of 1 000 .
+
+— John H. McDonald (2014) [ 2 ] G -tests have been recommended at least since the 1981 edition of Biometry , a statistics textbook by Robert R. Sokal and F. James Rohlf .
+
+[ 3 ] Relation to other metrics [ edit ] Relation to the chi-squared test [ edit ] The commonly used chi-squared tests for goodness of fit to a distribution and for independence in contingency tables are in fact approximations of the log-likelihood ratio on which the G -tests are based.
+
+[ 4 ] The general formula for Pearson's chi-squared test statistic is χ χ 2 = ∑ ∑ i ( O i − − E i ) 2 E i .
+
+{\displaystyle \chi ^{2}=\sum _{i}{\frac {\left(O_{i}-E_{i}\right)^{2}}{E_{i}}}~.} The approximation of G by chi squared is obtained by a second order Taylor expansion of the natural logarithm around 1 (see #Derivation (chi-squared) below).
+We have G ≈ ≈ χ χ 2 {\displaystyle G\approx \chi ^{2}} when the observed counts O i {\displaystyle ~O_{i}~} are close to the expected counts E i .
+
+{\displaystyle ~E_{i}~.} When this difference is large, however, the χ χ 2 {\displaystyle ~\chi ^{2}~} approximation begins to break down. Here, the effects of outliers in data will be more pronounced, and this explains the why χ χ 2 {\displaystyle ~\chi ^{2}~} tests fail in situations with little data.
+
+For samples of a reasonable size, the G -test and the chi-squared test will lead to the same conclusions. However, the approximation to the theoretical chi-squared distribution for the G -test is better than for the Pearson's chi-squared test .
+
+[ 5 ] In cases where O i > 2 ⋅ ⋅ E i {\displaystyle ~O_{i}>2\cdot E_{i}~} for some cell case the G -test is always better than the chi-squared test.
+
+[ citation needed ] For testing goodness-of-fit the G -test is infinitely more efficient than the chi squared test in the sense of Bahadur, but the two tests are equally efficient in the sense of Pitman or in the sense of Hodges and Lehmann.
+
+[ 6 ] [ 7 ] Derivation (chi-squared) [ edit ] Consider G = 2 ∑ ∑ i O i ln ⁡ ⁡ ( O i E i ) , {\displaystyle G=2\sum _{i}{O_{i}\ln \left({\frac {O_{i}}{E_{i}}}\right)}~,} and let O i = E i + δ δ i {\displaystyle O_{i}=E_{i}+\delta _{i}} with ∑ ∑ i δ δ i = 0 , {\displaystyle \sum _{i}\delta _{i}=0~,} so that the total number of counts remains the same. Upon substitution we find, G = 2 ∑ ∑ i ( E i + δ δ i ) ln ⁡ ⁡ ( 1 + δ δ i E i ) .
+
+{\displaystyle G=2\sum _{i}{(E_{i}+\delta _{i})\ln \left(1+{\frac {\delta _{i}}{E_{i}}}\right)}~.} A Taylor expansion around 1 + δ δ i E i {\displaystyle 1+{\frac {\delta _{i}}{E_{i}}}} can be performed using ln ⁡ ⁡ ( 1 + x ) = x − − 1 2 x 2 + O ( x 3 ) {\displaystyle \ln(1+x)=x-{\frac {1}{2}}x^{2}+{\mathcal {O}}(x^{3})} . The result is G = 2 ∑ ∑ i ( E i + δ δ i ) ( δ δ i E i − − 1 2 δ δ i 2 E i 2 + O ( δ δ i 3 ) ) , {\displaystyle G=2\sum _{i}(E_{i}+\delta _{i})\left({\frac {\delta _{i}}{E_{i}}}-{\frac {1}{2}}{\frac {\delta _{i}^{2}}{E_{i}^{2}}}+{\mathcal {O}}\left(\delta _{i}^{3}\right)\right)~,} and distributing terms we find, G = 2 ∑ ∑ i δ δ i + 1 2 δ δ i 2 E i + O ( δ δ i 3 ) .
+
+{\displaystyle G=2\sum _{i}\delta _{i}+{\frac {1}{2}}{\frac {\delta _{i}^{2}}{E_{i}}}+{\mathcal {O}}\left(\delta _{i}^{3}\right)~.} Now, using the fact that ∑ ∑ i δ δ i = 0 {\displaystyle ~\sum _{i}\delta _{i}=0~} and δ δ i = O i − − E i , {\displaystyle ~\delta _{i}=O_{i}-E_{i}~,} we can write the result, G ≈ ≈ ∑ ∑ i ( O i − − E i ) 2 E i .
+
+{\displaystyle ~G\approx \sum _{i}{\frac {\left(O_{i}-E_{i}\right)^{2}}{E_{i}}}~.} Relation to Kullback–Leibler divergence [ edit ] The G -test statistic is proportional to the Kullback–Leibler divergence of the theoretical distribution from the empirical distribution: G = 2 ∑ ∑ i O i ⋅ ⋅ ln ⁡ ⁡ ( O i E i ) = 2 N ∑ ∑ i o i ⋅ ⋅ ln ⁡ ⁡ ( o i e i ) = 2 N D K L ( o ‖ ‖ e ) , {\displaystyle {\begin{aligned}G&=2\sum _{i}{O_{i}\cdot \ln \left({\frac {O_{i}}{E_{i}}}\right)}=2N\sum _{i}{o_{i}\cdot \ln \left({\frac {o_{i}}{e_{i}}}\right)}\\&=2N\,D_{\mathrm {KL} }(o\|e),\end{aligned}}} where N is the total number of observations and o i {\displaystyle o_{i}} and e i {\displaystyle e_{i}} are the empirical and theoretical frequencies, respectively.
+
+Relation to mutual information [ edit ] For analysis of contingency tables the value of G can also be expressed in terms of mutual information .
+
+Let N = ∑ ∑ i j O i j {\displaystyle N=\sum _{ij}{O_{ij}}\;} , π π i j = O i j N {\displaystyle \;\pi _{ij}={\frac {O_{ij}}{N}}\;} , π π i .
+
+= ∑ ∑ j O i j N {\displaystyle \;\pi _{i.}={\frac {\sum _{j}O_{ij}}{N}}\;} , and π π .
+
+j = ∑ ∑ i O i j N {\displaystyle \;\pi _{.j}={\frac {\sum _{i}O_{ij}}{N}}\;} .
+
+Then G can be expressed in several alternative forms: G = 2 ⋅ ⋅ N ⋅ ⋅ ∑ ∑ i j π π i j ( ln ⁡ ⁡ ( π π i j ) − − ln ⁡ ⁡ ( π π i .
+
+) − − ln ⁡ ⁡ ( π π .
+
+j ) ) , {\displaystyle G=2\cdot N\cdot \sum _{ij}{\pi _{ij}\left(\ln(\pi _{ij})-\ln(\pi _{i.})-\ln(\pi _{.j})\right)},} G = 2 ⋅ ⋅ N ⋅ ⋅ [ H ( r ) + H ( c ) − − H ( r , c ) ] , {\displaystyle G=2\cdot N\cdot \left[H(r)+H(c)-H(r,c)\right],} G = 2 ⋅ ⋅ N ⋅ ⋅ MI ⁡ ⁡ ( r , c ) , {\displaystyle G=2\cdot N\cdot \operatorname {MI} (r,c)\,,} where the entropy of a discrete random variable X {\displaystyle X\,} is defined as H ( X ) = − − ∑ ∑ x ∈ ∈ Supp ( X ) p ( x ) log ⁡ ⁡ p ( x ) , {\displaystyle H(X)=-{\sum _{x\in {\text{Supp}}(X)}p(x)\log p(x)}\,,} and where MI ⁡ ⁡ ( r , c ) = H ( r ) + H ( c ) − − H ( r , c ) {\displaystyle \operatorname {MI} (r,c)=H(r)+H(c)-H(r,c)\,} is the mutual information between the row vector r and the column vector c of the contingency table.
+
+It can also be shown [ citation needed ] that the inverse document frequency weighting commonly used for text retrieval is an approximation of G applicable when the row sum for the query is much smaller than the row sum for the remainder of the corpus.  Similarly, the result of Bayesian inference applied to a choice of single multinomial distribution for all rows of the contingency table taken together versus the more general alternative of a separate multinomial per row produces results very similar to the G statistic.
+
+[ citation needed ] Application [ edit ] The McDonald–Kreitman test in statistical genetics is an application of the G -test.
+
+Dunning [ 8 ] introduced the test to the computational linguistics community where it is now widely used.
+
+The R-scape program (used by Rfam ) uses G-test to detect co-variation between RNA sequence alignment positions.
+
+[ 9 ] Statistical software [ edit ] In R fast implementations can be found in the AMR and Rfast packages. For the AMR package, the command is g.test which works exactly like chisq.test from base R. R also has the likelihood.test Archived 2013-12-16 at the Wayback Machine function in the Deducer Archived 2012-03-09 at the Wayback Machine package.
+
+Note: Fisher's G -test in the GeneCycle Package of the R programming language ( fisher.g.test ) does not implement the G -test as described in this article, but rather Fisher's exact test of Gaussian white-noise in a time series.
+
+[ 10 ] Another R implementation to compute the G statistic and corresponding p-values is provided by the R package entropy . The commands are Gstat for the standard G statistic and the associated p-value and Gstatindep for the G statistic applied to comparing joint and product distributions to test independence.
+
+In SAS , one can conduct G -test by applying the /chisq option after the proc freq .
+
+[ 11 ] In Stata , one can conduct a G -test by applying the lr option after the tabulate command.
+
+In Java , use org.apache.commons.math3.stat.inference.GTest .
+
+[ 12 ] In Python , use scipy.stats.power_divergence with lambda_=0 .
+
+[ 13 ] References [ edit ] ^ McDonald, J.H. (2014).
+
+"G–test of goodness-of-fit" .
+
+Handbook of Biological Statistics (Third ed.). Baltimore, Maryland: Sparky House Publishing. pp.
+
+53– 58.
+
+^ a b McDonald, John H. (2014).
+
+"Small numbers in chi-square and G –tests" .
+
+Handbook of Biological Statistics (3rd ed.). Baltimore, MD: Sparky House Publishing. pp.
+
+86– 89.
+
+^ Sokal, R. R.; Rohlf, F. J. (1981).
+
+Biometry: The Principles and Practice of Statistics in Biological Research (Second ed.). New York: Freeman.
+
+ISBN 978-0-7167-2411-7 .
+
+^ Hoey, J. (2012). "The Two-Way Likelihood Ratio (G) Test and Comparison to Two-Way Chi-Squared Test".
+
+arXiv : 1206.4881 [ stat.ME ].
+
+^ Harremoës, P.; Tusnády, G. (2012). "Information divergence is more chi squared distributed than the chi squared statistic".
+
+Proceedings ISIT 2012 . pp.
+
+538– 543.
+
+arXiv : 1202.1125 .
+
+Bibcode : 2012arXiv1202.1125H .
+
+^ Quine, M. P.; Robinson, J. (1985).
+
+"Efficiencies of chi-square and likelihood ratio goodness-of-fit tests" .
+
+Annals of Statistics .
+
+13 (2): 727– 742.
+
+doi : 10.1214/aos/1176349550 .
+
+^ Harremoës, P.; Vajda, I. (2008). "On the Bahadur-efficient testing of uniformity by means of the entropy".
+
+IEEE Transactions on Information Theory .
+
+54 : 321– 331.
+
+CiteSeerX 10.1.1.226.8051 .
+
+doi : 10.1109/tit.2007.911155 .
+
+S2CID 2258586 .
+
+^ Dunning, Ted (1993). " Accurate Methods for the Statistics of Surprise and Coincidence Archived 2011-12-15 at the Wayback Machine ", Computational Linguistics , Volume 19, issue 1 (March, 1993).
+
+^ Rivas, Elena (30 October 2020).
+
+"RNA structure prediction using positive and negative evolutionary information" .
+
+PLOS Computational Biology .
+
+16 (10): e1008387.
+
+doi : 10.1371/journal.pcbi.1008387 .
+
+PMC 7657543 .
+
+^ Fisher, R. A. (1929).
+
+"Tests of significance in harmonic analysis" .
+
+Proceedings of the Royal Society of London A .
+
+125 (796): 54– 59.
+
+Bibcode : 1929RSPSA.125...54F .
+
+doi : 10.1098/rspa.1929.0151 .
+
+hdl : 2440/15201 .
+
+^ G-test of independence , G-test for goodness-of-fit in Handbook of Biological Statistics, University of Delaware. (pp. 46–51, 64–69 in: McDonald, J. H. (2009) Handbook of Biological Statistics (2nd ed.). Sparky House Publishing, Baltimore, Maryland.) ^ "org.apache.commons.math3.stat.inference.GTest" . Archived from the original on 2018-07-26 . Retrieved 2018-07-11 .
+
+^ "Scipy.stats.power_divergence — SciPy v1.7.1 Manual" .
+
+External links [ edit ] G 2 /Log-likelihood calculator v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject Retrieved from " https://en.wikipedia.org/w/index.php?title=G-test&oldid=1300853131 " Category : Statistical tests for contingency tables Hidden categories: Webarchive template wayback links Articles with short description Short description matches Wikidata All articles with unsourced statements Articles with unsourced statements from August 2011 This page was last edited on 16 July 2025, at 18:57 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents G -test 3 languages Add topic
+

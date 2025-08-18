@@ -1,0 +1,83 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Description 2 Relation Toggle Relation subsection 2.1 OCL and UML 2.2 OCL and MOF 2.3 OCL and QVT 3 Alternatives 4 Extensions 5 See also 6 References 7 External links Toggle the table of contents Object Constraint Language 10 languages Català Deutsch Español Français Italiano Lietuvių Magyar 日本語 Polski Português Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Declarative language This article needs to be updated .
+
+Please help update this article to reflect recent events or newly available information.
+
+( April 2018 ) The Object Constraint Language ( OCL ) is a declarative language describing rules applying to Unified Modeling Language (UML) models developed at IBM and is now part of the UML standard. Initially, OCL was merely a formal specification language extension for UML.
+
+[ 1 ] OCL may now be used with any Meta-Object Facility (MOF) Object Management Group (OMG) meta-model , including UML.
+
+[ 2 ] The Object Constraint Language is a precise text language that provides constraint and object query expressions on any MOF model or meta-model that cannot otherwise be expressed by diagrammatic notation. OCL is a key component of the new OMG standard recommendation for transforming models, the Queries/Views/Transformations ( QVT ) specification.
+
+Description [ edit ] OCL is a descendant of Syntropy , a second-generation object-oriented analysis and design method. The OCL 1.4 definition specified a constraint language. In OCL 2.0, the definition has been extended to include general object query language definitions.
+
+[ 3 ] OCL statements are constructed in four parts: a context that defines the limited situation in which the statement is valid a property that represents some characteristics of the context (e.g., if the context is a class, a property might be an attribute) an operation (e.g., arithmetic, set-oriented) that manipulates or qualifies a property, and keywords (e.g., if, then, else, and, or, not, implies) that are used to specify conditional expressions.
+
+Relation [ edit ] OCL and UML [ edit ] OCL supplements UML by providing expressions that have neither the ambiguities of natural language nor the inherent difficulty of using complex mathematics.
+
+[ 3 ] OCL is also a navigation language for graph-based models.
+
+OCL and MOF [ edit ] OCL makes a Meta-Object Facility model more precise by associating assertions with its meta-elements.
+
+OCL and QVT [ edit ] Of particular importance to Model Driven Engineering (MDE) or model-driven architecture is the notion of Model transformation . The OMG has defined a specific standard for model transformation called MOF/QVT or in short QVT . Several model transformation languages like GReAT , VIATRA , or Tefkat are presently available, with different levels of compliance with the QVT standard. Many of these languages are built on top of OCL, which is the main part of the QVT -compliance.
+
+Alternatives [ edit ] Being a rule-based validation language, Schematron may be considered an alternative to OCL. However Schematron works for Extensible Markup Language (XML) trees while OCL makes it possible to navigate MOF -based models and meta-models (i.e. XML Metadata Interchange ( XMI ) trees). In other words, OCL relates to UML or MOF similarly to how Schematron relates to XML . (Note that Schematron uses XPath to navigate inside the XML trees.) Being a model specification language permitting designers to decorate a model or a meta-model with side-effect-free annotations, OCL could be replaced by languages like Alloy . Automated OCL generation is in principle possible from natural language.
+
+[ 4 ] Examples Constraint OCL Equivalent The age of a person is not negative.
+
+context Person inv : self.age >=0 A person is younger than its parents.
+
+context Person inv : self.parents->forAll(p|p.age>self.age) After a birthday, a person becomes one year older.
+
+context Person::hasBirthday() post : self.age=self.age@pre+1 A Person has 2 parents at max.
+
+context Person inv : self.parents->size()<=2 After somebody has a child, his/her child-set is not empty, and it is larger than before.
+
+context Person::getsChild() post : self.childs->notEmpty() and self.childs->size() > self.childs@pre->size() Only an adult can be owner of a car.
+
+context Person inv : self.age<18 implies self.cars->isEmpty() The first registration of a car can not be before it is built.
+
+context Auto inv : self.registration>=self.constructionYear Every Person that has a car has at least one car which is younger than the Person.
+
+context Person inv : self.cars->notEmpty() implies self.cars->exists( c | Calendar.YEAR - c.constructionYear < self.age) Nobody can be his/her own parent.
+
+context Person inv : self.parents->excludes(self) There's at least one Person which owns a car.
+
+context Person inv : Person.allInstances()->exists(p | p.cars->size() > 0) Extensions [ edit ] Eclipse OCL [ 5 ] extends Standard OCL with additional operators and a type for Maps. AgileUML extends Standard OCL with Map and Function types.
+
+[ 6 ] These extensions are consistent with the map and function types present in modern programming languages such as Python and Swift.
+
+See also [ edit ] Computer model Data mapping Domain Specific Language (DSL) Domain-specific modelling (DSM) Eclipse GMT Project Gello Expression Language Glossary of Unified Modeling Language terms List of UML tools Meta-modeling Meta-modeling technique Meta-Object Facility (MOF) Metadata Model-based testing (MBT) Model-driven architecture (MDA) Model Driven Engineering (MDE) Model Transformation Language (MTL) Modeling language Modeling perspectives MOFM2T Object-oriented analysis and design (OOAD) MOF Queries/Views/Transformations (QVT) Semantic translation Transformation language (TL) UML tool Vocabulary-based transformation XMI XML transformation language (XTL) References [ edit ] ^ Object Management Group (OMG); Object Constraint Language Specification , Chapter 7 of OMG Unified Modeling Language Specification , Version 1.3, March 2000 (first edition) ^ Object Management Group (OMG); Object Constraint Language OMG Available Specification Version 2.0 , May 2006 ^ a b This article is based on material taken from Object+Constraint+Language at the Free On-line Dictionary of Computing prior to 1 November 2008 and incorporated under the "relicensing" terms of the GFDL , version 1.3 or later.
+
+^ Imran Sarwar Bajwa (October 2010). "OCL Constraints Generation from Natural Language Specification, 2010".
+
+IEEE .
+
+doi : 10.1109/EDOC.2010.33 .
+
+S2CID 7495256 .
+
+{{ cite journal }} : Cite journal requires |journal= ( help ) ^ "Eclipse OCL™ (Object Constraint Language)" . 31 January 2013.
+
+^ Lano, Kevin; Kolahdouz-Rahimi, Shekoufeh (2021).
+
+"Extending OCL with Map and Function Types" .
+
+Fundamentals of Software Engineering . Lecture Notes in Computer Science. Vol. 12818. pp.
+
+108– 123.
+
+doi : 10.1007/978-3-030-89247-0_8 .
+
+ISBN 978-3-030-89246-3 .
+
+S2CID 239029860 .
+
+External links [ edit ] OMG OCL specification OCL Portal - The center for OCL related information OCL page of Computer Science Dept. of CSUSB (brief OCL 2.0 syntax) Octopus: OCL Tool for Precise Uml Specifications (OCL checker) Dresden OCL Toolkit [ usurped ] (OCL Toolkit, various OCL related publications) HOL-OCL (An interactive theorem proof environment for OCL, various OCL related publications) OCL for Java tutorial on ParlezUML Article on using EMF's OCL in Java code UML link page on cetus-links.org USE (UML-based Specification Environment) (OCL Tool for model validation, various OCL related publications) OCL tutorial NL2OCL (OCL Tool for invariant generation from NL) v t e Query languages In current use .QL ALPHA CQL Cypher DAX DMX Datalog GraphQL Graph Query Language Gremlin ISBL LDAP LINQ MQL MDX OQL OCL QUEL RDF SMARTS SPARQL SQL XQuery XPath YQL Proprietary YQL LINQ Superseded CODASYL v t e International Organization for Standardization (ISO) standards List of ISO standards – ISO romanizations – IEC standards 1–9999 1 2 3 4 6 7 9 16 17 31 -0 -1 -3 -4 -5 -6 -7 -8 -9 -10 -11 -12 -13 68-1 128 216 217 226 228 233 259 261 262 302 306 361 500 518 519 639 -1 -2 -3 -5 -6 646 657 668 690 704 732 764 838 843 860 898 965 999 1000 1004 1007 1073-1 1073-2 1155 1413 1538 1629 1745 1989 2014 2015 2022 2033 2047 2108 2145 2146 2240 2281 2533 2709 2711 2720 2788 2848 2852 2921 3029 3103 3166 -1 -2 -3 3297 3307 3601 3602 3864 3901 3950 3977 4031 4157 4165 4217 4909 5218 5426 5427 5428 5725 5775 5776 5800 5807 5964 6166 6344 6346 6373 6385 6425 6429 6438 6523 6709 6943 7001 7002 7010 7027 7064 7098 7185 7200 7498 -1 7637 7736 7810 7811 7812 7813 7816 7942 8000 8093 8178 8217 8373 8501-1 8571 8583 8601 8613 8632 8651 8652 8691 8805/8806 8807 8820-5 8859 -1 -2 -3 -4 -5 -6 -7 -8 -8-I -9 -10 -11 -12 -13 -14 -15 -16 8879 9000/9001 9036 9075 9126 9141 9227 9241 9293 9314 9362 9407 9496 9506 9529 9564 9592/9593 9594 9660 9797-1 9897 9899 9945 9984 9985 9995 10000–19999 10006 10007 10116 10118-3 10160 10161 10165 10179 10206 10218 10279 10303 -11 -21 -22 -28 -238 10383 10585 10589 10628 10646 10664 10746 10861 10957 10962 10967 11073 11170 11172 11179 11404 11544 11783 11784 11785 11801 11889 11898 11940 ( -2 ) 11941 11941 (TR) 11992 12006 12052 12182 12207 12234-2 12620 13211 -1 -2 13216 13250 13399 13406-2 13450 13485 13490 13567 13568 13584 13616 13816 13818 14000 14031 14224 14289 14396 14443 14496 -2 -3 -6 -10 -11 -12 -14 -17 -20 14617 14644 14649 14651 14698 14764 14882 14971 15022 15189 15288 15291 15398 15408 15444 -3 -9 15445 15438 15504 15511 15686 15693 15706 -2 15707 15897 15919 15924 15926 15926 WIP 15930 15938 16023 16262 16355-1 16485 16612-2 16750 16949 (TS) 17024 17025 17100 17203 17369 17442 17506 17799 18004 18014 18181 18245 18629 18760 18916 19005 19011 19092 -1 -2 19114 19115 19125 19136 19407 19439 19500 19501 19502 19503 19505 19506 19507 19508 19509 19510 19600 19752 19757 19770 19775-1 19794-5 19831 20000–29999 20000 20022 20121 20400 20802 20830 21000 21001 21047 21122 21500 21778 21827 22000 22275 22300 22301 22395 22537 23000 23003 23008 23009 23090-3 23092 23094-1 23094-2 23270 23271 23360 23941 24517 24613 24617 24707 24728 25178 25964 26000 26262 26300 26324 27000 series 27000 27001 27002 27005 27006 27729 28000 29110 29148 29199-2 29500 30000+ 30170 31000 32000 37001 38500 39075 40314 40500 42010 45001 50001 55000 56000 80000 Category Retrieved from " https://en.wikipedia.org/w/index.php?title=Object_Constraint_Language&oldid=1305079575 " Categories : Unified Modeling Language Formal specification languages ISO standards Hidden categories: CS1 errors: missing periodical Articles with short description Short description matches Wikidata Wikipedia articles in need of updating from April 2018 All Wikipedia articles in need of updating This page was last edited on 9 August 2025, at 22:59 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Object Constraint Language 10 languages Add topic
+

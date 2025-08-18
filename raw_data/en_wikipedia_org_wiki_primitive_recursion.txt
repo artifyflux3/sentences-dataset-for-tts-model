@@ -1,0 +1,346 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Definition Toggle Definition subsection 1.1 Primitive-recursiveness of vector-valued functions 2 Examples Toggle Examples subsection 2.1 Addition 2.2 Doubling 2.3 Multiplication 2.4 Predecessor 2.5 Truncated subtraction 2.6 Converting predicates to numeric functions 2.7 Predicate "Is zero" 2.8 Predicate "Less or equal" 2.9 Predicate "Greater or equal" 2.10 If-then-else 2.11 Junctors 2.12 Equality predicate 2.13 Other operations on natural numbers 2.14 Operations on integers and rational numbers 2.15 Some common primitive recursive functions 3 Relationship to recursive functions 4 Limitations 5 Variants Toggle Variants subsection 5.1 Constant functions 5.2 Iterative functions 5.3 Pure recursion 5.4 Additional primitive recursive forms 5.5 Computer language definition 6 Finitism and consistency results 7 History 8 See also 9 Notes 10 References Toggle the table of contents Primitive recursive function 15 languages العربية Català Čeština Deutsch Español Français 한국어 Italiano עברית Nederlands 日本語 Português Српски / srpski Українська 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia (Redirected from Primitive recursion ) Function computable with bounded loops In computability theory , a primitive recursive function is, roughly speaking, a function that can be computed by a computer program whose loops are all "for" loops (that is, an upper bound of the number of iterations of every loop is fixed before entering the loop). Primitive recursive functions form a strict subset of those general recursive functions that are also total functions .
+
+The importance of primitive recursive functions lies in the fact that most computable functions that are studied in number theory (and more generally in mathematics) are primitive recursive. For example, addition and division , the factorial and exponential function , and the function which returns the n th prime are all primitive recursive.
+
+[ 1 ] In fact, for showing that a computable function is primitive recursive, it suffices to show that its time complexity is bounded above by a primitive recursive function of the input size.
+
+[ 2 ] It is hence not particularly easy to devise a computable function that is not primitive recursive; some examples are shown in section § Limitations below.
+
+The set of primitive recursive functions is known as PR in computational complexity theory .
+
+Definition [ edit ] A primitive recursive function takes a fixed number of arguments, each a natural number (nonnegative integer: {0, 1, 2, ...}), and returns a natural number. If it takes n arguments it is called n - ary .
+
+The basic primitive recursive functions are given by these axioms : Constant functions C n k {\displaystyle C_{n}^{k}} : For each natural number n {\displaystyle n} and every k {\displaystyle k} , the k -ary constant function, defined by C n k ( x 1 , … … , x k ) = d e f n {\displaystyle C_{n}^{k}(x_{1},\ldots ,x_{k})\ {\stackrel {\mathrm {def} }{=}}\ n} , is primitive recursive.
+
+Successor function : The 1-ary successor function S , which returns the successor of its argument (see Peano postulates ), that is, S ( x ) = d e f x + 1 {\displaystyle S(x)\ {\stackrel {\mathrm {def} }{=}}\ x+1} , is primitive recursive.
+
+Projection functions P i k {\displaystyle P_{i}^{k}} : For all natural numbers i , k {\displaystyle i,k} such that 1 ≤ ≤ i ≤ ≤ k {\displaystyle 1\leq i\leq k} , the k -ary function defined by P i k ( x 1 , … … , x k ) = d e f x i {\displaystyle P_{i}^{k}(x_{1},\ldots ,x_{k})\ {\stackrel {\mathrm {def} }{=}}\ x_{i}} is primitive recursive.
+
+More complex primitive recursive functions can be obtained by applying the operations given by these axioms: Composition operator ∘ ∘ {\displaystyle \circ \,} (also called the substitution operator ): Given an m -ary function h ( x 1 , … … , x m ) {\displaystyle h(x_{1},\ldots ,x_{m})\,} and m k -ary functions g 1 ( x 1 , … … , x k ) , … … , g m ( x 1 , … … , x k ) {\displaystyle g_{1}(x_{1},\ldots ,x_{k}),\ldots ,g_{m}(x_{1},\ldots ,x_{k})} : h ∘ ∘ ( g 1 , … … , g m ) = d e f f , where f ( x 1 , … … , x k ) = h ( g 1 ( x 1 , … … , x k ) , … … , g m ( x 1 , … … , x k ) ) .
+
+{\displaystyle h\circ (g_{1},\ldots ,g_{m})\ {\stackrel {\mathrm {def} }{=}}\ f,\quad {\text{where}}\quad f(x_{1},\ldots ,x_{k})=h(g_{1}(x_{1},\ldots ,x_{k}),\ldots ,g_{m}(x_{1},\ldots ,x_{k})).} For m = 1 {\displaystyle m=1} , the ordinary function composition h ∘ ∘ g 1 {\displaystyle h\circ g_{1}} is obtained.
+
+Primitive recursion operator ρ ρ {\displaystyle \rho } : Given the k -ary function g ( x 1 , … … , x k ) {\displaystyle g(x_{1},\ldots ,x_{k})\,} and the ( k + 2 ) {\displaystyle (k+2)} -ary function h ( y , z , x 1 , … … , x k ) {\displaystyle h(y,z,x_{1},\ldots ,x_{k})\,} : ρ ρ ( g , h ) = d e f f , where the ( k + 1 ) -ary function f is defined by f ( y , x 1 , … … , x k ) = { g ( x 1 , … … , x k ) if y = 0 h ( y ′ , f ( y ′ , x 1 , … … , x k ) , x 1 , … … , x k ) if y = S ( y ′ ) for a y ′ ∈ ∈ N {\displaystyle {\begin{aligned}\rho (g,h)&\ {\stackrel {\mathrm {def} }{=}}\ f,\quad {\text{where the }}(k+1){\text{-ary function }}f{\text{ is defined by}}\\f(y,x_{1},\dots ,x_{k})&={\begin{cases}g(x_{1},\dots ,x_{k})&{\text{if }}y=0\\h(y',f(y',x_{1},\dots ,x_{k}),x_{1},\dots ,x_{k})&{\text{if }}y=S(y'){\text{ for a }}y'\in \mathbb {N} \\\end{cases}}\end{aligned}}} Interpretation: The function f {\displaystyle f} acts as a for-loop from 0 {\displaystyle 0} up to the value of its first argument. The rest of the arguments for f {\displaystyle f} , denoted here with x 1 , … … , x k {\displaystyle x_{1},\ldots ,x_{k}} , are a set of initial conditions for the for-loop which may be used by it during calculations but which are immutable by it. The functions g {\displaystyle g} and h {\displaystyle h} on the right-hand side of the equations that define f {\displaystyle f} represent the body of the loop, which performs calculations. The function g {\displaystyle g} is used only once to perform initial calculations. Calculations for subsequent steps of the loop are performed by h {\displaystyle h} . The first parameter of h {\displaystyle h} is fed the "current" value of the for-loop's index. The second parameter of h {\displaystyle h} is fed the result of the for-loop's previous calculations, from previous steps. The rest of the parameters for h {\displaystyle h} are those immutable initial conditions for the for-loop mentioned earlier. They may be used by h {\displaystyle h} to perform calculations but they will not themselves be altered by h {\displaystyle h} .
+
+The primitive recursive functions are the basic functions and those obtained from the basic functions by applying these operations a finite number of times.
+
+Primitive-recursiveness of vector-valued functions [ edit ] A (vector-valued) function f : N m → → N n {\displaystyle f:\mathbb {N} ^{m}\to \mathbb {N} ^{n}} is primitive recursive if it can be written as f ( x 1 , … … , x m ) = ( f 1 ( x 1 , … … , x m ) , … … , f n ( x 1 , … … , x m ) ) {\displaystyle f(x_{1},\dots ,x_{m})=(f_{1}(x_{1},\dots ,x_{m}),\dots ,f_{n}(x_{1},\dots ,x_{m}))} where each component f i : N m → → N {\displaystyle f_{i}:\mathbb {N} ^{m}\to \mathbb {N} } is a (scalar-valued) primitive recursive function.
+
+[ 3 ] Examples [ edit ] C 0 1 {\displaystyle C_{0}^{1}} is a 1-ary function which returns 0 {\displaystyle 0} for every input: C 0 1 ( x ) = 0 {\displaystyle C_{0}^{1}(x)=0} .
+
+C 1 1 {\displaystyle C_{1}^{1}} is a 1-ary function which returns 1 {\displaystyle 1} for every input: C 1 1 ( x ) = 1 {\displaystyle C_{1}^{1}(x)=1} .
+
+C 3 0 {\displaystyle C_{3}^{0}} is a 0-ary function, i.e. a constant: C 3 0 = 3 {\displaystyle C_{3}^{0}=3} .
+
+P 1 1 {\displaystyle P_{1}^{1}} is the identity function on the natural numbers: P 1 1 ( x ) = x {\displaystyle P_{1}^{1}(x)=x} .
+
+P 1 2 {\displaystyle P_{1}^{2}} and P 2 2 {\displaystyle P_{2}^{2}} is the left and right projection on natural number pairs, respectively: P 1 2 ( x , y ) = x {\displaystyle P_{1}^{2}(x,y)=x} and P 2 2 ( x , y ) = y {\displaystyle P_{2}^{2}(x,y)=y} .
+
+S ∘ ∘ S {\displaystyle S\circ S} is a 1-ary function that adds 2 to its input, ( S ∘ ∘ S ) ( x ) = x + 2 {\displaystyle (S\circ S)(x)=x+2} .
+
+S ∘ ∘ C 0 1 {\displaystyle S\circ C_{0}^{1}} is a 1-ary function which returns 1 for every input: ( S ∘ ∘ C 0 1 ) ( x ) = S ( C 0 1 ( x ) ) = S ( 0 ) = 1 {\displaystyle (S\circ C_{0}^{1})(x)=S(C_{0}^{1}(x))=S(0)=1} . That is, S ∘ ∘ C 0 1 {\displaystyle S\circ C_{0}^{1}} and C 1 1 {\displaystyle C_{1}^{1}} are the same function: S ∘ ∘ C 0 1 = C 1 1 {\displaystyle S\circ C_{0}^{1}=C_{1}^{1}} . In a similar way, every C n k {\displaystyle C_{n}^{k}} can be expressed as a composition of appropriately many S {\displaystyle S} and C 0 k {\displaystyle C_{0}^{k}} . Moreover, C 0 k {\displaystyle C_{0}^{k}} equals C 0 1 ∘ ∘ P 1 k {\displaystyle C_{0}^{1}\circ P_{1}^{k}} , since C 0 k ( x 1 , … … , x k ) = 0 = C 0 1 ( x 1 ) = C 0 1 ( P 1 k ( x 1 , … … , x k ) ) = ( C 0 1 ∘ ∘ P 1 k ) ( x 1 , … … , x k ) {\displaystyle C_{0}^{k}(x_{1},\ldots ,x_{k})=0=C_{0}^{1}(x_{1})=C_{0}^{1}(P_{1}^{k}(x_{1},\ldots ,x_{k}))=(C_{0}^{1}\circ P_{1}^{k})(x_{1},\ldots ,x_{k})} . For these reasons, some authors [ 4 ] define C n k {\displaystyle C_{n}^{k}} only for n = 0 {\displaystyle n=0} and k = 1 {\displaystyle k=1} .
+
+Addition [ edit ] A definition of the 2-ary function A d d {\displaystyle Add} , to compute the sum of its arguments, can be obtained using the primitive recursion operator ρ ρ {\displaystyle \rho } . To this end, the well-known equations 0 + y = y and S ( x ) + y = S ( x + y ) .
+
+{\displaystyle {\begin{array}{rcll}0+y&=&y&{\text{ and}}\\S(x)+y&=&S(x+y)&.\\\end{array}}} are "rephrased in primitive recursive function terminology": In the definition of ρ ρ ( g , h ) {\displaystyle \rho (g,h)} , the first equation suggests to choose g = P 1 1 {\displaystyle g=P_{1}^{1}} to obtain A d d ( 0 , y ) = g ( y ) = y {\displaystyle Add(0,y)=g(y)=y} ; the second equation suggests to choose h = S ∘ ∘ P 2 3 {\displaystyle h=S\circ P_{2}^{3}} to obtain A d d ( S ( x ) , y ) = h ( x , A d d ( x , y ) , y ) = ( S ∘ ∘ P 2 3 ) ( x , A d d ( x , y ) , y ) = S ( A d d ( x , y ) ) {\displaystyle Add(S(x),y)=h(x,Add(x,y),y)=(S\circ P_{2}^{3})(x,Add(x,y),y)=S(Add(x,y))} . Therefore, the addition function can be defined as A d d = ρ ρ ( P 1 1 , S ∘ ∘ P 2 3 ) {\displaystyle Add=\rho (P_{1}^{1},S\circ P_{2}^{3})} . As a computation example, A d d ( 1 , 7 ) = ρ ρ ( P 1 1 , S ∘ ∘ P 2 3 ) ( S ( 0 ) , 7 ) by Def.
+
+A d d , S = ( S ∘ ∘ P 2 3 ) ( 0 , A d d ( 0 , 7 ) , 7 ) by case ρ ρ ( g , h ) ( S ( .
+
+.
+
+.
+
+) , .
+
+.
+
+.
+
+) = S ( A d d ( 0 , 7 ) ) by Def.
+
+∘ ∘ , P 2 3 = S ( ρ ρ ( P 1 1 , S ∘ ∘ P 2 3 ) ( 0 , 7 ) ) by Def.
+
+A d d = S ( P 1 1 ( 7 ) ) by case ρ ρ ( g , h ) ( 0 , .
+
+.
+
+.
+
+) = S ( 7 ) by Def.
+
+P 1 1 = 8 by Def.
+
+S .
+
+{\displaystyle {\begin{array}{lll}&Add(1,7)\\=&\rho (P_{1}^{1},S\circ P_{2}^{3})\;(S(0),7)&{\text{ by Def. }}Add,S\\=&(S\circ P_{2}^{3})(0,Add(0,7),7)&{\text{ by case }}\rho (g,h)\;(S(...),...)\\=&S(Add(0,7))&{\text{ by Def. }}\circ ,P_{2}^{3}\\=&S(\;\rho (P_{1}^{1},S\circ P_{2}^{3})\;(0,7)\;)&{\text{ by Def. }}Add\\=&S(P_{1}^{1}(7))&{\text{ by case }}\rho (g,h)\;(0,...)\\=&S(7)&{\text{ by Def. }}P_{1}^{1}\\=&8&{\text{ by Def. }}S.\\\end{array}}} Doubling [ edit ] Given A d d {\displaystyle Add} , the 1-ary function A d d ∘ ∘ ( P 1 1 , P 1 1 ) {\displaystyle Add\circ (P_{1}^{1},P_{1}^{1})} doubles its argument, ( A d d ∘ ∘ ( P 1 1 , P 1 1 ) ) ( x ) = A d d ( x , x ) = x + x {\displaystyle (Add\circ (P_{1}^{1},P_{1}^{1}))(x)=Add(x,x)=x+x} .
+
+Multiplication [ edit ] In a similar way as addition, multiplication can be defined by M u l = ρ ρ ( C 0 1 , A d d ∘ ∘ ( P 2 3 , P 3 3 ) ) {\displaystyle Mul=\rho (C_{0}^{1},Add\circ (P_{2}^{3},P_{3}^{3}))} . This reproduces the well-known multiplication equations: M u l ( 0 , y ) = ρ ρ ( C 0 1 , A d d ∘ ∘ ( P 2 3 , P 3 3 ) ) ( 0 , y ) by Def.
+
+M u l = C 0 1 ( y ) by case ρ ρ ( g , h ) ( 0 , .
+
+.
+
+.
+
+) = 0 by Def.
+
+C 0 1 .
+
+{\displaystyle {\begin{array}{lll}&Mul(0,y)\\=&\rho (C_{0}^{1},Add\circ (P_{2}^{3},P_{3}^{3}))\;(0,y)&{\text{ by Def. }}Mul\\=&C_{0}^{1}(y)&{\text{ by case }}\rho (g,h)\;(0,...)\\=&0&{\text{ by Def. }}C_{0}^{1}.\\\end{array}}} and M u l ( S ( x ) , y ) = ρ ρ ( C 0 1 , A d d ∘ ∘ ( P 2 3 , P 3 3 ) ) ( S ( x ) , y ) by Def.
+
+M u l = ( A d d ∘ ∘ ( P 2 3 , P 3 3 ) ) ( x , M u l ( x , y ) , y ) by case ρ ρ ( g , h ) ( S ( .
+
+.
+
+.
+
+) , .
+
+.
+
+.
+
+) = A d d ( M u l ( x , y ) , y ) by Def.
+
+∘ ∘ , P 2 3 , P 3 3 = M u l ( x , y ) + y by property of A d d .
+
+{\displaystyle {\begin{array}{lll}&Mul(S(x),y)\\=&\rho (C_{0}^{1},Add\circ (P_{2}^{3},P_{3}^{3}))\;(S(x),y)&{\text{ by Def. }}Mul\\=&(Add\circ (P_{2}^{3},P_{3}^{3}))\;(x,Mul(x,y),y)&{\text{ by case }}\rho (g,h)\;(S(...),...)\\=&Add(Mul(x,y),y)&{\text{ by Def. }}\circ ,P_{2}^{3},P_{3}^{3}\\=&Mul(x,y)+y&{\text{ by property of }}Add.\\\end{array}}} Predecessor [ edit ] The predecessor function acts as the "opposite" of the successor function and is recursively defined by the rules P r e d ( 0 ) = 0 {\displaystyle Pred(0)=0} and P r e d ( S ( n ) ) = n {\displaystyle Pred(S(n))=n} . A primitive recursive definition is P r e d = ρ ρ ( C 0 0 , P 1 2 ) {\displaystyle Pred=\rho (C_{0}^{0},P_{1}^{2})} . As a computation example, P r e d ( 8 ) = ρ ρ ( C 0 0 , P 1 2 ) ( S ( 7 ) ) by Def.
+
+P r e d , S = P 1 2 ( 7 , P r e d ( 7 ) ) by case ρ ρ ( g , h ) ( S ( .
+
+.
+
+.
+
+) , .
+
+.
+
+.
+
+) = 7 by Def.
+
+P 1 2 .
+
+{\displaystyle {\begin{array}{lll}&Pred(8)\\=&\rho (C_{0}^{0},P_{1}^{2})\;(S(7))&{\text{ by Def. }}Pred,S\\=&P_{1}^{2}(7,Pred(7))&{\text{ by case }}\rho (g,h)\;(S(...),...)\\=&7&{\text{ by Def. }}P_{1}^{2}.\\\end{array}}} Truncated subtraction [ edit ] The limited subtraction function (also called " monus ", and denoted " − − ˙ ˙ {\displaystyle \mathbin {\dot {-}} } ") is definable from the predecessor function. It satisfies the equations y − − ˙ ˙ 0 = y and y − − ˙ ˙ S ( x ) = P r e d ( y − − ˙ ˙ x ) .
+
+{\displaystyle {\begin{array}{rcll}y\mathbin {\dot {-}} 0&=&y&{\text{and}}\\y\mathbin {\dot {-}} S(x)&=&Pred(y\mathbin {\dot {-}} x)&.\\\end{array}}} Since the recursion runs over the second argument, we begin with a primitive recursive definition of the reversed subtraction, R S u b ( y , x ) = x − − ˙ ˙ y {\displaystyle RSub(y,x)=x\mathbin {\dot {-}} y} . Its recursion then runs over the first argument, so its primitive recursive definition can be obtained, similar to addition, as R S u b = ρ ρ ( P 1 1 , P r e d ∘ ∘ P 2 3 ) {\displaystyle RSub=\rho (P_{1}^{1},Pred\circ P_{2}^{3})} . To get rid of the reversed argument order, then define S u b = R S u b ∘ ∘ ( P 2 2 , P 1 2 ) {\displaystyle Sub=RSub\circ (P_{2}^{2},P_{1}^{2})} . As a computation example, S u b ( 8 , 1 ) = ( R S u b ∘ ∘ ( P 2 2 , P 1 2 ) ) ( 8 , 1 ) by Def.
+
+S u b = R S u b ( 1 , 8 ) by Def.
+
+∘ ∘ , P 2 2 , P 1 2 = ρ ρ ( P 1 1 , P r e d ∘ ∘ P 2 3 ) ( S ( 0 ) , 8 ) by Def.
+
+R S u b , S = ( P r e d ∘ ∘ P 2 3 ) ( 0 , R S u b ( 0 , 8 ) , 8 ) by case ρ ρ ( g , h ) ( S ( .
+
+.
+
+.
+
+) , .
+
+.
+
+.
+
+) = P r e d ( R S u b ( 0 , 8 ) ) by Def.
+
+∘ ∘ , P 2 3 = P r e d ( ρ ρ ( P 1 1 , P r e d ∘ ∘ P 2 3 ) ( 0 , 8 ) ) by Def.
+
+R S u b = P r e d ( P 1 1 ( 8 ) ) by case ρ ρ ( g , h ) ( 0 , .
+
+.
+
+.
+
+) = P r e d ( 8 ) by Def.
+
+P 1 1 = 7 by property of P r e d .
+
+{\displaystyle {\begin{array}{lll}&Sub(8,1)\\=&(RSub\circ (P_{2}^{2},P_{1}^{2}))\;(8,1)&{\text{ by Def. }}Sub\\=&RSub(1,8)&{\text{ by Def. }}\circ ,P_{2}^{2},P_{1}^{2}\\=&\rho (P_{1}^{1},Pred\circ P_{2}^{3})\;(S(0),8)&{\text{ by Def. }}RSub,S\\=&(Pred\circ P_{2}^{3})\;(0,RSub(0,8),8)&{\text{ by case }}\rho (g,h)\;(S(...),...)\\=&Pred(RSub(0,8))&{\text{ by Def. }}\circ ,P_{2}^{3}\\=&Pred(\;\rho (P_{1}^{1},Pred\circ P_{2}^{3})\;(0,8)\;)&{\text{ by Def. }}RSub\\=&Pred(P_{1}^{1}(8))&{\text{ by case }}\rho (g,h)\;(0,...)\\=&Pred(8)&{\text{ by Def. }}P_{1}^{1}\\=&7&{\text{ by property of }}Pred.\\\end{array}}} Converting predicates to numeric functions [ edit ] In some settings it is natural to consider primitive recursive functions that take as inputs tuples that mix numbers with truth values (that is t {\displaystyle t} for true and f {\displaystyle f} for false), [ citation needed ] or that produce truth values as outputs.
+
+[ 5 ] This can be accomplished by identifying the truth values with numbers in any fixed manner.  For example, it is common to identify the truth value t {\displaystyle t} with the number 1 {\displaystyle 1} and the truth value f {\displaystyle f} with the number 0 {\displaystyle 0} .  Once this identification has been made, the characteristic function of a set A {\displaystyle A} , which always returns 1 {\displaystyle 1} or 0 {\displaystyle 0} , can be viewed as a predicate that tells whether a number is in the set A {\displaystyle A} .  Such an identification of predicates with numeric functions will be assumed for the remainder of this article.
+
+Predicate "Is zero" [ edit ] As an example for a primitive recursive predicate, the 1-ary function I s Z e r o {\displaystyle IsZero} shall be defined such that I s Z e r o ( x ) = 1 {\displaystyle IsZero(x)=1} if x = 0 {\displaystyle x=0} , and I s Z e r o ( x ) = 0 {\displaystyle IsZero(x)=0} , otherwise. This can be achieved by defining I s Z e r o = ρ ρ ( C 1 0 , C 0 2 ) {\displaystyle IsZero=\rho (C_{1}^{0},C_{0}^{2})} . Then, I s Z e r o ( 0 ) = ρ ρ ( C 1 0 , C 0 2 ) ( 0 ) = C 1 0 ( ) = 1 {\displaystyle IsZero(0)=\rho (C_{1}^{0},C_{0}^{2})(0)=C_{1}^{0}()=1} and e.g.
+
+I s Z e r o ( 8 ) = ρ ρ ( C 1 0 , C 0 2 ) ( S ( 7 ) ) = C 0 2 ( 7 , I s Z e r o ( 7 ) ) = 0 {\displaystyle IsZero(8)=\rho (C_{1}^{0},C_{0}^{2})(S(7))=C_{0}^{2}(7,IsZero(7))=0} .
+
+Predicate "Less or equal" [ edit ] Using the property x ≤ ≤ y ⟺ ⟺ x − − ˙ ˙ y = 0 {\displaystyle x\leq y\iff x\mathbin {\dot {-}} y=0} , the 2-ary function L e q {\displaystyle Leq} can be defined by L e q = I s Z e r o ∘ ∘ S u b {\displaystyle Leq=IsZero\circ Sub} . Then L e q ( x , y ) = 1 {\displaystyle Leq(x,y)=1} if x ≤ ≤ y {\displaystyle x\leq y} , and L e q ( x , y ) = 0 {\displaystyle Leq(x,y)=0} , otherwise. As a computation example, L e q ( 8 , 3 ) = I s Z e r o ( S u b ( 8 , 3 ) ) by Def.
+
+L e q = I s Z e r o ( 5 ) by property of S u b = 0 by property of I s Z e r o {\displaystyle {\begin{array}{lll}&Leq(8,3)\\=&IsZero(Sub(8,3))&{\text{ by Def. }}Leq\\=&IsZero(5)&{\text{ by property of }}Sub\\=&0&{\text{ by property of }}IsZero\\\end{array}}} Predicate "Greater or equal" [ edit ] Once a definition of L e q {\displaystyle Leq} is obtained, the converse predicate can be defined as G e q = L e q ∘ ∘ ( P 2 2 , P 1 2 ) {\displaystyle Geq=Leq\circ (P_{2}^{2},P_{1}^{2})} . Then, G e q ( x , y ) = L e q ( y , x ) {\displaystyle Geq(x,y)=Leq(y,x)} is true (more precisely: has value 1) if, and only if, x ≥ ≥ y {\displaystyle x\geq y} .
+
+If-then-else [ edit ] The 3-ary if-then-else operator known from programming languages can be defined by If = ρ ρ ( P 2 2 , P 3 4 ) {\displaystyle {\textit {If}}=\rho (P_{2}^{2},P_{3}^{4})} . Then, for arbitrary x {\displaystyle x} , If ( S ( x ) , y , z ) = ρ ρ ( P 2 2 , P 3 4 ) ( S ( x ) , y , z ) by Def.
+
+If = P 3 4 ( x , If ( x , y , z ) , y , z ) by case ρ ρ ( S ( .
+
+.
+
+.
+
+) , .
+
+.
+
+.
+
+) = y by Def.
+
+P 3 4 {\displaystyle {\begin{array}{lll}&{\textit {If}}(S(x),y,z)\\=&\rho (P_{2}^{2},P_{3}^{4})\;(S(x),y,z)&{\text{ by Def. }}{\textit {If}}\\=&P_{3}^{4}(x,{\textit {If}}(x,y,z),y,z)&{\text{ by case }}\rho (S(...),...)\\=&y&{\text{ by Def. }}P_{3}^{4}\\\end{array}}} and If ( 0 , y , z ) = ρ ρ ( P 2 2 , P 3 4 ) ( 0 , y , z ) by Def.
+
+If = P 2 2 ( y , z ) by case ρ ρ ( 0 , .
+
+.
+
+.
+
+) = z by Def.
+
+P 2 2 .
+
+{\displaystyle {\begin{array}{lll}&{\textit {If}}(0,y,z)\\=&\rho (P_{2}^{2},P_{3}^{4})\;(0,y,z)&{\text{ by Def. }}{\textit {If}}\\=&P_{2}^{2}(y,z)&{\text{ by case }}\rho (0,...)\\=&z&{\text{ by Def. }}P_{2}^{2}.\\\end{array}}} .
+
+That is, If ( x , y , z ) {\displaystyle {\textit {If}}(x,y,z)} returns the then-part, y {\displaystyle y} , if the if-part, x {\displaystyle x} , is true, and the else-part, z {\displaystyle z} , otherwise.
+
+Junctors [ edit ] Based on the If {\displaystyle {\textit {If}}} function, it is easy to define logical junctors. For example, defining A n d = If ∘ ∘ ( P 1 2 , P 2 2 , C 0 2 ) {\displaystyle And={\textit {If}}\circ (P_{1}^{2},P_{2}^{2},C_{0}^{2})} , one obtains A n d ( x , y ) = If ( x , y , 0 ) {\displaystyle And(x,y)={\textit {If}}(x,y,0)} , that is, A n d ( x , y ) {\displaystyle And(x,y)} is true if, and only if , both x {\displaystyle x} and y {\displaystyle y} are true ( logical conjunction of x {\displaystyle x} and y {\displaystyle y} ).
+
+Similarly, O r = If ∘ ∘ ( P 1 2 , C 1 2 , P 2 2 ) {\displaystyle Or={\textit {If}}\circ (P_{1}^{2},C_{1}^{2},P_{2}^{2})} and N o t = If ∘ ∘ ( P 1 1 , C 0 1 , C 1 1 ) {\displaystyle Not={\textit {If}}\circ (P_{1}^{1},C_{0}^{1},C_{1}^{1})} lead to appropriate definitions of disjunction and negation : O r ( x , y ) = If ( x , 1 , y ) {\displaystyle Or(x,y)={\textit {If}}(x,1,y)} and N o t ( x ) = If ( x , 0 , 1 ) {\displaystyle Not(x)={\textit {If}}(x,0,1)} .
+
+Equality predicate [ edit ] Using the above functions L e q {\displaystyle Leq} , G e q {\displaystyle Geq} and A n d {\displaystyle And} , the definition E q = A n d ∘ ∘ ( L e q , G e q ) {\displaystyle Eq=And\circ (Leq,Geq)} implements the equality predicate. In fact, E q ( x , y ) = A n d ( L e q ( x , y ) , G e q ( x , y ) ) {\displaystyle Eq(x,y)=And(Leq(x,y),Geq(x,y))} is true if, and only if, x {\displaystyle x} equals y {\displaystyle y} .
+
+Similarly, the definition L t = N o t ∘ ∘ G e q {\displaystyle Lt=Not\circ Geq} implements the predicate "less-than", and G t = N o t ∘ ∘ L e q {\displaystyle Gt=Not\circ Leq} implements "greater-than".
+
+Other operations on natural numbers [ edit ] Exponentiation and primality testing are primitive recursive. Given primitive recursive functions e {\displaystyle e} , f {\displaystyle f} , g {\displaystyle g} , and h {\displaystyle h} , a function that returns the value of g {\displaystyle g} when e ≤ ≤ f {\displaystyle e\leq f} and the value of h {\displaystyle h} otherwise is primitive recursive.
+
+Operations on integers and rational numbers [ edit ] By using Gödel numberings , the primitive recursive functions can be extended to operate on other objects such as integers and rational numbers .  If integers are encoded by Gödel numbers in a standard way, the arithmetic operations including addition, subtraction, and multiplication are all primitive recursive.  Similarly, if the rationals are represented by Gödel numbers then the field operations are all primitive recursive.
+
+Some common primitive recursive functions [ edit ] The following examples and definitions are from Kleene 1974 , pp. 222–231. Many appear with proofs. Most also appear with similar names, either as proofs or as examples, in Boolos, Burgess & Jeffrey 2002 , pp. 63–70 they add the logarithm lo(x, y) or lg(x, y) depending on the exact derivation.
+
+In the following the mark " ' ", e.g. a', is the primitive mark meaning "the successor of", usually thought of as " +1", e.g. a +1 = def a'. The functions 16–20 and #G are of particular interest with respect to converting primitive recursive predicates to, and extracting them from, their "arithmetical" form expressed as Gödel numbers .
+
+Addition: a+b Multiplication: a×b Exponentiation: a b Factorial a! : 0! = 1, a'! = a!×a' pred(a): (Predecessor or decrement): If a > 0 then a−1 else 0 Proper subtraction a ∸ b: If a ≥ b then a−b else 0 Minimum(a 1 , ... a n ) Maximum(a 1 , ... a n ) Absolute difference: | a−b | = def (a ∸ b) + (b ∸ a) ~sg(a): NOT[signum(a)]: If a=0 then 1 else 0 sg(a): signum(a): If a=0 then 0 else 1 a | b: (a divides b): If b=k×a for some k then 0 else 1 Remainder(a, b): the leftover if b does not divide a "evenly".  Also called MOD(a, b) a = b: sg | a − b |  (Kleene's convention was to represent true by 0 and false by 1; presently, especially in computers, the most common convention is the reverse, namely to represent true by 1 and false by 0, which amounts to changing sg into ~sg here and in the next item) a < b: sg( a' ∸ b ) Pr(a): a is a prime number Pr(a) = def a>1 & NOT(Exists c) 1<c<a [ c|a ] p i : the i+1th prime number (a) i : exponent of p i in a: the unique x such that p i x |a & NOT(p i x' |a) lh(a): the "length" or number of non-vanishing exponents in a lo(a, b): (logarithm of a to base b): If a, b > 1 then the greatest x such that b x | a else 0 In the following, the abbreviation x = def x 1 , ... x n ; subscripts may be applied if the meaning requires.
+
+#A:  A function φ definable explicitly from functions Ψ and constants q 1 , ... q n is primitive recursive in Ψ.
+
+#B:  The finite sum Σ y<z ψ( x , y) and product Π y<z ψ( x , y) are primitive recursive in ψ.
+
+#C:  A predicate P obtained by substituting functions χ 1 ,..., χ m for the respective variables of a predicate Q is primitive recursive in χ 1 ,..., χ m , Q.
+
+#D:  The following predicates are primitive recursive in Q and R: NOT_Q( x ) .
+
+Q OR R: Q( x ) V R( x ), Q AND R: Q( x ) & R( x ), Q IMPLIES R: Q( x ) → R( x ) Q is equivalent to R: Q( x ) ≡ R( x ) #E:  The following predicates are primitive recursive in the predicate R: (Ey) y<z R( x , y) where (Ey) y<z denotes "there exists at least one y that is less than z such that" (y) y<z R( x , y) where (y) y<z denotes "for all y less than z it is true that" μy y<z R( x , y).  The operator μy y<z R( x , y) is a bounded form of the so-called minimization- or mu-operator : Defined as "the least value of y less than z such that R( x , y) is true; or z if there is no such value." #F:  Definition by cases: The function defined thus, where Q 1 , ..., Q m are mutually exclusive predicates (or "ψ( x ) shall have the value given by the first clause that applies), is primitive recursive in φ 1 , ..., Q 1 , ... Q m : φ( x ) = φ 1 ( x ) if Q 1 ( x ) is true, .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
+
+φ m ( x ) if Q m ( x ) is true φ m+1 ( x ) otherwise #G: If φ satisfies the equation: φ(y, x ) = χ(y, COURSE-φ(y; x 2 , ... x n ), x 2 , ... x n then φ is primitive recursive in χ. The value COURSE-φ(y; x 2 to n ) of the course-of-values function encodes the sequence of values φ(0, x 2 to n ), ..., φ(y-1, x 2 to n ) of the original function.
+
+Relationship to recursive functions [ edit ] The broader class of partial recursive functions is defined by introducing an unbounded search operator .  The use of this operator may result in a partial function , that is, a relation with at most one value for each argument, but does not necessarily have any value for any argument (see domain ).  An equivalent definition states that a partial recursive function is one that can be computed by a Turing machine .  A total recursive function is a partial recursive function that is defined for every input.
+
+Every primitive recursive function is total recursive, but not all total recursive functions are primitive recursive. The Ackermann function A ( m , n ) is a well-known example of a total recursive function (in fact, provable total), that is not primitive recursive. There is a characterization of the primitive recursive functions as a subset of the total recursive functions using the Ackermann function.  This characterization states that a function is primitive recursive if and only if there is a natural number m such that the function can be computed by a Turing machine that always halts within A( m , n ) or fewer steps, where n is the sum of the arguments of the primitive recursive function.
+
+[ 6 ] An important property of the primitive recursive functions is that they are a recursively enumerable subset of the set of all total recursive functions (which is not itself recursively enumerable). This means that there is a single computable function f ( m , n ) that enumerates the primitive recursive functions, namely: For every primitive recursive function g , there is an m such that g ( n ) = f ( m , n ) for all n , and For every m , the function h ( n ) = f ( m , n ) is primitive recursive.
+
+f can be explicitly constructed by iteratively repeating all possible ways of creating primitive recursive functions. Thus, it is provably total. One can use a diagonalization argument to show that f is not recursive primitive in itself: had it been such, so would be h ( n ) = f ( n , n )+1. But if this equals some primitive recursive function, there is an m such that h ( n ) = f ( m , n ) for all n , and then h ( m ) = f ( m , m ), leading to contradiction.
+
+However, the set of primitive recursive functions is not the largest recursively enumerable subset of the set of all total recursive functions. For example, the set of provably total functions (in Peano arithmetic) is also recursively enumerable, as one can enumerate all the proofs of the theory. While all primitive recursive functions are provably total, the converse is not true.
+
+Limitations [ edit ] Primitive recursive functions tend to correspond very closely with our intuition of what a computable function must be. Certainly the initial functions are intuitively computable (in their very simplicity), and the two operations by which one can create new primitive recursive functions are also very straightforward. However, the set of primitive recursive functions does not include every possible total computable function—this can be seen with a variant of Cantor's diagonal argument . This argument provides a total computable function that is not primitive recursive. A sketch of the proof is as follows: The primitive recursive functions of one argument (i.e., unary functions) can be computably enumerated . This enumeration uses the definitions of the primitive recursive functions (which are essentially just expressions with the composition and primitive recursion operations as operators and the basic primitive recursive functions as atoms), and can be assumed to contain every definition once, even though a same function will occur many times on the list (since many definitions define the same function; indeed simply composing by the identity function generates infinitely many definitions of any one primitive recursive function). This means that the n {\displaystyle n} -th definition of a primitive recursive function in this enumeration can be effectively determined from n {\displaystyle n} . Indeed if one uses some Gödel numbering to encode definitions as numbers, then this n {\displaystyle n} -th definition in the list is computed by a primitive recursive function of n {\displaystyle n} . Let f n {\displaystyle f_{n}} denote the unary primitive recursive function given by this definition.
+
+Now define the "evaluator function" e v {\displaystyle ev} with two arguments, by e v ( i , j ) = f i ( j ) {\displaystyle ev(i,j)=f_{i}(j)} . Clearly e v {\displaystyle ev} is total and computable, since one can effectively determine the definition of f i {\displaystyle f_{i}} , and being a primitive recursive function f i {\displaystyle f_{i}} is itself total and computable, so f i ( j ) {\displaystyle f_{i}(j)} is always defined and effectively computable. However a diagonal argument will show that the function e v {\displaystyle ev} of two arguments is not primitive recursive.
+
+Suppose e v {\displaystyle ev} were primitive recursive, then the unary function g {\displaystyle g} defined by g ( i ) = S ( e v ( i , i ) ) {\displaystyle g(i)=S(ev(i,i))} would also be primitive recursive, as it is defined by composition from the successor function and e v {\displaystyle ev} . But then g {\displaystyle g} occurs in the enumeration, so there is some number n {\displaystyle n} such that g = f n {\displaystyle g=f_{n}} . But now g ( n ) = S ( e v ( n , n ) ) = S ( f n ( n ) ) = S ( g ( n ) ) {\displaystyle g(n)=S(ev(n,n))=S(f_{n}(n))=S(g(n))} gives a contradiction.
+
+This argument can be applied to any class of computable (total) functions that can be enumerated in this way, as explained in the article Machine that always halts . Note however that the partial computable functions (those that need not be defined for all arguments) can be explicitly enumerated, for instance by enumerating Turing machine encodings.
+
+Other examples of total recursive but not primitive recursive functions are known: The function that takes m to Ackermann ( m , m ) is a unary total recursive function that is not primitive recursive.
+
+The Paris–Harrington theorem involves a total recursive function that is not primitive recursive.
+
+The Sudan function The Goodstein function Variants [ edit ] Constant functions [ edit ] Instead of C n k {\displaystyle C_{n}^{k}} ,
+alternative definitions use just one 0-ary zero function C 0 0 {\displaystyle C_{0}^{0}} as a primitive function that always returns zero, and built the constant functions from the zero function, the successor function and the composition operator.
+
+[ citation needed ] Iterative functions [ edit ] Robinson [ 7 ] considered various restrictions of the recursion rule. One is the so-called iteration rule where the function h does not have access to the parameters x i (in this case, we may assume without loss of generality that the function g is just the identity, as the general case can be obtained by substitution): f ( 0 , x ) = x , f ( S ( y ) , x ) = h ( y , f ( y , x ) ) .
+
+{\displaystyle {\begin{aligned}f(0,x)&=x,\\f(S(y),x)&=h(y,f(y,x)).\end{aligned}}} He proved that the class of all primitive recursive functions can still be obtained in this way.
+
+Pure recursion [ edit ] Another restriction considered by Robinson [ 7 ] is pure recursion , where h does not have access to the induction variable y : f ( 0 , x 1 , … … , x k ) = g ( x 1 , … … , x k ) , f ( S ( y ) , x 1 , … … , x k ) = h ( f ( y , x 1 , … … , x k ) , x 1 , … … , x k ) .
+
+{\displaystyle {\begin{aligned}f(0,x_{1},\ldots ,x_{k})&=g(x_{1},\ldots ,x_{k}),\\f(S(y),x_{1},\ldots ,x_{k})&=h(f(y,x_{1},\ldots ,x_{k}),x_{1},\ldots ,x_{k}).\end{aligned}}} Gladstone [ 8 ] proved that this rule is enough to generate all primitive recursive functions. Gladstone [ 9 ] improved this so that even the combination of these two restrictions, i.e., the pure iteration rule below, is enough: f ( 0 , x ) = x , f ( S ( y ) , x ) = h ( f ( y , x ) ) .
+
+{\displaystyle {\begin{aligned}f(0,x)&=x,\\f(S(y),x)&=h(f(y,x)).\end{aligned}}} Further improvements are possible: Severin [ 10 ] prove that even the pure iteration rule without parameters , namely f ( 0 ) = 0 , f ( S ( y ) ) = h ( f ( y ) ) , {\displaystyle {\begin{aligned}f(0)&=0,\\f(S(y))&=h(f(y)),\end{aligned}}} suffices to generate all unary primitive recursive functions if we extend the set of initial functions with truncated subtraction x ∸ y . We get all primitive recursive functions if we additionally include + as an initial function.
+
+Additional primitive recursive forms [ edit ] Some additional forms of recursion also define functions that are in fact
+primitive recursive.  Definitions in these forms may be easier to find or
+more natural for reading or writing.
+
+Course-of-values recursion defines primitive recursive functions. Some forms of mutual recursion also define primitive recursive functions.
+
+The functions that can be programmed in the LOOP programming language are exactly the primitive recursive functions. This gives a different characterization of the power of these functions. The main limitation of the LOOP language, compared to a Turing-complete language , is that in the LOOP language the number of times that each loop will run is specified before the loop begins to run.
+
+Computer language definition [ edit ] An example of a primitive recursive programming language is one that contains basic arithmetic operators (e.g. + and −, or ADD and SUBTRACT), conditionals and comparison (IF-THEN, EQUALS, LESS-THAN), and bounded loops, such as the basic for loop , where there is a known or calculable upper bound to all loops (FOR i FROM 1 TO n, with neither i nor n modifiable by the loop body). No control structures of greater generality, such as while loops or IF-THEN plus GOTO , are admitted in a primitive recursive language.
+
+The LOOP language , introduced in a 1967 paper by Albert R. Meyer and Dennis M. Ritchie , [ 11 ] is such a language. Its computing power coincides with the primitive recursive functions. A variant of the LOOP language is Douglas Hofstadter 's BlooP in Gödel, Escher, Bach . Adding unbounded loops (WHILE, GOTO) makes the language general recursive and Turing-complete , as are all real-world computer programming languages.
+
+The definition of primitive recursive functions implies that their computation halts on every input (after a finite number of steps). On the other hand, the halting problem is undecidable for general recursive functions.
+
+Finitism and consistency results [ edit ] The primitive recursive functions are closely related to mathematical finitism , and are used in several contexts in mathematical logic where a particularly constructive system is desired.
+
+Primitive recursive arithmetic (PRA), a formal axiom system for the natural numbers and the primitive recursive functions on them, is often used for this purpose.
+
+PRA is much weaker than Peano arithmetic , which is not a finitistic system. Nevertheless, many results in number theory and in proof theory can be proved in PRA. For example, Gödel's incompleteness theorem can be formalized into PRA, giving the following theorem: If T is a theory of arithmetic satisfying certain hypotheses, with Gödel sentence G T , then PRA proves the implication Con( T )→ G T .
+
+Similarly, many of the syntactic results in proof theory can be proved in PRA, which implies that there are primitive recursive functions that carry out the corresponding syntactic transformations of proofs.
+
+In proof theory and set theory , there is an interest in finitistic consistency proofs , that is, consistency proofs that themselves are finitistically acceptable. Such a proof establishes that the consistency of a theory T implies the consistency of a theory S by producing a primitive recursive function that can transform any proof of an inconsistency from S into a proof of an inconsistency from T .  One sufficient condition for a consistency proof to be finitistic is the ability to formalize it in PRA. For example, many consistency results in set theory that are obtained by forcing can be recast as syntactic proofs that can be formalized in PRA.
+
+History [ edit ] Recursive definitions had been used more or less formally in mathematics before, but the construction of primitive recursion is traced back to Richard Dedekind 's theorem 126 of his Was sind und was sollen die Zahlen?
+
+(1888). This work was the first to give a proof that a certain recursive construction defines a unique function.
+
+[ 12 ] [ 13 ] [ 14 ] Primitive recursive arithmetic was first proposed by Thoralf Skolem [ 15 ] in 1923.
+
+The current terminology was coined by Rózsa Péter (1934) after Ackermann had proved in 1928 that the function which today is named after him was not primitive recursive, an event which prompted the need to rename what until then were simply called recursive functions.
+
+[ 13 ] [ 14 ] See also [ edit ] Grzegorczyk hierarchy Recursion (computer science) Primitive recursive functional Double recursion Primitive recursive set function Primitive recursive ordinal function Tail call Notes [ edit ] ^ Brainerd & Landweber 1974 .
+
+^ Hartmanis 1989 .
+
+^ PlanetMath ^ E.g.: Henk Barendregt (1990), "Functional Programming and Lambda Calculus", in Jan van Leeuwen (ed.), Formal Models and Semantics , Handbook of Theoretical Computer Science, vol. B, Elsevier, pp.
+
+321– 364, ISBN 0-444-88074-7 Here: 2.2.6 initial functions , Def.2.2.7 primitive recursion , p.331-332.
+
+^ Kleene 1974 , pp. 226–227.
+
+^ This follows from the facts that the functions of this form are the most quickly growing primitive recursive functions, and that a function is primitive recursive if and only if its time complexity is bounded by a primitive recursive function. For the former, see Linz, Peter (2011), An Introduction to Formal Languages and Automata , Jones & Bartlett Publishers, p. 332, ISBN 9781449615529 . For the latter, see Moore, Cristopher ; Mertens, Stephan (2011), The Nature of Computation , Oxford University Press, p. 287, ISBN 9780191620805 ^ a b Robinson 1947 .
+
+^ Gladstone 1967 .
+
+^ Gladstone 1971 .
+
+^ Severin 2008 .
+
+^ Meyer, Albert R.
+
+; Ritchie, Dennis M.
+
+(1967), "The complexity of loop programs", ACM '67: Proceedings of the 1967 22nd national conference , pp.
+
+465– 469, doi : 10.1145/800196.806014 ^ Peter Smith (2013), An Introduction to Gödel's Theorems (2nd ed.), Cambridge University Press, pp.
+
+98– 99, ISBN 978-1-107-02284-3 ^ a b George Tourlakis (2003), Lectures in Logic and Set Theory: Volume 1, Mathematical Logic , Cambridge University Press, p. 129, ISBN 978-1-139-43942-8 ^ a b Rod Downey, ed. (2014), Turing's Legacy: Developments from Turing's Ideas in Logic , Cambridge University Press, p. 474, ISBN 978-1-107-04348-0 ^ Thoralf Skolem (1923) "The foundations of elementary arithmetic" in Jean van Heijenoort , translator and ed. (1967) From Frege to Gödel: A Source Book in Mathematical Logic, 1879-1931 . Harvard Univ. Press: 302-33.
+
+References [ edit ] Boolos, George ; Burgess, John ; Jeffrey, Richard C.
+
+(2002), Computability and Logic (4th ed.), Cambridge University Press, ISBN 9780521007580 Brainerd, W.S.; Landweber, L.H. (1974), Theory of Computation , Wiley, ISBN 0471095850 Gladstone, M. D. (1967), "A reduction of the recursion scheme", The Journal of Symbolic Logic , 32 (4): 505– 508, doi : 10.2307/2270177 , JSTOR 2270177 , MR 0224460 Gladstone, M. D. (1971), "Simplifications of the recursion scheme", The Journal of Symbolic Logic , 36 (4): 653– 665, doi : 10.2307/2272468 , JSTOR 2272468 , MR 0305993 Hartmanis, Juris (1989), "Overview of Computational Complexity Theory", Computational Complexity Theory , Proceedings of Symposia in Applied Mathematics, vol. 38, American Mathematical Society, pp.
+
+1– 17, ISBN 978-0-8218-0131-4 , MR 1020807 Kleene, Stephen Cole (1974) [1952], "Chapter XI. General Recursive Functions §57", Introduction to Metamathematics (7th reprint; 2nd ed.), North-Holland Publishing Company , ISBN 0444100881 , OCLC 3757798 PlanetMath, "primitive recursive vector-valued function" , retrieved 2025-07-04 Rogers, Hartley Jr. (1987) [1967], Theory of Recursive Functions and Effective Computability (Reprint ed.), MIT Press , ISBN 9780262680523 Robinson, Raphael M. (1947), "Primitive recursive functions" , Bulletin of the American Mathematical Society , 53 (10): 925– 942, doi : 10.1090/S0002-9904-1947-08911-4 , MR 0022536 Severin, Daniel E. (2008), "Unary primitive recursive functions", The Journal of Symbolic Logic , 73 (4): 1122– 1138, arXiv : cs/0603063 , doi : 10.2178/jsl/1230396909 , JSTOR 275903221 , MR 2467207 Soare, Robert I.
+
+(1987), Recursively Enumerable Sets and Degrees , Springer-Verlag, ISBN 0-387-15299-7 Soare, Robert I.
+
+(1996), "Computability and recursion" , The Bulletin of Symbolic Logic , 2 (3): 284– 321, doi : 10.2307/420992 , JSTOR 420992 , MR 1416870 v t e Mathematical logic General Axiom list Cardinality First-order logic Formal proof Formal semantics Foundations of mathematics Information theory Lemma Logical consequence Model Theorem Theory Type theory Theorems ( list ) and paradoxes Gödel's completeness and incompleteness theorems Tarski's undefinability Banach–Tarski paradox Cantor's theorem, paradox and diagonal argument Compactness Halting problem Lindström's Löwenheim–Skolem Russell's paradox Logics Traditional Classical logic Logical truth Tautology Proposition Inference Logical equivalence Consistency Equiconsistency Argument Soundness Validity Syllogism Square of opposition Venn diagram Propositional Boolean algebra Boolean functions Logical connectives Propositional calculus Propositional formula Truth tables Many-valued logic 3 finite ∞ Predicate First-order list Second-order Monadic Higher-order Fixed-point Free Quantifiers Predicate Monadic predicate calculus Set theory Set hereditary Class ( Ur- ) Element Ordinal number Extensionality Forcing Relation equivalence partition Set operations: intersection union complement Cartesian product power set identities Types of sets Countable Uncountable Empty Inhabited Singleton Finite Infinite Transitive Ultrafilter Recursive Fuzzy Universal Universe constructible Grothendieck Von Neumann Maps and cardinality Function / Map domain codomain image In / Sur / Bi -jection Schröder–Bernstein theorem Isomorphism Gödel numbering Enumeration Large cardinal inaccessible Aleph number Operation binary Set theories Zermelo–Fraenkel axiom of choice continuum hypothesis General Kripke–Platek Morse–Kelley Naive New Foundations Tarski–Grothendieck Von Neumann–Bernays–Gödel Ackermann Constructive Formal systems ( list ), language and syntax Alphabet Arity Automata Axiom schema Expression ground Extension by definition conservative Relation Formation rule Grammar Formula atomic closed ground open Free/bound variable Language Metalanguage Logical connective ¬ ∨ ∧ → ↔ = Predicate functional variable propositional variable Proof Quantifier ∃ !
+
+∀ rank Sentence atomic spectrum Signature String Substitution Symbol function logical/constant non-logical variable Term Theory list Example axiomatic systems ( list ) of arithmetic : Peano second-order elementary function primitive recursive Robinson Skolem of the real numbers Tarski's axiomatization of Boolean algebras canonical minimal axioms of geometry : Euclidean : Elements Hilbert's Tarski's non-Euclidean Principia Mathematica Proof theory Formal proof Natural deduction Logical consequence Rule of inference Sequent calculus Theorem Systems axiomatic deductive Hilbert list Complete theory Independence ( from ZFC ) Proof of impossibility Ordinal analysis Reverse mathematics Self-verifying theories Model theory Interpretation function of models Model equivalence finite saturated spectrum submodel Non-standard model of arithmetic Diagram elementary Categorical theory Model complete theory Satisfiability Semantics of logic Strength Theories of truth semantic Tarski's Kripke's T-schema Transfer principle Truth predicate Truth value Type Ultraproduct Validity Computability theory Church encoding Church–Turing thesis Computably enumerable Computable function Computable set Decision problem decidable undecidable P NP P versus NP problem Kolmogorov complexity Lambda calculus Primitive recursive function Recursion Recursive set Turing machine Type theory Related Abstract logic Algebraic logic Automated theorem proving Category theory Concrete / Abstract category Category of sets History of logic History of mathematical logic timeline Logicism Mathematical object Philosophy of mathematics Supertask Mathematics portal Retrieved from " https://en.wikipedia.org/w/index.php?title=Primitive_recursive_function&oldid=1305876162 " Categories : Computability theory Theory of computation Functions and mappings Recursion Hidden categories: Articles with short description Short description is different from Wikidata All articles with unsourced statements Articles with unsourced statements from January 2025 Articles with unsourced statements from July 2025 This page was last edited on 14 August 2025, at 15:58 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Primitive recursive function 15 languages Add topic
+

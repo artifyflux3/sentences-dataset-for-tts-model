@@ -1,0 +1,107 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Referential transparency 2 Temporal side effects 3 Idempotence 4 Example 5 See also 6 References Toggle the table of contents Side effect (computer science) 22 languages العربية Azərbaycanca Čeština Deutsch Ελληνικά Español Esperanto فارسی Français 한국어 Italiano Lombard Nederlands 日本語 Polski Русский Simple English Српски / srpski Svenska Українська Tiếng Việt 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Of a function, an additional effect besides returning a value "Hidden side effect" redirects here. For similar uses, see hidden variable (disambiguation) .
+
+In computer science , an operation, function or expression is said to have a side effect if it has any observable effect other than its primary effect of reading the value of its arguments and returning a value to the invoker of the operation. Example side effects include modifying a non-local variable , a static local variable or a mutable argument passed by reference ; raising errors or exceptions; performing I/O ; or calling other functions with side-effects.
+
+[ 1 ] In the presence of side effects, a program's behaviour may depend on history; that is, the order of evaluation matters. Understanding and debugging a function with side effects requires knowledge about the context and its possible histories.
+
+[ 2 ] [ 3 ] Side effects play an important role in the design and analysis of programming languages . The degree to which side effects are used depends on the programming paradigm. For example, imperative programming is commonly used to produce side effects, to update a system's state. By contrast, declarative programming is commonly used to report on the state of system, without side effects.
+
+Functional programming aims to minimize or eliminate side effects. The lack of side effects makes it easier to do formal verification of a program. The functional language Haskell eliminates side effects such as I/O and other stateful computations by replacing them with monadic actions.
+
+[ 4 ] [ 5 ] Functional languages such as Standard ML , Scheme and Scala do not restrict side effects, but it is customary for programmers to avoid them.
+
+[ 6 ] Effect systems extend types to keep track of effects, permitting concise notation for functions with effects, while maintaining information about the extent and nature of side effects. In particular, functions without effects  correspond to pure functions.
+
+Assembly language programmers must be aware of hidden side effects—instructions that modify parts of the processor state which are not mentioned in the instruction's mnemonic. A classic example of a hidden side effect is an arithmetic instruction that implicitly modifies condition codes (a hidden side effect) while it explicitly modifies a register (the intended effect). One potential drawback of an instruction set with hidden side effects is that, if many instructions have side effects on a single piece of state, like condition codes, then the logic required to update that state sequentially may become a performance bottleneck. The problem is particularly acute on some processors designed with pipelining (since 1990) or with out-of-order execution . Such a processor may require additional control circuitry to detect hidden side effects and stall the pipeline if the next instruction depends on the results of those effects.
+
+Referential transparency [ edit ] Main article: Referential transparency Absence of side effects is a necessary, but not sufficient, condition for referential transparency. Referential transparency means that an expression (such as a function call) can be replaced with its value. This requires that the expression is pure , that is to say the expression must be deterministic (always give the same value for the same input) and side-effect free.
+
+Temporal side effects [ edit ] Side effects caused by the time taken for an operation to execute are usually ignored when discussing side effects and referential transparency. There are some cases, such as with hardware timing or testing, where operations are inserted specifically for their temporal side effects e.g.
+
+sleep(5000) or for (int i = 0; i < 10000; ++i) {} . These instructions do not change state other than taking an amount of time to complete.
+
+Idempotence [ edit ] Main article: Idempotence § Computer science meaning A subroutine with side effects is idempotent if multiple applications of the subroutine have the same effect on the system state as a single application, in other words if the function from the system state space to itself associated with the subroutine is idempotent in the mathematical sense . For instance, consider the following Python program: x = 0 def setx ( n ): global x x = n setx ( 3 ) assert x == 3 setx ( 3 ) assert x == 3 setx is idempotent because the second application of setx to 3 has the same effect on the system state as the first application: x was already set to 3 after the first application, and it is still set to 3 after the second application.
+
+A pure function is idempotent if it is idempotent in the mathematical sense . For instance, consider the following Python program: def abs ( n ): return - n if n < 0 else n assert abs ( abs ( - 3 )) == abs ( - 3 ) abs is idempotent because the second application of abs to the return value of the first application to -3 returns the same value as the first application to -3.
+
+Example [ edit ] One common demonstration of side effect behavior is that of the assignment operator in C . The assignment a = b is an expression that evaluates to the same value as the expression b , with the side effect of storing the R-value of b into the L-value of a . This allows multiple assignment: a = ( b = 3 ); // b = 3 evaluates to 3, which then gets assigned to a Because the operator right associates , this is equivalent to a = b = 3 ; This presents a potential hangup for novice programmers who may confuse while ( b == 3 ) {} // tests if b evaluates to 3 with while ( b = 3 ) {} // b = 3 evaluates to 3, which then casts to true so the loop is infinite See also [ edit ] Action at a distance (computer programming) Don't-care term Sequence point Side-channel attack Undefined behaviour Unspecified behaviour Frame problem References [ edit ] ^ Spuler, David A.; Sajeev, A. Sayed Muhammed (January 1994).
+
+Compiler Detection of Function Call Side Effects .
+
+James Cook University .
+
+CiteSeerX 10.1.1.70.2096 .
+
+The term Side effect refers to the modification of the nonlocal environment.  Generally this happens when a function (or a procedure) modifies a global variable or arguments passed by reference parameters. But here are other ways in which the nonlocal environment can be modified. We consider the following causes of side effects through a function call: 1. Performing I/O. 2. Modifying global variables. 3. Modifying local permanent variables (like static variables in C). 4. Modifying an argument passed by reference. 5. Modifying a local variable, either automatic or static, of a function higher up in the function call sequence (usually via a pointer).
+
+^ Turner, David A.
+
+, ed. (1990).
+
+Research Topics in Functional Programming .
+
+Addison-Wesley . pp.
+
+17– 42.
+
+Via Hughes, John.
+
+"Why Functional Programming Matters" (PDF) .
+
+Archived (PDF) from the original on 2022-06-14 . Retrieved 2022-08-06 .
+
+^ Collberg, Christian S. (2005-04-22).
+
+"CSc 520 Principles of Programming Languages" . Department of Computer Science, University of Arizona . Archived from the original on 2022-08-06 . Retrieved 2022-08-06 .
+
+^ "Haskell 98 report" . 1998.
+
+^ Jones, Simon Peyton; Wadler, Phil (1993).
+
+Imperative Functional Programming . Conference Record of the 20th Annual ACM Symposium on Principles of Programming Languages. pp.
+
+71– 84.
+
+^ Felleisen, Matthias ; Findler, Robert Bruce; Flatt, Matthew; Krishnamurthi, Shriram (2014-08-01).
+
+"How To Design Programs" (2 ed.).
+
+MIT Press .
+
+v t e Program analysis Key concepts Control-flow graph Correctness Hyperproperties Invariants Path explosion Polyvariance Rice's theorem Runtime verification Safety and liveness Undefined behavior Semantics Types Axiomatic Denotational Categorical semantics Operational Big-step Small-step Models Lambda calculus Petri net Process calculus Rewriting system State machine Turing machine Analyses Static Abstract interpretation Alias Control flow kCFA Data-flow Dependence Effect system Escape Model checking Pointer Shape Symbolic execution Termination Type systems Typestate Dynamic Data-flow Taint tracking Concolic testing Fuzzing Invariant inference Program slicing Testing Formal methods Concepts Curry–Howard correspondence Loop invariant Refinement Side effect Soundness and completeness Specification Languages Verification Logics Hoare Incorrectness Linear Separation Temporal Data structures BDD E-graph Hashcons Union-find Tools Constraint solvers CHC SAT SMT Lightweight Alloy TLA+ Proof assistants ACL2 Agda F* HOL Light HOL4 Idris Isabelle Isabelle/HOL Lean LEGO Mizar NuPRL PVS Rocq Twelf Category Outline Glossary NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐wv26w
+Cached time: 20250812000231
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.259 seconds
+Real time usage: 0.328 seconds
+Preprocessor visited node count: 1051/1000000
+Revision size: 10369/2097152 bytes
+Post‐expand include size: 53685/2097152 bytes
+Template argument size: 1314/2097152 bytes
+Highest expansion depth: 12/100
+Expensive parser function count: 13/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 38221/5000000 bytes
+Lua time usage: 0.165/10.000 seconds
+Lua memory usage: 5797354/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  282.912      1 -total
+ 38.01%  107.544      1 Template:Reflist
+ 29.53%   83.536      5 Template:Navbox
+ 27.35%   77.371      1 Template:Program_analysis
+ 24.50%   69.316      2 Template:Cite_book
+ 18.57%   52.536      1 Template:Short_description
+ 11.35%   32.114      2 Template:Pagetype
+  7.09%   20.068      1 Template:Redir
+  6.57%   18.601      4 Template:Cite_web
+  4.20%   11.877      4 Template:Main_other Saved in parser cache with key enwiki:pcache:29519:|#|:idhash:canonical and timestamp 20250812000231 and revision id 1257778700. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Side_effect_(computer_science)&oldid=1257778700 " Categories : Computer programming Programming language theory Functional programming Hidden categories: Articles with short description Short description is different from Wikidata Use dmy dates from December 2021 Use list-defined references from August 2022 Articles with example C code Articles with example Python (programming language) code This page was last edited on 16 November 2024, at 16:22 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Side effect (computer science) 22 languages Add topic
+

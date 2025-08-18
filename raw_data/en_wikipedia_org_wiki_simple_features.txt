@@ -1,0 +1,172 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Details Toggle Details subsection 1.1 Part 1 1.2 Part 2 1.3 Spatial 2 Implementations 3 See also 4 References 5 External links Toggle External links subsection 5.1 Standard documents Toggle the table of contents Simple Features 4 languages Čeština Deutsch Српски / srpski Українська Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Standard for geographical data Simple Features (officially Simple Feature Access ) is a set of standards that specify a common storage and access model of geographic features made of mostly two-dimensional geometries (point, line, polygon, multi-point, multi-line, etc.) used by geographic databases and geographic information systems .
+It is formalized by both the Open Geospatial Consortium (OGC) and  the International Organization for Standardization (ISO).
+
+The ISO 19125 standard comes in two parts. Part 1, ISO 19125-1 (SFA-CA for "common architecture"), defines a model for two-dimensional simple features, with linear interpolation between vertices, defined in a hierarchy of classes ; this part also defines representation of geometry in text and binary forms. Part 2 of the standard, ISO 19125-2 (SFA-SQL), defines a "SQL/MM" language binding API for SQL under the prefix "ST_".
+
+[ 1 ] The open access OGC standards cover additionally APIs for CORBA and OLE / COM , although these have lagged behind the SQL one and are not standardized by ISO. There are also adaptations to other languages covered below.
+
+The ISO/IEC 13249-3 SQL/MM Spatial extends the Simple Features data model, originally based on straight-line segments , adding circular interpolations (e.g.
+
+circular arcs ) and other features like coordinate transformations and methods for validating geometries, as well as Geography Markup Language support.
+
+[ 1 ] Details [ edit ] Part 1 [ edit ] This section needs expansion . You can help by adding to it .
+
+( November 2012 ) The geometries are associated with spatial reference systems . The standard also specifies attributes , methods and assertions with the geometries, in the object-oriented style. In general, a 2D geometry is simple if it contains no self-intersection. The specification defines DE-9IM spatial predicates and several spatial operators that can be used to generate new geometries from existing geometries.
+
+Part 2 [ edit ] Part 2 is a SQL binding to Part 1, providing a translation of the interface to non-object-oriented environments. For example, instead of a someGeometryObject.isEmpty() as in Part 1, SQL/MM uses a ST_IsEmpty(...) function in SQL.
+
+Spatial [ edit ] The spatial extension adds the datatypes "Circularstring", "CompoundCurve", "CurvePolygon", "PolyhedralSurface", the last of which is also included into the OGC standard. It also defines the SQL/MM versions of these types and operations on them.
+
+Implementations [ edit ] This section needs expansion . You can help by adding to it .
+
+( November 2012 ) Direct implementations of Part 2 (SQL/MM) include: MySQL Spatial Extensions.
+
+[ 2 ] Up to MySQL 5.5, all of the functions that calculate relations between geometries are implemented using bounding boxes not the actual geometries.
+
+[ 3 ] Starting from version 5.6, MySQL offers support for precise object shapes.
+
+[ 4 ] MonetDB/GIS extension for MonetDB .
+
+[ 5 ] PostGIS extension for PostgreSQL , also supporting some of the SQL/MM Spatial features.
+
+[ 6 ] SpatiaLite extension for SQLite [ 7 ] Oracle Spatial , which also implements some of the advanced features from SQL/MM Spatial.
+
+[ 8 ] IBM Db2 Spatial Extender and IBM Informix Spatial DataBlade.
+
+[ 6 ] Microsoft SQL Server since version 2008, [ 6 ] with significant additions in the 2012 version.
+
+[ 9 ] SAP Sybase IQ .
+
+[ 10 ] SAP HANA as of 1.0 SPS6.
+
+[ 11 ] Adaptations include: Implementations of the CORBA and OLE/COM interfaces detailed above are mainly produced by commercial vendors maintaining legacy technology.
+
+R : The sf package [ 12 ] implements Simple Features and contains functions that bind to GDAL for reading and writing data, to GEOS for geometrical operations, and to PROJ for projection conversions and datum transformations.
+
+The GDAL library implements the Simple Features data model in its OGR component.
+
+[ 13 ] The Java -based deegree framework implements SFA (part 1) and various other OGC standards.
+
+[ 14 ] The Rust library geo_types implements geometry primitives that adhere to the simple feature access standards.
+
+[ 15 ] GeoSPARQL is an OGC standard that is intended to allow geospatially- linked data representation and querying based on RDF and SPARQL by defining an ontology for geospatial reasoning supporting a small Simple Features (as well as DE-9IM and RCC8 ) RDFS / OWL vocabulary for GML and WKT literals.
+
+[ 16 ] As of 2012, various NoSQL databases had very limited support for "anything more complex than a bounding box or proximity search".
+
+[ 3 ] See also [ edit ] DE-9IM Well-known text Well-known binary References [ edit ] ^ a b Wolfgang Kresse; David M. Danko (2011).
+
+Springer Handbook of Geographic Information . Springer. pp.
+
+81 –83.
+
+ISBN 978-3-540-72678-4 .
+
+^ "MySQL 5.1 documentation on Spatial extensions" .
+
+mysql.com . Retrieved 2 April 2018 .
+
+^ a b Frank Hardisty (Fall 2012).
+
+"Penn State Geography 583: Geospatial System Analysis and Design. Databases" .
+
+^ "MySQL :: MySQL 5.6 Reference Manual :: 12.15.9 Functions That Test Spatial Relations Between Geometry Objects" .
+
+dev.mysql.com . Retrieved 2 April 2018 .
+
+^ "GeoSpatial - MonetDB" . 4 March 2014.
+
+^ a b c Wolfgang Kresse; David M. Danko (2011).
+
+Springer Handbook of Geographic Information . Springer. pp.
+
+105 –106.
+
+ISBN 978-3-540-72678-4 .
+
+^ "SpatiaLite: SpatiaLite" .
+
+www.gaia-gis.it . Retrieved 2 April 2018 .
+
+^ Ravikanth V. Kothuri; Euro Beinat; Albert Godfrind (2004).
+
+Pro Oracle Spatial . Apress. p. 65.
+
+ISBN 978-1-59059-383-7 .
+
+^ Alastair Aitchison (2012).
+
+Pro Spatial with SQL Server 2012 . Apress. pp.
+
+21– 23.
+
+ISBN 978-1-4302-3491-3 .
+
+^ http://infocenter.sybase.com/help/index.jsp?topic=/com.sybase.infocenter.dc01964.1602/doc/html/saiq-standards-compatibility-spatial.html SAP Sybase IQ support for spatial data ^ http://help.sap.com/saphelp_hanaplatform/helpdata/en/7a/2f4266787c1014a9b6ab6cf937f8ac/content.htm?frameset=/en/7a/2d11d7787c1014ac3a8663250814c2/frameset.htm&current_toc=/en/99/d10e4fdaaf41588480a43478e840d5/plain.htm&node_id=12 SAP HANA Spatial Reference: Supported Import and Export Formats for Spatial Data ^ Pebesma, Edzer; Bivand, Roger; Cook, Ian; Keitt, Tim; Sumner, Michael; Lovelace, Robin; Wickham, Hadley; Ooms, Jeroen; Racine, Etienne (22 March 2018).
+
+"sf: Simple Features for R" . Retrieved 2 April 2018 – via R-Packages.
+
+^ "FAQ: What is this OGR stuff?" .
+
+www.gdal.org . Retrieved 2 April 2018 .
+
+^ Shashi Shekhar; Hui Xiong (2007).
+
+Encyclopedia of GIS . Springer. pp.
+
+235– 236.
+
+ISBN 978-0-387-30858-6 .
+
+^ "geo_types - Rust" .
+
+docs.rs . Retrieved 2023-03-19 .
+
+^ Battle, Robert; Kolas, Dave (2012).
+
+"Enabling the Geospatial Semantic Web with Parliament and GeoSPARQL" (PDF) .
+
+Semantic Web .
+
+3 (4).
+
+IOS Press : 355– 370.
+
+doi : 10.3233/SW-2012-0065 . Retrieved 21 November 2012 .
+
+External links [ edit ] Simple Features SWG Standard documents [ edit ] ISO/IEC: ISO 19125-1:2004 Geographic information -- Simple feature access -- Part 1: Common architecture ISO 19125-2:2004 Geographic information -- Simple feature access -- Part 2: SQL option OpenGIS OpenGIS Implementation Specification for Geographic information - Simple feature access - Part 1: Common architecture (05-126, 06-103r3, 06-103r4) , current version 1.2.1 OpenGIS Simple Feature Access - Part 2: SQL Option (99-054, 05-134, 06-104r3, 06-104r4) , current version 1.2.1, formerly OpenGIS Simple Features [Implementation Specification] for SQL OpenGIS Simple Features Implementation Specification for CORBA (99-054) , current version 1.0 OpenGIS Simple Features Implementation Specification for OLE/COM (99-050) , current version 1.1 v t e Standards of the Open Geospatial Consortium (OGC) CSW GeoPackage GeoRSS GeoSPARQL GML KML O&M OGC Reference Model SensorML SOS SFA SLD SRID TransducerML TMS WaterML WCS WFS WMS WMTS WPS WRS v t e International Organization for Standardization (ISO) standards List of ISO standards – ISO romanizations – IEC standards 1–9999 1 2 3 4 6 7 9 16 17 31 -0 -1 -3 -4 -5 -6 -7 -8 -9 -10 -11 -12 -13 68-1 128 216 217 226 228 233 259 261 262 302 306 361 500 518 519 639 -1 -2 -3 -5 -6 646 657 668 690 704 732 764 838 843 860 898 965 999 1000 1004 1007 1073-1 1073-2 1155 1413 1538 1629 1745 1989 2014 2015 2022 2033 2047 2108 2145 2146 2240 2281 2533 2709 2711 2720 2788 2848 2852 2921 3029 3103 3166 -1 -2 -3 3297 3307 3601 3602 3864 3901 3950 3977 4031 4157 4165 4217 4909 5218 5426 5427 5428 5725 5775 5776 5800 5807 5964 6166 6344 6346 6373 6385 6425 6429 6438 6523 6709 6943 7001 7002 7010 7027 7064 7098 7185 7200 7498 -1 7637 7736 7810 7811 7812 7813 7816 7942 8000 8093 8178 8217 8373 8501-1 8571 8583 8601 8613 8632 8651 8652 8691 8805/8806 8807 8820-5 8859 -1 -2 -3 -4 -5 -6 -7 -8 -8-I -9 -10 -11 -12 -13 -14 -15 -16 8879 9000/9001 9036 9075 9126 9141 9227 9241 9293 9314 9362 9407 9496 9506 9529 9564 9592/9593 9594 9660 9797-1 9897 9899 9945 9984 9985 9995 10000–19999 10006 10007 10116 10118-3 10160 10161 10165 10179 10206 10218 10279 10303 -11 -21 -22 -28 -238 10383 10585 10589 10628 10646 10664 10746 10861 10957 10962 10967 11073 11170 11172 11179 11404 11544 11783 11784 11785 11801 11889 11898 11940 ( -2 ) 11941 11941 (TR) 11992 12006 12052 12182 12207 12234-2 12620 13211 -1 -2 13216 13250 13399 13406-2 13450 13485 13490 13567 13568 13584 13616 13816 13818 14000 14031 14224 14289 14396 14443 14496 -2 -3 -6 -10 -11 -12 -14 -17 -20 14617 14644 14649 14651 14698 14764 14882 14971 15022 15189 15288 15291 15398 15408 15444 -3 -9 15445 15438 15504 15511 15686 15693 15706 -2 15707 15897 15919 15924 15926 15926 WIP 15930 15938 16023 16262 16355-1 16485 16612-2 16750 16949 (TS) 17024 17025 17100 17203 17369 17442 17506 17799 18004 18014 18181 18245 18629 18760 18916 19005 19011 19092 -1 -2 19114 19115 19125 19136 19407 19439 19500 19501 19502 19503 19505 19506 19507 19508 19509 19510 19600 19752 19757 19770 19775-1 19794-5 19831 20000–29999 20000 20022 20121 20400 20802 20830 21000 21001 21047 21122 21500 21778 21827 22000 22275 22300 22301 22395 22537 23000 23003 23008 23009 23090-3 23092 23094-1 23094-2 23270 23271 23360 23941 24517 24613 24617 24707 24728 25178 25964 26000 26262 26300 26324 27000 series 27000 27001 27002 27005 27006 27729 28000 29110 29148 29199-2 29500 30000+ 30170 31000 32000 37001 38500 39075 40314 40500 42010 45001 50001 55000 56000 80000 Category NewPP limit report
+Parsed by mw‐web.codfw.main‐8487bf5649‐sgdg7
+Cached time: 20250814005940
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.424 seconds
+Real time usage: 0.530 seconds
+Preprocessor visited node count: 1307/1000000
+Revision size: 10843/2097152 bytes
+Post‐expand include size: 75278/2097152 bytes
+Template argument size: 891/2097152 bytes
+Highest expansion depth: 12/100
+Expensive parser function count: 3/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 70985/5000000 bytes
+Lua time usage: 0.258/10.000 seconds
+Lua memory usage: 5944697/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  408.476      1 -total
+ 40.83%  166.779      1 Template:Reflist
+ 25.49%  104.138      2 Template:Navbox
+ 23.92%   97.718      5 Template:Cite_book
+ 22.52%   91.987      1 Template:Open_Geospatial_Consortium_standards
+ 14.74%   60.212      1 Template:Short_description
+ 12.10%   49.444      2 Template:Expand_section
+ 11.32%   46.228      2 Template:Ambox
+ 10.50%   42.874      8 Template:Cite_web
+  8.65%   35.322      2 Template:Pagetype Saved in parser cache with key enwiki:pcache:3124369:|#|:idhash:canonical and timestamp 20250814005940 and revision id 1303148475. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Simple_Features&oldid=1303148475 " Categories : Geographic information systems Open Geospatial Consortium ISO/TC 211 Spatial database management systems Hidden categories: Articles with short description Short description matches Wikidata Use Oxford spelling from December 2011 Articles to be expanded from November 2012 All articles to be expanded This page was last edited on 29 July 2025, at 09:52 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Simple Features 4 languages Add topic
+

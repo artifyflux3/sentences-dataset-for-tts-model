@@ -1,0 +1,102 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Dandelin–Graeffe iteration 2 Classical Graeffe's method 3 Tangential Graeffe method 4 Renormalization 5 See also 6 References Toggle the table of contents Graeffe's method 5 languages Deutsch Español Русский Українська 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia (Redirected from Dandelin–Gräffe method ) Algorithm for finding polynomial roots In mathematics , Graeffe's method or Dandelin–Lobachesky–Graeffe method is an algorithm for finding all of the roots of a polynomial .  It was developed independently by Germinal Pierre Dandelin in 1826 and Lobachevsky in 1834. In 1837 Karl Heinrich Gräffe also discovered the principal idea of the method.
+
+[ 1 ] The method separates the roots of a polynomial by squaring them repeatedly. This squaring of the roots is done implicitly, that is, only working on the coefficients of the polynomial. Finally, Viète's formulas are used in order to approximate the roots.
+
+Dandelin–Graeffe iteration [ edit ] Let p ( x ) be a polynomial of degree n p ( x ) = ( x − − x 1 ) ⋯ ⋯ ( x − − x n ) .
+
+{\displaystyle p(x)=(x-x_{1})\cdots (x-x_{n}).} Then p ( − − x ) = ( − − 1 ) n ( x + x 1 ) ⋯ ⋯ ( x + x n ) .
+
+{\displaystyle p(-x)=(-1)^{n}(x+x_{1})\cdots (x+x_{n}).} Let q ( x ) be the polynomial which has the squares x 1 2 , ⋯ ⋯ , x n 2 {\displaystyle x_{1}^{2},\cdots ,x_{n}^{2}} as its roots, q ( x ) = ( x − − x 1 2 ) ⋯ ⋯ ( x − − x n 2 ) .
+
+{\displaystyle q(x)=\left(x-x_{1}^{2}\right)\cdots \left(x-x_{n}^{2}\right).} Then we can write: q ( x 2 ) = ( x 2 − − x 1 2 ) ⋯ ⋯ ( x 2 − − x n 2 ) = ( x − − x 1 ) ( x + x 1 ) ⋯ ⋯ ( x − − x n ) ( x + x n ) = { ( x − − x 1 ) ⋯ ⋯ ( x − − x n ) } × × { ( x + x 1 ) ⋯ ⋯ ( x + x n ) } = p ( x ) × × { ( − − 1 ) n ( − − x − − x 1 ) ⋯ ⋯ ( − − x − − x n ) } = p ( x ) × × { ( − − 1 ) n p ( − − x ) } = ( − − 1 ) n p ( x ) p ( − − x ) {\displaystyle {\begin{aligned}q(x^{2})&=\left(x^{2}-x_{1}^{2}\right)\cdots \left(x^{2}-x_{n}^{2}\right)\\&=(x-x_{1})(x+x_{1})\cdots (x-x_{n})(x+x_{n})\\&=\left\{(x-x_{1})\cdots (x-x_{n})\right\}\times \left\{(x+x_{1})\cdots (x+x_{n})\right\}\\&=p(x)\times \left\{(-1)^{n}(-x-x_{1})\cdots (-x-x_{n})\right\}\\&=p(x)\times \left\{(-1)^{n}p(-x)\right\}\\&=(-1)^{n}p(x)p(-x)\end{aligned}}} q ( x ) can now be computed by algebraic operations on the coefficients of the polynomial p ( x ) alone. Let: p ( x ) = x n + a 1 x n − − 1 + ⋯ ⋯ + a n − − 1 x + a n q ( x ) = x n + b 1 x n − − 1 + ⋯ ⋯ + b n − − 1 x + b n {\displaystyle {\begin{aligned}p(x)&=x^{n}+a_{1}x^{n-1}+\cdots +a_{n-1}x+a_{n}\\q(x)&=x^{n}+b_{1}x^{n-1}+\cdots +b_{n-1}x+b_{n}\end{aligned}}} then the coefficients are related by b k = ( − − 1 ) k a k 2 + 2 ∑ ∑ j = 0 k − − 1 ( − − 1 ) j a j a 2 k − − j , a 0 = b 0 = 1.
+
+{\displaystyle b_{k}=(-1)^{k}a_{k}^{2}+2\sum _{j=0}^{k-1}(-1)^{j}\,a_{j}a_{2k-j},\qquad a_{0}=b_{0}=1.} Graeffe observed that if one separates p ( x ) into its odd and even parts: p ( x ) = p e ( x 2 ) + x p o ( x 2 ) , {\displaystyle p(x)=p_{e}\left(x^{2}\right)+xp_{o}\left(x^{2}\right),} then one obtains a simplified algebraic expression for q ( x ) : q ( x ) = ( − − 1 ) n ( p e ( x ) 2 − − x p o ( x ) 2 ) .
+
+{\displaystyle q(x)=(-1)^{n}\left(p_{e}(x)^{2}-xp_{o}(x)^{2}\right).} This expression involves the squaring of two polynomials of only half the degree, and is therefore used in most implementations of the method.
+
+Iterating this procedure several times separates the roots with respect to their magnitudes. Repeating k times gives a polynomial of degree n : q k ( y ) = y n + a k 1 y n − − 1 + ⋯ ⋯ + a k n − − 1 y + a k n {\displaystyle q^{k}(y)=y^{n}+{a^{k}}_{1}\,y^{n-1}+\cdots +{a^{k}}_{n-1}\,y+{a^{k}}_{n}\,} with roots y 1 = x 1 2 k , y 2 = x 2 2 k , … … , y n = x n 2 k .
+
+{\displaystyle y_{1}=x_{1}^{2^{k}},\,y_{2}=x_{2}^{2^{k}},\,\dots ,\,y_{n}=x_{n}^{2^{k}}.} If the magnitudes of the roots of the original polynomial were separated by some factor ρ ρ > 1 {\displaystyle \rho >1} , that is, | x k | ≥ ≥ ρ ρ | x k + 1 | {\displaystyle |x_{k}|\geq \rho |x_{k+1}|} , then the roots of the k -th iterate are separated by a fast growing factor ρ ρ 2 k ≥ ≥ 1 + 2 k ( ρ ρ − − 1 ) {\displaystyle \rho ^{2^{k}}\geq 1+2^{k}(\rho -1)} .
+
+Classical Graeffe's method [ edit ] Next the Vieta relations are used a 1 k = − − ( y 1 + y 2 + ⋯ ⋯ + y n ) a 2 k = y 1 y 2 + y 1 y 3 + ⋯ ⋯ + y n − − 1 y n ⋮ ⋮ a n k = ( − − 1 ) n ( y 1 y 2 ⋯ ⋯ y n ) .
+
+{\displaystyle {\begin{aligned}a_{\;1}^{k}&=-(y_{1}+y_{2}+\cdots +y_{n})\\a_{\;2}^{k}&=y_{1}y_{2}+y_{1}y_{3}+\cdots +y_{n-1}y_{n}\\&\;\vdots \\a_{\;n}^{k}&=(-1)^{n}(y_{1}y_{2}\cdots y_{n}).\end{aligned}}} If the roots x 1 , … … , x n {\displaystyle x_{1},\dots ,x_{n}} are sufficiently separated, say by a factor ρ ρ > 1 {\displaystyle \rho >1} , | x m | ≥ ≥ ρ ρ | x m + 1 | {\displaystyle |x_{m}|\geq \rho |x_{m+1}|} , then the iterated powers y 1 , y 2 , .
+
+.
+
+.
+
+, y n {\displaystyle y_{1},y_{2},...,y_{n}} of the roots are separated by the factor ρ ρ 2 k {\displaystyle \rho ^{2^{k}}} , which quickly becomes very big.
+
+The coefficients of the iterated polynomial can then be approximated by their leading term, a 1 k ≈ ≈ − − y 1 {\displaystyle a_{\;1}^{k}\approx -y_{1}} a 2 k ≈ ≈ y 1 y 2 {\displaystyle a_{\;2}^{k}\approx y_{1}y_{2}} and so on, implying y 1 ≈ ≈ − − a 1 k , y 2 ≈ ≈ − − a 2 k / a 1 k , … … y n ≈ ≈ − − a n k / a n − − 1 k .
+
+{\displaystyle y_{1}\approx -a_{\;1}^{k},\;y_{2}\approx -a_{\;2}^{k}/a_{\;1}^{k},\;\dots \;y_{n}\approx -a_{\;n}^{k}/a_{\;n-1}^{k}.} Finally, logarithms are used in order to find the absolute values of the roots of the original polynomial. These magnitudes alone are already useful to generate meaningful starting points for other root-finding methods.
+
+To also obtain the angle of these roots, a multitude of methods has been proposed, the most simple one being to successively compute the square root of a (possibly complex) root of q m ( y ) {\displaystyle q^{m}(y)} , m ranging from k to 1, and testing which of the two sign variants is a root of q m − − 1 ( x ) {\displaystyle q^{m-1}(x)} . Before continuing to the roots of q m − − 2 ( x ) {\displaystyle q^{m-2}(x)} , it might be necessary to numerically improve the accuracy of the root approximations for q m − − 1 ( x ) {\displaystyle q^{m-1}(x)} , for instance by Newton's method .
+
+Graeffe's method works best for polynomials with simple real roots, though it can be adapted for polynomials with complex roots and coefficients, and roots with higher multiplicity. For instance, it has been observed [ 2 ] that for a root x ℓ ℓ + 1 = x ℓ ℓ + 2 = ⋯ ⋯ = x ℓ ℓ + d {\displaystyle x_{\ell +1}=x_{\ell +2}=\dots =x_{\ell +d}} with multiplicity d , 
+the fractions | ( a ℓ ℓ + i m − − 1 ) 2 a ℓ ℓ + i m | {\displaystyle \left|{\frac {(a_{\;\ell +i}^{m-1})^{2}}{a_{\;\ell +i}^{m}}}\right|} tend to ( d i ) {\displaystyle {\binom {d}{i}}} for i = 0 , 1 , … … , d {\displaystyle i=0,1,\dots ,d} . This allows to estimate the multiplicity structure of the set of roots.
+
+From a numerical point of view, this method is problematic since the coefficients of the iterated polynomials span very quickly many orders of magnitude, which implies serious numerical errors. One second, but minor concern is that many different polynomials lead to the same Graeffe iterates.
+
+Tangential Graeffe method [ edit ] This method replaces the numbers by truncated power series of degree 1, also known as dual numbers . Symbolically, this is achieved by introducing an "algebraic infinitesimal" ε ε {\displaystyle \varepsilon } with the defining property ε ε 2 = 0 {\displaystyle \varepsilon ^{2}=0} . Then the polynomial p ( x + ε ε ) = p ( x ) + ε ε p ′ ( x ) {\displaystyle p(x+\varepsilon )=p(x)+\varepsilon \,p'(x)} has roots x m − − ε ε {\displaystyle x_{m}-\varepsilon } , with powers ( x m − − ε ε ) 2 k = x m 2 k − − ε ε 2 k x m 2 k − − 1 = y m + ε ε y ˙ ˙ m .
+
+{\displaystyle (x_{m}-\varepsilon )^{2^{k}}=x_{m}^{2^{k}}-\varepsilon \,{2^{k}}\,x_{m}^{2^{k}-1}=y_{m}+\varepsilon \,{\dot {y}}_{m}.} Thus the value of x m {\displaystyle x_{m}} is easily obtained as fraction x m = − − 2 k y m y ˙ ˙ m .
+
+{\displaystyle x_{m}=-{\tfrac {2^{k}\,y_{m}}{{\dot {y}}_{m}}}.} This kind of computation with infinitesimals is easy to implement analogous to the computation with complex numbers. If one assumes complex coordinates or an initial shift by some randomly chosen complex number, then all roots of the polynomial will be distinct and consequently recoverable with the iteration.
+
+Renormalization [ edit ] Every polynomial can be scaled in domain and range such that in the resulting polynomial the first and the last coefficient have size one. If the size of the inner coefficients is bounded by M , then the size of the inner coefficients after one stage of the Graeffe iteration is bounded by n M 2 {\displaystyle nM^{2}} . After k stages one gets the bound n 2 k − − 1 M 2 k {\displaystyle n^{2^{k}-1}M^{2^{k}}} for the inner coefficients.
+
+To overcome the limit posed by the growth of the powers, Malajovich–Zubelli propose to represent coefficients and intermediate results in the k th stage of the algorithm by a scaled polar form c = α α e − − 2 k r , {\displaystyle c=\alpha \,e^{-2^{k}\,r},} where α α = c | c | {\displaystyle \alpha ={\frac {c}{|c|}}} is a complex number of unit length and r = − − 2 − − k log ⁡ ⁡ | c | {\displaystyle r=-2^{-k}\log |c|} is a positive real. Splitting off the power 2 k {\displaystyle 2^{k}} in the exponent reduces the absolute value of c to the corresponding dyadic root. Since this preserves the magnitude of the (representation of the) initial coefficients, this process was named renormalization.
+
+Multiplication of two numbers of this type is straightforward, whereas addition is performed following the factorization c 3 = c 1 + c 2 = | c 1 | ⋅ ⋅ ( α α 1 + α α 2 | c 2 | | c 1 | ) {\displaystyle c_{3}=c_{1}+c_{2}=|c_{1}|\cdot \left(\alpha _{1}+\alpha _{2}{\tfrac {|c_{2}|}{|c_{1}|}}\right)} , where c 1 {\displaystyle c_{1}} is chosen as the larger of both numbers, that is, r 1 < r 2 {\displaystyle r_{1}<r_{2}} . Thus α α 3 = s | s | {\displaystyle \alpha _{3}={\tfrac {s}{|s|}}} and r 3 = r 1 + 2 − − k log ⁡ ⁡ | s | {\displaystyle r_{3}=r_{1}+2^{-k}\,\log {|s|}} with s = α α 1 + α α 2 e 2 k ( r 1 − − r 2 ) .
+
+{\displaystyle s=\alpha _{1}+\alpha _{2}\,e^{2^{k}(r_{1}-r_{2})}.} The coefficients a 0 , a 1 , … … , a n {\displaystyle a_{0},a_{1},\dots ,a_{n}} of the final stage k of the Graeffe iteration, for some reasonably large value of k , are represented by pairs ( α α m , r m ) {\displaystyle (\alpha _{m},r_{m})} , m = 0 , … … , n {\displaystyle m=0,\dots ,n} . By identifying the corners of the convex envelope of the point set { ( m , r m ) : m = 0 , … … , n } {\displaystyle \{(m,r_{m}):\;m=0,\dots ,n\}} one can determine the multiplicities of the roots of the polynomial. Combining this renormalization with the tangent iteration one can extract directly from the coefficients at the corners of the envelope the roots of the original polynomial.
+
+See also [ edit ] Root-finding algorithm References [ edit ] ^ Householder, Alston Scott (1959). "Dandelin, Lobačevskiǐ, or Graeffe".
+
+The American Mathematical Monthly .
+
+66 (6): 464– 466.
+
+doi : 10.2307/2310626 .
+
+JSTOR 2310626 .
+
+^ Best, G.C. (1949). "Notes on the Graeffe Method of Root Squaring".
+
+The American Mathematical Monthly .
+
+56 (2): 91– 94.
+
+doi : 10.2307/2306166 .
+
+JSTOR 2306166 .
+
+Weisstein, Eric W.
+
+"Graeffe's Method" .
+
+MathWorld .
+
+Malajovich, Gregorio; Zubelli, Jorge P. (2001). "Tangent Graeffe iteration".
+
+Numerische Mathematik .
+
+89 (4): 749– 782.
+
+CiteSeerX 10.1.1.44.3611 .
+
+doi : 10.1007/s002110100278 .
+
+S2CID 100025 .
+
+v t e Root-finding algorithms Bracketing (no derivative) Bisection method Regula falsi ITP method Householder Newton's method Halley's method Quasi-Newton Broyden's method Secant method Newton–Krylov method Steffensen's method Hybrid methods Brent's method Ridders' method Polynomial methods Aberth method Bairstow's method Bernoulli's method Durand–Kerner method Graeffe's method Jenkins–Traub algorithm Lehmer–Schur algorithm Laguerre's method Splitting circle method Other methods Fixed-point iteration Inverse quadratic interpolation Muller's method Sidi's generalized secant method Retrieved from " https://en.wikipedia.org/w/index.php?title=Graeffe%27s_method&oldid=1236364427 " Category : Polynomial factorization algorithms Hidden categories: Articles with short description Short description matches Wikidata This page was last edited on 24 July 2024, at 08:50 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Graeffe's method 5 languages Add topic
+

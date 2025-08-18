@@ -1,0 +1,215 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Definitions Toggle Definitions subsection 1.1 Probability mass function 1.2 Cumulative distribution function 2 Properties Toggle Properties subsection 2.1 Mean and variance 2.2 Entropy 2.3 Chernoff bound 3 Related distribution Toggle Related distribution subsection 3.1 Approximation by binomial distribution 3.2 Approximation by Poisson distribution 4 Computational methods 5 See also 6 References Toggle the table of contents Poisson binomial distribution 8 languages Català Deutsch Español فارسی Français עברית 日本語 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Probability distribution Poisson binomial Parameters p ∈ ∈ [ 0 , 1 ] n {\displaystyle \mathbf {p} \in [0,1]^{n}} — success probabilities for each of the n trials Support k ∈ { 0, …, n } PMF ∑ ∑ A ∈ ∈ F k ∏ ∏ i ∈ ∈ A p i ∏ ∏ j ∈ ∈ A c ( 1 − − p j ) {\displaystyle \sum \limits _{A\in F_{k}}\prod \limits _{i\in A}p_{i}\prod \limits _{j\in A^{c}}(1-p_{j})} CDF ∑ ∑ l = 0 k ∑ ∑ A ∈ ∈ F l ∏ ∏ i ∈ ∈ A p i ∏ ∏ j ∈ ∈ A c ( 1 − − p j ) {\displaystyle \sum \limits _{l=0}^{k}\sum \limits _{A\in F_{l}}\prod \limits _{i\in A}p_{i}\prod \limits _{j\in A^{c}}(1-p_{j})} Mean ∑ ∑ i = 1 n p i {\displaystyle \sum \limits _{i=1}^{n}p_{i}} Variance σ σ 2 = ∑ ∑ i = 1 n ( 1 − − p i ) p i {\displaystyle \sigma ^{2}=\sum \limits _{i=1}^{n}(1-p_{i})p_{i}} Skewness 1 σ σ 3 ∑ ∑ i = 1 n ( 1 − − 2 p i ) ( 1 − − p i ) p i {\displaystyle {\frac {1}{\sigma ^{3}}}\sum \limits _{i=1}^{n}(1-2p_{i})(1-p_{i})p_{i}} Excess kurtosis 1 σ σ 4 ∑ ∑ i = 1 n ( 1 − − 6 ( 1 − − p i ) p i ) ( 1 − − p i ) p i {\displaystyle {\frac {1}{\sigma ^{4}}}\sum \limits _{i=1}^{n}(1-6(1-p_{i})p_{i})(1-p_{i})p_{i}} MGF ∏ ∏ j = 1 n ( 1 − − p j + p j e t ) {\displaystyle \prod \limits _{j=1}^{n}(1-p_{j}+p_{j}e^{t})} CF ∏ ∏ j = 1 n ( 1 − − p j + p j e i t ) {\displaystyle \prod \limits _{j=1}^{n}(1-p_{j}+p_{j}e^{it})} PGF ∏ ∏ j = 1 n ( 1 − − p j + p j z ) {\displaystyle \prod \limits _{j=1}^{n}(1-p_{j}+p_{j}z)} In probability theory and statistics , the Poisson binomial distribution is the discrete probability distribution of a sum of independent Bernoulli trials that are not necessarily identically distributed.  The concept is named after Siméon Denis Poisson .
+
+In other words, it is the probability distribution of the
+number of successes in a collection of n independent yes/no experiments with success probabilities p 1 , p 2 , … … , p n {\displaystyle p_{1},p_{2},\dots ,p_{n}} .  The ordinary binomial distribution is a special case of the Poisson binomial distribution, when all success probabilities are the same, that is p 1 = p 2 = ⋯ ⋯ = p n {\displaystyle p_{1}=p_{2}=\cdots =p_{n}} .
+
+Definitions [ edit ] Probability mass function [ edit ] The probability of having k successful trials out of a total of n can be written as the sum [ 1 ] Pr ( K = k ) = ∑ ∑ A ∈ ∈ F k ∏ ∏ i ∈ ∈ A p i ∏ ∏ j ∈ ∈ A c ( 1 − − p j ) {\displaystyle \Pr(K=k)=\sum \limits _{A\in F_{k}}\prod \limits _{i\in A}p_{i}\prod \limits _{j\in A^{c}}(1-p_{j})} where F k {\displaystyle F_{k}} is the set of all subsets of k integers that can be selected from { 1 , 2 , 3 , .
+
+.
+
+.
+
+, n } {\displaystyle \{1,2,3,...,n\}} . For example, if n = 3, then F 2 = { { 1 , 2 } , { 1 , 3 } , { 2 , 3 } } {\displaystyle F_{2}=\left\{\{1,2\},\{1,3\},\{2,3\}\right\}} .
+
+A c {\displaystyle A^{c}} is the complement of A {\displaystyle A} , i.e.
+
+A c = { 1 , 2 , 3 , … … , n } ∖ ∖ A {\displaystyle A^{c}=\{1,2,3,\dots ,n\}\smallsetminus A} .
+
+F k {\displaystyle F_{k}} will contain n !
+
+/ ( ( n − − k ) !
+
+k !
+
+) {\displaystyle n!/((n-k)!k!)} elements, the sum over which is infeasible to compute in practice unless the number of trials n is small (e.g. if n = 30, F 15 {\displaystyle F_{15}} contains over 10 20 elements). However, there are other, more efficient ways to calculate Pr ( K = k ) {\displaystyle \Pr(K=k)} .
+
+As long as none of the success probabilities are equal to one, one can calculate the probability of k successes using the recursive formula [ 2 ] [ 3 ] Pr ( K = k ) = { ∏ ∏ i = 1 n ( 1 − − p i ) k = 0 1 k ∑ ∑ i = 1 k ( − − 1 ) i − − 1 Pr ( K = k − − i ) T ( i ) k > 0 {\displaystyle \Pr(K=k)={\begin{cases}\prod \limits _{i=1}^{n}(1-p_{i})&k=0\\{\frac {1}{k}}\sum \limits _{i=1}^{k}(-1)^{i-1}\Pr(K=k-i)T(i)&k>0\\\end{cases}}} where T ( i ) = ∑ ∑ j = 1 n ( p j 1 − − p j ) i .
+
+{\displaystyle T(i)=\sum \limits _{j=1}^{n}\left({\frac {p_{j}}{1-p_{j}}}\right)^{i}.} The recursive formula is not numerically stable , and should be avoided if n {\displaystyle n} is greater than approximately 20.
+
+An alternative is to use a divide-and-conquer algorithm : if we assume n = 2 b {\displaystyle n=2^{b}} is a power of two, denoting by f ( p i : j ) {\displaystyle f(p_{i:j})} the Poisson binomial of p i , … … , p j {\displaystyle p_{i},\dots ,p_{j}} and ∗ ∗ {\displaystyle *} the convolution operator, we have f ( p 1 : 2 b ) = f ( p 1 : 2 b − − 1 ) ∗ ∗ f ( p 2 b − − 1 + 1 : 2 b ) {\displaystyle f(p_{1:2^{b}})=f(p_{1:2^{b-1}})*f(p_{2^{b-1}+1:2^{b}})} .
+
+More generally, the probability mass function of a Poisson binomial can be expressed as the convolution of the vectors P 1 , … … , P n {\displaystyle P_{1},\dots ,P_{n}} where P i = [ 1 − − p i , p i ] {\displaystyle P_{i}=[1-p_{i},p_{i}]} . This observation leads to the direct convolution (DC) algorithm for computing Pr ( K = 0 ) {\displaystyle \Pr(K=0)} through Pr ( K = n ) {\displaystyle \Pr(K=n)} : // PMF and nextPMF begin at index 0 function DC( p 1 , … … , p n {\displaystyle p_{1},\dots ,p_{n}} ) is declare new PMF array of size 1
+     PMF[0] = [1] for i = 1 to n {\displaystyle n} do declare new nextPMF array of size i + 1
+          nextPMF[0] = (1 - p i {\displaystyle p_{i}} ) * PMF[0]
+          nextPMF[i] = p i {\displaystyle p_{i}} * PMF[i - 1] for k = 1 to i - 1 do nextPMF[k] = p i {\displaystyle p_{i}} * PMF[k - 1] + (1 - p i {\displaystyle p_{i}} ) * PMF[k] repeat PMF = nextPMF repeat return PMF end function Pr ( K = k ) {\displaystyle \Pr(K=k)} will be found in PMF[k]. DC is numerically stable, exact, and, when implemented as a software routine, exceptionally fast for n ≤ ≤ 2000 {\displaystyle n\leq 2000} . It can also be quite fast for larger n {\displaystyle n} , depending on the distribution of the p i {\displaystyle p_{i}} .
+
+[ 4 ] Another possibility is using the discrete Fourier transform .
+
+[ 5 ] Pr ( K = k ) = 1 n + 1 ∑ ∑ ℓ ℓ = 0 n C − − l k ∏ ∏ m = 1 n ( 1 + ( C ℓ ℓ − − 1 ) p m ) {\displaystyle \Pr(K=k)={\frac {1}{n+1}}\sum _{\ell =0}^{n}C^{-lk}\prod _{m=1}^{n}\left(1+(C^{\ell }-1)p_{m}\right)} where C = exp ⁡ ⁡ ( 2 i π π n + 1 ) {\displaystyle C=\exp \left({\frac {2i\pi }{n+1}}\right)} and i = − − 1 {\displaystyle i={\sqrt {-1}}} .
+
+Still other methods are described in "Statistical Applications of the Poisson-Binomial and conditional Bernoulli distributions" by Chen and Liu [ 6 ] and in "A simple and fast method for computing the Poisson binomial distribution function" by Biscarri et al.
+
+[ 4 ] Cumulative distribution function [ edit ] The cumulative distribution function (CDF) can be expressed as: Pr ( K ≤ ≤ k ) = ∑ ∑ ℓ ℓ = 0 k ∑ ∑ A ∈ ∈ F ℓ ℓ ∏ ∏ i ∈ ∈ A p i ∏ ∏ j ∈ ∈ A c ( 1 − − p j ) , {\displaystyle \Pr(K\leq k)=\sum _{\ell =0}^{k}\sum _{A\in F_{\ell }}\prod _{i\in A}p_{i}\prod _{j\in A^{c}}(1-p_{j}),} where F ℓ ℓ {\displaystyle F_{\ell }} is the set of all subsets of size ℓ ℓ {\displaystyle \ell } that can be selected from { 1 , 2 , 3 , … … , n } {\displaystyle \{1,2,3,\ldots ,n\}} .
+
+It can be computed by invoking the DC function above, and then adding elements 0 {\displaystyle 0} through k {\displaystyle k} of the returned PMF array.
+
+Properties [ edit ] Mean and variance [ edit ] Since a Poisson binomial distributed variable is a sum of n independent Bernoulli distributed variables, its mean and variance will simply be sums of the mean and variance of the n Bernoulli distributions: μ μ = ∑ ∑ i = 1 n p i {\displaystyle \mu =\sum \limits _{i=1}^{n}p_{i}} σ σ 2 = ∑ ∑ i = 1 n ( 1 − − p i ) p i {\displaystyle \sigma ^{2}=\sum \limits _{i=1}^{n}(1-p_{i})p_{i}} Entropy [ edit ] There is no simple formula for the entropy of a Poisson binomial distribution, but the entropy is bounded above by the entropy of a binomial distribution with the same number parameter and the same mean. Therefore, the entropy is also bounded above by the entropy of a Poisson distribution with the same mean.
+
+[ 7 ] The Shepp–Olkin concavity conjecture, due to Lawrence Shepp and Ingram Olkin in 1981, states that the entropy of a Poisson binomial distribution is a concave function of the success probabilities p 1 , p 2 , … … , p n {\displaystyle p_{1},p_{2},\dots ,p_{n}} .
+
+[ 8 ] This conjecture was proved by Erwan Hillion and Oliver Johnson in 2015.
+
+[ 9 ] The Shepp–Olkin monotonicity conjecture, also from the same 1981 paper, is that the entropy is monotone increasing in p i {\displaystyle p_{i}} , if all p i ≤ ≤ 1 / 2 {\displaystyle p_{i}\leq 1/2} . This conjecture was also proved by Hillion and Johnson, in 2019.
+
+[ 10 ] Chernoff bound [ edit ] The probability that a Poisson binomial distribution gets large, can be bounded using its moment generating function as follows (valid when s ≥ ≥ μ μ {\displaystyle s\geq \mu } and for any t > 0 {\displaystyle t>0} ): Pr [ S ≥ ≥ s ] ≤ ≤ exp ⁡ ⁡ ( − − s t ) E ⁡ ⁡ [ exp ⁡ ⁡ [ t ∑ ∑ i X i ] ] = exp ⁡ ⁡ ( − − s t ) ∏ ∏ i ( 1 − − p i + e t p i ) = exp ⁡ ⁡ ( − − s t + ∑ ∑ i log ⁡ ⁡ ( p i ( e t − − 1 ) + 1 ) ) ≤ ≤ exp ⁡ ⁡ ( − − s t + ∑ ∑ i log ⁡ ⁡ ( exp ⁡ ⁡ ( p i ( e t − − 1 ) ) ) ) = exp ⁡ ⁡ ( − − s t + ∑ ∑ i p i ( e t − − 1 ) ) = exp ⁡ ⁡ ( s − − μ μ − − s log ⁡ ⁡ s μ μ ) , {\displaystyle {\begin{aligned}\Pr[S\geq s]&\leq \exp(-st)\operatorname {E} \left[\exp \left[t\sum _{i}X_{i}\right]\right]\\&=\exp(-st)\prod _{i}(1-p_{i}+e^{t}p_{i})\\&=\exp \left(-st+\sum _{i}\log \left(p_{i}(e^{t}-1)+1\right)\right)\\&\leq \exp \left(-st+\sum _{i}\log \left(\exp(p_{i}(e^{t}-1))\right)\right)\\&=\exp \left(-st+\sum _{i}p_{i}(e^{t}-1)\right)\\&=\exp \left(s-\mu -s\log {\frac {s}{\mu }}\right),\end{aligned}}} where we took t = log ⁡ ⁡ ( s / μ μ ) {\textstyle t=\log \left(s/\mu \right)} . This is similar to the tail bounds of a binomial distribution .
+
+Related distribution [ edit ] Approximation by binomial distribution [ edit ] A Poisson binomial distribution P B {\displaystyle PB} can be approximated by a binomial distribution B {\displaystyle B} where μ μ {\displaystyle \mu } , the mean of the p i {\displaystyle p_{i}} , is the success probability of B {\displaystyle B} . The variances of P B {\displaystyle PB} and B {\displaystyle B} are related by the formula Var ⁡ ⁡ ( P B ) = Var ⁡ ⁡ ( B ) − − ∑ ∑ i = 1 n ( p i − − μ μ ) 2 {\displaystyle \operatorname {Var} (PB)=\operatorname {Var} (B)-\sum _{i=1}^{n}(p_{i}-\mu )^{2}} As can be seen, the closer the p i {\displaystyle p_{i}} are to μ μ {\displaystyle \mu } , that is, the more the p i {\displaystyle p_{i}} tend to homogeneity, the larger P B {\displaystyle PB} 's variance. When all the p i {\displaystyle p_{i}} are equal to μ μ {\displaystyle \mu } , P B {\displaystyle PB} becomes B {\displaystyle B} , Var ⁡ ⁡ ( P B ) = Var ⁡ ⁡ ( B ) {\displaystyle \operatorname {Var} (PB)=\operatorname {Var} (B)} , and the variance is at its maximum.
+
+[ 1 ] Ehm has determined bounds for the total variation distance of P B {\displaystyle PB} and B {\displaystyle B} , in effect providing bounds on the error introduced when approximating P B {\displaystyle PB} with B {\displaystyle B} . Let ν ν = 1 − − μ μ {\displaystyle \nu =1-\mu } and d ( P B , B ) {\displaystyle d(PB,B)} be the total variation distance of P B {\displaystyle PB} and B {\displaystyle B} . Then d ( P B , B ) ≤ ≤ ( 1 − − μ μ n + 1 − − ν ν n + 1 ) ∑ ∑ i = 1 n ( p i − − μ μ ) 2 ( ( n + 1 ) μ μ ν ν ) {\displaystyle d(PB,B)\leq (1-\mu ^{n+1}-\nu ^{n+1}){\frac {\sum _{i=1}^{n}(p_{i}-\mu )^{2}}{((n+1)\mu \nu )}}} d ( P B , B ) ≥ ≥ C min { 1 , 1 n μ μ ν ν } ∑ ∑ i = 1 n ( p i − − μ μ ) 2 {\displaystyle d(PB,B)\geq C\min \left\{\,1,{\frac {1}{n\mu \nu }}\,\right\}\sum _{i=1}^{n}(p_{i}-\mu )^{2}} where C ≥ ≥ 1 124 {\displaystyle C\geq {\frac {1}{124}}} .
+
+d ( P B , B ) {\displaystyle d(PB,B)} tends to 0 if and only if Var ⁡ ⁡ ( P B ) / Var ⁡ ⁡ ( B ) {\displaystyle \operatorname {Var} (PB)/\operatorname {Var} (B)} tends to 1.
+
+[ 11 ] Approximation by Poisson distribution [ edit ] A Poisson binomial distribution P B {\displaystyle PB} can also be approximated by a Poisson distribution P o {\displaystyle Po} with mean λ λ = ∑ ∑ i = 1 n p i {\displaystyle \lambda =\sum _{i=1}^{n}p_{i}} . Barbour and Hall have shown that 1 32 min { 1 λ λ , 1 } ∑ ∑ i = 1 n p i 2 ≤ ≤ d ( P B , P o ) ≤ ≤ 1 − − ε ε − − λ λ λ λ ∑ ∑ i = 1 n p i 2 {\displaystyle {\frac {1}{32}}\min \left\{\,{\frac {1}{\lambda }},1\,\right\}\sum _{i=1}^{n}p_{i}^{2}\leq d(PB,Po)\leq {\frac {1-\varepsilon ^{-\lambda }}{\lambda }}\sum _{i=1}^{n}p_{i}^{2}} where d ( P B , B ) {\displaystyle d(PB,B)} is the total variation distance of P B {\displaystyle PB} and P o {\displaystyle Po} .
+
+[ 12 ] It can be seen that the smaller the p i {\displaystyle p_{i}} , the better P o {\displaystyle Po} approximates P B {\displaystyle PB} .
+
+As Var ⁡ ⁡ ( P o ) = λ λ = ∑ ∑ i = 1 n p i {\displaystyle \operatorname {Var} (Po)=\lambda =\sum _{i=1}^{n}p_{i}} and Var ⁡ ⁡ ( P B ) = ∑ ∑ i = 1 n p i − − ∑ ∑ i = 1 n p i 2 {\displaystyle \operatorname {Var} (PB)=\sum \limits _{i=1}^{n}p_{i}-\sum \limits _{i=1}^{n}p_{i}^{2}} , Var ⁡ ⁡ ( P o ) > Var ⁡ ⁡ ( P B ) {\displaystyle \operatorname {Var} (\mathrm {Po} )>\operatorname {Var} (PB)} ; so a Poisson binomial distribution's variance is bounded above by a Poisson distribution with λ λ = ∑ ∑ i = 1 n p i {\displaystyle \lambda =\sum _{i=1}^{n}p_{i}} , and the smaller the p i {\displaystyle p_{i}} , the closer Var ⁡ ⁡ ( P o ) {\displaystyle \operatorname {Var} (\mathrm {Po} )} will be to Var ⁡ ⁡ ( P B ) {\displaystyle \operatorname {Var} (PB)} .
+
+Computational methods [ edit ] The reference [ 13 ] discusses techniques of evaluating the probability mass function of the Poisson binomial distribution. The following software implementations are based on it: An R package poibin was provided along with the paper, [ 13 ] which is available for the computing of the cdf, pmf, quantile function, and random number generation of the Poisson binomial distribution. For computing the PMF, a DFT algorithm or a recursive algorithm can be specified to compute the exact PMF, and approximation methods using the normal and Poisson distribution can also be specified.
+
+poibin – Python implementation – can compute the PMF and CDF, uses the DFT method described in the paper for doing so.
+
+See also [ edit ] Mathematics portal Le Cam's theorem References [ edit ] ^ a b Wang, Y. H. (1993).
+
+"On the number of successes in independent trials" (PDF) .
+
+Statistica Sinica .
+
+3 (2): 295– 312.
+
+^ Shah, B. K. (1994). "On the distribution of the sum of independent integer valued random variables".
+
+American Statistician .
+
+27 (3): 123– 124.
+
+JSTOR 2683639 .
+
+^ Chen, X. H.; A. P. Dempster; J. S. Liu (1994).
+
+"Weighted finite population sampling to maximize entropy" (PDF) .
+
+Biometrika .
+
+81 (3): 457.
+
+doi : 10.1093/biomet/81.3.457 .
+
+^ a b Biscarri, William; Zhao, Sihai Dave; Brunner, Robert J. (2018-06-01).
+
+"A simple and fast method for computing the Poisson binomial distribution function" .
+
+Computational Statistics & Data Analysis .
+
+122 : 92– 100.
+
+doi : 10.1016/j.csda.2018.01.007 .
+
+ISSN 0167-9473 .
+
+^ Fernandez, M.; S. Williams (2010). "Closed-Form Expression for the Poisson-Binomial Probability Density Function".
+
+IEEE Transactions on Aerospace and Electronic Systems .
+
+46 (2): 803– 817.
+
+Bibcode : 2010ITAES..46..803F .
+
+doi : 10.1109/TAES.2010.5461658 .
+
+S2CID 1456258 .
+
+^ Chen, S. X.; J. S. Liu (1997).
+
+"Statistical Applications of the Poisson–Binomial and conditional Bernoulli distributions" .
+
+Statistica Sinica .
+
+7 : 875– 892.
+
+^ Harremoës, P. (2001).
+
+"Binomial and Poisson distributions as maximum entropy distributions" (PDF) .
+
+IEEE Transactions on Information Theory .
+
+47 (5): 2039– 2041.
+
+doi : 10.1109/18.930936 .
+
+^ Shepp, Lawrence; Olkin, Ingram (1981).
+
+"Entropy of the sum of independent Bernoulli random variables and of the multinomial distribution" . In Gani, J.; Rohatgi, V.K. (eds.).
+
+Contributions to probability: A collection of papers dedicated to Eugene Lukacs . New York: Academic Press. pp.
+
+201– 206.
+
+ISBN 0-12-274460-8 .
+
+MR 0618689 .
+
+^ Hillion, Erwan; Johnson, Oliver (2015-03-05). "A proof of the Shepp–Olkin entropy concavity conjecture".
+
+Bernoulli .
+
+23 (4B): 3638– 3649.
+
+arXiv : 1503.01570 .
+
+doi : 10.3150/16-BEJ860 .
+
+S2CID 8358662 .
+
+^ Hillion, Erwan; Johnson, Oliver (2019-11-09).
+
+"A proof of the Shepp–Olkin entropy monotonicity conjecture" .
+
+Electronic Journal of Probability .
+
+24 (126): 1– 14.
+
+arXiv : 1810.09791 .
+
+doi : 10.1214/19-EJP380 .
+
+^ Ehm, Werner (1991-01-01).
+
+"Binomial approximation to the Poisson binomial distribution" .
+
+Statistics & Probability Letters .
+
+11 (1): 7– 16.
+
+doi : 10.1016/0167-7152(91)90170-V .
+
+ISSN 0167-7152 .
+
+^ Barbour, A. D.; Hall, Peter (1984).
+
+"On the Rate of Poisson Convergence" (PDF) .
+
+Mathematical Proceedings of the Cambridge Philosophical Society .
+
+95 (3): 473– 480.
+
+doi : 10.1017/S0305004100061806 .
+
+^ a b Hong, Yili (March 2013). "On computing the distribution function for the Poisson binomial distribution".
+
+Computational Statistics & Data Analysis .
+
+59 : 41– 51.
+
+doi : 10.1016/j.csda.2012.10.006 .
+
+v t e Probability distributions ( list ) Discrete univariate with finite support Benford Bernoulli Beta-binomial Binomial Categorical Hypergeometric Negative Poisson binomial Rademacher Soliton Discrete uniform Zipf Zipf–Mandelbrot with infinite support Beta negative binomial Borel Conway–Maxwell–Poisson Discrete phase-type Delaporte Extended negative binomial Flory–Schulz Gauss–Kuzmin Geometric Logarithmic Mixed Poisson Negative binomial Panjer Parabolic fractal Poisson Skellam Yule–Simon Zeta Continuous univariate supported on a bounded interval Arcsine ARGUS Balding–Nichols Bates Beta Generalized Beta rectangular Continuous Bernoulli Irwin–Hall Kumaraswamy Logit-normal Noncentral beta PERT Raised cosine Reciprocal Triangular U-quadratic Uniform Wigner semicircle supported on a semi-infinite interval Benini Benktander 1st kind Benktander 2nd kind Beta prime Burr Chi Chi-squared Noncentral Inverse Scaled Dagum Davis Erlang Hyper Exponential Hyperexponential Hypoexponential Logarithmic F Noncentral Folded normal Fréchet Gamma Generalized Inverse gamma/Gompertz Gompertz Shifted Half-logistic Half-normal Hotelling's T -squared Hartman–Watson Inverse Gaussian Generalized Kolmogorov Lévy Log-Cauchy Log-Laplace Log-logistic Log-normal Log-t Lomax Matrix-exponential Maxwell–Boltzmann Maxwell–Jüttner Mittag-Leffler Nakagami Pareto Phase-type Poly-Weibull Rayleigh Relativistic Breit–Wigner Rice Truncated normal type-2 Gumbel Weibull Discrete Wilks's lambda supported on the whole real line Cauchy Exponential power Fisher's z Kaniadakis κ-Gaussian Gaussian q Generalized hyperbolic Generalized logistic (logistic-beta) Generalized normal Geometric stable Gumbel Holtsmark Hyperbolic secant Johnson's S U Landau Laplace Asymmetric Logistic Noncentral t Normal (Gaussian) Normal-inverse Gaussian Skew normal Slash Stable Student's t Tracy–Widom Variance-gamma Voigt with support whose type varies Generalized chi-squared Generalized extreme value Generalized Pareto Marchenko–Pastur Kaniadakis κ -exponential Kaniadakis κ -Gamma Kaniadakis κ -Weibull Kaniadakis κ -Logistic Kaniadakis κ -Erlang q -exponential q -Gaussian q -Weibull Shifted log-logistic Tukey lambda Mixed univariate continuous- discrete Rectified Gaussian Multivariate (joint) Discrete: Ewens Multinomial Dirichlet Negative Continuous: Dirichlet Generalized Multivariate Laplace Multivariate normal Multivariate stable Multivariate t Normal-gamma Inverse Matrix-valued: LKJ Matrix beta Matrix normal Matrix t Matrix gamma Inverse Wishart Normal Inverse Normal-inverse Complex Uniform distribution on a Stiefel manifold Directional Univariate (circular) directional Circular uniform Univariate von Mises Wrapped normal Wrapped Cauchy Wrapped exponential Wrapped asymmetric Laplace Wrapped Lévy Bivariate (spherical) Kent Bivariate (toroidal) Bivariate von Mises Multivariate von Mises–Fisher Bingham Degenerate and singular Degenerate Dirac delta function Singular Cantor Families Circular Compound Poisson Elliptical Exponential Natural exponential Location–scale Maximum entropy Mixture Pearson Tweedie Wrapped Category Commons Retrieved from " https://en.wikipedia.org/w/index.php?title=Poisson_binomial_distribution&oldid=1300117604 " Categories : Discrete distributions Factorial and binomial topics Hidden categories: Articles with short description Short description is different from Wikidata This page was last edited on 12 July 2025, at 10:47 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Poisson binomial distribution 8 languages Add topic
+

@@ -1,0 +1,380 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 History Toggle History subsection 1.1 2019 GQL project proposal 1.1.1 Official ISO standard 1.2 GQL project organisation 1.3 ISO/IEC JTC 1/SC 32 WG3 1.4 ISO stages 2 GQL property graph data model 3 Implementations 4 Extending existing graph query languages Toggle Extending existing graph query languages subsection 4.1 SQL/PGQ Property Graph Query 4.2 Cypher 4.2.1 Querying with visual path patterns 4.2.2 Cypher 9 and Cypher 10 4.3 PGQL 4.4 G-CORE 4.5 GSQL 4.6 Morpheus: multiple graphs and composable graph queries in Apache Spark 5 See also 6 References 7 External links Toggle the table of contents Graph Query Language 2 languages Català Русский Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Query language for property graphs This article has multiple issues.
+
+Please help improve it or discuss these issues on the talk page .
+
+( Learn how and when to remove these messages ) This article may contain an excessive amount of intricate detail that may only interest a particular audience .
+
+Please help by spinning off or relocating any relevant information, and removing excessive detail that may be against Wikipedia's inclusion policy .
+
+( March 2020 ) ( Learn how and when to remove this message ) This article may contain excessive or inappropriate references to self-published sources .
+
+Please help improve it by removing references to unreliable sources where they are used inappropriately.
+
+( March 2020 ) ( Learn how and when to remove this message ) This article is missing information about the language itself: syntax, examples ( google cloud documentation might help).
+
+Please expand the article to include this information. Further details may exist on the talk page .
+
+( July 2025 ) ( Learn how and when to remove this message ) Not to be confused with GraphQL for querying APIs.
+
+GQL (Graph Query Language) Paradigm Declarative Family Query language Developer ISO/IEC JTC 1 (Joint Technical Committee 1) / SC 32 (Subcommittee 32) / WG 3 (Working Group 3) First appeared April 12, 2024 ; 16 months ago ( April 12, 2024 ) Stable release ISO/IEC 39075:2024 /    April 12, 2024 ; 16 months ago ( April 12, 2024 ) Website www .iso .org /standard /76120 .html Influenced by SQL , Cypher , GSQL GQL ( Graph Query Language ) is a standardized query language for property graphs first described in ISO/IEC 39075, released in April 2024 by ISO/IEC .
+
+History [ edit ] The GQL project is the culmination of converging initiatives dating back to 2016, particularly a private proposal from Neo4j to other database vendors in July 2016, [ 1 ] and a proposal from Oracle technical staff within the ISO/IEC JTC 1 standards process later that year.
+
+[ 2 ] 2019 GQL project proposal [ edit ] In September 2019 a proposal for a project to create a new standard graph query language (ISO/IEC 39075 Information Technology — Database Languages — GQL) [ 3 ] was approved by a vote of national standards bodies which are members of ISO/IEC Joint Technical Committee 1( ISO/IEC JTC 1 ). JTC 1 is responsible for international Information Technology standards. GQL is intended to be a declarative database query language, like SQL .
+
+The 2019 GQL project proposal states: "Using graph as a fundamental representation for data modeling is an emerging approach in data management . In this approach, the data set is modeled as a graph, representing each data entity as a vertex (also called a node) of the graph and each relationship between two entities as an edge between corresponding vertices. The graph data model has been drawing attention for its unique advantages.
+
+Firstly, the graph model can be a natural fit for data sets that have hierarchical, complex, or even arbitrary structures. Such structures can be easily encoded into the graph model as edges. This can be more convenient than the relational model, which requires the normalization of the data set into a set of tables with fixed row types.
+
+Secondly, the graph model enables efficient execution of expensive queries or data analytic functions that need to observe multi-hop relationships among data entities, such as reachability queries , shortest or cheapest path queries , or centrality analysis. There are two graph models in current use: the Resource Description Framework (RDF) model and the Property Graph model. The RDF model has been standardized by W3C in a number of specifications. The Property Graph model, on the other hand, has a multitude of implementations in graph databases , graph algorithms , and graph processing facilities. However, a common, standardized query language for property graphs (like SQL for relational database systems) is missing. GQL is proposed to fill this void." [ 4 ] Official ISO standard [ edit ] The GQL standard, ISO/IEC 39075:2024 Information technology – Database languages – GQL, was officially published by ISO on 
+12 April 2024.
+
+[ 5 ] GQL project organisation [ edit ] The GQL project is led by Stefan Plantikow (who was the first lead engineer of Neo4j 's Cypher for Apache Spark project) and Stephen Cannan (Technical Corrigenda editor of SQL). They are also the editors of the initial early working drafts of the GQL specification.
+
+[ 6 ] As originally motivated, [ 2 ] the GQL project aims to complement the work of creating an implementable normative natural-language specification with supportive community efforts that enable contributions from those who are unable or uninterested in taking part in the formal process of defining a JTC 1 International Standard.
+
+[ 7 ] [ 8 ] In July 2019 the Linked Data Benchmark Council (LDBC) agreed to become the umbrella organization for the efforts of community technical working groups. The Existing Languages and the Property Graph Schema working groups formed in late 2018 and early 2019 respectively. A working group to define formal denotational semantics for GQL was proposed at the third GQL Community Update in October 2019.
+
+[ 9 ] ISO/IEC JTC 1/SC 32 WG3 [ edit ] Seven national standards bodies (those of the United States, China, Korea, the Netherlands, the United Kingdom, Denmark and Sweden) have nominated national subject-matter experts to work on the project, which is conducted by Working Group 3 (Database Languages) of ISO/IEC JTC 1's Subcommittee 32 (Data Management and Interchange), usually abbreviated as ISO/IEC JTC 1/SC 32 WG3 , or just WG3 for short. WG3 (and its direct predecessor committees within JTC 1) has been responsible for the SQL standard since 1987.
+
+[ 10 ] [ 11 ] ISO stages [ edit ] date ISO stages [ 12 ] 2019-09-10 10.99 New project approved 2019-09-10 20.00 New project registered in TC/SC work programme 2021-11-22 30.00 Committee draft (CD) registered 2021-11-23 30.20 CD study initiated 2022-02-25 30.60 Close of comment period 2022-08-29 30.92 CD referred back to Working Group 2022-08-29 30.00 Committee draft (CD) registered 2022-08-30 30.20 CD study initiated 2022-10-26 30.60 Close of comment period 2023-03-22 30.99 CD approved for registration as DIS 2023-03-24 40.00 DIS registered 2023-05-24 40.20 DIS ballot initiated: 12 weeks 2023-08-17 40.60 Close of voting 2023-11-28 40.99 Full report circulated: DIS approved for registration as FDIS 2023-12-11 50.00 Final text received or FDIS registered for formal approval 2024-01-26 50.20 Proof sent to secretariat or FDIS ballot initiated: 8 weeks 2024-03-23 50.60 Close of voting. Proof returned by secretariat 2024-03-23 60.00 International Standard under publication 2024-04-12 60.60 International Standard published GQL property graph data model [ edit ] GQL is a query language specifically for property graphs. A property graph closely resembles a conceptual data model , as expressed in an entity–relationship model or in a UML class diagram (although it does not include n-ary relationships linking more than two entities). Entities are modelled as nodes, and relationships as edges, in a graph. Property graphs are multigraphs : there can be many edges between the same pair of nodes. GQL graphs can be mixed : they can contain directed edges, where one of the endpoint nodes of an edge is the tail (or source) and the other node is the head (or target or destination), but they can also contain undirected (bidirectional or reflexive) edges.
+
+Nodes and edges, collectively known as elements, have attributes. Those attributes may be data values, or labels (tags). Values of properties cannot be elements of graphs, nor can they be whole graphs: these restrictions intentionally force a clean separation between the topology of a graph, and the attributes carrying data values in the context of a graph topology. The property graph data model therefore deliberately prevents nesting of graphs, or treating nodes in one graph as edges in another. Each property graph may have a set of labels and a set of properties that are associated with the graph as a whole.
+
+Current graph database products and projects often support a limited version of the model described here. For example, Apache Tinkerpop [ 13 ] forces each node and each edge to have a single label; Cypher allows nodes to have zero to many labels, but relationships only have a single label (called a reltype). Neo4j's database supports undocumented graph-wide properties, Tinkerpop has graph values which play the same role, and also supports "metaproperties" or properties on properties. Oracle's PGQL supports zero to many labels on nodes and on edges, whereas SQL/PGQ supports one to many labels for each kind of element. The NGSI-LD information model specified by ETSI is an attempt at formally specifying property graphs, with node and relationship (edge) types that may play the role of labels in previously mentioned models and support semantic referencing by inheriting classes defined in shared ontologies .
+
+The GQL project will define a standard data model, which is likely to be the superset of these variants, and at least the first version of GQL is likely to permit vendors to decide on the cardinalities of labels in each implementation, as does SQL/PGQ, and to choose whether to support undirected relationships.
+
+Additional aspects of the ERM or UML models (like generalization or subtyping, or entity or relationship cardinalities) may be captured by GQL schemas or types that describe possible instances of the general data model.
+
+Implementations [ edit ] The first in-memory graph database that can interpret GQL is available.
+
+[ 14 ] [ 15 ] Aside from the implementation, one can also find a formalization and read the syntax of the specific subset of GQL.
+
+[ 16 ] Extending existing graph query languages [ edit ] The GQL project draws on multiple sources or inputs, notably existing industrial languages and a new section of the SQL standard. In preparatory discussions within WG3 surveys of the history [ 17 ] and comparative content of some of these inputs [ 18 ] were presented. GQL is a declarative language with its own distinct syntax, playing a similar role to SQL in the building of a database application. Other graph query languages have been defined which offer direct procedural features such as branching and looping (Apache Tinkerpop's Gremlin [ 19 ] ), and GSQL, [ 20 ] making it possible to traverse a graph iteratively to perform a class of graph algorithms, but GQL will not directly incorporate such features.
+
+[ 21 ] [ 22 ] However, GQL is envisaged as a specific case of a more general class of graph languages, which share a graph type system and a calling interface for procedures that process graphs.
+
+SQL/PGQ Property Graph Query [ edit ] Prior work by WG3 and SC32 mirror bodies, particularly in INCITS Data Management (formerly INCITS DM32), has helped to define a new planned Part 16 of the SQL Standard, which allows a read-only graph query to be called inside a SQL SELECT statement, matching a graph pattern using syntax which is very close to Cypher, PGQL and G-CORE, and returning a table of data values as the result. SQL/PGQ also contains DDL to allow SQL tables to be mapped to a graph view schema object with nodes and edges associated to sets of labels and set of data properties.
+
+[ 23 ] [ 24 ] [ 25 ] The GQL project coordinates closely with the SQL/PGQ "project split" of (extension to) ISO 9075 SQL, and the technical working groups in the U.S. (INCITS DM32) and at the international level (SC32/WG3) have several expert contributors who work on both projects.
+
+[ 24 ] The GQL project proposal mandates close alignment of SQL/PGQ and GQL, indicating that GQL will in general be a superset of SQL/PGQ.
+
+More details about the pattern matching language can be found in the paper "Graph Pattern Matching in GQL and SQL/PGQ" [ 26 ] [ 27 ] Cypher [ edit ] Cypher [ 28 ] is a language originally designed by Andrés Taylor and colleagues at Neo4j Inc., and first implemented by that company in 2011. Since 2015 it has been made available as an open source language description [ 29 ] with grammar tooling, a JVM front-end that parses Cypher queries, and a Technology Compatibility Kit (TCK) of over 2000 test scenarios, using Cucumber for implementation language portability.
+
+[ 30 ] The TCK reflects the language description and an enhancement for temporal datatypes and functions documented in a Cypher Improvement Proposal.
+
+[ 31 ] Cypher allows creation, reading, updating and deleting of graph elements, and is a language that can therefore be used for analytics engines and transactional databases.
+
+Querying with visual path patterns [ edit ] Cypher uses compact fixed- and variable-length patterns which combine visual representations of node and relationship (edge) topologies, with label existence and property value predicates. (These patterns are usually referred to as " ASCII art " patterns, and arose originally as a way of commenting programs which used a lower-level graph API.
+
+[ 17 ] ) By matching such a pattern against graph data elements, a query can extract references to nodes, relationships and paths of interest. Those references are emitted as a "binding table" where column names are bound to a multiset of graph elements. The name of a column becomes the name of a "binding variable", whose value is a specific graph element reference for each row of the table.
+
+For example, a pattern MATCH (p:Person)-[:LIVES_IN]->(c:City) will generate a two-column output table. The first column named p will contain references to nodes with a label Person . The second column named c will contain references to nodes with a label City , denoting the city where the person lives.
+
+The binding variables p and c can then be dereferenced to obtain access to property values associated with the elements referred to by a variable. The example query might be terminated with a RETURN , resulting in a complete query like this: MATCH ( p : Person ) -[ : LIVES_IN ]-> ( c : City ) RETURN p .
+
+first_name , p .
+
+last_name , c .
+
+name , c .
+
+state This would result in a final four-column table listing the names of the residents of the cities stored in the graph.
+
+Pattern-based queries are able to express joins, by combining multiple patterns which use the same binding variable to express a natural join using the MATCH clause: MATCH ( p : Person ) -[ : LIVES_IN ]-> ( c : City ), ( p : Person ) -[ : NATIONAL_OF ]-> ( EUCountry ) RETURN p .
+
+first_name , p .
+
+last_name , c .
+
+name , c .
+
+state This query would return the residential location only of EU nationals.
+
+An outer join can be expressed by MATCH ... OPTIONAL MATCH : MATCH ( p : Person ) -[ : LIVES_IN ]-> ( c : City ) OPTIONAL MATCH ( p : Person ) -[ : NATIONAL_OF ]-> ( ec : EUCountry ) RETURN p .
+
+first_name , p .
+
+last_name , c .
+
+name , c .
+
+state , ec .
+
+name This query would return the city of residence of each person in the graph with residential information, and, if an EU national, which country they come from.
+
+Queries are therefore able to first project a sub-graph of the graph input into the query, and then extract the data values associated with that subgraph. Data values can also be processed by functions, including aggregation functions, leading to the projection of computed values which render the information held in the projected graph in various ways. Following the lead of G-CORE and Morpheus, GQL aims to project the sub-graphs defined by matching patterns (and graphs then computed over those sub-graphs) as new graphs to be returned by a query.
+
+Patterns of this kind have become pervasive in property graph query languages, and are the basis for the advanced pattern sub-language being defined in SQL/PGQ, which is likely to become a subset of the GQL language. Cypher also uses patterns for insertion and modification clauses ( CREATE and MERGE ), and proposals have been made in the GQL project for collecting node and edge patterns to describe graph types.
+
+Cypher 9 and Cypher 10 [ edit ] The current version of Cypher (including the temporal extension) is referred to as Cypher 9. Prior to the GQL project it was planned to create a new version, Cypher 10 [ REF HEADING BELOW ], that would incorporate features like schema and composable graph queries and views. The first designs for Cypher 10, including graph construction and projection, were implemented in the Cypher for Apache Spark project starting in 2016.
+
+[ 32 ] PGQL [ edit ] PGQL [ 33 ] is a language designed and implemented by Oracle Inc., but made available as an open source specification, [ 34 ] along with JVM parsing software.
+
+[ 35 ] PGQL combines familiar SQL SELECT syntax including SQL expressions and result ordering and aggregation with a pattern matching language very similar to that of Cypher. It allows the specification of the graph to be queried, and includes a facility for macros to capture "pattern views", or named sub-patterns. It does not support insertion or updating operations, having been designed primarily for an analytics environment, such as Oracle's PGX product. PGQL has also been implemented in Oracle Big Data Spatial and Graph, and in a research project, PGX.D/Async.
+
+[ 36 ] G-CORE [ edit ] G-CORE is a research language designed by a group of academic and industrial researchers and language designers which draws on features of Cypher, PGQL and SPARQL .
+
+[ 37 ] [ 38 ] The project was conducted under the auspices of the Linked Data Benchmark Council (LDBC), starting with the formation of a Graph Query Language task force in late 2015, with the bulk of the work of paper writing occurring in 2017. G-CORE is a composable language which is closed over graphs: graph inputs are processed to create a graph output, using graph projections and graph set operations to construct the new graph. G-CORE queries are pure functions over graphs, having no side effects, which mean that the language does not define operations which mutate (update or delete) stored data. G-CORE introduces views (named queries). It also incorporates paths as elements in a graph ("paths as first class citizens"), which can be queried independently of projected paths (which are computed at query time over node and edge elements). G-CORE has been partially implemented in open-source research projects in the LDBC GitHub organization.
+
+[ 39 ] [ 40 ] [ 41 ] GSQL [ edit ] GSQL [ 20 ] is a language designed for TigerGraph Inc.'s proprietary graph database. Since October 2018 TigerGraph language designers have been promoting and working on the GQL project. GSQL is a Turing-complete language that incorporates procedural flow control and iteration, and a facility for gathering and modifying computed values associated with a program execution for the whole graph or for elements of a graph called accumulators. These features are designed to enable iterative graph computations to be combined with data exploration and retrieval. GSQL graphs must be described by a schema of vertexes and edges, which constrains all insertions and updates. This schema therefore has the closed world property of an SQL schema, and this aspect of GSQL (also reflected in design proposals deriving from the Morpheus project [ 42 ] ) is proposed as an important optional feature of GSQL.
+
+Vertexes and edges are named schema objects which contain data but also define an imputed type, much as SQL tables are data containers, with an associated implicit row type. GSQL graphs are then composed from these vertex and edge sets, and multiple named graphs can include the same vertex or edge set. GSQL has developed new features since its release in September 2017, [ 43 ] most notably introducing variable-length edge pattern matching [ 44 ] using a syntax related to that seen in Cypher, PGQL and SQL/PGQ, but also close in style to the fixed-length patterns offered by Microsoft SQL/Server Graph [ 45 ] GSQL also supports the concept of Multigraphs [ 46 ] which allow subsets of a graph to have role-based access control.  Multigraphs are important for enterprise-scale graphs that need fine-grain access control for different users.
+
+Morpheus: multiple graphs and composable graph queries in Apache Spark [ edit ] The opencypher Morpheus project [ 32 ] implements Cypher for Apache Spark users. Commencing in 2016, this project originally ran alongside three related efforts, in which Morpheus designers also took part: SQL/PGQ, G-CORE and design of Cypher extensions for querying and constructing multiple graphs.
+
+[ 47 ] The Morpheus project acted as a testbed for extensions to Cypher (known as "Cypher 10") in the two areas of graph DDL and query language extensions.
+
+Graph DDL features include [ 48 ] definition of property graph views over JDBC -connected SQL tables and Spark DataFrames [ 49 ] definition of graph schemas or types defined by assembling node type and edge type patterns, with subtyping [ 49 ] constraining the content of a graph by a closed or fixed schema creating catalog entries for multiple named graphs in a hierarchically organized catalog graph data sources to form a federated, heterogeneous catalog creating catalog entries for named queries (views) Graph query language extensions include [ 48 ] graph union projection of graphs computed from the results of pattern matches on multiple input graphs support for tables (Spark DataFrames) as inputs to queries ("driving tables") views which accept named or projected graphs as parameters.
+
+These features have been proposed as inputs to the standardization of property graph query languages in the GQL project.
+
+See also [ edit ] Graph Modeling Language (GML) GraphQL Cypher (query language) Graph database Graph (abstract data type) Graph traversal Regular path query References [ edit ] ^ Green, Alastair (July 2016).
+
+" Creating an Open Industry Standard for a Declarative Property Graph Query Language " (PDF) . opencypher.org . Retrieved November 12, 2019 .
+
+^ a b Green, Alastair (July 2018).
+
+" Working towards a New Work Item for GQL, to complement SQL PGQ , ANSI INCITS DM32.2 submission DM32.2-2018-00128r1 " (PDF) . opencypher.org . Retrieved November 12, 2019 .
+
+^ "ISO/IEC 39075 Information Technology — Database Languages — GQL" . ISO . Retrieved January 7, 2022 .
+
+^ "SC32 WG3 N282 "SC32 N3002 Draft NWIP Form4 Information Technology – Database Languages - GQL" " . ISO . Retrieved December 9, 2019 .
+
+^ "ISO/IEC 39075:2024 Information technology — Database languages — GQL" .
+
+ISO . Retrieved 25 May 2024 .
+
+^ Eds. Plantikow, Stefan; Cannan, Stephen (October 2019).
+
+" GQL Early Working Draft v2.2 " . ISO . Retrieved November 9, 2019 .
+
+^ " GQL Standard " . Retrieved November 12, 2019 .
+
+^ " GQL Community Updates " . Retrieved November 12, 2019 .
+
+^ Libkin, Leonid.
+
+" Formal Semantics Working Group " . Retrieved November 12, 2019 .
+
+^ "JTC 1/SC 32 Data Management and Interchange" . ISO/IEC JTC1 . Retrieved October 6, 2019 .
+
+^ " Scope from the original standard, ISO 9075-1987, Database Language SQL " . ISO/IEC JTC1 . Retrieved November 9, 2019 .
+
+^ "Iso/Iec 39075:2024" .
+
+^ "Apache Tinkerpop" . Apache Software Foundation . Retrieved November 11, 2019 .
+
+^ "GQL Parser" .
+
+GitHub . Retrieved January 18, 2021 .
+
+^ "First GQL research implementation from Olof Morra at TU Eindhoven!" . Alastair Green . Retrieved January 18, 2021 .
+
+^ "A Semantics of GQL; a New Query Language for Property Graphs Formalized" (PDF) . Olof Morra . Retrieved January 18, 2021 .
+
+^ a b Lindaaker, Tobias (May 2018).
+
+" An overview of the recent history of Graph Query Languages " (PDF) . opencypher.org . Retrieved October 6, 2019 .
+
+^ Plantikow, Stefan (May 2018).
+
+" Summary Chart of Cypher, PGQL, and G-Core " (PDF) . opencypher.org . Retrieved November 3, 2019 .
+
+^ Rodriguez, Marko A. (2015). "The Gremlin graph traversal machine and language (Invited talk)".
+
+Proceedings of the 15th Symposium on Database Programming Languages . ACM. pp.
+
+1– 10.
+
+arXiv : 1508.03843 .
+
+doi : 10.1145/2815072.2815073 .
+
+ISBN 9781450339025 .
+
+S2CID 32623848 . Retrieved November 10, 2019 .
+
+^ a b Wu, Mingxi; Deutsch, Alin.
+
+" GSQL: An SQL-Inspired Graph Query Language " . Retrieved November 9, 2019 .
+
+^ Wood, Peter T. (25 April 2012).
+
+"Query languages for graph databases" .
+
+ACM SIGMOD Record .
+
+41 (1). ACM: 50– 60.
+
+doi : 10.1145/2206869.2206879 .
+
+S2CID 13537601 . Retrieved October 25, 2019 .
+
+^ Angles, Renzo; et al. (September 2017).
+
+"Foundations of Modern Query Languages for Graph Databases" .
+
+ACM Computing Surveys .
+
+50 (5). ACM: 68:1–40.
+
+arXiv : 1610.06264 .
+
+doi : 10.1145/3104031 .
+
+S2CID 13526884 . Retrieved November 12, 2019 .
+
+^ "ISO/IEC 9075-16 Information technology — Database languages SQL — Part 16: SQL Property Graph Queries (SQL/PGQ)" . ISO . Retrieved January 7, 2022 .
+
+^ a b Hare, Keith; et al. (March 2019).
+
+" SQL and GQL , W3C Workshop on Web Standardization for Graph Data. Creating Bridges: RDF, Property Graph and SQL" (PDF) . W3C . Retrieved October 6, 2019 .
+
+^ Trigonakis, Vasileios (July 2019).
+
+" Property graph extensions for the SQL standard . LDBC 12th TUC" (PDF) . LBDC . Retrieved January 7, 2022 .
+
+^ Deutsch, Alin; Francis, Nadime; Green, Alastair; Hare, Keith; Li, Bei; Libkin, Leonid; Lindaaker, Tobias; Marsault, Victor; Martens, Wim; Michels, Jan; et al. (2021-12-12). "Graph Pattern Matching in GQL and SQL/PGQ".
+
+arXiv : 2112.06217 [ cs.DB ].
+
+^ Deutsch, Alin; Francis, Nadime; Green, Alastair; Hare, Keith; Li, Bei; Libkin, Leonid; Lindaaker, Tobias; Marsault, Victor; Martens, Wim; Michels, Jan; Murlak, Filip; Plantikow, Stefan; Selmer, Petra; van Rest, Oskar; Voigt, Hannes (2022-06-11).
+
+"Graph Pattern Matching in GQL and SQL/PGQ" .
+
+Proceedings of the 2022 International Conference on Management of Data . SIGMOD '22. New York, NY, USA: Association for Computing Machinery. pp.
+
+2246– 2258.
+
+doi : 10.1145/3514221.3526057 .
+
+ISBN 978-1-4503-9249-5 .
+
+S2CID 245124268 .
+
+^ Francis, Nadime; et al. (27 May 2018). "Cypher: An Evolving Query Language for Property Graphs".
+
+Proceedings of the 2018 International Conference on Management of Data . ACM. pp.
+
+1433– 1445.
+
+doi : 10.1145/3183713.3190657 .
+
+ISBN 9781450347037 .
+
+S2CID 13919896 . Retrieved October 25, 2019 .
+
+^ " Cypher Query Language Reference (Version 9) " (PDF) . opencypher.org . Retrieved November 10, 2019 .
+
+^ " openCypher Resources " . ACM . Retrieved November 10, 2019 .
+
+^ " CIP2015-08-06 - Date and Time " . opencypher.org. 15 May 2019 . Retrieved October 25, 2019 .
+
+^ a b Rydberg, Mats; et al. (July 2016).
+
+" Morpheus brings the leading graph query language, Cypher, onto the leading distributed processing platform, Spark.
+
+" . openCypher . Retrieved November 3, 2019 .
+
+^ van Rest, Oskar; et al. (June 2016).
+
+"PGQL: A property graph query language" .
+
+Proceedings of the Fourth International Workshop on Graph Data Management Experiences and Systems . ACM. pp.
+
+1– 6.
+
+doi : 10.1145/2960414.2960421 .
+
+ISBN 978-1-4503-4780-8 .
+
+S2CID 6806901 . Retrieved October 25, 2019 .
+
+^ "PGQL" . pgql.org . Retrieved October 6, 2019 .
+
+^ van Rest, Oskar; et al. (September 2015).
+
+" PGQL is an SQL-based query language for the Property Graph data model " . pgql.org . Retrieved November 3, 2019 .
+
+^ Roth, Nicholas P.; et al. (2017).
+
+"PGX.D/Async: A Scalable Distributed Graph Pattern Matching Engine" .
+
+Proceedings of the Fifth International Workshop on Graph Data-management Experiences & Systems . ACM. pp.
+
+1– 6.
+
+doi : 10.1145/3078447.3078454 .
+
+ISBN 978-1-4503-5038-9 .
+
+S2CID 26283328 . Retrieved October 29, 2019 .
+
+^ Angles, Renzo; et al. (2018).
+
+"G-CORE: A Core for Future Graph Query Languages" .
+
+Proceedings of the 2018 International Conference on Management of Data . ACM. pp.
+
+1421– 1432.
+
+doi : 10.1145/3183713.3190654 .
+
+ISBN 978-1-4503-4703-7 .
+
+S2CID 4623760 . Retrieved November 9, 2019 .
+
+^ Voigt, Hannes (February 2018).
+
+" G-CORE: The LDBC Graph Query Language Proposal . In archives of FOSDEM 2018" . Retrieved November 12, 2019 .
+
+^ van Rest, Oskar (2017).
+
+" G-CORE Grammar and Parser " . LDBC . Retrieved November 12, 2019 .
+
+^ Ciocîrdel, Georgiana Diana (2018).
+
+" A G-CORE (Graph Query Language) Interpreter , Master's Thesis in Parallel and Distributed Computer Systems, CWI and Vrije Universiteit Amsterdam" (PDF) . CWI . Retrieved November 12, 2019 .
+
+^ Ciocîrdel, Georgiana Diana; Boncz, Peter (2017).
+
+" G-CORE interpreter on Spark " . LDBC . Retrieved November 12, 2019 .
+
+^ Voigt, Hannes; Selmer, Petra; Lindaaker, Tobias; Plantikow, Stefan; Green, Alastair; Furniss, Peter (December 2018).
+
+" Property Graph Schema , ANSI INCITS DM32.2 SQL Property Graph Extensions Ad Hoc submission sql-pg-2018-0056r1 , Neo4j Query Languages Standards and Research Team" (PDF) . openCypher.org . Retrieved November 12, 2019 .
+
+^ " GSQL documentation Tigergraph 1.0 " . 2017 . Retrieved November 9, 2019 .
+
+^ " Pattern Matching , TigerGraph 2.4 Release Notes" . June 2019 . Retrieved November 9, 2019 .
+
+^ " Query language extensions , Graph processing with SQL Server and Azure SQL Database" . Microsoft Inc. 2017 . Retrieved November 10, 2019 .
+
+^ " Multigraphs , TigerGraph Online Documentation" . June 2019 . Retrieved January 7, 2022 .
+
+^ Taylor, Andrés; Plantikow, Stefan; Selmer, Petra (2017–2018).
+
+" CIP2017-06-18 Querying and constructing multiple graphs " . opencypher.org . Retrieved November 12, 2019 .
+
+^ a b Kiessling, Max (2019).
+
+" Multiple graphs and composable queries in Cypher for Apache Spark . openCypher Implementers Meeting V, Berlin" (PDF) . opencypher.org . Retrieved November 9, 2019 .
+
+^ a b Johanssen, Tobias; et al. (2019).
+
+" graphddl-example-ldbc: A cypher-for-apache-spark example showing the use of SqlPropertyGraphSource and GraphDDL to provide a property graph view of a SQL dataset " .
+
+GitHub . Retrieved November 9, 2019 .
+
+External links [ edit ] GQL Standard (Official website) v t e International Organization for Standardization (ISO) standards List of ISO standards – ISO romanizations – IEC standards 1–9999 1 2 3 4 6 7 9 16 17 31 -0 -1 -3 -4 -5 -6 -7 -8 -9 -10 -11 -12 -13 68-1 128 216 217 226 228 233 259 261 262 302 306 361 500 518 519 639 -1 -2 -3 -5 -6 646 657 668 690 704 732 764 838 843 860 898 965 999 1000 1004 1007 1073-1 1073-2 1155 1413 1538 1629 1745 1989 2014 2015 2022 2033 2047 2108 2145 2146 2240 2281 2533 2709 2711 2720 2788 2848 2852 2921 3029 3103 3166 -1 -2 -3 3297 3307 3601 3602 3864 3901 3950 3977 4031 4157 4165 4217 4909 5218 5426 5427 5428 5725 5775 5776 5800 5807 5964 6166 6344 6346 6373 6385 6425 6429 6438 6523 6709 6943 7001 7002 7010 7027 7064 7098 7185 7200 7498 -1 7637 7736 7810 7811 7812 7813 7816 7942 8000 8093 8178 8217 8373 8501-1 8571 8583 8601 8613 8632 8651 8652 8691 8805/8806 8807 8820-5 8859 -1 -2 -3 -4 -5 -6 -7 -8 -8-I -9 -10 -11 -12 -13 -14 -15 -16 8879 9000/9001 9036 9075 9126 9141 9227 9241 9293 9314 9362 9407 9496 9506 9529 9564 9592/9593 9594 9660 9797-1 9897 9899 9945 9984 9985 9995 10000–19999 10006 10007 10116 10118-3 10160 10161 10165 10179 10206 10218 10279 10303 -11 -21 -22 -28 -238 10383 10585 10589 10628 10646 10664 10746 10861 10957 10962 10967 11073 11170 11172 11179 11404 11544 11783 11784 11785 11801 11889 11898 11940 ( -2 ) 11941 11941 (TR) 11992 12006 12052 12182 12207 12234-2 12620 13211 -1 -2 13216 13250 13399 13406-2 13450 13485 13490 13567 13568 13584 13616 13816 13818 14000 14031 14224 14289 14396 14443 14496 -2 -3 -6 -10 -11 -12 -14 -17 -20 14617 14644 14649 14651 14698 14764 14882 14971 15022 15189 15288 15291 15398 15408 15444 -3 -9 15445 15438 15504 15511 15686 15693 15706 -2 15707 15897 15919 15924 15926 15926 WIP 15930 15938 16023 16262 16355-1 16485 16612-2 16750 16949 (TS) 17024 17025 17100 17203 17369 17442 17506 17799 18004 18014 18181 18245 18629 18760 18916 19005 19011 19092 -1 -2 19114 19115 19125 19136 19407 19439 19500 19501 19502 19503 19505 19506 19507 19508 19509 19510 19600 19752 19757 19770 19775-1 19794-5 19831 20000–29999 20000 20022 20121 20400 20802 20830 21000 21001 21047 21122 21500 21778 21827 22000 22275 22300 22301 22395 22537 23000 23003 23008 23009 23090-3 23092 23094-1 23094-2 23270 23271 23360 23941 24517 24613 24617 24707 24728 25178 25964 26000 26262 26300 26324 27000 series 27000 27001 27002 27005 27006 27729 28000 29110 29148 29199-2 29500 30000+ 30170 31000 32000 37001 38500 39075 40314 40500 42010 45001 50001 55000 56000 80000 Category v t e IEC standards IEC 60027 60034 60038 60062 60063 60068 60112 60228 60269 60297 60309 60320 60364 60446 60559 60601 60870 60870-5 60870-6 60906-1 60908 60929 60958 60980-344 61030 61131 61131-3 61131-9 61158 61162 61334 61355 61360 61400 61499 61508 61511 61784 61850 61851 61883 61960 61968 61970 62014-4 62026 62056 62061 62196 62262 62264 62304 62325 62351 62365 62366 62379 62386 62455 62680 62682 62700 63110 63119 63382 ISO/IEC 646 1989 2022 4909 5218 6429 6523 7810 7811 7812 7813 7816 7942 8613 8632 8652 8859 9126 9293 9496 9529 9592 9593 9899 9945 9995 10021 10116 10165 10179 10279 10646 10967 11172 11179 11404 11544 11801 12207 13250 13346 13522-5 13568 13816 13818 14443 14496 14651 14882 15288 15291 15408 15444 15445 15504 15511 15693 15897 15938 16262 16485 17024 17025 18004 18014 18181 19752 19757 19770 19788 20000 20802 21000 21827 22275 22537 23000 23003 23008 23270 23360 24707 24727 24744 24752 26300 27000 27000 family 27002 27040 29110 29119 33001 38500 39075 42010 80000 81346 Related International Electrotechnical Commission Retrieved from " https://en.wikipedia.org/w/index.php?title=Graph_Query_Language&oldid=1305821996 " Categories : Computer languages Query languages ISO/IEC standards Hidden categories: Articles with short description Short description is different from Wikidata Wikipedia articles that are excessively detailed from March 2020 All articles that are excessively detailed Wikipedia articles with style issues from March 2020 All articles with style issues Articles with self-published sources from March 2020 All articles with self-published sources Articles to be expanded from July 2025 Articles with multiple maintenance issues This page was last edited on 14 August 2025, at 08:21 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Graph Query Language 2 languages Add topic
+

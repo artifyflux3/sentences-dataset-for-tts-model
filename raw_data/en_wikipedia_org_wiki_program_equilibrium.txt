@@ -1,0 +1,204 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Setting and definition 2 Different mechanisms for achieving cooperative program equilibrium in the Prisoner's Dilemma Toggle Different mechanisms for achieving cooperative program equilibrium in the Prisoner's Dilemma subsection 2.1 Cooperation based on syntactic comparison 2.2 Proof-based cooperation 2.3 Cooperating with ε-grounded simulation 3 Folk theorem 4 See also 5 Notes 6 References Toggle the table of contents Program equilibrium Add languages Add links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Game theory Program equilibrium is a game-theoretic solution concept for a scenario in which players submit computer programs to play the game on their behalf and the programs can read each other's source code. The term was introduced by Moshe Tennenholtz in 2004.
+
+[ 1 ] The same setting had previously been studied by R. Preston McAfee , [ 2 ] J. V. Howard [ 3 ] and Ariel Rubinstein .
+
+[ 4 ] Setting and definition [ edit ] The program equilibrium literature considers the following setting. Consider a normal-form game as a base game. For simplicity, consider a two-player game in which S 1 {\displaystyle S_{1}} and S 2 {\displaystyle S_{2}} are the sets of available strategies and u 1 {\displaystyle u_{1}} and u 2 {\displaystyle u_{2}} are the players' utility functions . Then we construct a new (normal-form) program game in which each player i {\displaystyle i} chooses a computer program p i {\displaystyle p_{i}} . The payoff (utility) for the players is then determined as follows. Each player's program p i {\displaystyle p_{i}} is run with the other program p − − i {\displaystyle p_{-i}} as input and outputs a strategy s i {\displaystyle s_{i}} for Player i {\displaystyle i} . For convenience one also often imagines that programs can access their own source code.
+
+[ nb 1 ] Finally, the utilities for the players are given by u i ( s 1 , s 2 ) {\displaystyle u_{i}(s_{1},s_{2})} for i = 1 , 2 {\displaystyle i=1,2} , i.e., by applying the utility functions for the base game to the chosen strategies.
+
+One has to further deal with the possibility that one of the programs p i {\displaystyle p_{i}} doesn't halt. One way to deal with this is to restrict both players' sets of available programs to prevent non-halting programs.
+
+[ 1 ] [ 5 ] A program equilibrium is a pair of programs ( p 1 , p 2 ) {\displaystyle (p_{1},p_{2})} that constitute a Nash equilibrium of the program game. In other words, ( p 1 , p 2 ) {\displaystyle (p_{1},p_{2})} is a program equilibrium if neither player i {\displaystyle i} can deviate to an alternative program p i ′ {\displaystyle p_{i}'} such that their utility is higher in ( p i ′ , p − − i ) {\displaystyle (p_{i}',p_{-i})} than in ( p 1 , p 2 ) {\displaystyle (p_{1},p_{2})} .
+
+Instead of programs, some authors have the players submit other kinds of objects, such as logical formulas specifying what action to play depending on an encoding of the logical formula submitted by the opponent.
+
+[ 6 ] [ 7 ] Different mechanisms for achieving cooperative program equilibrium in the Prisoner's Dilemma [ edit ] Various authors have proposed ways to achieve cooperative program equilibrium in the Prisoner's Dilemma .
+
+Cooperation based on syntactic comparison [ edit ] Multiple authors have independently proposed the following program for the Prisoner's Dilemma: [ 1 ] [ 3 ] [ 2 ] algorithm CliqueBot(opponent_program): if opponent_program == this_program then return Cooperate else return Defect If both players submit this program, then the if-clause will resolve to true in the execution of both programs. As a result, both programs will cooperate. Moreover, (CliqueBot,CliqueBot) is an equilibrium. If either player deviates to some other program p i {\displaystyle p_{i}} that is different from CliqueBot, then the opponent will defect. Therefore, deviating to p i {\displaystyle p_{i}} can at best result in the payoff of mutual defection, which is worse than the payoff of mutual cooperation.
+
+This approach has been criticized for being fragile.
+
+[ 5 ] If the players fail to coordinate on the exact source code they submit (for example, if one player adds an extra space character), both programs will defect. The development of the techniques below is in part motivated by this fragility issue.
+
+Proof-based cooperation [ edit ] Another approach is based on letting each player's program try to prove something about the opponent's program or about how the two programs relate.
+
+[ 6 ] [ 8 ] [ 9 ] [ 10 ] One example of such a program is the following: algorithm FairBot(opponent_program): if there is a proof that opponent_program(this_program) = Cooperate then return Cooperate else return Defect Using Löb's theorem it can be shown that when both players submit this program, they cooperate against each other.
+
+[ 8 ] [ 9 ] [ 10 ] Moreover, if one player were to instead submit a program that defects against the above program, then (assuming consistency of the proof system is used) the if-condition would resolve to false and the above program would defect. Therefore, (FairBot,FairBot) is a program equilibrium as well.
+
+Cooperating with ε-grounded simulation [ edit ] Another proposed program is the following: [ 5 ] [ 11 ] [ 12 ] algorithm ϵ ϵ {\displaystyle \epsilon } GroundedFairBot(opponent_program):
+    With probability ϵ ϵ {\displaystyle \epsilon } : return Cooperate return opponent_program(this_program) Here ϵ ϵ {\displaystyle \epsilon } is a small [ quantify ] positive number.
+
+If both players submit this program, then they terminate almost surely and cooperate. The expected number of steps to termination is given by the geometric series . Moreover, if both players submit this program, neither can profitably deviate, assuming ϵ ϵ {\displaystyle \epsilon } is sufficiently small [ quantify ] , because defecting with probability Δ Δ {\displaystyle \Delta } would cause the opponent to defect with probability ( 1 − − ϵ ϵ ) Δ Δ {\displaystyle (1-\epsilon )\Delta } .
+
+Folk theorem [ edit ] We here give a theorem that characterizes what payoffs can be achieved in program equilibrium.
+
+The theorem uses the following terminology: A pair of payoffs ( v 1 , v 2 ) {\displaystyle (v_{1},v_{2})} is called feasible if there is a pair of (potentially mixed) strategies ( s 1 , s 2 ) {\displaystyle (s_{1},s_{2})} such that u i ( s 1 , s 2 ) = v i {\displaystyle u_{i}(s_{1},s_{2})=v_{i}} for both players i {\displaystyle i} . That is, a pair of payoffs is called feasible if it is achieved in some strategy profile . A payoff v i {\displaystyle v_{i}} is called individually rational if it is better than that player's minimax payoff; that is, if v i ≥ ≥ min σ σ − − i max s i u i ( σ σ − − i , s i ) {\displaystyle v_{i}\geq \min _{\sigma _{-i}}\max _{s_{i}}u_{i}(\sigma _{-i},s_{i})} , where the minimum is over all mixed strategies for Player − − i {\displaystyle -i} .
+
+[ nb 2 ] Theorem (folk theorem for program equilibrium): [ 4 ] [ 1 ] Let G be a base game. Let ( v 1 , v 2 ) {\displaystyle (v_{1},v_{2})} be a pair of real-valued payoffs. Then the following two claims are equivalent: The payoffs ( v 1 , v 2 ) {\displaystyle (v_{1},v_{2})} are feasible and individually rational.
+
+There is a program equilibrium ( p 1 , p 2 ) {\displaystyle (p_{1},p_{2})} that achieves payoffs ( v 1 , v 2 ) {\displaystyle (v_{1},v_{2})} .
+
+The result is referred to as a folk theorem in reference to the so-called folk theorems (game theory) for repeated games , which use the same conditions on equilibrium payoffs ( v 1 , v 2 ) {\displaystyle (v_{1},v_{2})} .
+
+See also [ edit ] Superrationality Notes [ edit ] ^ It is not necessary for programs in the program game to be given access to their own source code. By the diagonalization lemma , one can use quining to enable programs to refer to their source code.
+
+[ 2 ] [ 3 ] [ 4 ] ^ Equivalently, (by von Neumann 's minimax theorem ), v i ≥ ≥ max σ σ i min s − − i u i ( σ σ i , s − − i ) {\displaystyle v_{i}\geq \max _{\sigma _{i}}\min _{s_{-i}}u_{i}(\sigma _{i},s_{-i})} , where the maximum is over all mixed strategies σ σ i {\displaystyle \sigma _{i}} for Player i {\displaystyle i} .
+
+References [ edit ] ^ a b c d Tennenholtz, M.
+
+(November 2004). "Program equilibrium".
+
+Games and Economic Behavior .
+
+49 (2).
+
+Elsevier : 363– 373.
+
+doi : 10.1016/j.geb.2004.02.002 .
+
+ISSN 0899-8256 .
+
+^ a b c McAfee, R. P.
+
+(May 1984).
+
+Effective Computability in Economic Decisions (PDF) (Technical report). University of Western Ontario.
+
+^ a b c Howard, J. V. (May 1988). "Cooperation in the Prisoner's Dilemma".
+
+Theory and Decision .
+
+24 (3).
+
+Kluwer Academic Publishers : 203– 213.
+
+doi : 10.1007/BF00148954 .
+
+S2CID 121119727 .
+
+^ a b c Rubinstein, A.
+
+(1998). "Ch. 10.4".
+
+Modeling Bounded Rationality .
+
+MIT Press .
+
+ISBN 978-0262681001 .
+
+^ a b c Oesterheld, C. (February 2019).
+
+"Robust Program Equilibrium" .
+
+Theory and Decision .
+
+86 .
+
+Springer : 143– 159.
+
+doi : 10.1007/s11238-018-9679-3 .
+
+S2CID 255103752 .
+
+^ a b van der Hoek, W.; Witteveen, C.; Wooldridge, M.
+
+(2013). "Program equilibrium—a program reasoning approach".
+
+International Journal of Game Theory .
+
+42 (3).
+
+Springer : 639– 671.
+
+CiteSeerX 10.1.1.228.6517 .
+
+doi : 10.1007/s00182-011-0314-6 .
+
+S2CID 253720520 .
+
+^ Peters, Michael; Szentes, Balázs (January 2012).
+
+"Definable and Contractible Contracts" (PDF) .
+
+Econometrica .
+
+80 (1).
+
+The Econometric Society : 363– 411.
+
+doi : 10.3982/ECTA8375 .
+
+^ a b Barasz, M.; Christiano, P.; Fallenstein, B.; Herreshoff, M.; LaVictoire, P.; Yudkowsky, E.
+
+(2014). "Robust Cooperation in the Prisoner's Dilemma: Program Equilibrium via Provability Logic".
+
+arXiv : 1401.5577 [ cs.GT ].
+
+^ a b Critch, A. (2019). "A Parametric, Resource-Bounded Generalization of Löb's Theorem, and a Robust Cooperation Criterion for Open-Source Game Theory".
+
+Journal of Symbolic Logic .
+
+84 (4).
+
+Cambridge University Press : 1368– 1381.
+
+doi : 10.1017/jsl.2017.42 .
+
+S2CID 133348715 .
+
+^ a b Critch, A.; Dennis, M.; Russell, S.
+
+(2022). "Cooperative and uncooperative institution designs: Surprises and problems in open-source game theory".
+
+arXiv : 2208.07006 [ cs.GT ].
+
+^ DiGiovanni, A.; Clifton, J. (2023). "Commitment games with conditional information disclosure".
+
+Proceedings of the AAAI Conference on Artificial Intelligence .
+
+arXiv : 2204.03484 .
+
+^ Cooper, E.; Oesterheld, C.; Conitzer, V. (2025). "Characterising Simulation-Based Program Equilibria".
+
+Proceedings of the AAAI Conference on Artificial Intelligence .
+
+arXiv : 2412.14570 .
+
+NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐hl48r
+Cached time: 20250812032846
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.258 seconds
+Real time usage: 0.351 seconds
+Preprocessor visited node count: 1690/1000000
+Revision size: 12518/2097152 bytes
+Post‐expand include size: 30886/2097152 bytes
+Template argument size: 2553/2097152 bytes
+Highest expansion depth: 12/100
+Expensive parser function count: 2/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 52040/5000000 bytes
+Lua time usage: 0.138/10.000 seconds
+Lua memory usage: 5840697/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  245.178      1 -total
+ 61.35%  150.409      2 Template:Reflist
+ 37.23%   91.270      6 Template:Cite_journal
+ 23.62%   57.906      1 Template:Short_description
+ 15.82%   38.783      2 Template:Pagetype
+ 10.30%   25.262      2 Template:Quantify
+  8.92%   21.866      2 Template:Fix
+  5.56%   13.623      2 Template:Cite_arXiv
+  5.30%   12.988      2 Template:Category_handler
+  4.74%   11.627      4 Template:Main_other Saved in parser cache with key enwiki:pcache:43457091:|#|:idhash:canonical and timestamp 20250812032846 and revision id 1287683540. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Program_equilibrium&oldid=1287683540 " Category : Game theory Hidden categories: Articles with short description Short description matches Wikidata All articles with unsourced statements Articles with unsourced statements from March 2025 This page was last edited on 27 April 2025, at 19:57 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Program equilibrium Add languages Add topic
+

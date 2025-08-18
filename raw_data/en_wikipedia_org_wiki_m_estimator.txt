@@ -1,0 +1,233 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Historical motivation 2 Definition 3 Types Toggle Types subsection 3.1 ρ-type 3.2 ψ-type 4 Computation Toggle Computation subsection 4.1 Concentrating parameters 5 Properties Toggle Properties subsection 5.1 Distribution 5.2 Influence function 6 Applications 7 Examples Toggle Examples subsection 7.1 Mean 7.2 Median 8 Sufficient conditions for statistical consistency 9 See also 10 References 11 Further reading 12 External links Toggle the table of contents M-estimator 3 languages Deutsch Français Русский Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Class of statistical estimators In statistics , M-estimators are a broad class of extremum estimators for which the objective function is a sample average.
+
+[ 1 ] Both non-linear least squares and maximum likelihood estimation are special cases of M-estimators. The definition of M-estimators was motivated by robust statistics , which contributed new types of M-estimators.
+
+[ citation needed ] However, M-estimators are not inherently robust, as is clear from the fact that they include maximum likelihood estimators, which are in general not robust. The statistical procedure of evaluating an M-estimator on a data set is called M-estimation . The "M" initial stands for "maximum likelihood-type".
+
+More generally, an M-estimator may be defined to be a zero of an estimating function .
+
+[ 2 ] [ 3 ] [ 4 ] [ 5 ] [ 6 ] [ 7 ] This estimating function is often the derivative of another statistical function. For example, a maximum-likelihood estimate is the point where the derivative of the likelihood function with respect to the parameter is zero; thus, a maximum-likelihood estimator is a critical point of the score function.
+
+[ 8 ] In many applications, such M-estimators can be thought of as estimating characteristics of the population.
+
+Historical motivation [ edit ] The method of least squares is a prototypical M-estimator, since the estimator is defined as a minimum of the sum of squares of the residuals.
+
+Another popular M-estimator is maximum-likelihood estimation. For a family of probability density functions f parameterized by θ , a maximum likelihood estimator of θ is computed for each set of data by maximizing the likelihood function over the parameter space  { θ } .  When the observations are independent and identically distributed, a ML-estimate θ θ ^ ^ {\displaystyle {\hat {\theta }}} satisfies θ θ ^ ^ = arg ⁡ ⁡ max θ θ ( ∏ ∏ i = 1 n f ( x i , θ θ ) ) {\displaystyle {\widehat {\theta }}=\arg \max _{\displaystyle \theta }{\left(\prod _{i=1}^{n}f(x_{i},\theta )\right)}\,\!} or, equivalently, θ θ ^ ^ = arg ⁡ ⁡ min θ θ ( ∑ ∑ i = 1 n − − log ⁡ ⁡ ( f ( x i , θ θ ) ) ) .
+
+{\displaystyle {\widehat {\theta }}=\arg \min _{\displaystyle \theta }{\left(\sum _{i=1}^{n}-\log {(f(x_{i},\theta ))}\right)}.\,\!} Maximum-likelihood estimators have optimal properties in the limit of infinitely many observations under rather general conditions, but may be biased and not the most efficient estimators for finite samples.
+
+Definition [ edit ] In 1964, Peter J. Huber proposed generalizing maximum likelihood estimation to the minimization of ∑ ∑ i = 1 n ρ ρ ( x i , θ θ ) , {\displaystyle \sum _{i=1}^{n}\rho (x_{i},\theta ),\,\!} where ρ is a function with certain properties (see below). The solutions θ θ ^ ^ = arg ⁡ ⁡ min θ θ ( ∑ ∑ i = 1 n ρ ρ ( x i , θ θ ) ) {\displaystyle {\hat {\theta }}=\arg \min _{\displaystyle \theta }\left(\sum _{i=1}^{n}\rho (x_{i},\theta )\right)\,\!} are called M-estimators ("M" for "maximum likelihood-type" (Huber, 1981, page 43)); other types of robust estimators include L-estimators , R-estimators and S-estimators .  Maximum likelihood estimators (MLE) are thus a special case of M-estimators. With suitable rescaling, M-estimators are special cases of extremum estimators (in which more general functions of the observations can be used).
+
+The function ρ, or its derivative, ψ, can be chosen in such a way to provide the estimator desirable properties (in terms of bias and efficiency) when the data are truly from the assumed distribution, and 'not bad' behaviour when the data are generated from a model that is, in some sense, close to the assumed distribution.
+
+Types [ edit ] M-estimators are solutions, θ , which minimize ∑ ∑ i = 1 n ρ ρ ( x i , θ θ ) .
+
+{\displaystyle \sum _{i=1}^{n}\rho (x_{i},\theta ).\,\!} This minimization can always be done directly. Often it is simpler to differentiate with respect to θ and solve for the root of the derivative. When this differentiation is possible,  the M-estimator is said to be of ψ-type .  Otherwise, the M-estimator is said to be of ρ-type .
+
+In most practical cases, the M-estimators are of ψ-type.
+
+ρ-type [ edit ] For positive integer r , let ( X , Σ Σ ) {\displaystyle ({\mathcal {X}},\Sigma )} and ( Θ Θ ⊂ ⊂ R r , S ) {\displaystyle (\Theta \subset \mathbb {R} ^{r},S)} be measure spaces.
+
+θ θ ∈ ∈ Θ Θ {\displaystyle \theta \in \Theta } is a vector of parameters. An M-estimator of ρ-type T {\displaystyle T} is defined through a measurable function ρ ρ : X × × Θ Θ → → R {\displaystyle \rho :{\mathcal {X}}\times \Theta \rightarrow \mathbb {R} } . It maps a probability distribution F {\displaystyle F} on X {\displaystyle {\mathcal {X}}} to the value T ( F ) ∈ ∈ Θ Θ {\displaystyle T(F)\in \Theta } (if it exists) that minimizes ∫ ∫ X ρ ρ ( x , θ θ ) d F ( x ) {\displaystyle \int _{\mathcal {X}}\rho (x,\theta )dF(x)} : T ( F ) := arg ⁡ ⁡ min θ θ ∈ ∈ Θ Θ ∫ ∫ X ρ ρ ( x , θ θ ) d F ( x ) {\displaystyle T(F):=\arg \min _{\theta \in \Theta }\int _{\mathcal {X}}\rho (x,\theta )dF(x)} For example, for the maximum likelihood estimator, ρ ρ ( x , θ θ ) = − − log ⁡ ⁡ ( f ( x , θ θ ) ) {\displaystyle \rho (x,\theta )=-\log(f(x,\theta ))} , where f ( x , θ θ ) = ∂ ∂ F ( x , θ θ ) ∂ ∂ x {\displaystyle f(x,\theta )={\frac {\partial F(x,\theta )}{\partial x}}} .
+
+ψ-type [ edit ] If ρ ρ {\displaystyle \rho } is differentiable with respect to θ θ {\displaystyle \theta } , the computation of θ θ ^ ^ {\displaystyle {\widehat {\theta }}} is usually much easier. An M-estimator of ψ-type T is defined through a measurable function ψ ψ : X × × Θ Θ → → R r {\displaystyle \psi :{\mathcal {X}}\times \Theta \rightarrow \mathbb {R} ^{r}} . It maps a probability distribution F on X {\displaystyle {\mathcal {X}}} to the value T ( F ) ∈ ∈ Θ Θ {\displaystyle T(F)\in \Theta } (if it exists) that solves the vector equation: ∫ ∫ X ψ ψ ( x , θ θ ) d F ( x ) = 0 {\displaystyle \int _{\mathcal {X}}\psi (x,\theta )\,dF(x)=0} ∫ ∫ X ψ ψ ( x , T ( F ) ) d F ( x ) = 0 {\displaystyle \int _{\mathcal {X}}\psi (x,T(F))\,dF(x)=0} For example, for the maximum likelihood estimator, ψ ψ ( x , θ θ ) = ( ∂ ∂ log ⁡ ⁡ ( f ( x , θ θ ) ) ∂ ∂ θ θ 1 , … … , ∂ ∂ log ⁡ ⁡ ( f ( x , θ θ ) ) ∂ ∂ θ θ p ) T {\displaystyle \psi (x,\theta )=\left({\frac {\partial \log(f(x,\theta ))}{\partial \theta ^{1}}},\dots ,{\frac {\partial \log(f(x,\theta ))}{\partial \theta ^{p}}}\right)^{\mathrm {T} }} , where u T {\displaystyle u^{\mathrm {T} }} denotes the transpose of vector u and f ( x , θ θ ) = ∂ ∂ F ( x , θ θ ) ∂ ∂ x {\displaystyle f(x,\theta )={\frac {\partial F(x,\theta )}{\partial x}}} .
+
+Such an estimator is not necessarily an M-estimator of ρ-type, but if ρ has a continuous first derivative with respect to θ θ {\displaystyle \theta } , then a necessary condition for an M-estimator of ψ-type to be an M-estimator of ρ-type is ψ ψ ( x , θ θ ) = ∇ ∇ θ θ ρ ρ ( x , θ θ ) {\displaystyle \psi (x,\theta )=\nabla _{\theta }\rho (x,\theta )} . The previous definitions can easily be extended to finite samples.
+
+If the function ψ decreases to zero as x → → ± ± ∞ ∞ {\displaystyle x\rightarrow \pm \infty } , the estimator is called redescending . Such estimators have some additional desirable properties, such as complete rejection of gross outliers.
+
+Computation [ edit ] For many choices of ρ or ψ, no closed form solution exists and an iterative approach to computation is required. It is possible to use standard function optimization algorithms, such as Newton–Raphson . However, in most cases an iteratively re-weighted least squares fitting algorithm can be performed; this is typically the preferred method.
+
+For some choices of ψ, specifically, redescending functions, the solution may not be unique. The issue is particularly relevant in multivariate and regression problems. Thus, some care is needed to ensure that good starting points are chosen.
+
+Robust starting points, such as the median as an estimate of location and the median absolute deviation as a univariate estimate of scale, are common.
+
+Concentrating parameters [ edit ] In computation of M-estimators, it is sometimes useful to rewrite the objective function so that the dimension of parameters is reduced. The procedure is called “concentrating” or “profiling”. Examples in which concentrating parameters increases computation speed include seemingly unrelated regressions (SUR) models.
+
+[ 9 ] Consider the following M-estimation problem: ( β β ^ ^ n , γ γ ^ ^ n ) := arg ⁡ ⁡ max β β , γ γ ∑ ∑ i = 1 N q ( w i , β β , γ γ ) {\displaystyle ({\hat {\beta }}_{n},{\hat {\gamma }}_{n}):=\arg \max _{\beta ,\gamma }\textstyle \sum _{i=1}^{N}\displaystyle q(w_{i},\beta ,\gamma )} Assuming differentiability of the function q , M-estimator solves the first order conditions: ∑ ∑ i = 1 N ▽ ▽ β β q ( w i , β β , γ γ ) = 0 {\displaystyle \sum _{i=1}^{N}\triangledown _{\beta }\,q(w_{i},\beta ,\gamma )=0} ∑ ∑ i = 1 N ▽ ▽ γ γ q ( w i , β β , γ γ ) = 0 {\displaystyle \sum _{i=1}^{N}\triangledown _{\gamma }\,q(w_{i},\beta ,\gamma )=0} Now, if we can solve the second equation for γ in terms of W := ( w 1 , w 2 , .
+
+.
+
+, w N ) {\displaystyle W:=(w_{1},w_{2},..,w_{N})} and β β {\displaystyle \beta } , the second equation becomes: ∑ ∑ i = 1 N ▽ ▽ γ γ q ( w i , β β , g ( W , β β ) ) = 0 {\displaystyle \sum _{i=1}^{N}\triangledown _{\gamma }\,q(w_{i},\beta ,g(W,\beta ))=0} where g is, there is some function to be found. Now, we can rewrite the original objective function solely in terms of β by inserting the function g into the place of γ γ {\displaystyle \gamma } . As a result, there is a reduction in the number of parameters.
+
+Whether this procedure can be done depends on particular problems at hand. However, when it is possible, concentrating parameters can facilitate computation to a great degree. For example, in estimating SUR model of 6 equations with 5 explanatory variables in each equation by Maximum Likelihood, the number of parameters declines from 51 to 30.
+
+[ 9 ] Despite its appealing feature in computation, concentrating parameters is of limited use in deriving asymptotic properties of M-estimator.
+
+[ 10 ] The presence of W in each summand of the objective function makes it difficult to apply the law of large numbers and the central limit theorem .
+
+Properties [ edit ] Distribution [ edit ] It can be shown that M-estimators are asymptotically normally distributed. As such, Wald-type approaches to constructing confidence intervals and hypothesis tests can be used. However, since the theory is asymptotic, it will frequently be sensible to check the distribution, perhaps by examining the permutation or bootstrap distribution.
+
+Influence function [ edit ] The influence function of an M-estimator of ψ ψ {\displaystyle \psi } -type is proportional to its defining ψ ψ {\displaystyle \psi } function.
+
+Let T be an M-estimator of ψ-type, and G be a probability distribution for which T ( G ) {\displaystyle T(G)} is defined. Its influence function IF is IF ⁡ ⁡ ( x ; T , G ) = − − ψ ψ ( x , T ( G ) ) ∫ ∫ [ ∂ ∂ ψ ψ ( y , θ θ ) ∂ ∂ θ θ ] f ( y ) d y {\displaystyle \operatorname {IF} (x;T,G)=-{\frac {\psi (x,T(G))}{\int \left[{\frac {\partial \psi (y,\theta )}{\partial \theta }}\right]f(y)\mathrm {d} y}}} assuming the density function f ( y ) {\displaystyle f(y)} exists.  A proof of this property of M-estimators can be found in Huber (1981, Section 3.2).
+
+Applications [ edit ] M-estimators can be constructed for location parameters and scale parameters in univariate and multivariate settings, as well as being used in robust regression.
+
+Examples [ edit ] Mean [ edit ] Let ( X 1 , ..., X n ) be a set of independent, identically distributed random variables, with distribution F .
+
+If we define ρ ρ ( x , θ θ ) = ( x − − θ θ ) 2 2 , {\displaystyle \rho (x,\theta )={\frac {(x-\theta )^{2}}{2}},\,\!} we note that this is minimized when θ is the mean of the X s.  Thus the mean is an M-estimator of ρ-type, with this ρ function.
+
+As this ρ function is continuously differentiable in θ , the mean is thus also an M-estimator of ψ-type for ψ( x , θ ) = θ − x .
+
+Median [ edit ] For the median estimation of ( X 1 , ..., X n ), instead we can define the ρ function as ρ ρ ( x , θ θ ) = | x − − θ θ | {\displaystyle \rho (x,\theta )=|x-\theta |} and similarly, the ρ function is minimized when θ is the median of the X s.
+
+While this ρ function is not differentiable in θ , the ψ-type M-estimator, which is the subgradient of ρ function, can be expressed as ψ ψ ( x , θ θ ) = sgn ⁡ ⁡ ( x − − θ θ ) {\displaystyle \psi (x,\theta )=\operatorname {sgn}(x-\theta )} and ψ ψ ( x , θ θ ) = { { − − 1 } , if x − − θ θ < 0 { 1 } , if x − − θ θ > 0 [ − − 1 , 1 ] , if x − − θ θ = 0 {\displaystyle \psi (x,\theta )={\begin{cases}\{-1\},&{\mbox{if }}x-\theta <0\\\{1\},&{\mbox{if }}x-\theta >0\\\left[-1,1\right],&{\mbox{if }}x-\theta =0\end{cases}}} [ clarification needed ] Sufficient conditions for statistical consistency [ edit ] M-estimators are consistent under various sets of conditions. A typical set of assumptions is the class of functions satisfies a uniform law of large numbers and that the maximum is well-separated. Specifically, given an empirical and population objective M n , M : Θ Θ → → R {\displaystyle M_{n},M:\Theta \rightarrow \mathbb {R} } , respectively, as n → → ∞ ∞ {\displaystyle n\rightarrow \infty } : sup θ θ ∈ ∈ Θ Θ | M n ( θ θ ) − − M ( θ θ ) | → → p 0 {\displaystyle \sup _{\theta \in \Theta }|M_{n}(\theta )-M(\theta )|{\stackrel {p}{\rightarrow }}0} and for every ϵ ϵ > 0 {\displaystyle \epsilon >0} : sup θ θ : d ( θ θ , θ θ ∗ ∗ ) ≥ ≥ ϵ ϵ M ( θ θ ) < M ( θ θ ∗ ∗ ) {\displaystyle \sup _{\theta :d(\theta ,\theta ^{*})\geq \epsilon }M(\theta )<M(\theta ^{*})} where d : Θ Θ × × Θ Θ → → R {\displaystyle d:\Theta \times \Theta \rightarrow \mathbb {R} } is a distance function and θ θ ∗ ∗ {\displaystyle \theta ^{*}} is the optimum, then M-estimation is consistent.
+
+[ 11 ] The uniform convergence constraint is not necessarily required; an alternate set of assumptions is to instead consider pointwise convergence ( in probability ) of the objective functions. Additionally, assume that each of the M n {\displaystyle M_{n}} has continuous derivative with exactly one zero or has a derivative which is non-decreasing and is asymptotically order o p ( 1 ) {\displaystyle o_{p}(1)} . Finally, assume that the maximum θ θ ∗ ∗ {\displaystyle \theta ^{*}} is well-separated. Then M-estimation is consistent.
+
+[ 12 ] See also [ edit ] Two-step M-estimator Robust statistics Robust regression Redescending M-estimator S-estimator Fréchet mean References [ edit ] ^ Hayashi, Fumio (2000).
+
+"Extremum Estimators" .
+
+Econometrics . Princeton University Press.
+
+ISBN 0-691-01018-8 .
+
+^ Vidyadhar P. Godambe , editor.
+
+Estimating functions , volume 7 of Oxford Statistical Science Series. The Clarendon Press Oxford University Press, New York, 1991.
+
+^ Christopher C. Heyde.
+
+Quasi-likelihood and its application: A general approach to optimal parameter estimation . Springer Series in Statistics. Springer-Verlag, New York, 1997.
+
+^ D. L. McLeish and Christopher G. Small.
+
+The theory and applications of statistical inference functions , volume 44 of Lecture Notes in Statistics. Springer-Verlag, New York, 1988.
+
+^ Parimal Mukhopadhyay.
+
+An Introduction to Estimating Functions . Alpha Science International, Ltd, 2004.
+
+^ Christopher G. Small and Jinfang Wang.
+
+Numerical methods for nonlinear estimating equations , volume 29 of Oxford Statistical Science Series. The Clarendon Press Oxford University Press, New York, 2003.
+
+^ Sara A. van de Geer .
+
+Empirical Processes in M-estimation: Applications of empirical process theory, volume 6 of Cambridge Series in Statistical and Probabilistic Mathematics. Cambridge University Press, Cambridge, 2000.
+
+^ Ferguson, Thomas S.
+
+(1982). "An inconsistent maximum likelihood estimate".
+
+Journal of the American Statistical Association .
+
+77 (380): 831– 834.
+
+doi : 10.1080/01621459.1982.10477894 .
+
+JSTOR 2287314 .
+
+^ a b Giles, D. E. (July 10, 2012).
+
+"Concentrating, or Profiling, the Likelihood Function" .
+
+^ Wooldridge, J. M. (2001).
+
+Econometric Analysis of Cross Section and Panel Data . Cambridge, Mass.: MIT Press.
+
+ISBN 0-262-23219-7 .
+
+^ Vaart AW van der. Asymptotic Statistics. Cambridge University Press; 1998.
+
+^ Vaart AW van der. Asymptotic Statistics. Cambridge University Press; 1998.
+
+Further reading [ edit ] Andersen, Robert (2008).
+
+Modern Methods for Robust Regression . Quantitative Applications in the Social Sciences. Vol. 152. Los Angeles, CA: Sage Publications.
+
+ISBN 978-1-4129-4072-6 .
+
+Godambe, V. P. (1991).
+
+Estimating functions . Oxford Statistical Science Series. Vol. 7. New York: Clarendon Press.
+
+ISBN 978-0-19-852228-7 .
+
+Heyde, Christopher C. (1997). Heyde, Christopher C (ed.).
+
+Quasi-likelihood and its application: A general approach to optimal parameter estimation . Springer Series in Statistics. New York: Springer.
+
+doi : 10.1007/b98823 .
+
+ISBN 978-0-387-98225-0 .
+
+Huber, Peter J. (2009).
+
+Robust Statistics (2nd ed.). Hoboken, NJ: John Wiley & Sons Inc.
+
+ISBN 978-0-470-12990-6 .
+
+Hoaglin, David C.; Frederick Mosteller; John W. Tukey (1983).
+
+Understanding Robust and Exploratory Data Analysis . Hoboken, NJ: John Wiley & Sons Inc.
+
+ISBN 0-471-09777-2 .
+
+McLeish, D.L.; Christopher G. Small (1989).
+
+The theory and applications of statistical inference functions . Lecture Notes in Statistics. Vol. 44. New York: Springer.
+
+ISBN 978-0-387-96720-2 .
+
+Mukhopadhyay, Parimal (2004).
+
+An Introduction to Estimating Functions . Harrow, UK: Alpha Science International, Ltd.
+
+ISBN 978-1-84265-163-6 .
+
+Press, WH; Teukolsky, SA; Vetterling, WT; Flannery, BP (2007), "Section 15.7. Robust Estimation" , Numerical Recipes: The Art of Scientific Computing (3rd ed.), New York: Cambridge University Press, ISBN 978-0-521-88068-8 Serfling, Robert J. (2002).
+
+Approximation theorems of mathematical statistics . Wiley Series in Probability and Mathematical Statistics. Hoboken, NJ: John Wiley & Sons Inc.
+
+ISBN 978-0-471-21927-9 .
+
+Shapiro, Alexander (2000). "On the asymptotics of constrained local M -estimators".
+
+Annals of Statistics .
+
+28 (3): 948– 960.
+
+CiteSeerX 10.1.1.69.2288 .
+
+doi : 10.1214/aos/1015952006 .
+
+JSTOR 2674061 .
+
+MR 1792795 .
+
+Small, Christopher G.; Jinfang Wang (2003).
+
+Numerical methods for nonlinear estimating equations . Oxford Statistical Science Series. Vol. 29. New York: Oxford University Press.
+
+ISBN 978-0-19-850688-1 .
+
+van de Geer, Sara A.
+
+(2000).
+
+Empirical Processes in M-estimation: Applications of empirical process theory . Cambridge Series in Statistical and Probabilistic Mathematics. Vol. 6. Cambridge, UK: Cambridge University Press.
+
+ISBN 978-0-521-65002-1 .
+
+Wilcox, R. R. (2003).
+
+Applying contemporary statistical techniques . San Diego, CA: Academic Press. pp.
+
+55– 79.
+
+Wilcox, R. R. (2012).
+
+Introduction to Robust Estimation and Hypothesis Testing, 3rd Ed . San Diego, CA: Academic Press.
+
+External links [ edit ] M-estimators — an introduction to the subject by Zhengyou Zhang v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject Retrieved from " https://en.wikipedia.org/w/index.php?title=M-estimator&oldid=1255576144 " Categories : M-estimators Estimator Robust regression Robust statistics Hidden categories: Articles with short description Short description is different from Wikidata All articles with unsourced statements Articles with unsourced statements from December 2023 Wikipedia articles needing clarification from November 2018 This page was last edited on 5 November 2024, at 17:15 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents M-estimator 3 languages Add topic
+

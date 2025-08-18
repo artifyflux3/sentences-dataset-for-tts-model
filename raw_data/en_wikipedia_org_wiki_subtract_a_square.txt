@@ -1,0 +1,51 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Example 2 Mathematical theory 3 Extensions 4 Misère game 5 See also 6 References Toggle the table of contents Subtract a square Add languages Add links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Subtraction game Subtract-a-square (also referred to as take-a-square ) is a two-player mathematical subtraction game . It is played by two people with a pile of coins (or other tokens) between them. The players take turns removing coins from the pile, always removing a non-zero square number of coins. The game is usually played as a normal play game, which means that the player who removes the last coin wins.
+
+[ 1 ] [ 2 ] It is an impartial game , meaning that the set of moves available from any position does not depend on whose turn it is.
+
+Solomon W. Golomb credits the invention of this game to Richard A. Epstein .
+
+[ 3 ] Example [ edit ] A normal play game starting with 13 coins is a win for the first player provided they start with a subtraction of 1: player 1: 13 - 1*1 = 12 Player 2 now has three choices: subtract 1, 4 or 9. In each of these cases, player 1 can ensure that within a few moves the number 2 gets passed on to player 2: player 2: 12 - 1*1 = 11        player 2:       12 - 2*2 = 8               player 2: 12 - 3*3 = 3
+player 1: 11 - 3*3 =  2        player 1:        8 - 1*1 = 7               player 1:  3 - 1*1 = 2
+                               player 2:  7 - 1*1 = 6 or: 7 - 2*2 = 3   
+                               player 1:  6 - 2*2 = 2     3 - 1*1 = 2 Now player 2 has to subtract 1, and player 1 subsequently does the same: player 2:  2 - 1*1 = 1
+player 1:  1 - 1*1 = 0
+  player 2 loses Mathematical theory [ edit ] In the above example, the number '13' represents a winning or 'hot' position, whilst the number '2' represents a losing or 'cold' position. Given an integer list with each integer labeled 'hot' or 'cold', the strategy of the game is simple: try to pass on a 'cold' number to your opponent. This is always possible provided you are being presented a 'hot' number. Which numbers are 'hot' and which numbers are 'cold' can be determined recursively : the number 0 is 'cold', whilst 1 is 'hot' if all numbers 1 .. N have been classified as either 'hot' or 'cold', then the number N+1 is 'cold' if only 'hot' numbers can be reached by subtracting a positive square the number N+1 is 'hot' if at least one 'cold' number can be reached by subtracting a positive square Using this algorithm, a list of cold numbers is easily derived: 0, 2, 5, 7, 10, 12, 15, 17, 20, 22, 34, 39, 44, … (sequence A030193 in the OEIS ) A faster divide and conquer algorithm can compute the same sequence of numbers, up to any threshold n {\displaystyle n} , in time O ( n log 2 ⁡ ⁡ n ) {\displaystyle O(n\log ^{2}n)} .
+
+[ 4 ] There are infinitely many cold numbers. More strongly, the number of cold numbers up to some threshold n {\displaystyle n} must be at least proportional to the square root of n {\displaystyle n} , for otherwise there would not be enough of them to provide winning moves from all the hot numbers.
+
+[ 3 ] Cold numbers tend to end in 0, 2, 4, 5, 7, or 9. Cold values that end with other digits are quite uncommon.
+
+[ 3 ] This holds in particular for cold numbers ending in 6. Out of all the over 180,000 cold numbers less than 40 million, only one ends in a 6: 11,356.
+
+[ 5 ] No two cold numbers can differ by a square, because if they did then a move from the larger of the two to the smaller would be winning, contradicting the assumption that they are both cold. Therefore, by the Furstenberg–Sárközy theorem , the natural density of the cold numbers is zero. That is, for every ϵ ϵ > 0 {\displaystyle \epsilon >0} , and for all sufficiently large n {\displaystyle n} , the fraction of the numbers up to n {\displaystyle n} that are cold is less than ϵ ϵ {\displaystyle \epsilon } .
+More strongly, for every n {\displaystyle n} there are O ( n / ( log ⁡ ⁡ n ) 1 4 log ⁡ ⁡ log ⁡ ⁡ log ⁡ ⁡ log ⁡ ⁡ n ) {\displaystyle O(n/(\log n)^{{\frac {1}{4}}\log \log \log \log n})} cold numbers up to n {\displaystyle n} .
+
+[ 6 ] The exact growth rate of the cold numbers remains unknown, but experimentally the number of cold positions up to any given threshold n {\displaystyle n} appears to be roughly n 0.7 {\displaystyle n^{0.7}} .
+
+[ 4 ] Extensions [ edit ] The game subtract-a-square can also be played with multiple numbers. At each turn the player to make a move first selects one of the numbers, and then subtracts a square from it. Such a 'sum of normal games' can be analysed using the Sprague–Grundy theorem . This theorem states that each position in the game subtract-a-square may be mapped onto an equivalent nim heap size . Optimal play consists of moving to a collection of numbers such that the nim-sum of their equivalent nim heap sizes is zero, when this is possible. The equivalent nim heap size of a position may be calculated as the minimum excluded value of the equivalent sizes of the positions that can be reached by a single move.
+For subtract-a-square positions of values 0, 1, 2, ... the equivalent nim heap sizes are 0, 1, 0, 1, 2, 0, 1, 0, 1, 2, 0, 1, 0, 1, 2, 0, 1, 0, 1, 2, 0, 1, 0, 1, 2, 3, 2, 3, 4, … (sequence A014586 in the OEIS ).
+
+In particular, a position of subtract-a-square is cold if and only if its equivalent nim heap size is zero.
+
+It is also possible to play variants of this game using other allowed moves than the square numbers. For instance, Golomb defined an analogous game based on the Moser–de Bruijn sequence , a sequence that grows at a similar asymptotic rate to the squares, for which it is possible to determine more easily the set of cold positions and to define an easily computed optimal move strategy.
+
+[ 3 ] Additional goals may also be added for the players without changing the winning conditions. For example, the winner can be given a "score" based on how many moves it took to win (the goal being to obtain the lowest possible score) and the loser given the goal to force the winner to take as long as possible to reach victory. With this additional pair of goals and an assumption of optimal play by both players, the scores for starting positions 0, 1, 2, ... are 0, 1, 2, 3, 1, 2, 3, 4, 5, 1, 4, 3, 6, 7, 3, 4, 1, 8, 3, 5, 6, 3, 8, 5, 5, 1, 5, 3, 7, … (sequence A338027 in the OEIS ).
+
+Misère game [ edit ] Subtract-a-square can also be played as a misère game, in which the player to make the last subtraction loses. The recursive algorithm to determine 'hot' and 'cold' numbers for the misère game is the same as that for the normal game, except that for the misère game the number 1 is 'cold' whilst 2 is 'hot'. It follows that the cold numbers for the misère variant are the cold numbers for the normal game shifted by 1: Misère play 'cold' numbers:
+1, 3, 6, 8, 11, 13, 16, 18, 21, 23, 35, 40, 45, ...
+
+See also [ edit ] Nim Wythoff's game References [ edit ] ^ Silverman, David L. (1971), "61. Subtract-a-square", Your Move: Logic, Math and Word Puzzles for Enthusiasts , Dover Publications, p. 143, ISBN 9780486267319 ^ Dunn, Angela (1980), "Subtract-a-square", Mathematical Bafflers , Dover Publications, p. 102, ISBN 9780486239613 ^ a b c d Golomb, Solomon W.
+
+(1966), "A mathematical investigation of games of "take-away" ", Journal of Combinatorial Theory , 1 (4): 443– 458, doi : 10.1016/S0021-9800(66)80016-9 , MR 0209015 .
+
+^ a b Eppstein, David (2018), "Faster evaluation of subtraction games", in Ito, Hiro; Leonardi, Stefano; Pagli, Linda ; Prencipe, Giuseppe (eds.), Proc. 9th International Conference on Fun with Algorithms (FUN 2018) , Leibniz International Proceedings in Informatics (LIPIcs), vol. 100, Dagstuhl, Germany: Schloss Dagstuhl – Leibniz-Zentrum für Informatik, pp. 20:1–20:12, doi : 10.4230/lipics.fun.2018.20 , ISBN 9783959770675 , S2CID 4952124 ^ Bush, David (October 12, 1992), "the uniqueness of 11,356" , sci.math ^ Pintz, János ; Steiger, W. L.; Szemerédi, Endre (1988), "On sets of natural numbers whose difference set contains no squares", Journal of the London Mathematical Society , Second Series, 37 (2): 219– 231, doi : 10.1112/jlms/s2-37.2.219 , MR 0928519 .
+
+Retrieved from " https://en.wikipedia.org/w/index.php?title=Subtract_a_square&oldid=1276798728 " Categories : Mathematical games Combinatorial game theory Hidden categories: Articles with short description Short description matches Wikidata This page was last edited on 20 February 2025, at 20:42 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Subtract a square Add languages Add topic
+

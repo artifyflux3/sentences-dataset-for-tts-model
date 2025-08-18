@@ -1,0 +1,115 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Example 2 General conservation law 3 See also 4 References 5 Further reading 6 External links Toggle the table of contents Finite volume method 14 languages Català Deutsch Español فارسی Français 한국어 Italiano Magyar 日本語 Português Русский Türkçe Українська 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Method for representing and evaluating partial differential equations Differential equations Scope Fields Natural sciences Engineering Astronomy Physics Chemistry Biology Geology Applied mathematics Continuum mechanics Chaos theory Dynamical systems Social sciences Economics Population dynamics List of named differential equations Classification Types Ordinary Partial Differential-algebraic Integro-differential Fractional Linear Non-linear By variable type Dependent and independent variables Autonomous Coupled / Decoupled Exact Homogeneous / Nonhomogeneous Features Order Operator Notation Relation to processes Difference (discrete analogue) Stochastic Stochastic partial Delay Solution Existence and uniqueness Picard–Lindelöf theorem Peano existence theorem Carathéodory's existence theorem Cauchy–Kowalevski theorem General topics Initial conditions Boundary values Dirichlet Neumann Robin Cauchy problem Wronskian Phase portrait Lyapunov / Asymptotic / Exponential stability Rate of convergence Series / Integral solutions Numerical integration Dirac delta function Solution methods Inspection Method of characteristics Euler Exponential response formula Finite difference ( Crank–Nicolson ) Finite element Infinite element Finite volume Galerkin Petrov–Galerkin Green's function Integrating factor Integral transforms Perturbation theory Runge–Kutta Separation of variables Undetermined coefficients Variation of parameters People List Isaac Newton Gottfried Leibniz Jacob Bernoulli Leonhard Euler Joseph-Louis Lagrange Józef Maria Hoene-Wroński Joseph Fourier Augustin-Louis Cauchy George Green Carl David Tolmé Runge Martin Kutta Rudolf Lipschitz Ernst Lindelöf Émile Picard Phyllis Nicolson John Crank v t e The finite volume method ( FVM ) is a method for representing and evaluating partial differential equations in the form of algebraic equations.
+
+[ 1 ] In the finite volume method, volume integrals in a partial differential equation that contain a divergence term are converted to surface integrals , using the divergence theorem . 
+These terms are then evaluated as fluxes at the surfaces of each finite volume. Because the flux entering a given volume is identical to that leaving the adjacent volume, these methods are conservative . Another advantage of the finite volume method is that it is easily formulated to allow for unstructured meshes. The method is used in many computational fluid dynamics packages.
+"Finite volume" refers to the small volume surrounding each node point on a mesh.
+
+[ 2 ] Finite volume methods can be compared and contrasted with the finite difference methods , which approximate derivatives using nodal values, or finite element methods , which create local approximations of a solution using local data, and construct a global approximation by stitching them together. In contrast a finite volume method evaluates exact expressions for the average value of the solution over some volume, and uses this data to construct approximations of the solution within cells.
+
+[ 3 ] [ 4 ] Example [ edit ] Consider a simple 1D advection problem: ∂ ∂ ρ ρ ∂ ∂ t + ∂ ∂ f ∂ ∂ x = 0 , t ≥ ≥ 0.
+
+{\displaystyle {\frac {\partial \rho }{\partial t}}+{\frac {\partial f}{\partial x}}=0,\quad t\geq 0.} 1 Here, ρ ρ = ρ ρ ( x , t ) {\displaystyle \rho =\rho \left(x,t\right)} represents the state variable and f = f ( ρ ρ ( x , t ) ) {\displaystyle f=f\left(\rho \left(x,t\right)\right)} represents the flux or flow of ρ ρ {\displaystyle \rho } . Conventionally, positive f {\displaystyle f} represents flow to the right while negative f {\displaystyle f} represents flow to the left. If we assume that equation ( 1 ) represents a flowing medium of constant area, we can sub-divide the spatial domain, x {\displaystyle x} , into finite volumes or cells with cell centers indexed as i {\displaystyle i} . For a particular cell, i {\displaystyle i} , we can define the volume average value of ρ ρ i ( t ) = ρ ρ ( x , t ) {\displaystyle {\rho }_{i}\left(t\right)=\rho \left(x,t\right)} at time t = t 1 {\displaystyle {t=t_{1}}} and x ∈ ∈ [ x i − − 1 / 2 , x i + 1 / 2 ] {\displaystyle {x\in \left[x_{i-1/2},x_{i+1/2}\right]}} , as ρ ρ ¯ ¯ i ( t 1 ) = 1 x i + 1 / 2 − − x i − − 1 / 2 ∫ ∫ x i − − 1 / 2 x i + 1 / 2 ρ ρ ( x , t 1 ) d x , {\displaystyle {\bar {\rho }}_{i}\left(t_{1}\right)={\frac {1}{x_{i+1/2}-x_{i-1/2}}}\int _{x_{i-1/2}}^{x_{i+1/2}}\rho \left(x,t_{1}\right)\,dx,} 2 and at time t = t 2 {\displaystyle t=t_{2}} as, ρ ρ ¯ ¯ i ( t 2 ) = 1 x i + 1 / 2 − − x i − − 1 / 2 ∫ ∫ x i − − 1 / 2 x i + 1 / 2 ρ ρ ( x , t 2 ) d x , {\displaystyle {\bar {\rho }}_{i}\left(t_{2}\right)={\frac {1}{x_{i+1/2}-x_{i-1/2}}}\int _{x_{i-1/2}}^{x_{i+1/2}}\rho \left(x,t_{2}\right)\,dx,} 3 where x i − − 1 / 2 {\displaystyle x_{i-1/2}} and x i + 1 / 2 {\displaystyle x_{i+1/2}} represent locations of the upstream and downstream faces or edges respectively of the i th {\displaystyle i^{\text{th}}} cell.
+
+Integrating equation ( 1 ) in time, we have: ρ ρ ( x , t 2 ) = ρ ρ ( x , t 1 ) − − ∫ ∫ t 1 t 2 f x ( x , t ) d t , {\displaystyle \rho \left(x,t_{2}\right)=\rho \left(x,t_{1}\right)-\int _{t_{1}}^{t_{2}}f_{x}\left(x,t\right)\,dt,} 4 where f x = ∂ ∂ f ∂ ∂ x {\displaystyle f_{x}={\frac {\partial f}{\partial x}}} .
+
+To obtain the volume average of ρ ρ ( x , t ) {\displaystyle \rho \left(x,t\right)} at time t = t 2 {\displaystyle t=t_{2}} , we integrate ρ ρ ( x , t 2 ) {\displaystyle \rho \left(x,t_{2}\right)} over the cell volume, [ x i − − 1 / 2 , x i + 1 / 2 ] {\displaystyle \left[x_{i-1/2},x_{i+1/2}\right]} and divide the result by Δ Δ x i = x i + 1 / 2 − − x i − − 1 / 2 {\displaystyle \Delta x_{i}=x_{i+1/2}-x_{i-1/2}} , i.e.
+
+ρ ρ ¯ ¯ i ( t 2 ) = 1 Δ Δ x i ∫ ∫ x i − − 1 / 2 x i + 1 / 2 { ρ ρ ( x , t 1 ) − − ∫ ∫ t 1 t 2 f x ( x , t ) d t } d x .
+
+{\displaystyle {\bar {\rho }}_{i}\left(t_{2}\right)={\frac {1}{\Delta x_{i}}}\int _{x_{i-1/2}}^{x_{i+1/2}}\left\{\rho \left(x,t_{1}\right)-\int _{t_{1}}^{t_{2}}f_{x}\left(x,t\right)dt\right\}dx.} 5 We assume that f {\displaystyle f\ } is well behaved and that we can reverse the order of integration. Also, recall that flow is normal to the unit area of the cell. Now, since in one dimension f x ≜ ≜ ∇ ∇ ⋅ ⋅ f {\displaystyle f_{x}\triangleq \nabla \cdot f} , we can apply the divergence theorem , i.e.
+
+∮ ∮ v ∇ ∇ ⋅ ⋅ f d v = ∮ ∮ S f d S {\displaystyle \oint _{v}\nabla \cdot fdv=\oint _{S}f\,dS} , and substitute for the volume integral of the divergence with the values of f ( x ) {\displaystyle f(x)} evaluated at the cell surface (edges x i − − 1 / 2 {\displaystyle x_{i-1/2}} and x i + 1 / 2 {\displaystyle x_{i+1/2}} ) of the finite volume as follows: ρ ρ ¯ ¯ i ( t 2 ) = ρ ρ ¯ ¯ i ( t 1 ) − − 1 Δ Δ x i ( ∫ ∫ t 1 t 2 f i + 1 / 2 d t − − ∫ ∫ t 1 t 2 f i − − 1 / 2 d t ) .
+
+{\displaystyle {\bar {\rho }}_{i}\left(t_{2}\right)={\bar {\rho }}_{i}\left(t_{1}\right)-{\frac {1}{\Delta x_{i}}}\left(\int _{t_{1}}^{t_{2}}f_{i+1/2}dt-\int _{t_{1}}^{t_{2}}f_{i-1/2}dt\right).} 6 where f i ± ± 1 / 2 = f ( x i ± ± 1 / 2 , t ) {\displaystyle f_{i\pm 1/2}=f\left(x_{i\pm 1/2},t\right)} .
+
+We can therefore derive a semi-discrete numerical scheme for the above problem with cell centers indexed as i {\displaystyle i} , and with cell edge fluxes indexed as i ± ± 1 / 2 {\displaystyle i\pm 1/2} , by differentiating ( 6 ) with respect to time to obtain: d ρ ρ ¯ ¯ i d t + 1 Δ Δ x i [ f i + 1 / 2 − − f i − − 1 / 2 ] = 0 , {\displaystyle {\frac {d{\bar {\rho }}_{i}}{dt}}+{\frac {1}{\Delta x_{i}}}\left[f_{i+1/2}-f_{i-1/2}\right]=0,} 7 where values for the edge fluxes, f i ± ± 1 / 2 {\displaystyle f_{i\pm 1/2}} , can be reconstructed by interpolation or extrapolation of the cell averages. Equation ( 7 ) is exact for the volume averages; i.e., no approximations have been made during its derivation.
+
+This method can also be applied to a 2D situation by considering the north and south faces along with the east and west faces around a node.
+
+General conservation law [ edit ] We can also consider the general conservation law problem, represented by the following PDE , ∂ ∂ u ∂ ∂ t + ∇ ∇ ⋅ ⋅ f ( u ) = 0 .
+
+{\displaystyle {\frac {\partial \mathbf {u} }{\partial t}}+\nabla \cdot {\mathbf {f} }\left({\mathbf {u} }\right)={\mathbf {0} }.} 8 Here, u {\displaystyle \mathbf {u} } represents a vector of states and f {\displaystyle \mathbf {f} } represents the corresponding flux tensor. Again we can sub-divide the spatial domain into finite volumes or cells. For a particular cell, i {\displaystyle i} , we take the volume integral over the total volume of the cell, v i {\displaystyle v_{i}} , which gives, ∫ ∫ v i ∂ ∂ u ∂ ∂ t d v + ∫ ∫ v i ∇ ∇ ⋅ ⋅ f ( u ) d v = 0 .
+
+{\displaystyle \int _{v_{i}}{\frac {\partial \mathbf {u} }{\partial t}}\,dv+\int _{v_{i}}\nabla \cdot {\mathbf {f} }\left({\mathbf {u} }\right)\,dv={\mathbf {0} }.} 9 On integrating the first term to get the volume average and applying the divergence theorem to the second, this yields v i d u ¯ ¯ i d t + ∮ ∮ S i f ( u ) ⋅ ⋅ n d S = 0 , {\displaystyle v_{i}{{d{\mathbf {\bar {u}} }_{i}} \over dt}+\oint _{S_{i}}{\mathbf {f} }\left({\mathbf {u} }\right)\cdot {\mathbf {n} }\ dS={\mathbf {0} },} 10 where S i {\displaystyle S_{i}} represents the total surface area of the cell and n {\displaystyle {\mathbf {n} }} is a unit vector normal to the surface and pointing outward. So, finally, we are able to present the general result equivalent to ( 8 ), i.e.
+
+d u ¯ ¯ i d t + 1 v i ∮ ∮ S i f ( u ) ⋅ ⋅ n d S = 0 .
+
+{\displaystyle {{d{\mathbf {\bar {u}} }_{i}} \over {dt}}+{{1} \over {v_{i}}}\oint _{S_{i}}{\mathbf {f} }\left({\mathbf {u} }\right)\cdot {\mathbf {n} }\ dS={\mathbf {0} }.} 11 Again, values for the edge fluxes can be reconstructed by interpolation or extrapolation of the cell averages. The actual numerical scheme will depend upon problem geometry and mesh construction.
+
+MUSCL reconstruction is often used in high resolution schemes where shocks or discontinuities are present in the solution.
+
+Finite volume schemes are conservative as cell averages change through the edge fluxes. In other words, one cell's loss is always another cell's gain !
+
+See also [ edit ] Finite element method Flux limiter Godunov's scheme Godunov's theorem High-resolution scheme KIVA (software) MIT General Circulation Model MUSCL scheme Sergei K. Godunov Total variation diminishing Finite volume method for unsteady flow References [ edit ] ^ LeVeque, Randall (2002).
+
+Finite Volume Methods for Hyperbolic Problems .
+
+ISBN 9780511791253 .
+
+^ Wanta, D.; Smolik, W. T.; Kryszyn, J.; Wróblewski, P.; Midura, M. (October 2021).
+
+"A Finite Volume Method using a Quadtree Non-Uniform Structured Mesh for Modeling in Electrical Capacitance Tomography" .
+
+Proceedings of the National Academy of Sciences, India Section A: Physical Sciences .
+
+92 (3): 443– 452.
+
+doi : 10.1007/s40010-021-00748-7 .
+
+^ Fallah, N. A.; Bailey, C.; Cross, M.; Taylor, G. A. (2000-06-01).
+
+"Comparison of finite element and finite volume methods application in geometrically nonlinear stress analysis" .
+
+Applied Mathematical Modelling .
+
+24 (7): 439– 455.
+
+doi : 10.1016/S0307-904X(99)00047-5 .
+
+ISSN 0307-904X .
+
+^ Ranganayakulu, C. (Chennu) (2 February 2018). "Chapter 3, Section 3.1".
+
+Compact heat exchangers : analysis, design and optimization using FEM and CFD approach . Seetharamu, K. N. Hoboken, NJ.
+
+ISBN 978-1-119-42435-2 .
+
+OCLC 1006524487 .
+
+{{ cite book }} :  CS1 maint: location missing publisher ( link ) Further reading [ edit ] Eymard, R. Gallouët, T.   R., Herbin, R.
+
+(2000) The finite volume method Handbook of Numerical Analysis, Vol. VII, 2000, p. 713–1020. Editors: P.G. Ciarlet and J.L. Lions.
+
+Hirsch, C. (1990), Numerical Computation of Internal and External Flows, Volume 2: Computational Methods for Inviscid and Viscous Flows , Wiley.
+
+Laney, Culbert B. (1998), Computational Gas Dynamics , Cambridge University Press.
+
+LeVeque, Randall (1990), Numerical Methods for Conservation Laws , ETH Lectures in Mathematics Series, Birkhauser-Verlag.
+
+LeVeque, Randall (2002), Finite Volume Methods for Hyperbolic Problems , Cambridge University Press.
+
+Patankar, Suhas V. (1980), Numerical Heat Transfer and Fluid Flow , Hemisphere.
+
+Tannehill, John C., et al., (1997), Computational Fluid mechanics and Heat Transfer , 2nd Ed., Taylor and Francis.
+
+Toro, E. F. (1999), Riemann Solvers and Numerical Methods for Fluid Dynamics , Springer-Verlag.
+
+Wesseling, Pieter (2001), Principles of Computational Fluid Dynamics , Springer-Verlag.
+
+External links [ edit ] Finite volume methods by R. Eymard, T Gallouët and R. Herbin , update of the article published in Handbook of Numerical Analysis, 2000 Rübenkönig, Oliver.
+
+"The Finite Volume Method (FVM) – An introduction" . Archived from the original on 2009-10-02.
+
+, available under the GFDL .
+
+FiPy: A Finite Volume PDE Solver Using Python from NIST.
+
+CLAWPACK : a software package designed to compute numerical solutions to hyperbolic partial differential equations using a wave propagation approach v t e Numerical methods for partial differential equations Finite difference Parabolic Forward-time central-space (FTCS) Crank–Nicolson Hyperbolic Lax–Friedrichs Lax–Wendroff MacCormack Upwind Method of characteristics Others Alternating direction-implicit (ADI) Finite-difference frequency-domain (FDFD) Finite-difference time-domain (FDTD) Finite volume Godunov High-resolution Monotonic upstream-centered (MUSCL) Advection upstream-splitting (AUSM) Riemann solver Essentially non-oscillatory (ENO) Weighted essentially non-oscillatory (WENO) Finite element hp-FEM Extended (XFEM) Discontinuous Galerkin (DG) Spectral element (SEM) Mortar Gradient discretisation (GDM) Loubignac iteration Smoothed (S-FEM) Meshless/Meshfree Smoothed-particle hydrodynamics (SPH) Peridynamics (PD) Moving particle semi-implicit method (MPS) Material point method (MPM) Particle-in-cell (PIC) Domain decomposition Schur complement Fictitious domain Schwarz alternating additive abstract additive Neumann–Dirichlet Neumann–Neumann Poincaré–Steklov operator Balancing (BDD) Balancing by constraints (BDDC) Tearing and interconnect (FETI) FETI-DP Others Spectral Pseudospectral (DVR) Method of lines Multigrid Collocation Level-set Boundary element Method of moments Immersed boundary Analytic element Isogeometric analysis Infinite difference method Infinite element method Galerkin method Petrov–Galerkin method Validated numerics Computer-assisted proof Integrable algorithm Method of fundamental solutions Related Numerical methods for ordinary differential equations Numerical integration v t e Differential equations Classification Operations Differential operator Notation for differentiation Ordinary Partial Differential-algebraic Integro-differential Fractional Linear Non-linear Holonomic Attributes of variables Dependent and independent variables Homogeneous Nonhomogeneous Coupled Decoupled Order Degree Autonomous Exact differential equation On jet bundles Relation to processes Difference (discrete analogue) Stochastic Stochastic partial Delay Solutions Existence/uniqueness Picard–Lindelöf theorem Peano existence theorem Carathéodory's existence theorem Cauchy–Kowalevski theorem Solution topics Wronskian Phase portrait Phase space Lyapunov stability Asymptotic stability Exponential stability Rate of convergence Series solutions Integral solutions Numerical integration Dirac delta function Solution methods Inspection Substitution Separation of variables Method of undetermined coefficients Variation of parameters Integrating factor Integral transforms Euler method Finite difference method Crank–Nicolson method Runge–Kutta methods Finite element method Finite volume method Galerkin method Perturbation theory Examples List of named differential equations List of linear ordinary differential equations List of nonlinear ordinary differential equations List of nonlinear partial differential equations Mathematicians Isaac Newton Gottfried Wilhelm Leibniz Leonhard Euler Jacob Bernoulli Émile Picard Józef Maria Hoene-Wroński Ernst Lindelöf Rudolf Lipschitz Joseph-Louis Lagrange Augustin-Louis Cauchy John Crank Phyllis Nicolson Carl David Tolmé Runge Martin Kutta Sofya Kovalevskaya Authority control databases National Germany United States France BnF data Israel Other Yale LUX Retrieved from " https://en.wikipedia.org/w/index.php?title=Finite_volume_method&oldid=1225913166 " Categories : Numerical differential equations Computational fluid dynamics Numerical analysis Hidden categories: CS1 maint: location missing publisher Articles with short description Short description matches Wikidata This page was last edited on 27 May 2024, at 13:43 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Finite volume method 14 languages Add topic
+

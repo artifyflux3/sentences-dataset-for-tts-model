@@ -1,0 +1,227 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Other time measurements 2 History 3 Implementation 4 Retrieving the current system time Toggle Retrieving the current system time subsection 4.1 Operating systems 4.2 Programming languages and applications 5 See also 6 Notes 7 References 8 External links Toggle the table of contents System time 13 languages Azərbaycanca Español 한국어 हिन्दी Hrvatski עברית 日本語 Polski Português Русский Türkçe Українська 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Representation of time used in computers "System clock" redirects here; not to be confused with Clock generator , Clock signal , or Clock rate .
+
+Unix date command In computing , system time represents a computer system's notion of a point in time .
+
+System time is measured by a system clock , which is typically implemented as a simple count of the number of ticks that have transpired since some arbitrary starting date, called the epoch . For example, Unix and POSIX -compliant systems encode system time (" Unix time ") as the number of seconds elapsed since the start of the Unix epoch at 1 January 1970 00:00:00 UT , with exceptions for leap seconds . Systems that implement the 32-bit and 64-bit versions of the Windows API , such as Windows 9x and Windows NT , provide the system time as both SYSTEMTIME , represented as a year/month/day/hour/minute/second/milliseconds value, and FILETIME , represented as a count of the number of 100-nanosecond ticks since 1 January 1601 00:00:00 UT as reckoned in the proleptic Gregorian calendar .
+
+System time can be converted into calendar time , which is a form more suitable for human comprehension. For example, the Unix system time 1 000 000 000 seconds since the beginning of the epoch translates into the calendar time 9 September 2001 01:46:40 UT . Library subroutines that handle such conversions may also deal with adjustments for time zones , daylight saving time (DST), leap seconds, and the user's locale settings. Library routines are also generally provided that convert calendar times into system times.
+
+Many implementations that currently store system times as 32-bit integer values will suffer from problems such as the impending Year 2038 problem . These time values will overflow ("run out of bits") after the end of their system time epoch, leading to software and hardware errors . These systems will require some form of remediation, similar to efforts required to solve the earlier Year 2000 problem . This will also be a potentially much larger problem for existing data file formats that contain system timestamps stored as 32-bit values.
+
+Other time measurements [ edit ] Closely related to system time is process time , which is a count of the total CPU time consumed by an executing process . It may be split into user and system CPU time, representing the time spent executing user code and system kernel code, respectively. Process times are a tally of the time taken by CPU instructions or clock cycles and generally have no direct correlation to wall time .
+
+File systems keep track of the times that files are created, modified, and/or accessed by storing timestamps in the file control block (or inode ) of each file and directory .
+
+History [ edit ] Most first-generation personal computers did not keep track of dates and times. These included systems that ran the CP/M operating system, as well as early models of the Apple II , the BBC Micro , and the Commodore PET , among others. Add-on peripheral boards that included real-time clock chips with on-board battery back-up were available for the IBM PC and XT , but the IBM AT was the first widely available PC that came equipped with date/time hardware built into the motherboard . Prior to the widespread availability of computer networks , most personal computer systems that did track system time did so only with respect to local time and did not make allowances for different time zones .
+
+With current technology, most modern computers keep track of local civil time, as do many other household and personal devices such as VCRs , DVRs , cable TV receivers , PDAs , pagers , cell phones , fax machines , telephone answering machines , cameras , camcorders , central air conditioners , and microwave ovens .
+
+Microcontrollers operating within embedded systems (such as the Raspberry Pi , Arduino , and other similar systems ) do not always have internal hardware to keep track of time. Many such controller systems operate without knowledge of the external time. Those that require such information typically initialize their base time upon rebooting by obtaining the current time from an external source, such as from a time server or external clock, or by prompting the user to manually enter the current time.
+
+Implementation [ edit ] The system clock is typically implemented as a programmable interval timer that periodically interrupts the CPU, which then starts executing a timer interrupt service routine. This routine typically adds one tick to the system clock (a simple counter) and handles other periodic housekeeping tasks ( preemption , etc.) before returning to the task the CPU was executing before the interruption.
+
+Retrieving the current system time [ edit ] 16 August 2025  08:52:39 UTC The Wikipedia system time when this page was last generated.
+
+→ Purge this page, and update this counter.
+
+The following tables illustrate methods for retrieving the current system time in various operating systems , programming languages , and applications . Values marked by (*) are system-dependent and may differ across implementations. All dates are given as Gregorian or proleptic Gregorian calendar dates.
+
+The resolution of an implementation's measurement of time does not imply the same precision of such measurements. For example, a system might return the current time as a value measured in microseconds, but actually be capable of discerning individual clock ticks with a frequency of only 100 Hz (10 ms).
+
+Operating systems [ edit ] Operating system Command or function Resolution Epoch or range Android java.lang .System.currentTimeMillis() 1 ms 1 January 1970 BIOS ( IBM PC ) INT 1Ah, AH=00h [ 1 ] 54.9254 ms 18.2065 Hz Midnight of the current day INT 1Ah, AH=02h [ 2 ] 1 s Midnight of the current day INT 1Ah, AH=04h [ 3 ] 1 day 1 January 1980 to 31 December 1999 or 31 December 2079 (system dependent) CP/M Plus System Control Block: [ 4 ] scb$base+58h , Days since 31 December 1977 scb$base+5Ah , Hour (BCD) scb$base+5Bh , Minute (BCD) scb$base+5Ch , Second (BCD) 1 s 31 December 1977 to 5 June 2157 BDOS function 69h > ( T_GET ): [ 5 ] word , Days since 1 January 1978 byte , Hour (BCD) byte , Minute (BCD) byte , Second (BCD) DOS ( Microsoft ) C:\> DATE C:\> TIME 10 ms 1 January 1980 to 31 December 2099 INT 21h, AH=2Ch SYSTEM TIME [ 6 ] INT 21h, AH=2Ah SYSTEM DATE [ 7 ] macOS , iOS , iPadOS , tvOS , watchOS , visionOS ( Apple ) CFAbsoluteTimeGetCurrent() [ 8 ] < 1 ms [ 9 ] [ note 1 ] 1 January 2001 ±10,000 years [ 9 ] [ note 1 ] OpenVMS SYS$GETTIM() 100 ns [ 10 ] 17 November 1858 to 31 July 31,086 [ 11 ] gettimeofday () 1 μs [ 12 ] 1 January 1970 to 7 February 2106 [ 13 ] clock_gettime () 1 ns [ 12 ] z/OS STCK [ 14 ] : 7–187 2 −12 μs 244.14 ps [ 14 ] : 4–45, 4–46 1 January 1900 to 17 September 2042 UT [ 15 ] STCKE 1 January 1900 to AD 36,765 [ 16 ] Unix , POSIX (see also C date and time functions ) $ date time() 1 s (*) 32-bit time_t : 1 January 1970 to 19 January 2038 64-bit time_t : 1 January 1970 to 4 December AD 292,277,026,596 gettimeofday () 1 μs clock_gettime () 1 ns OS/2 DosGetDateTime() 10 ms 1 January 1980 to 31 December 2079 [ 17 ] Windows GetSystemTime() 1 ms 1 January 1601 to 14 September 30828, 02:48:05.4775807 GetSystemTimeAsFileTime() 100 ns GetSystemTimePreciseAsFileTime() Programming languages and applications [ edit ] Language/Application Function or variable Resolution Epoch or range Ada Ada.Calendar.Clock 100 μs to 20 ms (*) 1 January 1901 to 31 December 2099 (*) AWK systime() 1 s (*) BASIC , True BASIC DATE , DATE$ TIME , TIME$ 1 s (*) Business BASIC DAY , TIM 0.1 s (*) C (see C date and time functions ) time() 1 s (*) [ note 2 ] (*) [ note 2 ] C++ std::time() std::chrono::system_clock::now() 1 s (*) [ note 2 ] 1 ns (C++11, OS dependent) (*) [ note 2 ] C# System.DateTime.Now [ 18 ] System.DateTime.UtcNow [ 19 ] 100 ns [ 20 ] 1 January 0001 to 31 December 9999 CICS ASKTIME 1 ms 1 January 1900 COBOL FUNCTION CURRENT-DATE 1 s 1 January 1601 Common Lisp (get-universal-time) 1 s 1 January 1900 Delphi ( Borland ) date time 1 ms (floating point) 1 January 1900 Delphi ( Embarcadero Technologies ) [ 21 ] System.SysUtils.Time [ 22 ] 1 ms 0/0/0000 0:0:0:000 to 12/31/9999 23:59:59:999 [sic] System.SysUtils.GetTime [ 23 ] (alias for System.SysUtils.Time ) System.SysUtils.Date [ 24 ] 0/0/0000 0:0:0:000 to 12/31/9999 0:0:0:000 [sic] System.DateUtils.Today [ 25 ] System.DateUtils.Tomorrow [ 26 ] System.DateUtils.Yesterday [ 27 ] System.SysUtils.Now [ 28 ] 1 s 0/0/0000 0:0:0:000 to 12/31/9999 23:59:59:000 [sic] System.SysUtils.DayOfWeek [ 29 ] 1 day 1 to 7 System.SysUtils.CurrentYear [ 30 ] 1 year (*) Emacs Lisp (current-time) 1 μs (*) 1 January 1970 Erlang erlang:system_time() , os:system_time() [ 31 ] OS dependent, e.g. on Linux 1ns [ 31 ] 1 January 1970 [ 31 ] Excel date() ?
+
+0 January 1900 [ 32 ] Fortran DATE_AND_TIME SYSTEM_CLOCK (*) [ 33 ] [ 34 ] 1 January 1970 CPU_TIME 1 μs Go time.Now() 1 ns 1 January 0001 Haskell Time.getClockTime 1 ps (*) 1 January 1970 (*) Data.Time.getCurrentTime 1 ps (*) 17 November 1858 (*) Java java.util.Date() System.currentTimeMillis() 1 ms 1 January 1970 System.nanoTime() [ 35 ] 1 ns arbitrary [ 35 ] Clock.systemUTC() [ 36 ] 1 ns arbitrary [ 37 ] JavaScript , TypeScript (new Date()).getTime() Date.now() 1 ms 1 January 1970 Matlab now 1 s 0 January 0000 [ 38 ] MUMPS $H ( short for $HOROLOG ) 1 s 31 December 1840 LabVIEW Tick Count 1 ms 00:00:00.000 1 January 1904 Get Date/Time in Seconds 1 ms 00:00:00.000 1 January 1904 Objective-C [NSDate timeIntervalSinceReferenceDate] < 1 ms [ 39 ] 1 January 2001 ±10,000 Years [ 39 ] OCaml Unix.time() 1 s 1 January 1970 Unix.gettimeofday() 1 μs Extended Pascal GetTimeStamp() 1 s (*) Turbo Pascal GetTime() GetDate() 10 ms (*) Perl time() 1 s 1 January 1970 Time::HiRes::time [ 40 ] 1 μs PHP time() mktime() 1 s 1 January 1970 microtime() 1 μs PureBasic Date() 1 s 1 January 1970 to 19 January 2038 Python datetime.now().timestamp() 1 μs (*) 1 January 1970 RPG CURRENT(DATE) , %DATE CURRENT(TIME) , %TIME 1 s 1 January 0001 to 31 December 9999 CURRENT(TIMESTAMP) , %TIMESTAMP 1 μs Ruby Time.now() [ 41 ] 1 μs (*) 1 January 1970 (to 19 January 2038 prior to Ruby 1.9.2 [ 42 ] ) Scheme (get-universal-time) [ 43 ] 1 s 1 January 1900 Smalltalk Time microsecondClock (VisualWorks) 1 s (ANSI) 1 μs (VisualWorks) 1 s (Squeak) 1 January 1901 (*) Time totalSeconds (Squeak) SystemClock ticksNowSinceSystemClockEpoch (Chronos) SQL CURDATE() or CURRENT DATE CURTIME() or CURRENT TIME GETDATE() or GETUTCDATE() NOW() or CURRENT TIMESTAMP SYSDATE() 3 ms 1 January 1753 to 31 December 9999 (*) 1 min 1 January 1900 to 6 June 2079 Standard ML Time.now() 1 μs (*) 1 January 1970 (*) TCL [clock seconds] 1 s 1 January 1970 [clock milliseconds] 1 ms [clock microseconds] 1 μs [clock clicks] 1 μs (*) (*) Windows PowerShell Get-Date [ 44 ] [ 45 ] 100 ns [ 20 ] 1 January 0001 to 31 December 9999 [DateTime]::Now [ 18 ] [DateTime]::UtcNow [ 19 ] Visual Basic .NET System.DateTime.Now [ 18 ] System.DateTime.UtcNow [ 19 ] 100 ns [ 20 ] 1 January 0001 to 31 December 9999 See also [ edit ] Calendar DATE (command) Epoch GPS time Jiffy Network Time Protocol rdate TIME (command) time.h time_t Time formatting and storage bugs Time Protocol Time standard Timestamp Unix date command Unix time Unix time command Elapsed real time Year 2000 problem Year 2038 problem Notes [ edit ] ^ a b The Apple Developer Documentation is not clear on the precision & range of CFAbsoluteTime/CFTimeInterval, except in the CFRunLoopTimerCreate documentation which refers to 'sub-millisecond at most' precision. However, the similar type NSTimeInterval appears to be interchangeable, and has the precision and range listed.
+
+^ a b c d The C standard library does not specify any specific resolution, epoch, range, or datatype for system time values . The C++ library encompasses the C library, so it uses the same system time implementation as C.
+
+References [ edit ] ^ Ralf D. Brown (2000).
+
+"Int 0x1A, AH=0x00" .
+
+Ralf Brown's Interrupt List .
+
+^ Ralf D. Brown (2000).
+
+"Int 0x1A, AH=0x02" .
+
+Ralf Brown's Interrupt List .
+
+^ Ralf D. Brown (2000).
+
+"Int 0x1A, AH=0x04" .
+
+Ralf Brown's Interrupt List .
+
+^ "CP/M Plus (CP/M Version 3.0) Operating System Guide" (PDF) .
+
+^ "BDOS system calls" .
+
+^ Ralf D. Brown (2000).
+
+"Int 0x21, AH=0x2c" .
+
+Ralf Brown's Interrupt List .
+
+^ Ralf D. Brown (2000).
+
+"Int 0x21, AH=0x2a" .
+
+Ralf Brown's Interrupt List .
+
+^ "CFAbsoluteTimeGetCurrent" .
+
+Apple Developer Documentaton . 2007.
+
+^ a b "CFRunLoopTimerCreate" .
+
+Apple Developer Documentation . Retrieved 5 August 2025 .
+
+^ Ruth E. Goldenberg; Lawrence J. Kenah; Denise E. Dumas (1991).
+
+VAX/VMS Internals and Data Structures, Version 5.2 . Digital Press.
+
+ISBN 978-1555580599 .
+
+^ "Why is Wednesday, November 17, 1858 the base time for OpenVMS (VAX VMS)?" .
+
+Stanford University . 24 July 1997.
+
+Archived from the original on 24 July 1997 . Retrieved 8 January 2020 .
+
+^ a b "VSI C Run-Time Library Reference Manual for OpenVMS Systems" (PDF) . VSI. November 2020 . Retrieved 2021-04-17 .
+
+^ "OpenVMS and the year 2038" . HP . Retrieved 2021-04-17 .
+
+^ a b z/Architecture Principles of Operation (PDF) . Poughkeepsie, New York: International Business Machines. 2007.
+
+^ IBM intends to extend the date range on future systems beyond 2042.
+
+z/Architecture Principles of Operation , (Poughkeepsie, New York:International Business Machines, 2007) 1-15, 4-45 to 4-47.
+
+^ "Expanded 64-bit time values" . IBM . Retrieved 2021-04-18 .
+
+^ Jonathan de Boyne Pollard.
+
+"The 32-bit Command Interpreter" .
+
+On OS/2 Warp 4, date and time can both operate well beyond the year 2000, and even well beyond the year 2038, and in fact up to the year 2079, which is the limit for OS/2 Warp 4's real-time clock.
+
+^ a b c "DateTime.Now Property" .
+
+Microsoft Docs .
+
+^ a b c "DateTime.UtcNow Property" .
+
+Microsoft Docs .
+
+^ a b c "DateTime.Ticks Property" .
+
+Microsoft Docs .
+
+^ "Date and Time Support" .
+
+Embarcadero Developer Network . 2013.
+
+^ "System.SysUtils.Time" .
+
+Embarcadero Developer Network . 2013.
+
+^ "System.SysUtils.GetTime" .
+
+Embarcadero Developer Network . 2013.
+
+^ "System.SysUtils.Date" .
+
+Embarcadero Developer Network' . 2013.
+
+^ "System.DateUtils.Today" .
+
+Embarcadero Developer Network . 2013.
+
+^ "System.DateUtils.Tomorrow" .
+
+Embarcadero Developer Network . 2013.
+
+^ "System.DateUtils.Yesterday" .
+
+Embarcadero Developer Network . 2013.
+
+^ "System.SysUtils.Now" .
+
+Embarcadero Developer Network . 2013.
+
+^ "System.SysUtils.DayOfWeek" .
+
+Embarcadero Developer Network . 2013.
+
+^ "System.SysUtils.CurrentYear" .
+
+Embarcadero Developer Network . 2013.
+
+^ a b c "Time and Time Correction in Erlang" .
+
+www.erlang.org .
+
+^ "XL2000: Early Dates on Office Spreadsheet Component Differ from Excel" .
+
+Microsoft Support . 2003. Archived from the original on 24 October 2007.
+
+In the Microsoft Office Spreadsheet Component, the value 0 evaluates to the date December 30, 1899 and the value 1 evaluates to December 31, 1899. ... In Excel, the value 0 evaluates to January 0, 1900 and the value 1 evaluates to January 1, 1900.
+
+^ "SYSTEM_CLOCK" .
+
+Intel Fortran Compiler 19.0 Developer Guide and Reference . 29 April 2019 . Retrieved 23 July 2019 .
+
+^ "SYSTEM_CLOCK — Time function" .
+
+The GNU Fortran Compiler . Retrieved 27 October 2011 .
+
+^ a b "System.nanoTime() method" .
+
+Java Platform, Standard Edition 6: API Specification . 2015 . Retrieved 23 July 2019 .
+
+^ "Clock.systemUTC() and other methods" .
+
+Java Platform, Standard Edition 8: API Specification . 2014 . Retrieved 15 January 2015 .
+
+^ "JSR-310 Java Time System" .
+
+Java Platform, Standard Edition 8: API Specification . 2014 . Retrieved 15 January 2015 .
+
+^ "Matlab Help" .
+
+^ a b "NSTimeInterval - Foundation" .
+
+Apple Developer Documentation .
+
+^ Douglas Wegscheild, R. Schertler,  and Jarkko Hietaniemi, "Time::HiRes" .
+
+CPAN - Comprehensive Perl Archive Network . 2011 . Retrieved 27 October 2011 .
+
+^ "Time class" .
+
+^ Yugui (18 August 2010).
+
+"Ruby 1.9.2 is released" .
+
+The new 1.9.2 is almost compatible with 1.9.1, except these changes: ... Time is reimplemented. The bug with year 2038 is fixed.
+
+^ "MIT/GNU Scheme 9.2: 15.5 Date and Time" .
+
+^ "Using the Get-Date Cmdlet" .
+
+Microsoft Docs . 22 October 2009 . Retrieved 23 July 2019 .
+
+^ "Windows PowerShell Tip of the Week – Formatting Dates and Times" .
+
+Microsoft Docs . 26 May 2010 . Retrieved 23 July 2019 .
+
+External links [ edit ] Critical and Significant Dates , J. R. Stockton (retrieved 3 December 2015) The Boost Date/Time Library (C++) The Boost Chrono Library (C++) The Chronos Date/Time Library (Smalltalk) Joda Time , The Joda Date/Time Library (Java) The Perl DateTime Project Archived 2009-02-19 at the Wayback Machine (Perl) date: Ruby Standard Library Documentation (Ruby) v t e Time Key concepts Past Present Future Eternity Measurement and standards Chronometry UTC Universal Time TAI Unit of time Orders of magnitude (time) Measurement systems Italian six-hour clock Thai six-hour clock 12-hour clock 24-hour clock Relative hour Daylight saving time Chinese Decimal Hexadecimal Hindu Metric Roman Sidereal Solar Time zone Calendars Main types Solar Lunar Lunisolar Gregorian Julian Hebrew Islamic Solar Hijri Chinese Hindu Panchang Maya List Clocks Main types astronomical astrarium atomic quantum hourglass marine sundial watch 24-hour wristwatch mechanical stopwatch water-based Cuckoo clock Digital clock Grandfather clock History Timeline Chronology History Astronomical chronology Big History Calendar era Deep time Periodization Regnal year Timeline Philosophy of time A series and B series B-theory of time Chronocentrism Duration Endurantism Eternal return Eternalism Event Moving spotlight theory Perdurantism Presentism Temporal finitism Temporal parts The Unreality of Time Religion Mythology Ages of Man Destiny Immortality Dreamtime Kāla Time and fate deities Father Time Wheel of time Kalachakra Human experience and use of time Chronemics Generation time Mental chronometry Music tempo time signature Rosy retrospection Tense–aspect–mood Time management Yesterday – Today – Tomorrow Time in science Geology Geological time age chron eon epoch era period Geochronology Geological history of Earth Physics Absolute space and time Arrow of time Chronon Coordinate time Instant Proper time Spacetime Theory of relativity Time domain Time translation symmetry Time reversal symmetry Other fields Chronological dating Chronobiology Circadian rhythms Clock reaction Glottochronology Time geography Related Leap year Memory Moment Six-hour day Space System time Tempus fugit Time capsule Time immemorial Time travel Category Commons v t e Time measurement and standards Chronometry Orders of magnitude Metrology International standards Coordinated Universal Time offset UT ΔT DUT1 International Earth Rotation and Reference Systems Service ISO 31-1 ISO 8601 International Atomic Time 12-hour clock 24-hour clock Barycentric Coordinate Time Barycentric Dynamical Time Civil time Daylight saving time Geocentric Coordinate Time International Date Line IERS Reference Meridian Leap second Solar time Terrestrial Time Time zone 180th meridian Obsolete standards Ephemeris time Greenwich Mean Time Prime meridian Time in physics Absolute space and time Spacetime Chronon Continuous signal Coordinate time Cosmological decade Discrete time and continuous time Proper time Theory of relativity Time dilation Gravitational time dilation Time domain Time-translation symmetry T-symmetry Horology Clock Astrarium Atomic clock Complication History of timekeeping devices Hourglass Marine chronometer Marine sandglass Radio clock Watch stopwatch Water clock Sundial Dialing scales Equation of time History of sundials Sundial markup schema Calendar Gregorian Hebrew Hindu Holocene Islamic (lunar Hijri) Julian Solar Hijri Astronomical Dominical letter Epact Equinox Intercalation Julian day Leap year Lunar Lunisolar Solar Solstice Tropical year Weekday determination Weekday names Archaeology and geology Chronological dating Geologic time scale International Commission on Stratigraphy Astronomical chronology Galactic year Nuclear timescale Precession Sidereal time Other units of time Instant Flick Shake Jiffy Second Minute Moment Hour Day Week Fortnight Month Year Olympiad Lustrum Decade Century Saeculum Millennium Related topics Chronology Duration music Mental chronometry Decimal time Metric time System time Time metrology Time value of money Timekeeper Retrieved from " https://en.wikipedia.org/w/index.php?title=System_time&oldid=1304559200 " Categories : Operating system technology Computer programming Computer real-time clocks Hidden categories: Articles with short description Short description is different from Wikidata Webarchive template wayback links This page was last edited on 6 August 2025, at 19:36 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents System time 13 languages Add topic
+

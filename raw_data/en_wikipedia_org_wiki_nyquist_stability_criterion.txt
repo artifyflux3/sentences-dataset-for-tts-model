@@ -1,0 +1,133 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Nyquist plot 2 Background 3 Cauchy's argument principle 4 Definition 5 The Nyquist criterion for systems with poles on the imaginary axis 6 Mathematical derivation 7 Importance 8 Summary 9 See also 10 References 11 Further reading 12 External links Toggle the table of contents Nyquist stability criterion 19 languages العربية Български Català Čeština Deutsch فارسی Français हिन्दी Italiano Nederlands Polski Português Русский Shqip Српски / srpski Türkçe Українська Tiếng Việt 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Graphical method of determining the stability of a dynamical system The Nyquist plot for G ( s ) = 1 s 2 + s + 1 {\displaystyle G(s)={\frac {1}{s^{2}+s+1}}} with s = jω .
+
+In control theory and stability theory , the Nyquist stability criterion or Strecker–Nyquist stability criterion , independently discovered by the German electrical engineer Felix Strecker [ de ] at Siemens in 1930 [ 1 ] [ 2 ] [ 3 ] and the Swedish-American electrical engineer Harry Nyquist at Bell Telephone Laboratories in 1932, [ 4 ] is a graphical technique for determining the stability of a linear dynamical system .
+
+Because it only looks at the Nyquist plot of the open loop systems , it can be applied without explicitly computing the poles and zeros of either the closed-loop or open-loop system (although the number of each type of right-half-plane singularities must be known). As a result, it can be applied to systems defined by non- rational functions , such as systems with delays. In contrast to Bode plots , it can handle transfer functions with right half-plane singularities. In addition, there is a natural generalization to more complex systems with multiple inputs and multiple outputs , such as control systems for airplanes.
+
+The Nyquist stability criterion is widely used in electronics and control system engineering , as well as other fields, for designing and analyzing systems with feedback . While Nyquist is one of the most general stability tests, it is still restricted to linear time-invariant (LTI) systems. Nevertheless, there are generalizations of the Nyquist criterion (and plot) for non-linear systems, such as the circle criterion and the scaled relative graph of a nonlinear operator .
+
+[ 5 ] Additionally, other stability criteria like Lyapunov methods can also be applied for non-linear systems.
+
+Although Nyquist is a graphical technique, it only provides a limited amount of intuition for why a system is stable or unstable, or how to modify an unstable system to be stable. Techniques like Bode plots , while less general, are sometimes a more useful design tool.
+
+Nyquist plot [ edit ] A Nyquist plot.  Although the frequencies are not indicated on the curve, it can be inferred that the zero-frequency point is on the right, and the curve spirals toward the origin at high frequency.  This is because gain at zero frequency must be purely real (on the X -axis) and is commonly non-zero, while most physical processes have some amount of low-pass filtering, so the high-frequency response is zero.
+
+A Nyquist plot is a parametric plot of a frequency response used in automatic control and signal processing .  The most common use of Nyquist plots is for assessing the stability of a system with feedback .  In Cartesian coordinates , the real part of the transfer function is plotted on the X -axis while the imaginary part is plotted on the Y -axis. The frequency is swept as a parameter, resulting in one point per frequency.  The same plot can be described using polar coordinates , where gain of the transfer function is the radial coordinate, and the phase of the transfer function is the corresponding angular coordinate.  The Nyquist plot is named after Harry Nyquist , a former engineer at Bell Laboratories .
+
+Assessment of the stability of a closed-loop negative feedback system is done by applying the Nyquist stability criterion to the Nyquist plot of the open-loop system (i.e. the same system without its feedback loop ). This method is easily applicable even for systems with delays and other non-rational transfer functions, which may appear difficult to analyze with other methods. Stability is determined by looking at the number of encirclements of the point (−1, 0). The range of gains over which the system will be stable can be determined by looking at crossings of the real axis.
+
+The Nyquist plot can provide some information about the shape of the transfer function. For instance, the plot provides information on the difference between the number of zeros and poles of the transfer function [ 6 ] by the angle at which the curve approaches the origin.
+
+When drawn by hand, a cartoon version of the Nyquist plot is sometimes used, which shows the linearity of the curve, but where coordinates are distorted to show more detail in regions of interest. When plotted computationally, one needs to be careful to cover all frequencies of interest. This typically means that the parameter is swept logarithmically, in order to cover a wide range of values.
+
+Background [ edit ] The mathematics uses the Laplace transform , which transforms integrals and derivatives in the time domain to simple multiplication and division in the s domain.
+
+We consider a system whose transfer function is G ( s ) {\displaystyle G(s)} ; when placed in a closed loop with negative feedback H ( s ) {\displaystyle H(s)} , the closed loop transfer function (CLTF) then becomes: G ( s ) 1 + G ( s ) H ( s ) {\displaystyle {\frac {G(s)}{1+G(s)H(s)}}} Stability can be determined by examining the roots of the desensitivity factor polynomial 1 + G ( s ) H ( s ) {\displaystyle 1+G(s)H(s)} , e.g. using the Routh array , but this method is somewhat tedious. Conclusions can also be reached by examining the open loop transfer function (OLTF) G ( s ) H ( s ) {\displaystyle G(s)H(s)} , using its Bode plots or, as here, its polar plot using the Nyquist criterion, as follows.
+
+Any Laplace domain transfer function T ( s ) {\displaystyle {\mathcal {T}}(s)} can be expressed as the ratio of two polynomials : T ( s ) = N ( s ) D ( s ) .
+
+{\displaystyle {\mathcal {T}}(s)={\frac {N(s)}{D(s)}}.} The roots of N ( s ) {\displaystyle N(s)} are called the zeros of T ( s ) {\displaystyle {\mathcal {T}}(s)} , and the roots of D ( s ) {\displaystyle D(s)} are the poles of T ( s ) {\displaystyle {\mathcal {T}}(s)} . The poles of T ( s ) {\displaystyle {\mathcal {T}}(s)} are also said to be the roots of the characteristic equation D ( s ) = 0 {\displaystyle D(s)=0} .
+
+The stability of T ( s ) {\displaystyle {\mathcal {T}}(s)} is determined by the values of its poles: for stability, the real part of every pole must be negative. If T ( s ) {\displaystyle {\mathcal {T}}(s)} is formed by closing a negative unity feedback loop around the open-loop transfer function, G ( s ) H ( s ) = A ( s ) B ( s ) {\displaystyle G(s)H(s)={\frac {A(s)}{B(s)}}} then the roots of the characteristic equation are also the zeros of 1 + G ( s ) H ( s ) {\displaystyle 1+G(s)H(s)} , or simply the roots of A ( s ) + B ( s ) = 0 {\displaystyle A(s)+B(s)=0} .
+
+Cauchy's argument principle [ edit ] Main article: Argument principle From complex analysis ,  a contour Γ Γ s {\displaystyle \Gamma _{s}} drawn in the complex s {\displaystyle s} plane,  encompassing but not passing through any number of zeros and poles of a function F ( s ) {\displaystyle F(s)} , can be mapped to another plane (named F ( s ) {\displaystyle F(s)} plane) by the function F {\displaystyle F} . Precisely, each complex point s {\displaystyle s} in the contour Γ Γ s {\displaystyle \Gamma _{s}} is mapped to the point F ( s ) {\displaystyle F(s)} in the new F ( s ) {\displaystyle F(s)} plane yielding a new contour.
+
+The Nyquist plot of F ( s ) {\displaystyle F(s)} , which is the contour Γ Γ F ( s ) = F ( Γ Γ s ) {\displaystyle \Gamma _{F(s)}=F(\Gamma _{s})} will encircle the point s = − − 1 / k + j 0 {\displaystyle s={-1/k+j0}} of the F ( s ) {\displaystyle F(s)} plane N {\displaystyle N} times, where N = P − − Z {\displaystyle N=P-Z} by Cauchy's argument principle . Here Z {\displaystyle Z} and P {\displaystyle P} are, respectively, the number of zeros of 1 + k F ( s ) {\displaystyle 1+kF(s)} and poles of F ( s ) {\displaystyle F(s)} inside the contour Γ Γ s {\displaystyle \Gamma _{s}} . Note that we count encirclements in the F ( s ) {\displaystyle F(s)} plane in the same sense as the contour Γ Γ s {\displaystyle \Gamma _{s}} and that encirclements in the opposite direction are negative encirclements.  That is, we consider clockwise encirclements to be positive and counterclockwise encirclements to be negative.
+
+Instead of Cauchy's argument principle, the original paper by Harry Nyquist in 1932 uses a less elegant approach. The approach explained here is similar to the approach used by Leroy MacColl (Fundamental theory of servomechanisms 1945) or by Hendrik Bode (Network analysis and feedback amplifier design 1945), both of whom also worked for Bell Laboratories . This approach appears in most modern textbooks on control theory.
+
+Definition [ edit ] We first construct the Nyquist contour , a contour that encompasses the right-half of the complex plane: a path traveling up the j ω ω {\displaystyle j\omega } axis, from 0 − − j ∞ ∞ {\displaystyle 0-j\infty } to 0 + j ∞ ∞ {\displaystyle 0+j\infty } .
+
+a semicircular arc, with radius r → → ∞ ∞ {\displaystyle r\to \infty } , that starts at 0 + j ∞ ∞ {\displaystyle 0+j\infty } and travels clock-wise to 0 − − j ∞ ∞ {\displaystyle 0-j\infty } .
+
+The Nyquist contour mapped through the function 1 + G ( s ) {\displaystyle 1+G(s)} yields a plot of 1 + G ( s ) {\displaystyle 1+G(s)} in the complex plane. By the argument principle, the number of clockwise encirclements of the origin must be the number of zeros of 1 + G ( s ) {\displaystyle 1+G(s)} in the right-half complex plane minus the number of poles of 1 + G ( s ) {\displaystyle 1+G(s)} in the right-half complex plane. If instead, the contour is mapped through the open-loop transfer function G ( s ) {\displaystyle G(s)} , the result is the Nyquist Plot of G ( s ) {\displaystyle G(s)} . By counting the resulting contour's encirclements of −1, we find the difference between the number of poles and zeros in the right-half complex plane of 1 + G ( s ) {\displaystyle 1+G(s)} . Recalling that the zeros of 1 + G ( s ) {\displaystyle 1+G(s)} are the poles of the closed-loop system, and noting that the poles of 1 + G ( s ) {\displaystyle 1+G(s)} are same as the poles of G ( s ) {\displaystyle G(s)} , we now state the Nyquist Criterion : Given a Nyquist contour Γ Γ s {\displaystyle \Gamma _{s}} , let P {\displaystyle P} be the number of poles of G ( s ) {\displaystyle G(s)} encircled by Γ Γ s {\displaystyle \Gamma _{s}} , and Z {\displaystyle Z} be the number of zeros of 1 + G ( s ) {\displaystyle 1+G(s)} encircled by Γ Γ s {\displaystyle \Gamma _{s}} .  Alternatively, and more importantly, if Z {\displaystyle Z} is the number of poles of the closed loop system in the right half plane, and P {\displaystyle P} is the number of poles of the open-loop transfer function G ( s ) {\displaystyle G(s)} in the right half plane, the resultant contour in the G ( s ) {\displaystyle G(s)} -plane, Γ Γ G ( s ) {\displaystyle \Gamma _{G(s)}} shall encircle (clockwise) the point ( − − 1 + j 0 ) {\displaystyle (-1+j0)} N {\displaystyle N} times such that N = Z − − P {\displaystyle N=Z-P} .
+
+If the system is originally open-loop unstable, feedback is necessary to stabilize the system.  Right-half-plane (RHP) poles represent that instability.  For closed-loop stability of a system, the number of closed-loop roots in the right half of the s -plane must be zero. Hence, the number of counter-clockwise encirclements about − − 1 + j 0 {\displaystyle -1+j0} must be equal to the number of open-loop poles in the RHP.  Any clockwise encirclements of the critical point by the open-loop frequency response (when judged from low frequency to high frequency) would indicate that the feedback control system would be destabilizing if the loop were closed.  (Using RHP zeros to "cancel out" RHP poles does not remove the instability, but rather ensures that the system will remain unstable even in the presence of feedback, since the closed-loop roots travel between open-loop poles and zeros in the presence of feedback. In fact, the RHP zero can make the unstable pole unobservable and therefore not stabilizable through feedback.) The Nyquist criterion for systems with poles on the imaginary axis [ edit ] The above consideration was conducted with an assumption that the open-loop transfer function G ( s ) {\displaystyle G(s)} does not have any pole on the imaginary axis (i.e. poles of the form 0 + j ω ω {\displaystyle 0+j\omega } ). This results from the requirement of the argument principle that the contour cannot pass through any pole of the mapping function. The most common case are systems with integrators (poles at zero).
+
+To be able to analyze systems with poles on the imaginary axis, the Nyquist Contour can be modified to avoid passing through the point 0 + j ω ω {\displaystyle 0+j\omega } . One way to do it is to construct a semicircular arc with radius r → → 0 {\displaystyle r\to 0} around 0 + j ω ω {\displaystyle 0+j\omega } , that starts at 0 + j ( ω ω − − r ) {\displaystyle 0+j(\omega -r)} and travels anticlockwise to 0 + j ( ω ω + r ) {\displaystyle 0+j(\omega +r)} . Such a modification implies that the phasor G ( s ) {\displaystyle G(s)} travels along an arc of infinite radius by − − l π π {\displaystyle -l\pi } , where l {\displaystyle l} is the multiplicity of the pole on the imaginary axis.
+
+Mathematical derivation [ edit ] A unity negative feedback system G with scalar gain denoted by K Our goal is to, through this process, check for the stability of the transfer function of our unity feedback system with gain k , which is given by T ( s ) = k G ( s ) 1 + k G ( s ) {\displaystyle T(s)={\frac {kG(s)}{1+kG(s)}}} That is, we would like to check whether the characteristic equation of the above transfer function, given by D ( s ) = 1 + k G ( s ) = 0 {\displaystyle D(s)=1+kG(s)=0} has zeros outside the open left-half-plane (commonly initialized as OLHP).
+
+We suppose that we have a clockwise (i.e. negatively oriented) contour Γ Γ s {\displaystyle \Gamma _{s}} enclosing the right half plane, with indentations as needed to avoid passing through zeros or poles of the function G ( s ) {\displaystyle G(s)} .  Cauchy's argument principle states that − − 1 2 π π i ∮ ∮ Γ Γ s D ′ ( s ) D ( s ) d s = N = Z − − P {\displaystyle -{\frac {1}{2\pi i}}\oint _{\Gamma _{s}}{D'(s) \over D(s)}\,ds=N=Z-P} Where Z {\displaystyle Z} denotes the number of zeros of D ( s ) {\displaystyle D(s)} enclosed by the contour and P {\displaystyle P} denotes the number of poles of D ( s ) {\displaystyle D(s)} by the same contour.  Rearranging, we have Z = N + P {\displaystyle Z=N+P} , which is to say Z = − − 1 2 π π i ∮ ∮ Γ Γ s D ′ ( s ) D ( s ) d s + P {\displaystyle Z=-{\frac {1}{2\pi i}}\oint _{\Gamma _{s}}{D'(s) \over D(s)}\,ds+P} We then note that D ( s ) = 1 + k G ( s ) {\displaystyle D(s)=1+kG(s)} has exactly the same poles as G ( s ) {\displaystyle G(s)} .  Thus, we may find P {\displaystyle P} by counting the poles of G ( s ) {\displaystyle G(s)} that appear within the contour, that is, within the open right half plane (ORHP).
+
+We will now rearrange the above integral via substitution.  That is, setting u ( s ) = D ( s ) {\displaystyle u(s)=D(s)} , we have N = − − 1 2 π π i ∮ ∮ Γ Γ s D ′ ( s ) D ( s ) d s = − − 1 2 π π i ∮ ∮ u ( Γ Γ s ) 1 u d u {\displaystyle N=-{\frac {1}{2\pi i}}\oint _{\Gamma _{s}}{D'(s) \over D(s)}\,ds=-{\frac {1}{2\pi i}}\oint _{u(\Gamma _{s})}{1 \over u}\,du} We then make a further substitution, setting v ( u ) = u − − 1 k {\displaystyle v(u)={\frac {u-1}{k}}} .  This gives us N = − − 1 2 π π i ∮ ∮ u ( Γ Γ s ) 1 u d u = − − 1 2 π π i ∮ ∮ v ( u ( Γ Γ s ) ) 1 v + 1 / k d v {\displaystyle N=-{\frac {1}{2\pi i}}\oint _{u(\Gamma _{s})}{1 \over u}\,du=-{{1} \over {2\pi i}}\oint _{v(u(\Gamma _{s}))}{1 \over {v+1/k}}\,dv} We now note that v ( u ( Γ Γ s ) ) = D ( Γ Γ s ) − − 1 k = G ( Γ Γ s ) {\displaystyle v(u(\Gamma _{s}))={{D(\Gamma _{s})-1} \over {k}}=G(\Gamma _{s})} gives us the image of our contour under G ( s ) {\displaystyle G(s)} , which is to say our Nyquist plot .  We may further reduce the integral N = − − 1 2 π π i ∮ ∮ G ( Γ Γ s ) ) 1 v + 1 / k d v {\displaystyle N=-{\frac {1}{2\pi i}}\oint _{G(\Gamma _{s}))}{\frac {1}{v+1/k}}\,dv} by applying Cauchy's integral formula .  In fact, we find that the above integral corresponds precisely to the number of times the Nyquist plot encircles the point − − 1 / k {\displaystyle -1/k} clockwise.  Thus, we may finally state that Z = N + P = (number of times the Nyquist plot encircles − − 1 / k clockwise) + (number of poles of G ( s ) in ORHP) {\displaystyle {\begin{aligned}Z={}&N+P\\[6pt]={}&{\text{(number of times the Nyquist plot encircles }}{-1/k}{\text{ clockwise)}}\\&{}+{\text{(number of poles of }}G(s){\text{ in ORHP)}}\end{aligned}}} We thus find that T ( s ) {\displaystyle T(s)} as defined above corresponds to a stable unity-feedback system when Z {\displaystyle Z} , as evaluated above, is equal to 0.
+
+Importance [ edit ] The Nyquist stability criterion is a graphical technique that determines the stability of a dynamical system, such as a feedback control system. It is based on the argument principle and the Nyquist plot of the open-loop transfer function of the system. It can be applied to systems that are not defined by rational functions, such as systems with delays. It can also handle transfer functions with singularities in the right half-plane, unlike Bode plots. The Nyquist stability criterion can also be used to find the phase and gain margins of a system, which are important for frequency domain controller design.
+
+[ 7 ] Summary [ edit ] If the open-loop transfer function G ( s ) {\displaystyle G(s)} has a zero pole of multiplicity l {\displaystyle l} , then the Nyquist plot has a discontinuity at ω ω = 0 {\displaystyle \omega =0} . During further analysis it should be assumed that the phasor travels l {\displaystyle l} times clockwise along a semicircle of infinite radius. After applying this rule, the zero poles should be neglected, i.e. if there are no other unstable poles, then the open-loop transfer function G ( s ) {\displaystyle G(s)} should be considered stable.
+
+If the open-loop transfer function G ( s ) {\displaystyle G(s)} is stable, then the closed-loop system is unstable, if and only if, the Nyquist plot encircle the point −1 at least once.
+
+If the open-loop transfer function G ( s ) {\displaystyle G(s)} is unstable , then for the closed-loop system to be stable, there must be one counter -clockwise encirclement of −1 for each pole of G ( s ) {\displaystyle G(s)} in the right-half of the complex plane.
+
+The number of surplus encirclements ( N + P greater than 0) is exactly the number of unstable poles of the closed-loop system.
+
+However, if the graph happens to pass through the point − − 1 + j 0 {\displaystyle -1+j0} , then deciding upon even the marginal stability of the system becomes difficult and the only conclusion that can be drawn from the graph is that there exist zeros on the j ω ω {\displaystyle j\omega } axis.
+
+See also [ edit ] BIBO stability Bode plot Routh–Hurwitz stability criterion Root locus analysis Gain margin Nichols plot Hall circles Phase margin Barkhausen stability criterion Circle criterion Control engineering Hankel singular value References [ edit ] ^ Reinschke, Kurt (2014).
+
+"Chapter 4.3. Das Stabilitätskriterium von Strecker-Nyquist" .
+
+Lineare Regelungs- und Steuerungstheorie (in German) (2 ed.).
+
+Springer-Verlag . p. 184.
+
+ISBN 978-3-64240960-8 . Retrieved 2019-06-14 .
+
+^ Bissell, Christopher C. (2001).
+
+"Inventing the 'black box': mathematics as a neglected enabling technology in the history of communications engineering" (PDF) .
+
+Archived (PDF) from the original on 2019-06-14 . Retrieved 2019-06-14 .
+
+^ Strecker, Felix [in German] (1947).
+
+Die elektrische Selbsterregung mit einer Theorie der aktiven Netzwerke (in German). Stuttgart, Germany: S. Hirzel Verlag [ de ] .
+
+(NB. Earlier works can be found in the literature section.) ^ Nyquist, Harry (January 1932).
+
+"Regeneration Theory" .
+
+Bell System Technical Journal .
+
+11 (1). USA: American Telephone and Telegraph Company (AT&T): 126– 147.
+
+doi : 10.1002/j.1538-7305.1932.tb02344.x .
+
+S2CID 115002788 .
+
+^ Chaffey, Thomas; Forni, Fulvio; Sepulchre, Rodolphe (2023).
+
+"Graphical Nonlinear System Analysis" .
+
+IEEE Transactions on Automatic Control .
+
+68 (10): 6067– 6081.
+
+arXiv : 2107.11272 .
+
+doi : 10.1109/TAC.2023.3234016 .
+
+ISSN 0018-9286 .
+
+S2CID 236318576 .
+
+^ Nyquist Plots Archived 2008-09-30 at the Wayback Machine ^ "12.2: Nyquist Criterion for Stability" .
+
+Mathematics LibreTexts . 2017-09-05 . Retrieved 2023-12-25 .
+
+Further reading [ edit ] Faulkner, E. A. (1969): Introduction to the Theory of Linear Systems ; Chapman & Hall; ISBN 0-412-09400-2 Pippard, A. B.
+
+(1985): Response & Stability ; Cambridge University Press; ISBN 0-521-31994-3 Gessing, R. (2004): Control fundamentals ; Silesian University of Technology; ISBN 83-7335-176-0 Franklin, G. (2002): Feedback Control of Dynamic Systems ; Prentice Hall, ISBN 0-13-032393-4 External links [ edit ] Wikimedia Commons has media related to Nyquist plots .
+
+Applets with modifiable parameters EIS Spectrum Analyser - a freeware program for analysis and simulation of impedance spectra MATLAB function for creating a Nyquist plot of a frequency response of a dynamic system model.
+
+PID Nyquist plot shaping - free interactive virtual tool, control loop simulator Mathematica function for creating the Nyquist plot The Nyquist Diagram for Electrical Circuits Retrieved from " https://en.wikipedia.org/w/index.php?title=Nyquist_stability_criterion&oldid=1291521139 " Categories : Signal processing Classical control theory Stability theory Hidden categories: CS1 German-language sources (de) CS1 interwiki-linked names Webarchive template wayback links Articles with short description Short description is different from Wikidata Use dmy dates from June 2019 Commons category link is locally defined This page was last edited on 21 May 2025, at 19:16 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Nyquist stability criterion 19 languages Add topic
+

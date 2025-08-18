@@ -1,0 +1,371 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Sources Toggle Sources subsection 1.1 Aleatoric and epistemic 1.1.1 Mathematical perspective 2 Types of problems Toggle Types of problems subsection 2.1 Forward 2.2 Inverse 2.2.1 Bias correction only 2.2.2 Parameter calibration only 2.2.3 Bias correction and parameter calibration 3 Selective methodologies Toggle Selective methodologies subsection 3.1 Forward propagation 3.2 Inverse uncertainty 3.2.1 Frequentist 3.2.2 Bayesian 3.2.2.1 Modular approach 3.2.2.2 Full approach 4 Known issues 5 See also 6 References Toggle the table of contents Uncertainty quantification Add languages Add links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia (Redirected from Epistemic probability ) Characterization and reduction of uncertainties in both computational and real world applications Uncertainty quantification ( UQ ) is the science of quantitative characterization and estimation of uncertainties in both computational and real world applications. It tries to determine how likely certain outcomes are if some aspects of the system are not exactly known. An example would be to predict the acceleration of a human body in a head-on crash with another car: even if the speed was exactly known, small differences in the manufacturing of individual cars, how tightly every bolt has been tightened, etc., will lead to different results that can only be predicted in a statistical sense.
+
+Many problems in the natural sciences and engineering are also rife with sources of uncertainty.
+
+Computer experiments on computer simulations are the most common approach to study problems in uncertainty quantification.
+
+[ 1 ] [ 2 ] [ 3 ] [ 4 ] [ 5 ] [ 6 ] [ 7 ] [ 8 ] Sources [ edit ] Uncertainty can enter mathematical models and experimental measurements in various contexts. One way to categorize the sources of uncertainty is to consider: [ 9 ] Parameter This comes from the model parameters that are inputs to the computer model (mathematical model) but whose exact values are unknown to experimentalists and cannot be controlled in physical experiments, or whose values cannot be exactly inferred by statistical methods . Some examples of this are the local free-fall acceleration in a falling object experiment, various material properties in a finite element analysis for engineering, and multiplier uncertainty in the context of macroeconomic policy optimization.
+
+Parametric This comes from the variability of input variables of the model. For example, the dimensions of a work piece in a process of manufacture may not be exactly as designed and instructed, which would cause variability in its performance.
+
+Structural uncertainty Also known as model inadequacy, model bias, or model discrepancy, this comes from the lack of knowledge of the underlying physics in the problem. It depends on how accurately a mathematical model describes the true system for a real-life situation, considering the fact that models are almost always only approximations to reality. One example is when modeling the process of a falling object using the free-fall model; the model itself is inaccurate since there always exists air friction. In this case, even if there is no unknown parameter in the model, a discrepancy is still expected between the model and true physics.
+
+Algorithmic Also known as numerical uncertainty, or discrete uncertainty. This type comes from numerical errors and numerical approximations per implementation of the computer model. Most models are too complicated to solve exactly. For example, the finite element method or finite difference method may be used to approximate the solution of a partial differential equation (which introduces numerical errors). Other examples are numerical integration and infinite sum truncation that are necessary approximations in numerical implementation.
+
+Experimental Also known as observation error, this comes from the variability of experimental measurements. The experimental uncertainty is inevitable and can be noticed by repeating a measurement for many times using exactly the same settings for all inputs/variables.
+
+Interpolation This comes from a lack of available data collected from computer model simulations and/or experimental measurements. For other input settings that don't have simulation data or experimental measurements, one must interpolate or extrapolate in order to predict the corresponding responses.
+
+Aleatoric and epistemic [ edit ] An illustration of the difference between aleatoric and epistemic uncertainties. The dots on the plot represent the available data points. Aleatoric uncertainty captures varying degrees of inherent noise in the data, while epistemic uncertainty reflects the ignorance gap due to a lack of data Uncertainty is sometimes classified into two categories, [ 10 ] [ 11 ] prominently seen in medical applications.
+
+[ 12 ] Aleatoric Aleatoric uncertainty is also known as stochastic uncertainty, and is representative of unknowns that differ each time we run the same experiment. For example, a single arrow shot with a mechanical bow that exactly duplicates each launch (the same acceleration, altitude, direction and final velocity) will not all impact the same point on the target due to random and complicated vibrations of the arrow shaft, the knowledge of which cannot be determined sufficiently to eliminate the resulting scatter of impact points.  The argument here is obviously in the definition of "cannot".  Just because we cannot measure sufficiently with our currently available measurement devices does not preclude necessarily the existence of such information, which would move this uncertainty into the below category.
+
+Aleatoric is derived from the Latin alea or dice, referring to a game of chance.
+
+Epistemic uncertainty Epistemic uncertainty is also known as systematic uncertainty, and is due to things one could in principle know but does not in practice. This may be because a measurement is not accurate, because the model neglects certain effects, or because particular data have been deliberately hidden. An example of a source of this uncertainty would be the drag in an experiment designed to measure the acceleration of gravity near the earth's surface. The commonly used gravitational acceleration of 9.8 m/s² ignores the effects of air resistance, but the air resistance for the object could be measured and incorporated into the experiment to reduce the resulting uncertainty in the calculation of the gravitational acceleration.
+
+Combined occurrence and interaction of aleatoric and epistemic uncertainty Aleatoric and epistemic uncertainty can also occur simultaneously in a single term E.g., when experimental parameters show aleatoric uncertainty, and those experimental parameters are input to a computer simulation. If then for the uncertainty quantification a surrogate model , e.g. a Gaussian process or a Polynomial Chaos Expansion, is learnt from computer experiments, this surrogate exhibits epistemic uncertainty that depends on or interacts with the aleatoric uncertainty of the experimental parameters.
+
+[ 4 ] Such an uncertainty cannot solely be classified as aleatoric or epistemic any more, but is a more general inferential uncertainty.
+
+In real life applications, both kinds of uncertainties are present. Uncertainty quantification intends to explicitly express both types of uncertainty separately. The quantification for the aleatoric uncertainties can be relatively straightforward, where traditional (frequentist) probability is the most basic form. Techniques such as the Monte Carlo method are frequently used. A probability distribution can be represented by its moments (in the Gaussian case, the mean and covariance suffice, although, in general, even knowledge of all moments to arbitrarily high order still does not specify the distribution function uniquely), or more recently, by techniques such as Karhunen–Loève and polynomial chaos expansions. To evaluate epistemic uncertainties, the efforts are made to understand the (lack of) knowledge of the system, process or mechanism. Epistemic uncertainty is generally understood through the lens of Bayesian probability , where probabilities are interpreted as indicating how certain a rational person could be regarding a specific claim.
+
+Mathematical perspective [ edit ] In mathematics, uncertainty is often characterized in terms of a probability distribution .  From that perspective, epistemic uncertainty means not being certain what the relevant probability distribution is, and aleatoric uncertainty means not being certain what a random sample drawn from a probability distribution will be.
+
+Types of problems [ edit ] There are two major types of problems in uncertainty quantification: one is the forward propagation of uncertainty (where the various sources of uncertainty are propagated through the model to predict the overall uncertainty in the system response) and the other is the inverse assessment of model uncertainty and parameter uncertainty (where the model parameters are calibrated simultaneously using test data). There has been a proliferation of research on the former problem and a majority of uncertainty analysis techniques were developed for it. On the other hand, the latter problem is drawing increasing attention in the engineering design community, since uncertainty quantification of a model and the subsequent predictions of the true system response(s) are of great interest in designing robust systems.
+
+Forward [ edit ] See also: Propagation of uncertainty Uncertainty propagation is the quantification of uncertainties in system output(s) propagated from uncertain inputs. It focuses on the influence on the outputs from the parametric variability listed in the sources of uncertainty. The targets of uncertainty propagation analysis can be: To evaluate low-order moments of the outputs, i.e.
+
+mean and variance .
+
+To evaluate the reliability of the outputs. This is especially useful in reliability engineering where outputs of a system are usually closely related to the performance of the system.
+
+To assess the complete probability distribution of the outputs. This is useful in the scenario of utility optimization where the complete distribution is used to calculate the utility.
+
+Inverse [ edit ] See also: Inverse problem Given some experimental measurements of a system and some computer simulation results from its mathematical model, inverse uncertainty quantification estimates the discrepancy between the experiment and the mathematical model (which is called bias correction ), and estimates the values of unknown parameters in the model if there are any (which is called parameter calibration or simply calibration ). Generally this is a much more difficult problem than forward uncertainty propagation; however it is of great importance since it is typically implemented in a model updating process. There are several scenarios in inverse uncertainty quantification: The outcome of bias correction, including an updated model (prediction mean) and prediction confidence interval.
+
+Bias correction only [ edit ] Bias correction quantifies the model inadequacy , i.e. the discrepancy between the experiment and the mathematical model. The general model updating formula for bias correction is: y e ( x ) = y m ( x ) + δ δ ( x ) + ε ε {\displaystyle y^{e}(\mathbf {x} )=y^{m}(\mathbf {x} )+\delta (\mathbf {x} )+\varepsilon } where y e ( x ) {\displaystyle y^{e}(\mathbf {x} )} denotes the experimental measurements as a function of several input variables x {\displaystyle \mathbf {x} } , y m ( x ) {\displaystyle y^{m}(\mathbf {x} )} denotes the computer model (mathematical model) response, δ δ ( x ) {\displaystyle \delta (\mathbf {x} )} denotes the additive discrepancy function (aka bias function), and ε ε {\displaystyle \varepsilon } denotes the experimental uncertainty. The objective is to estimate the discrepancy function δ δ ( x ) {\displaystyle \delta (\mathbf {x} )} , and as a by-product, the resulting updated model is y m ( x ) + δ δ ( x ) {\displaystyle y^{m}(\mathbf {x} )+\delta (\mathbf {x} )} . A prediction confidence interval is provided with the updated model as the quantification of the uncertainty.
+
+Parameter calibration only [ edit ] Parameter calibration estimates the values of one or more unknown parameters in a mathematical model. The general model updating formulation for calibration is: y e ( x ) = y m ( x , θ θ ∗ ∗ ) + ε ε {\displaystyle y^{e}(\mathbf {x} )=y^{m}(\mathbf {x} ,{\boldsymbol {\theta }}^{*})+\varepsilon } where y m ( x , θ θ ) {\displaystyle y^{m}(\mathbf {x} ,{\boldsymbol {\theta }})} denotes the computer model response that depends on several unknown model parameters θ θ {\displaystyle {\boldsymbol {\theta }}} , and θ θ ∗ ∗ {\displaystyle {\boldsymbol {\theta }}^{*}} denotes the true values of the unknown parameters in the course of experiments. The objective is to either estimate θ θ ∗ ∗ {\displaystyle {\boldsymbol {\theta }}^{*}} , or to come up with a probability distribution of θ θ ∗ ∗ {\displaystyle {\boldsymbol {\theta }}^{*}} that encompasses the best knowledge of the true parameter values.
+
+Bias correction and parameter calibration [ edit ] It considers an inaccurate model with one or more unknown parameters, and its model updating formulation combines the two together: y e ( x ) = y m ( x , θ θ ∗ ∗ ) + δ δ ( x ) + ε ε {\displaystyle y^{e}(\mathbf {x} )=y^{m}(\mathbf {x} ,{\boldsymbol {\theta }}^{*})+\delta (\mathbf {x} )+\varepsilon } It is the most comprehensive model updating formulation that includes all possible sources of uncertainty, and it requires the most effort to solve.
+
+Selective methodologies [ edit ] Much research has been done to solve uncertainty quantification problems, though a majority of them deal with uncertainty propagation. During the past one to two decades, a number of approaches for inverse uncertainty quantification problems have also been developed and have proved to be useful for most small- to medium-scale problems.
+
+Forward propagation [ edit ] Existing uncertainty propagation approaches include probabilistic approaches and non-probabilistic approaches. There are basically six categories of probabilistic approaches for uncertainty propagation: [ 13 ] Simulation-based methods: Monte Carlo simulations , importance sampling , adaptive sampling, etc.
+
+General surrogate-based methods: In a non-intrusive approach, a surrogate model is learnt in order to replace the experiment or the simulation with a cheap and fast approximation. Surrogate-based methods can also be employed in a fully Bayesian fashion.
+
+[ 14 ] [ 4 ] [ 15 ] [ 16 ] This approach has proven particularly powerful when the cost of sampling, e.g. computationally expensive simulations, is prohibitively high.
+
+Local expansion-based methods: Taylor series , perturbation method , etc. These methods have advantages when dealing with relatively small input variability and outputs that don't express high nonlinearity. These linear or linearized methods are detailed in the article Uncertainty propagation .
+
+Functional expansion-based methods: Neumann expansion, orthogonal or Karhunen–Loeve expansions (KLE), with polynomial chaos expansion (PCE) and wavelet expansions as special cases.
+
+Most probable point (MPP)-based methods: first-order reliability method (FORM) and second-order reliability method (SORM).
+
+Numerical integration-based methods: Full factorial numerical integration (FFNI) and dimension reduction (DR).
+
+For non-probabilistic approaches, interval analysis , [ 17 ] Fuzzy theory , Possibility theory and evidence theory are among the most widely used.
+
+The probabilistic approach is considered as the most rigorous approach to uncertainty analysis in engineering design due to its consistency with the theory of decision analysis . Its cornerstone is the calculation of probability density functions for sampling statistics.
+
+[ 18 ] This can be performed rigorously for random variables that are obtainable as transformations of Gaussian variables, leading to exact confidence intervals.
+
+Inverse uncertainty [ edit ] Frequentist [ edit ] In regression analysis and least squares problems, the standard error of parameter estimates is readily available, which can be expanded into a confidence interval .
+
+Bayesian [ edit ] Several methodologies for inverse uncertainty quantification exist under the Bayesian framework . The most complicated direction is to aim at solving problems with both bias correction and parameter calibration. The challenges of such problems include not only the influences from model inadequacy and parameter uncertainty, but also the lack of data from both computer simulations and experiments. A common situation is that the input settings are not the same over experiments and simulations. Another common situation is that parameters derived from experiments are input to simulations. For computationally expensive simulations, then often a surrogate model , e.g. a Gaussian process or a Polynomial Chaos Expansion, is necessary, defining an inverse problem for finding the surrogate model that best approximates the simulations.
+
+[ 4 ] Modular approach [ edit ] An approach to inverse uncertainty quantification is the modular Bayesian approach.
+
+[ 9 ] [ 19 ] The modular Bayesian approach derives its name from its four-module procedure. Apart from the current available data, a prior distribution of unknown parameters should be assigned.
+
+Module 1: Gaussian process modeling for the computer model To address the issue from lack of simulation results, the computer model is replaced with a Gaussian process (GP) model y m ( x , θ θ ) ∼ ∼ G P ( h m ( ⋅ ⋅ ) T β β m , σ σ m 2 R m ( ⋅ ⋅ , ⋅ ⋅ ) ) {\displaystyle y^{m}(\mathbf {x} ,{\boldsymbol {\theta }})\sim {\mathcal {GP}}{\big (}\mathbf {h} ^{m}(\cdot )^{T}{\boldsymbol {\beta }}^{m},\sigma _{m}^{2}R^{m}(\cdot ,\cdot ){\big )}} where R m ( ( x , θ θ ) , ( x ′ , θ θ ′ ) ) = exp ⁡ ⁡ { − − ∑ ∑ k = 1 d ω ω k m ( x k − − x k ′ ) 2 } exp ⁡ ⁡ { − − ∑ ∑ k = 1 r ω ω d + k m ( θ θ k − − θ θ k ′ ) 2 } .
+
+{\displaystyle R^{m}{\big (}(\mathbf {x} ,{\boldsymbol {\theta }}),(\mathbf {x} ',{\boldsymbol {\theta }}'){\big )}=\exp \left\{-\sum _{k=1}^{d}\omega _{k}^{m}(x_{k}-x_{k}')^{2}\right\}\exp \left\{-\sum _{k=1}^{r}\omega _{d+k}^{m}(\theta _{k}-\theta _{k}')^{2}\right\}.} d {\displaystyle d} is the dimension of input variables, and r {\displaystyle r} is the dimension of unknown parameters. While h m ( ⋅ ⋅ ) {\displaystyle \mathbf {h} ^{m}(\cdot )} is pre-defined, { β β m , σ σ m , ω ω k m , k = 1 , … … , d + r } {\displaystyle \left\{{\boldsymbol {\beta }}^{m},\sigma _{m},\omega _{k}^{m},k=1,\ldots ,d+r\right\}} , known as hyperparameters of the GP model, need to be estimated via maximum likelihood estimation (MLE) . This module can be considered as a generalized kriging method.
+
+Module 2: Gaussian process modeling for the discrepancy function Similarly with the first module, the discrepancy function is replaced with a GP model δ δ ( x ) ∼ ∼ G P ( h δ δ ( ⋅ ⋅ ) T β β δ δ , σ σ δ δ 2 R δ δ ( ⋅ ⋅ , ⋅ ⋅ ) ) {\displaystyle \delta (\mathbf {x} )\sim {\mathcal {GP}}{\big (}\mathbf {h} ^{\delta }(\cdot )^{T}{\boldsymbol {\beta }}^{\delta },\sigma _{\delta }^{2}R^{\delta }(\cdot ,\cdot ){\big )}} where R δ δ ( x , x ′ ) = exp ⁡ ⁡ { − − ∑ ∑ k = 1 d ω ω k δ δ ( x k − − x k ′ ) 2 } .
+
+{\displaystyle R^{\delta }(\mathbf {x} ,\mathbf {x} ')=\exp \left\{-\sum _{k=1}^{d}\omega _{k}^{\delta }(x_{k}-x_{k}')^{2}\right\}.} Together with the prior distribution of unknown parameters, and data from both computer models and experiments, one can derive the maximum likelihood estimates for { β β δ δ , σ σ δ δ , ω ω k δ δ , k = 1 , … … , d } {\displaystyle \left\{{\boldsymbol {\beta }}^{\delta },\sigma _{\delta },\omega _{k}^{\delta },k=1,\ldots ,d\right\}} . At the same time, β β m {\displaystyle {\boldsymbol {\beta }}^{m}} from Module 1 gets updated as well.
+
+Module 3: Posterior distribution of unknown parameters Bayes' theorem is applied to calculate the posterior distribution of the unknown parameters: p ( θ θ ∣ ∣ data , φ φ ) ∝ ∝ p ( d a t a ∣ ∣ θ θ , φ φ ) p ( θ θ ) {\displaystyle p({\boldsymbol {\theta }}\mid {\text{data}},{\boldsymbol {\varphi }})\propto p({\rm {{data}\mid {\boldsymbol {\theta }},{\boldsymbol {\varphi }})p({\boldsymbol {\theta }})}}} where φ φ {\displaystyle {\boldsymbol {\varphi }}} includes all the fixed hyperparameters in previous modules.
+
+Module 4: Prediction of the experimental response and discrepancy function Full approach [ edit ] Fully Bayesian approach requires that not only the priors for unknown parameters θ θ {\displaystyle {\boldsymbol {\theta }}} but also the priors for the other hyperparameters φ φ {\displaystyle {\boldsymbol {\varphi }}} should be assigned. It follows the following steps: [ 20 ] Derive the posterior distribution p ( θ θ , φ φ ∣ ∣ data ) {\displaystyle p({\boldsymbol {\theta }},{\boldsymbol {\varphi }}\mid {\text{data}})} ; Integrate φ φ {\displaystyle {\boldsymbol {\varphi }}} out and obtain p ( θ θ ∣ ∣ data ) {\displaystyle p({\boldsymbol {\theta }}\mid {\text{data}})} . This single step accomplishes the calibration; Prediction of the experimental response and discrepancy function.
+
+However, the approach has significant drawbacks: For most cases, p ( θ θ , φ φ ∣ ∣ data ) {\displaystyle p({\boldsymbol {\theta }},{\boldsymbol {\varphi }}\mid {\text{data}})} is a highly intractable function of φ φ {\displaystyle {\boldsymbol {\varphi }}} . Hence the integration becomes very troublesome. Moreover, if priors for the other hyperparameters φ φ {\displaystyle {\boldsymbol {\varphi }}} are not carefully chosen, the complexity in numerical integration increases even more.
+
+In the prediction stage, the prediction (which should at least include the expected value of system responses) also requires numerical integration.
+
+Markov chain Monte Carlo (MCMC) is often used for integration; however it is computationally expensive.
+
+The fully Bayesian approach requires a huge amount of calculations and may not yet be practical for dealing with the most complicated modelling situations.
+
+[ 20 ] Known issues [ edit ] The theories and methodologies for uncertainty propagation are much better established, compared with inverse uncertainty quantification. For the latter, several difficulties remain unsolved: Dimensionality issue: The computational cost increases dramatically with the dimensionality of the problem, i.e. the number of input variables and/or the number of unknown parameters.
+
+Identifiability issue: [ 21 ] Multiple combinations of unknown parameters and discrepancy function can yield the same experimental prediction. Hence different values of parameters cannot be distinguished/identified. This issue is circumvented in a Bayesian approach, where such combinations are averaged over.
+
+[ 4 ] Incomplete model response: Refers to a model not having a solution for some combinations of the input variables.
+
+[ 22 ] [ 23 ] Quantifying uncertainty in the input quantities: Crucial events missing in the available data or critical quantities unidentified to analysts due to, e.g., limitations in existing models.
+
+[ 24 ] Little consideration of the impact of choices made by analysts.
+
+[ 25 ] See also [ edit ] Computer experiment Further research is needed Quantification of margins and uncertainties Probabilistic numerics Bayesian regression Bayesian probability References [ edit ] ^ Sacks, Jerome; Welch, William J.; Mitchell, Toby J.; Wynn, Henry P. (1989).
+
+"Design and Analysis of Computer Experiments" .
+
+Statistical Science .
+
+4 (4): 409– 423.
+
+doi : 10.1214/ss/1177012413 .
+
+JSTOR 2245858 .
+
+^ Iman, Ronald L.; Helton, Jon C. (1988). "An Investigation of Uncertainty and Sensitivity Analysis Techniques for Computer Models".
+
+Risk Analysis .
+
+8 (1). Wiley: 71– 90.
+
+Bibcode : 1988RiskA...8...71I .
+
+doi : 10.1111/j.1539-6924.1988.tb01155.x .
+
+ISSN 0272-4332 .
+
+^ Walker, W.E.; Harremoës, P.; Rotmans, J.; van der Sluijs, J.P.; van Asselt, M.B.A.; Janssen, P.; Krayer von Krauss, M.P. (2003). "Defining Uncertainty: A Conceptual Basis for Uncertainty Management in Model-Based Decision Support".
+
+Integrated Assessment .
+
+4 (1). Swets & Zeitlinger Publishers: 5– 17.
+
+Bibcode : 2003IntAs...4....5W .
+
+doi : 10.1076/iaij.4.1.5.16466 .
+
+hdl : 1874/386032 .
+
+ISSN 1389-5176 .
+
+^ a b c d e Ranftl, Sascha; von der Linden, Wolfgang (2021-11-13).
+
+"Bayesian Surrogate Analysis and Uncertainty Propagation" .
+
+Physical Sciences Forum .
+
+3 (1): 6.
+
+arXiv : 2101.04038 .
+
+doi : 10.3390/psf2021003006 .
+
+ISSN 2673-9984 .
+
+^ Ralph C. Smith(Ed.): "Uncertainty Quantification: Theory, Implementation, and Applications", 2nd Ed., SIAM, ISBN 978-1-61197-783-7 (2024).
+
+^ T.J. Sullivan:"Introduction to Uncertainty Quantification", Springer, ISBN 978-3319233949 (Dec, 21st, 2015).
+
+^ Soize, C. (2017).
+
+Uncertainty Quantification: An Accelerated Course with Advanced Applications in Computational Engineering . Interdisciplinary Applied Mathematics, vol. 47. Springer Cham.
+
+doi : 10.1007/978-3-319-54339-0 .
+
+ISBN 978-3-319-54338-3 .
+
+^ Cunha Jr, A. (2017). "Modeling and quantification of physical systems uncertainties in a probabilistic framework". In Ekwaro‑Osire, S.; Gonçalves, A. C.; Alemayehu, F. M. (eds.).
+
+Probabilistic Prognostics and Health Management of Energy Systems . Springer International Publishing.
+
+doi : 10.1007/978-3-319-55852-3_8 .
+
+^ a b Kennedy, Marc C.; O'Hagan, Anthony (2001).
+
+"Bayesian calibration of computer models" .
+
+Journal of the Royal Statistical Society, Series B (Statistical Methodology) .
+
+63 (3): 425– 464.
+
+doi : 10.1111/1467-9868.00294 .
+
+^ Der Kiureghian, Armen; Ditlevsen, Ove (2009). "Aleatory or epistemic? Does it matter?".
+
+Structural Safety .
+
+31 (2): 105– 112.
+
+doi : 10.1016/j.strusafe.2008.06.020 .
+
+^ Matthies, Hermann G. (2007). "Quantifying Uncertainty: Modern Computational Representation of Probability and Applications".
+
+Extreme Man-Made and Natural Hazards in Dynamics of Structures . NATO Security through Science Series. pp.
+
+105– 135.
+
+doi : 10.1007/978-1-4020-5656-7_4 .
+
+ISBN 978-1-4020-5654-3 .
+
+^ Abhaya Indrayan, Medical Biostatistics , Second Edition, Chapman & Hall/CRC Press, 2008, pages 8, 673 ^ Lee, S. H.; Chen, W.
+
+(2008-05-09). "A comparative study of uncertainty propagation methods for black-box-type problems".
+
+Structural and Multidisciplinary Optimization .
+
+37 (3). Springer Science and Business Media LLC: 239– 253.
+
+doi : 10.1007/s00158-008-0234-7 .
+
+ISSN 1615-147X .
+
+S2CID 119988015 .
+
+^ Cardenas, IC (2019). "On the use of Bayesian networks as a meta-modeling approach to analyse uncertainties in slope stability analysis".
+
+Georisk: Assessment and Management of Risk for Engineered Systems and Geohazards .
+
+13 (1): 53– 65.
+
+Bibcode : 2019GAMRE..13...53C .
+
+doi : 10.1080/17499518.2018.1498524 .
+
+S2CID 216590427 .
+
+^ Ranftl, Sascha; Melito, Gian Marco; Badeli, Vahid; Reinbacher-Köstinger, Alice; Ellermann, Katrin; von der Linden, Wolfgang (2019-12-31).
+
+"Bayesian Uncertainty Quantification with Multi-Fidelity Data and Gaussian Processes for Impedance Cardiography of Aortic Dissection" .
+
+Entropy .
+
+22 (1): 58.
+
+Bibcode : 2019Entrp..22...58R .
+
+doi : 10.3390/e22010058 .
+
+ISSN 1099-4300 .
+
+PMC 7516489 .
+
+PMID 33285833 .
+
+^ Ranftl, Sascha; Müller, Thomas Stephan; Windberger, Ursula; von der Linden, Wolfgang; Brenn, Günter (2021-05-03), Data and codes for 'A Bayesian Approach to Blood Rheological Uncertainties in Aortic Hemodynamics' , doi : 10.5281/zenodo.5237189 , retrieved 2022-01-12 ^ Jaulin, L.; Kieffer, M.; Didrit, O.; Walter, E. (2001).
+
+Applied Interval Analysis . Springer.
+
+ISBN 1-85233-219-0 .
+
+^ Arnaut, L. R. Measurement uncertainty in reverberation chambers - I. Sample statistics. Technical report TQE 2, 2nd. ed., sec. 3.1, National Physical Laboratory, 2008.
+
+^ Marc C. Kennedy, Anthony O'Hagan, Supplementary Details on Bayesian Calibration of Computer Models , Sheffield, University of Sheffield: 1–13, 2000 ^ a b Bayarri, M. J.
+
+; Berger, J. O.; Liu, F. (2009-03-01).
+
+"Modularization in Bayesian analysis, with emphasis on analysis of computer models" .
+
+Bayesian Analysis .
+
+4 (1). Institute of Mathematical Statistics: 119– 150.
+
+doi : 10.1214/09-ba404 .
+
+ISSN 1936-0975 .
+
+^ Arendt, Paul D.; Apley, Daniel W.; Chen, Wei ; Lamb, David; Gorsich, David (2012-09-28). "Improving Identifiability in Model Calibration Using Multiple Responses".
+
+Journal of Mechanical Design .
+
+134 (10). ASME International: 100909.
+
+doi : 10.1115/1.4007573 .
+
+ISSN 1050-0472 .
+
+^ Cardenas, IC (2019). "On the use of Bayesian networks as a meta-modeling approach to analyse uncertainties in slope stability analysis".
+
+Georisk: Assessment and Management of Risk for Engineered Systems and Geohazards .
+
+13 (1): 53– 65.
+
+Bibcode : 2019GAMRE..13...53C .
+
+doi : 10.1080/17499518.2018.1498524 .
+
+S2CID 216590427 .
+
+^ van den Eijnden, AP; Schweckendiek, T; Hicks, MA (2021).
+
+"Metamodelling for geotechnical reliability analysis with noisy and incomplete models" .
+
+Georisk: Assessment and Management of Risk for Engineered Systems and Geohazards .
+
+16 (3): 518– 535.
+
+doi : 10.1080/17499518.2021.1952611 .
+
+S2CID 238819106 .
+
+^ Cardenas, I.; Aven, T.; Flage, R. (2022).
+
+"Addressing challenges in uncertainty quantification. The case of geohazard assessments" .
+
+Geosci. Model Dev. Discuss .
+
+16 (6): 1601– 1615.
+
+doi : 10.5194/gmd-16-1601-2023 .
+
+hdl : 11250/3105739 .
+
+^ Cardenas, I.; Aven, T.; Flage, R. (2022).
+
+"Addressing challenges in uncertainty quantification. The case of geohazard assessments" .
+
+Geosci. Model Dev. Discuss .
+
+16 (6): 1601– 1615.
+
+doi : 10.5194/gmd-16-1601-2023 .
+
+hdl : 11250/3105739 .
+
+NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐scmm6
+Cached time: 20250812003005
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.388 seconds
+Real time usage: 0.542 seconds
+Preprocessor visited node count: 1753/1000000
+Revision size: 30988/2097152 bytes
+Post‐expand include size: 51949/2097152 bytes
+Template argument size: 1014/2097152 bytes
+Highest expansion depth: 8/100
+Expensive parser function count: 3/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 85224/5000000 bytes
+Lua time usage: 0.235/10.000 seconds
+Lua memory usage: 5282338/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  364.201      1 -total
+ 70.15%  255.479      1 Template:Reflist
+ 52.82%  192.360     15 Template:Cite_journal
+ 19.66%   71.586      1 Template:Short_description
+ 12.33%   44.909      2 Template:Pagetype
+  7.27%   26.479      4 Template:Cite_book
+  6.63%   24.160      2 Template:See_also
+  4.19%   15.247      3 Template:Main_other
+  3.64%   13.252      1 Template:SDcat
+  2.50%    9.123      1 Template:Citation Saved in parser cache with key enwiki:pcache:5987648:|#|:idhash:canonical and timestamp 20250812003005 and revision id 1305386942. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Uncertainty_quantification&oldid=1305386942#Aleatoric_and_epistemic_uncertainty " Categories : Applied mathematics Mathematical modeling Operations research Statistical theory Hidden categories: Articles with short description Short description matches Wikidata This page was last edited on 11 August 2025, at 19:36 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Uncertainty quantification Add languages Add topic
+

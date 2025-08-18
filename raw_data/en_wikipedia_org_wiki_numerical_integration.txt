@@ -1,0 +1,203 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Motivation and need 2 History 3 Methods for one-dimensional integrals Toggle Methods for one-dimensional integrals subsection 3.1 Quadrature rules based on step functions 3.2 Quadrature rules based on interpolating functions 3.3 Adaptive algorithms 3.4 Extrapolation methods 3.5 Conservative (a priori) error estimation 3.6 Integrals over infinite intervals 4 Multidimensional integrals Toggle Multidimensional integrals subsection 4.1 Monte Carlo 4.2 Sparse grids 4.3 Bayesian quadrature 5 Connection with differential equations 6 See also 7 References 8 External links Toggle the table of contents Numerical integration 37 languages العربية Asturianu বাংলা Bosanski Català Чӑвашла Čeština Deutsch Ελληνικά Español Euskara فارسی Français 한국어 Հայերեն हिन्दी Italiano עברית Қазақша Latina Magyar Nederlands 日本語 Piemontèis Polski Português Русский Scots Simple English Српски / srpski Srpskohrvatski / српскохрватски Svenska Türkçe Українська Vèneto 粵語 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikibooks Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Methods of calculating definite integrals This article is about methods of calculating definite integrals. For methods of finding numerical solutions of ordinary or partial differential equations, see Numerical methods for ordinary differential equations and Numerical methods for partial differential equations .
+
+Numerical integration is used to calculate a numerical approximation for the value S {\displaystyle S} , the area under the curve defined by f ( x ) {\displaystyle f(x)} .
+
+Differential equations Scope Fields Natural sciences Engineering Astronomy Physics Chemistry Biology Geology Applied mathematics Continuum mechanics Chaos theory Dynamical systems Social sciences Economics Population dynamics List of named differential equations Classification Types Ordinary Partial Differential-algebraic Integro-differential Fractional Linear Non-linear By variable type Dependent and independent variables Autonomous Coupled / Decoupled Exact Homogeneous / Nonhomogeneous Features Order Operator Notation Relation to processes Difference (discrete analogue) Stochastic Stochastic partial Delay Solution Existence and uniqueness Picard–Lindelöf theorem Peano existence theorem Carathéodory's existence theorem Cauchy–Kowalevski theorem General topics Initial conditions Boundary values Dirichlet Neumann Robin Cauchy problem Wronskian Phase portrait Lyapunov / Asymptotic / Exponential stability Rate of convergence Series / Integral solutions Numerical integration Dirac delta function Solution methods Inspection Method of characteristics Euler Exponential response formula Finite difference ( Crank–Nicolson ) Finite element Infinite element Finite volume Galerkin Petrov–Galerkin Green's function Integrating factor Integral transforms Perturbation theory Runge–Kutta Separation of variables Undetermined coefficients Variation of parameters People List Isaac Newton Gottfried Leibniz Jacob Bernoulli Leonhard Euler Joseph-Louis Lagrange Józef Maria Hoene-Wroński Joseph Fourier Augustin-Louis Cauchy George Green Carl David Tolmé Runge Martin Kutta Rudolf Lipschitz Ernst Lindelöf Émile Picard Phyllis Nicolson John Crank v t e In analysis , numerical integration comprises a broad family of algorithms for calculating the numerical value of a definite integral .
+The term numerical quadrature (often abbreviated to quadrature ) is more or less a synonym for "numerical integration", especially as applied to one-dimensional integrals. Some authors refer to numerical integration over more than one dimension as cubature ; [ 1 ] others take "quadrature" to include higher-dimensional integration.
+
+The basic problem in numerical integration is to compute an approximate solution to a definite integral ∫ ∫ a b f ( x ) d x {\displaystyle \int _{a}^{b}f(x)\,dx} to a given degree of accuracy. If f ( x ) is a smooth function integrated over a small number of dimensions, and the domain of integration is bounded, there are many methods for approximating the integral to the desired precision.
+
+Numerical integration has roots in the geometrical problem of finding a square with the same area as a given plane figure ( quadrature or squaring ), as in the quadrature of the circle .
+The term is also sometimes used to describe the numerical solution of differential equations .
+
+Motivation and need [ edit ] There are several reasons for carrying out numerical integration, as opposed to analytical integration by finding the antiderivative : The integrand f ( x ) may be known only at certain points, such as obtained by sampling . Some embedded systems and other computer applications may need numerical integration for this reason.
+
+A formula for the integrand may be known, but it may be difficult or impossible to find an antiderivative that is an elementary function . An example of such an integrand is f ( x ) = exp (− x 2 ) , the antiderivative of which (the error function , times a constant) cannot be written in elementary form (see also: Nonelementary integral ) .
+
+It may be possible to find an antiderivative symbolically, but it may be easier to compute a numerical approximation than to compute the antiderivative. That may be the case if the antiderivative is given as an infinite series or product, or if its evaluation requires a special function that is not available.
+
+History [ edit ] Main article: Quadrature (geometry) The term "numerical integration" first appears in 1915 in the publication A Course in Interpolation and Numeric Integration for the Mathematical Laboratory by David Gibb .
+
+[ 2 ] "Quadrature" is a historical mathematical term that means calculating area. Quadrature problems have served as one of the main sources of mathematical analysis .
+
+Mathematicians of Ancient Greece , according to the Pythagorean doctrine, understood calculation of area as the process of constructing geometrically a square having the same area ( squaring ) — that is why the process was named "quadrature". Examples include quadrature of the circle , Lune of Hippocrates , and the treatise Quadrature of the Parabola . This construction must be performed only by means of compass and straightedge .
+
+The ancient Babylonians used the trapezoidal rule to integrate the motion of Jupiter along the ecliptic .
+
+[ 3 ] Antique method of finding the Geometric mean For a quadrature of a rectangle with the sides a and b it is necessary to construct a square with the side x = a b {\displaystyle x={\sqrt {ab}}} (the geometric mean of a and b ). For this purpose it is possible to use the following fact: if we draw the circle with the sum of a and b as the diameter, then the height BH (from a point of their connection to crossing with a circle) equals their geometric mean. The similar geometrical construction solves a problem of a quadrature for a parallelogram and a triangle.
+
+The area of a segment of a parabola Problems of quadrature for curvilinear figures are much more difficult. The quadrature of the circle with compass and straightedge had been proved in the 19th century to be impossible. Nevertheless, for some figures (for example the Lune of Hippocrates ) a quadrature can be performed. The quadratures of a sphere surface and a parabola segment done by Archimedes became the highest achievement of the antique analysis.
+
+The area of the surface of a sphere is equal to quadruple the area of a great circle of this sphere.
+
+The area of a segment of the parabola cut from it by a straight line is 4/3 the area of the triangle inscribed in this segment.
+
+To prove the results, Archimedes used the method of exhaustion of Eudoxus .
+
+In medieval Europe the quadrature meant calculation of area by any method. More often the method of indivisibles was used; it was less rigorous, but more simple and powerful. With its help Galileo Galilei and Gilles de Roberval found the area of a cycloid arch, Grégoire de Saint-Vincent investigated the area under a hyperbola ( Opus Geometricum , 1647), and Alphonse Antonio de Sarasa , de Saint-Vincent's pupil and commentator, noted the relation of this area to logarithms .
+
+John Wallis algebrised this method: he wrote in his Arithmetica Infinitorum (1656) series that we now call the definite integral , and he calculated their values.
+
+Isaac Barrow and James Gregory made further progress: quadratures for some algebraic curves and spirals .
+
+Christiaan Huygens successfully performed a quadrature of some Solids of revolution .
+
+The quadrature of the hyperbola by Saint-Vincent and de Sarasa provided a new function , the natural logarithm , of critical importance.
+
+With the invention of integral calculus came a universal method for area calculation. In response, the term "quadrature" has become traditional, and instead the modern phrase " computation of a univariate definite integral " is more common.
+
+Methods for one-dimensional integrals [ edit ] A quadrature rule is an approximation of the definite integral of a function , usually stated as a weighted sum of function values at specified points within the domain of integration.
+
+Numerical integration methods can generally be described as combining evaluations of the integrand to get an approximation to the integral. The integrand is evaluated at a finite set of points called integration points and a weighted sum of these values is used to approximate the integral. The integration points and weights depend on the specific method used and the accuracy required from the approximation.
+
+An important part of the analysis of any numerical integration method is to study the behavior of the approximation error as a function of the number of integrand evaluations. A method that yields a small error for a small number of evaluations is usually considered superior. Reducing the number of evaluations of the integrand reduces the number of arithmetic operations involved, and therefore reduces the total error. Also, each evaluation takes time, and the integrand may be arbitrarily complicated.
+
+Quadrature rules based on step functions [ edit ] A "brute force" kind of numerical integration can be done, if the integrand is reasonably well-behaved (i.e.
+
+piecewise continuous and of bounded variation ), by evaluating the integrand with very small increments.
+
+Illustration of the rectangle rule.
+
+This simplest method approximates the function by a step function (a piecewise constant function, or a segmented polynomial of degree zero) that passes through the point ( a + b 2 , f ( a + b 2 ) ) {\textstyle \left({\frac {a+b}{2}},f\left({\frac {a+b}{2}}\right)\right)} . This is called the midpoint rule or rectangle rule ∫ ∫ a b f ( x ) d x ≈ ≈ ( b − − a ) f ( a + b 2 ) .
+
+{\displaystyle \int _{a}^{b}f(x)\,dx\approx (b-a)f\left({\frac {a+b}{2}}\right).} Quadrature rules based on interpolating functions [ edit ] A large class of quadrature rules can be derived by constructing interpolating functions that are easy to integrate. Typically these interpolating functions are polynomials .  In practice, since polynomials of very high degree tend to oscillate wildly , only polynomials of low degree are used, typically linear and quadratic.
+
+Illustration of the trapezoidal rule.
+
+The interpolating function may be a straight line (an affine function , i.e. a polynomial of degree 1)
+passing through the points ( a , f ( a ) ) {\displaystyle \left(a,f(a)\right)} and ( b , f ( b ) ) {\displaystyle \left(b,f(b)\right)} .
+This is called the trapezoidal rule ∫ ∫ a b f ( x ) d x ≈ ≈ ( b − − a ) ( f ( a ) + f ( b ) 2 ) .
+
+{\displaystyle \int _{a}^{b}f(x)\,dx\approx (b-a)\left({\frac {f(a)+f(b)}{2}}\right).} Illustration of Simpson's rule.
+
+For either one of these rules, we can make a more accurate approximation by breaking up the interval [ a , b ] {\displaystyle [a,b]} into some number n {\displaystyle n} of subintervals, computing an approximation for each subinterval, then adding up all the results. This is called a composite rule , extended rule , or iterated rule . For example, the composite trapezoidal rule can be stated as ∫ ∫ a b f ( x ) d x ≈ ≈ b − − a n ( f ( a ) 2 + ∑ ∑ k = 1 n − − 1 ( f ( a + k b − − a n ) ) + f ( b ) 2 ) , {\displaystyle \int _{a}^{b}f(x)\,dx\approx {\frac {b-a}{n}}\left({f(a) \over 2}+\sum _{k=1}^{n-1}\left(f\left(a+k{\frac {b-a}{n}}\right)\right)+{f(b) \over 2}\right),} where the subintervals have the form [ a + k h , a + ( k + 1 ) h ] ⊂ ⊂ [ a , b ] , {\displaystyle [a+kh,a+(k+1)h]\subset [a,b],} with h = b − − a n {\textstyle h={\frac {b-a}{n}}} and k = 0 , … … , n − − 1.
+
+{\displaystyle k=0,\ldots ,n-1.} Here we used subintervals of the same length h {\displaystyle h} but one could also use intervals of varying length ( h k ) k {\displaystyle \left(h_{k}\right)_{k}} .
+
+Interpolation with polynomials evaluated at equally spaced points in [ a , b ] {\displaystyle [a,b]} yields the Newton–Cotes formulas , of which the rectangle rule and the trapezoidal rule are examples.
+
+Simpson's rule , which is based on a polynomial of order 2, is also a Newton–Cotes formula.
+
+Quadrature rules with equally spaced points have the very convenient property of nesting .  The corresponding rule with each interval subdivided includes all the current points, so those integrand values can be re-used.
+
+If we allow the intervals between interpolation points to vary, we find another group of quadrature formulas, such as the Gaussian quadrature formulas. A Gaussian quadrature rule is typically more accurate than a Newton–Cotes rule that uses the same number of function evaluations, if the integrand is smooth (i.e., if it is sufficiently differentiable). Other quadrature methods with varying intervals include Clenshaw–Curtis quadrature (also called Fejér quadrature) methods, which do nest.
+
+Gaussian quadrature rules do not nest, but the related Gauss–Kronrod quadrature formulas do.
+
+Adaptive algorithms [ edit ] This section is an excerpt from Adaptive quadrature .
+
+[ edit ] Adaptive quadrature is a numerical integration method in which the integral of a function f ( x ) {\displaystyle f(x)} is approximated using static quadrature rules on adaptively refined subintervals of the region of integration. Generally, adaptive algorithms are just as efficient and effective as traditional algorithms for "well behaved" integrands, but are also effective for "badly behaved" integrands for which traditional algorithms may fail.
+
+Extrapolation methods [ edit ] The accuracy of a quadrature rule of the Newton–Cotes type is generally a function of the number of evaluation points. The result is usually more accurate as the number of evaluation points increases, or, equivalently, as the width of the step size between the points decreases. It is natural to ask what the result would be if the step size were allowed to approach zero. This can be answered by extrapolating the result from two or more nonzero step sizes, using series acceleration methods such as Richardson extrapolation . The extrapolation function may be a polynomial or rational function . Extrapolation methods are described in more detail by Stoer and Bulirsch (Section 3.4) and are implemented in many of the routines in the QUADPACK library.
+
+Conservative (a priori) error estimation [ edit ] Let f {\displaystyle f} have a bounded first derivative over [ a , b ] , {\displaystyle [a,b],} i.e.
+
+f ∈ ∈ C 1 ( [ a , b ] ) .
+
+{\displaystyle f\in C^{1}([a,b]).} The mean value theorem for f , {\displaystyle f,} where x ∈ ∈ [ a , b ) , {\displaystyle x\in [a,b),} gives ( x − − a ) f ′ ( ξ ξ x ) = f ( x ) − − f ( a ) , {\displaystyle (x-a)f'(\xi _{x})=f(x)-f(a),} for some ξ ξ x ∈ ∈ ( a , x ] {\displaystyle \xi _{x}\in (a,x]} depending on x {\displaystyle x} .
+
+If we integrate in x {\displaystyle x} from a {\displaystyle a} to b {\displaystyle b} on both sides and take the absolute values, we obtain | ∫ ∫ a b f ( x ) d x − − ( b − − a ) f ( a ) | = | ∫ ∫ a b ( x − − a ) f ′ ( ξ ξ x ) d x | .
+
+{\displaystyle \left|\int _{a}^{b}f(x)\,dx-(b-a)f(a)\right|=\left|\int _{a}^{b}(x-a)f'(\xi _{x})\,dx\right|.} We can further approximate the integral on the right-hand side by bringing the absolute value into the integrand, and replacing the term in f ′ {\displaystyle f'} by an upper bound | ∫ ∫ a b f ( x ) d x − − ( b − − a ) f ( a ) | ≤ ≤ ( b − − a ) 2 2 sup a ≤ ≤ x ≤ ≤ b | f ′ ( x ) | , {\displaystyle \left|\int _{a}^{b}f(x)\,dx-(b-a)f(a)\right|\leq {(b-a)^{2} \over 2}\sup _{a\leq x\leq b}\left|f'(x)\right|,} 1 where the supremum was used to approximate.
+
+Hence, if we approximate the integral ∫ ∫ a b f ( x ) d x {\textstyle \int _{a}^{b}f(x)\,dx} by the quadrature rule ( b − − a ) f ( a ) {\displaystyle (b-a)f(a)} our error is no greater than the right hand side of 1 . We can convert this into an error analysis for the Riemann sum , giving an upper bound of n − − 1 2 sup 0 ≤ ≤ x ≤ ≤ 1 | f ′ ( x ) | {\displaystyle {\frac {n^{-1}}{2}}\sup _{0\leq x\leq 1}\left|f'(x)\right|} for the error term of that particular approximation. (Note that this is precisely the error we calculated for the example f ( x ) = x {\displaystyle f(x)=x} .) Using more derivatives, and by tweaking the quadrature, we can do a similar error analysis using a Taylor series (using a partial sum with remainder term) for f . This error analysis gives a strict upper bound on the error, if the derivatives of f are available.
+
+This integration method can be combined with interval arithmetic to produce computer proofs and verified calculations.
+
+Integrals over infinite intervals [ edit ] Several methods exist for approximate integration over unbounded intervals. The standard technique involves specially derived quadrature rules, such as Gauss-Hermite quadrature for integrals on the whole real line and Gauss-Laguerre quadrature for integrals on the positive reals.
+
+[ 4 ] Monte Carlo methods can also be used, or a change of variables to a finite interval; e.g., for the whole line one could use ∫ ∫ − − ∞ ∞ ∞ ∞ f ( x ) d x = ∫ ∫ − − 1 + 1 f ( t 1 − − t 2 ) 1 + t 2 ( 1 − − t 2 ) 2 d t , {\displaystyle \int _{-\infty }^{\infty }f(x)\,dx=\int _{-1}^{+1}f\left({\frac {t}{1-t^{2}}}\right){\frac {1+t^{2}}{\left(1-t^{2}\right)^{2}}}\,dt,} and for semi-infinite intervals one could use ∫ ∫ a ∞ ∞ f ( x ) d x = ∫ ∫ 0 1 f ( a + t 1 − − t ) d t ( 1 − − t ) 2 , ∫ ∫ − − ∞ ∞ a f ( x ) d x = ∫ ∫ 0 1 f ( a − − 1 − − t t ) d t t 2 , {\displaystyle {\begin{aligned}\int _{a}^{\infty }f(x)\,dx&=\int _{0}^{1}f\left(a+{\frac {t}{1-t}}\right){\frac {dt}{(1-t)^{2}}},\\\int _{-\infty }^{a}f(x)\,dx&=\int _{0}^{1}f\left(a-{\frac {1-t}{t}}\right){\frac {dt}{t^{2}}},\end{aligned}}} as possible transformations.
+
+Multidimensional integrals [ edit ] The quadrature rules discussed so far are all designed to compute one-dimensional integrals. To compute integrals in multiple dimensions, one approach is to phrase the multiple integral as repeated one-dimensional integrals by applying Fubini's theorem (the tensor product rule). This approach requires the function evaluations to grow exponentially as the number of dimensions increases. Three methods are known to overcome this so-called curse of dimensionality .
+
+A great many additional techniques for forming multidimensional cubature integration rules for a variety of weighting functions are given in the monograph by Stroud.
+
+[ 5 ] Integration on the sphere has been reviewed by Hesse et al. (2015).
+
+[ 6 ] Monte Carlo [ edit ] Main article: Monte Carlo integration Monte Carlo methods and quasi-Monte Carlo methods are easy to apply to multi-dimensional integrals. They may yield greater accuracy for the same number of function evaluations than repeated integrations using one-dimensional methods.
+
+[ citation needed ] A large class of useful Monte Carlo methods are the so-called Markov chain Monte Carlo algorithms, which include the Metropolis–Hastings algorithm and Gibbs sampling .
+
+Sparse grids [ edit ] Sparse grids were originally developed by Smolyak for the quadrature of high-dimensional functions. The method is always based on a one-dimensional quadrature rule, but performs a more sophisticated combination of univariate results. However, whereas the tensor product rule guarantees that the weights of all of the cubature points will be positive if the weights of the quadrature points were positive, Smolyak's rule does not guarantee that the weights will all be positive.
+
+Bayesian quadrature [ edit ] Bayesian quadrature is a statistical approach to the numerical problem of computing integrals and falls under the field of probabilistic numerics . It can provide a full handling of the uncertainty over the solution of the integral expressed as a Gaussian process posterior variance.
+
+Connection with differential equations [ edit ] The problem of evaluating the definite integral F ( x ) = ∫ ∫ a x f ( u ) d u {\displaystyle F(x)=\int _{a}^{x}f(u)\,du} can be reduced to an initial value problem for an ordinary differential equation by applying the first part of the fundamental theorem of calculus . By differentiating both sides of the above with respect to the argument x , it is seen that the function F satisfies d F ( x ) d x = f ( x ) , F ( a ) = 0.
+
+{\displaystyle {\frac {dF(x)}{dx}}=f(x),\quad F(a)=0.} Numerical methods for ordinary differential equations , such as Runge–Kutta methods , can be applied to the restated problem and thus be used to evaluate the integral. For instance, the standard fourth-order Runge–Kutta method applied to the differential equation yields Simpson's rule from above.
+
+The differential equation F ′ ( x ) = f ( x ) {\displaystyle F'(x)=f(x)} has a special form: the right-hand side contains only the independent variable (here x {\displaystyle x} ) and not the dependent variable (here F {\displaystyle F} ). This simplifies the theory and algorithms considerably. The problem of evaluating integrals is thus best studied in its own right.
+
+Conversely, the term "quadrature" may also be used for the solution of differential equations: " solving by quadrature " or " reduction to quadrature " means expressing its solution in terms of integrals .
+
+See also [ edit ] Truncation error (numerical integration) Clenshaw–Curtis quadrature Gauss-Kronrod quadrature Riemann Sum or Riemann Integral Trapezoidal rule Romberg's method Tanh-sinh quadrature Nonelementary Integral References [ edit ] ^ Weisstein, Eric W.
+
+"Cubature" .
+
+MathWorld .
+
+^ "Earliest Known Uses of Some of the Words of Mathematics (Q)" .
+
+jeff560.tripod.com . Retrieved 31 March 2018 .
+
+^ Mathieu Ossendrijver (Jan 29, 2016). "Ancient Babylonian astronomers calculated Jupiter's position from the area under a time-velocity graph".
+
+Science .
+
+351 (6272): 482– 484.
+
+Bibcode : 2016Sci...351..482O .
+
+doi : 10.1126/science.aad8085 .
+
+PMID 26823423 .
+
+S2CID 206644971 .
+
+^ Leader, Jeffery J.
+
+(2004).
+
+Numerical Analysis and Scientific Computation . Addison Wesley.
+
+ISBN 978-0-201-73499-7 .
+
+^ Stroud, A. H. (1971).
+
+Approximate Calculation of Multiple Integrals . Cliffs, NJ: Prentice-Hall Inc.
+
+ISBN 9780130438935 .
+
+^ Kerstin Hesse, Ian H. Sloan, and Robert S. Womersley: Numerical Integration on the Sphere. In W. Freeden et al. (eds.), Handbook of Geomathematics, Springer: Berlin 2015, doi : 10.1007/978-3-642-54551-1_40 Philip J. Davis and Philip Rabinowitz , Methods of Numerical Integration .
+
+George E. Forsythe , Michael A. Malcolm, and Cleve B. Moler , Computer Methods for Mathematical Computations . Englewood Cliffs, NJ: Prentice-Hall, 1977.
+
+(See Chapter 5.) Press, W.H.
+
+; Teukolsky, S.A.
+
+; Vetterling, W.T.; Flannery, B.P. (2007), "Chapter 4. Integration of Functions" , Numerical Recipes: The Art of Scientific Computing (3rd ed.), New York: Cambridge University Press, ISBN 978-0-521-88068-8 Josef Stoer and Roland Bulirsch , Introduction to Numerical Analysis . New York: Springer-Verlag, 1980.
+
+(See Chapter 3.) Boyer, C. B.
+
+, A History of Mathematics , 2nd ed. rev. by Uta C. Merzbach , New York: Wiley, 1989 ISBN 0-471-09763-2 (1991 pbk ed.
+
+ISBN 0-471-54397-7 ).
+
+Eves, Howard , An Introduction to the History of Mathematics , Saunders, 1990, ISBN 0-03-029558-0 , S.L.Sobolev and V.L.Vaskevich: The Theory of Cubature Formulas , Kluwer Academic, ISBN 0-7923-4631-9 (1997).
+
+External links [ edit ] Wikimedia Commons has media related to Numerical integration .
+
+Integration: Background, Simulations, etc.
+
+at Holistic Numerical Methods Institute Lobatto Quadrature from Wolfram Mathworld Lobatto quadrature formula from Encyclopedia of Mathematics Implementations of many quadrature and cubature formulae within the free Tracker Component Library .
+
+SageMath Online Integrator v t e Numerical integration Newton–Cotes formulas Trapezoidal rule Simpson's rule Simpson's 3/8 rule Adaptive Simpson's method Boole's rule Romberg's method Gaussian quadrature Gauss–Hermite quadrature Gauss–Jacobi quadrature Gauss–Kronrod quadrature formula Gauss–Laguerre quadrature Gauss–Legendre quadrature Chebyshev–Gauss quadrature Other Barnes–Hut simulation Bayesian quadrature Clenshaw–Curtis quadrature Filon quadrature Lebedev quadrature Tanh-sinh quadrature Related Numerical methods for ordinary differential equations Numerical methods for partial differential equations v t e Differential equations Classification Operations Differential operator Notation for differentiation Ordinary Partial Differential-algebraic Integro-differential Fractional Linear Non-linear Holonomic Attributes of variables Dependent and independent variables Homogeneous Nonhomogeneous Coupled Decoupled Order Degree Autonomous Exact differential equation On jet bundles Relation to processes Difference (discrete analogue) Stochastic Stochastic partial Delay Solutions Existence/uniqueness Picard–Lindelöf theorem Peano existence theorem Carathéodory's existence theorem Cauchy–Kowalevski theorem Solution topics Wronskian Phase portrait Phase space Lyapunov stability Asymptotic stability Exponential stability Rate of convergence Series solutions Integral solutions Numerical integration Dirac delta function Solution methods Inspection Substitution Separation of variables Method of undetermined coefficients Variation of parameters Integrating factor Integral transforms Euler method Finite difference method Crank–Nicolson method Runge–Kutta methods Finite element method Finite volume method Galerkin method Perturbation theory Examples List of named differential equations List of linear ordinary differential equations List of nonlinear ordinary differential equations List of nonlinear partial differential equations Mathematicians Isaac Newton Gottfried Wilhelm Leibniz Leonhard Euler Jacob Bernoulli Émile Picard Józef Maria Hoene-Wroński Ernst Lindelöf Rudolf Lipschitz Joseph-Louis Lagrange Augustin-Louis Cauchy John Crank Phyllis Nicolson Carl David Tolmé Runge Martin Kutta Sofya Kovalevskaya Authority control databases National Germany United States Japan Other Yale LUX Retrieved from " https://en.wikipedia.org/w/index.php?title=Numerical_integration&oldid=1304037985 " Categories : Numerical analysis Numerical integration Hidden categories: Articles with short description Short description is different from Wikidata Articles with excerpts All articles with unsourced statements Articles with unsourced statements from November 2018 Commons category link from Wikidata This page was last edited on 3 August 2025, at 15:45 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Numerical integration 37 languages Add topic
+

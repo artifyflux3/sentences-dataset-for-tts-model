@@ -1,0 +1,129 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Definition 2 Calculation 3 Examples 4 Autoregressive model identification 5 References Toggle the table of contents Partial autocorrelation function 3 languages Deutsch Español Polski Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Partial correlation of a time series with its lagged values Partial autocorrelation function of Lake Huron 's depth with confidence interval (in blue, plotted around 0) In time series analysis , the partial autocorrelation function ( PACF ) gives the partial correlation of a stationary time series with its own lagged values, regressed the values of the time series at all shorter lags. It contrasts with the autocorrelation function , which does not control for other lags.
+
+This function plays an important role in data analysis aimed at identifying the extent of the lag in an autoregressive (AR) model . The use of this function was introduced as part of the Box–Jenkins approach to time series modelling, whereby plotting the partial autocorrelative functions one could determine the appropriate lags p in an AR ( p ) model or in an extended ARIMA ( p , d , q ) model.
+
+Definition [ edit ] Given a time series z t {\displaystyle z_{t}} , the partial autocorrelation of lag k {\displaystyle k} , denoted ϕ ϕ k , k {\displaystyle \phi _{k,k}} , is the autocorrelation between z t {\displaystyle z_{t}} and z t + k {\displaystyle z_{t+k}} with the linear dependence of z t {\displaystyle z_{t}} on z t + 1 {\displaystyle z_{t+1}} through z t + k − − 1 {\displaystyle z_{t+k-1}} removed. Equivalently, it is the autocorrelation between z t {\displaystyle z_{t}} and z t + k {\displaystyle z_{t+k}} that is not accounted for by lags 1 {\displaystyle 1} through k − − 1 {\displaystyle k-1} , inclusive.
+
+[ 1 ] ϕ ϕ 1 , 1 = corr ⁡ ⁡ ( z t + 1 , z t ) , for k = 1 , {\displaystyle \phi _{1,1}=\operatorname {corr} (z_{t+1},z_{t}),{\text{ for }}k=1,} ϕ ϕ k , k = corr ⁡ ⁡ ( z t + k − − z ^ ^ t + k , z t − − z ^ ^ t ) , for k ≥ ≥ 2 , {\displaystyle \phi _{k,k}=\operatorname {corr} (z_{t+k}-{\hat {z}}_{t+k},\,z_{t}-{\hat {z}}_{t}),{\text{ for }}k\geq 2,} where z ^ ^ t + k {\displaystyle {\hat {z}}_{t+k}} and z ^ ^ t {\displaystyle {\hat {z}}_{t}} are linear combinations of { z t + 1 , z t + 2 , .
+
+.
+
+.
+
+, z t + k − − 1 } {\displaystyle \{z_{t+1},z_{t+2},...,z_{t+k-1}\}} that minimize the mean squared error of z t + k {\displaystyle z_{t+k}} and z t {\displaystyle z_{t}} respectively. For stationary processes , the coefficients in z ^ ^ t + k {\displaystyle {\hat {z}}_{t+k}} and z ^ ^ t {\displaystyle {\hat {z}}_{t}} are the same, but reversed: [ 2 ] z ^ ^ t + k = β β 1 z t + k − − 1 + ⋯ ⋯ + β β k − − 1 z t + 1 and z ^ ^ t = β β 1 z t + 1 + ⋯ ⋯ + β β k − − 1 z t + k − − 1 .
+
+{\displaystyle {\hat {z}}_{t+k}=\beta _{1}z_{t+k-1}+\cdots +\beta _{k-1}z_{t+1}\qquad {\text{and}}\qquad {\hat {z}}_{t}=\beta _{1}z_{t+1}+\cdots +\beta _{k-1}z_{t+k-1}.} Calculation [ edit ] The theoretical partial autocorrelation function of a stationary time series can be calculated by using the Durbin–Levinson Algorithm: ϕ ϕ n , n = ρ ρ ( n ) − − ∑ ∑ k = 1 n − − 1 ϕ ϕ n − − 1 , k ρ ρ ( n − − k ) 1 − − ∑ ∑ k = 1 n − − 1 ϕ ϕ n − − 1 , k ρ ρ ( k ) {\displaystyle \phi _{n,n}={\frac {\rho (n)-\sum _{k=1}^{n-1}\phi _{n-1,k}\rho (n-k)}{1-\sum _{k=1}^{n-1}\phi _{n-1,k}\rho (k)}}} where ϕ ϕ n , k = ϕ ϕ n − − 1 , k − − ϕ ϕ n , n ϕ ϕ n − − 1 , n − − k {\displaystyle \phi _{n,k}=\phi _{n-1,k}-\phi _{n,n}\phi _{n-1,n-k}} for 1 ≤ ≤ k ≤ ≤ n − − 1 {\displaystyle 1\leq k\leq n-1} and ρ ρ ( n ) {\displaystyle \rho (n)} is the autocorrelation function.
+
+[ 3 ] [ 4 ] [ 5 ] The formula above can be used with sample autocorrelations to find the sample partial autocorrelation function of any given time series.
+
+[ 6 ] [ 7 ] Examples [ edit ] The following table summarizes the partial autocorrelation function of different models: [ 5 ] [ 8 ] Model PACF White noise The partial autocorrelation is 0 for all lags.
+
+Autoregressive model The partial autocorrelation for an AR( p ) model is nonzero for lags less than or equal to p and 0 for lags greater than p .
+
+Moving-average model If ϕ ϕ 1 , 1 > 0 {\displaystyle \phi _{1,1}>0} , the partial autocorrelation oscillates to 0.
+
+If ϕ ϕ 1 , 1 < 0 {\displaystyle \phi _{1,1}<0} , the partial autocorrelation geometrically decays to 0.
+
+Autoregressive–moving-average model An ARMA( p , q ) model's partial autocorrelation geometrically decays to 0 but only after lags greater than p .
+
+The behavior of the partial autocorrelation function mirrors that of the autocorrelation function for autoregressive and moving-average models. For example, the partial autocorrelation function of an AR( p ) series cuts off after lag p similar to the autocorrelation function of an MA( q ) series with lag q . In addition, the autocorrelation function of an AR( p ) process tails off just like the partial autocorrelation function of an MA( q ) process.
+
+[ 2 ] Autoregressive model identification [ edit ] Sample partial autocorrelation function with confidence interval of a simulated AR(3) time series Partial autocorrelation is a commonly used tool for identifying the order of an autoregressive model.
+
+[ 6 ] As previously mentioned, the partial autocorrelation of an AR( p ) process is zero at lags greater than p .
+
+[ 5 ] [ 8 ] If an AR model is determined to be appropriate, then the sample partial autocorrelation plot is examined to help identify the order.
+
+The partial autocorrelation of lags greater than p for an AR( p ) time series are approximately independent and normal with a mean of 0.
+
+[ 9 ] Therefore, a confidence interval can be constructed by dividing a selected z-score by n {\displaystyle {\sqrt {n}}} . Lags with partial autocorrelations outside of the confidence interval indicate that the AR model's order is likely greater than or equal to the lag. Plotting the partial autocorrelation function and drawing the lines of the confidence interval is a common way to analyze the order of an AR model. To evaluate the order, one examines the plot to find the lag after which the partial autocorrelations are all within the confidence interval. This lag is determined to likely be the AR model's order.
+
+[ 1 ] References [ edit ] ^ a b "6.4.4.6.3. Partial Autocorrelation Plot" .
+
+www.itl.nist.gov . Retrieved 2022-07-14 .
+
+^ a b Shumway, Robert H.; Stoffer, David S. (2017).
+
+Time Series Analysis and Its Applications: With R Examples . Springer Texts in Statistics. Cham: Springer International Publishing. pp.
+
+97– 99.
+
+doi : 10.1007/978-3-319-52452-8 .
+
+ISBN 978-3-319-52451-1 .
+
+^ Durbin, J. (1960).
+
+"The Fitting of Time-Series Models" .
+
+Revue de l'Institut International de Statistique / Review of the International Statistical Institute .
+
+28 (3): 233– 244.
+
+doi : 10.2307/1401322 .
+
+ISSN 0373-1138 .
+
+JSTOR 1401322 .
+
+^ Shumway, Robert H.; Stoffer, David S. (2017).
+
+Time Series Analysis and Its Applications: With R Examples . Springer Texts in Statistics. Cham: Springer International Publishing. pp.
+
+103– 104.
+
+doi : 10.1007/978-3-319-52452-8 .
+
+ISBN 978-3-319-52451-1 .
+
+^ a b c Enders, Walter (2004).
+
+Applied econometric time series (2nd ed.). Hoboken, NJ: J. Wiley. pp.
+
+65– 67.
+
+ISBN 0-471-23065-0 .
+
+OCLC 52387978 .
+
+^ a b Box, George E. P.; Reinsel, Gregory C.; Jenkins, Gwilym M. (2008).
+
+Time Series Analysis: Forecasting and Control (4th ed.). Hoboken, New Jersey: John Wiley.
+
+ISBN 9780470272848 .
+
+^ Brockwell, Peter J.; Davis, Richard A. (1991).
+
+Time Series: Theory and Methods (2nd ed.). New York, NY: Springer. pp. 102, 243– 245.
+
+ISBN 9781441903198 .
+
+^ a b Das, Panchanan (2019).
+
+Econometrics in Theory and Practice : Analysis of Cross Section, Time Series and Panel Data with Stata 15. 1 . Singapore: Springer. pp.
+
+294– 299.
+
+ISBN 978-981-329-019-8 .
+
+OCLC 1119630068 .
+
+^ Quenouille, M. H. (1949).
+
+"Approximate Tests of Correlation in Time-Series" .
+
+Journal of the Royal Statistical Society, Series B (Methodological) .
+
+11 (1): 68– 84.
+
+doi : 10.1111/j.2517-6161.1949.tb00023.x .
+
+v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject Retrieved from " https://en.wikipedia.org/w/index.php?title=Partial_autocorrelation_function&oldid=1301167084 " Categories : Time domain analysis Covariance and correlation Time series Hidden categories: Articles with short description Short description matches Wikidata This page was last edited on 18 July 2025, at 12:09 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Partial autocorrelation function 3 languages Add topic
+

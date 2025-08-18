@@ -1,0 +1,132 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Background 2 Procedure 3 Software 4 See also 5 References 6 Further reading Toggle the table of contents Breusch–Godfrey test 3 languages Español Français Русский Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Statistical hypothesis test for the presence of serial correlation In statistics , the Breusch–Godfrey test is used to assess the validity of some of the modelling assumptions inherent in applying regression-like models to observed data series.
+
+[ 1 ] [ 2 ] In particular, it tests for the presence of serial correlation that has not been included in a proposed model structure and which, if present, would mean that incorrect conclusions would be drawn from other tests or that sub-optimal estimates of model parameters would be obtained.
+
+The regression models to which the test can be applied include cases where lagged values of the dependent variables are used as independent variables in the model's representation for later observations. This type of structure is common in econometric models .
+
+The test is named after Trevor S. Breusch and Leslie G. Godfrey .
+
+Background [ edit ] The Breusch–Godfrey test is a test for autocorrelation in the errors in a regression model. It makes use of the residuals from the model being considered in a regression analysis , and a test statistic is derived from these.  The null hypothesis is that there is no serial correlation of any order up to p .
+
+[ citation needed ] Because the test is based on the idea of Lagrange multiplier testing , it is sometimes referred to as an LM test for serial correlation.
+
+[ 3 ] A similar assessment can be also carried out with the Durbin–Watson test and the Ljung–Box test . However, the test is more general than that using the Durbin–Watson statistic (or Durbin's h statistic), which is only valid for nonstochastic regressors and for testing the possibility of a first-order autoregressive model (e.g. AR(1)) for the regression errors.
+
+[ citation needed ] The BG test has none of these restrictions, and is statistically more powerful than Durbin's h statistic.
+
+[ citation needed ] The BG test is considered to be more general than the Ljung-Box test because the latter requires the assumption of strict exogeneity, but the BG test does not. However, the BG test requires the assumptions of stronger forms of predeterminedness and conditional homoscedasticity .
+
+Procedure [ edit ] Consider a linear regression of any form, for example Y t = β β 1 + β β 2 X t , 1 + β β 3 X t , 2 + u t {\displaystyle Y_{t}=\beta _{1}+\beta _{2}X_{t,1}+\beta _{3}X_{t,2}+u_{t}\,} where the errors might follow an AR( p ) autoregressive scheme, as follows: u t = ρ ρ 1 u t − − 1 + ρ ρ 2 u t − − 2 + ⋯ ⋯ + ρ ρ p u t − − p + ε ε t .
+
+{\displaystyle u_{t}=\rho _{1}u_{t-1}+\rho _{2}u_{t-2}+\cdots +\rho _{p}u_{t-p}+\varepsilon _{t}.\,} The simple regression model is first fitted by ordinary least squares to obtain a set of sample residuals u ^ ^ t {\displaystyle {\hat {u}}_{t}} .
+
+Breusch and Godfrey [ citation needed ] proved that, if the following auxiliary regression model is fitted u ^ ^ t = α α 0 + α α 1 X t , 1 + α α 2 X t , 2 + ρ ρ 1 u ^ ^ t − − 1 + ρ ρ 2 u ^ ^ t − − 2 + ⋯ ⋯ + ρ ρ p u ^ ^ t − − p + ε ε t {\displaystyle {\hat {u}}_{t}=\alpha _{0}+\alpha _{1}X_{t,1}+\alpha _{2}X_{t,2}+\rho _{1}{\hat {u}}_{t-1}+\rho _{2}{\hat {u}}_{t-2}+\cdots +\rho _{p}{\hat {u}}_{t-p}+\varepsilon _{t}\,} and if the usual Coefficient of determination ( R 2 {\displaystyle R^{2}} statistic) is calculated for this model: R 2 := ∑ ∑ j = 1 T − − p ( u ^ ^ T − − j − − u ^ ^ T − − j ) 2 ∑ ∑ j = 1 T − − p ( u ^ ^ T − − j − − u ^ ^ ¯ ¯ ) 2 {\displaystyle R^{2}:={\frac {\sum _{j=1}^{T-p}({\hat {u}}_{T-j}-{\hat {u}}_{T-j})^{2}}{\sum _{j=1}^{T-p}({\hat {u}}_{T-j}-{\bar {\hat {u}}})^{2}}}} , where u ^ ^ ¯ ¯ {\displaystyle {\bar {\hat {u}}}} stands for the arithmetic mean of residuals.
+One may average residuals over the last n = T − − p {\displaystyle n=T-p} observations, where T {\displaystyle T} is the number of observations in the original model and p {\displaystyle p} is the number of error lags used in the auxiliary regression.
+There is a version of the test where missing residuals u ^ ^ 1 − − j {\displaystyle {\hat {u}}_{1-j}} are replaced by zeros. 
+In this version of the test the number of observations in the auxiliary regression n {\displaystyle n} is equal to the original number of observations T {\displaystyle T} .
+
+The following asymptotic approximation can be used for the distribution of the test statistic: n R 2 ∼ ∼ χ χ p 2 , {\displaystyle nR^{2}\,\sim \,\chi _{p}^{2},\,} when the null hypothesis H 0 : { ρ ρ i = 0 for all i } {\displaystyle {H_{0}:\lbrace \rho _{i}=0{\text{ for all }}i\rbrace }} holds (that is, there is no serial correlation of any order up to p ).
+
+Software [ edit ] In R , this test is performed by function bgtest , available in package lmtest .
+
+[ 4 ] [ 5 ] In Stata , this test is performed by the command estat bgodfrey , and by varlmar for vector autoregressions .
+
+[ 6 ] [ 7 ] [ 8 ] In SAS , the GODFREY option of the MODEL statement in PROC AUTOREG provides a version of this test.
+
+In Python Statsmodels, the acorr_breusch_godfrey function in the module statsmodels.stats.diagnostic [ 9 ] In EViews , this test is already done after a regression, at "View" → "Residual Diagnostics" → "Serial Correlation LM Test".
+
+In Julia , the BreuschGodfreyTest function is available in the HypothesisTests package.
+
+[ 10 ] In gretl , this test can be obtained via the modtest command, or under the "Test" → "Autocorrelation" menu entry in the GUI client.
+
+See also [ edit ] Breusch–Pagan test Durbin–Watson test Ljung–Box test Autoregressive-moving-average model References [ edit ] ^ Breusch, T. S. (1978). "Testing for Autocorrelation in Dynamic Linear Models".
+
+Australian Economic Papers .
+
+17 (31): 334– 355.
+
+doi : 10.1111/j.1467-8454.1978.tb00635.x .
+
+^ Godfrey, L. G. (1978). "Testing Against General Autoregressive and Moving Average Error Models when the Regressors Include Lagged Dependent Variables".
+
+Econometrica .
+
+46 (6): 1293– 1301.
+
+doi : 10.2307/1913829 .
+
+JSTOR 1913829 .
+
+^ Asteriou, Dimitrios; Hall, Stephen G. (2011).
+
+"The Breusch–Godfrey LM test for serial correlation" .
+
+Applied Econometrics (Second ed.). New York: Palgrave Macmillan. pp.
+
+159– 61.
+
+ISBN 978-0-230-27182-1 .
+
+^ "lmtest: Testing Linear Regression Models" .
+
+CRAN . 21 March 2022.
+
+^ Kleiber, Christian; Zeileis, Achim (2008).
+
+"Testing for autocorrelation" .
+
+Applied Econometrics with R . New York: Springer. pp.
+
+104– 106.
+
+ISBN 978-0-387-77318-6 .
+
+^ "Postestimation tools for regress with time series" (PDF) .
+
+Stata Manual .
+
+^ Baum, Christopher F. (2006).
+
+"Testing for serial correlation" .
+
+An Introduction to Modern Econometrics Using Stata . Stata Press. pp.
+
+155– 158.
+
+ISBN 1-59718-013-0 .
+
+^ https://www.stata.com/manuals13/tsvarlmar.pdf [ bare URL PDF ] ^ Breusch-Godfrey test in Python https://statsmodels.sourceforge.net/devel/generated/statsmodels.stats.diagnostic.acorr_breush_godfrey.html?highlight=autocorrelation Archived 2014-02-28 at the Wayback Machine ^ "Time series tests" .
+
+juliastats.org . Retrieved 2020-02-04 .
+
+Further reading [ edit ] Godfrey, L. G. (1988).
+
+Misspecification Tests in Econometrics . Cambridge, UK: Cambridge.
+
+ISBN 0-521-26616-5 .
+
+Godfrey, L. G. (1996). "Misspecification Tests and Their Uses in Econometrics".
+
+Journal of Statistical Planning and Inference .
+
+49 (2): 241– 260.
+
+doi : 10.1016/0378-3758(95)00039-9 .
+
+Maddala, G. S.
+
+; Lahiri, Kajal (2009).
+
+Introduction to Econometrics (Fourth ed.). Chichester: Wiley. pp.
+
+259– 260.
+
+v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject Retrieved from " https://en.wikipedia.org/w/index.php?title=Breusch–Godfrey_test&oldid=1305037405 " Categories : Statistical tests Regression diagnostics Regression with time series structure Hidden categories: All articles with bare URLs for citations Articles with bare URLs for citations from July 2025 Articles with PDF format bare URLs for citations Webarchive template wayback links Articles with short description Short description matches Wikidata All articles with unsourced statements Articles with unsourced statements from April 2025 Articles with unsourced statements from November 2010 This page was last edited on 9 August 2025, at 17:47 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Breusch–Godfrey test 3 languages Add topic
+

@@ -1,0 +1,453 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Statement Toggle Statement subsection 1.1 Positive semidefinite matrices 2 LDL decomposition 3 Example 4 Geometric interpretation 5 Applications Toggle Applications subsection 5.1 Numerical solution of system of linear equations 5.2 Linear least squares 5.3 Non-linear optimization 5.4 Monte Carlo simulation 5.5 Kalman filters 5.6 Matrix inversion 6 Computation Toggle Computation subsection 6.1 The Cholesky algorithm 6.2 The Cholesky–Banachiewicz and Cholesky–Crout algorithms 6.3 Stability of the computation 6.4 LDL decomposition 6.5 Block variant 6.6 Updating the decomposition 6.6.1 Rank-one update 6.6.2 Rank-one downdate 6.6.3 Adding and removing rows and columns 7 Proof for positive semi-definite matrices Toggle Proof for positive semi-definite matrices subsection 7.1 Proof by limiting argument 7.2 Proof by QR decomposition 8 Generalization 9 Implementations in programming libraries 10 See also 11 Notes 12 References 13 External links Toggle External links subsection 13.1 History of science 13.2 Information 13.3 Computer code 13.4 Use of the matrix in simulation 13.5 Online calculators Toggle the table of contents Cholesky decomposition 20 languages Català Čeština Deutsch Español فارسی Français Galego 한국어 Italiano עברית Magyar Nederlands 日本語 Polski Português Русский Suomi ไทย Українська 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Matrix decomposition method In linear algebra , the Cholesky decomposition or Cholesky factorization (pronounced / ʃ ə ˈ l ɛ s k i / shə- LES -kee ) is a decomposition of a Hermitian , positive-definite matrix into the product of a lower triangular matrix and its conjugate transpose , which is useful for efficient numerical solutions, e.g., Monte Carlo simulations . It was discovered by André-Louis Cholesky for real matrices, and posthumously published in 1924.
+
+[ 1 ] When it is applicable, the Cholesky decomposition is roughly twice as efficient as the LU decomposition for solving systems of linear equations .
+
+[ 2 ] Statement [ edit ] The Cholesky decomposition of a Hermitian positive-definite matrix A , is a decomposition of the form A = L L ∗ ∗ , {\displaystyle \mathbf {A} =\mathbf {LL} ^{*},} where L is a lower triangular matrix with real and positive diagonal entries, and L * denotes the conjugate transpose of L . Every Hermitian positive-definite matrix (and thus also every real-valued symmetric positive-definite matrix) has a unique Cholesky decomposition.
+
+[ 3 ] The converse holds trivially: if A can be written as LL * for some invertible L , lower triangular or otherwise, then A is Hermitian and positive definite.
+
+When A is a real matrix (hence symmetric positive-definite), the factorization may be written A = L L T , {\displaystyle \mathbf {A} =\mathbf {LL} ^{\mathsf {T}},} where L is a real lower triangular matrix with positive diagonal entries.
+
+[ 4 ] [ 5 ] [ 6 ] Positive semidefinite matrices [ edit ] If a Hermitian matrix A is only positive semidefinite, instead of positive definite, then it still has a decomposition of the form A = LL * where the diagonal entries of L are allowed to be zero.
+
+[ 7 ] The decomposition need not be unique, for example: [ 0 0 0 1 ] = L L ∗ ∗ , L = [ 0 0 cos ⁡ ⁡ θ θ sin ⁡ ⁡ θ θ ] , {\displaystyle {\begin{bmatrix}0&0\\0&1\end{bmatrix}}=\mathbf {L} \mathbf {L} ^{*},\quad \quad \mathbf {L} ={\begin{bmatrix}0&0\\\cos \theta &\sin \theta \end{bmatrix}},} for any θ . However, if the rank of A is r , then there is a unique lower triangular L with exactly r positive diagonal elements and n − r columns containing all zeroes.
+
+[ 8 ] Alternatively, the decomposition can be made unique when a pivoting choice is fixed. Formally, if A is an n × n positive semidefinite matrix of rank r , then there is at least one permutation matrix P such that P A P T has a unique decomposition of the form P A P T = L L * with L = [ L 1 0 L 2 0 ] {\textstyle \mathbf {L} ={\begin{bmatrix}\mathbf {L} _{1}&0\\\mathbf {L} _{2}&0\end{bmatrix}}} ,
+where L 1 is an r × r lower triangular matrix with positive diagonal.
+
+[ 9 ] LDL decomposition [ edit ] A closely related variant of the classical Cholesky decomposition is the LDL decomposition, A = L D L ∗ ∗ , {\displaystyle \mathbf {A} =\mathbf {LDL} ^{*},} where L is a lower unit triangular (unitriangular) matrix, and D is a diagonal matrix. That is, the diagonal elements of L are required to be 1 at the cost of introducing an additional diagonal matrix D in the decomposition. The main advantage is that the LDL decomposition can be computed and used with essentially the same algorithms, but avoids extracting square roots.
+
+[ 10 ] For this reason, the LDL decomposition is often called the square-root-free Cholesky decomposition. For real matrices, the factorization has the form A = LDL T and is often referred to as LDLT decomposition (or LDL T decomposition, or LDL′ ).  It is reminiscent of the eigendecomposition of real symmetric matrices , A = QΛQ T , but is quite different in practice because Λ and D are not similar matrices .
+
+The LDL decomposition is related to the classical Cholesky decomposition of the form LL * as follows: A = L D L ∗ ∗ = L D 1 / 2 ( D 1 / 2 ) ∗ ∗ L ∗ ∗ = L D 1 / 2 ( L D 1 / 2 ) ∗ ∗ .
+
+{\displaystyle \mathbf {A} =\mathbf {LDL} ^{*}=\mathbf {L} \mathbf {D} ^{1/2}\left(\mathbf {D} ^{1/2}\right)^{*}\mathbf {L} ^{*}=\mathbf {L} \mathbf {D} ^{1/2}\left(\mathbf {L} \mathbf {D} ^{1/2}\right)^{*}.} Conversely, given the classical Cholesky decomposition A = C C ∗ ∗ {\textstyle \mathbf {A} =\mathbf {C} \mathbf {C} ^{*}} of a positive definite matrix, if S is a diagonal matrix that contains the main diagonal of C {\textstyle \mathbf {C} } , then A can be decomposed as L D L ∗ ∗ {\textstyle \mathbf {L} \mathbf {D} \mathbf {L} ^{*}} where L = C S − − 1 {\displaystyle \mathbf {L} =\mathbf {C} \mathbf {S} ^{-1}} (this rescales each column to make diagonal elements 1), D = S S ∗ ∗ .
+
+{\displaystyle \mathbf {D} =\mathbf {S} \mathbf {S} ^{*}.} If A is positive definite then the diagonal elements of D are all positive.
+For positive semidefinite A , an L D L ∗ ∗ {\textstyle \mathbf {L} \mathbf {D} \mathbf {L} ^{*}} decomposition exists where the number of non-zero elements on the diagonal D is exactly the rank of A .
+
+[ 11 ] Some indefinite matrices for which no Cholesky decomposition exists have an LDL decomposition with negative entries in D : it suffices that the first n − 1 leading principal minors of A are non-singular.
+
+[ 12 ] Example [ edit ] Here is the Cholesky decomposition of a symmetric real matrix: ( 4 12 − − 16 12 37 − − 43 − − 16 − − 43 98 ) = ( 2 0 0 6 1 0 − − 8 5 3 ) ( 2 6 − − 8 0 1 5 0 0 3 ) .
+
+{\displaystyle {\begin{aligned}{\begin{pmatrix}4&12&-16\\12&37&-43\\-16&-43&98\\\end{pmatrix}}={\begin{pmatrix}2&0&0\\6&1&0\\-8&5&3\\\end{pmatrix}}{\begin{pmatrix}2&6&-8\\0&1&5\\0&0&3\\\end{pmatrix}}.\end{aligned}}} And here is its LDL T decomposition: ( 4 12 − − 16 12 37 − − 43 − − 16 − − 43 98 ) = ( 1 0 0 3 1 0 − − 4 5 1 ) ( 4 0 0 0 1 0 0 0 9 ) ( 1 3 − − 4 0 1 5 0 0 1 ) .
+
+{\displaystyle {\begin{aligned}{\begin{pmatrix}4&12&-16\\12&37&-43\\-16&-43&98\\\end{pmatrix}}&={\begin{pmatrix}1&0&0\\3&1&0\\-4&5&1\\\end{pmatrix}}{\begin{pmatrix}4&0&0\\0&1&0\\0&0&9\\\end{pmatrix}}{\begin{pmatrix}1&3&-4\\0&1&5\\0&0&1\\\end{pmatrix}}.\end{aligned}}} Geometric interpretation [ edit ] See also: Whitening transformation The ellipse is a linear image of the unit circle. The two vectors v 1 , v 2 {\textstyle v_{1},v_{2}} are conjugate axes of the ellipse chosen such that v 1 {\textstyle v_{1}} is parallel to the first axis and v 2 {\textstyle v_{2}} is within the plane spanned by the first two axes.
+
+The Cholesky decomposition is equivalent to a particular choice of conjugate axes of an ellipsoid .
+
+[ 13 ] In detail, let the ellipsoid be defined as y T A y = 1 {\textstyle y^{T}Ay=1} , then by definition, a set of vectors v 1 , .
+
+.
+
+.
+
+, v n {\textstyle v_{1},...,v_{n}} are conjugate axes of the ellipsoid iff v i T A v j = δ δ i j {\textstyle v_{i}^{T}Av_{j}=\delta _{ij}} . Then, the ellipsoid is precisely { ∑ ∑ i x i v i : x T x = 1 } = f ( S n ) {\displaystyle \left\{\sum _{i}x_{i}v_{i}:x^{T}x=1\right\}=f(\mathbb {S} ^{n})} where f {\textstyle f} maps the basis vector e i ↦ ↦ v i {\textstyle e_{i}\mapsto v_{i}} , and S n {\textstyle \mathbb {S} ^{n}} is the unit sphere in n dimensions. That is, the ellipsoid is a linear image of the unit sphere.
+
+Define the matrix V := [ v 1 | v 2 | ⋯ ⋯ | v n ] {\textstyle V:=[v_{1}|v_{2}|\cdots |v_{n}]} , then v i T A v j = δ δ i j {\textstyle v_{i}^{T}Av_{j}=\delta _{ij}} is equivalent to V T A V = I {\textstyle V^{T}AV=I} . Different choices of the conjugate axes correspond to different decompositions.
+
+The Cholesky decomposition corresponds to choosing v 1 {\textstyle v_{1}} to be parallel to the first axis, v 2 {\textstyle v_{2}} to be within the plane spanned by the first two axes, and so on. This makes V {\textstyle V} an upper-triangular matrix. Then, there is A = L L T {\textstyle A=LL^{T}} , where L = ( V − − 1 ) T {\textstyle L=(V^{-1})^{T}} is lower-triangular.
+
+Similarly, principal component analysis corresponds to choosing v 1 , .
+
+.
+
+.
+
+, v n {\textstyle v_{1},...,v_{n}} to be perpendicular. Then, let λ λ = 1 / ‖ ‖ v i ‖ ‖ 2 {\textstyle \lambda =1/\|v_{i}\|^{2}} and Σ Σ = d i a g ( λ λ 1 , .
+
+.
+
+.
+
+, λ λ n ) {\textstyle \Sigma =\mathrm {diag} (\lambda _{1},...,\lambda _{n})} ,  and there is V = U Σ Σ − − 1 / 2 {\textstyle V=U\Sigma ^{-1/2}} where U {\textstyle U} is an orthogonal matrix . This then yields A = U Σ Σ U T {\textstyle A=U\Sigma U^{T}} .
+
+Applications [ edit ] Numerical solution of system of linear equations [ edit ] The Cholesky decomposition is mainly used for the numerical solution of linear equations A x = b {\textstyle \mathbf {Ax} =\mathbf {b} } . If A is symmetric and positive definite, then A x = b {\textstyle \mathbf {Ax} =\mathbf {b} } can be solved by first computing the Cholesky decomposition A = L L ∗ ∗ {\textstyle \mathbf {A} =\mathbf {LL} ^{\mathrm {*} }} , then solving L y = b {\textstyle \mathbf {Ly} =\mathbf {b} } for y by forward substitution , and finally solving L ∗ ∗ x = y {\textstyle \mathbf {L^{*}x} =\mathbf {y} } for x by back substitution .
+
+An alternative way to eliminate taking square roots in the L L ∗ ∗ {\textstyle \mathbf {LL} ^{\mathrm {*} }} decomposition is to compute the LDL decomposition A = L D L ∗ ∗ {\textstyle \mathbf {A} =\mathbf {LDL} ^{\mathrm {*} }} , then solving L y = b {\textstyle \mathbf {Ly} =\mathbf {b} } for y , and finally solving D L ∗ ∗ x = y {\textstyle \mathbf {DL} ^{\mathrm {*} }\mathbf {x} =\mathbf {y} } .
+
+For linear systems that can be put into symmetric form, the Cholesky decomposition (or its LDL variant) is the method of choice, for superior efficiency and numerical stability . Compared to the LU decomposition , it is roughly twice as efficient.
+
+[ 2 ] Linear least squares [ edit ] In linear least squares problem one seeks a solution x of an over-determined system Ax = l , such that quadratic norm of the residual vector Ax-l is minimum. This may be accomplished by solving by Cholesky decomposition
+normal equations N x = A T l {\displaystyle \mathbf {Nx} =\mathbf {A} ^{\mathsf {T}}\mathbf {l} } , where N = A T A {\displaystyle \mathbf {N} =\mathbf {A} ^{\mathsf {T}}\mathbf {A} } is symmetric positive definite. Symmetric equation matrix
+may also come from an energy functional, which must be positive from physical considerations; this happens frequently in the numerical solution of partial differential equations .
+
+Such method is economic and works well in many applications, however it fails for near singular N . This is best illustrated in pathological case of square A {\displaystyle \mathbf {A} } ,
+where determinant of N is square of that of the original system Ax = l .
+Then it is best to apply SVD or QR decomposition. Givens QR has the advantage that similarly
+to normal equations there is no need to keep the whole matrix A as it is
+possible to update Cholesky factor with consecutive rows of A .
+
+Non-linear optimization [ edit ] Non-linear least squares are a particular case of nonlinear optimization. Let f ( x ) = l {\textstyle \mathbf {f} (\mathbf {x} )=\mathbf {l} } be an over-determined system of equations with a non-linear function f {\displaystyle \mathbf {f} } returning vector results. The aim is to minimize square norm of residuals v = f ( x ) − − l {\textstyle \mathbf {v} =\mathbf {f} (\mathbf {x} )-\mathbf {l} } . An approximate Newton's method solution is obtained by expanding f {\displaystyle \mathbf {f} } into curtailed Taylor series f ( x 0 + δ δ x ) ≈ ≈ f ( x 0 ) + ( ∂ ∂ f / ∂ ∂ x ) δ δ x {\displaystyle {\bf {f(x_{\rm {0}}+\delta x)\approx f(x_{\rm {0}})+(\partial f/\partial x)\delta x}}} yielding
+linear least squares problem for δ δ x {\displaystyle {\bf {\delta x}}} ( ∂ ∂ f / ∂ ∂ x ) δ δ x = l − − f ( x 0 ) = v , min δ δ x = ‖ ‖ v ‖ ‖ 2 .
+
+{\displaystyle {\bf {(\partial f/\partial x)\delta x=l-f(x_{\rm {0}})=v,\;\;\min _{\delta x}=\|v\|^{2}}}.} Of course because of neglect of higher Taylor terms such solution is only approximate, if it ever exists. Now one could update expansion point to x n + 1 = x n + δ δ x {\displaystyle {\bf {x_{\rm {n+1}}=x_{\rm {n}}+\delta x}}} and repeat the whole procedure, hoping that (i) iterations converge to a solution
+and (ii) that the solution is the one needed. Unfortunately neither is guaranteed and
+must be verified.
+
+Non-linear least squares may be also applied to the linear least squares problem by setting x 0 = 0 {\displaystyle {\bf {x_{\rm {0}}=0}}} and f ( x 0 ) = A x {\displaystyle {\bf {f(x_{\rm {0}})=Ax}}} . This may be useful if Cholesky decomposition yields an inaccurate inverse R − − 1 {\displaystyle {\bf {R^{\rm {-1}}}}} for the triangle matrix where R T R = N {\displaystyle {\bf {R^{\rm {T}}R=N}}} , because of rounding errors. Such a procedure is called a differential correction of the solution. As long as iterations converge, by virtue of the Banach fixed-point theorem they yield the solution with a precision that is only limited by the precision of the calculated residuals v = A x − − l {\displaystyle {\bf {v=Ax-l}}} . The precision is independent rounding errors in R − − 1 {\displaystyle {\bf {R^{\rm {-1}}}}} . Poor R − − 1 {\displaystyle {\bf {R^{\rm {-1}}}}} may restrict region of initial x 0 {\displaystyle {\bf {x_{\rm {0}}}}} yielding convergence or altogether preventing it. Usually convergence is slower e.g. linear
+so that ‖ ‖ δ δ x n + 1 ‖ ‖ ≈ ≈ ‖ ‖ = α α δ δ x n ‖ ‖ {\displaystyle {\bf {\|\delta x_{\rm {n+1}}\|\approx \|=\alpha \delta x_{\rm {n}}\|}}} where constant α α < 1 {\displaystyle \alpha <1} . Such slow convergence may be sped by Aitken δ δ 2 {\displaystyle \delta ^{2}} method.
+If calculation of R − − 1 {\displaystyle {\bf {R^{\rm {-1}}}}} is very costly, it is possible to use it from previous 
+iterations as long as convergence is maintained. Such Cholesky procedure may work even for Hilbert matrices, 
+notoriously difficult to invert.
+
+[ 14 ] Non-linear multi-variate functions may be minimized over their parameters using variants of Newton's method called quasi-Newton methods.  At iteration k, the search steps in a direction p k {\textstyle p_{k}} defined by solving B k p k = − − g k {\textstyle B_{k}p_{k}=-g_{k}} for p k {\textstyle p_{k}} , where p k {\textstyle p_{k}} is the step direction, g k {\textstyle g_{k}} is the gradient , and B k {\textstyle B_{k}} is an approximation to the Hessian matrix formed by repeating rank-1 updates at each iteration.  Two well-known update formulas are called Davidon–Fletcher–Powell (DFP) and Broyden–Fletcher–Goldfarb–Shanno (BFGS). Loss of the positive-definite condition through round-off error is avoided if rather than updating an approximation to the inverse of the Hessian, one updates the Cholesky decomposition of an approximation of the Hessian matrix itself.
+
+[ 15 ] Monte Carlo simulation [ edit ] The Cholesky decomposition is commonly used in the Monte Carlo method for simulating systems with multiple correlated variables. The covariance matrix is decomposed to give the lower-triangular L . Applying this to a vector of uncorrelated observations in a sample u produces a sample vector Lu with the covariance properties of the system being modeled.
+
+[ 16 ] The following simplified example shows the economy one gets from the Cholesky decomposition:  suppose the goal is to generate two correlated normal variables x 1 {\textstyle x_{1}} and x 2 {\textstyle x_{2}} with given correlation coefficient ρ ρ {\textstyle \rho } . To accomplish that, it is necessary to first generate two uncorrelated Gaussian random variables z 1 {\textstyle z_{1}} and z 2 {\textstyle z_{2}} (for example, via a Box–Muller transform ).  Given the  required correlation coefficient ρ ρ {\textstyle \rho } , the correlated normal variables can be obtained via the transformations x 1 = z 1 {\textstyle x_{1}=z_{1}} and x 2 = ρ ρ z 1 + 1 − − ρ ρ 2 z 2 {\textstyle x_{2}=\rho z_{1}+{\sqrt {1-\rho ^{2}}}z_{2}} .
+
+Kalman filters [ edit ] Unscented Kalman filters commonly use the Cholesky decomposition to choose a set of so-called sigma points.  The Kalman filter tracks the average state of a system as a vector x of length N and covariance as an N × N matrix P .  The matrix P is always positive semi-definite and can be decomposed into LL T .  The columns of L can be added and subtracted from the mean x to form a set of 2 N vectors called sigma points .  These sigma points completely capture the mean and covariance of the system state.
+
+Matrix inversion [ edit ] The explicit inverse of a Hermitian matrix can be computed by Cholesky decomposition, in a manner similar to solving linear systems, using n 3 {\textstyle n^{3}} operations ( 1 2 n 3 {\textstyle {\tfrac {1}{2}}n^{3}} multiplications).
+
+[ 10 ] The entire inversion can even be efficiently performed in-place.
+
+A non-Hermitian matrix B can also be inverted using the following identity, where BB * will always be Hermitian: B − − 1 = B ∗ ∗ ( B B ∗ ∗ ) − − 1 .
+
+{\displaystyle \mathbf {B} ^{-1}=\mathbf {B} ^{*}(\mathbf {BB} ^{*})^{-1}.} Computation [ edit ] There are various methods for calculating the Cholesky decomposition. The computational complexity of commonly used algorithms is O ( n 3 ) in general.
+
+[ citation needed ] The algorithms described below all involve about (1/3) n 3 FLOPs ( n 3 /6 multiplications and the same number of additions) for real flavors and (4/3) n 3 FLOPs for complex flavors, [ 17 ] where n is the size of the matrix A . Hence, they have half the cost of the LU decomposition , which uses 2 n 3 /3 FLOPs (see Trefethen and Bau 1997).
+
+Which of the algorithms below is faster depends on the details of the implementation. Generally, the first algorithm will be slightly slower because it accesses the data in a less regular manner.
+The Cholesky decomposition was shown to be numerically stable without need for pivoting.
+
+[ 18 ] The Cholesky algorithm [ edit ] The Cholesky algorithm , used to calculate the decomposition matrix L , is a modified version of Gaussian elimination .
+
+The recursive algorithm starts with i := 1 and A (1) := A .
+
+At step i , the matrix A ( i ) has the following form: A ( i ) = ( I i − − 1 0 0 0 a i , i b i ∗ ∗ 0 b i B ( i ) ) , {\displaystyle \mathbf {A} ^{(i)}={\begin{pmatrix}\mathbf {I} _{i-1}&0&0\\0&a_{i,i}&\mathbf {b} _{i}^{*}\\0&\mathbf {b} _{i}&\mathbf {B} ^{(i)}\end{pmatrix}},} where I i −1 denotes the identity matrix of dimension i − 1 .
+
+If the matrix L i is defined by L i := ( I i − − 1 0 0 0 a i , i 0 0 1 a i , i b i I n − − i ) , {\displaystyle \mathbf {L} _{i}:={\begin{pmatrix}\mathbf {I} _{i-1}&0&0\\0&{\sqrt {a_{i,i}}}&0\\0&{\frac {1}{\sqrt {a_{i,i}}}}\mathbf {b} _{i}&\mathbf {I} _{n-i}\end{pmatrix}},} (note that a i,i > 0 since A ( i ) is positive definite),
+then A ( i ) can be written as A ( i ) = L i A ( i + 1 ) L i ∗ ∗ {\displaystyle \mathbf {A} ^{(i)}=\mathbf {L} _{i}\mathbf {A} ^{(i+1)}\mathbf {L} _{i}^{*}} where A ( i + 1 ) = ( I i − − 1 0 0 0 1 0 0 0 B ( i ) − − 1 a i , i b i b i ∗ ∗ ) .
+
+{\displaystyle \mathbf {A} ^{(i+1)}={\begin{pmatrix}\mathbf {I} _{i-1}&0&0\\0&1&0\\0&0&\mathbf {B} ^{(i)}-{\frac {1}{a_{i,i}}}\mathbf {b} _{i}\mathbf {b} _{i}^{*}\end{pmatrix}}.} Note that b i b i * is an outer product , therefore this algorithm is called the outer-product version in (Golub & Van Loan).
+
+This is repeated for i from 1 to n . After n steps, A ( n +1) = I is obtained, and hence, the lower triangular matrix L sought for is calculated as L := L 1 L 2 … … L n .
+
+{\displaystyle \mathbf {L} :=\mathbf {L} _{1}\mathbf {L} _{2}\dots \mathbf {L} _{n}.} The Cholesky–Banachiewicz and Cholesky–Crout algorithms [ edit ] Access pattern (white) and writing pattern (yellow) for the in-place Cholesky—Banachiewicz algorithm on a 5×5 matrix If the equation A = L L T = ( L 11 0 0 L 21 L 22 0 L 31 L 32 L 33 ) ( L 11 L 21 L 31 0 L 22 L 32 0 0 L 33 ) = ( L 11 2 ( symmetric ) L 21 L 11 L 21 2 + L 22 2 L 31 L 11 L 31 L 21 + L 32 L 22 L 31 2 + L 32 2 + L 33 2 ) , {\displaystyle {\begin{aligned}\mathbf {A} =\mathbf {LL} ^{T}&={\begin{pmatrix}L_{11}&0&0\\L_{21}&L_{22}&0\\L_{31}&L_{32}&L_{33}\\\end{pmatrix}}{\begin{pmatrix}L_{11}&L_{21}&L_{31}\\0&L_{22}&L_{32}\\0&0&L_{33}\end{pmatrix}}\\[8pt]&={\begin{pmatrix}L_{11}^{2}&&({\text{symmetric}})\\L_{21}L_{11}&L_{21}^{2}+L_{22}^{2}&\\L_{31}L_{11}&L_{31}L_{21}+L_{32}L_{22}&L_{31}^{2}+L_{32}^{2}+L_{33}^{2}\end{pmatrix}},\end{aligned}}} is written out, the following is obtained: L = ( A 11 0 0 A 21 / L 11 A 22 − − L 21 2 0 A 31 / L 11 ( A 32 − − L 31 L 21 ) / L 22 A 33 − − L 31 2 − − L 32 2 ) {\displaystyle {\begin{aligned}\mathbf {L} ={\begin{pmatrix}{\sqrt {A_{11}}}&0&0\\A_{21}/L_{11}&{\sqrt {A_{22}-L_{21}^{2}}}&0\\A_{31}/L_{11}&\left(A_{32}-L_{31}L_{21}\right)/L_{22}&{\sqrt {A_{33}-L_{31}^{2}-L_{32}^{2}}}\end{pmatrix}}\end{aligned}}} and therefore the following formulas for the entries of L : L j , j = ( ± ± ) A j , j − − ∑ ∑ k = 1 j − − 1 L j , k 2 , {\displaystyle L_{j,j}=(\pm ){\sqrt {A_{j,j}-\sum _{k=1}^{j-1}L_{j,k}^{2}}},} L i , j = 1 L j , j ( A i , j − − ∑ ∑ k = 1 j − − 1 L i , k L j , k ) for i > j .
+
+{\displaystyle L_{i,j}={\frac {1}{L_{j,j}}}\left(A_{i,j}-\sum _{k=1}^{j-1}L_{i,k}L_{j,k}\right)\quad {\text{for }}i>j.} For complex and real matrices, inconsequential arbitrary sign changes of diagonal and associated off-diagonal elements are allowed. The expression under the square root is always positive if A is real and positive-definite.
+
+For complex Hermitian matrix, the following formula applies: L j , j = A j , j − − ∑ ∑ k = 1 j − − 1 L j , k ∗ ∗ L j , k , {\displaystyle L_{j,j}={\sqrt {A_{j,j}-\sum _{k=1}^{j-1}L_{j,k}^{*}L_{j,k}}},} L i , j = 1 L j , j ( A i , j − − ∑ ∑ k = 1 j − − 1 L j , k ∗ ∗ L i , k ) for i > j .
+
+{\displaystyle L_{i,j}={\frac {1}{L_{j,j}}}\left(A_{i,j}-\sum _{k=1}^{j-1}L_{j,k}^{*}L_{i,k}\right)\quad {\text{for }}i>j.} So it now is possible to compute the ( i , j ) entry if the entries to the left and above are known. The computation is usually arranged in either of the following orders: The Cholesky–Banachiewicz algorithm starts from the upper left corner of the matrix L and proceeds to calculate the matrix row by row.
+
+for ( i = 0 ; i < dimensionSize ; i ++ ) { for ( j = 0 ; j <= i ; j ++ ) { float sum = 0 ; for ( k = 0 ; k < j ; k ++ ) sum += L [ i ][ k ] * L [ j ][ k ]; if ( i == j ) L [ i ][ j ] = sqrt ( A [ i ][ i ] - sum ); else L [ i ][ j ] = ( 1.0 / L [ j ][ j ] * ( A [ i ][ j ] - sum )); } } The above algorithm can be succinctly expressed as combining a dot product and matrix multiplication in vectorized programming languages such as Fortran as the following, do i = 1 , size ( A , 1 ) L ( i , i ) = sqrt ( A ( i , i ) - dot_product ( L ( i , 1 : i - 1 ), L ( i , 1 : i - 1 ))) L ( i + 1 :, i ) = ( A ( i + 1 :, i ) - matmul ( conjg ( L ( i , 1 : i - 1 )), L ( i + 1 :, 1 : i - 1 ))) / L ( i , i ) end do where conjg refers to complex conjugate of the elements.
+
+The Cholesky–Crout algorithm starts from the upper left corner of the matrix L and proceeds to calculate the matrix column by column.
+
+for ( j = 0 ; j < dimensionSize ; j ++ ) { float sum = 0 ; for ( k = 0 ; k < j ; k ++ ) { sum += L [ j ][ k ] * L [ j ][ k ]; } L [ j ][ j ] = sqrt ( A [ j ][ j ] - sum ); for ( i = j + 1 ; i < dimensionSize ; i ++ ) { sum = 0 ; for ( k = 0 ; k < j ; k ++ ) { sum += L [ i ][ k ] * L [ j ][ k ]; } L [ i ][ j ] = ( 1.0 / L [ j ][ j ] * ( A [ i ][ j ] - sum )); } } The above algorithm can be succinctly expressed as combining a dot product and matrix multiplication in vectorized programming languages such as Fortran as the following, do i = 1 , size ( A , 1 ) L ( i , i ) = sqrt ( A ( i , i ) - dot_product ( L ( 1 : i - 1 , i ), L ( 1 : i - 1 , i ))) L ( i , i + 1 :) = ( A ( i , i + 1 :) - matmul ( conjg ( L ( 1 : i - 1 , i )), L ( 1 : i - 1 , i + 1 :))) / L ( i , i ) end do where conjg refers to complex conjugate of the elements.
+
+Either pattern of access allows the entire computation to be performed in-place if desired.
+
+Stability of the computation [ edit ] Suppose that there is a desire to solve a well-conditioned system of linear equations. If the LU decomposition is used, then the algorithm is unstable unless some sort of pivoting strategy is used. In the latter case, the error depends on the so-called growth factor of the matrix, which is usually (but not always) small.
+
+Now, suppose that the Cholesky decomposition is applicable. As mentioned above, the algorithm will be twice as fast. Furthermore, no pivoting is necessary, and the error will always be small. Specifically, if Ax = b , and y denotes the computed solution, then y solves the perturbed system ( A + E ) y = b , where ‖ ‖ E ‖ ‖ 2 ≤ ≤ c n ε ε ‖ ‖ A ‖ ‖ 2 .
+
+{\displaystyle \|\mathbf {E} \|_{2}\leq c_{n}\varepsilon \|\mathbf {A} \|_{2}.} Here ||·|| 2 is the matrix 2-norm , c n is a small constant depending on n , and ε denotes the unit round-off .
+
+One concern with the Cholesky decomposition to be aware of is the use of square roots. If the matrix being factorized is positive definite as required, the numbers under the square roots are always positive in exact arithmetic . Unfortunately, the numbers can become negative because of round-off errors , in which case the algorithm cannot continue. However, this can only happen if the matrix is very ill-conditioned. One way to address this is to add a diagonal correction matrix to the matrix being decomposed in an attempt to promote the positive-definiteness.
+
+[ 19 ] While this might lessen the accuracy of the decomposition, it can be very favorable for other reasons; for example, when performing Newton's method in optimization , adding a diagonal matrix can improve stability when far from the optimum.
+
+LDL decomposition [ edit ] An alternative form, eliminating the need to take square roots when A is symmetric, is the symmetric indefinite factorization [ 20 ] A = L D L T = ( 1 0 0 L 21 1 0 L 31 L 32 1 ) ( D 1 0 0 0 D 2 0 0 0 D 3 ) ( 1 L 21 L 31 0 1 L 32 0 0 1 ) = ( D 1 ( s y m m e t r i c ) L 21 D 1 L 21 2 D 1 + D 2 L 31 D 1 L 31 L 21 D 1 + L 32 D 2 L 31 2 D 1 + L 32 2 D 2 + D 3 .
+
+) .
+
+{\displaystyle {\begin{aligned}\mathbf {A} =\mathbf {LDL} ^{\mathrm {T} }&={\begin{pmatrix}1&0&0\\L_{21}&1&0\\L_{31}&L_{32}&1\\\end{pmatrix}}{\begin{pmatrix}D_{1}&0&0\\0&D_{2}&0\\0&0&D_{3}\\\end{pmatrix}}{\begin{pmatrix}1&L_{21}&L_{31}\\0&1&L_{32}\\0&0&1\\\end{pmatrix}}\\[8pt]&={\begin{pmatrix}D_{1}&&(\mathrm {symmetric} )\\L_{21}D_{1}&L_{21}^{2}D_{1}+D_{2}&\\L_{31}D_{1}&L_{31}L_{21}D_{1}+L_{32}D_{2}&L_{31}^{2}D_{1}+L_{32}^{2}D_{2}+D_{3}.\end{pmatrix}}.\end{aligned}}} The following recursive relations apply for the entries of D and L : D j = A j j − − ∑ ∑ k = 1 j − − 1 L j k 2 D k , {\displaystyle D_{j}=A_{jj}-\sum _{k=1}^{j-1}L_{jk}^{2}D_{k},} L i j = 1 D j ( A i j − − ∑ ∑ k = 1 j − − 1 L i k L j k D k ) for i > j .
+
+{\displaystyle L_{ij}={\frac {1}{D_{j}}}\left(A_{ij}-\sum _{k=1}^{j-1}L_{ik}L_{jk}D_{k}\right)\quad {\text{for }}i>j.} This works as long as the generated diagonal elements in D stay non-zero. The decomposition is then unique.
+
+D and L are real if A is real.
+
+For complex Hermitian matrix A , the following formula applies: D j = A j j − − ∑ ∑ k = 1 j − − 1 L j k L j k ∗ ∗ D k , {\displaystyle D_{j}=A_{jj}-\sum _{k=1}^{j-1}L_{jk}L_{jk}^{*}D_{k},} L i j = 1 D j ( A i j − − ∑ ∑ k = 1 j − − 1 L i k L j k ∗ ∗ D k ) for i > j .
+
+{\displaystyle L_{ij}={\frac {1}{D_{j}}}\left(A_{ij}-\sum _{k=1}^{j-1}L_{ik}L_{jk}^{*}D_{k}\right)\quad {\text{for }}i>j.} Again, the pattern of access allows the entire computation to be performed in-place if desired.
+
+Block variant [ edit ] When used on indefinite matrices, the LDL * factorization is known to be unstable without careful pivoting; [ 21 ] specifically, the elements of the factorization can grow arbitrarily. A possible improvement is to perform the factorization on block sub-matrices, commonly 2 × 2: [ 22 ] A = L D L T = ( I 0 0 L 21 I 0 L 31 L 32 I ) ( D 1 0 0 0 D 2 0 0 0 D 3 ) ( I L 21 T L 31 T 0 I L 32 T 0 0 I ) = ( D 1 ( s y m m e t r i c ) L 21 D 1 L 21 D 1 L 21 T + D 2 L 31 D 1 L 31 D 1 L 21 T + L 32 D 2 L 31 D 1 L 31 T + L 32 D 2 L 32 T + D 3 ) , {\displaystyle {\begin{aligned}\mathbf {A} =\mathbf {LDL} ^{\mathrm {T} }&={\begin{pmatrix}\mathbf {I} &0&0\\\mathbf {L} _{21}&\mathbf {I} &0\\\mathbf {L} _{31}&\mathbf {L} _{32}&\mathbf {I} \\\end{pmatrix}}{\begin{pmatrix}\mathbf {D} _{1}&0&0\\0&\mathbf {D} _{2}&0\\0&0&\mathbf {D} _{3}\\\end{pmatrix}}{\begin{pmatrix}\mathbf {I} &\mathbf {L} _{21}^{\mathrm {T} }&\mathbf {L} _{31}^{\mathrm {T} }\\0&\mathbf {I} &\mathbf {L} _{32}^{\mathrm {T} }\\0&0&\mathbf {I} \\\end{pmatrix}}\\[8pt]&={\begin{pmatrix}\mathbf {D} _{1}&&(\mathrm {symmetric} )\\\mathbf {L} _{21}\mathbf {D} _{1}&\mathbf {L} _{21}\mathbf {D} _{1}\mathbf {L} _{21}^{\mathrm {T} }+\mathbf {D} _{2}&\\\mathbf {L} _{31}\mathbf {D} _{1}&\mathbf {L} _{31}\mathbf {D} _{1}\mathbf {L} _{21}^{\mathrm {T} }+\mathbf {L} _{32}\mathbf {D} _{2}&\mathbf {L} _{31}\mathbf {D} _{1}\mathbf {L} _{31}^{\mathrm {T} }+\mathbf {L} _{32}\mathbf {D} _{2}\mathbf {L} _{32}^{\mathrm {T} }+\mathbf {D} _{3}\end{pmatrix}},\end{aligned}}} where every element in the matrices above is a square submatrix. From this, these analogous recursive relations follow: D j = A j j − − ∑ ∑ k = 1 j − − 1 L j k D k L j k T , {\displaystyle \mathbf {D} _{j}=\mathbf {A} _{jj}-\sum _{k=1}^{j-1}\mathbf {L} _{jk}\mathbf {D} _{k}\mathbf {L} _{jk}^{\mathrm {T} },} L i j = ( A i j − − ∑ ∑ k = 1 j − − 1 L i k D k L j k T ) D j − − 1 .
+
+{\displaystyle \mathbf {L} _{ij}=\left(\mathbf {A} _{ij}-\sum _{k=1}^{j-1}\mathbf {L} _{ik}\mathbf {D} _{k}\mathbf {L} _{jk}^{\mathrm {T} }\right)\mathbf {D} _{j}^{-1}.} This involves matrix products and explicit inversion, thus limiting the practical block size.
+
+Updating the decomposition [ edit ] A task that often arises in practice is that one needs to update a Cholesky decomposition. In more details, one has already computed the Cholesky decomposition A = L L ∗ ∗ {\textstyle \mathbf {A} =\mathbf {L} \mathbf {L} ^{*}} of some matrix A {\textstyle \mathbf {A} } , then one changes the matrix A {\textstyle \mathbf {A} } in some way into another matrix, say A ~ ~ {\textstyle {\tilde {\mathbf {A} }}} , and one wants to compute the Cholesky decomposition of the updated matrix: A ~ ~ = L ~ ~ L ~ ~ ∗ ∗ {\textstyle {\tilde {\mathbf {A} }}={\tilde {\mathbf {L} }}{\tilde {\mathbf {L} }}^{*}} . The question is now whether one can use the Cholesky decomposition of A {\textstyle \mathbf {A} } that was computed before to compute the Cholesky decomposition of A ~ ~ {\textstyle {\tilde {\mathbf {A} }}} .
+
+Rank-one update [ edit ] The specific case, where the updated matrix A ~ ~ {\textstyle {\tilde {\mathbf {A} }}} is related to the matrix A {\textstyle \mathbf {A} } by A ~ ~ = A + x x ∗ ∗ {\textstyle {\tilde {\mathbf {A} }}=\mathbf {A} +\mathbf {x} \mathbf {x} ^{*}} , is known as a rank-one update .
+
+Here is a function [ 23 ] written in Matlab syntax that realizes a rank-one update: function [L] = cholupdate ( L, x ) n = length ( x ); for k = 1 : n r = sqrt ( L ( k , k ) ^ 2 + x ( k ) ^ 2 ); c = r / L ( k , k ); s = x ( k ) / L ( k , k ); L ( k , k ) = r ; if k < n L (( k + 1 ): n , k ) = ( L (( k + 1 ): n , k ) + s * x (( k + 1 ): n )) / c ; x (( k + 1 ): n ) = c * x (( k + 1 ): n ) - s * L (( k + 1 ): n , k ); end end end A rank-n update is one where for a matrix M {\textstyle \mathbf {M} } one updates the decomposition such that A ~ ~ = A + M M ∗ ∗ {\textstyle {\tilde {\mathbf {A} }}=\mathbf {A} +\mathbf {M} \mathbf {M} ^{*}} .  This can be achieved by successively performing rank-one updates for each of the columns of M {\textstyle \mathbf {M} } .
+
+Rank-one downdate [ edit ] A rank-one downdate is similar to a rank-one update, except that the addition is replaced by subtraction: A ~ ~ = A − − x x ∗ ∗ {\textstyle {\tilde {\mathbf {A} }}=\mathbf {A} -\mathbf {x} \mathbf {x} ^{*}} . This only works if the new matrix A ~ ~ {\textstyle {\tilde {\mathbf {A} }}} is still positive definite.
+
+The code for the rank-one update shown above can easily be adapted to do a rank-one downdate: one merely needs to replace the two additions in the assignment to r and L((k+1):n, k) by subtractions.
+
+Adding and removing rows and columns [ edit ] If a symmetric and positive definite matrix A {\textstyle \mathbf {A} } is represented in block form as A = ( A 11 A 13 A 13 T A 33 ) {\displaystyle \mathbf {A} ={\begin{pmatrix}\mathbf {A} _{11}&\mathbf {A} _{13}\\\mathbf {A} _{13}^{\mathrm {T} }&\mathbf {A} _{33}\\\end{pmatrix}}} and its upper Cholesky factor L = ( L 11 L 13 0 L 33 ) , {\displaystyle \mathbf {L} ={\begin{pmatrix}\mathbf {L} _{11}&\mathbf {L} _{13}\\0&\mathbf {L} _{33}\\\end{pmatrix}},} then for a new matrix A ~ ~ {\textstyle {\tilde {\mathbf {A} }}} , which is the same as A {\textstyle \mathbf {A} } but with the insertion of new rows and columns, A ~ ~ = ( A 11 A 12 A 13 A 12 T A 22 A 23 A 13 T A 23 T A 33 ) {\displaystyle {\begin{aligned}{\tilde {\mathbf {A} }}&={\begin{pmatrix}\mathbf {A} _{11}&\mathbf {A} _{12}&\mathbf {A} _{13}\\\mathbf {A} _{12}^{\mathrm {T} }&\mathbf {A} _{22}&\mathbf {A} _{23}\\\mathbf {A} _{13}^{\mathrm {T} }&\mathbf {A} _{23}^{\mathrm {T} }&\mathbf {A} _{33}\\\end{pmatrix}}\end{aligned}}} Now there is an interest in finding the Cholesky factorization of A ~ ~ {\textstyle {\tilde {\mathbf {A} }}} , which can be called S ~ ~ {\textstyle {\tilde {\mathbf {S} }}} , without directly computing the entire decomposition.
+
+S ~ ~ = ( S 11 S 12 S 13 0 S 22 S 23 0 0 S 33 ) .
+
+{\displaystyle {\begin{aligned}{\tilde {\mathbf {S} }}&={\begin{pmatrix}\mathbf {S} _{11}&\mathbf {S} _{12}&\mathbf {S} _{13}\\0&\mathbf {S} _{22}&\mathbf {S} _{23}\\0&0&\mathbf {S} _{33}\\\end{pmatrix}}.\end{aligned}}} Writing A ∖ ∖ b {\textstyle \mathbf {A} \setminus \mathbf {b} } for the solution of A x = b {\textstyle \mathbf {A} \mathbf {x} =\mathbf {b} } , which can be found easily for triangular matrices, and chol ( M ) {\textstyle {\text{chol}}(\mathbf {M} )} for the Cholesky decomposition of M {\textstyle \mathbf {M} } , the following relations can be found: S 11 = L 11 , S 12 = L 11 T ∖ ∖ A 12 , S 13 = L 13 , S 22 = c h o l ( A 22 − − S 12 T S 12 ) , S 23 = S 22 T ∖ ∖ ( A 23 − − S 12 T S 13 ) , S 33 = c h o l ( L 33 T L 33 − − S 23 T S 23 ) .
+
+{\displaystyle {\begin{aligned}\mathbf {S} _{11}&=\mathbf {L} _{11},\\\mathbf {S} _{12}&=\mathbf {L} _{11}^{\mathrm {T} }\setminus \mathbf {A} _{12},\\\mathbf {S} _{13}&=\mathbf {L} _{13},\\\mathbf {S} _{22}&=\mathrm {chol} \left(\mathbf {A} _{22}-\mathbf {S} _{12}^{\mathrm {T} }\mathbf {S} _{12}\right),\\\mathbf {S} _{23}&=\mathbf {S} _{22}^{\mathrm {T} }\setminus \left(\mathbf {A} _{23}-\mathbf {S} _{12}^{\mathrm {T} }\mathbf {S} _{13}\right),\\\mathbf {S} _{33}&=\mathrm {chol} \left(\mathbf {L} _{33}^{\mathrm {T} }\mathbf {L} _{33}-\mathbf {S} _{23}^{\mathrm {T} }\mathbf {S} _{23}\right).\end{aligned}}} These formulas may be used to determine the Cholesky factor after the insertion of rows or columns in any position, if the row and column dimensions are appropriately set (including to zero). The inverse problem, A ~ ~ = ( A 11 A 12 A 13 A 12 T A 22 A 23 A 13 T A 23 T A 33 ) {\displaystyle {\begin{aligned}{\tilde {\mathbf {A} }}&={\begin{pmatrix}\mathbf {A} _{11}&\mathbf {A} _{12}&\mathbf {A} _{13}\\\mathbf {A} _{12}^{\mathrm {T} }&\mathbf {A} _{22}&\mathbf {A} _{23}\\\mathbf {A} _{13}^{\mathrm {T} }&\mathbf {A} _{23}^{\mathrm {T} }&\mathbf {A} _{33}\\\end{pmatrix}}\end{aligned}}} with known Cholesky decomposition S ~ ~ = ( S 11 S 12 S 13 0 S 22 S 23 0 0 S 33 ) {\displaystyle {\begin{aligned}{\tilde {\mathbf {S} }}&={\begin{pmatrix}\mathbf {S} _{11}&\mathbf {S} _{12}&\mathbf {S} _{13}\\0&\mathbf {S} _{22}&\mathbf {S} _{23}\\0&0&\mathbf {S} _{33}\\\end{pmatrix}}\end{aligned}}} and the desire to determine the Cholesky factor L = ( L 11 L 13 0 L 33 ) {\displaystyle {\begin{aligned}\mathbf {L} &={\begin{pmatrix}\mathbf {L} _{11}&\mathbf {L} _{13}\\0&\mathbf {L} _{33}\\\end{pmatrix}}\end{aligned}}} of the matrix A {\textstyle \mathbf {A} } with rows and columns removed, A = ( A 11 A 13 A 13 T A 33 ) , {\displaystyle {\begin{aligned}\mathbf {A} &={\begin{pmatrix}\mathbf {A} _{11}&\mathbf {A} _{13}\\\mathbf {A} _{13}^{\mathrm {T} }&\mathbf {A} _{33}\\\end{pmatrix}},\end{aligned}}} yields the following rules: L 11 = S 11 , L 13 = S 13 , L 33 = c h o l ( S 33 T S 33 + S 23 T S 23 ) .
+
+{\displaystyle {\begin{aligned}\mathbf {L} _{11}&=\mathbf {S} _{11},\\\mathbf {L} _{13}&=\mathbf {S} _{13},\\\mathbf {L} _{33}&=\mathrm {chol} \left(\mathbf {S} _{33}^{\mathrm {T} }\mathbf {S} _{33}+\mathbf {S} _{23}^{\mathrm {T} }\mathbf {S} _{23}\right).\end{aligned}}} Notice that the equations above that involve finding the Cholesky decomposition of a new matrix are all of the form A ~ ~ = A ± ± x x ∗ ∗ {\textstyle {\tilde {\mathbf {A} }}=\mathbf {A} \pm \mathbf {x} \mathbf {x} ^{*}} , which allows them to be efficiently calculated using the update and downdate procedures detailed in the previous section.
+
+[ 24 ] Proof for positive semi-definite matrices [ edit ] Proof by limiting argument [ edit ] The above algorithms show that every positive definite matrix A {\textstyle \mathbf {A} } has a Cholesky decomposition. This result can be extended to the positive semi-definite case by a limiting argument. The argument is not fully constructive, i.e., it gives no explicit numerical algorithms for computing Cholesky factors.
+
+If A {\textstyle \mathbf {A} } is an n × × n {\textstyle n\times n} positive semi-definite matrix , then the sequence ( A k ) k := ( A + 1 k I n ) k {\textstyle \left(\mathbf {A} _{k}\right)_{k}:=\left(\mathbf {A} +{\frac {1}{k}}\mathbf {I} _{n}\right)_{k}} consists of positive definite matrices . (This is an immediate consequence of, for example, the spectral mapping theorem for the polynomial functional calculus.) Also, A k → → A for k → → ∞ ∞ {\displaystyle \mathbf {A} _{k}\rightarrow \mathbf {A} \quad {\text{for}}\quad k\rightarrow \infty } in operator norm . From the positive definite case, each A k {\textstyle \mathbf {A} _{k}} has Cholesky decomposition A k = L k L k ∗ ∗ {\textstyle \mathbf {A} _{k}=\mathbf {L} _{k}\mathbf {L} _{k}^{*}} . By property of the operator norm, ‖ ‖ L k ‖ ‖ 2 ≤ ≤ ‖ ‖ L k L k ∗ ∗ ‖ ‖ = ‖ ‖ A k ‖ ‖ .
+
+{\displaystyle \|\mathbf {L} _{k}\|^{2}\leq \|\mathbf {L} _{k}\mathbf {L} _{k}^{*}\|=\|\mathbf {A} _{k}\|\,.} The ≤ ≤ {\textstyle \leq } holds because M n ( C ) {\textstyle M_{n}(\mathbb {C} )} equipped with the operator norm is a C* algebra. So ( L k ) k {\textstyle \left(\mathbf {L} _{k}\right)_{k}} is a bounded set in the Banach space of operators, therefore relatively compact (because the underlying vector space is finite-dimensional). 
+Consequently, it has a convergent subsequence, also denoted by ( L k ) k {\textstyle \left(\mathbf {L} _{k}\right)_{k}} , with limit L {\textstyle \mathbf {L} } . 
+It can be easily checked that this L {\textstyle \mathbf {L} } has the desired properties, i.e.
+
+A = L L ∗ ∗ {\textstyle \mathbf {A} =\mathbf {L} \mathbf {L} ^{*}} , and L {\textstyle \mathbf {L} } is lower triangular with non-negative diagonal entries: for all x {\textstyle x} and y {\textstyle y} , ⟨ ⟨ A x , y ⟩ ⟩ = ⟨ lim A k x , y ⟩ = ⟨ ⟨ lim L k L k ∗ ∗ x , y ⟩ ⟩ = ⟨ ⟨ L L ∗ ∗ x , y ⟩ ⟩ .
+
+{\displaystyle \langle \mathbf {A} x,y\rangle =\left\langle \lim \mathbf {A} _{k}x,y\right\rangle =\langle \lim \mathbf {L} _{k}\mathbf {L} _{k}^{*}x,y\rangle =\langle \mathbf {L} \mathbf {L} ^{*}x,y\rangle \,.} Therefore, A = L L ∗ ∗ {\textstyle \mathbf {A} =\mathbf {L} \mathbf {L} ^{*}} . 
+Because the underlying vector space is finite-dimensional, all topologies on the space of operators are equivalent. 
+So ( L k ) k {\textstyle \left(\mathbf {L} _{k}\right)_{k}} tends to L {\textstyle \mathbf {L} } in norm means ( L k ) k {\textstyle \left(\mathbf {L} _{k}\right)_{k}} tends to L {\textstyle \mathbf {L} } entrywise. 
+This in turn implies that, since each L k {\textstyle \mathbf {L} _{k}} is lower triangular with non-negative diagonal entries, L {\textstyle \mathbf {L} } is also.
+
+Proof by QR decomposition [ edit ] Let A {\textstyle \mathbf {A} } be a positive semi-definite Hermitian matrix. Then it can be written as a product of its square root matrix , A = B B ∗ ∗ {\textstyle \mathbf {A} =\mathbf {B} \mathbf {B} ^{*}} . Now QR decomposition can be applied to B ∗ ∗ {\textstyle \mathbf {B} ^{*}} , resulting in B ∗ ∗ = Q R {\textstyle \mathbf {B} ^{*}=\mathbf {Q} \mathbf {R} } , where Q {\textstyle \mathbf {Q} } is unitary and R {\textstyle \mathbf {R} } is upper triangular. Inserting the decomposition into the original equality yields A = B B ∗ ∗ = ( Q R ) ∗ ∗ Q R = R ∗ ∗ Q ∗ ∗ Q R = R ∗ ∗ R {\textstyle A=\mathbf {B} \mathbf {B} ^{*}=(\mathbf {QR} )^{*}\mathbf {QR} =\mathbf {R} ^{*}\mathbf {Q} ^{*}\mathbf {QR} =\mathbf {R} ^{*}\mathbf {R} } . Setting L = R ∗ ∗ {\textstyle \mathbf {L} =\mathbf {R} ^{*}} completes the proof.
+
+Generalization [ edit ] The Cholesky factorization can be generalized [ citation needed ] to (not necessarily finite) matrices with operator entries. Let { H n } {\textstyle \{{\mathcal {H}}_{n}\}} be a sequence of Hilbert spaces . Consider the operator matrix A = [ A 11 A 12 A 13 A 12 ∗ ∗ A 22 A 23 A 13 ∗ ∗ A 23 ∗ ∗ A 33 ⋱ ⋱ ] {\displaystyle \mathbf {A} ={\begin{bmatrix}\mathbf {A} _{11}&\mathbf {A} _{12}&\mathbf {A} _{13}&\;\\\mathbf {A} _{12}^{*}&\mathbf {A} _{22}&\mathbf {A} _{23}&\;\\\mathbf {A} _{13}^{*}&\mathbf {A} _{23}^{*}&\mathbf {A} _{33}&\;\\\;&\;&\;&\ddots \end{bmatrix}}} acting on the direct sum H = ⨁ ⨁ n H n , {\displaystyle {\mathcal {H}}=\bigoplus _{n}{\mathcal {H}}_{n},} where each A i j : H j → → H i {\displaystyle \mathbf {A} _{ij}:{\mathcal {H}}_{j}\rightarrow {\mathcal {H}}_{i}} is a bounded operator . If A is positive (semidefinite) in the sense that for all finite k and for any h ∈ ∈ ⨁ ⨁ n = 1 k H k , {\displaystyle h\in \bigoplus _{n=1}^{k}{\mathcal {H}}_{k},} there is ⟨ ⟨ h , A h ⟩ ⟩ ≥ ≥ 0 {\textstyle \langle h,\mathbf {A} h\rangle \geq 0} , then there exists a lower triangular operator matrix L such that A = LL * . One can also take the diagonal entries of L to be positive.
+
+Implementations in programming libraries [ edit ] C programming language : the GNU Scientific Library provides several implementations of Cholesky decomposition.
+
+Maxima computer algebra system: function cholesky computes Cholesky decomposition.
+
+GNU Octave numerical computations system provides several functions to calculate, update, and apply a Cholesky decomposition.
+
+The LAPACK library provides a high performance implementation of the Cholesky decomposition that can be accessed from Fortran , C and most languages.
+
+In Python , the function cholesky from the numpy.linalg module performs Cholesky decomposition.
+
+In Matlab , the chol function gives the Cholesky decomposition. Note that chol uses the upper triangular factor of the input matrix by default, i.e. it computes A = R ∗ ∗ R {\textstyle A=R^{*}R} where R {\textstyle R} is upper triangular. A flag can be passed to use the lower triangular factor instead.
+
+In R , the chol function gives the Cholesky decomposition.
+
+In Julia , the cholesky function from the LinearAlgebra standard library gives the Cholesky decomposition.
+
+In Mathematica , the function " CholeskyDecomposition " can be applied to a matrix.
+
+In C++ , multiple linear algebra libraries support this decomposition: The Armadillo (C++ library) supplies the command chol to perform Cholesky decomposition.
+
+The Eigen library supplies Cholesky factorizations for both sparse and dense matrices.
+
+In the ROOT package, the TDecompChol class is available.
+
+In Analytica , the function Decompose gives the Cholesky decomposition.
+
+The Apache Commons Math library has an implementation which can be used in Java, Scala and any other JVM language.
+
+See also [ edit ] Cycle rank Incomplete Cholesky factorization Matrix decomposition Minimum degree algorithm Square root of a matrix Sylvester's law of inertia Symbolic Cholesky decomposition Notes [ edit ] ^ Benoit (1924). "Note sur une méthode de résolution des équations normales provenant de l'application de la méthode des moindres carrés à un système d'équations linéaires en nombre inférieur à celui des inconnues (Procédé du Commandant Cholesky)".
+
+Bulletin Géodésique (in French).
+
+2 : 66– 67.
+
+doi : 10.1007/BF03031308 .
+
+^ a b Press, William H.; Saul A. Teukolsky; William T. Vetterling; Brian P. Flannery (1992).
+
+Numerical Recipes in C: The Art of Scientific Computing (second ed.). Cambridge University England EPress. pp.
+
+96-97 .
+
+ISBN 0-521-43108-5 . Retrieved 2025-07-29 .
+
+^ Golub & Van Loan (1996 , p. 143), Horn & Johnson (1985 , p. 407), Trefethen & Bau (1997 , p. 174).
+
+^ Horn & Johnson (1985 , p. 407).
+
+^ "matrices - Diagonalizing a Complex Symmetric Matrix" .
+
+MathOverflow . Retrieved 2020-01-25 .
+
+^ Schabauer, Hannes; Pacher, Christoph; Sunderland, Andrew G.; Gansterer, Wilfried N. (2010-05-01).
+
+"Toward a parallel solver for generalized complex symmetric eigenvalue problems" .
+
+Procedia Computer Science . ICCS 2010.
+
+1 (1): 437– 445.
+
+doi : 10.1016/j.procs.2010.04.047 .
+
+ISSN 1877-0509 .
+
+^ Golub & Van Loan (1996 , p. 147).
+
+^ Gentle, James E. (1998).
+
+Numerical Linear Algebra for Applications in Statistics . Springer. p. 94.
+
+ISBN 978-1-4612-0623-1 .
+
+^ Higham, Nicholas J. (1990).
+
+"Analysis of the Cholesky Decomposition of a Semi-definite Matrix" . In Cox, M. G.; Hammarling, S. J. (eds.).
+
+Reliable Numerical Computation . Oxford, UK: Oxford University Press. pp.
+
+161– 185.
+
+ISBN 978-0-19-853564-5 .
+
+^ a b Krishnamoorthy, Aravindh; Menon, Deepak. "Matrix Inversion Using Cholesky Decomposition".
+
+2013 Signal Processing: Algorithms, Architectures, Arrangements, and Applications (SPA) . IEEE. pp.
+
+70– 72.
+
+arXiv : 1111.4144 .
+
+^ So, Anthony Man-Cho (2007).
+
+A Semidefinite Programming Approach to the Graph Realization Problem: Theory, Applications and Extensions (PDF) (PhD). Theorem 2.2.6.
+
+^ Golub & Van Loan (1996 , Theorem 4.1.3) ^ Pope, Stephen B. " Algorithms for ellipsoids.
+
+" Cornell University Report No. FDA (2008): 08-01.
+
+^ Schwarzenberg-Czerny, A. (1995). "On matrix factorization and efficient least squares solution".
+
+Astronomy and Astrophysics Supplement .
+
+110 : 405– 410.
+
+Bibcode : 1995A&AS..110..405S .
+
+^ Arora, Jasbir Singh (2004-06-02).
+
+Introduction to Optimum Design . Elsevier.
+
+ISBN 978-0-08-047025-2 .
+
+^ Matlab randn documentation . mathworks.com.
+
+^ ?potrf Intel® Math Kernel Library [1] ^ Turing, A. M. (1948). "Rounding-off errors in matrix processes".
+
+Quart. J. Mech. Appl. Math .
+
+1 : 287– 308.
+
+doi : 10.1093/qjmam/1.1.287 .
+
+^ Fang, Haw-ren; O'Leary, Dianne P.
+
+(2008).
+
+"Modified Cholesky algorithms: a catalog with new approaches" (PDF) .
+
+Mathematical Programming .
+
+115 (2): 319– 349.
+
+doi : 10.1007/s10107-007-0177-6 .
+
+hdl : 1903/3674 .
+
+MR 2411401 .
+
+^ Watkins, D. (1991).
+
+Fundamentals of Matrix Computations . New York: Wiley. p.
+
+84 .
+
+ISBN 0-471-61414-9 .
+
+^ Nocedal, Jorge (2000).
+
+Numerical Optimization . Springer.
+
+^ Fang, Haw-Ren (2011). "Stability analysis of block L D L T {\displaystyle LDL^{T}} factorization for symmetric indefinite matrices".
+
+IMA Journal of Numerical Analysis .
+
+31 (2): 528– 555.
+
+doi : 10.1093/imanum/drp053 .
+
+MR 2813183 .
+
+^ Based on: Stewart, G. W. (1998).
+
+Basic decompositions . Philadelphia: Soc. for Industrial and Applied Mathematics.
+
+ISBN 0-89871-414-1 .
+
+^ Osborne, M. (2010), Appendix B.
+
+References [ edit ] Dereniowski, Dariusz; Kubale, Marek (2004). "Cholesky Factorization of Matrices in Parallel and Ranking of Graphs".
+
+5th International Conference on Parallel Processing and Applied Mathematics (PDF) . Lecture Notes on Computer Science. Vol. 3019. Springer-Verlag. pp.
+
+985– 992.
+
+doi : 10.1007/978-3-540-24669-5_127 .
+
+ISBN 978-3-540-21946-0 . Archived from the original (PDF) on 2011-07-16.
+
+Golub, Gene H.
+
+; Van Loan, Charles F.
+
+(1996).
+
+Matrix Computations (3rd ed.). Baltimore: Johns Hopkins.
+
+ISBN 978-0-8018-5414-9 .
+
+Horn, Roger A.; Johnson, Charles R. (1985).
+
+Matrix Analysis . Cambridge University Press.
+
+ISBN 0-521-38632-2 .
+
+S. J. Julier and J. K. Uhlmann. " A General Method for Approximating Nonlinear Transformations of ProbabilityDistributions ".
+
+S. J. Julier and J. K. Uhlmann, " A new extension of the Kalman filter to nonlinear systems ", in Proc. AeroSense: 11th Int. Symp. Aerospace/Defence Sensing, Simulation and Controls, 1997, pp. 182–193.
+
+Trefethen, Lloyd N.
+
+; Bau, David (1997).
+
+Numerical linear algebra . Philadelphia: Society for Industrial and Applied Mathematics.
+
+ISBN 978-0-89871-361-9 .
+
+Osborne, Michael (2010).
+
+Bayesian Gaussian Processes for Sequential Prediction, Optimisation and Quadrature (PDF) (thesis). University of Oxford.
+
+Ruschel, João Paulo Tarasconi, Bachelor degree " Parallel Implementations of the Cholesky Decomposition on CPUs and GPUs " Universidade Federal Do Rio Grande Do Sul, Instituto De Informatica, 2016, pp. 29-30.
+
+External links [ edit ] History of science [ edit ] Sur la résolution numérique des systèmes d'équations linéaires , Cholesky's 1910 manuscript, online and analyzed on BibNum (in French and English) [for English, click 'A télécharger'] Information [ edit ] "Cholesky factorization" .
+
+Encyclopedia of Mathematics .
+
+EMS Press . 2001 [1994].
+
+Cholesky Decomposition , The Data Analysis BriefBook Cholesky Decomposition on www.math-linux.com Cholesky Decomposition Made Simple on Science Meanderthal Computer code [ edit ] LAPACK is a collection of FORTRAN subroutines for solving dense linear algebra problems (DPOTRF, DPOTRF2, details performance ) ALGLIB includes a partial port of the LAPACK to C++, C#, Delphi, Visual Basic, etc. (spdmatrixcholesky, hpdmatrixcholesky) libflame is a C library with LAPACK functionality.
+
+Notes and video on high-performance implementation of Cholesky factorization at The University of Texas at Austin.
+
+Cholesky : TBB + Threads + SSE is a book explaining the implementation of the CF with TBB, threads and SSE (in Spanish).
+
+library "Ceres Solver" by Google.
+
+LDL decomposition routines in Matlab.
+
+Armadillo is a C++ linear algebra package Rosetta Code is a programming chrestomathy site.
+
+on page topic .
+
+AlgoWiki is an open encyclopedia of algorithms’ properties and features of their implementations on page topic Intel® oneAPI Math Kernel Library Intel-Optimized Math Library for Numerical Computing ?potrf , ?potrs Use of the matrix in simulation [ edit ] Generating Correlated Random Variables and Stochastic Processes , Martin Haugh, Columbia University Online calculators [ edit ] Online Matrix Calculator Performs Cholesky decomposition of matrices online.
+
+v t e Numerical linear algebra Key concepts Floating point Numerical stability Problems System of linear equations Matrix decompositions Matrix multiplication ( algorithms ) Matrix splitting Sparse problems Hardware CPU cache TLB Cache-oblivious algorithm SIMD Multiprocessing Software ATLAS MATLAB Basic Linear Algebra Subprograms (BLAS) LAPACK Specialized libraries General purpose software Retrieved from " https://en.wikipedia.org/w/index.php?title=Cholesky_decomposition&oldid=1305039644 " Categories : Operator theory Matrix decompositions Numerical linear algebra Hidden categories: CS1 French-language sources (fr) Articles with short description Short description is different from Wikidata All articles with unsourced statements Articles with unsourced statements from June 2011 Articles with unsourced statements from October 2016 Articles with French-language sources (fr) Articles with example MATLAB/Octave code This page was last edited on 9 August 2025, at 18:04 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Cholesky decomposition 20 languages Add topic
+

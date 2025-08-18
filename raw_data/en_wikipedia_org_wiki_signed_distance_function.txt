@@ -1,0 +1,159 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Definition 2 Properties in Euclidean space 3 Algorithms 4 Applications 5 See also 6 Notes 7 References Toggle the table of contents Signed distance function 8 languages العربية Español فارسی Français 日本語 தமிழ் Taqbaylit Українська Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Distance from a point to the boundary of a set The graph (bottom, in red) of the signed distance between the points on the xy plane (in blue) and a fixed disk (also represented on top, in gray) A more complicated set (top) and the graph of its signed distance function (bottom, in red).
+
+In mathematics and its applications, the signed distance function or signed distance field ( SDF ) is the orthogonal distance of a given point x to the boundary of a set Ω in a metric space (such as the surface of a geometric shape), with the sign determined by whether or not x is in the interior of Ω. The function has positive values at points x inside Ω, it decreases in value as x approaches the boundary of Ω where the signed distance function is zero, and it takes negative values outside of Ω.
+
+[ 1 ] However, the alternative convention is also sometimes taken instead (i.e., negative inside Ω and positive outside).
+
+[ 2 ] The concept also sometimes goes by the name oriented distance function/field .
+
+Definition [ edit ] Let Ω be a subset of a metric space X with metric d , and ∂ ∂ Ω Ω {\displaystyle \partial \Omega } be its boundary . The distance between a point x of X and the subset ∂ ∂ Ω Ω {\displaystyle \partial \Omega } of X is defined as usual as d ( x , ∂ ∂ Ω Ω ) = inf y ∈ ∈ ∂ ∂ Ω Ω d ( x , y ) , {\displaystyle d(x,\partial \Omega )=\inf _{y\in \partial \Omega }d(x,y),} where inf {\displaystyle \inf } denotes the infimum .
+
+The signed distance function from a point x of X to Ω Ω {\displaystyle \Omega } is defined by f ( x ) = { d ( x , ∂ ∂ Ω Ω ) if x ∈ ∈ Ω Ω − − d ( x , ∂ ∂ Ω Ω ) if x ∉ ∉ Ω Ω .
+
+{\displaystyle f(x)={\begin{cases}d(x,\partial \Omega )&{\text{if }}x\in \Omega \\-d(x,\partial \Omega )&{\text{if }}\,x\notin \Omega .\end{cases}}} Properties in Euclidean space [ edit ] If Ω is a subset of the Euclidean space R n with piecewise smooth boundary, then the signed distance function is differentiable almost everywhere , and its gradient satisfies the eikonal equation | ∇ ∇ f | = 1.
+
+{\displaystyle |\nabla f|=1.} If the boundary of Ω is C k for k ≥ 2 (see Differentiability classes ) then d is C k on points sufficiently close to the boundary of Ω.
+
+[ 3 ] In particular, on the boundary f satisfies ∇ ∇ f ( x ) = N ( x ) , {\displaystyle \nabla f(x)=N(x),} where N is the inward normal vector field. The signed distance function is thus a differentiable extension of the normal vector field. In particular, the Hessian of the signed distance function on the boundary of Ω gives the Weingarten map .
+
+If, further, Γ is a region sufficiently close to the boundary of Ω that f is twice continuously differentiable on it, then there is an explicit formula involving the Weingarten map W x for the Jacobian of changing variables in terms of the signed distance function and nearest boundary point. Specifically, if T ( ∂ Ω, μ ) is the set of points within distance μ of the boundary of Ω (i.e. the tubular neighbourhood of radius μ ), and g is an absolutely integrable function on Γ, then ∫ ∫ T ( ∂ ∂ Ω Ω , μ μ ) g ( x ) d x = ∫ ∫ ∂ ∂ Ω Ω ∫ ∫ − − μ μ μ μ g ( u + λ λ N ( u ) ) det ( I − − λ λ W u ) d λ λ d S u , {\displaystyle \int _{T(\partial \Omega ,\mu )}g(x)\,dx=\int _{\partial \Omega }\int _{-\mu }^{\mu }g(u+\lambda N(u))\,\det(I-\lambda W_{u})\,d\lambda \,dS_{u},} where det denotes the determinant and dS u indicates that we are taking the surface integral .
+
+[ 4 ] Algorithms [ edit ] Algorithms for calculating the signed distance function include the efficient fast marching method , fast sweeping method [ 5 ] and the more general level-set method .
+
+For voxel rendering, a fast algorithm for calculating the SDF in taxicab geometry uses summed-area tables .
+
+[ 6 ] Applications [ edit ] Signed distance fields stored as raster images can be used to represent shapes.
+
+Signed distance functions are applied, for example, in real-time rendering , [ 7 ] for instance the method of SDF ray marching , and computer vision .
+
+[ 8 ] [ 9 ] SDF has been used to describe object geometry in real-time rendering , usually in a raymarching context, starting in the mid 2000s. By 2007, Valve is using SDFs to render large pixel-size (or high DPI ) smooth fonts with GPU acceleration in its games.
+
+[ 10 ] [ non-primary source needed ] Valve's method is not perfect as it runs in raster space in order to avoid the computational complexity of solving the problem in the (continuous) vector space. The rendered text often loses sharp corners.  In 2014, an improved method was presented by Behdad Esfahbod . Behdad's GLyphy approximates the font's Bézier curves with arc splines, accelerated by grid-based discretization techniques (which culls too-far-away points) to run in real time.
+
+[ 11 ] [ non-primary source needed ] A modified version of SDF was introduced as a loss function to minimise the error in interpenetration of pixels while rendering multiple objects.
+
+[ 12 ] In particular, for any pixel that does not belong to an object, if it lies outside the object in rendition, no penalty is imposed; if it does, a positive value proportional to its distance inside the object is imposed.
+
+f ( x ) = { 0 if x ∈ ∈ Ω Ω c d ( x , ∂ ∂ Ω Ω ) if x ∈ ∈ Ω Ω {\displaystyle f(x)={\begin{cases}0&{\text{if }}\,x\in \Omega ^{c}\\d(x,\partial \Omega )&{\text{if }}\,x\in \Omega \end{cases}}} In 2020, the FOSS game engine Godot 4.0 received SDF-based real-time global illumination (SDFGI), that became a compromise between more realistic voxel-based GI and baked GI. Its core advantage is that it can be applied to infinite space, which allows developers to use it for open-world games.
+
+[ 13 ] [ non-primary source needed ] In 2023, the authors of the Zed text editor announced a GPUI framework that draws all UI elements using the GPU at 120 fps. The work makes use of Inigo Quilez's list of geometric primitives in SDF, Figma co-founder Evan Wallace's Gaussian blur in SDF, and a new rounded rectangle SDF.
+
+[ 14 ] [ non-primary source needed ] See also [ edit ] Distance function Level-set method Eikonal equation Parallel curve (also known as offset curve) Signed arc length Signed area Signed measure Signed volume Notes [ edit ] ^ Chan, T.; Zhu, W. (2005).
+
+Level set based shape prior segmentation . IEEE Computer Society Conference on Computer Vision and Pattern Recognition.
+
+doi : 10.1109/CVPR.2005.212 .
+
+^ Malladi, R.; Sethian, J.A.; Vemuri, B.C. (1995). "Shape modeling with front propagation: a level set approach".
+
+IEEE Transactions on Pattern Analysis and Machine Intelligence .
+
+17 (2): 158– 175.
+
+CiteSeerX 10.1.1.33.2443 .
+
+doi : 10.1109/34.368173 .
+
+S2CID 9505101 .
+
+^ Gilbarg & Trudinger 1983 , Lemma 14.16.
+
+^ Gilbarg & Trudinger 1983 , Equation (14.98).
+
+^ Zhao Hongkai .
+
+A fast sweeping method for eikonal equations . Mathematics of Computation, 2005, 74. Jg., Nr. 250, S. 603-627.
+
+^ Nilsson, Tobias (2019).
+
+"Optimization Methods for Direct Volume Rendering on the Client Side Web" (PDF) .
+
+Digitala Vetenskapliga Arkivet . Retrieved 2022-07-08 .
+
+^ Tomas Akenine-Möller; Eric Haines; Naty Hoffman (6 August 2018).
+
+Real-Time Rendering, Fourth Edition . CRC Press.
+
+ISBN 978-1-351-81615-1 .
+
+^ Perera, S.; Barnes, N.; He, X.; Izadi, S.; Kohli, P.; Glocker, B. (January 2015). "Motion Segmentation of Truncated Signed Distance Function Based Volumetric Surfaces".
+
+2015 IEEE Winter Conference on Applications of Computer Vision . pp.
+
+1046– 1053.
+
+doi : 10.1109/WACV.2015.144 .
+
+ISBN 978-1-4799-6683-7 .
+
+S2CID 16811314 .
+
+^ Izadi, Shahram; Kim, David; Hilliges, Otmar; Molyneaux, David; Newcombe, Richard; Kohli, Pushmeet; Shotton, Jamie; Hodges, Steve; Freeman, Dustin (2011). "KinectFusion".
+
+Proceedings of the 24th annual ACM symposium on User interface software and technology . UIST '11. New York, NY, USA: ACM. pp.
+
+559– 568.
+
+doi : 10.1145/2047196.2047270 .
+
+ISBN 9781450307161 .
+
+S2CID 3345516 .
+
+^ Green, Chris (2007). "Improved alpha-tested magnification for vector textures and special effects".
+
+ACM SIGGRAPH 2007 courses . pp.
+
+9– 18.
+
+CiteSeerX 10.1.1.170.9418 .
+
+doi : 10.1145/1281500.1281665 .
+
+ISBN 9781450318235 .
+
+S2CID 7479538 .
+
+^ Behdad Esfahbod.
+
+GLyphy: high-quality glyph rendering using OpenGL ES2 shaders [linux.conf.au 2014] .
+
+YouTube .
+
+Archived from the original on 2021-12-11.
+
+Source Code ^ Jiang, Wen; Kolotouros, Nikos; Pavlakos, Georgios; Zhou, Xiaowei; Daniilidis, Kostas (2020-06-15). "Coherent Reconstruction of Multiple Humans from a Single Image".
+
+arXiv : 2006.08586 [ cs.CV ].
+
+^ Engine, Godot.
+
+"Godot 4.0 gets SDF based real-time global illumination" .
+
+Godot Engine .
+
+^ Scandurra, Antonio (7 March 2023).
+
+"Leveraging Rust and the GPU to render user interfaces at 120 FPS - Zed Blog" .
+
+Zed .
+
+References [ edit ] Stanley J. Osher and Ronald P. Fedkiw (2003).
+
+Level Set Methods and Dynamic Implicit Surfaces . Springer.
+
+ISBN 9780387227467 .
+
+Gilbarg, D.; Trudinger, N. S. (1983).
+
+Elliptic Partial Differential Equations of Second Order . Grundlehren der mathematischen Wissenschaften. Vol. 224 (2nd ed.). Springer-Verlag.
+
+(or the Appendix of the 1977 1st ed.) Retrieved from " https://en.wikipedia.org/w/index.php?title=Signed_distance_function&oldid=1299682184 " Categories : Applied mathematics Distance Sign (mathematics) Implicit surface modeling Hidden categories: Articles with short description Short description matches Wikidata All pages needing factual verification Wikipedia articles needing factual verification from July 2025 Pages that use a deprecated format of the math tags This page was last edited on 9 July 2025, at 20:11 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Signed distance function 8 languages Add topic
+

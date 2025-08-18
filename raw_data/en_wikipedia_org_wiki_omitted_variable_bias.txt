@@ -1,0 +1,71 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 In linear regression Toggle In linear regression subsection 1.1 Intuition 1.2 Detailed analysis 2 Effect in ordinary least squares 3 See also 4 References Toggle the table of contents Omitted-variable bias 9 languages العربية Deutsch فارسی 한국어 日本語 Polski Русский Suomi Tagalog Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia (Redirected from Omitted variable bias ) Type of statistical bias This article includes a list of general references , but it lacks sufficient corresponding inline citations .
+
+Please help to improve this article by introducing more precise citations.
+
+( July 2010 ) ( Learn how and when to remove this message ) In statistics , omitted-variable bias ( OVB ) occurs when a statistical model leaves out one or more relevant variables. The bias results in the model attributing the effect of the missing variables to those that were included.
+
+More specifically, OVB is the bias that appears in the estimates of parameters in a regression analysis , when the assumed specification is incorrect in that it omits an independent variable that is a determinant of the dependent variable and correlated with one or more of the included independent variables.
+
+In linear regression [ edit ] Intuition [ edit ] Suppose the true cause-and-effect relationship is given by: y = a + b x + c z + u {\displaystyle y=a+bx+cz+u} with parameters a, b, c , dependent variable y , independent variables x and z , and error term u . We wish to know the effect of x itself upon y (that is, we wish to obtain an estimate of b ).
+
+Two conditions must hold true for omitted-variable bias to exist in linear regression : the omitted variable must be a determinant of the dependent variable (i.e., its true regression coefficient must not be zero); and the omitted variable must be correlated with an independent variable specified in the regression (i.e., cov( z , x ) must not equal zero).
+
+Suppose we omit z from the regression, and suppose the relation between x and z is given by z = d + f x + e {\displaystyle z=d+fx+e} with parameters d , f and error term e . Substituting the second equation into the first gives y = ( a + c d ) + ( b + c f ) x + ( u + c e ) .
+
+{\displaystyle y=(a+cd)+(b+cf)x+(u+ce).} If a regression of y is conducted upon x only, this last equation is what is estimated, and the regression coefficient on x is actually an estimate of ( b + cf ), giving not simply an estimate of the desired direct effect of x upon y (which is b ), but rather of its sum with the indirect effect (the effect f of x on z times the effect c of z on y ). Thus by omitting the variable z from the regression, we have estimated the total derivative of y with respect to x rather than its partial derivative with respect to x . These differ if both c and f are non-zero.
+
+The direction and extent of the bias are both contained in cf , since the effect sought is b but the regression estimates b+cf . The extent of the bias is the absolute value of cf , and the direction of bias is upward (toward a more positive or less negative value) if cf > 0 (if the direction of correlation between y and z is the same as that between x and z ), and it is downward otherwise.
+
+Detailed analysis [ edit ] As an example, consider a linear model of the form y i = x i β β + z i δ δ + u i , i = 1 , … … , n {\displaystyle y_{i}=x_{i}\beta +z_{i}\delta +u_{i},\qquad i=1,\dots ,n} where x i is a 1 × p row vector of values of p independent variables observed at time i or for the i th study participant; β is a p × 1 column vector of unobservable parameters (the response coefficients of the dependent variable to each of the p independent variables in x i ) to be estimated; z i is a scalar and is the value of another independent variable that is observed at time i or for the i th study participant; δ is a scalar and is an unobservable parameter (the response coefficient of the dependent variable to z i ) to be estimated; u i is the unobservable error term occurring at time i or for the i th study participant; it is an unobserved realization of a random variable having expected value 0 (conditionally on x i and z i ); y i is the observation of the dependent variable at time i or for the i th study participant.
+
+We collect the observations of all variables subscripted i = 1, ..., n , and stack them one below another, to obtain the matrix X and the vectors Y , Z , and U : X = [ x 1 ⋮ ⋮ x n ] ∈ ∈ R n × × p , {\displaystyle X=\left[{\begin{array}{c}x_{1}\\\vdots \\x_{n}\end{array}}\right]\in \mathbb {R} ^{n\times p},} and Y = [ y 1 ⋮ ⋮ y n ] , Z = [ z 1 ⋮ ⋮ z n ] , U = [ u 1 ⋮ ⋮ u n ] ∈ ∈ R n × × 1 .
+
+{\displaystyle Y=\left[{\begin{array}{c}y_{1}\\\vdots \\y_{n}\end{array}}\right],\quad Z=\left[{\begin{array}{c}z_{1}\\\vdots \\z_{n}\end{array}}\right],\quad U=\left[{\begin{array}{c}u_{1}\\\vdots \\u_{n}\end{array}}\right]\in \mathbb {R} ^{n\times 1}.} If the independent variable z is omitted from the regression, then the estimated values of the response parameters of the other independent variables will be given by the usual least squares calculation, β β ^ ^ = ( X ′ X ) − − 1 X ′ Y {\displaystyle {\widehat {\beta }}=(X'X)^{-1}X'Y\,} (where the "prime" notation means the transpose of a matrix and the -1 superscript is matrix inversion ).
+
+Substituting for Y based on the assumed linear model, β β ^ ^ = ( X ′ X ) − − 1 X ′ ( X β β + Z δ δ + U ) = ( X ′ X ) − − 1 X ′ X β β + ( X ′ X ) − − 1 X ′ Z δ δ + ( X ′ X ) − − 1 X ′ U = β β + ( X ′ X ) − − 1 X ′ Z δ δ + ( X ′ X ) − − 1 X ′ U .
+
+{\displaystyle {\begin{aligned}{\widehat {\beta }}&=(X'X)^{-1}X'(X\beta +Z\delta +U)\\&=(X'X)^{-1}X'X\beta +(X'X)^{-1}X'Z\delta +(X'X)^{-1}X'U\\&=\beta +(X'X)^{-1}X'Z\delta +(X'X)^{-1}X'U.\end{aligned}}} On taking expectations, the contribution of the final term is zero; this follows from the assumption that U is uncorrelated with the regressors X . On simplifying the remaining terms: E [ β β ^ ^ ∣ ∣ X ] = β β + ( X ′ X ) − − 1 E [ X ′ Z ∣ ∣ X ] δ δ = β β + bias .
+
+{\displaystyle {\begin{aligned}E[{\widehat {\beta }}\mid X]&=\beta +(X'X)^{-1}E[X'Z\mid X]\delta \\&=\beta +{\text{bias}}.\end{aligned}}} The second term after the equal sign is the omitted-variable bias in this case, which is non-zero if the omitted variable z is correlated with any of the included variables in the matrix X (that is, if X′Z does not equal a vector of zeroes). Note that the bias is equal to the weighted portion of z i which is "explained" by x i .
+
+Effect in ordinary least squares [ edit ] The Gauss–Markov theorem states that regression models which fulfill the classical linear regression model assumptions provide the most efficient , linear and unbiased estimators. In ordinary least squares , the relevant assumption of the classical linear regression model is that the error term is uncorrelated with the regressors.
+
+The presence of omitted-variable bias violates this particular assumption. The violation causes the OLS estimator to be biased and inconsistent . The direction of the bias depends on the estimators as well as the covariance between the regressors and the omitted variables. A positive covariance of the omitted variable with both a regressor and the dependent variable will lead the OLS estimate of the included regressor's coefficient to be greater than the true value of that coefficient. This effect can be seen by taking the expectation of the parameter, as shown in the previous section.
+
+See also [ edit ] Confounding variable References [ edit ] Barreto; Howland (2006).
+
+"Omitted Variable Bias" .
+
+Introductory Econometrics: Using Monte Carlo Simulation with Microsoft Excel . Cambridge University Press.
+
+Clarke, Kevin A. (2005). "The Phantom Menace: Omitted Variable Bias in Econometric Research".
+
+Conflict Management and Peace Science .
+
+22 (4): 341– 352.
+
+doi : 10.1080/07388940500339183 .
+
+Greene, W. H. (1993).
+
+Econometric Analysis (2nd ed.). Macmillan. pp.
+
+245– 246.
+
+Wooldridge, Jeffrey M. (2009). "Omitted Variable Bias: The Simple Case".
+
+Introductory Econometrics: A Modern Approach . Mason, OH: Cengage Learning. pp.
+
+89– 93.
+
+ISBN 9780324660548 .
+
+v t e Biases Cognitive biases Acquiescence Ambiguity Affinity Anchoring Attentional Attribution Actor–observer Fundamental Group Ultimate Authority Automation Double standard Availability Mean world Belief Blind spot Choice-supportive Commitment Confirmation Selective perception Compassion fade Congruence Cultural Declinism Distinction Dunning–Kruger Egocentric Curse of knowledge Emotional Extrinsic incentives Fading affect Framing Frequency Frog pond effect Halo effect Hindsight Horn effect Hostile attribution Impact Implicit In-group Intentionality Illusion of transparency Mean world syndrome Mere-exposure effect Narrative Negativity Normalcy Omission Optimism Out-group homogeneity Outcome Overton window Precision Present Pro-innovation Proximity Response Restraint Self-serving Social comparison Social influence bias Spotlight Status quo Substitution Time-saving Trait ascription Turkey illusion von Restorff effect Zero-risk In animals Statistical biases Estimator Forecast Healthy user Information Psychological Lead time Length time Non-response Observer Omitted-variable Participation Recall Sampling Selection Self-selection Social desirability Spectrum Survivorship Systematic error Systemic Verification Wet Other biases Academic Basking in reflected glory Déformation professionnelle Funding FUTON Inductive Infrastructure Inherent In education Liking gap Media False balance Vietnam War South Asia United States Arab–Israeli conflict Ukraine Net Political bias Publication System justification Reporting White hat Ideological bias on Wikipedia Bias reduction Cognitive bias mitigation Debiasing Heuristics in judgment and decision-making Lists: General Memory Retrieved from " https://en.wikipedia.org/w/index.php?title=Omitted-variable_bias&oldid=1184281607 " Categories : Regression analysis Experimental bias Hidden categories: Articles with short description Short description matches Wikidata Articles lacking in-text citations from July 2010 All articles lacking in-text citations This page was last edited on 9 November 2023, at 12:48 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Omitted-variable bias 9 languages Add topic
+

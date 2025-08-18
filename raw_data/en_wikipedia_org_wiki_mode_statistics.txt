@@ -1,0 +1,182 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Mode of a sample 2 Comparison of mean, median and mode Toggle Comparison of mean, median and mode subsection 2.1 Use 2.2 Uniqueness and definedness 2.3 Properties 2.4 Example for a skewed distribution 2.5 Van Zwet condition 3 Unimodal distributions 4 History 5 See also 6 References 7 External links Toggle the table of contents Mode (statistics) 59 languages العربية Aragonés বাংলা Беларуская Български Bosanski Català Čeština ChiShona Cymraeg Dansk Deutsch Eesti Ελληνικά Español Euskara فارسی Français Galego 한국어 Հայերեն हिन्दी Bahasa Indonesia Íslenska Italiano עברית Kiswahili Latviešu Lietuvių Magyar Македонски Bahasa Melayu Nederlands 日本語 Norsk bokmål Norsk nynorsk Polski Português Русский Shqip Sicilianu සිංහල Simple English Slovenčina Slovenščina کوردی Српски / srpski Srpskohrvatski / српскохрватски Suomi Svenska தமிழ் ไทย Тоҷикӣ Türkçe Українська Tiếng Việt 吴语 粵語 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikidata item Appearance move to sidebar hide Checked From Wikipedia, the free encyclopedia Page version status This is an accepted version of this page This is the latest accepted revision , reviewed on 23 June 2025 .
+
+Value that appears most often in a set of data For the music theory concept of "modes", see Mode (music) .
+
+In statistics , the mode is the value that appears most often in a set of data values.
+
+[ 1 ] If X is a discrete random variable, the mode is the value x at which the probability mass function takes its maximum value (i.e., x = argmax x i P( X = x i ) ). In other words, it is the value that is most likely to be sampled.
+
+Like the statistical mean and median , the mode is a way of expressing, in a (usually) single number, important information about a random variable or a population . The numerical value of the mode is the same as that of the mean and median in a normal distribution , and it may be very different in highly skewed distributions .
+
+The mode is not necessarily unique in a given discrete distribution since the probability mass function may take the same maximum value at several points x 1 , x 2 , etc. The most extreme case occurs in uniform distributions , where all values occur equally frequently.
+
+A mode of a continuous probability distribution is often considered to be any value x at which its probability density function has a locally maximum value.
+
+[ 2 ] When the probability density function of a continuous distribution has multiple local maxima it is common to refer to all of the local maxima as modes of the distribution, so any peak is a mode. Such a continuous distribution is called multimodal (as opposed to unimodal ).
+
+In symmetric unimodal distributions, such as the normal distribution , the mean (if defined), median and mode all coincide. For samples, if it is known that they are drawn from a symmetric unimodal distribution, the sample mean can be used as an estimate of the population mode.
+
+Mode of a sample [ edit ] The mode of a sample is the element that occurs most often in the collection. For example, the mode of the sample [1, 3, 6, 6, 6, 6, 7, 7, 12, 12, 17] is 6. Given the list of data [1, 1, 2, 4, 4] its mode is not unique. A dataset, in such a case, is said to be bimodal , while a set with more than two modes may be described as multimodal .
+
+For a sample from a continuous distribution, such as [0.935..., 1.211..., 2.430..., 3.668..., 3.874...], the concept is unusable in its raw form, since no two values will be exactly the same, so each value will occur precisely once. In order to estimate the mode of the underlying distribution, the usual practice is to discretize the data by assigning frequency values to intervals of equal distance, as for making a histogram , effectively replacing the values by the midpoints of the
+intervals they are assigned to. The mode is then the value where the histogram reaches its peak. For small or middle-sized samples the outcome of this procedure is sensitive to the choice of interval width if chosen too narrow or too wide; typically one should have a sizable fraction of the data concentrated in a relatively small number of intervals (5 to 10), while the fraction of the data falling outside these intervals is also sizable. An alternate approach is kernel density estimation , which essentially blurs point samples to produce a continuous estimate of the probability density function which can provide an estimate of the mode.
+
+The following MATLAB (or Octave ) code example computes the mode of a sample: X = sort ( x ); % x is a column vector dataset indices = find ( diff ([ X , realmax ]) > 0 ); % indices where repeated values change [ modeL , i ] = max ( diff ([ 0 , indices ])); % longest persistence length of repeated values mode = X ( indices ( i )); The algorithm requires as a first step to sort the sample in ascending order. It then computes the discrete derivative of the sorted list and finds the indices where this derivative is positive. Next it computes the discrete derivative of this set of indices, locating the maximum of this derivative of indices, and finally evaluates the sorted sample at the point where that maximum occurs, which corresponds to the last member of the stretch of repeated values.
+
+Comparison of mean, median and mode [ edit ] See also: Mean and Median Geometric visualisation of the mode, median and mean of an arbitrary probability density function.
+
+[ 3 ] Comparison of common averages of values { 1, 2, 2, 3, 4, 7, 9 } Type Description Example Result Arithmetic mean Sum of values of a data set divided by number of values (1+2+2+3+4+7+9) / 7 4 Median Middle value separating the greater and lesser halves of a data set 1, 2, 2, 3 , 4, 7, 9 3 Mode Most frequent value in a data set 1, 2 , 2 , 3, 4, 7, 9 2 Use [ edit ] Unlike mean and median, the concept of mode also makes sense for " nominal data " (i.e., not consisting of numerical values in the case of mean, or even of ordered values in the case of median). For example, taking a sample of Korean family names , one might find that " Kim " occurs more often than any other name. Then "Kim" would be the mode of the sample. In any voting system where a plurality determines victory, a single modal value determines the victor, while a multi-modal outcome would require some tie-breaking procedure to take place.
+
+Unlike median, the concept of mode makes sense for any random variable assuming values from a vector space , including the real numbers (a one- dimensional vector space) and the integers (which can be considered embedded in the reals). For example, a distribution of points in the plane will typically have a mean and a mode, but the concept of median does not apply. The median makes sense when there is a linear order on the possible values. Generalizations of the concept of median to higher-dimensional spaces are the geometric median and the centerpoint .
+
+Uniqueness and definedness [ edit ] For some probability distributions , the expected value may be infinite or undefined, but if defined, it is unique. The mean of a (finite) sample is always defined. The median is the value such that the fractions not exceeding it and not falling below it are each at least 1/2. It is not necessarily unique, but never infinite or totally undefined. For a data sample it is the "halfway" value when the list of values is ordered in increasing value, where usually for a list of even length the numerical average is taken of the two values closest to "halfway". Finally, as said before, the mode is not necessarily unique. Certain pathological distributions (for example, the Cantor distribution ) have no defined mode at all.
+
+[ citation needed ] [ 4 ] For a finite data sample, the mode is one (or more) of the values in the sample.
+
+Properties [ edit ] Assuming definedness, and for simplicity uniqueness, the following are some of the most interesting properties.
+
+All three measures have the following property: If the random variable (or each value from the sample) is subjected to the linear or affine transformation , which replaces X by aX + b , so are the mean, median and mode.
+
+Except for extremely small samples, the mode is insensitive to " outliers " (such as occasional, rare, false experimental readings). The median is also very robust in the presence of outliers, while the mean is rather sensitive.
+
+In continuous unimodal distributions the median often lies between the mean and the mode, about one third of the way going from mean to mode. In a formula, median ≈ (2 × mean + mode)/3. This rule, due to Karl Pearson , often applies to slightly non-symmetric distributions that resemble a normal distribution, but it is not always true and in general the three statistics can appear in any order.
+
+[ 5 ] [ 6 ] For unimodal distributions, the mode is within √ 3 standard deviations of the mean, and the root mean square deviation about the mode is between the standard deviation and twice the standard deviation.
+
+[ 7 ] Example for a skewed distribution [ edit ] An example of a skewed distribution is personal wealth : Few people are very rich, but among those some are extremely rich. However, many are rather poor.
+
+Comparison of mean , median and mode of two log-normal distributions with different skewness .
+
+A well-known class of distributions that can be arbitrarily skewed is given by the log-normal distribution . It is obtained by transforming a random variable X having a normal distribution into random variable Y = e X . Then the logarithm of random variable Y is normally distributed, hence the name.
+
+Taking the mean μ of X to be 0, the median of Y will be 1, independent of the standard deviation σ of X . This is so because X has a symmetric distribution, so its median is also 0. The transformation from X to Y is monotonic, and so we find the median e 0 = 1 for Y .
+
+When X has standard deviation σ = 0.25, the distribution of Y is weakly skewed. Using formulas for the log-normal distribution , we find: mean = e μ μ + σ σ 2 / 2 = e 0 + 0.25 2 / 2 ≈ ≈ 1.032 mode = e μ μ − − σ σ 2 = e 0 − − 0.25 2 ≈ ≈ 0.939 median = e μ μ = e 0 = 1 {\displaystyle {\begin{array}{rlll}{\text{mean}}&=e^{\mu +\sigma ^{2}/2}&=e^{0+0.25^{2}/2}&\approx 1.032\\{\text{mode}}&=e^{\mu -\sigma ^{2}}&=e^{0-0.25^{2}}&\approx 0.939\\{\text{median}}&=e^{\mu }&=e^{0}&=1\end{array}}} Indeed, the median is about one third on the way from mean to mode.
+
+When X has a larger standard deviation, σ = 1 , the distribution of Y is strongly skewed. Now mean = e μ μ + σ σ 2 / 2 = e 0 + 1 2 / 2 ≈ ≈ 1.649 mode = e μ μ − − σ σ 2 = e 0 − − 1 2 ≈ ≈ 0.368 median = e μ μ = e 0 = 1 {\displaystyle {\begin{array}{rlll}{\text{mean}}&=e^{\mu +\sigma ^{2}/2}&=e^{0+1^{2}/2}&\approx 1.649\\{\text{mode}}&=e^{\mu -\sigma ^{2}}&=e^{0-1^{2}}&\approx 0.368\\{\text{median}}&=e^{\mu }&=e^{0}&=1\end{array}}} Here, Pearson's rule of thumb fails.
+
+Van Zwet condition [ edit ] Van Zwet derived an inequality which provides sufficient conditions for this inequality to hold.
+
+[ 8 ] The inequality Mode ≤ Median ≤ Mean holds if F( Median - x ) + F( Median + x ) ≥ 1 for all x where F() is the cumulative distribution function of the distribution.
+
+Unimodal distributions [ edit ] It can be shown for a unimodal distribution that the median X ~ ~ {\displaystyle {\tilde {X}}} and the  mean X ¯ ¯ {\displaystyle {\bar {X}}} lie within (3/5) 1/2 ≈ 0.7746 standard deviations of each other.
+
+[ 9 ] In symbols, | X ~ ~ − − X ¯ ¯ | σ σ ≤ ≤ ( 3 / 5 ) 1 / 2 {\displaystyle {\frac {\left|{\tilde {X}}-{\bar {X}}\right|}{\sigma }}\leq (3/5)^{1/2}} where | ⋅ ⋅ | {\displaystyle |\cdot |} is the absolute value.
+
+A similar relation holds between the median and the mode: they lie within 3 1/2 ≈ 1.732 standard deviations of each other: | X ~ ~ − − m o d e | σ σ ≤ ≤ 3 1 / 2 .
+
+{\displaystyle {\frac {\left|{\tilde {X}}-\mathrm {mode} \right|}{\sigma }}\leq 3^{1/2}.} History [ edit ] The term mode originates with Karl Pearson in 1895.
+
+[ 10 ] Pearson uses the term mode interchangeably with maximum-ordinate . In a footnote he says, "I have found it convenient to use the term mode for the abscissa corresponding to the ordinate of maximum frequency." See also [ edit ] Mathematics portal Arg max Central tendency Descriptive statistics Moment (mathematics) Summary statistics Unimodal function References [ edit ] ^ Damodar N. Gujarati .
+
+Essentials of Econometrics . McGraw-Hill Irwin. 3rd edition, 2006: p. 110.
+
+^ Zhang, C; Mapes, BE; Soden, BJ (2003). "Bimodality in tropical water vapour".
+
+Q. J. R. Meteorol. Soc .
+
+129 (594): 2847– 2866.
+
+Bibcode : 2003QJRMS.129.2847Z .
+
+doi : 10.1256/qj.02.166 .
+
+S2CID 17153773 .
+
+^ "AP Statistics Review - Density Curves and the Normal Distributions" . Archived from the original on 2 April 2015 . Retrieved 16 March 2015 .
+
+^ Morrison, Kent (1998-07-23).
+
+"Random Walks with Decreasing Steps" (PDF) .
+
+Department of Mathematics, California Polytechnic State University . Archived from the original (PDF) on 2015-12-02 . Retrieved 2007-02-16 .
+
+^ "Relationship between the mean, median, mode, and standard deviation in a unimodal distribution" .
+
+^ Hippel, Paul T. von (2005).
+
+"Mean, Median, and Skew: Correcting a Textbook Rule" .
+
+Journal of Statistics Education .
+
+13 (2).
+
+doi : 10.1080/10691898.2005.11910556 .
+
+^ Bottomley, H. (2004).
+
+"Maximum distance between the mode and the mean of a unimodal distribution" (PDF) .
+
+Unpublished Preprint .
+
+^ van Zwet, WR (1979). "Mean, median, mode II".
+
+Statistica Neerlandica .
+
+33 (1): 1– 5.
+
+doi : 10.1111/j.1467-9574.1979.tb00657.x .
+
+^ Basu, Sanjib; Dasgupta, Anirban (1997). "The mean, median, and mode of unimodal distributions: a characterization".
+
+Theory of Probability & Its Applications .
+
+41 (2): 210– 223.
+
+doi : 10.1137/S0040585X97975447 .
+
+^ Pearson, Karl (1895).
+
+"Contributions to the Mathematical Theory of Evolution. II. Skew Variation in Homogeneous Material" .
+
+Philosophical Transactions of the Royal Society of London A .
+
+186 : 343– 414.
+
+Bibcode : 1895RSPTA.186..343P .
+
+doi : 10.1098/rsta.1895.0010 .
+
+External links [ edit ] "Mode" , Encyclopedia of Mathematics , EMS Press , 2001 [1994] A Guide to Understanding & Calculating the Mode Weisstein, Eric W.
+
+"Mode" .
+
+MathWorld .
+
+Mean, Median and Mode short beginner video from Khan Academy v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐5pgzd
+Cached time: 20250812000323
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.576 seconds
+Real time usage: 0.781 seconds
+Preprocessor visited node count: 2596/1000000
+Revision size: 15913/2097152 bytes
+Post‐expand include size: 170863/2097152 bytes
+Template argument size: 2871/2097152 bytes
+Highest expansion depth: 15/100
+Expensive parser function count: 9/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 52169/5000000 bytes
+Lua time usage: 0.328/10.000 seconds
+Lua memory usage: 7093168/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  575.568      1 -total
+ 30.15%  173.506      1 Template:Reflist
+ 28.85%  166.040      1 Template:Statistics
+ 28.40%  163.463      1 Template:Navbox_with_collapsible_groups
+ 22.77%  131.071      6 Template:Cite_journal
+ 13.53%   77.882      1 Template:Short_description
+  9.48%   54.585     11 Template:Navbox
+  9.29%   53.444      2 Template:Pagetype
+  6.36%   36.604      1 Template:Citation_needed
+  5.64%   32.480      1 Template:Hlist Saved in parser cache with key enwiki:stable-pcache:1432127:|#|:idhash:canonical and timestamp 20250812000323 and revision id 1296947966. Rendering was triggered because: unknown Retrieved from " https://en.wikipedia.org/w/index.php?title=Mode_(statistics)&oldid=1296947966 " Categories : Means Summary statistics Hidden categories: Articles with short description Short description matches Wikidata Wikipedia pending changes protected pages All articles with unsourced statements Articles with unsourced statements from November 2010 Articles with example MATLAB/Octave code This page was last edited on 23 June 2025, at 08:25 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Mode (statistics) 59 languages Add topic
+

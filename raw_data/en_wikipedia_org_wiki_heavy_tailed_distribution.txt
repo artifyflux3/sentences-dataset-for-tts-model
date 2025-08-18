@@ -1,0 +1,255 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Definitions Toggle Definitions subsection 1.1 Definition of heavy-tailed distribution 1.2 Definition of long-tailed distribution 1.3 Subexponential distributions 2 Common heavy-tailed distributions 3 Relationship to fat-tailed distributions 4 Estimating the tail-index Toggle Estimating the tail-index subsection 4.1 Pickand's tail-index estimator 4.2 Hill's tail-index estimator 4.3 Ratio estimator of the tail-index 4.4 Software 5 Estimation of heavy-tailed density 6 See also 7 References Toggle the table of contents Heavy-tailed distribution 8 languages Català Deutsch فارسی Français 한국어 עברית 日本語 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Probability distribution This article may be too technical for most readers to understand .
+
+Please help improve it to make it understandable to non-experts , without removing the technical details.
+
+( May 2020 ) ( Learn how and when to remove this message ) Heavy-tailed distributions decrease slower In probability theory , heavy-tailed distributions are probability distributions whose tails are not exponentially bounded: [ 1 ] that is, they have heavier tails than the exponential distribution . Roughly speaking, “heavy-tailed” means the distribution decreases more slowly than an exponential distribution, so extreme values are more likely. In many applications it is the right tail of the distribution that is of interest, but a distribution may have a heavy left tail, or both tails may be heavy.
+
+There are three important subclasses of heavy-tailed distributions: the fat-tailed distributions , the long-tailed distributions , and the subexponential distributions .  In practice, all commonly used heavy-tailed distributions belong to the subexponential class, introduced by Jozef Teugels .
+
+[ 2 ] There is still some discrepancy over the use of the term heavy-tailed .  There are two other definitions in use.  Some authors  use the term to refer to those distributions which do not have all their power moments finite; and some others to those distributions that do not have a finite variance .  The definition given in this article is the most general in use, and includes all distributions encompassed by the alternative definitions, as well as those distributions such as log-normal that possess all their power moments, yet which are generally considered to be heavy-tailed.  (Occasionally, heavy-tailed is used for any distribution that has heavier tails than the normal distribution.) Definitions [ edit ] Definition of heavy-tailed distribution [ edit ] The distribution of a random variable X with distribution function F is said to have a heavy (right) tail if the moment generating function of X , M X ( t ), is infinite for all t > 0.
+
+[ 3 ] That means ∫ ∫ − − ∞ ∞ ∞ ∞ e t x d F ( x ) = ∞ ∞ for all t > 0.
+
+{\displaystyle \int _{-\infty }^{\infty }e^{tx}\,dF(x)=\infty \quad {\mbox{for all }}t>0.} [ 4 ] This is also written in terms of the tail distribution function F ¯ ¯ ( x ) ≡ ≡ Pr [ X > x ] {\displaystyle {\overline {F}}(x)\equiv \Pr[X>x]\,} as lim x → → ∞ ∞ e t x F ¯ ¯ ( x ) = ∞ ∞ for all t > 0.
+
+{\displaystyle \lim _{x\to \infty }e^{tx}{\overline {F}}(x)=\infty \quad {\mbox{for all }}t>0.\,} Definition of long-tailed distribution [ edit ] The distribution of a random variable X with distribution function F is said to have a long right tail [ 1 ] if for all t > 0, lim x → → ∞ ∞ Pr [ X > x + t ∣ ∣ X > x ] = 1 , {\displaystyle \lim _{x\to \infty }\Pr[X>x+t\mid X>x]=1,\,} or equivalently F ¯ ¯ ( x + t ) ∼ ∼ F ¯ ¯ ( x ) as x → → ∞ ∞ .
+
+{\displaystyle {\overline {F}}(x+t)\sim {\overline {F}}(x)\quad {\mbox{as }}x\to \infty .\,} This has the intuitive interpretation for a right-tailed long-tailed distributed quantity that if the long-tailed quantity exceeds some high level, the probability approaches 1 that it will exceed any other higher level.
+
+All long-tailed distributions are heavy-tailed, but the converse is false, and it is possible to construct heavy-tailed distributions that are not long-tailed.
+
+Subexponential distributions [ edit ] Subexponentiality is defined in terms of convolutions of probability distributions . For two independent, identically distributed random variables X 1 , X 2 {\displaystyle X_{1},X_{2}} with a common distribution function F {\displaystyle F} , the convolution of F {\displaystyle F} with itself, written F ∗ ∗ 2 {\displaystyle F^{*2}} and called the convolution square, is defined using Lebesgue–Stieltjes integration by: Pr [ X 1 + X 2 ≤ ≤ x ] = F ∗ ∗ 2 ( x ) = ∫ ∫ 0 x F ( x − − y ) d F ( y ) , {\displaystyle \Pr[X_{1}+X_{2}\leq x]=F^{*2}(x)=\int _{0}^{x}F(x-y)\,dF(y),} and the n -fold convolution F ∗ ∗ n {\displaystyle F^{*n}} is defined inductively by the rule: F ∗ ∗ n ( x ) = ∫ ∫ 0 x F ( x − − y ) d F ∗ ∗ n − − 1 ( y ) .
+
+{\displaystyle F^{*n}(x)=\int _{0}^{x}F(x-y)\,dF^{*n-1}(y).} The tail distribution function F ¯ ¯ {\displaystyle {\overline {F}}} is defined as F ¯ ¯ ( x ) = 1 − − F ( x ) {\displaystyle {\overline {F}}(x)=1-F(x)} .
+
+A distribution F {\displaystyle F} on the positive half-line is subexponential [ 1 ] [ 5 ] [ 2 ] if F ∗ ∗ 2 ¯ ¯ ( x ) ∼ ∼ 2 F ¯ ¯ ( x ) as x → → ∞ ∞ .
+
+{\displaystyle {\overline {F^{*2}}}(x)\sim 2{\overline {F}}(x)\quad {\mbox{as }}x\to \infty .} This implies [ 6 ] that, for any n ≥ ≥ 1 {\displaystyle n\geq 1} , F ∗ ∗ n ¯ ¯ ( x ) ∼ ∼ n F ¯ ¯ ( x ) as x → → ∞ ∞ .
+
+{\displaystyle {\overline {F^{*n}}}(x)\sim n{\overline {F}}(x)\quad {\mbox{as }}x\to \infty .} The probabilistic interpretation [ 6 ] of this is that, for a sum of n {\displaystyle n} independent random variables X 1 , … … , X n {\displaystyle X_{1},\ldots ,X_{n}} with common distribution F {\displaystyle F} , Pr [ X 1 + ⋯ ⋯ + X n > x ] ∼ ∼ Pr [ max ( X 1 , … … , X n ) > x ] as x → → ∞ ∞ .
+
+{\displaystyle \Pr[X_{1}+\cdots +X_{n}>x]\sim \Pr[\max(X_{1},\ldots ,X_{n})>x]\quad {\text{as }}x\to \infty .} This is often known as the principle of the single big jump [ 7 ] or catastrophe principle.
+
+[ 8 ] A distribution F {\displaystyle F} on the whole real line is subexponential if the distribution F I ( [ 0 , ∞ ∞ ) ) {\displaystyle FI([0,\infty ))} is.
+
+[ 9 ] Here I ( [ 0 , ∞ ∞ ) ) {\displaystyle I([0,\infty ))} is the indicator function of the positive half-line.  Alternatively, a random variable X {\displaystyle X} supported on the real line is subexponential if and only if X + = max ( 0 , X ) {\displaystyle X^{+}=\max(0,X)} is subexponential.
+
+All subexponential distributions are long-tailed, but examples can be constructed of long-tailed distributions that are not subexponential.
+
+Common heavy-tailed distributions [ edit ] All commonly used heavy-tailed distributions are subexponential.
+
+[ 6 ] Those that are one-tailed include: the Pareto distribution ; the Log-normal distribution ; the Lévy distribution ; the Weibull distribution with shape parameter greater than 0 but less than 1; the Burr distribution ; the log-logistic distribution ; the log- gamma distribution ; the Fréchet distribution ; the q-Gaussian distribution ; the log-Cauchy distribution , sometimes described as having a "super-heavy tail" because it exhibits logarithmic decay producing a heavier tail than the Pareto distribution.
+
+[ 10 ] [ 11 ] Those that are two-tailed include: The Cauchy distribution , itself a special case of both the stable distribution and the t-distribution; The family of stable distributions , [ 12 ] excepting the special case of the normal distribution within that family. Some stable distributions are one-sided (or supported by a half-line), see e.g.
+
+Lévy distribution . See also financial models with long-tailed distributions and volatility clustering .
+
+The t-distribution .
+
+The skew log-normal cascade distribution.
+
+[ 13 ] Relationship to fat-tailed distributions [ edit ] A fat-tailed distribution is a distribution for which the probability density function, for large x, goes to zero as a power x − − a {\displaystyle x^{-a}} .  Since such a power is always bounded below by the probability density function of an exponential distribution, fat-tailed distributions are always heavy-tailed.  Some distributions, however, have a tail which goes to zero slower than an exponential function (meaning they are heavy-tailed), but faster than a power (meaning they are not fat-tailed). An example is the log-normal distribution [ contradictory ] .  Many other heavy-tailed distributions such as the log-logistic and Pareto distribution are, however, also fat-tailed.
+
+Estimating the tail-index [ edit ] There are parametric [ 6 ] and non-parametric [ 14 ] approaches to the problem of the tail-index estimation.
+
+[ when defined as?
+
+] To estimate the tail-index using the parametric approach, some authors employ GEV distribution or Pareto distribution ; they may apply the maximum-likelihood estimator (MLE).
+
+Pickand's tail-index estimator [ edit ] With ( X n , n ≥ ≥ 1 ) {\displaystyle (X_{n},n\geq 1)} a random sequence of independent and same  density function F ∈ ∈ D ( H ( ξ ξ ) ) {\displaystyle F\in D(H(\xi ))} , the Maximum Attraction Domain [ 15 ] of the generalized extreme value density H {\displaystyle H} , where ξ ξ ∈ ∈ R {\displaystyle \xi \in \mathbb {R} } . If lim n → → ∞ ∞ k ( n ) = ∞ ∞ {\displaystyle \lim _{n\to \infty }k(n)=\infty } and lim n → → ∞ ∞ k ( n ) n = 0 {\displaystyle \lim _{n\to \infty }{\frac {k(n)}{n}}=0} , then the Pickands tail-index estimation is [ 6 ] [ 15 ] ξ ξ ( k ( n ) , n ) Pickands = 1 ln ⁡ ⁡ 2 ln ⁡ ⁡ ( X ( n − − k ( n ) + 1 , n ) − − X ( n − − 2 k ( n ) + 1 , n ) X ( n − − 2 k ( n ) + 1 , n ) − − X ( n − − 4 k ( n ) + 1 , n ) ) , {\displaystyle \xi _{(k(n),n)}^{\text{Pickands}}={\frac {1}{\ln 2}}\ln \left({\frac {X_{(n-k(n)+1,n)}-X_{(n-2k(n)+1,n)}}{X_{(n-2k(n)+1,n)}-X_{(n-4k(n)+1,n)}}}\right),} where X ( n − − k ( n ) + 1 , n ) = max ( X n − − k ( n ) + 1 , … … , X n ) {\displaystyle X_{(n-k(n)+1,n)}=\max \left(X_{n-k(n)+1},\ldots ,X_{n}\right)} . This estimator converges in probability to ξ ξ {\displaystyle \xi } .
+
+Hill's tail-index estimator [ edit ] Let ( X t , t ≥ ≥ 1 ) {\displaystyle (X_{t},t\geq 1)} be a sequence of independent and identically distributed random variables with distribution function F ∈ ∈ D ( H ( ξ ξ ) ) {\displaystyle F\in D(H(\xi ))} , the maximum domain of attraction of the generalized extreme value distribution H {\displaystyle H} , where ξ ξ ∈ ∈ R {\displaystyle \xi \in \mathbb {R} } . The sample path is X t : 1 ≤ ≤ t ≤ ≤ n {\displaystyle {X_{t}:1\leq t\leq n}} where n {\displaystyle n} is the sample size. If { k ( n ) } {\displaystyle \{k(n)\}} is an intermediate order sequence, i.e.
+
+k ( n ) ∈ ∈ { 1 , … … , n − − 1 } , {\displaystyle k(n)\in \{1,\ldots ,n-1\},} , k ( n ) → → ∞ ∞ {\displaystyle k(n)\to \infty } and k ( n ) / n → → 0 {\displaystyle k(n)/n\to 0} , then the Hill tail-index estimator is [ 16 ] ξ ξ ( k ( n ) , n ) Hill = ( 1 k ( n ) ∑ ∑ i = n − − k ( n ) + 1 n ln ⁡ ⁡ ( X ( i , n ) ) − − ln ⁡ ⁡ ( X ( n − − k ( n ) + 1 , n ) ) ) − − 1 , {\displaystyle \xi _{(k(n),n)}^{\text{Hill}}=\left({\frac {1}{k(n)}}\sum _{i=n-k(n)+1}^{n}\ln(X_{(i,n)})-\ln(X_{(n-k(n)+1,n)})\right)^{-1},} where X ( i , n ) {\displaystyle X_{(i,n)}} is the i {\displaystyle i} -th order statistic of X 1 , … … , X n {\displaystyle X_{1},\dots ,X_{n}} .
+This estimator converges in probability to ξ ξ {\displaystyle \xi } , and is asymptotically normal provided k ( n ) → → ∞ ∞ {\displaystyle k(n)\to \infty } is restricted based on a higher order regular variation property [ 17 ] .
+
+[ 18 ] Consistency and asymptotic normality extend to a large class of dependent and heterogeneous sequences, [ 19 ] [ 20 ] irrespective of whether X t {\displaystyle X_{t}} is observed, or a computed residual or filtered data from a large class of models and estimators, including mis-specified models and models with errors that are dependent.
+
+[ 21 ] [ 22 ] [ 23 ] Note that both Pickand's and Hill's tail-index estimators commonly make use of logarithm of the order statistics.
+
+[ 24 ] Ratio estimator of the tail-index [ edit ] The ratio estimator (RE-estimator) of the tail-index was introduced by Goldie  
+and Smith.
+
+[ 25 ] It is constructed similarly to Hill's estimator but uses a non-random "tuning parameter".
+
+A comparison of Hill-type and RE-type estimators can be found in Novak.
+
+[ 14 ] Software [ edit ] aest Archived 2020-11-25 at the Wayback Machine , C tool for estimating the heavy-tail index.
+
+[ 26 ] Estimation of heavy-tailed density [ edit ] Nonparametric approaches to estimate heavy- and superheavy-tailed probability density functions were given in 
+Markovich.
+
+[ 27 ] These are approaches based on variable bandwidth and long-tailed kernel estimators;  on the preliminary data transform to a new random variable at finite or infinite intervals, which is more convenient for the estimation and then inverse transform of the obtained density estimate; and "piecing-together approach" which provides a certain parametric model for the tail of the density and a non-parametric model to approximate the mode of the density. Nonparametric estimators require an appropriate selection of tuning (smoothing) parameters like a bandwidth of kernel estimators and the bin width of the histogram. The well known data-driven methods of such selection are a cross-validation and its modifications,  methods based on the minimization of the mean squared error (MSE) and its asymptotic and their upper bounds.
+
+[ 28 ] A discrepancy method which uses well-known nonparametric statistics like Kolmogorov-Smirnov's, von Mises and Anderson-Darling's ones as a metric in the space of distribution functions (dfs) and quantiles of the later statistics as a known uncertainty or a discrepancy value can be found in.
+
+[ 27 ] Bootstrap is another tool to find smoothing parameters using  approximations of unknown MSE by different schemes of re-samples selection, see e.g.
+
+[ 29 ] See also [ edit ] Leptokurtic distribution Generalized extreme value distribution Generalized Pareto distribution Outlier Long tail Power law Seven states of randomness Fat-tailed distribution Taleb distribution and Holy grail distribution References [ edit ] ^ a b c Asmussen, S. R. (2003). "Steady-State Properties of GI/G/1".
+
+Applied Probability and Queues . Stochastic Modelling and Applied Probability. Vol. 51. pp.
+
+266– 301.
+
+doi : 10.1007/0-387-21525-5_10 .
+
+ISBN 978-0-387-00211-8 .
+
+^ a b Teugels, Jozef L. (1975).
+
+"The Class of Subexponential Distributions" .
+
+Annals of Probability .
+
+3 (6).
+
+University of Louvain .
+
+doi : 10.1214/aop/1176996225 . Retrieved April 7, 2019 .
+
+^ Rolski, Schmidli, Schmidt, Teugels, Stochastic Processes for Insurance and Finance , 1999 ^ S. Foss, D. Korshunov, S. Zachary, An Introduction to Heavy-Tailed and Subexponential Distributions , Springer Science & Business Media, 21 May 2013 ^ Chistyakov, V. P. (1964).
+
+"A Theorem on Sums of Independent Positive Random Variables and Its Applications to Branching Random Processes" .
+
+ResearchGate . Retrieved April 7, 2019 .
+
+^ a b c d e Embrechts P.; Klueppelberg C.; Mikosch T. (1997).
+
+Modelling extremal events for insurance and finance . Stochastic Modelling and Applied Probability. Vol. 33. Berlin: Springer.
+
+doi : 10.1007/978-3-642-33483-2 .
+
+ISBN 978-3-642-08242-9 .
+
+^ Foss, S.; Konstantopoulos, T.; Zachary, S. (2007).
+
+"Discrete and Continuous Time Modulated Random Walks with Heavy-Tailed Increments" (PDF) .
+
+Journal of Theoretical Probability .
+
+20 (3): 581.
+
+arXiv : math/0509605 .
+
+CiteSeerX 10.1.1.210.1699 .
+
+doi : 10.1007/s10959-007-0081-2 .
+
+S2CID 3047753 .
+
+^ Wierman, Adam (January 9, 2014).
+
+"Catastrophes, Conspiracies, and Subexponential Distributions (Part III)" .
+
+Rigor + Relevance blog . RSRG, Caltech . Retrieved January 9, 2014 .
+
+^ Willekens, E. (1986). "Subexponentiality on the real line".
+
+Technical Report . K.U. Leuven.
+
+^ Falk, M., Hüsler, J. & Reiss, R. (2010).
+
+Laws of Small Numbers: Extremes and Rare Events . Springer. p. 80.
+
+ISBN 978-3-0348-0008-2 .
+
+{{ cite book }} :  CS1 maint: multiple names: authors list ( link ) ^ Alves, M.I.F., de Haan, L. & Neves, C. (March 10, 2006).
+
+"Statistical inference for heavy and super-heavy tailed distributions" (PDF) . Archived from the original (PDF) on June 23, 2007 . Retrieved November 1, 2011 .
+
+{{ cite web }} :  CS1 maint: multiple names: authors list ( link ) ^ John P. Nolan (2009).
+
+"Stable Distributions: Models for Heavy Tailed Data" (PDF) . Archived from the original (PDF) on 2011-07-17 . Retrieved 2009-02-21 .
+
+^ Stephen Lihn (2009).
+
+"Skew Lognormal Cascade Distribution" . Archived from the original on 2014-04-07 . Retrieved 2009-06-12 .
+
+^ a b Novak S.Y. (2011).
+
+Extreme value methods with applications to finance . London: CRC.
+
+ISBN 978-1-43983-574-6 .
+
+^ a b Pickands III, James (Jan 1975).
+
+"Statistical Inference Using Extreme Order Statistics" .
+
+The Annals of Statistics .
+
+3 (1): 119– 131.
+
+doi : 10.1214/aos/1176343003 .
+
+JSTOR 2958083 .
+
+^ Hill B.M. (1975) A simple general approach to inference about  the tail of a distribution. Ann. Stat., v. 3, 1163–1174.
+
+^ Hall, P.(1982) On some estimates of an exponent of regular variation. J. R. Stat. Soc. Ser. B., v. 44, 37–42.
+
+^ Haeusler, E. and J. L. Teugels (1985) On asymptotic normality of Hill's estimator for the exponent of regular variation. Ann. Stat., v. 13, 743–756.
+
+^ Hsing, T. (1991) On tail index estimation using dependent data. Ann. Stat., v. 19, 1547–1569.
+
+^ Hill, J. (2010) On tail index estimation for dependent, heterogeneous data. Econometric Th., v. 26, 1398–1436.
+
+^ Resnick, S. and Starica, C. (1997). Asymptotic behavior of Hill’s estimator for autoregressive data. Comm. Statist. Stochastic Models 13, 703–721.
+
+^ Ling, S. and Peng, L. (2004). Hill’s estimator for the tail index of an ARMA model. J. Statist. Plann. Inference 123, 279–293.
+
+^ Hill, J. B. (2015). Tail index estimation for a filtered dependent time series. Stat. Sin. 25, 609–630.
+
+^ Lee, Seyoon; Kim, Joseph H. T. (2019). "Exponentiated generalized Pareto distribution: Properties and applications towards extreme value theory".
+
+Communications in Statistics - Theory and Methods .
+
+48 (8): 2014– 2038.
+
+arXiv : 1708.01686 .
+
+doi : 10.1080/03610926.2018.1441418 .
+
+S2CID 88514574 .
+
+^ Goldie C.M., Smith R.L. (1987) Slow variation with remainder:
+ theory and applications. Quart. J. Math. Oxford, v. 38, 45–71.
+
+^ Crovella, M. E.; Taqqu, M. S. (1999).
+
+"Estimating the Heavy Tail Index from Scaling Properties" .
+
+Methodology and Computing in Applied Probability .
+
+1 : 55– 79.
+
+doi : 10.1023/A:1010012224103 .
+
+S2CID 8917289 . Archived from the original on 2007-02-06 . Retrieved 2015-09-03 .
+
+^ a b Markovich N.M. (2007).
+
+Nonparametric Analysis of Univariate Heavy-Tailed data: Research and Practice . Chitester: Wiley.
+
+ISBN 978-0-470-72359-3 .
+
+^ Wand M.P., Jones M.C. (1995).
+
+Kernel smoothing . New York: Chapman and Hall.
+
+ISBN 978-0412552700 .
+
+^ Hall P. (1992).
+
+The Bootstrap and Edgeworth Expansion . Springer.
+
+ISBN 9780387945088 .
+
+Retrieved from " https://en.wikipedia.org/w/index.php?title=Heavy-tailed_distribution&oldid=1294852451 " Categories : Tails of probability distributions Types of probability distributions Actuarial science Risk Hidden categories: CS1 maint: multiple names: authors list Articles with short description Short description is different from Wikidata Wikipedia articles that are too technical from May 2020 All articles that are too technical Articles contradicting other articles Wikipedia articles needing clarification from January 2018 Webarchive template wayback links This page was last edited on 10 June 2025, at 05:28 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Heavy-tailed distribution 8 languages Add topic
+

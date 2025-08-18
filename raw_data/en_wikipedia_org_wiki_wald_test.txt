@@ -1,0 +1,246 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Mathematical details Toggle Mathematical details subsection 1.1 Test on a single parameter 1.2 Test(s) on multiple parameters 1.3 Nonlinear hypothesis 1.3.1 Non-invariance to re-parameterisations 2 Alternatives to the Wald test 3 See also 4 References 5 Further reading 6 External links Toggle the table of contents Wald test 9 languages Català Deutsch Español فارسی Français Italiano עברית Русский Slovenščina Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Statistical test In statistics , the Wald test (named after Abraham Wald ) assesses constraints on statistical parameters based on the weighted distance between the unrestricted estimate and its hypothesized value under the null hypothesis , where the weight is the precision of the estimate.
+
+[ 1 ] [ 2 ] Intuitively, the larger this weighted distance, the less likely it is that the constraint is true. While the finite sample distributions of Wald tests are generally unknown, [ 3 ] : 138 it has an asymptotic χ 2 -distribution under the null hypothesis, a fact that can be used to determine statistical significance .
+
+[ 4 ] Together with the Lagrange multiplier test and the likelihood-ratio test , the Wald test is one of three classical approaches to hypothesis testing . An advantage of the Wald test over the other two is that it only requires the estimation of the unrestricted model, which lowers the computational burden as compared to the likelihood-ratio test. However, a major disadvantage is that (in finite samples) it is not invariant to changes in the representation of the null hypothesis; in other words, algebraically equivalent expressions of non-linear parameter restriction can lead to different values of the test statistic.
+
+[ 5 ] [ 6 ] That is because the Wald statistic is derived from a Taylor expansion , [ 7 ] and different ways of writing equivalent nonlinear expressions lead to nontrivial differences in the corresponding Taylor coefficients.
+
+[ 8 ] Another aberration, known as the Hauck–Donner effect, [ 9 ] can occur in binomial models when the estimated (unconstrained) parameter is close to the boundary of the parameter space —for instance a fitted probability being extremely close to zero or one—which results in the Wald test no longer monotonically increasing in the distance between the unconstrained and constrained parameter.
+
+[ 10 ] [ 11 ] Mathematical details [ edit ] Under the Wald test, the estimated θ θ ^ ^ {\displaystyle {\hat {\theta }}} that was found as the maximizing argument of the unconstrained likelihood function is compared with a hypothesized value θ θ 0 {\displaystyle \theta _{0}} . In particular, the squared difference θ θ ^ ^ − − θ θ 0 {\displaystyle {\hat {\theta }}-\theta _{0}} is weighted by the curvature of the log-likelihood function.
+
+Test on a single parameter [ edit ] If the hypothesis involves only a single parameter restriction, then the Wald statistic takes the following form: W = ( θ θ ^ ^ − − θ θ 0 ) 2 var ⁡ ⁡ ( θ θ ^ ^ ) {\displaystyle W={\frac {{({\widehat {\theta }}-\theta _{0})}^{2}}{\operatorname {var} ({\hat {\theta }})}}} which under the null hypothesis follows an asymptotic χ 2 -distribution with one degree of freedom. The square root of the single-restriction Wald statistic can be understood as a (pseudo) t -ratio that is, however, not actually t -distributed except for the special case of linear regression with normally distributed errors.
+
+[ 12 ] In general, it follows an asymptotic z distribution .
+
+[ 13 ] W = θ θ ^ ^ − − θ θ 0 se ⁡ ⁡ ( θ θ ^ ^ ) {\displaystyle {\sqrt {W}}={\frac {{\widehat {\theta }}-\theta _{0}}{\operatorname {se} ({\hat {\theta }})}}} where se ⁡ ⁡ ( θ θ ^ ^ ) {\displaystyle \operatorname {se} ({\widehat {\theta }})} is the standard error (SE) of the maximum likelihood estimate (MLE), the square root of the variance. There are several ways to consistently estimate the variance matrix which in finite samples leads to alternative estimates of standard errors and associated test statistics and p -values .
+
+[ 3 ] : 129 The validity of still getting an asymptotically normal distribution after plugin-in the MLE estimator of θ θ ^ ^ {\displaystyle {\hat {\theta }}} into the SE relies on Slutsky's theorem .
+
+Test(s) on multiple parameters [ edit ] The Wald test can be used to test a single hypothesis on multiple parameters, as well as to test jointly multiple hypotheses on single/multiple parameters. Let θ θ ^ ^ n {\displaystyle {\hat {\theta }}_{n}} be our sample estimator of P parameters (i.e., θ θ ^ ^ n {\displaystyle {\hat {\theta }}_{n}} is a P × × 1 {\displaystyle P\times 1} vector), which is supposed to follow asymptotically a normal distribution with covariance matrix V , n ( θ θ ^ ^ n − − θ θ ) → D N ( 0 , V ) {\displaystyle {\sqrt {n}}({\hat {\theta }}_{n}-\theta )\,\xrightarrow {\mathcal {D}} \,N(0,V)} .
+The test of Q hypotheses on the P parameters is expressed with a Q × × P {\displaystyle Q\times P} matrix R : H 0 : R θ θ = r {\displaystyle H_{0}:R\theta =r} H 1 : R θ θ ≠ ≠ r {\displaystyle H_{1}:R\theta \neq r} The distribution of the test statistic under the null hypothesis is ( R θ θ ^ ^ n − − r ) ′ [ R ( V ^ ^ n / n ) R ′ ] − − 1 ( R θ θ ^ ^ n − − r ) / Q → D F ( Q , n − − P ) → n → → ∞ ∞ D χ χ Q 2 / Q , {\displaystyle (R{\hat {\theta }}_{n}-r)'[R({\hat {V}}_{n}/n)R']^{-1}(R{\hat {\theta }}_{n}-r)/Q\quad \xrightarrow {\mathcal {D}} \quad F(Q,n-P)\quad {\xrightarrow[{n\rightarrow \infty }]{\mathcal {D}}}\quad \chi _{Q}^{2}/Q,} which in turn implies ( R θ θ ^ ^ n − − r ) ′ [ R ( V ^ ^ n / n ) R ′ ] − − 1 ( R θ θ ^ ^ n − − r ) → n → → ∞ ∞ D χ χ Q 2 , {\displaystyle (R{\hat {\theta }}_{n}-r)'[R({\hat {V}}_{n}/n)R']^{-1}(R{\hat {\theta }}_{n}-r)\quad {\xrightarrow[{n\rightarrow \infty }]{\mathcal {D}}}\quad \chi _{Q}^{2},} where V ^ ^ n {\displaystyle {\hat {V}}_{n}} is an estimator of the covariance matrix.
+
+[ 14 ] Proof Suppose n ( θ θ ^ ^ n − − θ θ ) → D N ( 0 , V ) {\displaystyle {\sqrt {n}}({\hat {\theta }}_{n}-\theta )\,\xrightarrow {\mathcal {D}} \,N(0,V)} . Then, by Slutsky's theorem and by the properties of the normal distribution , multiplying by R has distribution: R n ( θ θ ^ ^ n − − θ θ ) = n ( R θ θ ^ ^ n − − r ) → D N ( 0 , R V R ′ ) {\displaystyle R{\sqrt {n}}({\hat {\theta }}_{n}-\theta )={\sqrt {n}}(R{\hat {\theta }}_{n}-r)\,\xrightarrow {\mathcal {D}} \,N(0,RVR')} Recalling that a quadratic form of normal distribution has a Chi-squared distribution : n ( R θ θ ^ ^ n − − r ) ′ [ R V R ′ ] − − 1 n ( R θ θ ^ ^ n − − r ) → D χ χ Q 2 {\displaystyle {\sqrt {n}}(R{\hat {\theta }}_{n}-r)'[RVR']^{-1}{\sqrt {n}}(R{\hat {\theta }}_{n}-r)\,\xrightarrow {\mathcal {D}} \,\chi _{Q}^{2}} Rearranging n finally gives: ( R θ θ ^ ^ n − − r ) ′ [ R ( V / n ) R ′ ] − − 1 ( R θ θ ^ ^ n − − r ) → D χ χ Q 2 {\displaystyle (R{\hat {\theta }}_{n}-r)'[R(V/n)R']^{-1}(R{\hat {\theta }}_{n}-r)\quad \xrightarrow {\mathcal {D}} \quad \chi _{Q}^{2}} What if the covariance matrix is not known a-priori and needs to be estimated from the data? If we have a consistent estimator V ^ ^ n {\displaystyle {\hat {V}}_{n}} of V {\displaystyle V} such that V − − 1 V ^ ^ n {\displaystyle V^{-1}{\hat {V}}_{n}} has a determinant that is distributed χ χ n − − P 2 {\displaystyle \chi _{n-P}^{2}} , then by the independence of the covariance estimator and equation above, we have: ( R θ θ ^ ^ n − − r ) ′ [ R ( V ^ ^ n / n ) R ′ ] − − 1 ( R θ θ ^ ^ n − − r ) / Q → D F ( Q , n − − P ) {\displaystyle (R{\hat {\theta }}_{n}-r)'[R({\hat {V}}_{n}/n)R']^{-1}(R{\hat {\theta }}_{n}-r)/Q\quad \xrightarrow {\mathcal {D}} \quad F(Q,n-P)} Nonlinear hypothesis [ edit ] In the standard form, the Wald test is used to test linear hypotheses that can be represented by a single matrix R . If one wishes to test a non-linear hypothesis of the form: H 0 : c ( θ θ ) = 0 {\displaystyle H_{0}:c(\theta )=0} H 1 : c ( θ θ ) ≠ ≠ 0 {\displaystyle H_{1}:c(\theta )\neq 0} The test statistic becomes: c ( θ θ ^ ^ n ) ′ [ c ′ ( θ θ ^ ^ n ) ( V ^ ^ n / n ) c ′ ( θ θ ^ ^ n ) ′ ] − − 1 c ( θ θ ^ ^ n ) → D χ χ Q 2 {\displaystyle c\left({\hat {\theta }}_{n}\right)'\left[c'\left({\hat {\theta }}_{n}\right)\left({\hat {V}}_{n}/n\right)c'\left({\hat {\theta }}_{n}\right)'\right]^{-1}c\left({\hat {\theta }}_{n}\right)\quad {\xrightarrow {\mathcal {D}}}\quad \chi _{Q}^{2}} where c ′ ( θ θ ^ ^ n ) {\displaystyle c'({\hat {\theta }}_{n})} is the derivative of c evaluated at the sample estimator. This result is obtained using the delta method , which uses a first order approximation of the variance.
+
+Non-invariance to re-parameterisations [ edit ] The fact that one uses an approximation of the variance has the drawback that the Wald statistic is not-invariant to a non-linear transformation/reparametrisation of the hypothesis: it can give different answers to the same question, depending on how the question is phrased.
+
+[ 15 ] [ 5 ] For example, asking whether R = 1 is the same as asking whether log R = 0; but the Wald statistic for R = 1 is not the same as the Wald statistic for log R = 0 (because there is in general no neat relationship between the standard errors of R and log R , so it needs to be approximated).
+
+[ 16 ] Alternatives to the Wald test [ edit ] There exist several alternatives to the Wald test, namely the likelihood-ratio test and the Lagrange multiplier test (also known as the score test).
+
+Robert F. Engle showed that these three tests, the Wald test, the likelihood-ratio test and the Lagrange multiplier test are asymptotically equivalent .
+
+[ 17 ] Although they are asymptotically equivalent, in finite samples, they could disagree enough to lead to different conclusions.
+
+There are several reasons to prefer the likelihood ratio test or the Lagrange multiplier to the Wald test: [ 18 ] [ 19 ] [ 20 ] Non-invariance: As argued above, the Wald test is not invariant under reparametrization, while the likelihood ratio tests will give exactly the same answer whether we work with R , log R or any other monotonic transformation of R .
+
+[ 5 ] The other reason is that the Wald test uses two approximations (that we know the standard error or Fisher information and the maximum likelihood estimate), whereas the likelihood ratio test depends only on the ratio of likelihood functions under the null hypothesis and alternative hypothesis.
+
+The Wald test requires an estimate using the maximizing argument, corresponding to the "full" model. In some cases, the model is simpler under the null hypothesis, so that one might prefer to use the score test (also called Lagrange multiplier test), which has the advantage that it can be formulated in situations where the variability of the maximizing element is difficult to estimate or computing the estimate according to the maximum likelihood estimator is difficult; e.g. the Cochran–Mantel–Haenzel test is a score test.
+
+[ 21 ] See also [ edit ] Chow test Sequential probability ratio test Sup-Wald test Student's t -test Welch's t -test References [ edit ] ^ Fahrmeir, Ludwig; Kneib, Thomas; Lang, Stefan; Marx, Brian (2013).
+
+Regression : Models, Methods and Applications . Berlin: Springer. p. 663.
+
+ISBN 978-3-642-34332-2 .
+
+^ Ward, Michael D.
+
+; Ahlquist, John S. (2018).
+
+Maximum Likelihood for Social Science : Strategies for Analysis .
+
+Cambridge University Press . p. 36.
+
+ISBN 978-1-316-63682-4 .
+
+^ a b Martin, Vance; Hurn, Stan; Harris, David (2013).
+
+Econometric Modelling with Time Series: Specification, Estimation and Testing . Cambridge University Press.
+
+ISBN 978-0-521-13981-6 .
+
+^ Davidson, Russell; MacKinnon, James G. (1993). "The Method of Maximum Likelihood : Fundamental Concepts and Notation".
+
+Estimation and Inference in Econometrics . New York: Oxford University Press. p. 89.
+
+ISBN 0-19-506011-3 .
+
+^ a b c Gregory, Allan W.; Veall, Michael R. (1985).
+
+"Formulating Wald Tests of Nonlinear Restrictions" .
+
+Econometrica .
+
+53 (6): 1465– 1468.
+
+doi : 10.2307/1913221 .
+
+JSTOR 1913221 . Archived from the original on 2018-07-21 . Retrieved 2019-09-05 .
+
+^ Phillips, P. C. B.
+
+; Park, Joon Y. (1988).
+
+"On the Formulation of Wald Tests of Nonlinear Restrictions" (PDF) .
+
+Econometrica .
+
+56 (5): 1065– 1083.
+
+doi : 10.2307/1911359 .
+
+JSTOR 1911359 .
+
+^ Hayashi, Fumio (2000).
+
+Econometrics . Princeton: Princeton University Press. pp.
+
+489– 491.
+
+ISBN 1-4008-2383-8 .
+
+, ^ Lafontaine, Francine; White, Kenneth J. (1986). "Obtaining Any Wald Statistic You Want".
+
+Economics Letters .
+
+21 (1): 35– 40.
+
+doi : 10.1016/0165-1765(86)90117-5 .
+
+^ Hauck, Walter W. Jr.; Donner, Allan (1977). "Wald's Test as Applied to Hypotheses in Logit Analysis".
+
+Journal of the American Statistical Association .
+
+72 (360a): 851– 853.
+
+doi : 10.1080/01621459.1977.10479969 .
+
+^ King, Maxwell L.; Goh, Kim-Leng (2002).
+
+"Improvements to the Wald Test" .
+
+Handbook of Applied Econometrics and Statistical Inference . New York: Marcel Dekker. pp.
+
+251– 276.
+
+ISBN 0-8247-0652-8 .
+
+^ Yee, Thomas William (2022). "On the Hauck–Donner Effect in Wald Tests: Detection, Tipping Points, and Parameter Space Characterization".
+
+Journal of the American Statistical Association .
+
+117 (540): 1763– 1774.
+
+arXiv : 2001.08431 .
+
+doi : 10.1080/01621459.2021.1886936 .
+
+^ Cameron, A. Colin ; Trivedi, Pravin K. (2005).
+
+Microeconometrics : Methods and Applications . New York: Cambridge University Press. p. 137.
+
+ISBN 0-521-84805-9 .
+
+^ Davidson, Russell; MacKinnon, James G. (1993). "The Method of Maximum Likelihood : Fundamental Concepts and Notation".
+
+Estimation and Inference in Econometrics . New York: Oxford University Press. p. 89.
+
+ISBN 0-19-506011-3 .
+
+^ Harrell, Frank E. Jr. (2001). "Section 9.3.1".
+
+Regression modeling strategies . New York: Springer-Verlag.
+
+ISBN 0387952322 .
+
+^ Fears, Thomas R.; Benichou, Jacques; Gail, Mitchell H. (1996). "A reminder of the fallibility of the Wald statistic".
+
+The American Statistician .
+
+50 (3): 226– 227.
+
+doi : 10.1080/00031305.1996.10474384 .
+
+^ Critchley, Frank; Marriott, Paul; Salmon, Mark (1996). "On the Differential Geometry of the Wald Test with Nonlinear Restrictions".
+
+Econometrica .
+
+64 (5): 1213– 1222.
+
+doi : 10.2307/2171963 .
+
+hdl : 1814/524 .
+
+JSTOR 2171963 .
+
+^ Engle, Robert F. (1983). "Wald, Likelihood Ratio, and Lagrange Multiplier Tests in Econometrics". In Intriligator, M. D.; Griliches, Z. (eds.).
+
+Handbook of Econometrics . Vol. II. Elsevier. pp.
+
+796– 801.
+
+ISBN 978-0-444-86185-6 .
+
+^ Harrell, Frank E. Jr. (2001). "Section 9.3.3".
+
+Regression modeling strategies . New York: Springer-Verlag.
+
+ISBN 0387952322 .
+
+^ Collett, David (1994).
+
+Modelling Survival Data in Medical Research . London: Chapman & Hall.
+
+ISBN 0412448807 .
+
+^ Pawitan, Yudi (2001).
+
+In All Likelihood . New York: Oxford University Press.
+
+ISBN 0198507658 .
+
+^ Agresti, Alan (2002).
+
+Categorical Data Analysis (2nd ed.). Wiley. p.
+
+232 .
+
+ISBN 0471360937 .
+
+Further reading [ edit ] Greene, William H.
+
+(2012).
+
+Econometric Analysis (Seventh international ed.). Boston: Pearson. pp.
+
+155 –161.
+
+ISBN 978-0-273-75356-8 .
+
+Kmenta, Jan (1986).
+
+Elements of Econometrics (Second ed.). New York: Macmillan. pp.
+
+492–493 .
+
+ISBN 0-02-365070-2 .
+
+Thomas, R. L. (1993).
+
+Introductory Econometrics: Theory and Application (Second ed.). London: Longman. pp.
+
+73– 77.
+
+ISBN 0-582-07378-2 .
+
+External links [ edit ] Wald test on the Earliest known uses of some of the words of mathematics v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject Retrieved from " https://en.wikipedia.org/w/index.php?title=Wald_test&oldid=1302443295 " Category : Statistical tests Hidden categories: Articles with short description Short description is different from Wikidata This page was last edited on 25 July 2025, at 12:25 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Wald test 9 languages Add topic
+

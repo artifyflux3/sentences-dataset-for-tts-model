@@ -1,0 +1,188 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Model problem of potential theory 2 Convergence and acceleration 3 See also 4 Notes 5 References 6 Further reading Toggle the table of contents Relaxation (iterative method) 3 languages Deutsch فارسی Türkçe Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Iterative solving method This article is about iterative methods for solving systems of equations. For other uses, see Relaxation (disambiguation) .
+
+In numerical mathematics , relaxation methods are iterative methods for solving systems of equations , including nonlinear systems.
+
+[ 1 ] Relaxation methods were developed for solving large sparse linear systems , which arose as finite-difference discretizations of differential equations .
+
+[ 2 ] [ 3 ] They are also used for the solution of linear equations for linear least-squares problems [ 4 ] and also for systems of linear inequalities, such as those arising in linear programming .
+
+[ 5 ] [ 6 ] [ 7 ] They have also been developed for solving nonlinear systems of equations.
+
+[ 1 ] Relaxation methods are important especially in the solution of linear systems used to model elliptic partial differential equations , such as Laplace's equation and its generalization, Poisson's equation . These equations describe boundary-value problems , in which the solution-function's values are specified on boundary of a domain; the problem is to compute a solution also on its interior. Relaxation methods are used to solve the linear equations resulting from a discretization of the differential equation, for example by finite differences.
+
+[ 2 ] [ 3 ] [ 4 ] Iterative relaxation of solutions is commonly dubbed smoothing because with certain equations, such as Laplace's equation , it resembles repeated application of a local smoothing filter to the solution vector.  These are not to be confused with relaxation methods in mathematical optimization , which approximate a difficult problem by a simpler problem whose "relaxed" solution provides information about the solution of the original problem.
+
+[ 7 ] Model problem of potential theory [ edit ] Main article: Discrete Poisson equation When φ is a smooth real-valued function on the real numbers, its second derivative can be approximated by: d 2 φ φ ( x ) d x 2 = φ φ ( x − − h ) − − 2 φ φ ( x ) + φ φ ( x + h ) h 2 + O ( h 2 ) .
+
+{\displaystyle {\frac {d^{2}\varphi (x)}{{dx}^{2}}}={\frac {\varphi (x{-}h)-2\varphi (x)+\varphi (x{+}h)}{h^{2}}}\,+\,{\mathcal {O}}(h^{2})\,.} Using this in both dimensions for a function φ of two arguments at the point ( x , y ), and solving for φ( x , y ), results in: φ φ ( x , y ) = 1 4 ( φ φ ( x + h , y ) + φ φ ( x , y + h ) + φ φ ( x − − h , y ) + φ φ ( x , y − − h ) − − h 2 ∇ ∇ 2 φ φ ( x , y ) ) + O ( h 4 ) .
+
+{\displaystyle \varphi (x,y)={\tfrac {1}{4}}\left(\varphi (x{+}h,y)+\varphi (x,y{+}h)+\varphi (x{-}h,y)+\varphi (x,y{-}h)\,-\,h^{2}{\nabla }^{2}\varphi (x,y)\right)\,+\,{\mathcal {O}}(h^{4})\,.} To approximate the solution of the Poisson equation: ∇ ∇ 2 φ φ = f {\displaystyle {\nabla }^{2}\varphi =f\,} numerically on a two-dimensional grid with grid spacing h , the relaxation method assigns the given values of function φ to the grid points near the boundary and arbitrary values to the interior grid points, and then repeatedly performs the assignment
+φ := φ* on the interior points, where φ* is defined by: φ φ ∗ ∗ ( x , y ) = 1 4 ( φ φ ( x + h , y ) + φ φ ( x , y + h ) + φ φ ( x − − h , y ) + φ φ ( x , y − − h ) − − h 2 f ( x , y ) ) , {\displaystyle \varphi ^{*}(x,y)={\tfrac {1}{4}}\left(\varphi (x{+}h,y)+\varphi (x,y{+}h)+\varphi (x{-}h,y)+\varphi (x,y{-}h)\,-\,h^{2}f(x,y)\right)\,,} until convergence.
+
+[ 2 ] [ 3 ] The method [ 2 ] [ 3 ] is easily generalized to other numbers of dimensions.
+
+Convergence and acceleration [ edit ] While the method converges under general conditions, it typically makes slower progress than competing methods. Nonetheless, the study of relaxation methods remains a core part of linear algebra , because the transformations of relaxation theory provide excellent preconditioners for new methods. Indeed, the choice of preconditioner is often more important than the choice of iterative method.
+
+[ 8 ] Multigrid methods may be used to accelerate the methods. One can first compute an approximation on a coarser grid – usually the double spacing 2 h – and use that solution with interpolated values for the other grid points as the initial assignment. This can then also be done recursively for the coarser computation.
+
+[ 8 ] [ 9 ] See also [ edit ] In linear systems, the two main classes of relaxation methods are stationary iterative methods , and the more general Krylov subspace methods .
+
+The Jacobi method is a simple relaxation method.
+
+The Gauss–Seidel method is an improvement upon the Jacobi method.
+
+Successive over-relaxation can be applied to either of the Jacobi and Gauss–Seidel methods to speed convergence.
+
+Multigrid methods Notes [ edit ] ^ a b Ortega, J. M.; Rheinboldt, W. C. (2000).
+
+Iterative solution of nonlinear equations in several variables . Classics in Applied Mathematics. Vol. 30 (Reprint of the 1970 Academic Press ed.). Philadelphia, PA: Society for Industrial and Applied Mathematics (SIAM). pp. xxvi+572.
+
+ISBN 0-89871-461-3 .
+
+MR 1744713 .
+
+^ a b c d Richard S. Varga 2002 Matrix Iterative Analysis , Second ed. (of 1962 Prentice Hall edition), Springer-Verlag.
+
+^ a b c d David M. Young, Jr.
+
+Iterative Solution of Large Linear Systems , Academic Press, 1971. (reprinted by Dover, 2003) ^ a b Abraham Berman, Robert J. Plemmons , Nonnegative Matrices in the Mathematical Sciences , 1994, SIAM.
+
+ISBN 0-89871-321-8 .
+
+^ Murty, Katta G.
+
+(1983). "16 Iterative methods for linear inequalities and linear programs (especially 16.2 Relaxation methods, and 16.4 Sparsity-preserving iterative SOR algorithms for linear programming)".
+
+Linear programming . New York: John Wiley & Sons Inc. pp.
+
+453– 464.
+
+ISBN 0-471-09725-X .
+
+MR 0720547 .
+
+^ Goffin, J.-L. (1980). "The relaxation method for solving systems of linear inequalities".
+
+Mathematics of Operations Research .
+
+5 (3): 388– 414.
+
+doi : 10.1287/moor.5.3.388 .
+
+JSTOR 3689446 .
+
+MR 0594854 .
+
+^ a b Minoux, M.
+
+(1986).
+
+Mathematical programming: Theory and algorithms . Egon Balas (foreword) (Translated by Steven Vajda from the (1983 Paris: Dunod) French ed.). Chichester: A Wiley-Interscience Publication. John Wiley & Sons, Ltd. pp. xxviii+489.
+
+ISBN 0-471-90170-9 .
+
+MR 0868279 . (2008 Second ed., in French: Programmation mathématique: Théorie et algorithmes . Editions Tec & Doc, Paris, 2008. xxx+711 pp. . ).
+
+^ a b Yousef Saad , Iterative Methods for Sparse Linear Systems , 1st edition, PWS, 1996.
+
+^ William L. Briggs, Van Emden Henson, and Steve F. McCormick (2000), A Multigrid Tutorial Archived 2006-10-06 at the Wayback Machine (2nd ed.), Philadelphia: Society for Industrial and Applied Mathematics , ISBN 0-89871-462-1 .
+
+References [ edit ] Abraham Berman, Robert J. Plemmons, Nonnegative Matrices in the Mathematical Sciences , 1994, SIAM.
+
+ISBN 0-89871-321-8 .
+
+Ortega, J. M.; Rheinboldt, W. C. (2000).
+
+Iterative solution of nonlinear equations in several variables . Classics in Applied Mathematics. Vol. 30 (Reprint of the 1970 Academic Press ed.). Philadelphia, PA: Society for Industrial and Applied Mathematics (SIAM). pp. xxvi+572.
+
+ISBN 0-89871-461-3 .
+
+MR 1744713 .
+
+Press, WH; Teukolsky, SA; Vetterling, WT; Flannery, BP (2007).
+
+"Section 18.3. Relaxation Methods" .
+
+Numerical Recipes: The Art of Scientific Computing (3rd ed.). New York: Cambridge University Press.
+
+ISBN 978-0-521-88068-8 .
+
+Yousef Saad , Iterative Methods for Sparse Linear Systems , 1st edition, PWS, 1996.
+
+Richard S. Varga 2002 Matrix Iterative Analysis , Second ed. (of 1962 Prentice Hall edition), Springer-Verlag.
+
+David M. Young, Jr.
+
+Iterative Solution of Large Linear Systems , Academic Press, 1971. (reprinted by Dover, 2003) Further reading [ edit ] Southwell, R.V. (1940) Relaxation Methods in Engineering Science . Oxford University Press, Oxford.
+
+Southwell, R.V. (1946) Relaxation Methods in Theoretical Physics . Oxford University Press, Oxford.
+
+John. D. Jackson (1999).
+
+Classical Electrodynamics . New Jersey: Wiley.
+
+ISBN 0-471-30932-X .
+
+M.N.O. Sadiku (1992).
+
+Numerical Techniques in Electromagnetics . Boca Raton: CRC Pres.
+
+P.-B. Zhou (1993).
+
+Numerical Analysis of Electromagnetic Fields . New York: Springer.
+
+P. Grivet, P.W. Hawkes, A.Septier (1972).
+
+Electron Optics, 2nd edition . Pergamon Press.
+
+ISBN 9781483137858 .
+
+D. W. O. Heddle (2000).
+
+Electrostatic Lens Systems, 2nd edition . CRC Press.
+
+ISBN 9781420034394 .
+
+Erwin Kasper (2001).
+
+Advances in Imaging and Electron Physics, Vol. 116, Numerical Field Calculation for Charged Particle Optics . Academic Press.
+
+ISBN 978-0-12-014758-8 .
+
+NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐8bhvs
+Cached time: 20250812011001
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.205 seconds
+Real time usage: 0.303 seconds
+Preprocessor visited node count: 807/1000000
+Revision size: 9862/2097152 bytes
+Post‐expand include size: 21851/2097152 bytes
+Template argument size: 353/2097152 bytes
+Highest expansion depth: 8/100
+Expensive parser function count: 3/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 46219/5000000 bytes
+Lua time usage: 0.130/10.000 seconds
+Lua memory usage: 5563446/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  222.687      1 -total
+ 45.24%  100.751      8 Template:Cite_book
+ 28.64%   63.778      1 Template:Short_description
+ 16.71%   37.222      2 Template:Pagetype
+  7.74%   17.238      2 Template:Main_other
+  7.35%   16.375      1 Template:About
+  7.03%   15.665      1 Template:SDcat
+  3.40%    7.571      1 Template:Cite_journal
+  3.00%    6.683      3 Template:Isbn
+  2.98%    6.629      1 Template:Webarchive Saved in parser cache with key enwiki:pcache:12555671:|#|:idhash:canonical and timestamp 20250812011001 and revision id 1290551046. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Relaxation_(iterative_method)&oldid=1290551046 " Categories : Iterative methods Numerical linear algebra Relaxation (iterative methods) Hidden categories: Webarchive template wayback links Articles with short description Short description is different from Wikidata This page was last edited on 15 May 2025, at 13:56 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Relaxation (iterative method) 3 languages Add topic
+

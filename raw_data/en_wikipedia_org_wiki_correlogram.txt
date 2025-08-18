@@ -1,0 +1,107 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Applications 2 Importance 3 Estimation of autocorrelations Toggle Estimation of autocorrelations subsection 3.1 Alternate estimate 4 Statistical inference with correlograms 5 Software 6 Related techniques 7 References 8 Further reading 9 External links Toggle the table of contents Correlogram 10 languages Deutsch Español Euskara فارسی Français Italiano Norsk bokmål Português Українська 粵語 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Chart of correlation statistics Not to be confused with Scatterplot .
+
+A plot showing 100 random numbers with a "hidden" sine function, and an autocorrelation (correlogram) of the series on the bottom.
+
+In the analysis of data, a correlogram is a chart of correlation statistics.  
+For example, in time series analysis , a plot of the sample autocorrelations r h {\displaystyle r_{h}\,} versus h {\displaystyle h\,} (the time lags) is an autocorrelogram . 
+If cross-correlation is plotted, the result is called a cross-correlogram .
+
+The correlogram is a commonly used tool for checking randomness in a data set . If random, autocorrelations should be near zero for any and all time-lag separations. If non-random, then one or more of the autocorrelations will be significantly non-zero.
+
+In addition, correlograms are used in the model identification stage for Box–Jenkins autoregressive moving average time series models. Autocorrelations should be near-zero for randomness; if the analyst does not check for randomness, then the validity of many of the statistical conclusions becomes suspect. The correlogram is an excellent way of checking for such randomness.
+
+In multivariate analysis , correlation matrices shown as color-mapped images may also be called "correlograms" or "corrgrams".
+
+[ 1 ] [ 2 ] [ 3 ] Applications [ edit ] The correlogram can help provide answers to the following questions: [ 4 ] Are the data random?
+
+Is an observation related to an adjacent observation?
+
+Is an observation related to an observation twice-removed? (etc.) Is the observed time series white noise ?
+
+Is the observed time series sinusoidal?
+
+Is the observed time series autoregressive?
+
+What is an appropriate model for the observed time series?
+
+Is the model Y = constant + error {\displaystyle Y={\text{constant}}+{\text{error}}} valid and sufficient?
+
+Is the formula s Y ¯ ¯ = s / N {\displaystyle s_{\bar {Y}}=s/{\sqrt {N}}} valid?
+
+Importance [ edit ] Randomness (along with fixed model, fixed variation, and fixed distribution) is one of the four assumptions that typically underlie all measurement processes. The randomness assumption is critically important for the following three reasons: Most standard statistical tests depend on randomness. The validity of the test conclusions is directly linked to the validity of the randomness assumption.
+
+Many commonly used statistical formulae depend on the randomness assumption, the most common formula being the formula for determining the standard error of the sample mean: s Y ¯ ¯ = s / N {\displaystyle s_{\bar {Y}}=s/{\sqrt {N}}} where s is the standard deviation of the data. Although heavily used, the results from using this formula are of no value unless the randomness assumption holds.
+
+For univariate data, the default model is Y = constant + error {\displaystyle Y={\text{constant}}+{\text{error}}} If the data are not random, this model is incorrect and invalid, and the estimates for the parameters (such as the constant) become nonsensical and invalid.
+
+Estimation of autocorrelations [ edit ] The autocorrelation coefficient at lag h is given by r h = c h / c 0 {\displaystyle r_{h}=c_{h}/c_{0}\,} where c h is the autocovariance function c h = 1 N ∑ ∑ t = 1 N − − h ( Y t − − Y ¯ ¯ ) ( Y t + h − − Y ¯ ¯ ) {\displaystyle c_{h}={\frac {1}{N}}\sum _{t=1}^{N-h}\left(Y_{t}-{\bar {Y}}\right)\left(Y_{t+h}-{\bar {Y}}\right)} and c 0 is the variance function c 0 = 1 N ∑ ∑ t = 1 N ( Y t − − Y ¯ ¯ ) 2 {\displaystyle c_{0}={\frac {1}{N}}\sum _{t=1}^{N}\left(Y_{t}-{\bar {Y}}\right)^{2}} The resulting value of r h will range between −1 and +1.
+
+Alternate estimate [ edit ] Some sources may use the following formula for the autocovariance function: c h = 1 N − − h ∑ ∑ t = 1 N − − h ( Y t − − Y ¯ ¯ ) ( Y t + h − − Y ¯ ¯ ) {\displaystyle c_{h}={\frac {1}{N-h}}\sum _{t=1}^{N-h}\left(Y_{t}-{\bar {Y}}\right)\left(Y_{t+h}-{\bar {Y}}\right)} Although this definition has less bias , the (1/ N ) formulation has some desirable statistical properties and is the form most commonly used in the statistics literature. See pages 20 and 49–50 in Chatfield for details.
+
+In contrast to the definition above, this definition allows us to compute c h {\displaystyle c_{h}} in a slightly more intuitive way. Consider the sample Y 1 , … … , Y N {\displaystyle Y_{1},\dots ,Y_{N}} , where Y i ∈ ∈ R n {\displaystyle Y_{i}\in \mathbb {R} ^{n}} for i = 1 , … … , N {\displaystyle i=1,\dots ,N} . Then, let X = [ Y 1 − − Y ¯ ¯ ⋯ ⋯ Y N − − Y ¯ ¯ ] ∈ ∈ R n × × N {\displaystyle X={\begin{bmatrix}Y_{1}-{\bar {Y}}&\cdots &Y_{N}-{\bar {Y}}\end{bmatrix}}\in \mathbb {R} ^{n\times N}} We then compute the Gram matrix Q = X ⊤ ⊤ X {\displaystyle Q=X^{\top }X} . Finally, c h {\displaystyle c_{h}} is computed as the sample mean of the h {\displaystyle h} th diagonal of Q {\displaystyle Q} . For example, the 0 {\displaystyle 0} th diagonal (the main diagonal) of Q {\displaystyle Q} has N {\displaystyle N} elements, and its sample mean corresponds to c 0 {\displaystyle c_{0}} . The 1 {\displaystyle 1} st diagonal (to the right of the main diagonal) of Q {\displaystyle Q} has N − − 1 {\displaystyle N-1} elements, and its sample mean corresponds to c 1 {\displaystyle c_{1}} , and so on.
+
+Statistical inference with correlograms [ edit ] Correlogram example from 400-point sample of a first-order autoregressive process with 0.75 correlation of adjacent points, along with the 95% confidence intervals (plotted about the correlation estimates in black and about zero in red), as calculated by the equations in this section.  The dashed blue line shows the actual autocorrelation function of the sampled process.
+
+20 correlograms from 400-point samples of the same random process as in the previous figure.
+
+In the same graph one can draw upper and lower bounds for autocorrelation with significance level α α {\displaystyle \alpha \,} : B = ± ± z 1 − − α α / 2 S E ( r h ) {\displaystyle B=\pm z_{1-\alpha /2}SE(r_{h})\,} with r h {\displaystyle r_{h}\,} as the estimated autocorrelation at lag h {\displaystyle h\,} .
+
+If the autocorrelation is higher (lower) than this upper (lower) bound, the null hypothesis that there is no autocorrelation at and beyond a given lag is rejected at a significance level of α α {\displaystyle \alpha \,} . This test is an approximate one and assumes that the time-series is Gaussian .
+
+In the above, z 1− α /2 is the quantile of the normal distribution ; SE is the standard error, which can be computed by Bartlett 's formula for MA( ℓ ) processes: S E ( r 1 ) = 1 N {\displaystyle SE(r_{1})={\frac {1}{\sqrt {N}}}} S E ( r h ) = 1 + 2 ∑ ∑ i = 1 h − − 1 r i 2 N {\displaystyle SE(r_{h})={\sqrt {\frac {1+2\sum _{i=1}^{h-1}r_{i}^{2}}{N}}}} for h > 1.
+
+{\displaystyle h>1.\,} In the example plotted, we can reject the null hypothesis that there is no autocorrelation between time-points which are separated by lags up to 4. For most longer periods one cannot reject the null hypothesis of no autocorrelation.
+
+Note that there are two distinct formulas for generating the confidence bands: 1. If the correlogram is being used to test for randomness (i.e., there is no time dependence in the data), the following formula is recommended: ± ± z 1 − − α α / 2 N {\displaystyle \pm {\frac {z_{1-\alpha /2}}{\sqrt {N}}}} where N is the sample size , z is the quantile function of the standard normal distribution and α is the significance level . In this case, the confidence bands have fixed width that depends on the sample size.
+
+2. Correlograms are also used in the model identification stage for fitting ARIMA models. In this case, a moving average model is assumed for the data and the following confidence bands should be generated: ± ± z 1 − − α α / 2 1 N ( 1 + 2 ∑ ∑ i = 1 k r i 2 ) {\displaystyle \pm z_{1-\alpha /2}{\sqrt {{\frac {1}{N}}\left(1+2\sum _{i=1}^{k}r_{i}^{2}\right)}}} where k is the lag. In this case, the confidence bands increase as the lag increases.
+
+Software [ edit ] Correlograms are available in most general purpose statistical libraries.
+
+Correlograms: python pandas : pandas.plotting.autocorrelation_plot [ 5 ] R : functions acf and pacf Corrgrams: python seaborn : heatmap , pairplot R : corrgram [ 2 ] [ 3 ] Related techniques [ edit ] Partial autocorrelation function Lag plot Spectral plot Seasonal subseries plot Scaled Correlation Variogram References [ edit ] ^ Friendly, Michael (19 August 2002).
+
+"Corrgrams: Exploratory displays for correlation matrices" (PDF) .
+
+The American Statistician .
+
+56 (4).
+
+Taylor & Francis : 316– 324.
+
+doi : 10.1198/000313002533 . Retrieved 19 January 2014 .
+
+^ a b "CRAN – Package corrgram" .
+
+cran.r-project.org . 29 August 2013 . Retrieved 19 January 2014 .
+
+^ a b "Quick-R: Correlograms" .
+
+statmethods.net . Retrieved 19 January 2014 .
+
+^ "1.3.3.1. Autocorrelation Plot" .
+
+www.itl.nist.gov . Retrieved 20 August 2018 .
+
+^ "Visualization § Autocorrelation plot" .
+
+Further reading [ edit ] Hanke, John E.; Reitsch, Arthur G.; Wichern, Dean W.
+
+Business forecasting (7th ed.). Upper Saddle River, NJ: Prentice Hall.
+
+Box, G. E. P.; Jenkins, G. (1976).
+
+Time Series Analysis: Forecasting and Control . Holden-Day.
+
+Chatfield, C. (1989).
+
+The Analysis of Time Series: An Introduction (Fourth ed.). New York, NY: Chapman & Hall.
+
+External links [ edit ] Autocorrelation Plot This article incorporates public domain material from the National Institute of Standards and Technology v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject Retrieved from " https://en.wikipedia.org/w/index.php?title=Correlogram&oldid=1301180253 " Categories : Statistical charts and diagrams Autocorrelation Hidden categories: Articles with short description Short description is different from Wikidata Use dmy dates from July 2022 Wikipedia articles incorporating text from the National Institute of Standards and Technology This page was last edited on 18 July 2025, at 13:59 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Correlogram 10 languages Add topic
+

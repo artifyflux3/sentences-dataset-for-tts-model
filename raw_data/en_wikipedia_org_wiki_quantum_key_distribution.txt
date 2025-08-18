@@ -1,0 +1,1334 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Quantum key exchange Toggle Quantum key exchange subsection 1.1 BB84 protocol: Charles H. Bennett and Gilles Brassard (1984) 1.2 E91 protocol: Artur Ekert (1991) 1.3 Device-independent quantum key distribution 1.4 Twin fields quantum key distribution 2 Information reconciliation and privacy amplification 3 Implementations Toggle Implementations subsection 3.1 Experimental 3.2 Commercial 3.3 Quantum key distribution networks 3.3.1 DARPA 3.3.2 SECOQC 3.3.3 SwissQuantum 3.3.4 Chinese networks 3.3.5 Tokyo QKD Network 3.3.6 Los Alamos National Laboratory 3.3.7 Singapore's National Quantum-Safe Network Plus (NQSN+) 3.3.8 Eagle-1 4 Attacks and security proofs Toggle Attacks and security proofs subsection 4.1 Intercept and resend 4.2 Man-in-the-middle attack 4.3 Photon number splitting attack 4.4 Denial of service 4.5 Trojan-horse attacks 4.6 Security proofs 5 Quantum hacking 6 Counterfactual quantum key distribution 7 History 8 Future 9 Deprecation from governmental institutions 10 See also 11 References 12 External links Toggle the table of contents Quantum key distribution 17 languages العربية Català الدارجة Deutsch Español فارسی Français 한국어 Italiano עברית 日本語 Polski Português Русский Српски / srpski Українська 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Secure communication method Quantum key distribution ( QKD ) is a secure communication method that implements a cryptographic protocol involving components of quantum mechanics . It enables two parties to produce a shared random secret key known only to them, which then can be used to encrypt and decrypt messages . The process of quantum key distribution is not to be confused with quantum cryptography , as it is the best-known example of a quantum-cryptographic task.
+
+An important and unique property of quantum key distribution is the ability of the two communicating users to detect the presence of any third party trying to gain knowledge of the key. This results from a fundamental aspect of quantum mechanics: the process of measuring a quantum system in general disturbs the system. A third party trying to eavesdrop on the key must in some way measure it, thus introducing detectable anomalies. By using quantum superpositions or quantum entanglement and transmitting information in quantum states , a communication system can be implemented that detects eavesdropping. If the level of eavesdropping is below a certain threshold, a key can be produced that is guaranteed to be secure (i.e., the eavesdropper has no information about it). Otherwise no secure key is possible, and communication is aborted.
+
+The security of encryption that uses quantum key distribution relies on the foundations of quantum mechanics, in contrast to traditional public key cryptography , which relies on the computational difficulty of certain mathematical functions , which although conjectured to be strong has not to date been formally proved. In contrast, QKD has provable security based on information theory , and forward secrecy .
+
+The main drawback of quantum-key distribution is that it usually relies on having an authenticated classical channel of communication.
+
+[ citation needed ] In modern cryptography, having an authenticated classical channel means that one already has exchanged either a symmetric key of sufficient length or public keys of sufficient security level. With such information already available, in practice one can achieve authenticated and sufficiently secure communication without using QKD, such as by using the Galois/Counter Mode of the Advanced Encryption Standard . Thus QKD does the work of a stream cipher at many times the cost.
+
+Quantum key distribution is used to produce and distribute only a key, not to transmit any message data. This key can then be used with any chosen encryption algorithm to encrypt (and decrypt) a message, which can then be transmitted over a standard communication channel . The algorithm most commonly associated with QKD is the one-time pad , as it is provably secure when used with a secret, random key.
+
+[ 1 ] In real-world situations, it is often also used with encryption using symmetric key algorithms like the Advanced Encryption Standard algorithm.
+
+Quantum key exchange [ edit ] Quantum communication involves encoding information in quantum states, or qubits , as opposed to classical communication's use of bits . Usually, photons are used for these quantum states. Quantum key distribution exploits certain properties of these quantum states to ensure its security. There are several different approaches to quantum key distribution, but they can be divided into two main categories depending on which property they exploit.
+
+Prepare-and-measure protocols In contrast to classical physics, the act of measurement is an integral part of quantum mechanics. In general, measuring an unknown quantum state changes that state in some way. This is a consequence of quantum indeterminacy and can be exploited in order to detect any eavesdropping on communication (which necessarily involves measurement) and, more importantly, to calculate the amount of information that has been intercepted.
+
+Entanglement-based protocols The quantum states of two (or more) separate objects can become linked together in such a way that they must be described by a combined quantum state, not as individual objects. This is known as entanglement and means that, for example, performing a measurement on one object affects the other. If an entangled pair of objects is shared between two parties, anyone intercepting either object alters the overall system, revealing the presence of the third party (and the amount of information they have gained).
+
+These two approaches can each be further divided into three families of protocols: discrete variable, continuous variable and distributed phase reference coding. Discrete variable protocols were the first to be invented, and they remain the most widely implemented. The other two families are mainly concerned with overcoming practical limitations of experiments. The two protocols described below both use discrete variable coding.
+
+BB84 protocol: Charles H. Bennett and Gilles Brassard (1984) [ edit ] Main article: BB84 This protocol, known as BB84 after its inventors and year of publication, was originally described using photon polarization states to transmit the information.
+
+[ 2 ] However, any two pairs of conjugate states can be used for the protocol, and many optical-fibre -based implementations described as BB84 use phase encoded states. The sender (traditionally referred to as Alice ) and the receiver (Bob) are connected by a quantum communication channel which allows quantum states to be transmitted. In the case of photons this channel is generally either an optical fibre or simply free space . In addition they communicate via a public classical channel, for example using broadcast radio or the internet. The protocol is designed with the assumption that an eavesdropper (referred to as Eve) can interfere in any way with the quantum channel, while the classical channel needs to be authenticated .
+
+[ 3 ] [ 4 ] The security of the protocol comes from encoding the information in non-orthogonal states .
+
+Quantum indeterminacy means that these states cannot in general be measured without disturbing the original state (see No-cloning theorem ). BB84 uses two pairs of states, with each pair conjugate to the other pair, and the two states within a pair orthogonal to each other. Pairs of orthogonal states are referred to as a basis . The usual polarization state pairs used are either the rectilinear basis of vertical (0°) and horizontal (90°), the diagonal basis of 45° and 135° or the circular basis of left- and right-handedness. Any two of these bases are conjugate to each other, and so any two can be used in the protocol. Below the rectilinear and diagonal bases are used.
+
+Basis 0 1 The first step in BB84 is quantum transmission. Alice creates a random bit (0 or 1) and then randomly selects one of her two bases (rectilinear or diagonal in this case) to transmit it in. She then prepares a photon polarization state depending both on the bit value and basis, as shown in the adjacent table. So for example a 0 is encoded in the rectilinear basis (+) as a vertical polarization state, and a 1 is encoded in the diagonal basis (x) as a 135° state. Alice then transmits a single photon in the state specified to Bob, using the quantum channel. This process is then repeated from the random bit stage, with Alice recording the state, basis and time of each photon sent.
+
+According to quantum mechanics (particularly quantum indeterminacy), no possible measurement distinguishes between the 4 different polarization states, as they are not all orthogonal. The only possible measurement is between any two orthogonal states (an orthonormal basis). So, for example, measuring in the rectilinear basis gives a result of horizontal or vertical. If the photon was created as horizontal or vertical (as a rectilinear eigenstate ) then this measures the correct state, but if it was created as 45° or 135° (diagonal eigenstates) then the rectilinear measurement instead returns either horizontal or vertical at random. Furthermore, after this measurement the photon is polarized in the state it was measured in (horizontal or vertical), with all information about its initial polarization lost.
+
+As Bob does not know the basis the photons were encoded in, all he can do is to select a basis at random to measure in, either rectilinear or diagonal. He does this for each photon he receives, recording the time, measurement basis used and measurement result. After Bob has measured all the photons, he communicates with Alice over the public classical channel. Alice broadcasts the basis each photon was sent in, and Bob the basis each was measured in. They both discard photon measurements (bits) where Bob used a different basis, which is half on average, leaving half the bits as a shared key.
+
+Alice's random bit 0 1 1 0 1 0 0 1 Alice's random sending basis Photon polarization Alice sends Bob's random measuring basis Photon polarization Bob measures PUBLIC DISCUSSION OF BASIS Shared secret key 0 1 0 1 To check for the presence of an eavesdropper, Alice and Bob now compare a predetermined subset of their remaining bit strings. If a third party (usually referred to as Eve, for "eavesdropper") has gained any information about the photons' polarization, this introduces errors in Bob's measurements. Other environmental conditions can cause errors in a similar fashion. If more than p {\displaystyle p} bits differ they abort the key and try again, possibly with a different quantum channel, as the security of the key cannot be guaranteed.
+
+p {\displaystyle p} is chosen so that if the number of bits known to Eve is less than this, privacy amplification can be used to reduce Eve's knowledge of the key to an arbitrarily small amount at the cost of reducing the length of the key.
+
+E91 protocol: Artur Ekert (1991) [ edit ] Artur Ekert 's scheme [ 5 ] uses entangled pairs of photons. These can be created by Alice, by Bob, or by some source separate from both of them, including eavesdropper Eve. The photons are distributed so that Alice and Bob each end up with one photon from each pair.
+
+The scheme relies on two properties of entanglement. First, the entangled states are perfectly correlated in the sense that if Alice and Bob both measure whether their particles have vertical or horizontal polarizations, they always get the same answer with 100% probability. The same is true if they both measure any other pair of complementary (orthogonal) polarizations. This necessitates that the two distant parties have exact directionality synchronization. However, the particular results are completely random; it is impossible for Alice to predict if she (and thus Bob) will get vertical polarization or horizontal polarization. Second, any attempt at eavesdropping by Eve destroys these correlations in a way that Alice and Bob can detect.
+
+Similarly to BB84 , the protocol involves a private measurement protocol before detecting the presence of Eve. The measurement stage involves Alice measuring each photon she receives using some basis from the set Z 0 , Z π π 8 , Z π π 4 {\displaystyle Z_{0},Z_{\frac {\pi }{8}},Z_{\frac {\pi }{4}}} while Bob chooses from Z 0 , Z π π 8 , Z − − π π 8 {\displaystyle Z_{0},Z_{\frac {\pi }{8}},Z_{-{\frac {\pi }{8}}}} where Z θ θ {\displaystyle Z_{\theta }} is the { | ↑ ↑ ⟩ ⟩ , | → → ⟩ ⟩ } {\displaystyle \{|{\uparrow }\rangle ,\;|{\rightarrow }\rangle \}} basis rotated by θ θ {\displaystyle \theta } . They keep their series of basis choices private until measurements are completed. Two groups of photons are made: the first consists of photons measured using the same basis by Alice and Bob while the second contains all other photons. To detect eavesdropping, they can compute the test statistic S {\displaystyle S} using the correlation coefficients between Alice's bases and Bob's similar to that shown in the Bell test experiments . Maximally entangled photons would result in | S | = 2 2 {\displaystyle |S|=2{\sqrt {2}}} . If this were not the case, then Alice and Bob can conclude Eve has introduced local realism to the system, violating Bell's theorem . If the protocol is successful, the first group can be used to generate keys since those photons are completely anti-aligned between Alice and Bob.
+
+Device-independent quantum key distribution [ edit ] In traditional QKD, the quantum devices used must be perfectly calibrated, trustworthy, and working exactly as they are expected to.
+
+[ 6 ] Deviations from expected measurements can be extremely hard to detect, which leaves the entire system vulnerable. A new protocol called device independent QKD (DIQKD) or measurement device independent QKD (MDIQKD) allows for the use of uncharacterized or untrusted devices, and for deviations from expected measurements to be included in the overall system.
+
+[ 6 ] [ 7 ] These deviations will cause the protocol to abort when detected, rather than resulting in incorrect data.
+
+[ 6 ] DIQKD was first proposed by Mayers and Yao, [ 8 ] building off of the BB84 protocol. They presented that in DIQKD, the quantum device, which they refer to as the photon source, be manufactured to come with tests that can be run by Alice and Bob to "self-check" if their device is working properly. Such a test would only need to consider the classical inputs and outputs in order to determine how much information is at risk of being intercepted by Eve. A self checking, or "ideal" source would not have to be characterized, [ 7 ] [ 9 ] and would therefore not be susceptible to implementation flaws.
+
+[ 7 ] Recent research has proposed using a Bell test to check that a device is working properly.
+
+[ 6 ] Bell's theorem ensures that a device can create two outcomes that are exclusively correlated, meaning that Eve could not intercept the results, without making any assumptions about said device. This requires highly entangled states, and a low quantum bit error rate.
+
+[ 7 ] DIQKD presents difficulties in creating qubits that are in such high quality entangled states, which makes it a challenge to realize experimentally.
+
+[ 6 ] Twin fields quantum key distribution [ edit ] Twin fields quantum key distribution (TFQKD) was introduced in 2018, and is a version of DIQKD designed to overcome the fundamental rate-distance limit of traditional quantum key distribution.
+
+[ 10 ] The rate-distance limit, also known as the rate-loss trade off, describes how as distance increases between Alice and Bob, the rate of key generation decreases exponentially.
+
+[ 11 ] In traditional QKD protocols, this decay has been eliminated via the addition of physically secured relay nodes, which can be placed along the quantum link with the intention of dividing it up into several low-loss sections. Researchers have also recommended the use of quantum repeaters, which when added to the relay nodes make it so that they no longer need to be physically secured.
+
+[ 11 ] Quantum repeaters, however, are difficult to create and have yet to be implemented on a useful scale.
+
+[ 10 ] TFQKD aims to bypass the rate-distance limit without the use of quantum repeaters or relay nodes, creating manageable levels of noise and a process that can be repeated much more easily with today's existing technology.
+
+[ 10 ] The original protocol for TFQKD is as follows: Alice and Bob each have a light source and one arm on an interferometer in their laboratories. The light sources create two dim optical pulses with a randomly phase p a or p b in the interval [0, 2π) and an encoding phase γ a or γ b . The pulses are sent along a quantum to Charlie, a third party who can be malicious or not. Charlie uses a beam splitter to overlap the two pulses and perform a measurement. He has two detectors in his own lab, one of which will light up if the bits are equal (00) or (11), and the other when they are different (10, 01). Charlie will announce to Alice and Bob which of the detectors lit up, at which point they publicly reveal the phases p and γ .
+
+[ 10 ] This is different from traditional QKD, in which the phases used are never revealed.
+
+[ 12 ] Information reconciliation and privacy amplification [ edit ] The quantum key distribution protocols described above provide Alice and Bob with nearly identical shared keys, and also with an estimate of the discrepancy between the keys. These differences can be caused by eavesdropping, but also by imperfections in the transmission line and detectors. As it is impossible to distinguish between these two types of errors, guaranteed security requires the assumption that all errors are due to eavesdropping. Provided the error rate between the keys is lower than a certain threshold (27.6% as of 2002 [ 13 ] ), two steps can be performed to first remove the erroneous bits and then reduce Eve's knowledge of the key to an arbitrary small value. These two steps are known as information reconciliation and privacy amplification respectively, and were first described in 1988.
+
+[ 14 ] Information reconciliation is a form of error correction carried out between Alice and Bob's keys, in order to ensure both keys are identical. It is conducted over the public channel and as such it is vital to minimise the information sent about each key, as this can be read by Eve. A common protocol used for information reconciliation is the cascade protocol , proposed in 1994.
+
+[ 15 ] This operates in several rounds, with both keys divided into blocks in each round and the parity of those blocks compared. If a difference in parity is found then a binary search is performed to find and correct the error. If an error is found in a block from a previous round that had correct parity then another error must be contained in that block; this error is found and corrected as before. This process is repeated recursively, which is the source of the cascade name. After all blocks have been compared, Alice and Bob both reorder their keys in the same random way, and a new round begins. At the end of multiple rounds Alice and Bob have identical keys with high probability; however, Eve has additional information about the key from the parity information exchanged. However, from a coding theory point of view information reconciliation is essentially source coding with side information. In consequence any coding scheme that works for this problem can be used for information reconciliation. Lately turbocodes, [ 16 ] LDPC codes [ 17 ] and polar codes [ 18 ] have been used for this purpose improving the efficiency of the cascade protocol.
+
+Privacy amplification is a method for reducing (and effectively eliminating) Eve's partial information about Alice and Bob's key. This partial information could have been gained both by eavesdropping on the quantum channel during key transmission (thus introducing detectable errors), and on the public channel during information reconciliation (where it is assumed Eve gains all possible parity information). Privacy amplification uses Alice and Bob's key to produce a new, shorter key, in such a way that Eve has only negligible information about the new key. This is performed using a randomness extractor , for example, by applying a universal hash function , chosen at random from a publicly known set of such functions, which takes as its input a binary string of length equal to the key and outputs a binary string of a chosen shorter length. The amount by which this new key is shortened is calculated, based on how much information Eve could have gained about the old key (which is known due to the errors this would introduce), in order to reduce the probability of Eve having any knowledge of the new key to a very low value.
+
+Implementations [ edit ] Experimental [ edit ] In 1991, John Rarity , Paul Tapster and Artur Ekert , researchers from the UK Defence Research Agency in Malvern and Oxford University, demonstrated quantum key distribution protected by the violation of the Bell inequalities.
+
+In 2008, exchange of secure keys at 1 Mbit/s (over 20 km of optical fibre) and 10 kbit/s (over 100 km of fibre), was achieved by a collaboration between the University of Cambridge and Toshiba using the BB84 protocol with decoy state pulses.
+
+[ 19 ] In 2007, Los Alamos National Laboratory / NIST achieved quantum key distribution over a 148.7 km of optic fibre using the BB84 protocol.
+
+[ 20 ] Significantly, this distance is long enough for almost all the spans found in today's fibre networks. A European collaboration achieved free space QKD over 144 km between two of the Canary Islands using entangled photons (the Ekert scheme) in 2006, [ 21 ] and using BB84 enhanced with decoy states [ 22 ] [ 23 ] [ 24 ] [ 25 ] [ 26 ] in 2007.
+
+[ 27 ] As of August 2015 [update] the longest distance for optical fiber (307 km) [ 28 ] was achieved by University of Geneva and Corning Inc.
+
+In the same experiment, a secret key rate of 12.7 kbit/s was generated, making it the highest bit rate system over distances of 100 km. In 2016 a team from Corning and various institutions in China achieved a distance of 404 km, but at a bit rate too slow to be practical.
+
+[ 29 ] In June 2017, physicists led by Thomas Jennewein at the Institute for Quantum Computing and the University of Waterloo in Waterloo, Canada achieved the first demonstration of quantum key distribution from a ground transmitter to a moving aircraft. They reported optical links with distances between 3–10 km and generated secure keys up to 868 kilobytes in length.
+
+[ 30 ] Also in June 2017, as part of the Quantum Experiments at Space Scale project, Chinese physicists led by Pan Jianwei at the University of Science and Technology of China measured entangled photons over a distance of 1203 km between two ground stations, laying the groundwork for future intercontinental quantum key distribution experiments.
+
+[ 31 ] Photons were sent from one ground station to the satellite they had named Micius and back down to another ground station, where they "observed a survival of two-photon entanglement and a violation of Bell inequality by 2.37 ± 0.09 under strict Einstein locality conditions" along a "summed length varying from 1600 to 2400 kilometers." [ 32 ] Later that year BB84 was successfully implemented over satellite links from Micius to ground stations in China and Austria. The keys were combined and the result was used to transmit images and video between Beijing, China, and Vienna, Austria.
+
+[ 33 ] In August 2017, a group at Shanghai Jiaotong University experimentally demonstrate that polarization quantum states including general qubits of single photon and entangled states can survive well after travelling through seawater, [ 34 ] representing the first step towards underwater quantum communication.
+
+In May 2019 a group led by Hong Guo at Peking University and Beijing University of Posts and Telecommunications reported field tests of a continuous-variable QKD system through commercial fiber networks in Xi'an and Guangzhou over distances of 30.02 km (12.48 dB) and 49.85 km (11.62 dB) respectively.
+
+[ 35 ] In December 2020, Indian Defence Research and Development Organisation tested a QKD between two of its laboratories in Hyderabad facility. The setup also demonstrated the validation of detection of a third party trying to gain knowledge of the communication. Quantum based security against eavesdropping was validated for the deployed system at over 12 km (7.5 mi) range and 10 dB attenuation over fibre optic channel. A continuous wave laser source was used to generate photons without depolarization effect and timing accuracy employed in the setup was of the order of picoseconds. The Single photon avalanche detector (SPAD) recorded arrival of photons and key rate was achieved in the range of kbps with low Quantum bit error rate.
+
+[ 36 ] In March 2021, Indian Space Research Organisation also demonstrated a free-space Quantum Communication over a distance of 300 meters. A free-space QKD was demonstrated at Space Applications Centre (SAC), Ahmedabad, between two line-of-sight buildings within the campus for video conferencing by quantum-key encrypted signals. The experiment utilised a NAVIC receiver for time synchronization between the transmitter and receiver modules. Later in January 2022, Indian scientists were able to successfully create an atmospheric channel for exchange of crypted messages and images. After demonstrating quantum communication between two ground stations, India has plans to develop Satellite Based Quantum Communication (SBQC).
+
+[ 37 ] [ 38 ] In July 2022, researchers published their work experimentally implementing a device-independent quantum key distribution (DIQKD) protocol that uses quantum entanglement (as suggested by Ekert) [ 5 ] to insure resistance to quantum hacking attacks.
+
+[ 6 ] They were able to create two ions, about two meters apart that were in a high quality entangled state using the following process: Alice and Bob each have ion trap nodes with an 88 Sr + qubit inside. Initially, they excite the ions to an electronic state, which creates an entangled state. This process also creates two photons, which are then captured and transported using an optical fiber, at which point a Bell-basis measurement is performed and the ions are projected to a highly entangled state. Finally the qubits are returned to new locations in the ion traps disconnected from the optical link so that no information can be leaked. This is repeated many times before the key distribution proceeds.
+
+[ 6 ] A separate experiment published in July 2022 demonstrated implementation of DIQKD that also uses a Bell inequality test to ensure that the quantum device is functioning, this time at a much larger distance of about 400m, using an optical fiber 700m long.
+
+[ 7 ] The set up for the experiment was similar to the one in the paragraph above, with some key differences. Entanglement was generated in a quantum network link (QNL) between two 87 Rb atoms in separate laboratories located 400m apart, connected by the 700m channel. The atoms are entangled by electronic excitation, at which point two photons are generated and collected, to be sent to the bell state measurement (BSM) setup. The photons are projected onto a |ψ + state, indicating maximum entanglement. The rest of the key exchange protocol used is similar to the original QKD protocol, with the only difference being that keys are generated with two measurement settings instead of one.
+
+[ 7 ] Since the proposal of Twin Field Quantum Key Distribution in 2018, a myriad of experiments have been performed with the goal of increasing the distance in a QKD system. The most successful of which was able to distribute key information across a distance of 833.8 km.
+
+[ 12 ] In 2023, scientists at Indian Institute of Technology (IIT) Delhi have achieved a trusted-node-free quantum key distribution (QKD) up to 380 km in standard telecom fiber with a very low quantum bit error rate (QBER).
+
+[ 39 ] In 2024 scientists in South Africa and China achieved quantum key distribution in the atmosphere with a record breaking distance of 12,900 km,  using lasers and a microsatellite in low Earth orbit . They transferred over a million quantum-secure bits between South Africa and China during one orbit of the satellite.
+
+[ 40 ] Commercial [ edit ] Many companies around the world offer commercial quantum key distribution, for example: ID Quantique (Geneva), Toshiba , [ 41 ] MagiQ Technologies, Inc.
+
+(New York), QNu Labs ( Bengaluru , India ), QuintessenceLabs (Australia), QRate (Russia), SeQureNet (Paris), Quantum Optics Jena (Germany) and KEEQuant (Germany). Several other companies also have active research programs, including KETS Quantum Security (UK), HP , IBM , Mitsubishi , NEC and NTT (See External links for direct research links).
+
+In 2004, the world's first bank transfer using quantum key distribution was carried out in Vienna , Austria .
+
+[ 42 ] Quantum encryption technology provided by the Swiss company Id Quantique was used in the Swiss canton (state) of Geneva to transmit ballot results to the capital in the national election occurring on 21 October 2007.
+
+[ 43 ] In 2013, Battelle Memorial Institute installed a QKD system built by ID Quantique between their main campus in Columbus, Ohio and their manufacturing facility in nearby Dublin.
+
+[ 44 ] Field tests of Tokyo QKD network have been underway for some time.
+
+[ 45 ] Quantum key distribution networks [ edit ] DARPA [ edit ] The DARPA Quantum Network , [ 46 ] was a 10-node quantum key distribution network, which ran continuously for four years, 24 hours a day, from 2004 to 2007 in Massachusetts in the United States. It was developed by BBN Technologies , Harvard University , Boston University , with collaboration from IBM Research , the National Institute of Standards and Technology , and QinetiQ . It supported a standards-based Internet computer network protected by quantum key distribution.
+
+SECOQC [ edit ] Main article: Secure Communication based on Quantum Cryptography The world's first computer network protected by quantum key distribution was implemented in October 2008, at a scientific conference in Vienna. The name of this network is SECOQC ( Se cure Co mmunication Based on Q uantum C ryptography) and the EU funded this project. The network used 200 km of standard fibre-optic cable to interconnect six locations across Vienna and the town of St Poelten located 69 km to the west.
+
+[ 47 ] SwissQuantum [ edit ] Id Quantique has successfully completed the longest running project for testing Quantum Key Distribution (QKD) in a field environment. The main goal of the SwissQuantum network project installed in the Geneva metropolitan area in March 2009, was to validate the reliability and robustness of QKD in continuous operation over a long time period in a field environment. The quantum layer operated for nearly 2 years until the project was shut down in January 2011 shortly after the initially planned duration of the test.
+
+Chinese networks [ edit ] In May 2009, a hierarchical quantum network was demonstrated in Wuhu , China . The hierarchical network consisted of a backbone network of four nodes connecting a number of subnets. The backbone nodes were connected through an optical switching quantum router. Nodes within each subnet were also connected through an optical switch, which were connected to the backbone network through a trusted relay.
+
+[ 48 ] Launched in August 2016, the QUESS space mission created an international QKD channel between China and the Institute for Quantum Optics and Quantum Information in Vienna , Austria − a ground distance of 7,500 km (4,700 mi), enabling the first intercontinental secure quantum video call.
+
+[ 49 ] [ 50 ] [ 51 ] By October 2017, a 2,000-km fiber line was operational between Beijing , Jinan , Hefei and Shanghai .
+
+[ 52 ] Together they constitute the world's first space-ground quantum network.
+
+[ 53 ] Up to 10 Micius/QUESS satellites are expected, [ 54 ] allowing a European–Asian quantum-encrypted network by 2020, and a global network by 2030.
+
+[ 55 ] [ 56 ] Tokyo QKD Network [ edit ] The Tokyo QKD Network [ 57 ] was inaugurated on the first day of the UQCC2010 conference. The network involves an international collaboration between 7 partners; NEC , Mitsubishi Electric , NTT and NICT from Japan, and participation from Europe by Toshiba Research Europe Ltd. (UK), Id Quantique (Switzerland) and All Vienna (Austria). "All Vienna" is represented by researchers from the Austrian Institute of Technology (AIT), the Institute for Quantum Optics and Quantum Information (IQOQI) and the University of Vienna .
+
+Los Alamos National Laboratory [ edit ] A hub-and-spoke network has been operated by Los Alamos National Laboratory since 2011. All messages are routed via the hub. The system equips each node in the network with quantum transmitters—i.e., lasers—but not with expensive and bulky photon detectors. Only the hub receives quantum messages. To communicate, each node sends a one-time pad to the hub, which it then uses to communicate securely over a classical link. The hub can route this message to another node using another one time pad from the second node. The entire network is secure only if the central hub is secure. Individual nodes require little more than a laser: Prototype nodes are around the size of a box of matches.
+
+[ 58 ] Singapore's National Quantum-Safe Network Plus (NQSN+) [ edit ] Following the successful National Quantum-Safe Network Testbed trials, National Quantum-Safe Network Plus (NQSN+) was launched by IMDA in 2023 and is part of Singapore's Digital Connectivity Blueprint, which outlines the next bound of Singapore's digital connectivity to 2030. NQSN+ will support network operators to deploy quantum-safe networks nationwide, granting businesses easy access to quantum-safe solutions that safeguard their critical data. The NQSN+ will start with two network operators, Singtel and SPTel, together with SpeQtral. Each will build a nationwide, interoperable quantum-safe network that can serve all businesses. Businesses can work with NQSN+ operators to integrate quantum-safe solutions such as Quantum Key Distribution (QKD) and Post-Quantum Cryptography (PQC) and be secure in the quantum age.
+
+[ 59 ] Eagle-1 [ edit ] In late 2025 or 2026, the ESA plans to launch the satellite Eagle-1, an experimental space-based quantum key distribution system.
+
+[ 60 ] Attacks and security proofs [ edit ] Intercept and resend [ edit ] The simplest type of possible attack is the intercept-resend attack, where Eve measures the quantum states (photons) sent by Alice and then sends replacement states to Bob, prepared in the state she measures. In the BB84 protocol, this produces errors in the key Alice and Bob share. As Eve has no knowledge of the basis a state sent by Alice is encoded in, she can only guess which basis to measure in, in the same way as Bob. If she chooses correctly, she measures the correct photon polarization state as sent by Alice, and resends the correct state to Bob. However, if she chooses incorrectly, the state she measures is random, and the state sent to Bob cannot be the same as the state sent by Alice. If Bob then measures this state in the same basis Alice sent, he too gets a random result—as Eve has sent him a state in the opposite basis—with a 50% chance of an erroneous result (instead of the correct result he would get without the presence of Eve). The table below shows an example of this type of attack.
+
+Alice's random bit 0 1 1 0 1 0 0 1 Alice's random sending basis Photon polarization Alice sends Eve's random measuring basis Polarization Eve measures and sends Bob's random measuring basis Photon polarization Bob measures PUBLIC DISCUSSION OF BASIS Shared secret key 0 0 0 1 Errors in key ✓ ✘ ✓ ✓ The probability Eve chooses the incorrect basis is 50% (assuming Alice chooses randomly), and if Bob measures this intercepted photon in the basis Alice sent he gets a random result, i.e., an incorrect result with probability of 50%. The probability an intercepted photon generates an error in the key string is then 50% × 50% = 25%. If Alice and Bob publicly compare n {\displaystyle n} of their key bits (thus discarding them as key bits, as they are no longer secret) the probability they find disagreement and identify the presence of Eve is P d = 1 − − ( 3 4 ) n {\displaystyle P_{d}=1-\left({\frac {3}{4}}\right)^{n}} So to detect an eavesdropper with probability P d = 0.999999999 {\displaystyle P_{d}=0.999999999} Alice and Bob need to compare n = 72 {\displaystyle n=72} key bits.
+
+Man-in-the-middle attack [ edit ] Quantum key distribution is vulnerable to a man-in-the-middle attack when used without authentication to the same extent as any classical protocol, since no known principle of quantum mechanics can distinguish friend from foe. As in the classical case, Alice and Bob cannot authenticate each other and establish a secure connection without some means of verifying each other's identities (such as an initial shared secret). If Alice and Bob have an initial shared secret then they can use an unconditionally secure authentication scheme (such as Carter-Wegman , [ 61 ] ) along with quantum key distribution to exponentially expand this key, using a small amount of the new key to authenticate the next session.
+
+[ 62 ] Several methods to create this initial shared secret have been proposed, for example using a 3rd party [ 63 ] or chaos theory.
+
+[ 64 ] Nevertheless, only "almost strongly universal" family of hash functions can be used for unconditionally secure authentication.
+
+[ 65 ] Photon number splitting attack [ edit ] In the BB84 protocol Alice sends quantum states to Bob using single photons. In practice many implementations use laser pulses attenuated to a very low level to send the quantum states. These laser pulses contain a very small number of photons, for example 0.2 photons per pulse, which are distributed according to a Poisson distribution . This means most pulses actually contain no photons (no pulse is sent), some pulses contain 1 photon (which is desired) and a few pulses contain 2 or more photons. If the pulse contains more than one photon, then Eve can split off the extra photons and transmit the remaining single photon to Bob. This is the basis of the photon number splitting attack, [ 66 ] where Eve stores these extra photons in a quantum memory until Bob detects the remaining single photon and Alice reveals the encoding basis. Eve can then measure her photons in the correct basis and obtain information on the key without introducing detectable errors.
+
+Even with the possibility of a PNS attack a secure key can still be generated, as shown in the GLLP security proof; [ 67 ] however, a much higher amount of privacy amplification is needed reducing the secure key rate significantly (with PNS the rate scales as t 2 {\displaystyle t^{2}} as compared to t {\displaystyle t} for a single photon sources, where t {\displaystyle t} is the transmittance of the quantum channel).
+
+There are several solutions to this problem. The most obvious is to use a true single photon 
+source instead of an attenuated laser. While such sources are still at a developmental stage QKD has been carried out successfully with them.
+
+[ 68 ] However, as current sources operate at a low efficiency and frequency key rates and transmission distances are limited. Another solution is to modify the BB84 protocol, as is done for example in the SARG04 protocol, [ 69 ] in which the secure key rate scales as t 3 / 2 {\displaystyle t^{3/2}} . The most promising solution is the decoy states [ 22 ] [ 23 ] [ 24 ] [ 25 ] [ 26 ] in which Alice randomly sends some of her laser pulses with a lower average photon number. These decoy states can be used to detect a PNS attack, as Eve has no way to tell which pulses are signal and which decoy. Using this idea the secure key rate scales as t {\displaystyle t} , the same as for a single photon source. This idea has been implemented successfully first at the University of Toronto, [ 70 ] [ 71 ] and in several follow-up QKD experiments, [ 72 ] allowing for high key rates secure against all known attacks.
+
+Denial of service [ edit ] Because currently a dedicated fibre optic line (or line of sight in free space) is required between the two points linked by quantum key distribution, a denial of service attack can be mounted by simply cutting or blocking the line. This is one of the motivations for the development of quantum key distribution networks, which would route communication via alternate links in case of disruption.
+
+Trojan-horse attacks [ edit ] A quantum key distribution system may be probed by Eve by sending bright light into the quantum channel and analyzing the back-reflections in a Trojan-horse attack. In a recent research study it has been shown that Eve discerns Bob's secret basis choice with higher than 90% probability, breaching the security of the system.
+
+[ 73 ] Security proofs [ edit ] If Eve is assumed to have unlimited resources, for example both classical and quantum computing power, there are many more attacks possible. BB84 has been proven secure against any attacks allowed by quantum mechanics, both for sending information using an ideal photon source which only ever emits a single photon at a time, [ 74 ] and also using practical photon sources which sometimes emit multiphoton pulses.
+
+[ 67 ] These proofs are unconditionally secure in the sense that no conditions are imposed on the resources available to the eavesdropper; however, there are other conditions required: Eve cannot physically access Alice and Bob's encoding and decoding devices.
+
+The random number generators used by Alice and Bob must be trusted and truly random (for example a Quantum random number generator ).
+
+The classical communication channel must be authenticated using an unconditionally secure authentication scheme.
+
+The message must be encrypted using one-time pad like scheme Quantum hacking [ edit ] Hacking attacks target vulnerabilities in the operation of a QKD protocol or deficiencies in the components of the physical devices used in construction of the QKD system. If the equipment used in quantum key distribution can be tampered with, it could be made to generate keys that were not secure using a random number generator attack . Another common class of attacks is the Trojan horse attack [ 75 ] which does not require physical access to the endpoints: rather than attempt to read Alice and Bob's single photons, Eve sends a large pulse of light back to Alice in between transmitted photons. Alice's equipment reflects some of Eve's light, revealing the state of Alice's basis (e.g., a polarizer). This attack can be detected, e.g. by using a classical detector to check the non-legitimate signals (i.e. light from Eve) entering Alice's system. It is also conjectured [ by whom?
+
+] that most hacking attacks can similarly be defeated by modifying the implementation, though there is no formal proof.
+
+Several other attacks including faked-state attacks, [ 76 ] phase remapping attacks, [ 77 ] and time-shift attacks [ 78 ] are now known. The time-shift attack has even been demonstrated on a commercial quantum cryptosystem.
+
+[ 79 ] This is the first demonstration of quantum hacking against a non-homemade quantum key distribution system. Later on, the phase-remapping attack was also demonstrated on a specially configured, research oriented open QKD system (made and provided by the Swiss company Id Quantique under their Quantum Hacking program).
+
+[ 80 ] It is one of the first 'intercept-and-resend' attacks on top of a widely used QKD implementation in commercial QKD systems. This work has been widely reported in media.
+
+[ 81 ] [ 82 ] [ 83 ] [ 84 ] The first attack that claimed to be able to eavesdrop the whole key [ 85 ] without leaving any trace was demonstrated in 2010. It was experimentally shown that the single-photon detectors in two commercial devices could be fully remote-controlled using specially tailored bright illumination. In a spree of publications [ 86 ] [ 87 ] [ 88 ] thereafter, the collaboration between the Norwegian University of Science and Technology in Norway and Max Planck Institute for the Science of Light in Germany, has now demonstrated several methods to successfully eavesdrop on commercial QKD systems based on weaknesses of avalanche photodiodes (APDs) operating in gated mode. This has sparked research on new approaches to securing communications networks.
+
+[ 89 ] Counterfactual quantum key distribution [ edit ] See also: Counterfactual quantum computation The task of distributing a secret key could be achieved even when the particle (on which the secret information, e.g. polarization, has been encoded) does not traverse through the quantum channel using a protocol developed by Tae-Gon Noh.
+
+[ 90 ] Here Alice generates a photon which, by not taking a measurement until later, exists in a superposition of being in paths (a) and (b) simultaneously. Path (a) stays inside Alice's secure device and path (b) goes to Bob. By rejecting the photons that Bob receives and only accepting the ones he doesn't receive, Bob & Alice can set up a secure channel, i.e. Eve's attempts to read the counterfactual photons would still be detected. This protocol uses the quantum phenomenon whereby the possibility that a photon can be sent has an effect even when it is not sent. So-called interaction-free measurement also uses this quantum effect, as for example in the bomb testing problem , whereby an experimenter can conceptually determine which bombs are not duds without setting them off, except in a counterfactual sense.
+
+History [ edit ] Quantum cryptography was proposed first by Stephen Wiesner , then at Columbia University in New York, who, in the early 1970s, introduced the concept of quantum conjugate coding. His seminal paper titled "Conjugate Coding" was rejected by IEEE Information Theory but was eventually published in 1983 in SIGACT News (15:1 pp. 78–88, 1983). In this paper he showed how to store or transmit two messages by encoding them in two "conjugate observables", such as linear and circular polarization of light, so that either, but not both, of which may be received and decoded. He illustrated his idea with a design of unforgeable bank notes. A decade later, building upon this work, Charles H. Bennett , of the IBM Thomas J. Watson Research Center , and Gilles Brassard , of the University of Montreal , proposed a method for secure communication based on Wiesner's "conjugate observables".
+
+[ 91 ] In 1990, Artur Ekert, then a PhD student at Wolfson College, University of Oxford , developed a different approach to quantum key distribution based on quantum entanglement.
+
+Future [ edit ] The current commercial systems are aimed mainly at governments and corporations with high security requirements. Key distribution by courier is typically used in such cases, where traditional key distribution schemes are not believed to offer enough guarantee. This has the advantage of not being intrinsically distance limited, and despite long travel times the transfer rate can be high due to the availability of large capacity portable storage devices. The major difference of quantum key distribution is the ability to detect any interception of the key, whereas with courier the key security cannot be proven or tested. QKD (quantum key distribution) systems also have the advantage of being automatic, with greater reliability and lower operating costs than a secure human courier network.
+
+Kak's three-stage protocol has been proposed as a method for secure communication that is entirely quantum unlike quantum key distribution in which the cryptographic transformation uses classical algorithms.
+
+[ 92 ] Factors preventing wide adoption of quantum key distribution outside high security areas include the cost of equipment, and the lack of a demonstrated threat to existing key exchange protocols. However, with optic fibre networks already present in many countries the infrastructure is in place for a more widespread use.
+
+An Industry Specification Group (ISG) of the European Telecommunications Standards Institute ( ETSI ) has been set up to address standardisation issues in quantum cryptography.
+
+[ 93 ] European Metrology Institutes, in the context of dedicated projects, [ 94 ] [ 95 ] are developing measurements required to characterise components of QKD systems.
+
+Toshiba Europe has been awarded a prestigious Institute of Physics Award for Business Innovation. This recognises Toshiba's pioneering QKD [ 96 ] technology developed over two decades of research, protecting communication infrastructure from present and future cyber-threats, and commercialising UK-manufactured products which pave the road to the quantum internet.
+
+Toshiba also took the Semi Grand Prix award in the Solutions Category for the QKD has won the Minister of Economy, Trade and Industry Award in CEATEC AWARD 2021, the prestigious awards presented at CEATEC, Japan's premier electronics industry trade show.
+
+[ 97 ] Deprecation from governmental institutions [ edit ] See also: Post-quantum cryptography Because of the practical problems with quantum key distribution, some governmental organizations recommend the use of post-quantum cryptography (quantum resistant cryptography) instead. For example, the US National Security Agency , [ 98 ] European Union Agency for Cybersecurity of EU (ENISA), [ 99 ] UK's National Cyber Security Centre , [ 100 ] French Secretariat for Defense and Security (ANSSI), [ 101 ] and German Federal Office for Information Security (BSI) [ 102 ] recommend post-quantum cryptography.
+
+For example, the US National Security Agency addresses five issues: [ 98 ] Quantum key distribution is only a partial solution. QKD generates keying material for an encryption algorithm that provides confidentiality. Such keying material could also be used in symmetric key cryptographic algorithms to provide integrity and authentication if one has the cryptographic assurance that the original QKD transmission comes from the desired entity (i.e. entity source authentication). QKD does not provide a means to authenticate the QKD transmission source. Therefore, source authentication requires the use of asymmetric cryptography or preplaced keys to provide that authentication. Moreover, the confidentiality services QKD offers can be provided by quantum-resistant cryptography, which is typically less expensive with a better understood risk profile.
+
+Quantum key distribution requires special purpose equipment. QKD is based on physical properties, and its security derives from unique physical layer communications. This requires users to lease dedicated fiber connections or physically manage free-space transmitters. It cannot be implemented in software or as a service on a network, and cannot be easily integrated into existing network equipment. Since QKD is hardware-based it also lacks flexibility for upgrades or security patches.
+
+Quantum key distribution increases infrastructure costs and insider threat risks. QKD networks frequently necessitate the use of trusted relays, entailing additional cost for secure facilities and additional security risk from insider threats. This eliminates many use cases from consideration.
+
+Securing and validating quantum key distribution is a significant challenge. The actual security provided by a QKD system is not the theoretical unconditional security from the laws of physics (as modeled and often suggested), but rather the more limited security that can be achieved by hardware and engineering designs. The tolerance for error in cryptographic security, however, is many orders of magnitude smaller than in most physical engineering scenarios making it very difficult to validate. The specific hardware used to perform QKD can introduce vulnerabilities, resulting in several well-publicized attacks on commercial QKD systems.
+
+[ 103 ] Quantum key distribution increases the risk of denial of service. The sensitivity to an eavesdropper as the theoretical basis for QKD security claims also shows that denial of service is a significant risk for QKD.
+
+In response to problem 1 above, attempts to deliver authentication keys using post-quantum cryptography (or quantum-resistant cryptography) have been proposed worldwide. On the other hand, quantum-resistant cryptography is cryptography belonging to the class of computational security. In 2015, a research result was already published that "sufficient care must be taken in implementation to achieve information-theoretic security for the system as a whole when authentication keys that are not information-theoretic secure are used" (if the authentication key is not information-theoretically secure, an attacker can break it to bring all classical and quantum communications under control and relay them to launch a man-in-the-middle attack ).
+
+[ 104 ] Ericsson, a private company, also cites and points out the above problems and then presents a report that it may not be able to support the zero trust security model , which is a recent trend in network security technology.
+
+[ 105 ] See also [ edit ] List of quantum key distribution protocols Quantum computing Quantum cryptography Quantum information science Quantum network References [ edit ] ^ Shannon, C. E. (1949). "Communication Theory of Secrecy Systems*".
+
+Bell System Technical Journal .
+
+28 (4). Institute of Electrical and Electronics Engineers (IEEE): 656– 715.
+
+doi : 10.1002/j.1538-7305.1949.tb00928.x .
+
+hdl : 10338.dmlcz/119717 .
+
+ISSN 0005-8580 .
+
+^ Bennett, C. H.; Brassard, G. (1984). "Quantum cryptography: Public key distribution and coin tossing".
+
+Proceedings of the International Conference on Computers, Systems & Signal Processing, Bangalore, India . Vol. 1. New York: IEEE. pp.
+
+175– 179.
+
+Reprinted as Bennett, C. H.; Brassard, G. (4 December 2014).
+
+"Quantum cryptography: Public key distribution and coin tossing" .
+
+Theoretical Computer Science . Theoretical Aspects of Quantum Cryptography – celebrating 30 years of BB84.
+
+560 (1): 7– 11.
+
+arXiv : 2003.06557 .
+
+doi : 10.1016/j.tcs.2014.05.025 .
+
+^ Tomamichel, Marco; Leverrier, Anthony (2017). "A largely self-contained and complete security proof for quantum key distribution".
+
+Quantum .
+
+1 : 14.
+
+arXiv : 1506.08458 .
+
+Bibcode : 2017Quant...1...14T .
+
+doi : 10.22331/q-2017-07-14-14 .
+
+S2CID 56465385 .
+
+^ Portmann, Christopher; Renner, Renato (2014). "Cryptographic security of quantum key distribution".
+
+arXiv : 1409.3525 [ quant-ph ].
+
+^ a b Ekert, Artur K. (5 August 1991). "Quantum cryptography based on Bell's theorem".
+
+Physical Review Letters .
+
+67 (6): 661– 663.
+
+Bibcode : 1991PhRvL..67..661E .
+
+doi : 10.1103/PhysRevLett.67.661 .
+
+PMID 10044956 .
+
+S2CID 27683254 .
+
+^ a b c d e f g Nadlinger, D. P.; Drmota, P.; Nichol, B. C.; Araneda, G.; Main, D.; Srinivas, R.; Lucas, D. M.; Ballance, C. J.; Ivanov, K.; Tan, E. Y.-Z.; Sekatski, P.; Urbanke, R. L.; Renner, R.; Sangouard, N.; Bancal, J.-D. (July 2022).
+
+"Experimental quantum key distribution certified by Bell's theorem" .
+
+Nature .
+
+607 (7920): 682– 686.
+
+arXiv : 2109.14600 .
+
+Bibcode : 2022Natur.607..682N .
+
+doi : 10.1038/s41586-022-04941-5 .
+
+ISSN 1476-4687 .
+
+PMID 35896644 .
+
+S2CID 251131731 .
+
+^ a b c d e f Zhang, Wei; van Leent, Tim; Redeker, Kai; Garthoff, Robert; Schwonnek, René; Fertig, Florian; Eppelt, Sebastian; Rosenfeld, Wenjamin; Scarani, Valerio; Lim, Charles C.-W.; Weinfurter, Harald (July 2022).
+
+"A device-independent quantum key distribution system for distant users" .
+
+Nature .
+
+607 (7920): 687– 691.
+
+arXiv : 2110.00575 .
+
+Bibcode : 2022Natur.607..687Z .
+
+doi : 10.1038/s41586-022-04891-y .
+
+ISSN 1476-4687 .
+
+PMC 9329124 .
+
+PMID 35896650 .
+
+^ Mayers, Dominic; Yao, Andrew (14 September 1998). "Quantum Cryptography with Imperfect Apparatus".
+
+arXiv : quant-ph/9809039 .
+
+^ Schwonnek, René; Goh, Koon Tong; Primaatmaja, Ignatius W.; Tan, Ernest Y.-Z.; Wolf, Ramona; Scarani, Valerio; Lim, Charles C.-W. (17 May 2021).
+
+"Device-independent quantum key distribution with random key basis" .
+
+Nature Communications .
+
+12 (1): 2880.
+
+arXiv : 2005.02691 .
+
+Bibcode : 2021NatCo..12.2880S .
+
+doi : 10.1038/s41467-021-23147-3 .
+
+ISSN 2041-1723 .
+
+PMC 8128898 .
+
+PMID 34001885 .
+
+^ a b c d Lucamarini, M.; Yuan, Z. L.; Dynes, J. F.; Shields, A. J. (May 2018).
+
+"Overcoming the rate–distance limit of quantum key distribution without quantum repeaters" .
+
+Nature .
+
+557 (7705): 400– 403.
+
+arXiv : 1811.06826 .
+
+Bibcode : 2018Natur.557..400L .
+
+doi : 10.1038/s41586-018-0066-6 .
+
+ISSN 1476-4687 .
+
+PMID 29720656 .
+
+S2CID 256768464 .
+
+^ a b Takeoka, Masahiro; Guha, Saikat; Wilde, Mark M. (24 October 2014).
+
+"Fundamental rate-loss tradeoff for optical quantum key distribution" .
+
+Nature Communications .
+
+5 (1): 5235.
+
+arXiv : 1504.06390 .
+
+Bibcode : 2014NatCo...5.5235T .
+
+doi : 10.1038/ncomms6235 .
+
+ISSN 2041-1723 .
+
+PMID 25341406 .
+
+^ a b Wang, Shuang; Yin, Zhen-Qiang; He, De-Yong; Chen, Wei; Wang, Rui-Qiang; Ye, Peng; Zhou, Yao; Fan-Yuan, Guan-Jie; Wang, Fang-Xiang; Chen, Wei; Zhu, Yong-Gang; Morozov, Pavel V.; Divochiy, Alexander V.; Zhou, Zheng; Guo, Guang-Can (February 2022).
+
+"Twin-field quantum key distribution over 830-km fibre" .
+
+Nature Photonics .
+
+16 (2): 154– 161.
+
+Bibcode : 2022NaPho..16..154W .
+
+doi : 10.1038/s41566-021-00928-2 .
+
+ISSN 1749-4893 .
+
+S2CID 117167883 .
+
+^ Chau, H.F. (2002).
+
+"Practical scheme to share a secret key through a quantum channel with a 27.6% bit error rate" .
+
+Physical Review A .
+
+66 (6): 60302.
+
+Bibcode : 2002PhRvA..66f0302C .
+
+doi : 10.1103/PhysRevA.66.060302 .
+
+hdl : 10722/43370 . Retrieved 4 September 2020 .
+
+^ Bennett, C. H.; Brassard, J. M.; Robert (1988).
+
+"Privacy Amplification by Public Discussion" .
+
+SIAM J. Comput .
+
+17 (2): 210– 229.
+
+doi : 10.1137/0217014 .
+
+^ Brassard, G.; Salvail, L. (1993).
+
+"Secret-key reconciliation by public discussion" .
+
+Workshop on the Theory and Application of Cryptographic Techniques . Springer. pp.
+
+410– 423.
+
+doi : 10.1007/3-540-48285-7_35 .
+
+ISBN 3-540-48285-7 .
+
+^ Nguyen, Kim-Chi; Van Assche, Gilles; Cerf, Nicolas J. (10–13 October 2004). "Side-Information Coding with Turbo Codes and its Application to Quantum Key Distribution".
+
+arXiv : cs/0406001 .
+
+Parma, Italy.
+
+^ Elkouss, D.; Martinez-Mateo, J.; Martin, V. (2010).
+
+"Information reconciliation for quantum key distribution" (PDF) .
+
+Quantum Information & Computation .
+
+11 : 226– 238.
+
+doi : 10.26421/QIC11.3-4-3 . Archived from the original (PDF) on 15 December 2013 . Retrieved 4 September 2020 .
+
+^ Nguyen, Kim-Chi; Gilles Van Assche; Cerf, Nicolas J. (2012). "High Performance Error Correction for Quantum Key Distribution using Polar Codes".
+
+arXiv : 1204.5882v3 [ quant-ph ].
+
+^ Dixon, A.R.; Z.L. Yuan; Dynes, J.F.; Sharpe, A. W.; Shields, A. J. (2008). "Gigahertz decoy quantum key distribution with 1 Mbit/s secure key rate".
+
+Optics Express .
+
+16 (23): 18790– 7.
+
+arXiv : 0810.1069 .
+
+Bibcode : 2008OExpr..1618790D .
+
+doi : 10.1364/OE.16.018790 .
+
+PMID 19581967 .
+
+S2CID 17141431 .
+
+^ Hiskett, P A; Rosenberg, D; Peterson, C G; Hughes, R J; Nam, S; Lita, A E; Miller, A J; Nordholt, J E (14 September 2006).
+
+"Long-distance quantum key distribution in optical fibre" .
+
+New Journal of Physics .
+
+8 (9). IOP Publishing: 193.
+
+arXiv : quant-ph/0607177 .
+
+Bibcode : 2006NJPh....8..193H .
+
+doi : 10.1088/1367-2630/8/9/193 .
+
+ISSN 1367-2630 .
+
+^ Ursin, Rupert; Tiefenbacher, Felix; Schmitt-Manderbach, T.; Weier, H.; Scheidl, T.; Lindenthal, M.; Blauensteiner, B.; Jennewein, T.; Perdigues, J.; Trojek, P.; Ömer, B.; Fürst, M.; Meyenburg, M.; Rarity, J.; Sodnik, Z.; Barbieri, C.; Weinfurter, H.; Zeilinger, A. (2006). "Entanglement-based quantum communication over 144 km  km".
+
+Nature Physics .
+
+3 (7): 481– 486.
+
+arXiv : quant-ph/0607182 .
+
+Bibcode : 2006quant.ph..7182U .
+
+doi : 10.1038/nphys629 .
+
+S2CID 108284907 .
+
+^ a b Hwang, Won-Young (1 August 2003). "Quantum Key Distribution with High Loss: Toward Global Secure Communication".
+
+Physical Review Letters .
+
+91 (5): 057901.
+
+arXiv : quant-ph/0211153 .
+
+Bibcode : 2003PhRvL..91e7901H .
+
+doi : 10.1103/physrevlett.91.057901 .
+
+ISSN 0031-9007 .
+
+PMID 12906634 .
+
+S2CID 19225674 .
+
+^ a b H.-K. Lo, in Proceedings of 2004 IEEE ISIT (IEEE Press, New York, 2004), p. 137 ^ a b Wang, Xiang-Bin (16 June 2005). "Beating the Photon-Number-Splitting Attack in Practical Quantum Cryptography".
+
+Physical Review Letters .
+
+94 (23): 230503.
+
+arXiv : quant-ph/0410075 .
+
+Bibcode : 2005PhRvL..94w0503W .
+
+doi : 10.1103/physrevlett.94.230503 .
+
+ISSN 0031-9007 .
+
+PMID 16090451 .
+
+S2CID 2651690 .
+
+^ a b H.-K. Lo, X. Ma, K. Chen, "Decoy State Quantum Key Distribution" , Physical Review Letters, 94, 230504 (2005) ^ a b Ma, Xiongfeng; Qi, Bing; Zhao, Yi; Lo, Hoi-Kwong (2005). "Practical decoy state for quantum key distribution".
+
+Physical Review A .
+
+72 (1): 012326.
+
+arXiv : quant-ph/0503005 .
+
+Bibcode : 2005PhRvA..72a2326M .
+
+doi : 10.1103/PhysRevA.72.012326 .
+
+S2CID 836096 .
+
+^ Schmitt-Manderbach, Tobias; Weier, Henning; Fürst, Martin; Ursin, Rupert; Tiefenbacher, Felix; et al. (5 January 2007).
+
+"Experimental Demonstration of Free-Space Decoy-State Quantum Key Distribution over 144 km" (PDF) .
+
+Physical Review Letters .
+
+98 (1). American Physical Society (APS): 010504.
+
+Bibcode : 2007PhRvL..98a0504S .
+
+doi : 10.1103/physrevlett.98.010504 .
+
+ISSN 0031-9007 .
+
+PMID 17358463 .
+
+S2CID 15102161 .
+
+^ Korzh, Boris; Lim, Charles Ci Wen; Houlmann, Raphael; Gisin, Nicolas; Li, Ming Jun; Nolan, Daniel; Sanguinetti, Bruno; Thew, Rob; Zbinden, Hugo (2015). "Provably Secure and Practical Quantum Key Distribution over 307 km of Optical Fibre".
+
+Nature Photonics .
+
+9 (3): 163– 168.
+
+arXiv : 1407.7427 .
+
+Bibcode : 2015NaPho...9..163K .
+
+doi : 10.1038/nphoton.2014.327 .
+
+S2CID 59028718 .
+
+^ Yin, Juan; Cao, Yuan; Li, Yu-Huai; Liao, Sheng-Kai; Zhang, Liang; Ren, Ji-Gang; Cai, Wen-Qi; Liu, Wei-Yue; Li, Bo; Dai, Hui; et al. (2017). "Satellite-based entanglement distribution over 1200 kilometers".
+
+Science .
+
+356 (6343): 1140– 1144.
+
+arXiv : 1707.01339 .
+
+Bibcode : 2017arXiv170701339Y .
+
+doi : 10.1126/science.aan3211 .
+
+PMID 28619937 .
+
+S2CID 5206894 .
+
+^ Pugh, C. J.; Kaiser, S.; Bourgoin, J.- P.; Jin, J.; Sultana, N.; Agne, S.; Anisimova, E.; Makarov, V.; Choi, E.; Higgins, B. L.; Jennewein, T. (2017). "Airborne demonstration of a quantum key distribution receiver payload".
+
+Quantum Science and Technology .
+
+2 (2): 024009.
+
+arXiv : 1612.06396 .
+
+Bibcode : 2017QS&T....2b4009P .
+
+doi : 10.1088/2058-9565/aa701f .
+
+S2CID 21279135 .
+
+^ "China's quantum satellite achieves 'spooky action' at a record distance" . 15 June 2017 . Retrieved 15 June 2017 .
+
+^ Yin, J.; Cao, Y.; Li, Y.- H.; Liao, S.- K.; Zhang, L.; Ren, J.- G.; Cai, W.- Q.; Liu, W.- Y.; Li, B.; Dai, H.; Li, G.- B.; Lu, Q.- M.; Gong, Y.- H.; Xu, Y.; Li, S.- L.; Li, F.- Z.; Yin, Y.- Y.; Jiang, Z.- Q.; Li, M.; Jia, J.- J.; Ren, G.; He, D.; Zhou, Y.- L.; Zhang, X.- X.; Wang, N.; Chang, X.; Zhu, Z.- C.; Liu, N.- L.; Lu, C.- Y.; Shu, R.; Peng, C.- Z.; Wang, J.- Y.; Pan, J.- W.
+
+(2017).
+
+"Satellite-based entanglement distribution over 1200 kilometers" .
+
+Science .
+
+356 (6343): 1140– 4.
+
+arXiv : 1707.01339 .
+
+doi : 10.1126/science.aan3211 .
+
+PMID 28619937 .
+
+^ Liao, Sheng-Kai; Cai, Wen-Qi; Handsteiner, Johannes; Liu, Bo; Yin, Juan; Zhang, Liang; Rauch, Dominik; Fink, Matthias; Ren, Ji-Gang; Liu, Wei-Yue; et al. (2018). "Satellite-Relayed Intercontinental Quantum Network".
+
+Physical Review Letters .
+
+120 (3): 030501.
+
+arXiv : 1801.04418 .
+
+Bibcode : 2018PhRvL.120c0501L .
+
+doi : 10.1103/PhysRevLett.120.030501 .
+
+PMID 29400544 .
+
+S2CID 206306725 .
+
+^ Ji, Ling; Gao, Jun; Yang, Ai-Lin; Feng, Zhen; Lin, Xiao-Feng; Li, Zhong-Gen; Jin, Xian-Min (2017). "Towards quantum communications in free-space seawater".
+
+Optics Express .
+
+25 (17): 19795– 19806.
+
+arXiv : 1602.05047 .
+
+Bibcode : 2017OExpr..2519795J .
+
+doi : 10.1364/OE.25.019795 .
+
+PMID 29041667 .
+
+S2CID 46757097 .
+
+^ Zhang, Yichen; Li, Zhengyu; Chen, Ziyang; Weedbrook, Christian; Zhao, Yijia; Wang, Xiangyu; Huang, Yundi; Xu, Chunchao; Zhang, Xiaoxiong; Wang, Zhenya; Li, Mei; Zhang, Xueying; Zheng, Ziyong; Chu, Binjie; Gao, Xinyu; Meng, Nan; Cai, Weiwen; Wang, Zheng; Wang, Gan; Yu, Song; Guo, Hong (2019). "Continuous-variable QKD over 50 km commercial fiber".
+
+Quantum Science and Technology .
+
+4 (3): 035006.
+
+arXiv : 1709.04618 .
+
+Bibcode : 2019QS&T....4c5006Z .
+
+doi : 10.1088/2058-9565/ab19d1 .
+
+S2CID 116403328 .
+
+^ Ministry of Defence (9 December 2020).
+
+"Quantum Communication between two DRDO Laboratories" .
+
+Press Information Bureau . Retrieved 22 March 2021 .
+
+^ "ISRO makes breakthrough demonstration of free-space Quantum Key Distribution (QKD) over 300 m" .
+
+Indian Space Research Organisation . 22 March 2021. Archived from the original on 22 March 2021 . Retrieved 22 March 2021 .
+
+^ "Department of Space demonstrates entanglement based quantum communication over 300m free space along with real time cryptographic applications" .
+
+Indian Space Research Organisation . 31 January 2022. Archived from the original on 1 February 2022 . Retrieved 1 February 2022 .
+
+^ "EMERGING TECHNOLOGIES: IIT Delhi researchers achieve secure quantum communication for 380 km in standard telecom fiber - EducationTimes.com" .
+
+www.educationtimes.com .
+
+^ Li, Yang; Cai, Wen-Qi; Ren, Ji-Gang; Wang, Chao-Ze; Yang, Meng; Zhang, Liang; Wu, Hui-Ying; Chang, Liang; Wu, Jin-Cai; Jin, Biao; Xue, Hua-Jian; Li, Xue-Jiao; Liu, Hui; Yu, Guang-Wen; Tao, Xue-Ying (19 March 2025).
+
+"Microsatellite-based real-time quantum key distribution" .
+
+Nature : 1– 8.
+
+arXiv : 2408.10994 .
+
+doi : 10.1038/s41586-025-08739-z .
+
+ISSN 1476-4687 .
+
+^ "Quantum Key Distribution - What is QKD? How Does It Work?" .
+
+^ http://www.secoqc.net/downloads/pressrelease/Banktransfer_english.pdf Archived 9 March 2013 at the Wayback Machine secoqc.net ^ Jordans, Frank (12 October 2007).
+
+"Swiss Call New Vote Encryption System 'Unbreakable' " . technewsworld.com. Archived from the original on 9 December 2007 . Retrieved 8 March 2013 .
+
+^ Dillow, Clay (14 October 2013).
+
+"Unbreakable encryption comes to the U.S" . fortune.cnn.com. Archived from the original on 14 October 2013.
+
+^ Sasaki, M.; et al. (2011). "Field test of quantum key distribution in the Tokyo QKD Network".
+
+Optics Express .
+
+19 (11): 10387– 10409.
+
+arXiv : 1103.3566 .
+
+Bibcode : 2011OExpr..1910387S .
+
+doi : 10.1364/OE.19.010387 .
+
+PMID 21643295 .
+
+S2CID 593516 .
+
+^ Knight, Will.
+
+"Quantum cryptography network gets wireless link" . Retrieved 18 August 2016 .
+
+^ " 'Unbreakable' encryption unveiled" . 9 October 2008 . Retrieved 18 August 2016 – via bbc.co.uk.
+
+^ Xu, FangXing; Chen, Wei; Wang, Shuang; Yin, ZhenQiang; Zhang, Yang; Liu, Yun; Zhou, Zheng; Zhao, YiBo; Li, HongWei; Liu, Dong (2009), "Field experiment on a robust hierarchical metropolitan quantum cryptography network", Chinese Science Bulletin , 54 (17): 2991– 2997, arXiv : 0906.3576 , Bibcode : 2009ChSBu..54.2991X , doi : 10.1007/s11434-009-0526-3 , S2CID 118300112 ^ Lin Xing (16 August 2016).
+
+"China launches world's first quantum science satellite" .
+
+Physics World . Institute of Physics. Archived from the original on 1 December 2017 . Retrieved 17 August 2016 .
+
+^ "First Quantum Satellite Successfully Launched" .
+
+Austrian Academy of Sciences . 16 August 2016. Archived from the original on 18 March 2018 . Retrieved 17 August 2016 .
+
+^ Wall, Mike (16 August 2016).
+
+"China Launches Pioneering 'Hack-Proof' Quantum-Communications Satellite" .
+
+Space.com . Purch . Retrieved 17 August 2016 .
+
+^ Yuen Yiu (19 January 2018).
+
+"Is China the Leader in Quantum Communications?" .
+
+IEEE . Retrieved 19 March 2018 .
+
+^ Amy Nordrum (3 October 2017).
+
+"China Demonstrates Quantum Encryption By Hosting a Video Call" .
+
+IEEE . Retrieved 17 March 2018 .
+
+^ Jian-Wei Pan (3 October 2017).
+
+"A quantum communications satellite proved its potential in 2017" .
+
+Science News . Retrieved 19 March 2018 .
+
+^ huaxia (16 August 2016).
+
+"China Focus: China's space satellites make quantum leap" . Xinhua. Archived from the original on 17 August 2016 . Retrieved 17 August 2016 .
+
+^ Jeffrey Lin; P.W. Singer; John Costello (3 March 2016).
+
+"China's Quantum Satellite Could Change Cryptography Forever" .
+
+Popular Science . Retrieved 17 August 2016 .
+
+^ "UQCC2010 - Updating Quantum Cryptography and Communications 2010 | Tokyo QKD Network" .
+
+www.uqcc2010.org .
+
+^ Hughes, Richard J.; Nordholt, Jane E.
+
+; McCabe, Kevin P.; Newell, Raymond T.; Peterson, Charles G.; Somma, Rolando D. (2013). "Network-Centric Quantum Communications with Application to Critical Infrastructure Protection".
+
+arXiv : 1305.0305 [ quant-ph ].
+
+^ Singapore, IMDA (21 August 2024).
+
+"Singapore's National Quantum-Safe Network Plus (NQSN+)" .
+
+imda.gov.sg .
+
+^ "Eagle-1" .
+
+esa.int . Retrieved 4 March 2025 .
+
+^ Wegman, Mark N.; Carter, J.Lawrence (1981).
+
+"New hash functions and their use in authentication and set equality" .
+
+Journal of Computer and System Sciences .
+
+22 (3). Elsevier BV: 265– 279.
+
+doi : 10.1016/0022-0000(81)90033-7 .
+
+ISSN 0022-0000 .
+
+^ Nguyen, Kim-Chi; Gilles Van Assche; Cerf, Nicolas J. (2007). "Using quantum key distribution for cryptographic purposes: A survey".
+
+arXiv : quant-ph/0701168 .
+
+^ Zhang, Z.; Liu, J.; Wang, D.; Shi, S. (2007). "Quantum direct communication with authentication".
+
+Phys. Rev. A .
+
+75 (2): 026301.
+
+arXiv : quant-ph/0604125 .
+
+Bibcode : 2007PhRvA..75b6301Z .
+
+doi : 10.1103/physreva.75.026301 .
+
+S2CID 5529511 .
+
+^ D. Huang, Z. Chen, Y. Guo and M. Lee "Quantum Secure Direct Communication Based on Chaos with Authentication", Journal of the Physical Society of Japan Vol. 76 No. 12, 124001 (2007) ( "124001" .
+
+doi : 10.1143/JPSJ.76.124001 . Retrieved 2 May 2024 .
+
+) ^ "5. Unconditionally secure authentication" . Retrieved 18 August 2016 .
+
+^ Brassard, Gilles; Lütkenhaus, Norbert; Mor, Tal; Sanders, Barry C. (7 August 2000). "Limitations on Practical Quantum Cryptography".
+
+Physical Review Letters .
+
+85 (6). American Physical Society (APS): 1330– 1333.
+
+arXiv : quant-ph/9911054 .
+
+Bibcode : 2000PhRvL..85.1330B .
+
+doi : 10.1103/physrevlett.85.1330 .
+
+ISSN 0031-9007 .
+
+PMID 10991544 .
+
+S2CID 18688722 .
+
+^ a b D. Gottesman, H.-K. Lo, N. L¨utkenhaus, and J. Preskill, Quant. Inf. Comp. 4, 325 (2004) ^ Intallura, P. M.; Ward, M. B.; Karimov, O. Z.; Yuan, Z. L.; See, P.; et al. (15 October 2007). "Quantum key distribution using a triggered quantum dot source emitting near 1.3μm".
+
+Applied Physics Letters .
+
+91 (16): 161103.
+
+arXiv : 0710.0565 .
+
+Bibcode : 2007ApPhL..91p1103I .
+
+doi : 10.1063/1.2799756 .
+
+ISSN 0003-6951 .
+
+S2CID 118994015 .
+
+^ Scarani, Valerio; Acín, Antonio; Ribordy, Grégoire; Gisin, Nicolas (6 February 2004). "Quantum Cryptography Protocols Robust against Photon Number Splitting Attacks for Weak Laser Pulse Implementations".
+
+Physical Review Letters .
+
+92 (5): 057901.
+
+arXiv : quant-ph/0211131 .
+
+Bibcode : 2004PhRvL..92e7901S .
+
+doi : 10.1103/physrevlett.92.057901 .
+
+ISSN 0031-9007 .
+
+PMID 14995344 .
+
+S2CID 4791560 .
+
+^ Zhao, Yi; Qi, Bing; Ma, Xiongfeng; Lo, Hoi-Kwong; Qian, Li (22 February 2006). "Experimental Quantum Key Distribution with Decoy States".
+
+Physical Review Letters .
+
+96 (7). American Physical Society (APS): 070502.
+
+arXiv : quant-ph/0503192 .
+
+Bibcode : 2006PhRvL..96g0502Z .
+
+doi : 10.1103/physrevlett.96.070502 .
+
+hdl : 1807/10013 .
+
+ISSN 0031-9007 .
+
+PMID 16606067 .
+
+S2CID 2564853 .
+
+^ Y.Zhao, B. Qi, X. Ma, H.-K. Lo, and L. Qian, in Proc. IEEE ISIT, pp. 2094–2098 (2006).
+
+^ Yuan, Z. L.; Sharpe, A. W.; Shields, A. J. (2007). "Unconditionally secure one-way quantum key distribution using decoy pulses".
+
+Applied Physics Letters .
+
+90 (1). AIP Publishing: 011118.
+
+arXiv : quant-ph/0610015 .
+
+Bibcode : 2007ApPhL..90a1118Y .
+
+doi : 10.1063/1.2430685 .
+
+ISSN 0003-6951 .
+
+S2CID 20424612 .
+
+^ Jain, N.; et al. (2014). "Trojan-horse attacks threaten the security of practical quantum cryptography".
+
+New Journal of Physics .
+
+16 (12): 123030.
+
+arXiv : 1406.5813 .
+
+Bibcode : 2014NJPh...16l3030J .
+
+doi : 10.1088/1367-2630/16/12/123030 .
+
+S2CID 15127809 .
+
+^ Shor, Peter W.; Preskill, John (10 July 2000).
+
+"Simple Proof of Security of the BB84 Quantum Key Distribution Protocol" (PDF) .
+
+Physical Review Letters .
+
+85 (2): 441– 444.
+
+arXiv : quant-ph/0003004 .
+
+Bibcode : 2000PhRvL..85..441S .
+
+doi : 10.1103/physrevlett.85.441 .
+
+ISSN 0031-9007 .
+
+PMID 10991303 .
+
+S2CID 703220 .
+
+^ Vakhitov, Artem; Makarov, Vadim; Hjelme, Dag R. (2001). "Large pulse attack as a method of conventional optical eavesdropping in quantum cryptography".
+
+Journal of Modern Optics .
+
+48 (13). Informa UK Limited: 2023– 2038.
+
+Bibcode : 2001JMOp...48.2023V .
+
+doi : 10.1080/09500340108240904 .
+
+ISSN 0950-0340 .
+
+S2CID 16173055 .
+
+^ Makarov *, Vadim; Hjelme, Dag R. (20 March 2005). "Faked states attack on quantum cryptosystems".
+
+Journal of Modern Optics .
+
+52 (5). Informa UK Limited: 691– 705.
+
+Bibcode : 2005JMOp...52..691M .
+
+doi : 10.1080/09500340410001730986 .
+
+ISSN 0950-0340 .
+
+S2CID 17478135 .
+
+^ Fung, Chi-Hang Fred; Qi, Bing; Tamaki, Kiyoshi; Lo, Hoi-Kwong (12 March 2007). "Phase-remapping attack in practical quantum-key-distribution systems".
+
+Physical Review A .
+
+75 (3): 032314.
+
+arXiv : quant-ph/0601115 .
+
+Bibcode : 2007PhRvA..75c2314F .
+
+doi : 10.1103/physreva.75.032314 .
+
+ISSN 1050-2947 .
+
+S2CID 15024401 .
+
+^ B. Qi, C.-H. F. Fung, H.-K. Lo, and X. Ma, Quant. Info. Compu. 7, 43 (2007) ^ Zhao, Yi; Fung, Chi-Hang Fred; Qi, Bing; Chen, Christine; Lo, Hoi-Kwong (28 October 2008). "Quantum hacking: Experimental demonstration of time-shift attack against practical quantum-key-distribution systems".
+
+Physical Review A .
+
+78 (4): 042333.
+
+arXiv : 0704.3253 .
+
+Bibcode : 2008PhRvA..78d2333Z .
+
+doi : 10.1103/physreva.78.042333 .
+
+ISSN 1050-2947 .
+
+S2CID 117595905 .
+
+^ F. Xu, B. Qi, and H.-K. Lo, New J. Phys. 12, 113026 (2010) ^ Quantum crypto boffins in successful backdoor sniff – Erroneous error-handling undermines bulletproofness retrieved 2010-05-26 ^ Merali, Zeeya (20 May 2010).
+
+"Quantum crack in cryptographic armour" .
+
+Nature .
+
+doi : 10.1038/news.2010.256 . Retrieved 18 August 2016 – via www.nature.com.
+
+^ "Light fantastic" .
+
+The Economist . 26 July 2010.
+
+^ "Quantum cryptography system hacked - physicsworld.com" . Archived from the original on 8 November 2011 . Retrieved 26 July 2011 .
+
+^ Lydersen, Lars; Wiechers, Carlos; Wittmann, Christoffer; Elser, Dominique; Skaar, Johannes; Makarov, Vadim (29 August 2010). "Hacking commercial quantum cryptography systems by tailored bright illumination".
+
+Nature Photonics .
+
+4 (10). Springer Science and Business Media LLC: 686– 689.
+
+arXiv : 1008.4593 .
+
+Bibcode : 2010NaPho...4..686L .
+
+doi : 10.1038/nphoton.2010.214 .
+
+ISSN 1749-4885 .
+
+S2CID 58897515 .
+
+^ Lydersen, Lars; Wiechers, Carlos; Wittmann, Christoffer; Elser, Dominique; Skaar, Johannes; Makarov, Vadim (17 December 2010). "Thermal blinding of gated detectors in quantum cryptography".
+
+Optics Express .
+
+18 (26): 27938– 27954.
+
+arXiv : 1009.2663 .
+
+Bibcode : 2010OExpr..1827938L .
+
+doi : 10.1364/oe.18.027938 .
+
+ISSN 1094-4087 .
+
+PMID 21197067 .
+
+S2CID 13395490 .
+
+^ Wiechers, C; Lydersen, L; Wittmann, C; Elser, D; Skaar, J; Marquardt, Ch; Makarov, V; Leuchs, G (26 January 2011).
+
+"After-gate attack on a quantum cryptosystem" .
+
+New Journal of Physics .
+
+13 (1): 013043.
+
+arXiv : 1009.2683 .
+
+Bibcode : 2011NJPh...13a3043W .
+
+doi : 10.1088/1367-2630/13/1/013043 .
+
+ISSN 1367-2630 .
+
+^ Jain, Nitin; Wittmann, Christoffer; Lydersen, Lars; Wiechers, Carlos; Elser, Dominique; Marquardt, Christoph; Makarov, Vadim; Leuchs, Gerd (9 September 2011). "Device Calibration Impacts Security of Quantum Key Distribution".
+
+Physical Review Letters .
+
+107 (11): 110501.
+
+arXiv : 1103.2327 .
+
+Bibcode : 2011PhRvL.107k0501J .
+
+doi : 10.1103/physrevlett.107.110501 .
+
+ISSN 0031-9007 .
+
+PMID 22026652 .
+
+S2CID 6778097 .
+
+^ Richard Hughes and Jane Nordholt (16 September 2011).
+
+"Refining Quantum Cryptography" .
+
+Science .
+
+333 (6049): 1584– 6.
+
+Bibcode : 2011Sci...333.1584H .
+
+doi : 10.1126/science.1208527 .
+
+PMID 21921186 .
+
+S2CID 206535295 .
+
+^ Noh, Tae-Gon (1 December 2009). "Counterfactual Quantum Cryptography".
+
+Physical Review Letters .
+
+103 (23). American Physical Society (APS): 230501.
+
+arXiv : 0809.3979 .
+
+Bibcode : 2009PhRvL.103w0501N .
+
+doi : 10.1103/physrevlett.103.230501 .
+
+ISSN 0031-9007 .
+
+PMID 20366133 .
+
+S2CID 9804265 .
+
+^ "What Is Quantum Cryptography? | IBM" .
+
+www.ibm.com . 29 November 2023 . Retrieved 25 September 2024 .
+
+^ Thapliyal, Kishore; Pathak, Anirban (26 July 2018). "Kak's three-stage protocol of secure quantum communication revisited: hitherto unknown strengths and weaknesses of the protocol".
+
+Quantum Information Processing .
+
+17 (9). Springer Science and Business Media LLC: 229.
+
+arXiv : 1803.02157 .
+
+Bibcode : 2018QuIP...17..229T .
+
+doi : 10.1007/s11128-018-2001-z .
+
+ISSN 1570-0755 .
+
+S2CID 52009384 .
+
+^ "ETSI – Quantum Key Distribution" .
+
+etsi.org . 2014 . Retrieved 28 July 2014 .
+
+^ "MIQC – European Metrology Research Programme (EMRP)" .
+
+projects.npl.co.uk . 2014 . Retrieved 28 July 2014 .
+
+^ "MIQC2 – European Metrology Research Programme (EMRP)" .
+
+projects.npl.co.uk . 2019 . Retrieved 18 September 2019 .
+
+^ "Quantum Key Distribution" .
+
+Toshiba .
+
+^ "CEATEC 2021 ONLINE" .
+
+CEATEC . Archived from the original on 24 November 2021 . Retrieved 24 November 2021 .
+
+^ a b "Quantum Key Distribution (QKD) and Quantum Cryptography (QC)" .
+
+National Security Agency . Retrieved 16 July 2022 .
+
+This article incorporates text from this source, which is in the public domain .
+
+^ Post-Quantum Cryptography: Current state and quantum mitigation, Section 6 "Conclusion" [1] ^ "Quantum security technologies" .
+
+www.ncsc.gov.uk .
+
+^ "Should Quantum Key Distribution be Used for Secure Communications? | ANSSI" .
+
+cyber.gouv.fr .
+
+^ "Quantum Cryptography" .
+
+^ Scarani, Valerio; Kurtsiefer, Christian (4 December 2014).
+
+"The black paper of quantum cryptography: Real implementation problems" .
+
+Theoretical Computer Science .
+
+560 : 27– 32.
+
+arXiv : 0906.4547 .
+
+doi : 10.1016/j.tcs.2014.09.015 .
+
+S2CID 44504715 .
+
+^ Pacher, Christoph; et, al. (January 2016).
+
+"Attacks on quantum key distribution protocols that employ non-ITS authentication" .
+
+Quantum Information Processing .
+
+15 (1): 327– 362.
+
+arXiv : 1209.0365 .
+
+Bibcode : 2016QuIP...15..327P .
+
+doi : 10.1007/s11128-015-1160-4 .
+
+S2CID 7779977 .
+
+^ Mattsson, J. P.; et al. (December 2021). "Quantum-Resistant Cryptography".
+
+arXiv : 2112.00399 [ cs.CR ].
+
+External links [ edit ] General and review Quantum Computing 101 Scientific American Magazine (January 2005 Issue) Best-Kept Secrets Non-technical article on quantum cryptography Physics World Magazine (March 2007 Issue) Non-technical article on current state and future of quantum communication Scarani, Valerio; Bechmann-Pasquinucci, Helle; Cerf, Nicolas J.; Dušek, Miloslav; Lütkenhaus, Norbert; Peev, Momtchil (2009). "The Security of Practical Quantum Key Distribution".
+
+Rev. Mod. Phys .
+
+81 (3): 1301– 1350.
+
+arXiv : 0802.4155 .
+
+Bibcode : 2009RvMP...81.1301S .
+
+doi : 10.1103/RevModPhys.81.1301 .
+
+S2CID 15873250 .
+
+Nguyen, Kim-Chi; Gilles Van Assche; Cerf, Nicolas J. (2007). "Quantum Cryptography: From Theory to Practice".
+
+arXiv : quant-ph/0702202 .
+
+SECOQC White Paper on Quantum Key Distribution and Cryptography European project to create a large scale quantum cryptography network, includes discussion of current QKD approaches and comparison with classical cryptography The future of cryptography May 2003 Tomasz Grabowski ARDA Quantum Cryptography Roadmap Lectures at the Institut Henri Poincaré (slides and videos) Interactive quantum cryptography demonstration experiment with single photons for education More specific information Ekert, Artur (30 April 2005).
+
+"Cracking codes, part II | plus.maths.org" . Pass.maths.org.uk . Retrieved 28 December 2013 .
+
+Description of entanglement based quantum cryptography from Artur Ekert.
+
+Xu, Qing (2009).
+
+Optical Homodyne Detections and Applications in Quantum Cryptography (PDF) (Thesis). Paris: Télécom ParisTech . Retrieved 14 February 2017 .
+
+"Quantum Cryptography and Privacy Amplification" . Ai.sri.com . Retrieved 28 December 2013 .
+
+Description of BB84 protocol and privacy amplification by Sharon Goldwater .
+
+Bennett, Charles H.; Brassard, Gilles (2014).
+
+"Quantum cryptography: Public key distribution and coin tossing" .
+
+Theoretical Computer Science .
+
+560 : 7– 11.
+
+arXiv : 2003.06557 .
+
+doi : 10.1016/j.tcs.2014.05.025 .
+
+Public debate on the Security of Quantum Key Distribution at the conference Hot Topics in Physical Informatics, 11 November 2013 Archived 4 March 2016 at the Wayback Machine Further information Quantiki.org – Quantum Information portal and wiki Interactive BB84 simulation Quantum key distribution simulation Online Simulation and Analysis Toolkit for Quantum Key Distribution Archived 25 October 2016 at the Wayback Machine Quantum cryptography research groups Experimental Quantum Cryptography with Entangled Photons NIST Quantum Information Networks Free Space Quantum Cryptography Experimental Continuous Variable QKD, MPL Erlangen Experimental Quantum Hacking, MPL Erlangen Quantum cryptography lab. Pljonkin A.P.
+
+Companies selling quantum devices for cryptography AUREA Technology sells the optical building blocks for Quantum cryptography id Quantique sells Quantum Key Distribution products MagiQ Technologies sells quantum devices for cryptography QuintessenceLabs Solutions based on continuous wave lasers SeQureNet sells Quantum Key Distribution products using continuous-variables Companies with quantum cryptography research programmes Toshiba Hewlett Packard IBM Mitsubishi NEC NTT v t e Quantum information science General DiVincenzo's criteria NISQ era Quantum computing timeline Quantum information Quantum programming Quantum simulation Qubit physical vs. logical Quantum processors cloud-based Theorems Bell's Eastin–Knill Gleason's Gottesman–Knill Holevo's No-broadcasting No-cloning No-communication No-deleting No-hiding No-teleportation PBR Quantum speed limit Threshold Solovay–Kitaev Schrödinger-HJW Quantum communication Classical capacity entanglement-assisted quantum capacity Entanglement distillation Entanglement swapping Monogamy of entanglement LOCC Quantum channel quantum network State purification Quantum teleportation quantum energy teleportation quantum gate teleportation Superdense coding Quantum cryptography Post-quantum cryptography Quantum coin flipping Quantum money Quantum key distribution BB84 SARG04 other protocols Quantum secret sharing Quantum algorithms Algorithmic cooling Amplitude amplification Bernstein–Vazirani BHT Boson sampling Deutsch–Jozsa Grover's HHL Hidden subgroup Magic state distillation Quantum annealing Quantum counting Quantum Fourier transform Quantum optimization Quantum phase estimation Shor's Simon's VQE Quantum complexity theory BQP DQC1 EQP QIP QMA PostBQP Quantum processor benchmarks Quantum supremacy Quantum volume Randomized benchmarking XEB Relaxation times T 1 T 2 Quantum computing models Adiabatic quantum computation Continuous-variable quantum information One-way quantum computer cluster state Quantum circuit quantum logic gate Quantum machine learning quantum neural network Quantum Turing machine Topological quantum computer Hamiltonian quantum computation Quantum error correction Codes 5 qubit CSS GKP quantum convolutional stabilizer Shor Bacon–Shor Steane Toric gnu Entanglement-assisted Physical implementations Quantum optics Cavity QED Circuit QED Linear optical QC KLM protocol Ultracold atoms Neutral atom QC Trapped-ion QC Spin -based Kane QC Spin qubit QC NV center NMR QC Superconducting Charge qubit Flux qubit Phase qubit Transmon Quantum programming OpenQASM – Qiskit – IBM QX Quil – Forest/Rigetti QCS Cirq Q# libquantum many others...
+
+Quantum information science Quantum mechanics topics v t e Emerging technologies Fields Quantum algorithms amplifier bus cellular automata channel circuit complexity theory computing cryptography post-quantum dynamics electronics error correction finite automata image processing imaging information key distribution logic logic clock logic gate machine machine learning metamaterial network neural network optics programming sensing simulator teleportation Other Acoustic levitation Anti-gravity Cloak of invisibility Digital scent technology Force field Plasma window Immersive virtual reality Magnetic refrigeration Phased-array optics Thermoacoustic heat engine List NewPP limit report
+Parsed by mw‐web.codfw.main‐597b4b5bbd‐cxk68
+Cached time: 20250815005635
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 1.196 seconds
+Real time usage: 1.348 seconds
+Preprocessor visited node count: 8362/1000000
+Revision size: 106528/2097152 bytes
+Post‐expand include size: 324430/2097152 bytes
+Template argument size: 3665/2097152 bytes
+Highest expansion depth: 23/100
+Expensive parser function count: 9/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 426233/5000000 bytes
+Lua time usage: 0.759/10.000 seconds
+Lua memory usage: 9011545/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00% 1068.864      1 -total
+ 71.32%  762.277      1 Template:Reflist
+ 45.15%  482.570     54 Template:Cite_journal
+ 11.18%  119.499     29 Template:Cite_web
+  8.14%   86.955      5 Template:Navbox
+  7.24%   77.366      1 Template:Quantum_computing
+  5.15%   55.000      1 Template:Short_description
+  4.46%   47.685      8 Template:Cite_arXiv
+  3.31%   35.334      2 Template:Pagetype
+  3.26%   34.816      8 Template:Cite_news Saved in parser cache with key enwiki:pcache:51910:|#|:idhash:canonical and timestamp 20250815005635 and revision id 1303800843. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Quantum_key_distribution&oldid=1303800843 " Categories : Quantum information science Quantum cryptography Hidden categories: Webarchive template wayback links Source attribution Articles with short description Short description is different from Wikidata Use dmy dates from August 2020 All articles with unsourced statements Articles with unsourced statements from February 2023 Articles containing potentially dated statements from August 2015 All articles containing potentially dated statements Articles with specifically marked weasel-worded phrases from February 2018 This page was last edited on 2 August 2025, at 03:48 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Quantum key distribution 17 languages Add topic
+

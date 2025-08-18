@@ -1,0 +1,408 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Definition Toggle Definition subsection 1.1 In terms of synergy 2 Examples Toggle Examples subsection 2.1 Business example 2.2 Glove game 3 Properties Toggle Properties subsection 3.1 Efficiency 3.2 Symmetry 3.3 Linearity 3.4 Null player 3.5 Stand-alone test 3.6 Anonymity 3.7 Marginalism 4 Aumann–Shapley value 5 Generalization to coalitions 6 Value of a player to another player 7 Shapley value regression 8 In machine learning 9 See also 10 References 11 Further reading 12 External links Toggle the table of contents Shapley value 12 languages Deutsch Español Français Italiano עברית 日本語 Norsk bokmål Polski Русский ไทย Українська 粵語 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Concept in game theory In cooperative game theory , the Shapley value is a method ( solution concept ) for fairly distributing the total gains or costs among a group of players who have collaborated. For example, in a team project where each member contributed differently, the Shapley value provides a way to determine how much credit or blame each member deserves. It was named in honor of Lloyd Shapley , who introduced it in 1951 and won the Nobel Memorial Prize in Economic Sciences for it in 2012.
+
+[ 1 ] [ 2 ] The Shapley value determines each player's contribution by considering how much the overall outcome changes when they join each possible combination of other players, and then averaging those changes. In essence, it calculates each player's average marginal contribution across all possible coalitions.
+
+[ 3 ] [ 4 ] It is the only solution that satisfies four fundamental properties: efficiency, symmetry, additivity, and the dummy player (or null player) property, [ 5 ] which are widely accepted as defining a fair distribution.
+
+This method is used in many fields, from dividing profits in business partnerships to understanding feature importance in machine learning .
+
+Lloyd Shapley in 2012 Definition [ edit ] Suppose we have a situation where players can win certain rewards by cooperating (forming a coalition) to accomplish a task; such situations are often called coalitional games . For a coalition (set of players) S {\displaystyle S} , we define the payoff or value function v ( S ) {\displaystyle v(S)} as the total sum of payoffs that the members of S {\displaystyle S} can obtain by cooperating.
+
+The Shapley value is one way to divide up the value created by a coalition between its members. It is a "fair" distribution in the sense that it is the only distribution with certain desirable properties (listed below). According to the Shapley value, [ 6 ] the amount that player i {\displaystyle i} is given in a coalitional game ( v , N ) {\displaystyle (v,N)} is φ φ i ( v ) = ∑ ∑ S ⊆ ⊆ N ∖ ∖ { i } | S | !
+
+( n − − | S | − − 1 ) !
+
+n !
+
+( v ( S ∪ ∪ { i } ) − − v ( S ) ) {\displaystyle \varphi _{i}(v)=\sum _{S\subseteq N\setminus \{i\}}{\frac {|S|!\;(n-|S|-1)!}{n!}}(v(S\cup \{i\})-v(S))} = 1 n ∑ ∑ S ⊆ ⊆ N ∖ ∖ { i } ( n − − 1 | S | ) − − 1 ( v ( S ∪ ∪ { i } ) − − v ( S ) ) {\displaystyle \quad \quad \quad ={\frac {1}{n}}\sum _{S\subseteq N\setminus \{i\}}{n-1 \choose |S|}^{-1}(v(S\cup \{i\})-v(S))} where n {\displaystyle n} is the total number of players and the sum extends over all subsets S {\displaystyle S} of N {\displaystyle N} not containing player i {\displaystyle i} , including the empty set. Also note that ( n k ) {\displaystyle {n \choose k}} is the binomial coefficient . The formula can be interpreted as follows: imagine the coalition is formed one actor at a time, with each actor demanding their contribution v ( S ∪ ∪ { i } ) − − v ( S ) {\displaystyle v(S\cup \{i\})-v(S)} as a fair compensation, and then for each actor take the average of this contribution over the possible different permutations in which the coalition can be formed.
+
+An alternative, equivalent formula for the Shapley value is: φ φ i ( v ) = 1 n !
+
+∑ ∑ R [ v ( P i R ∪ ∪ { i } ) − − v ( P i R ) ] {\displaystyle \varphi _{i}(v)={\frac {1}{n!}}\sum _{R}\left[v(P_{i}^{R}\cup \left\{i\right\})-v(P_{i}^{R})\right]} where the sum ranges over all n !
+
+{\displaystyle n!} orders R {\displaystyle R} of the players and P i R {\displaystyle P_{i}^{R}} is the set of players in N {\displaystyle N} which precede i {\displaystyle i} in the order R {\displaystyle R} .
+
+In terms of synergy [ edit ] Venn Diagram displaying synergies for Shapley values Venn Diagram of the division of synergies that sum to the Shapley Value From the characteristic function v {\displaystyle v} one can compute the synergy that each group of players provides. The synergy is the unique function w : : 2 N → → R {\displaystyle w\colon 2^{N}\to \mathbb {R} } , such that v ( S ) = ∑ ∑ R ⊆ ⊆ S w ( R ) {\displaystyle v(S)=\sum _{R\subseteq S}w(R)} for any subset S ⊆ ⊆ N {\displaystyle S\subseteq N} of players. In other words, the 'total value' of the coalition S {\displaystyle S} comes from summing up the synergies of each possible subset of S {\displaystyle S} .
+
+Given a characteristic function v {\displaystyle v} , the synergy function w {\displaystyle w} is calculated via w ( S ) = ∑ ∑ R ⊆ ⊆ S ( − − 1 ) | S | − − | R | v ( R ) {\displaystyle w(S)=\sum _{R\subseteq S}(-1)^{|S|-|R|}v(R)} using the Inclusion exclusion principle . In other words, the synergy of coalition S {\displaystyle S} is the value v ( S ) {\displaystyle v(S)} , which is not already accounted for by its subsets.
+
+The Shapley values are given in terms of the synergy function by [ 7 ] [ 8 ] φ φ i ( v ) = ∑ ∑ i ∈ ∈ S ⊆ ⊆ N w ( S ) | S | {\displaystyle \varphi _{i}(v)=\sum _{i\in S\subseteq N}{\frac {w(S)}{|S|}}} where the sum is over all subsets S {\displaystyle S} of N {\displaystyle N} that include player i {\displaystyle i} .
+
+This can be interpreted as φ φ i ( v ) = ∑ ∑ coalitions including i synergy of the coalition number of members in the coalition {\displaystyle \varphi _{i}(v)=\sum _{\text{coalitions including i}}{\frac {\text{synergy of the coalition}}{\text{number of members in the coalition}}}} In other words, the synergy of each coalition is divided equally between all members.
+
+This can be interpreted visually with a Venn Diagram . In the first example diagram above, each region has been labeled with the synergy bonus of the corresponding coalition. The total value produced by a coalition is the sum of synergy bonuses of the composing subcoalitions - in the example, the coalition of the players labeled "You" and "Emma" would produce a profit of 30 + 20 + 40 = 90 {\displaystyle 30+20+40=90} dollars, as compared to their individual profits of 30 {\displaystyle 30} and 20 {\displaystyle 20} dollars respectively. The synergies are then split equally among each member of the subcoalition that contributes that synergy - as displayed in the second diagram.
+
+Examples [ edit ] Business example [ edit ] Consider a simplified description of a business. An owner, o , provides crucial capital in the sense that, without him/her, no gains can be obtained. There are m workers w 1 ,..., w m , each of whom contributes an amount p to the total profit. Let N = { o , w 1 , … … , w m } .
+
+{\displaystyle N=\{o,w_{1},\ldots ,w_{m}\}.} The value function for this coalitional game is v ( S ) = { ( | S | − − 1 ) p if o ∈ ∈ S , 0 otherwise .
+
+{\displaystyle v(S)={\begin{cases}(|S|-1)p&{\text{if }}o\in S\;,\\0&{\text{otherwise}}\;.\\\end{cases}}} Computing the Shapley value for this coalition game leads to a value of ⁠ mp / 2 ⁠ for the owner and ⁠ p / 2 ⁠ for each one of the m workers.
+
+This can be understood from the perspective of synergy. The synergy function w {\displaystyle w} is w ( S ) = { p , if S = { o , w i } 0 , otherwise {\displaystyle w(S)={\begin{cases}p,&{\text{if }}S=\{o,w_{i}\}\\0,&{\text{otherwise}}\\\end{cases}}} so the only coalitions that generate synergy are one-to-one between the owner and any individual worker.
+
+Using the above formula for the Shapley value in terms of w {\displaystyle w} we compute φ φ w i = w ( { o , w i } ) 2 = p 2 {\displaystyle \varphi _{w_{i}}={\frac {w(\{o,w_{i}\})}{2}}={\frac {p}{2}}} and φ φ o = ∑ ∑ i = 1 m w ( { o , w i } ) 2 = m p 2 {\displaystyle \varphi _{o}=\sum _{i=1}^{m}{\frac {w(\{o,w_{i}\})}{2}}={\frac {mp}{2}}} The result can also be understood from the perspective of averaging over all orders. A given worker joins the coalition after the owner (and therefore contributes p ) in half of the orders and thus makes an average contribution of p 2 {\displaystyle {\frac {p}{2}}} upon joining. When the owner joins, on average half the workers have already joined, so the owner's average contribution upon joining is m p 2 {\displaystyle {\frac {mp}{2}}} .
+
+Glove game [ edit ] The glove game is a coalitional game where the players have left- and right-hand gloves and the goal is to form pairs. Let N = { 1 , 2 , 3 } , {\displaystyle N=\{1,2,3\},} where players 1 and 2 have right-hand gloves and player 3 has a left-hand glove.
+
+The value function for this coalitional game is v ( S ) = { 1 if S ∈ ∈ { { 1 , 3 } , { 2 , 3 } , { 1 , 2 , 3 } } ; 0 otherwise .
+
+{\displaystyle v(S)={\begin{cases}1&{\text{if }}S\in \left\{\{1,3\},\{2,3\},\{1,2,3\}\right\};\\0&{\text{otherwise}}.\\\end{cases}}} The formula for calculating the Shapley value is φ φ i ( v ) = 1 | N | !
+
+∑ ∑ R [ v ( P i R ∪ ∪ { i } ) − − v ( P i R ) ] , {\displaystyle \varphi _{i}(v)={\frac {1}{|N|!}}\sum _{R}\left[v(P_{i}^{R}\cup \left\{i\right\})-v(P_{i}^{R})\right],} where R is an ordering of the players and P i R {\displaystyle P_{i}^{R}} is the set of players in N which precede i in the order R .
+
+The following table displays the marginal contributions of Player 1.
+
+Order R M C 1 1 , 2 , 3 v ( { 1 } ) − − v ( ∅ ∅ ) = 0 − − 0 = 0 1 , 3 , 2 v ( { 1 } ) − − v ( ∅ ∅ ) = 0 − − 0 = 0 2 , 1 , 3 v ( { 1 , 2 } ) − − v ( { 2 } ) = 0 − − 0 = 0 2 , 3 , 1 v ( { 1 , 2 , 3 } ) − − v ( { 2 , 3 } ) = 1 − − 1 = 0 3 , 1 , 2 v ( { 1 , 3 } ) − − v ( { 3 } ) = 1 − − 0 = 1 3 , 2 , 1 v ( { 1 , 3 , 2 } ) − − v ( { 3 , 2 } ) = 1 − − 1 = 0 {\displaystyle {\begin{array}{|c|r|}{\text{Order }}R\,\!&MC_{1}\\\hline {1,2,3}&v(\{1\})-v(\varnothing )=0-0=0\\{1,3,2}&v(\{1\})-v(\varnothing )=0-0=0\\{2,1,3}&v(\{1,2\})-v(\{2\})=0-0=0\\{2,3,1}&v(\{1,2,3\})-v(\{2,3\})=1-1=0\\{3,1,2}&v(\{1,3\})-v(\{3\})=1-0=1\\{3,2,1}&v(\{1,3,2\})-v(\{3,2\})=1-1=0\end{array}}} Observe φ φ 1 ( v ) = ( 1 6 ) ( 1 ) = 1 6 .
+
+{\displaystyle \varphi _{1}(v)=\!\left({\frac {1}{6}}\right)(1)={\frac {1}{6}}.} By a symmetry argument it can be shown that φ φ 2 ( v ) = φ φ 1 ( v ) = 1 6 .
+
+{\displaystyle \varphi _{2}(v)=\varphi _{1}(v)={\frac {1}{6}}.} Due to the efficiency axiom, the sum of all the Shapley values is equal to 1, which means that φ φ 3 ( v ) = 4 6 = 2 3 .
+
+{\displaystyle \varphi _{3}(v)={\frac {4}{6}}={\frac {2}{3}}.} Properties [ edit ] The Shapley value has many desirable properties.
+Notably, it is the only payment rule satisfying the four properties of Efficiency, Symmetry, Linearity and Null player (or dummy player).
+
+[ 5 ] See [ 9 ] : 147–156 for more characterizations of the Shapley value.
+
+Efficiency [ edit ] The sum of the Shapley values of all agents equals the value of the grand coalition, so that all the gain is distributed among the agents: ∑ ∑ i ∈ ∈ N φ φ i ( v ) = v ( N ) {\displaystyle \sum _{i\in N}\varphi _{i}(v)=v(N)} Proof : ∑ ∑ i ∈ ∈ N φ φ i ( v ) = 1 | N | !
+
+∑ ∑ R ∑ ∑ i ∈ ∈ N v ( P i R ∪ ∪ { i } ) − − v ( P i R ) {\displaystyle \sum _{i\in N}\varphi _{i}(v)={\frac {1}{|N|!}}\sum _{R}\sum _{i\in N}v(P_{i}^{R}\cup \left\{i\right\})-v(P_{i}^{R})} = 1 | N | !
+
+∑ ∑ R v ( N ) = 1 | N | !
+
+| N | !
+
+⋅ ⋅ v ( N ) = v ( N ) {\displaystyle ={\frac {1}{|N|!}}\sum _{R}v(N)={\frac {1}{|N|!}}|N|!\cdot v(N)=v(N)} since ∑ ∑ i ∈ ∈ N v ( P i R ∪ ∪ { i } ) − − v ( P i R ) {\displaystyle \sum _{i\in N}v(P_{i}^{R}\cup \left\{i\right\})-v(P_{i}^{R})} is a telescoping sum and there are | N | !
+
+{\displaystyle |N|!} different orderings R {\displaystyle R} .
+
+Symmetry [ edit ] If i {\displaystyle i} and j {\displaystyle j} are two actors who are equivalent in the sense that v ( S ∪ ∪ { i } ) = v ( S ∪ ∪ { j } ) {\displaystyle v(S\cup \{i\})=v(S\cup \{j\})} for every subset S {\displaystyle S} of N {\displaystyle N} which contains neither i {\displaystyle i} nor j {\displaystyle j} , then φ φ i ( v ) = φ φ j ( v ) {\displaystyle \varphi _{i}(v)=\varphi _{j}(v)} .
+
+This property is also called equal treatment of equals .
+
+Linearity [ edit ] If two coalition games described by gain functions v {\displaystyle v} and w {\displaystyle w} are combined, then the distributed gains should correspond to the gains derived from v {\displaystyle v} and the gains derived from w {\displaystyle w} : φ φ i ( v + w ) = φ φ i ( v ) + φ φ i ( w ) {\displaystyle \varphi _{i}(v+w)=\varphi _{i}(v)+\varphi _{i}(w)} for every i {\displaystyle i} in N {\displaystyle N} . Also, for any real number a {\displaystyle a} , φ φ i ( a v ) = a φ φ i ( v ) {\displaystyle \varphi _{i}(av)=a\varphi _{i}(v)} for every i {\displaystyle i} in N {\displaystyle N} .
+
+Null player [ edit ] The Shapley value φ φ i ( v ) {\displaystyle \varphi _{i}(v)} of a null player i {\displaystyle i} in a game v {\displaystyle v} is zero. A player i {\displaystyle i} is null in v {\displaystyle v} if v ( S ∪ ∪ { i } ) = v ( S ) {\displaystyle v(S\cup \{i\})=v(S)} for all coalitions S {\displaystyle S} that do not contain i {\displaystyle i} .
+
+Stand-alone test [ edit ] If v {\displaystyle v} is a subadditive set function , i.e., v ( S ⊔ ⊔ T ) ≤ ≤ v ( S ) + v ( T ) {\displaystyle v(S\sqcup T)\leq v(S)+v(T)} , then for each agent i {\displaystyle i} : φ φ i ( v ) ≤ ≤ v ( { i } ) {\displaystyle \varphi _{i}(v)\leq v(\{i\})} .
+
+Similarly, if v {\displaystyle v} is a superadditive set function , i.e., v ( S ⊔ ⊔ T ) ≥ ≥ v ( S ) + v ( T ) {\displaystyle v(S\sqcup T)\geq v(S)+v(T)} , then for each agent i {\displaystyle i} : φ φ i ( v ) ≥ ≥ v ( { i } ) {\displaystyle \varphi _{i}(v)\geq v(\{i\})} .
+
+So, if the cooperation has positive synergy, all agents (weakly) gain, and if it has negative synergy, all agents (weakly) lose.
+
+[ 9 ] : 147–156 Anonymity [ edit ] If i {\displaystyle i} and j {\displaystyle j} are two agents, and w {\displaystyle w} is a gain function that is identical to v {\displaystyle v} except that the roles of i {\displaystyle i} and j {\displaystyle j} have been exchanged, then φ φ i ( v ) = φ φ j ( w ) {\displaystyle \varphi _{i}(v)=\varphi _{j}(w)} . This means that the labeling of the agents doesn't play a role in the assignment of their gains.
+
+Marginalism [ edit ] The Shapley value can be defined as a function which uses only the marginal contributions of player i {\displaystyle i} as the arguments.
+
+Aumann–Shapley value [ edit ] In their 1974 book, Lloyd Shapley and Robert Aumann extended the concept of the Shapley value to infinite games (defined with respect to a non-atomic measure ), creating the diagonal formula.
+
+[ 10 ] This was later extended by Jean-François Mertens and Abraham Neyman .
+
+As seen above, the value of an n-person game associates with each player the expectation of their contribution to the worth of the coalition of players before them in a random ordering of all the players. When there are many players and each individual plays only a minor role, the set of all players preceding a given one is heuristically thought of as a good sample of all players. The value of a given infinitesimal player ds is then defined as "their" contribution to the worth of a "perfect" sample of all the players.
+
+Symbolically, if v is the coalitional worth function that associates each coalition c with its value, and each coalition c is a measurable subset of the measurable set I of all players, that we assume to be I = [ 0 , 1 ] {\displaystyle I=[0,1]} without loss of generality, the value ( S v ) ( d s ) {\displaystyle (Sv)(ds)} of an infinitesimal player ds in the game is ( S v ) ( d s ) = ∫ ∫ 0 1 ( v ( t I + d s ) − − v ( t I ) ) d t .
+
+{\displaystyle (Sv)(ds)=\int _{0}^{1}(\,v(tI+ds)-v(tI)\,)\,dt.} Here tI is a perfect sample of the all-player set I containing a proportion t of all the players, and t I + d s {\displaystyle tI+ds} is the coalition obtained after ds joins tI . This is the heuristic form of the diagonal formula.
+
+[ 10 ] Assuming some regularity of the worth function, for example, assuming v can be represented as differentiable function of a non-atomic measure on I , μ , v ( c ) = f ( μ μ ( c ) ) {\displaystyle v(c)=f(\mu (c))} with density function φ φ {\displaystyle \varphi } , with μ μ ( c ) = ∫ ∫ 1 c ( u ) φ φ ( u ) d u , {\displaystyle \mu (c)=\int 1_{c}(u)\varphi (u)\,du,} where 1 c ( ∙ ∙ ) {\displaystyle 1_{c}(\bullet )} is the characteristic function of c . Under such conditions μ μ ( t I ) = t μ μ ( I ) {\displaystyle \mu (tI)=t\mu (I)} , as can be shown by approximating the density by a step function and keeping the proportion t for each level of the density function, and v ( t I + d s ) = f ( t μ μ ( I ) ) + f ′ ( t μ μ ( I ) ) μ μ ( d s ) .
+
+{\displaystyle v(tI+ds)=f(t\mu (I))+f'(t\mu (I))\mu (ds).} The diagonal formula has then the form developed by Aumann and Shapley (1974) ( S v ) ( d s ) = ∫ ∫ 0 1 f t μ μ ( I ) ′ ( μ μ ( d s ) ) d t {\displaystyle (Sv)(ds)=\int _{0}^{1}f'_{t\mu (I)}(\mu (ds))\,dt} Above μ can be vector valued (as long as the function is defined and differentiable on the range of μ , the above formula makes sense).
+
+In the argument above if the measure contains atoms μ μ ( t I ) = t μ μ ( I ) {\displaystyle \mu (tI)=t\mu (I)} is no longer true—this is why the diagonal formula mostly applies to non-atomic games.
+
+Two approaches were deployed to extend this diagonal formula when the function f is no longer differentiable. Mertens goes back to the original formula and takes the derivative after the integral thereby benefiting from the smoothing effect. Neyman took a different approach. Going back to an elementary application of Mertens's approach from Mertens (1980): [ 11 ] ( S v ) ( d s ) = lim ε ε → → 0 , ε ε > 0 1 ε ε ∫ ∫ 0 1 − − ε ε ( f ( t + ε ε μ μ ( d s ) ) − − f ( t ) ) d t {\displaystyle (Sv)(ds)=\lim _{\varepsilon \to 0,\varepsilon >0}{\frac {1}{\varepsilon }}\int _{0}^{1-\varepsilon }(f(t+\varepsilon \mu (ds))-f(t))\,dt} This works for example for majority games—while the original diagonal formula cannot be used directly. How Mertens further extends this by identifying symmetries that the Shapley value should be invariant upon, and averaging over such symmetries to create further smoothing effect commuting averages with the derivative operation as above.
+
+[ 12 ] A survey for non atomic value is found in Neyman (2002) [ 13 ] Generalization to coalitions [ edit ] The Shapley value only assigns values to the individual agents.  It has been generalized [ 14 ] to apply to a group of agents C as, φ φ C ( v ) = ∑ ∑ T ⊆ ⊆ N ∖ ∖ C ( n − − | T | − − | C | ) !
+
+| T | !
+
+( n − − | C | + 1 ) !
+
+∑ ∑ S ⊆ ⊆ C ( − − 1 ) | C | − − | S | v ( S ∪ ∪ T ) .
+
+{\displaystyle \varphi _{C}(v)=\sum _{T\subseteq N\setminus C}{\frac {(n-|T|-|C|)!\;|T|!}{(n-|C|+1)!}}\sum _{S\subseteq C}(-1)^{|C|-|S|}v(S\cup T)\;.} In terms of the synergy function w {\displaystyle w} above, this reads [ 7 ] [ 8 ] φ φ C ( v ) = ∑ ∑ C ⊆ ⊆ T ⊆ ⊆ N w ( T ) | T | − − | C | + 1 {\displaystyle \varphi _{C}(v)=\sum _{C\subseteq T\subseteq N}{\frac {w(T)}{|T|-|C|+1}}} where the sum goes over all subsets T {\displaystyle T} of N {\displaystyle N} that contain C {\displaystyle C} .
+
+This formula suggests the interpretation that the Shapley value of a coalition is to be thought of as the standard Shapley value of a single player, if the coalition C {\displaystyle C} is treated like a single player.
+
+Value of a player to another player [ edit ] The Shapley value φ φ i ( v ) {\displaystyle \varphi _{i}(v)} was decomposed by Hausken and Matthias [ 15 ] into a matrix of values φ φ i j ( v ) = ∑ ∑ S ⊆ ⊆ N ( | S | − − 1 ) !
+
+( n − − | S | ) !
+
+n !
+
+( v ( S ) − − v ( S ∖ ∖ { i } ) − − v ( S ∖ ∖ { j } ) + v ( S ∖ ∖ { i , j } ) ) ∑ ∑ t = | S | n 1 t {\displaystyle \varphi _{ij}(v)=\sum _{S\subseteq N}{\frac {(|S|-1)!\;(n-|S|)!}{n!}}(v(S)-v(S\setminus \{i\})-v(S\setminus \{j\})+v(S\setminus \{i,j\}))\sum _{t=|S|}^{n}{\frac {1}{t}}} Each value φ φ i j ( v ) {\displaystyle \varphi _{ij}(v)} represents the value of player i {\displaystyle i} to player j {\displaystyle j} . This matrix satisfies φ φ i ( v ) = ∑ ∑ j ∈ ∈ N φ φ i j ( v ) {\displaystyle \varphi _{i}(v)=\sum _{j\in N}\varphi _{ij}(v)} i.e. the value of player i {\displaystyle i} to the whole game is the sum of their value to all individual players.
+
+In terms of the synergy w {\displaystyle w} defined above, this reads φ φ i j ( v ) = ∑ ∑ { i , j } ⊆ ⊆ S ⊆ ⊆ N w ( S ) | S | 2 {\displaystyle \varphi _{ij}(v)=\sum _{\{i,j\}\subseteq S\subseteq N}{\frac {w(S)}{|S|^{2}}}} where the sum goes over all subsets S {\displaystyle S} of N {\displaystyle N} that contain i {\displaystyle i} and j {\displaystyle j} .
+
+This can be interpreted as sum over all subsets that contain players i {\displaystyle i} and j {\displaystyle j} , where for each subset S {\displaystyle S} you take the synergy w ( S ) {\displaystyle w(S)} of that subset divide it by the number of players in the subset | S | {\displaystyle |S|} . Interpret that as the surplus value player i {\displaystyle i} gains from this coalition further divide this by | S | {\displaystyle |S|} to get the part of player i {\displaystyle i} 's value that's attributed to player j {\displaystyle j} In other words, the synergy value of each coalition is evenly divided among all | S | 2 {\displaystyle |S|^{2}} pairs ( i , j ) {\displaystyle (i,j)} of players in that coalition, where i {\displaystyle i} generates surplus for j {\displaystyle j} .
+
+Shapley value regression [ edit ] Shapley value regression is a statistical method used to measure the contribution of individual predictors in a regression model. In this context, the "players" are the individual predictors or variables in the model, and the "gain" is the total explained variance or predictive power of the model. This method ensures a fair distribution of the total gain among the predictors, attributing each predictor a value representing its contribution to the model's performance. Lipovetsky (2006) discussed the use of Shapley value in regression analysis, providing a comprehensive overview of its theoretical underpinnings and practical applications.
+
+[ 16 ] Shapley value contributions are recognized for their balance of stability and discriminating power, which make them suitable for accurately measuring the importance of service attributes in market research.
+
+[ 17 ] Several studies have applied Shapley value regression to key drivers analysis in marketing research. Pokryshevskaya and Antipov (2012) utilized this method to analyze online customers' repeat purchase intentions, demonstrating its effectiveness in understanding consumer behavior.
+
+[ 18 ] Similarly, Antipov and Pokryshevskaya (2014) applied Shapley value regression to explain differences in recommendation rates for hotels in South Cyprus, highlighting its utility in the hospitality industry.
+
+[ 19 ] Further validation of the benefits of Shapley value in key-driver analysis is provided by Vriens, Vidden, and Bosch (2021), who underscored its advantages in applied marketing analytics.
+
+[ 20 ] In machine learning [ edit ] The Shapley value provides a principled way to explain the predictions of nonlinear models common in the field of machine learning . By interpreting a model trained on a set of features as a value function on a coalition of players,  Shapley values provide a natural way to compute which features contribute to a prediction [ 21 ] or contribute to the uncertainty of a prediction.
+
+[ 22 ] This unifies several other methods including Locally Interpretable Model-Agnostic Explanations (LIME), [ 23 ] DeepLIFT, [ 24 ] and Layer-Wise Relevance Propagation.
+
+[ 25 ] [ 26 ] Distributional values are an extension of the Shapley value and related value operators designed to preserve the probabilistic output of predictive models in machine learning, including neural network classifiers and large language models.
+
+[ 27 ] The statistical understanding of Shapley values remains an ongoing research question. A smooth version, called Shapley curves, [ 28 ] achieves the minimax rate and is shown to be asymptotically Gaussian in a nonparametric setting. Confidence intervals for finite samples can be obtained via the wild bootstrap.
+
+See also [ edit ] Airport problem Banzhaf power index Shapley–Shubik power index References [ edit ] ^ Shapley, Lloyd S. (August 21, 1951).
+
+"Notes on the n-Person Game -- II: The Value of an n-Person Game" (PDF) . Santa Monica, Calif.: RAND Corporation.
+
+^ Roth, Alvin E., ed. (1988).
+
+The Shapley Value: Essays in Honor of Lloyd S. Shapley . Cambridge: Cambridge University Press.
+
+doi : 10.1017/CBO9780511528446 .
+
+ISBN 0-521-36177-X .
+
+^ Hart, Sergiu (1989). "Shapley Value". In Eatwell, J.; Milgate, M.; Newman, P. (eds.).
+
+The New Palgrave: Game Theory . Norton. pp.
+
+210– 216.
+
+doi : 10.1007/978-1-349-20181-5_25 .
+
+ISBN 978-0-333-49537-7 .
+
+^ Hart, Sergiu (May 12, 2016).
+
+"A Bibliography of Cooperative Games: Value Theory" .
+
+^ a b Shapley, Lloyd S. (1953). "A Value for n-person Games". In Kuhn, H. W.; Tucker, A. W. (eds.).
+
+Contributions to the Theory of Games . Annals of Mathematical Studies. Vol. 28. Princeton University Press. pp.
+
+307– 317.
+
+doi : 10.1515/9781400881970-018 .
+
+ISBN 9781400881970 .
+
+{{ cite book }} : ISBN / Date incompatibility ( help ) ^ For a proof of unique existence, see Ichiishi, Tatsuro (1983).
+
+Game Theory for Economic Analysis . New York: Academic Press. pp.
+
+118– 120.
+
+ISBN 0-12-370180-5 .
+
+^ a b Grabisch, Michel (October 1997). "Alternative Representations of Discrete Fuzzy Measures for Decision Making".
+
+International Journal of Uncertainty, Fuzziness and Knowledge-Based Systems .
+
+5 (5): 587– 607.
+
+doi : 10.1142/S0218488597000440 .
+
+ISSN 0218-4885 .
+
+^ a b Grabisch, Michel (1 December 1997). "k-order additive discrete fuzzy measures and their representation".
+
+Fuzzy Sets and Systems .
+
+92 (2): 167– 189.
+
+doi : 10.1016/S0165-0114(97)00168-1 .
+
+ISSN 0165-0114 .
+
+^ a b Herve Moulin (2004).
+
+Fair Division and Collective Welfare . Cambridge, Massachusetts: MIT Press.
+
+ISBN 9780262134231 .
+
+^ a b Aumann, Robert J.; Shapley, Lloyd S. (1974).
+
+Values of Non-Atomic Games . Princeton: Princeton Univ. Press.
+
+ISBN 0-691-08103-4 .
+
+^ Mertens, Jean-François (1980). "Values and Derivatives".
+
+Mathematics of Operations Research .
+
+5 (4): 523– 552.
+
+doi : 10.1287/moor.5.4.523 .
+
+JSTOR 3689325 .
+
+^ Mertens, Jean-François (1988). "The Shapley Value in the Non Differentiable Case".
+
+International Journal of Game Theory .
+
+17 (1): 1– 65.
+
+doi : 10.1007/BF01240834 .
+
+S2CID 118017018 .
+
+^ Neyman, A., 2002. Value of Games with infinitely many Players, "Handbook of Game Theory with Economic Applications," Handbook of Game Theory with Economic Applications, Elsevier, edition 1, volume 3, number 3, 00. R.J. Aumann & S. Hart (ed.).
+
+[1] ^ Grabisch, Michel; Roubens, Marc (1999). "An axiomatic approach to the concept of interaction among players in cooperative games".
+
+International Journal of Game Theory .
+
+28 (4): 547– 565.
+
+doi : 10.1007/s001820050125 .
+
+S2CID 18033890 .
+
+^ Hausken, Kjell; Mohr, Matthias (2001).
+
+"The Value of a Player in n-Person Games" .
+
+Social Choice and Welfare .
+
+18 (3): 465– 83.
+
+doi : 10.1007/s003550000070 .
+
+JSTOR 41060209 .
+
+S2CID 27089088 .
+
+^ Lipovetsky S (2006). "Shapley value regression: A method for explaining the contributions of individual predictors to a regression model".
+
+Linear Algebra and Its Applications .
+
+417 : 48– 54.
+
+doi : 10.1016/j.laa.2006.04.027 (inactive 12 July 2025).
+
+{{ cite journal }} :  CS1 maint: DOI inactive as of July 2025 ( link ) ^ Pokryshevskaya E, Antipov E (2014). "A comparison of methods used to measure the importance of service attributes".
+
+International Journal of Market Research .
+
+56 (3): 283– 296.
+
+doi : 10.2501/IJMR-2014-020 .
+
+^ Pokryshevskaya EB, Antipov EA (2012). "The strategic analysis of online customers' repeat purchase intentions".
+
+Journal of Targeting, Measurement and Analysis for Marketing .
+
+20 : 203– 211.
+
+doi : 10.1057/jt.2012.13 .
+
+^ Antipov EA, Pokryshevskaya EB (2014). "Explaining differences in recommendation rates: the case of South Cyprus hotels".
+
+Economics Bulletin .
+
+34 (4): 2368– 2376.
+
+^ Vriens M, Vidden C, Bosch N (2021). "The benefits of Shapley-value in key-driver analysis".
+
+Applied Marketing Analytics .
+
+6 (3): 269– 278.
+
+^ Lundberg, Scott M.; Lee, Su-In (2017).
+
+"A Unified Approach to Interpreting Model Predictions" .
+
+Advances in Neural Information Processing Systems .
+
+30 : 4765– 4774.
+
+arXiv : 1705.07874 . Retrieved 2021-01-30 .
+
+^ Watson, David; O’Hara, Joshua; Tax, Niek; Mudd, Richard; Guy, Ido (2023). "Explaining Predictive Uncertainty with Information Theoretic Shapley".
+
+Advances in Neural Information Processing Systems .
+
+37 .
+
+arXiv : 2306.05724 .
+
+^ Ribeiro, Marco Tulio; Singh, Sameer; Guestrin, Carlos (2016-08-13). " "Why Should I Trust You?" ".
+
+Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining . New York, NY, USA: ACM. pp.
+
+1135– 1144.
+
+doi : 10.1145/2939672.2939778 .
+
+ISBN 978-1-4503-4232-2 .
+
+^ Shrikumar, Avanti; Greenside, Peyton; Kundaje, Anshul (2017-07-17).
+
+"Learning Important Features Through Propagating Activation Differences" .
+
+PMLR : 3145– 3153.
+
+ISSN 2640-3498 . Retrieved 2021-01-30 .
+
+^ Bach, Sebastian; Binder, Alexander; Montavon, Grégoire; Klauschen, Frederick; Müller, Klaus-Robert ; Samek, Wojciech (2015-07-10). Suarez, Oscar Deniz (ed.).
+
+"On Pixel-Wise Explanations for Non-Linear Classifier Decisions by Layer-Wise Relevance Propagation" .
+
+PLOS ONE .
+
+10 (7). Public Library of Science (PLoS): e0130140.
+
+Bibcode : 2015PLoSO..1030140B .
+
+doi : 10.1371/journal.pone.0130140 .
+
+ISSN 1932-6203 .
+
+PMC 4498753 .
+
+PMID 26161953 .
+
+^ Antipov, E. A.; Pokryshevskaya, E. B. (2020). "Interpretable machine learning for demand modeling with high-dimensional data using Gradient Boosting Machines and Shapley values".
+
+Journal of Revenue and Pricing Management .
+
+19 (5): 355– 364.
+
+doi : 10.1057/s41272-020-00236-4 .
+
+^ Franceschi L, Donini M, Archambeau C, Seeger M (2024). "Explaining probabilistic models with distributional values".
+
+Proceedings of the 41st International Conference on Machine Learning (ICML 2024) .
+
+arXiv : 2402.09947 .
+
+^ Miftachov, Ratmir; Keilbar, Georg; Härdle, Wolfgang (2025).
+
+"Shapley Curves: A Smoothing Perspective" .
+
+Journal of Business & Economic Statistics .
+
+43 (2): 312– 323.
+
+doi : 10.1080/07350015.2024.2365781 .
+
+Further reading [ edit ] Friedman, James W. (1986).
+
+Game Theory with Applications to Economics . New York: Oxford University Press. pp.
+
+209 –215.
+
+ISBN 0-19-503660-3 .
+
+External links [ edit ] "Shapley value" , Encyclopedia of Mathematics , EMS Press , 2001 [1994] Shapley Value Calculator Calculating a Taxi Fare using the Shapley Value v t e Game theory Glossary Game theorists Games Traditional game theory Definitions Asynchrony Bayesian regret Best response Bounded rationality Cheap talk Coalition Complete contract Complete information Complete mixing Confrontation analysis Conjectural variation Contingent cooperator Coopetition Cooperative game theory Dynamic inconsistency Escalation of commitment Farsightedness Game semantics Hierarchy of beliefs Imperfect information Incomplete information Information set Move by nature Mutual knowledge Non-cooperative game theory Non-credible threat Outcome Perfect information Perfect recall Ply Preference Rationality Sequential game Simultaneous action selection Spite Strategic complements Strategic dominance Strategic form Strategic interaction Strategic move Strategy Subgame Succinct game Topological game Tragedy of the commons Uncorrelated asymmetry Equilibrium concepts Backward induction Bayes correlated equilibrium Bayesian efficiency Bayesian game Bayesian Nash equilibrium Berge equilibrium Bertrand–Edgeworth model Coalition-proof Nash equilibrium Core Correlated equilibrium Cursed equilibrium Edgeworth price cycle Epsilon-equilibrium Gibbs equilibrium Incomplete contracts Inequity aversion Individual rationality Iterated elimination of dominated strategies Markov perfect equilibrium Mertens-stable equilibrium Nash equilibrium Open-loop model Pareto efficiency Payoff dominance Perfect Bayesian equilibrium Price of anarchy Program equilibrium Proper equilibrium Quantal response equilibrium Quasi-perfect equilibrium Rational agent Rationalizability Rationalizable strategy Satisfaction equilibrium Self-confirming equilibrium Sequential equilibrium Shapley value Strong Nash equilibrium Subgame perfect equilibrium Trembling hand equilibrium Strategies Appeasement Bid shading Cheap talk Collusion Commitment device De-escalation Deterrence Escalation Fictitious play Focal point Grim trigger Hobbesian trap Markov strategy Max-dominated strategy Mixed strategy Pure strategy Tit for tat Win–stay, lose–switch Games All-pay auction Battle of the sexes Nash bargaining game Bertrand competition Blotto game Centipede game Coordination game Cournot competition Deadlock Dictator game Trust game Diner's dilemma Dollar auction El Farol Bar problem Electronic mail game Gift-exchange game Guess 2/3 of the average Keynesian beauty contest Kuhn poker Lewis signaling game Matching pennies Obligationes Optional prisoner's dilemma Pirate game Prisoner's dilemma Public goods game Rendezvous problem Rock paper scissors Stackelberg competition Stag hunt Traveler's dilemma Ultimatum game Volunteer's dilemma War of attrition Theorems Arrow's impossibility theorem Aumann's agreement theorem Brouwer fixed-point theorem Competitive altruism Folk theorem Gibbard–Satterthwaite theorem Gibbs lemma Glicksberg's theorem Kakutani fixed-point theorem Kuhn's theorem One-shot deviation principle Prim–Read theory Rational ignorance Rational irrationality Sperner's lemma Zermelo's theorem Subfields Algorithmic game theory Behavioral game theory Behavioral strategy Compositional game theory Contract theory Drama theory Graphical game theory Heresthetic Mean-field game theory Negotiation theory Quantum game theory Social software Key people Albert W. Tucker Alvin E. Roth Amos Tversky Antoine Augustin Cournot Ariel Rubinstein David Gale David K. Levine David M. Kreps Donald B. Gillies Drew Fudenberg Eric Maskin Harold W. Kuhn Herbert Simon Herbert Scarf Hervé Moulin Jean Tirole Jean-François Mertens Jennifer Tour Chayes Ken Binmore Kenneth Arrow Leonid Hurwicz Lloyd Shapley Martin Shubik Melvin Dresher Merrill M. Flood Olga Bondareva Oskar Morgenstern Paul Milgrom Peyton Young Reinhard Selten Robert Aumann Robert Axelrod Robert B. Wilson Roger Myerson Samuel Bowles Suzanne Scotchmer Thomas Schelling William Vickrey Combinatorial game theory Core concepts Combinatorial explosion Determinacy Disjunctive sum First-player and second-player win Game complexity Game tree Impartial game Misère Partisan game Solved game Sprague–Grundy theorem Strategy-stealing argument Zugzwang Games Chess Chomp Clobber Cram Domineering Hackenbush Nim Notakto Subtract a square Sylver coinage Toads and Frogs Mathematical tools Mex Nimber On Numbers and Games Star Surreal number Winning Ways for Your Mathematical Plays Search algorithms Alpha–beta pruning Expectiminimax Minimax Monte Carlo tree search Negamax Paranoid algorithm Principal variation search Key people Claude Shannon John Conway John von Neumann Evolutionary game theory Core concepts Bishop–Cannings theorem Evolution and the Theory of Games Evolutionarily stable set Evolutionarily stable state Evolutionarily stable strategy Replicator equation Risk dominance Stochastically stable equilibrium Weak evolutionarily stable strategy Games Chicken Stag hunt Applications Cultural group selection Fisher's principle Mobbing Terminal investment hypothesis Key people John Maynard Smith Robert Axelrod Mechanism design Core concepts Algorithmic mechanism design Bayesian-optimal mechanism Incentive compatibility Market design Monotonicity Participation constraint Revelation principle Strategyproofness Vickrey–Clarke–Groves mechanism Theorems Myerson–Satterthwaite theorem Revenue equivalence Applications Digital goods auction Knapsack auction Truthful cake-cutting Other topics Bertrand paradox Chainstore paradox Computational complexity of games Helly metric Multi-agent system PPAD-complete Mathematics portal Commons WikiProject Category Retrieved from " https://en.wikipedia.org/w/index.php?title=Shapley_value&oldid=1305671945 " Categories : Cooperative games Fair division Lloyd Shapley Hidden categories: CS1 errors: ISBN date CS1 maint: DOI inactive as of July 2025 Articles with short description Short description matches Wikidata This page was last edited on 13 August 2025, at 12:13 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Shapley value 12 languages Add topic
+

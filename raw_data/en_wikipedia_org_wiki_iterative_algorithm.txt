@@ -1,0 +1,79 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Attractive fixed points 2 Linear systems Toggle Linear systems subsection 2.1 Stationary iterative methods 2.1.1 Introduction 2.1.2 Definition 2.1.3 Examples 2.2 Krylov subspace methods 2.2.1 Convergence of Krylov subspace methods 2.3 Preconditioners 3 Methods of successive approximation Toggle Methods of successive approximation subsection 3.1 History 4 See also 5 References 6 External links Toggle the table of contents Iterative method 20 languages Afrikaans العربية বাংলা Català Čeština Dansk Eesti Español فارسی Français 한국어 हिन्दी Bahasa Indonesia Italiano עברית 日本語 Português Slovenčina ไทย 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia (Redirected from Iterative algorithm ) Algorithm in which each approximation of the solution is derived from prior approximations In computational mathematics , an iterative method is a mathematical procedure that uses an initial value to generate a sequence of improving approximate solutions for a class of problems, in which the i -th approximation (called an "iterate") is derived from the previous ones.
+
+A specific implementation with termination criteria for a given iterative method like gradient descent , hill climbing , Newton's method , or quasi-Newton methods like BFGS , is an algorithm of an iterative method or a method of successive approximation . An iterative method is called convergent if the corresponding sequence converges for given initial approximations. A mathematically rigorous convergence analysis of an iterative method is usually performed; however, heuristic -based iterative methods are also common.
+
+In contrast, direct methods attempt to solve the problem by a finite sequence of operations. In the absence of rounding errors , direct methods would deliver an exact solution (for example, solving a linear system of equations A x = b {\displaystyle A\mathbf {x} =\mathbf {b} } by Gaussian elimination ). Iterative methods are often the only choice for nonlinear equations . However, iterative methods are often useful even for linear problems involving many variables (sometimes on the order of millions), where direct methods would be prohibitively expensive (and in some cases impossible) even with the best available computing power.
+
+[ 1 ] Attractive fixed points [ edit ] If an equation can be put into the form f ( x ) = x , and a solution x is an attractive fixed point of the function f , then one may begin with a point x 1 in the basin of attraction of x , and let x n +1 = f ( x n ) for n ≥ 1, and the sequence { x n } n ≥ 1 will converge to the solution x . Here x n is the n th approximation or iteration of x and x n +1 is the next or n + 1 iteration of x .  Alternately, superscripts in parentheses are often used in numerical methods, so as not to interfere with subscripts with other meanings.  (For example, x ( n +1) = f ( x ( n ) ).) If the function f is continuously differentiable , a sufficient condition for convergence is that the spectral radius of the derivative is strictly bounded by one in a neighborhood of the fixed point.  If this condition holds at the fixed point, then a sufficiently small neighborhood (basin of attraction) must exist.
+
+Linear systems [ edit ] In the case of a system of linear equations , the two main classes of iterative methods are the stationary iterative methods , and the more general Krylov subspace methods.
+
+Stationary iterative methods [ edit ] Introduction [ edit ] Stationary iterative methods solve a linear system with an operator approximating the original one; and based on a measurement of the error in the result ( the residual ), form a "correction equation" for which this process is repeated. While these methods are simple to derive, implement, and analyze, convergence is only guaranteed for a limited class of matrices.
+
+Definition [ edit ] An iterative method is defined by x k + 1 := Ψ Ψ ( x k ) , k ≥ ≥ 0 {\displaystyle \mathbf {x} ^{k+1}:=\Psi (\mathbf {x} ^{k}),\quad k\geq 0} and for a given linear system A x = b {\displaystyle A\mathbf {x} =\mathbf {b} } with exact solution x ∗ ∗ {\displaystyle \mathbf {x} ^{*}} the error by e k := x k − − x ∗ ∗ , k ≥ ≥ 0.
+
+{\displaystyle \mathbf {e} ^{k}:=\mathbf {x} ^{k}-\mathbf {x} ^{*},\quad k\geq 0.} An iterative method is called linear if there exists a matrix C ∈ ∈ R n × × n {\displaystyle C\in \mathbb {R} ^{n\times n}} such that e k + 1 = C e k ∀ ∀ k ≥ ≥ 0 {\displaystyle \mathbf {e} ^{k+1}=C\mathbf {e} ^{k}\quad \forall k\geq 0} and this matrix is called the iteration matrix .
+An iterative method with a given iteration matrix C {\displaystyle C} is called convergent if the following holds lim k → → ∞ ∞ C k = 0.
+
+{\displaystyle \lim _{k\to \infty }C^{k}=0.} An important theorem states that for a given iterative method and its iteration matrix C {\displaystyle C} it is convergent if and only if its spectral radius ρ ρ ( C ) {\displaystyle \rho (C)} is smaller than unity, that is, ρ ρ ( C ) < 1.
+
+{\displaystyle \rho (C)<1.} The basic iterative methods work by splitting the matrix A {\displaystyle A} into A = M − − N {\displaystyle A=M-N} and here the matrix M {\displaystyle M} should be easily invertible .
+The iterative methods are now defined as M x k + 1 = N x k + b , k ≥ ≥ 0 , {\displaystyle M\mathbf {x} ^{k+1}=N\mathbf {x} ^{k}+\mathbf {b} ,\quad k\geq 0,} or, equivalently, x k + 1 = x k + M − − 1 ( b − − A x k ) , k ≥ ≥ 0.
+
+{\displaystyle \mathbf {x} ^{k+1}=\mathbf {x} ^{k}+M^{-1}\left(\mathbf {b} -A\mathbf {x} ^{k}\right),\quad k\geq 0.} From this follows that the iteration matrix is given by C = I − − M − − 1 A = M − − 1 N .
+
+{\displaystyle C=I-M^{-1}A=M^{-1}N.} Examples [ edit ] Basic examples of stationary iterative methods use a splitting of the matrix A {\displaystyle A} such as A = D + L + U , D := diag ⁡ ⁡ ( ( a i i ) i ) {\displaystyle A=D+L+U\,,\quad D:=\operatorname {diag} ((a_{ii})_{i})} where D {\displaystyle D} is only the diagonal part of A {\displaystyle A} , and L {\displaystyle L} is the strict lower triangular part of A {\displaystyle A} .
+Respectively, U {\displaystyle U} is the strict upper triangular part of A {\displaystyle A} .
+
+Richardson method : M := 1 ω ω I ( ω ω ≠ ≠ 0 ) {\displaystyle M:={\frac {1}{\omega }}I\quad (\omega \neq 0)} Jacobi method : M := D {\displaystyle M:=D} Damped Jacobi method : M := 1 ω ω D ( ω ω ≠ ≠ 0 ) {\displaystyle M:={\frac {1}{\omega }}D\quad (\omega \neq 0)} Gauss–Seidel method : M := D + L {\displaystyle M:=D+L} Successive over-relaxation method (SOR): M := 1 ω ω D + L ( ω ω ≠ ≠ 0 ) {\displaystyle M:={\frac {1}{\omega }}D+L\quad (\omega \neq 0)} Symmetric successive over-relaxation (SSOR): M := 1 ω ω ( 2 − − ω ω ) ( D + ω ω L ) D − − 1 ( D + ω ω U ) ( ω ω ∉ { 0 , 2 } ) {\displaystyle M:={\frac {1}{\omega \left(2-\omega \right)}}\left(D+\omega L\right)D^{-1}\left(D+\omega U\right)\quad (\omega \not \in \{0,2\})} Linear stationary iterative methods are also called relaxation methods .
+
+Krylov subspace methods [ edit ] Krylov subspace methods [ 2 ] work by forming a basis of the sequence of successive matrix powers times the initial residual (the Krylov sequence ). 
+The approximations to the solution are then formed by minimizing the residual over the subspace formed. 
+The prototypical method in this class is the conjugate gradient method (CG) which assumes that the system matrix A {\displaystyle A} is symmetric positive-definite .
+For symmetric (and possibly indefinite) A {\displaystyle A} one works with the minimal residual method (MINRES).
+In the case of non-symmetric matrices, methods such as the generalized minimal residual method (GMRES) and the biconjugate gradient method (BiCG) have been derived.
+
+Convergence of Krylov subspace methods [ edit ] Since these methods form a basis, it is evident that the method converges in N iterations, where N is the system size. However, in the presence of rounding errors this statement does not hold; moreover, in practice N can be very large, and the iterative process reaches sufficient accuracy already far earlier. The analysis of these methods is hard, depending on a complicated function of the spectrum of the operator.
+
+Preconditioners [ edit ] The approximating operator that appears in stationary iterative methods can also be incorporated in Krylov subspace methods such as GMRES (alternatively, preconditioned Krylov methods can be considered as accelerations of stationary iterative methods), where they become transformations of the original operator to a presumably better conditioned one. The construction of preconditioners is a large research area.
+
+Methods of successive approximation [ edit ] Mathematical methods relating to successive approximation include: Babylonian method , for finding square roots of numbers [ 3 ] Fixed-point iteration [ 4 ] Means of finding zeros of functions: Halley's method Newton's method Differential-equation matters: Picard–Lindelöf theorem , on existence of solutions of differential equations Runge–Kutta methods , for numerical solution of differential equations History [ edit ] Jamshīd al-Kāshī used iterative methods to calculate the sine of  1° and π in The Treatise of Chord and Sine to high precision. 
+An early iterative method for solving a linear system appeared in a letter of Gauss to a student of his.  He proposed solving a 4-by-4 system of equations by repeatedly solving the component in which the residual was the largest [ citation needed ] .
+
+The theory of stationary iterative methods was solidly established with the work of D.M. Young starting in the 1950s. The conjugate gradient method was also invented in the 1950s, with independent developments by Cornelius Lanczos , Magnus Hestenes and Eduard Stiefel , but its nature and applicability were misunderstood at the time. Only in the 1970s was it realized that conjugacy based methods work very well for partial differential equations , especially the elliptic type.
+
+See also [ edit ] Mathematics portal Closed-form expression Iterative refinement Kaczmarz method Non-linear least squares Numerical analysis Root-finding algorithm References [ edit ] ^ Amritkar, Amit; de Sturler, Eric; Świrydowicz, Katarzyna; Tafti, Danesh; Ahuja, Kapil (2015). "Recycling Krylov subspaces for CFD applications and a new hybrid recycling solver".
+
+Journal of Computational Physics .
+
+303 : 222.
+
+arXiv : 1501.03358 .
+
+Bibcode : 2015JCoPh.303..222A .
+
+doi : 10.1016/j.jcp.2015.09.040 .
+
+^ Charles George Broyden and Maria Terasa Vespucci: Krylov Solvers for Linear Algebraic Systems: Krylov Solvers , Elsevier, ISBN 0-444-51474-0, (2004).
+
+^ "Babylonian mathematics" .
+
+Babylonian mathematics . December 1, 2000.
+
+^ day, Mahlon (November 2, 1960).
+
+Fixed-point theorems for compact convex sets . Mahlon M day.
+
+External links [ edit ] Wikimedia Commons has media related to Iterative methods .
+
+Templates for the Solution of Linear Systems Y. Saad: Iterative Methods for Sparse Linear Systems , 1st edition, PWS 1996 v t e Optimization : Algorithms , methods , and heuristics Unconstrained nonlinear Functions Golden-section search Powell's method Line search Nelder–Mead method Successive parabolic interpolation Gradients Convergence Trust region Wolfe conditions Quasi–Newton Berndt–Hall–Hall–Hausman Broyden–Fletcher–Goldfarb–Shanno and L-BFGS Davidon–Fletcher–Powell Symmetric rank-one (SR1) Other methods Conjugate gradient Gauss–Newton Gradient Mirror Levenberg–Marquardt Powell's dog leg method Truncated Newton Hessians Newton's method Optimization computes maxima and minima.
+
+Constrained nonlinear General Barrier methods Penalty methods Differentiable Augmented Lagrangian methods Sequential quadratic programming Successive linear programming Convex optimization Convex minimization Cutting-plane method Reduced gradient (Frank–Wolfe) Subgradient method Linear and quadratic Interior point Affine scaling Ellipsoid algorithm of Khachiyan Projective algorithm of Karmarkar Basis- exchange Simplex algorithm of Dantzig Revised simplex algorithm Criss-cross algorithm Principal pivoting algorithm of Lemke Active-set method Combinatorial Paradigms Approximation algorithm Dynamic programming Greedy algorithm Integer programming Branch and bound / cut Graph algorithms Minimum spanning tree Borůvka Prim Kruskal Shortest path Bellman–Ford SPFA Dijkstra Floyd–Warshall Network flows Dinic Edmonds–Karp Ford–Fulkerson Push–relabel maximum flow Metaheuristics Evolutionary algorithm Hill climbing Local search Parallel metaheuristics Simulated annealing Spiral optimization algorithm Tabu search Software Authority control databases National Germany United States Czech Republic Israel Other Yale LUX Retrieved from " https://en.wikipedia.org/w/index.php?title=Iterative_method&oldid=1296440773 " Categories : Iterative methods Numerical analysis Hidden categories: Articles with short description Short description is different from Wikidata All articles with unsourced statements Articles with unsourced statements from December 2019 Commons category link is on Wikidata This page was last edited on 20 June 2025, at 01:03 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Iterative method 20 languages Add topic
+

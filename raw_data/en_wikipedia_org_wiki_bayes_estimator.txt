@@ -1,0 +1,214 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Definition 2 Examples Toggle Examples subsection 2.1 Minimum mean square error estimation 2.1.1 Posterior mean 2.2 Bayes estimators for conjugate priors 2.3 Alternative risk functions 2.3.1 Posterior median and other quantiles 2.3.2 Posterior mode 2.3.3 Lp Estimators 3 Generalized Bayes estimators Toggle Generalized Bayes estimators subsection 3.1 Example 4 Empirical Bayes estimators Toggle Empirical Bayes estimators subsection 4.1 Example 5 Properties Toggle Properties subsection 5.1 Admissibility 5.2 Asymptotic efficiency 5.2.1 Example: estimating p in a binomial distribution 6 Practical example of Bayes estimators 7 See also 8 Notes 9 References 10 External links Toggle the table of contents Bayes estimator 9 languages Català Deutsch فارسی 한국어 Italiano Русский Српски / srpski Українська Tiếng Việt Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Mathematical decision rule This article includes a list of general references , but it lacks sufficient corresponding inline citations .
+
+Please help to improve this article by introducing more precise citations.
+
+( November 2009 ) ( Learn how and when to remove this message ) Part of a series on Bayesian statistics Posterior = Likelihood × Prior ÷ Evidence Background Bayesian inference Bayesian probability Bayes' theorem Bernstein–von Mises theorem Coherence Cox's theorem Cromwell's rule Likelihood principle Principle of indifference Principle of maximum entropy Model building Conjugate prior Linear regression Empirical Bayes Hierarchical model Posterior approximation Markov chain Monte Carlo Laplace's approximation Integrated nested Laplace approximations Variational inference Approximate Bayesian computation Estimators Bayesian estimator Credible interval Maximum a posteriori estimation Evidence approximation Evidence lower bound Nested sampling Model evaluation Bayes factor ( Schwarz criterion ) Model averaging Posterior predictive Mathematics portal v t e In estimation theory and decision theory , a Bayes estimator or a Bayes action is an estimator or decision rule that minimizes the posterior expected value of a loss function (i.e., the posterior expected loss ). Equivalently, it maximizes the posterior expectation of a utility function. An alternative way of formulating an estimator within Bayesian statistics is maximum a posteriori estimation .
+
+Definition [ edit ] Suppose an unknown parameter θ θ {\displaystyle \theta } is known to have a prior distribution π π {\displaystyle \pi } . Let θ θ ^ ^ = θ θ ^ ^ ( x ) {\displaystyle {\widehat {\theta }}={\widehat {\theta }}(x)} be an estimator of θ θ {\displaystyle \theta } (based on some measurements x ), and let L ( θ θ , θ θ ^ ^ ) {\displaystyle L(\theta ,{\widehat {\theta }})} be a loss function , such as squared error. The Bayes risk of θ θ ^ ^ {\displaystyle {\widehat {\theta }}} is defined as E π π ( L ( θ θ , θ θ ^ ^ ) ) {\displaystyle E_{\pi }(L(\theta ,{\widehat {\theta }}))} , where the expectation is taken over the probability distribution of θ θ {\displaystyle \theta } : this defines the risk function as a function of θ θ ^ ^ {\displaystyle {\widehat {\theta }}} . An estimator θ θ ^ ^ {\displaystyle {\widehat {\theta }}} is said to be a Bayes estimator if it minimizes the Bayes risk among all estimators. Equivalently, the estimator which minimizes the posterior expected loss E ( L ( θ θ , θ θ ^ ^ ) | x ) {\displaystyle E(L(\theta ,{\widehat {\theta }})|x)} for each x {\displaystyle x} also minimizes the Bayes risk and therefore is a Bayes estimator.
+
+[ 1 ] If the prior is improper then an estimator which minimizes the posterior expected loss for each x {\displaystyle x} is called a generalized Bayes estimator .
+
+[ 2 ] Examples [ edit ] Minimum mean square error estimation [ edit ] Main article: Minimum mean square error The most common risk function used for Bayesian estimation is the mean square error (MSE), also called squared error risk . The MSE is defined by M S E = E [ ( θ θ ^ ^ ( x ) − − θ θ ) 2 ] , {\displaystyle \mathrm {MSE} =E\left[({\widehat {\theta }}(x)-\theta )^{2}\right],} where the expectation is taken over the joint distribution of θ θ {\displaystyle \theta } and x {\displaystyle x} .
+
+Posterior mean [ edit ] Using the MSE as risk, the Bayes estimate of the unknown parameter is simply the mean of the posterior distribution , [ 3 ] θ θ ^ ^ ( x ) = E [ θ θ | x ] = ∫ ∫ θ θ p ( θ θ | x ) d θ θ .
+
+{\displaystyle {\widehat {\theta }}(x)=E[\theta |x]=\int \theta \,p(\theta |x)\,d\theta .} This is known as the minimum mean square error (MMSE) estimator.
+
+Bayes estimators for conjugate priors [ edit ] Main article: Conjugate prior If there is no inherent reason to prefer one prior probability distribution over another, a conjugate prior is sometimes chosen for simplicity. A conjugate prior is defined as a prior distribution belonging to some parametric family , for which the resulting posterior distribution also belongs to the same family. This is an important property, since the Bayes estimator, as well as its statistical properties (variance, confidence interval, etc.), can all be derived from the posterior distribution.
+
+Conjugate priors are especially useful for sequential estimation, where the posterior of the current measurement is used as the prior in the next measurement. In sequential estimation, unless a conjugate prior is used, the posterior distribution typically becomes more complex with each added measurement, and the Bayes estimator cannot usually be calculated without resorting to numerical methods.
+
+Following are some examples of conjugate priors.
+
+If x | θ θ {\displaystyle x|\theta } is Normal , x | θ θ ∼ ∼ N ( θ θ , σ σ 2 ) {\displaystyle x|\theta \sim N(\theta ,\sigma ^{2})} , and the prior is normal, θ θ ∼ ∼ N ( μ μ , τ τ 2 ) {\displaystyle \theta \sim N(\mu ,\tau ^{2})} , then the posterior is also Normal and the Bayes estimator under MSE is given by θ θ ^ ^ ( x ) = σ σ 2 σ σ 2 + τ τ 2 μ μ + τ τ 2 σ σ 2 + τ τ 2 x .
+
+{\displaystyle {\widehat {\theta }}(x)={\frac {\sigma ^{2}}{\sigma ^{2}+\tau ^{2}}}\mu +{\frac {\tau ^{2}}{\sigma ^{2}+\tau ^{2}}}x.} If x 1 , .
+
+.
+
+.
+
+, x n {\displaystyle x_{1},...,x_{n}} are iid Poisson random variables x i | θ θ ∼ ∼ P ( θ θ ) {\displaystyle x_{i}|\theta \sim P(\theta )} , and if the prior is Gamma distributed θ θ ∼ ∼ G ( a , b ) {\displaystyle \theta \sim G(a,b)} , then the posterior is also Gamma distributed, and the Bayes estimator under MSE is given by θ θ ^ ^ ( X ) = n X ¯ ¯ + a n + b .
+
+{\displaystyle {\widehat {\theta }}(X)={\frac {n{\overline {X}}+a}{n+b}}.} If x 1 , .
+
+.
+
+.
+
+, x n {\displaystyle x_{1},...,x_{n}} are iid uniformly distributed x i | θ θ ∼ ∼ U ( 0 , θ θ ) {\displaystyle x_{i}|\theta \sim U(0,\theta )} , and if the prior is Pareto distributed θ θ ∼ ∼ P a ( θ θ 0 , a ) {\displaystyle \theta \sim Pa(\theta _{0},a)} , then the posterior is also Pareto distributed, and the Bayes estimator under MSE is given by θ θ ^ ^ ( X ) = ( a + n ) max ( θ θ 0 , x 1 , .
+
+.
+
+.
+
+, x n ) a + n − − 1 .
+
+{\displaystyle {\widehat {\theta }}(X)={\frac {(a+n)\max {(\theta _{0},x_{1},...,x_{n})}}{a+n-1}}.} Alternative risk functions [ edit ] Risk functions are chosen depending on how one measures the distance between the estimate and the unknown parameter. The MSE is the most common risk function in use, primarily due to its simplicity. However, alternative risk functions are also occasionally used. The following are several examples of such alternatives. We denote the posterior generalized distribution function by F {\displaystyle F} .
+
+Posterior median and other quantiles [ edit ] Main article: Bias of an estimator § Median-unbiased estimators A "linear" loss function, with a > 0 {\displaystyle a>0} , which yields the posterior median as the Bayes' estimate: L ( θ θ , θ θ ^ ^ ) = a | θ θ − − θ θ ^ ^ | {\displaystyle L(\theta ,{\widehat {\theta }})=a|\theta -{\widehat {\theta }}|} F ( θ θ ^ ^ ( x ) | X ) = 1 2 .
+
+{\displaystyle F({\widehat {\theta }}(x)|X)={\tfrac {1}{2}}.} Another "linear" loss function, which assigns different "weights" a , b > 0 {\displaystyle a,b>0} to over or sub estimation. It yields a quantile from the posterior distribution, and is a generalization of the previous loss function: L ( θ θ , θ θ ^ ^ ) = { a | θ θ − − θ θ ^ ^ | , for θ θ − − θ θ ^ ^ ≥ ≥ 0 b | θ θ − − θ θ ^ ^ | , for θ θ − − θ θ ^ ^ < 0 {\displaystyle L(\theta ,{\widehat {\theta }})={\begin{cases}a|\theta -{\widehat {\theta }}|,&{\mbox{for }}\theta -{\widehat {\theta }}\geq 0\\b|\theta -{\widehat {\theta }}|,&{\mbox{for }}\theta -{\widehat {\theta }}<0\end{cases}}} F ( θ θ ^ ^ ( x ) | X ) = a a + b .
+
+{\displaystyle F({\widehat {\theta }}(x)|X)={\frac {a}{a+b}}.} Posterior mode [ edit ] The following loss function is trickier: it yields either the posterior mode , or a point close to it depending on the curvature and properties of the posterior distribution. Small values of the parameter K > 0 {\displaystyle K>0} are recommended, in order to use the mode as an approximation ( L > 0 {\displaystyle L>0} ): L ( θ θ , θ θ ^ ^ ) = { 0 , for | θ θ − − θ θ ^ ^ | < K L , for | θ θ − − θ θ ^ ^ | ≥ ≥ K .
+
+{\displaystyle L(\theta ,{\widehat {\theta }})={\begin{cases}0,&{\mbox{for }}|\theta -{\widehat {\theta }}|<K\\L,&{\mbox{for }}|\theta -{\widehat {\theta }}|\geq K.\end{cases}}} Lp Estimators [ edit ] One can also consider L P {\displaystyle L^{P}} risk for which the loss is given by L ( θ θ , θ θ ^ ^ ) = | θ θ − − θ θ ^ ^ | p , p > 0.
+
+{\displaystyle L(\theta ,{\hat {\theta }})=|\theta -{\hat {\theta }}|^{p},\,p>0.} While optimal L p {\displaystyle L^{p}} estimators can be difficult to characterize in closed-form, they do share many similar properties to those in L 2 {\displaystyle L^{2}} case.
+
+[ 4 ] Other loss functions can be conceived, although the mean squared error is the most widely used and validated. Other loss functions are used in statistics, particularly in robust statistics .
+
+Generalized Bayes estimators [ edit ] See also: Admissible decision rule § Bayes rules and generalized Bayes rules The prior distribution p {\displaystyle p} has thus far been assumed to be a true probability distribution, in that ∫ ∫ p ( θ θ ) d θ θ = 1.
+
+{\displaystyle \int p(\theta )d\theta =1.} However, occasionally this can be a restrictive requirement. For example, there is no distribution (covering the set, R , of all real numbers) for which every real number is equally likely. Yet, in some sense, such a "distribution" seems like a natural choice for a non-informative prior , i.e., a prior distribution which does not imply a preference for any particular value of the unknown parameter. One can still define a function p ( θ θ ) = 1 {\displaystyle p(\theta )=1} , but this would not be a proper probability distribution since it has infinite mass, ∫ ∫ p ( θ θ ) d θ θ = ∞ ∞ .
+
+{\displaystyle \int {p(\theta )d\theta }=\infty .} Such measures p ( θ θ ) {\displaystyle p(\theta )} , which are not probability distributions, are referred to as improper priors .
+
+The use of an improper prior means that the Bayes risk is undefined (since the prior is not a probability distribution and we cannot take an expectation under it). As a consequence, it is no longer meaningful to speak of a Bayes estimator that minimizes the Bayes risk. Nevertheless, in many cases, one can define the posterior distribution p ( θ θ | x ) = p ( x | θ θ ) p ( θ θ ) ∫ ∫ p ( x | θ θ ) p ( θ θ ) d θ θ .
+
+{\displaystyle p(\theta |x)={\frac {p(x|\theta )p(\theta )}{\int p(x|\theta )p(\theta )d\theta }}.} This is a definition, and not an application of Bayes' theorem , since Bayes' theorem can only be applied when all distributions are proper. However, it is not uncommon for the resulting "posterior" to be a valid probability distribution. In this case, the posterior expected loss ∫ ∫ L ( θ θ , a ) p ( θ θ | x ) d θ θ {\displaystyle \int {L(\theta ,a)p(\theta |x)d\theta }} is typically well-defined and finite. Recall that, for a proper prior, the Bayes estimator minimizes the posterior expected loss. When the prior is improper, an estimator which minimizes the posterior expected loss is referred to as a generalized Bayes estimator .
+
+[ 2 ] Example [ edit ] A typical example is estimation of a location parameter with a loss function of the type L ( a − − θ θ ) {\displaystyle L(a-\theta )} . Here θ θ {\displaystyle \theta } is a location parameter, i.e., p ( x | θ θ ) = f ( x − − θ θ ) {\displaystyle p(x|\theta )=f(x-\theta )} .
+
+It is common to use the improper prior p ( θ θ ) = 1 {\displaystyle p(\theta )=1} in this case, especially when no other more subjective information is available. This yields p ( θ θ | x ) = p ( x | θ θ ) p ( θ θ ) p ( x ) = f ( x − − θ θ ) p ( x ) {\displaystyle p(\theta |x)={\frac {p(x|\theta )p(\theta )}{p(x)}}={\frac {f(x-\theta )}{p(x)}}} so the posterior expected loss E [ L ( a − − θ θ ) | x ] = ∫ ∫ L ( a − − θ θ ) p ( θ θ | x ) d θ θ = 1 p ( x ) ∫ ∫ L ( a − − θ θ ) f ( x − − θ θ ) d θ θ .
+
+{\displaystyle E[L(a-\theta )|x]=\int {L(a-\theta )p(\theta |x)d\theta }={\frac {1}{p(x)}}\int L(a-\theta )f(x-\theta )d\theta .} The generalized Bayes estimator is the value a ( x ) {\displaystyle a(x)} that minimizes this expression for a given x {\displaystyle x} . This is equivalent to minimizing ∫ ∫ L ( a − − θ θ ) f ( x − − θ θ ) d θ θ {\displaystyle \int L(a-\theta )f(x-\theta )d\theta } for a given x .
+
+{\displaystyle x.} (1) In this case it can be shown that the generalized Bayes estimator has the form x + a 0 {\displaystyle x+a_{0}} , for some constant a 0 {\displaystyle a_{0}} . To see this, let a 0 {\displaystyle a_{0}} be the value minimizing (1) when x = 0 {\displaystyle x=0} . Then, given a different value x 1 {\displaystyle x_{1}} , we must minimize ∫ ∫ L ( a − − θ θ ) f ( x 1 − − θ θ ) d θ θ = ∫ ∫ L ( a − − x 1 − − θ θ ′ ) f ( − − θ θ ′ ) d θ θ ′ .
+
+{\displaystyle \int L(a-\theta )f(x_{1}-\theta )d\theta =\int L(a-x_{1}-\theta ')f(-\theta ')d\theta '.} (2) This is identical to (1), except that a {\displaystyle a} has been replaced by a − − x 1 {\displaystyle a-x_{1}} . Thus, the expression minimizing is given by a − − x 1 = a 0 {\displaystyle a-x_{1}=a_{0}} , so that the optimal estimator has the form a ( x ) = a 0 + x .
+
+{\displaystyle a(x)=a_{0}+x.\,\!} Empirical Bayes estimators [ edit ] Main article: Empirical Bayes method A Bayes estimator derived through the empirical Bayes method is called an empirical Bayes estimator . Empirical Bayes methods enable the use of auxiliary empirical data, from observations of related parameters, in the development of a Bayes estimator. This is done under the assumption that the estimated parameters are obtained from a common prior. For example, if independent observations of different parameters are performed, then the estimation performance of a particular parameter can sometimes be improved by using data from other observations.
+
+There are both parametric and non-parametric approaches to empirical Bayes estimation.
+
+[ 5 ] Example [ edit ] The following is a simple example of parametric empirical Bayes estimation. Given past observations x 1 , … … , x n {\displaystyle x_{1},\ldots ,x_{n}} having conditional distribution f ( x i | θ θ i ) {\displaystyle f(x_{i}|\theta _{i})} , one is interested in estimating θ θ n + 1 {\displaystyle \theta _{n+1}} based on x n + 1 {\displaystyle x_{n+1}} . Assume that the θ θ i {\displaystyle \theta _{i}} 's have a common prior π π {\displaystyle \pi } which depends on unknown parameters. For example, suppose that π π {\displaystyle \pi } is normal with unknown mean μ μ π π {\displaystyle \mu _{\pi }\,\!} and variance σ σ π π .
+
+{\displaystyle \sigma _{\pi }\,\!.} We can then use the past observations to determine the mean and variance of π π {\displaystyle \pi } in the following way.
+
+First, we estimate the mean μ μ m {\displaystyle \mu _{m}\,\!} and variance σ σ m {\displaystyle \sigma _{m}\,\!} of the marginal distribution of x 1 , … … , x n {\displaystyle x_{1},\ldots ,x_{n}} using the maximum likelihood approach: μ μ ^ ^ m = 1 n ∑ ∑ x i , {\displaystyle {\widehat {\mu }}_{m}={\frac {1}{n}}\sum {x_{i}},} σ σ ^ ^ m 2 = 1 n ∑ ∑ ( x i − − μ μ ^ ^ m ) 2 .
+
+{\displaystyle {\widehat {\sigma }}_{m}^{2}={\frac {1}{n}}\sum {(x_{i}-{\widehat {\mu }}_{m})^{2}}.} Next, we use the law of total expectation to compute μ μ m {\displaystyle \mu _{m}} and the law of total variance to compute σ σ m 2 {\displaystyle \sigma _{m}^{2}} such that μ μ m = E π π [ μ μ f ( θ θ ) ] , {\displaystyle \mu _{m}=E_{\pi }[\mu _{f}(\theta )]\,\!,} σ σ m 2 = E π π [ σ σ f 2 ( θ θ ) ] + E π π [ ( μ μ f ( θ θ ) − − μ μ m ) 2 ] , {\displaystyle \sigma _{m}^{2}=E_{\pi }[\sigma _{f}^{2}(\theta )]+E_{\pi }[(\mu _{f}(\theta )-\mu _{m})^{2}],} where μ μ f ( θ θ ) {\displaystyle \mu _{f}(\theta )} and σ σ f ( θ θ ) {\displaystyle \sigma _{f}(\theta )} are the moments of the conditional distribution f ( x i | θ θ i ) {\displaystyle f(x_{i}|\theta _{i})} , which are assumed to be known. In particular, suppose that μ μ f ( θ θ ) = θ θ {\displaystyle \mu _{f}(\theta )=\theta } and that σ σ f 2 ( θ θ ) = K {\displaystyle \sigma _{f}^{2}(\theta )=K} ; we then have μ μ π π = μ μ m , {\displaystyle \mu _{\pi }=\mu _{m}\,\!,} σ σ π π 2 = σ σ m 2 − − σ σ f 2 = σ σ m 2 − − K .
+
+{\displaystyle \sigma _{\pi }^{2}=\sigma _{m}^{2}-\sigma _{f}^{2}=\sigma _{m}^{2}-K.} Finally, we obtain the estimated moments of the prior, μ μ ^ ^ π π = μ μ ^ ^ m , {\displaystyle {\widehat {\mu }}_{\pi }={\widehat {\mu }}_{m},} σ σ ^ ^ π π 2 = σ σ ^ ^ m 2 − − K .
+
+{\displaystyle {\widehat {\sigma }}_{\pi }^{2}={\widehat {\sigma }}_{m}^{2}-K.} For example, if x i | θ θ i ∼ ∼ N ( θ θ i , 1 ) {\displaystyle x_{i}|\theta _{i}\sim N(\theta _{i},1)} , and if we assume a normal prior (which is a conjugate prior in this case), we conclude that θ θ n + 1 ∼ ∼ N ( μ μ ^ ^ π π , σ σ ^ ^ π π 2 ) {\displaystyle \theta _{n+1}\sim N({\widehat {\mu }}_{\pi },{\widehat {\sigma }}_{\pi }^{2})} , from which the Bayes estimator of θ θ n + 1 {\displaystyle \theta _{n+1}} based on x n + 1 {\displaystyle x_{n+1}} can be calculated.
+
+Properties [ edit ] Admissibility [ edit ] See also: Admissible decision rule Bayes rules having finite Bayes risk are typically admissible . The following are some specific examples of admissibility theorems.
+
+If a Bayes rule is unique then it is admissible.
+
+[ 6 ] For example, as stated above, under mean squared error (MSE) the Bayes rule is unique and therefore admissible.
+
+If θ belongs to a discrete set , then all Bayes rules are admissible.
+
+If θ belongs to a continuous (non-discrete) set, and if the risk function R(θ,δ) is continuous in θ for every δ, then all Bayes rules are admissible.
+
+By contrast, generalized Bayes rules often have undefined Bayes risk in the case of improper priors. These rules are often inadmissible and the verification of their admissibility can be difficult. For example, the generalized Bayes estimator of a location parameter θ based on Gaussian samples (described in the "Generalized Bayes estimator" section above) is inadmissible for p > 2 {\displaystyle p>2} ; this is known as Stein's phenomenon .
+
+Asymptotic efficiency [ edit ] Let θ be an unknown random variable, and suppose that x 1 , x 2 , … … {\displaystyle x_{1},x_{2},\ldots } are iid samples with density f ( x i | θ θ ) {\displaystyle f(x_{i}|\theta )} . Let δ δ n = δ δ n ( x 1 , … … , x n ) {\displaystyle \delta _{n}=\delta _{n}(x_{1},\ldots ,x_{n})} be a sequence of Bayes estimators of θ based on an increasing number of measurements. We are interested in analyzing the asymptotic performance of this sequence of estimators, i.e., the performance of δ δ n {\displaystyle \delta _{n}} for large n .
+
+To this end, it is customary to regard θ as a deterministic parameter whose true value is θ θ 0 {\displaystyle \theta _{0}} . Under specific conditions, [ 7 ] for large samples (large values of n ), the posterior density of θ is approximately normal. In other words, for large n , the effect of the prior probability on the posterior is negligible. Moreover, if δ is the Bayes estimator under MSE risk, then it is asymptotically unbiased and it converges in distribution to the normal distribution : n ( δ δ n − − θ θ 0 ) → → N ( 0 , 1 I ( θ θ 0 ) ) , {\displaystyle {\sqrt {n}}(\delta _{n}-\theta _{0})\to N\left(0,{\frac {1}{I(\theta _{0})}}\right),} where I (θ 0 ) is the Fisher information of θ 0 .
+It follows that the Bayes estimator δ n under MSE is asymptotically efficient .
+
+Another estimator which is asymptotically normal and efficient is the maximum likelihood estimator (MLE). The relations between the maximum likelihood and Bayes estimators can be shown in the following simple example.
+
+Example: estimating p in a binomial distribution [ edit ] Consider the estimator of θ based on binomial sample x ~b(θ, n ) where θ denotes the probability for success. Assuming θ is distributed according to the conjugate prior, which in this case is the Beta distribution B( a , b ), the posterior distribution is known to be B(a+x,b+n-x). Thus, the Bayes estimator under MSE is δ δ n ( x ) = E [ θ θ | x ] = a + x a + b + n .
+
+{\displaystyle \delta _{n}(x)=E[\theta |x]={\frac {a+x}{a+b+n}}.} The MLE in this case is x/n and so we get, δ δ n ( x ) = a + b a + b + n E [ θ θ ] + n a + b + n δ δ M L E .
+
+{\displaystyle \delta _{n}(x)={\frac {a+b}{a+b+n}}E[\theta ]+{\frac {n}{a+b+n}}\delta _{MLE}.} The last equation implies that, for n → ∞, the Bayes estimator (in the described problem) is close to the MLE.
+
+On the other hand, when n is small, the prior information is still relevant to the decision problem and affects the estimate. To see the relative weight of the prior information, assume that a = b ; in this case each measurement brings in 1 new bit of information; the formula above shows that the prior information has the same weight as a+b bits of the new information. In applications, one often knows very little about fine details of the prior distribution; in particular, there is no reason to assume that it coincides with B( a , b ) exactly. In such a case, one possible interpretation of this calculation is: "there is a non-pathological prior distribution with the mean value 0.5 and the standard deviation d which gives the weight of prior information equal to 1/(4 d 2 )-1 bits of new information." Another example of the same phenomena is the case when the prior estimate and a measurement are normally distributed.  If the prior is centered at B with deviation Σ, and the measurement is centered at b with deviation σ, then the posterior is centered at α α α α + β β B + β β α α + β β b {\displaystyle {\frac {\alpha }{\alpha +\beta }}B+{\frac {\beta }{\alpha +\beta }}b} , with weights in this weighted average being α=σ², β=Σ². Moreover, the squared posterior deviation is Σ²+σ².  In other words, the prior is combined with the measurement in exactly the same way as if it were an extra measurement to take into account.
+
+For example, if Σ=σ/2, then the deviation of 4 measurements combined matches the deviation of the prior (assuming that errors of measurements are independent).  And the weights α,β in the formula for posterior match this: the weight of the prior is 4 times the weight of the measurement.  Combining this prior with n measurements with average v results in the posterior centered at 4 4 + n V + n 4 + n v {\displaystyle {\frac {4}{4+n}}V+{\frac {n}{4+n}}v} ; in particular, the prior plays the same role as 4 measurements made in advance.  In general, the prior has the weight of (σ/Σ)² measurements.
+
+Compare to the example of binomial distribution: there the prior has the weight of (σ/Σ)²−1 measurements.  One can see that the exact weight does depend on the details of the distribution, but when σ≫Σ, the difference becomes small.
+
+Practical example of Bayes estimators [ edit ] The Internet Movie Database uses a formula for calculating and comparing the ratings of films by its users, including their Top Rated 250 Titles which is claimed to give "a true Bayesian estimate".
+
+[ 8 ] The following Bayesian formula was initially used to calculate a weighted average score for the Top 250, though the formula has since changed: W = R v + C m v + m {\displaystyle W={Rv+Cm \over v+m}\ } where: W {\displaystyle W\ } = weighted rating R {\displaystyle R\ } = average rating for the movie as a number from 1 to 10 (mean) = (Rating) v {\displaystyle v\ } = number of votes/ratings for the movie = (votes) m {\displaystyle m\ } = weight given to the prior estimate (in this case, the number of votes IMDB deemed necessary for average rating to approach statistical validity) C {\displaystyle C\ } = the mean vote across the whole pool (currently 7.0) Note that W is just the weighted arithmetic mean of R and C with weight vector (v, m) .  As the number of ratings surpasses m , the confidence of the average rating surpasses the confidence of the mean vote for all films (C), and the weighted bayesian rating (W) approaches a straight average (R). The closer v (the number of ratings for the film) is to zero, the closer W is to C , where W is the weighted rating and C is the average rating of all films. So, in simpler terms, the fewer ratings/votes cast for a film, the more that film's Weighted Rating will skew towards the average across all films, while films with many ratings/votes will have a rating approaching its pure arithmetic average rating.
+
+IMDb's approach ensures that a film with only a few ratings, all at 10, would not rank above "the Godfather", for example, with a 9.2 average from over 500,000 ratings.
+
+See also [ edit ] Recursive Bayesian estimation Generalized expected utility Notes [ edit ] ^ Lehmann and Casella, Theorem 4.1.1 ^ a b Lehmann and Casella, Definition 4.2.9 ^ Jaynes, E.T. (2007).
+
+Probability Theory: The Logic of Science (5. print. ed.). Cambridge [u.a.]: Cambridge Univ. Press. p. 172.
+
+ISBN 978-0-521-59271-0 .
+
+^ Dytso, A.; Bustin, R.; Tuninetti, D.; Devroye, N.; Poor, H. V.; Shamai Shitz, S. (2018). "On the Minimum Mean pth Error in Gaussian Noise Channels and Its Applications".
+
+IEEE Transactions on Information Theory .
+
+64 (3).
+
+IEEE : 2012– 2037.
+
+doi : 10.1109/TIT.2017.2782786 .
+
+^ Berger (1980), section 4.5.
+
+^ Lehmann and Casella (1998), Theorem 5.2.4.
+
+^ Lehmann and Casella (1998), section 6.8 ^ IMDb Top 250 References [ edit ] Berger, James O.
+
+(1985).
+
+Statistical decision theory and Bayesian Analysis (2nd ed.). New York: Springer-Verlag.
+
+ISBN 0-387-96098-8 .
+
+MR 0804611 .
+
+Lehmann, E. L.; Casella, G. (1998).
+
+Theory of Point Estimation (2nd ed.). Springer.
+
+ISBN 0-387-98502-6 .
+
+Pilz, Jürgen (1991). "Bayesian estimation".
+
+Bayesian Estimation and Experimental Design in Linear Regression Models . Chichester: John Wiley & Sons. pp.
+
+38– 117.
+
+ISBN 0-471-91732-X .
+
+External links [ edit ] "Bayesian estimator" , Encyclopedia of Mathematics , EMS Press , 2001 [1994] v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐p5cvc
+Cached time: 20250812021121
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.541 seconds
+Real time usage: 0.710 seconds
+Preprocessor visited node count: 2579/1000000
+Revision size: 23077/2097152 bytes
+Post‐expand include size: 167426/2097152 bytes
+Template argument size: 1591/2097152 bytes
+Highest expansion depth: 15/100
+Expensive parser function count: 8/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 47564/5000000 bytes
+Lua time usage: 0.281/10.000 seconds
+Lua memory usage: 6555335/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  420.461      1 -total
+ 23.84%  100.230      1 Template:Statistics
+ 23.42%   98.477      1 Template:Navbox_with_collapsible_groups
+ 20.95%   88.095      1 Template:Reflist
+ 19.82%   83.330      4 Template:Cite_book
+ 17.22%   72.403      1 Template:Bayesian_statistics
+ 15.73%   66.143     11 Template:Navbox
+ 14.16%   59.543      1 Template:Short_description
+  9.80%   41.225      1 Template:More_footnotes
+  9.24%   38.861      2 Template:Pagetype Saved in parser cache with key enwiki:pcache:6978815:|#|:idhash:canonical and timestamp 20250812021121 and revision id 1302211420. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Bayes_estimator&oldid=1302211420 " Categories : Estimator Bayesian estimation Hidden categories: Articles with short description Short description is different from Wikidata Articles lacking in-text citations from November 2009 All articles lacking in-text citations This page was last edited on 24 July 2025, at 02:09 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Bayes estimator 9 languages Add topic
+

@@ -1,141 +1,147 @@
-Title: Geostatistics
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Background 2 Methods Toggle Methods subsection 2.1 Estimation 2.1.1 Kriging 2.1.2 Bayesian estimation 2.1.3 Finite difference method 2.2 Simulation 3 Definitions and tools 4 See also 5 Notes 6 References 7 External links Toggle the table of contents Geostatistics 26 languages العربية Български Català Čeština Deutsch Español فارسی Français 한국어 हिन्दी Hrvatski Italiano ქართული Lietuvių 日本語 Polski Português Română Русский Srpskohrvatski / српскохрватски Sunda Suomi Türkçe Українська Tiếng Việt 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Branch of statistics focusing on spatial data sets Not to be confused with statistical geography .
 
-URL Source: https://en.wikipedia.org/wiki/Geostatistics
+Geostatistics is a branch of statistics focusing on spatial or spatiotemporal datasets . Developed originally to predict probability distributions of ore grades for mining operations, [ 1 ] it is currently applied in diverse disciplines including petroleum geology , hydrogeology , hydrology , meteorology , oceanography , geochemistry , geometallurgy , geography , forestry , environmental control , landscape ecology , soil science , and agriculture (esp. in precision farming ). Geostatistics is applied in varied branches of geography , particularly those involving the spread of diseases ( epidemiology ), the practice of commerce and military planning ( logistics ), and the development of efficient spatial networks . Geostatistical algorithms are incorporated in many places, including geographic information systems (GIS).
 
-Published Time: 2002-05-06T09:55:08Z
+Background [ edit ] Geostatistics is intimately related to interpolation methods but extends far beyond simple interpolation problems. Geostatistical techniques rely on statistical models based on random function (or random variable ) theory to model the uncertainty associated with spatial estimation and simulation.
 
-Markdown Content:
-From Wikipedia, the free encyclopedia
+A number of simpler interpolation methods/algorithms, such as inverse distance weighting , bilinear interpolation and nearest-neighbor interpolation , were already well known before geostatistics.
 
-**Geostatistics** is a branch of [statistics](https://en.wikipedia.org/wiki/Statistics "Statistics") focusing on spatial or [spatiotemporal](https://en.wikipedia.org/wiki/Spacetime "Spacetime")[datasets](https://en.wikipedia.org/wiki/Dataset "Dataset"). Developed originally to predict [probability distributions](https://en.wikipedia.org/wiki/Probability_distribution "Probability distribution") of [ore grades](https://en.wikipedia.org/wiki/Ore_grade "Ore grade") for [mining](https://en.wikipedia.org/wiki/Mining "Mining") operations,[[1]](https://en.wikipedia.org/wiki/Geostatistics#cite_note-1) it is currently applied in diverse disciplines including [petroleum geology](https://en.wikipedia.org/wiki/Petroleum_geology "Petroleum geology"), [hydrogeology](https://en.wikipedia.org/wiki/Hydrogeology "Hydrogeology"), [hydrology](https://en.wikipedia.org/wiki/Hydrology "Hydrology"), [meteorology](https://en.wikipedia.org/wiki/Meteorology "Meteorology"), [oceanography](https://en.wikipedia.org/wiki/Oceanography "Oceanography"), [geochemistry](https://en.wikipedia.org/wiki/Geochemistry "Geochemistry"), [geometallurgy](https://en.wikipedia.org/wiki/Geometallurgy "Geometallurgy"), [geography](https://en.wikipedia.org/wiki/Geography "Geography"), [forestry](https://en.wikipedia.org/wiki/Forestry "Forestry"), [environmental control](https://en.wikipedia.org/wiki/Environmental_control "Environmental control"), [landscape ecology](https://en.wikipedia.org/wiki/Landscape_ecology "Landscape ecology"), [soil science](https://en.wikipedia.org/wiki/Soil_science "Soil science"), and [agriculture](https://en.wikipedia.org/wiki/Agriculture "Agriculture") (esp. in [precision farming](https://en.wikipedia.org/wiki/Precision_farming "Precision farming")). Geostatistics is applied in varied branches of [geography](https://en.wikipedia.org/wiki/Geography "Geography"), particularly those involving the spread of diseases ([epidemiology](https://en.wikipedia.org/wiki/Epidemiology "Epidemiology")), the practice of commerce and military planning ([logistics](https://en.wikipedia.org/wiki/Logistics "Logistics")), and the development of efficient [spatial networks](https://en.wikipedia.org/wiki/Spatial_network "Spatial network"). Geostatistical algorithms are incorporated in many places, including [geographic information systems](https://en.wikipedia.org/wiki/Geographic_information_systems "Geographic information systems") (GIS).
+[ 2 ] Geostatistics goes beyond the interpolation problem by considering the studied phenomenon at unknown locations as a set of correlated random variables.
 
-Geostatistics is intimately related to interpolation methods but extends far beyond simple interpolation problems. Geostatistical techniques rely on statistical models based on random function (or [random variable](https://en.wikipedia.org/wiki/Random_variable "Random variable")) theory to model the uncertainty associated with spatial estimation and simulation.
+Let Z ( x ) be the value of the variable of interest at a certain location x . This value is unknown (e.g., temperature, rainfall, piezometric level , geological facies, etc.). Although there exists a value at location x that could be measured, geostatistics considers this value as random since it was not measured or has not been measured yet. However, the randomness of Z ( x ) is not complete. Still, it is defined by a cumulative distribution function (CDF) that depends on certain information that is known about the value Z ( x ) : F ( z , x ) = Prob ⁡ ⁡ { Z ( x ) ⩽ ⩽ z ∣ ∣ information } .
 
-A number of simpler interpolation methods/algorithms, such as [inverse distance weighting](https://en.wikipedia.org/wiki/Inverse_distance_weighting "Inverse distance weighting"), [bilinear interpolation](https://en.wikipedia.org/wiki/Bilinear_interpolation "Bilinear interpolation") and [nearest-neighbor interpolation](https://en.wikipedia.org/wiki/Nearest-neighbor_interpolation "Nearest-neighbor interpolation"), were already well known before geostatistics.[[2]](https://en.wikipedia.org/wiki/Geostatistics#cite_note-IandS1989-2) Geostatistics goes beyond the interpolation problem by considering the studied phenomenon at unknown locations as a set of correlated random variables.
+{\displaystyle F({\mathit {z}},\mathbf {x} )=\operatorname {Prob} \lbrace Z(\mathbf {x} )\leqslant {\mathit {z}}\mid {\text{information}}\rbrace .} Typically, if the value of Z is known at locations close to x (or in the neighborhood of x ) one can constrain the CDF of Z ( x ) by this neighborhood: if a high spatial continuity is assumed, Z ( x ) can only have values similar to the ones found in the neighborhood. Conversely, in the absence of spatial continuity Z ( x ) can take any value. The spatial continuity of the random variables is described by a model of spatial continuity that can be either a parametric function in the case of variogram -based geostatistics, or have a non-parametric form when using other methods  such as multiple-point simulation [ 3 ] or pseudo-genetic techniques.
 
-Let _Z_(**x**) be the value of the variable of interest at a certain location **x**. This value is unknown (e.g., temperature, rainfall, [piezometric level](https://en.wikipedia.org/wiki/Potentiometric_surface "Potentiometric surface"), geological facies, etc.). Although there exists a value at location **x** that could be measured, geostatistics considers this value as random since it was not measured or has not been measured yet. However, the randomness of _Z_(**x**) is not complete. Still, it is defined by a [cumulative distribution function](https://en.wikipedia.org/wiki/Cumulative_distribution_function "Cumulative distribution function") (CDF) that depends on certain information that is known about the value _Z_(**x**):
+By applying a single spatial model on an entire domain, one makes the assumption that Z is a stationary process . It means that the same statistical properties are applicable on the entire domain. Several geostatistical methods provide ways of relaxing this stationarity assumption.
 
-![Image 1: {\displaystyle F({\mathit {z}},\mathbf {x} )=\operatorname {Prob} \lbrace Z(\mathbf {x} )\leqslant {\mathit {z}}\mid {\text{information}}\rbrace .}](https://wikimedia.org/api/rest_v1/media/math/render/svg/dd35df17b8ab1932e8902d52ddc16d38a8edbfbd)
-Typically, if the value of _Z_ is known at locations close to **x** (or in the [neighborhood](https://en.wikipedia.org/wiki/Neighbourhood_(mathematics) "Neighbourhood (mathematics)") of **x**) one can constrain the CDF of _Z_(**x**) by this neighborhood: if a high spatial continuity is assumed, _Z_(**x**) can only have values similar to the ones found in the neighborhood. Conversely, in the absence of spatial continuity _Z_(**x**) can take any value. The spatial continuity of the random variables is described by a model of spatial continuity that can be either a parametric function in the case of [variogram](https://en.wikipedia.org/wiki/Variogram "Variogram")-based geostatistics, or have a non-parametric form when using other methods such as [multiple-point simulation](https://en.wikipedia.org/w/index.php?title=Multiple-point_simulation&action=edit&redlink=1 "Multiple-point simulation (page does not exist)")[[3]](https://en.wikipedia.org/wiki/Geostatistics#cite_note-3) or [pseudo-genetic](https://en.wikipedia.org/w/index.php?title=Pseudo-genetic&action=edit&redlink=1 "Pseudo-genetic (page does not exist)") techniques.
+In this framework, one can distinguish two modeling goals: Estimating the value for Z ( x ) , typically by the expectation , the median or the mode of the CDF f ( z , x ) . This is usually denoted as an estimation problem.
 
-By applying a single spatial model on an entire domain, one makes the assumption that _Z_ is a [stationary process](https://en.wikipedia.org/wiki/Stationary_process "Stationary process"). It means that the same statistical properties are applicable on the entire domain. Several geostatistical methods provide ways of relaxing this stationarity assumption.
+Sampling from the entire probability density function f ( z , x ) by actually considering each possible outcome of it at each location. This is generally done by creating several alternative maps of Z , called realizations. Consider a domain discretized in N grid nodes (or pixels). Each realization is a sample of the complete N -dimensional joint distribution function F ( z , x ) = Prob ⁡ ⁡ { Z ( x 1 ) ⩽ ⩽ z 1 , Z ( x 2 ) ⩽ ⩽ z 2 , .
 
-In this framework, one can distinguish two modeling goals:
+.
 
-1.   [Estimating](https://en.wikipedia.org/wiki/Estimation_theory "Estimation theory") the value for _Z_(**x**), typically by the [expectation](https://en.wikipedia.org/wiki/Expected_value "Expected value"), the [median](https://en.wikipedia.org/wiki/Median "Median") or the [mode](https://en.wikipedia.org/wiki/Mode_(statistics) "Mode (statistics)") of the CDF _f_(_z_,**x**). This is usually denoted as an estimation problem.
-2.   [Sampling](https://en.wikipedia.org/wiki/Sampling_(statistics) "Sampling (statistics)") from the entire probability density function _f_(_z_,**x**) by actually considering each possible outcome of it at each location. This is generally done by creating several alternative maps of _Z_, called realizations. Consider a domain discretized in _N_ grid nodes (or pixels). Each realization is a sample of the complete _N_-dimensional joint distribution function
+.
 
-![Image 2: {\displaystyle F(\mathbf {z} ,\mathbf {x} )=\operatorname {Prob} \lbrace Z(\mathbf {x} _{1})\leqslant z_{1},Z(\mathbf {x} _{2})\leqslant z_{2},...,Z(\mathbf {x} _{N})\leqslant z_{N}\rbrace .}](https://wikimedia.org/api/rest_v1/media/math/render/svg/f56338be72352419af1ef8a6fe59645f88d36fe9)In this approach, the presence of multiple solutions to the interpolation problem is acknowledged. Each realization is considered as a possible scenario of what the real variable could be. All associated workflows are then considering ensemble of realizations, and consequently ensemble of predictions that allow for probabilistic forecasting. Therefore, geostatistics is often used to generate or update spatial models when solving [inverse problems](https://en.wikipedia.org/wiki/Inverse_problem "Inverse problem").[[4]](https://en.wikipedia.org/wiki/Geostatistics#cite_note-4)[[5]](https://en.wikipedia.org/wiki/Geostatistics#cite_note-5)
-A number of methods exist for both geostatistical estimation and multiple realizations approaches. Several reference books provide a comprehensive overview of the discipline.[[2]](https://en.wikipedia.org/wiki/Geostatistics#cite_note-IandS1989-2)[[6]](https://en.wikipedia.org/wiki/Geostatistics#cite_note-6)[[7]](https://en.wikipedia.org/wiki/Geostatistics#cite_note-7)[[8]](https://en.wikipedia.org/wiki/Geostatistics#cite_note-8)[[9]](https://en.wikipedia.org/wiki/Geostatistics#cite_note-9)[[10]](https://en.wikipedia.org/wiki/Geostatistics#cite_note-10)[[11]](https://en.wikipedia.org/wiki/Geostatistics#cite_note-11)[[12]](https://en.wikipedia.org/wiki/Geostatistics#cite_note-12)[[13]](https://en.wikipedia.org/wiki/Geostatistics#cite_note-13)[[14]](https://en.wikipedia.org/wiki/Geostatistics#cite_note-14)[[15]](https://en.wikipedia.org/wiki/Geostatistics#cite_note-15)
+, Z ( x N ) ⩽ ⩽ z N } .
 
-Kriging is a group of geostatistical techniques to interpolate the value of a random field (e.g., the elevation, z, of the landscape as a function of the geographic location) at an unobserved location from observations of its value at nearby locations.
+{\displaystyle F(\mathbf {z} ,\mathbf {x} )=\operatorname {Prob} \lbrace Z(\mathbf {x} _{1})\leqslant z_{1},Z(\mathbf {x} _{2})\leqslant z_{2},...,Z(\mathbf {x} _{N})\leqslant z_{N}\rbrace .} In this approach, the presence of multiple solutions to the interpolation problem is acknowledged. Each realization is considered as a possible scenario of what the real variable could be. All associated workflows are then considering ensemble of realizations, and consequently ensemble of predictions that allow for probabilistic forecasting. Therefore, geostatistics is often used to generate or update spatial models when solving inverse problems .
 
-#### Bayesian estimation
+[ 4 ] [ 5 ] A number of methods exist for both geostatistical estimation and multiple realizations approaches. Several reference books provide a comprehensive overview of the discipline.
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Geostatistics&action=edit&section=5 "Edit section: Bayesian estimation")]
+[ 2 ] [ 6 ] [ 7 ] [ 8 ] [ 9 ] [ 10 ] [ 11 ] [ 12 ] [ 13 ] [ 14 ] [ 15 ] Methods [ edit ] Estimation [ edit ] Kriging [ edit ] Main article: Kriging Kriging is a group of geostatistical techniques to interpolate the value of a random field (e.g., the elevation, z, of the landscape as a function of the geographic location) at an unobserved location from observations of its value at nearby locations.
 
-Bayesian inference is a method of statistical inference in which [Bayes' theorem](https://en.wikipedia.org/wiki/Bayes%27_theorem "Bayes' theorem") is used to update a probability model as more evidence or information becomes available. Bayesian inference is playing an increasingly important role in geostatistics.[[16]](https://en.wikipedia.org/wiki/Geostatistics#cite_note-16) Bayesian estimation implements kriging through a spatial process, most commonly a [Gaussian process](https://en.wikipedia.org/wiki/Gaussian_process "Gaussian process"), and updates the process using [Bayes' Theorem](https://en.wikipedia.org/wiki/Bayes%27_Theorem "Bayes' Theorem") to calculate its posterior. High-dimensional Bayesian geostatistics.[[17]](https://en.wikipedia.org/wiki/Geostatistics#cite_note-17)
+Bayesian estimation [ edit ] Main article: Bayesian inference Bayesian inference is a method of statistical inference in which Bayes' theorem is used to update a probability model as more evidence or information becomes available. Bayesian inference is playing an increasingly important role in geostatistics.
 
-#### Finite difference method
+[ 16 ] Bayesian estimation implements kriging through a spatial process, most commonly a Gaussian process , and updates the process using Bayes' Theorem to calculate its posterior. High-dimensional Bayesian geostatistics.
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Geostatistics&action=edit&section=6 "Edit section: Finite difference method")]
+[ 17 ] Finite difference method [ edit ] Considering the principle of conservation of probability, recurrent difference equations (finite difference equations) were used in conjunction with lattices to compute probabilities quantifying uncertainty about the geological structures. This procedure is a numerical alternative method to Markov chains and Bayesian models.
 
-Considering the principle of conservation of probability, recurrent difference equations (finite difference equations) were used in conjunction with lattices to compute probabilities quantifying uncertainty about the geological structures. This procedure is a numerical alternative method to Markov chains and Bayesian models.[[18]](https://en.wikipedia.org/wiki/Geostatistics#cite_note-18)
+[ 18 ] Simulation [ edit ] Aggregation Dissagregation Turning bands Cholesky decomposition Truncated Gaussian Plurigaussian Annealing Spectral simulation Sequential Indicator Sequential Gaussian Dead Leave Transition probabilities Markov chain geostatistics Support vector machine Boolean simulation Genetic models Pseudo-genetic models Cellular automata Multiple-Point Geostatistics Definitions and tools [ edit ] Regionalized variable theory Covariance function Semi-variance Variogram Kriging Range (geostatistics) Sill (geostatistics) Nugget effect Training image Finite difference method See also [ edit ] Arbia's law of geography Concepts and Techniques in Modern Geography Multivariate interpolation Spline interpolation Geodemographic segmentation Geodesy Geographic Information Science Geographic Information Systems Geomatics SaTScan Remote sensing Pedometrics Time geography Tobler's first law of geography Tobler's second law of geography Uncertain geographic context problem Notes [ edit ] ^ Krige, Danie G. (1951). "A statistical approach to some basic mine valuation problems on the Witwatersrand". J. of the Chem., Metal. and Mining Soc. of South Africa 52 (6): 119–139 ^ a b Isaaks, E. H. and Srivastava, R. M. (1989), An Introduction to Applied Geostatistics, Oxford University Press, New York, USA.
 
-*   Aggregation
-*   Dissagregation
-*   [Turning bands](https://en.wikipedia.org/w/index.php?title=Turning_bands&action=edit&redlink=1 "Turning bands (page does not exist)")
-*   [Cholesky decomposition](https://en.wikipedia.org/wiki/Cholesky_decomposition "Cholesky decomposition")
-*   Truncated Gaussian
-*   Plurigaussian
-*   Annealing
-*   Spectral simulation
-*   Sequential Indicator
-*   Sequential Gaussian
-*   Dead Leave
-*   [Transition probabilities](https://en.wikipedia.org/wiki/Transition_probabilities "Transition probabilities")
-*   [Markov chain geostatistics](https://en.wikipedia.org/wiki/Markov_chain_geostatistics "Markov chain geostatistics")
-*   [Support vector machine](https://en.wikipedia.org/wiki/Support_vector_machine "Support vector machine")
-*   [Boolean simulation](https://en.wikipedia.org/w/index.php?title=Boolean_simulation&action=edit&redlink=1 "Boolean simulation (page does not exist)")
-*   Genetic models
-*   Pseudo-genetic models
-*   [Cellular automata](https://en.wikipedia.org/wiki/Cellular_automata "Cellular automata")
-*   Multiple-Point Geostatistics
+^ Mariethoz, Gregoire, Caers, Jef (2014). Multiple-point geostatistics: modeling with training images.  Wiley-Blackwell, Chichester, UK, 364 p.
 
-Definitions and tools
----------------------
+^ Hansen, T.M., Journel, A.G., Tarantola, A. and Mosegaard, K. (2006). "Linear inverse Gaussian theory and geostatistics", Geophysics 71 ^ Kitanidis, P.K. and Vomvoris, E.G. (1983). "A geostatistical approach to the inverse problem in groundwater modeling (steady state) and one-dimensional simulations", Water Resources Research 19(3):677-690 ^ Remy, N., et al. (2009), Applied Geostatistics with SGeMS: A User's Guide, 284 pp., Cambridge University Press, Cambridge.
 
-[[edit](https://en.wikipedia.org/w/index.php?title=Geostatistics&action=edit&section=8 "Edit section: Definitions and tools")]
+^ Deutsch, C.V., Journel, A.G, (1997).
 
-*   [Regionalized variable theory](https://en.wikipedia.org/wiki/Regionalized_variable_theory "Regionalized variable theory")
-*   [Covariance function](https://en.wikipedia.org/wiki/Covariance_function "Covariance function")
-*   [Semi-variance](https://en.wikipedia.org/wiki/Semi-variance "Semi-variance")
-*   [Variogram](https://en.wikipedia.org/wiki/Variogram "Variogram")
-*   [Kriging](https://en.wikipedia.org/wiki/Kriging "Kriging")
-*   [Range (geostatistics)](https://en.wikipedia.org/wiki/Range_(geostatistics) "Range (geostatistics)")
-*   [Sill (geostatistics)](https://en.wikipedia.org/wiki/Sill_(geostatistics) "Sill (geostatistics)")
-*   [Nugget effect](https://en.wikipedia.org/wiki/Nugget_effect "Nugget effect")
-*   [Training image](https://en.wikipedia.org/w/index.php?title=Training_image&action=edit&redlink=1 "Training image (page does not exist)")
-*   [Finite difference method](https://en.wikipedia.org/wiki/Finite_difference_method "Finite difference method")
+GSLIB: Geostatistical Software Library and User's Guide (Applied Geostatistics Series), Second Edition, Oxford University Press, 369 pp., http://www.gslib.com/ ^ Chilès, J.-P., and P. Delfiner (1999), Geostatistics - Modeling Spatial Uncertainty, John Wiley & Sons, Inc., New York, USA.
 
-*   [Arbia's law of geography](https://en.wikipedia.org/wiki/Arbia%27s_law_of_geography "Arbia's law of geography")
-*   [Concepts and Techniques in Modern Geography](https://en.wikipedia.org/wiki/Concepts_and_Techniques_in_Modern_Geography "Concepts and Techniques in Modern Geography")
-*   [Multivariate interpolation](https://en.wikipedia.org/wiki/Multivariate_interpolation "Multivariate interpolation")
-*   [Spline interpolation](https://en.wikipedia.org/wiki/Spline_interpolation "Spline interpolation")
-*   [Geodemographic segmentation](https://en.wikipedia.org/wiki/Geodemographic_segmentation "Geodemographic segmentation")
-*   [Geodesy](https://en.wikipedia.org/wiki/Geodesy "Geodesy")
-*   [Geographic Information Science](https://en.wikipedia.org/wiki/Geographic_Information_Science "Geographic Information Science")
-*   [Geographic Information Systems](https://en.wikipedia.org/wiki/Geographic_Information_Systems "Geographic Information Systems")
-*   [Geomatics](https://en.wikipedia.org/wiki/Geomatics "Geomatics")
-*   [SaTScan](https://en.wikipedia.org/wiki/SaTScan "SaTScan")
-*   [Remote sensing](https://en.wikipedia.org/wiki/Remote_sensing "Remote sensing")
-*   [Pedometrics](https://en.wikipedia.org/wiki/Pedometrics "Pedometrics")
-*   [Time geography](https://en.wikipedia.org/wiki/Time_geography "Time geography")
-*   [Tobler's first law of geography](https://en.wikipedia.org/wiki/Tobler%27s_first_law_of_geography "Tobler's first law of geography")
-*   [Tobler's second law of geography](https://en.wikipedia.org/wiki/Tobler%27s_second_law_of_geography "Tobler's second law of geography")
-*   [Uncertain geographic context problem](https://en.wikipedia.org/wiki/Uncertain_geographic_context_problem "Uncertain geographic context problem")
+^ Lantuéjoul, C. (2002), Geostatistical simulation: Models and algorithms, 232 pp., Springer, Berlin.
 
-1.   **[^](https://en.wikipedia.org/wiki/Geostatistics#cite_ref-1)**Krige, Danie G. (1951). "A statistical approach to some basic mine valuation problems on the Witwatersrand". J. of the Chem., Metal. and Mining Soc. of South Africa 52 (6): 119–139
-2.   ^ [_**a**_](https://en.wikipedia.org/wiki/Geostatistics#cite_ref-IandS1989_2-0)[_**b**_](https://en.wikipedia.org/wiki/Geostatistics#cite_ref-IandS1989_2-1)Isaaks, E. H. and Srivastava, R. M. (1989), _An Introduction to Applied Geostatistics,_ Oxford University Press, New York, USA.
-3.   **[^](https://en.wikipedia.org/wiki/Geostatistics#cite_ref-3)**Mariethoz, Gregoire, Caers, Jef (2014). Multiple-point geostatistics: modeling with training images. Wiley-Blackwell, Chichester, UK, 364 p.
-4.   **[^](https://en.wikipedia.org/wiki/Geostatistics#cite_ref-4)**Hansen, T.M., Journel, A.G., Tarantola, A. and Mosegaard, K. (2006). "Linear inverse Gaussian theory and geostatistics", _Geophysics_ 71
-5.   **[^](https://en.wikipedia.org/wiki/Geostatistics#cite_ref-5)**Kitanidis, P.K. and Vomvoris, E.G. (1983). "A geostatistical approach to the inverse problem in groundwater modeling (steady state) and one-dimensional simulations", _Water Resources Research_ 19(3):677-690
-6.   **[^](https://en.wikipedia.org/wiki/Geostatistics#cite_ref-6)**Remy, N., et al. (2009), _Applied Geostatistics with SGeMS: A User's Guide,_ 284 pp., Cambridge University Press, Cambridge.
-7.   **[^](https://en.wikipedia.org/wiki/Geostatistics#cite_ref-7)** Deutsch, C.V., Journel, A.G, (1997). _GSLIB: Geostatistical Software Library and User's Guide (Applied Geostatistics Series), Second Edition,_ Oxford University Press, 369 pp., [http://www.gslib.com/](http://www.gslib.com/)
-8.   **[^](https://en.wikipedia.org/wiki/Geostatistics#cite_ref-8)**Chilès, J.-P., and P. Delfiner (1999), _Geostatistics - Modeling Spatial Uncertainty,_ John Wiley & Sons, Inc., New York, USA.
-9.   **[^](https://en.wikipedia.org/wiki/Geostatistics#cite_ref-9)**Lantuéjoul, C. (2002), _Geostatistical simulation: Models and algorithms,_ 232 pp., Springer, Berlin.
-10.   **[^](https://en.wikipedia.org/wiki/Geostatistics#cite_ref-10)**Journel, A. G. and Huijbregts, C.J. (1978) _Mining Geostatistics,_ Academic Press. [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) "ISBN (identifier)")[0-12-391050-1](https://en.wikipedia.org/wiki/Special:BookSources/0-12-391050-1 "Special:BookSources/0-12-391050-1")
-11.   **[^](https://en.wikipedia.org/wiki/Geostatistics#cite_ref-11)**Kitanidis, P.K. (1997) _Introduction to Geostatistics: Applications in Hydrogeology,_ Cambridge University Press.
-12.   **[^](https://en.wikipedia.org/wiki/Geostatistics#cite_ref-12)**Wackernagel, H. (2003). _Multivariate geostatistics,_ Third edition, Springer-Verlag, Berlin, 387 pp.
-13.   **[^](https://en.wikipedia.org/wiki/Geostatistics#cite_ref-13)**Pyrcz, M. J. and Deutsch, C.V., (2014). _Geostatistical Reservoir Modeling, 2nd Edition_, Oxford University Press, 448 pp.
-14.   **[^](https://en.wikipedia.org/wiki/Geostatistics#cite_ref-14)**Tahmasebi, P., Hezarkhani, A., Sahimi, M., 2012, Multiple-point geostatistical modeling based on the cross-correlation functions, Computational Geosciences, 16(3):779-79742, 
-15.   **[^](https://en.wikipedia.org/wiki/Geostatistics#cite_ref-15)**Schnetzler, Manu. ["Statios - WinGslib"](https://web.archive.org/web/20150511095032/http://www.statios.com/WinGslib/index.html). Archived from [the original](http://www.statios.com/WinGslib/index.html) on 2015-05-11. Retrieved 2005-10-10.
-16.   **[^](https://en.wikipedia.org/wiki/Geostatistics#cite_ref-16)**Banerjee S., Carlin B.P., and Gelfand A.E. (2014). Hierarchical Modeling and Analysis for Spatial Data, Second Edition. Chapman & Hall/CRC Monographs on Statistics & Applied Probability. [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) "ISBN (identifier)")[9781439819173](https://en.wikipedia.org/wiki/Special:BookSources/9781439819173 "Special:BookSources/9781439819173")
-17.   **[^](https://en.wikipedia.org/wiki/Geostatistics#cite_ref-17)**Banerjee, Sudipto. High-Dimensional Bayesian Geostatistics. Bayesian Anal. 12 (2017), no. 2, 583--614. [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1214/17-BA1056R](https://doi.org/10.1214%2F17-BA1056R). [https://projecteuclid.org/euclid.ba/1494921642](https://projecteuclid.org/euclid.ba/1494921642)
-18.   **[^](https://en.wikipedia.org/wiki/Geostatistics#cite_ref-18)**Cardenas, IC (2023). ["A two-dimensional approach to quantify stratigraphic uncertainty from borehole data using non-homogeneous random fields"](https://doi.org/10.1016%2Fj.enggeo.2023.107001). _Engineering Geology_. [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1016/j.enggeo.2023.107001](https://doi.org/10.1016%2Fj.enggeo.2023.107001).
+^ Journel, A. G. and Huijbregts, C.J. (1978) Mining Geostatistics, Academic Press.
 
-1.   Armstrong, M and Champigny, N, 1988, A Study on Kriging Small Blocks, CIM Bulletin, Vol 82, No 923
-2.   Armstrong, M, 1992, [Freedom of Speech?](https://web.archive.org/web/20061221032347/http://geostatscam.com/Adobe/DeGeo199207.pdf) De Geeostatisticis, July, No 14
-3.   Champigny, N, 1992, [Geostatistics: A tool that works](https://web.archive.org/web/20110711085650/http://www.geostatscam.com/Adobe/TNM19920518.pdf), [The Northern Miner](https://en.wikipedia.org/wiki/The_Northern_Miner_(Canada) "The Northern Miner (Canada)"), May 18
-4.   Clark I, 1979, [Practical Geostatistics](http://www.kriging.com/pg1979_download.html), Applied Science Publishers, London
-5.   David, M, 1977, Geostatistical Ore Reserve Estimation, Elsevier Scientific Publishing Company, Amsterdam
-6.   Hald, A, 1952, Statistical Theory with Engineering Applications, John Wiley & Sons, New York
-7.   Honarkhah, Mehrdad; Caers, Jef (2010). "Stochastic Simulation of Patterns Using Distance-Based Pattern Modeling". _Mathematical Geosciences_. **42** (5): 487–517. [doi](https://en.wikipedia.org/wiki/Doi_(identifier) "Doi (identifier)"):[10.1007/s11004-010-9276-7](https://doi.org/10.1007%2Fs11004-010-9276-7). [S2CID](https://en.wikipedia.org/wiki/S2CID_(identifier) "S2CID (identifier)")[73657847](https://api.semanticscholar.org/CorpusID:73657847). (best paper award IAMG 09)
-8.   ISO/DIS 11648-1 Statistical aspects of sampling from bulk materials-Part1: General principles
-9.   Lipschutz, S, 1968, Theory and Problems of Probability, McCraw-Hill Book Company, New York.
-10.   Matheron, G. 1962. Traité de géostatistique appliquée. Tome 1, Editions Technip, Paris, 334 pp.
-11.   Matheron, G. 1989. Estimating and choosing, Springer-Verlag, Berlin.
-12.   McGrew, J. Chapman, & Monroe, Charles B., 2000. An introduction to statistical problem solving in geography, second edition, McGraw-Hill, New York.
-13.   Merks, J W, 1992, [Geostatistics or voodoo science](https://web.archive.org/web/20060901132329/http://geostatscam.com/Adobe/TNM19920420.pdf), The Northern Miner, May 18
-14.   Merks, J W, [Abuse of statistics](https://web.archive.org/web/20060629194347/http://www.geostatscam.com/Adobe/Abuse_stats.pdf), CIM Bulletin, January 1993, Vol 86, No 966
-15.   Myers, Donald E.; ["What Is Geostatistics?](http://www.u.arizona.edu/~donaldm/homepage/whatis.html)
-16.   Philip, G M and Watson, D F, 1986, Matheronian Geostatistics; Quo Vadis?, Mathematical Geology, Vol 18, No 1 
-17.   Pyrcz, M.J. and Deutsch, C.V., 2014, Geostatistical Reservoir Modeling, 2nd Edition, Oxford University Press, New York, p.448
-18.   Sharov, A: Quantitative Population Ecology, 1996, [https://web.archive.org/web/20020605050231/http://www.ento.vt.edu/~sharov/PopEcol/popecol.html](https://web.archive.org/web/20020605050231/http://www.ento.vt.edu/~sharov/PopEcol/popecol.html)
-19.   Shine, J.A., Wakefield, G.I.: A comparison of supervised imagery classification using analyst-chosen and geostatistically-chosen training sets, 1999, [https://web.archive.org/web/20020424165227/http://www.geovista.psu.edu/sites/geocomp99/Gc99/044/gc_044.htm](https://web.archive.org/web/20020424165227/http://www.geovista.psu.edu/sites/geocomp99/Gc99/044/gc_044.htm)
-20.   Strahler, A. H., and Strahler A., 2006, Introducing Physical Geography, 4th Ed., Wiley.
-21.   Tahmasebi, P., Hezarkhani, A., Sahimi, M., 2012, [Multiple-point geostatistical modeling based on the cross-correlation functions](https://doi.org/10.1007%2Fs10596-012-9287-1), Computational Geosciences, 16(3):779-79742.
-22.   Volk, W, 1980, Applied Statistics for Engineers, Krieger Publishing Company, Huntington, New York.
+ISBN 0-12-391050-1 ^ Kitanidis, P.K.  (1997) Introduction to Geostatistics: Applications in Hydrogeology, Cambridge University Press.
 
-*   [On-Line Library that chronicles Matheron's journey from classical statistics to the new science of geostatistics](http://www.cg.ensmp.fr/bibliotheque)
-*   [[1]](http://www.u.arizona.edu/~donaldm/homepage/whatis.html)
+^ Wackernagel, H. (2003).
+
+Multivariate geostatistics, Third edition, Springer-Verlag, Berlin, 387 pp.
+
+^ Pyrcz, M. J. and Deutsch, C.V., (2014).
+
+Geostatistical Reservoir Modeling, 2nd Edition , Oxford University Press, 448 pp.
+
+^ Tahmasebi, P., Hezarkhani, A., Sahimi, M., 2012, Multiple-point geostatistical modeling based on the cross-correlation functions, Computational Geosciences, 16(3):779-79742, ^ Schnetzler, Manu.
+
+"Statios - WinGslib" . Archived from the original on 2015-05-11 . Retrieved 2005-10-10 .
+
+^ Banerjee S., Carlin B.P., and Gelfand A.E. (2014). Hierarchical Modeling and Analysis for Spatial Data, Second Edition. Chapman & Hall/CRC Monographs on Statistics & Applied Probability.
+
+ISBN 9781439819173 ^ Banerjee, Sudipto. High-Dimensional Bayesian Geostatistics. Bayesian Anal. 12 (2017), no. 2, 583--614.
+
+doi : 10.1214/17-BA1056R .
+
+https://projecteuclid.org/euclid.ba/1494921642 ^ Cardenas, IC (2023).
+
+"A two-dimensional approach to quantify stratigraphic uncertainty from borehole data using non-homogeneous random fields" .
+
+Engineering Geology .
+
+doi : 10.1016/j.enggeo.2023.107001 .
+
+References [ edit ] Armstrong, M and Champigny, N, 1988, A Study on Kriging Small Blocks, CIM Bulletin, Vol 82, No 923 Armstrong, M, 1992, Freedom of Speech?
+
+De Geeostatisticis, July, No 14 Champigny, N, 1992, Geostatistics: A tool that works , The Northern Miner , May 18 Clark I, 1979, Practical Geostatistics , Applied Science Publishers, London David, M, 1977, Geostatistical Ore Reserve Estimation, Elsevier Scientific Publishing Company, Amsterdam Hald, A, 1952, Statistical Theory with Engineering Applications, John Wiley & Sons, New York Honarkhah, Mehrdad; Caers, Jef (2010). "Stochastic Simulation of Patterns Using Distance-Based Pattern Modeling".
+
+Mathematical Geosciences .
+
+42 (5): 487– 517.
+
+doi : 10.1007/s11004-010-9276-7 .
+
+S2CID 73657847 .
+
+(best paper award IAMG 09) ISO/DIS 11648-1 Statistical aspects of sampling from bulk materials-Part1: General principles Lipschutz, S, 1968, Theory and Problems of Probability, McCraw-Hill Book Company, New York.
+
+Matheron, G. 1962. Traité de géostatistique appliquée. Tome 1, Editions Technip, Paris, 334 pp.
+
+Matheron, G. 1989. Estimating and choosing, Springer-Verlag, Berlin.
+
+McGrew, J. Chapman, & Monroe, Charles B., 2000. An introduction to statistical problem solving in geography, second edition, McGraw-Hill, New York.
+
+Merks, J W, 1992, Geostatistics or voodoo science , The Northern Miner, May 18 Merks, J W, Abuse of statistics , CIM Bulletin, January 1993, Vol 86, No 966 Myers, Donald E.; "What Is Geostatistics?
+
+Philip, G M and Watson, D F, 1986, Matheronian Geostatistics; Quo Vadis?, Mathematical Geology, Vol 18, No 1 Pyrcz, M.J. and Deutsch, C.V., 2014, Geostatistical Reservoir Modeling, 2nd Edition, Oxford University Press, New York, p. 448 Sharov, A: Quantitative Population Ecology, 1996, https://web.archive.org/web/20020605050231/http://www.ento.vt.edu/~sharov/PopEcol/popecol.html Shine, J.A., Wakefield, G.I.: A comparison of supervised imagery classification using analyst-chosen and geostatistically-chosen training sets, 1999, https://web.archive.org/web/20020424165227/http://www.geovista.psu.edu/sites/geocomp99/Gc99/044/gc_044.htm Strahler, A. H., and Strahler A., 2006, Introducing Physical Geography, 4th Ed., Wiley.
+
+Tahmasebi, P., Hezarkhani, A., Sahimi, M., 2012, Multiple-point geostatistical modeling based on the cross-correlation functions , Computational Geosciences, 16(3):779-79742.
+
+Volk, W, 1980, Applied Statistics for Engineers, Krieger Publishing Company, Huntington, New York.
+
+External links [ edit ] Wikimedia Commons has media related to Geostatistics .
+
+On-Line Library that chronicles Matheron's journey from classical statistics to the new science of geostatistics [1] v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject Authority control databases National Germany United States France BnF data Czech Republic Israel Other Yale LUX NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐zxm6c
+Cached time: 20250812002836
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.453 seconds
+Real time usage: 0.593 seconds
+Preprocessor visited node count: 3215/1000000
+Revision size: 14308/2097152 bytes
+Post‐expand include size: 165025/2097152 bytes
+Template argument size: 4088/2097152 bytes
+Highest expansion depth: 15/100
+Expensive parser function count: 5/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 44364/5000000 bytes
+Lua time usage: 0.255/10.000 seconds
+Lua memory usage: 7078815/52428800 bytes
+Number of Wikibase entities loaded: 1/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  459.902      1 -total
+ 28.65%  131.780      1 Template:Statistics
+ 28.04%  128.941      1 Template:Navbox_with_collapsible_groups
+ 22.99%  105.723      1 Template:Reflist
+ 14.83%   68.199      1 Template:Short_description
+ 12.25%   56.360      2 Template:ISBN
+ 10.89%   50.095     11 Template:Navbox
+ 10.83%   49.824      1 Template:Commons_category
+ 10.43%   47.967      1 Template:Sister_project
+ 10.08%   46.367      1 Template:Side_box Saved in parser cache with key enwiki:pcache:51531:|#|:idhash:canonical and timestamp 20250812002836 and revision id 1289532836. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Geostatistics&oldid=1289532836 " Category : Geostatistics Hidden categories: Articles with short description Short description matches Wikidata Commons category link from Wikidata This page was last edited on 9 May 2025, at 06:50 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Geostatistics 26 languages Add topic
+

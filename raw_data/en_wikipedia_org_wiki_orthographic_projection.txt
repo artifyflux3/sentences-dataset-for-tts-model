@@ -1,0 +1,115 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Geometry 2 Types 3 Multiview projection 4 Cartography 5 Notes 6 References 7 External links Toggle the table of contents Orthographic projection 28 languages العربية Български Bosanski Català Deutsch Ελληνικά Español Esperanto Euskara فارسی Français Gaeilge 한국어 Bahasa Indonesia עברית Македонски Nederlands 日本語 Polski Português Română Русский Simple English Српски / srpski Srpskohrvatski / српскохрватски Suomi Українська 粵語 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Means of projecting three-dimensional objects in two dimensions For the orthographic projection as a map projection, see Orthographic map projection . For mathematical discussion in terms of linear algebra, see Projection (linear algebra) .
+
+Part of a series on Graphical projection Planar projections Parallel projection Orthographic projection Isometric projection Oblique projection Perspective projection Curvilinear perspective Reverse perspective Views Bird's-eye view Cross section Cutaway drawing Exploded-view drawing Fisheye lens Multiviews Panorama Worm's-eye view Zoom lens Topics 3D projection Anamorphosis Axonometry Computer graphics Computer-aided design Descriptive geometry Engineering drawing Map projection Picture plane Plan (drawing) Projection (linear algebra) Projection plane Projective geometry Stereoscopy Technical drawing True length Vanishing point Video game graphics Viewing frustum v t e Orthographic projection , or orthogonal projection (also analemma [ a ] ), is a means of representing three-dimensional objects in two dimensions . Orthographic projection is a form of parallel projection in which all the projection lines are orthogonal to the projection plane , [ 2 ] resulting in every plane of the scene appearing in affine transformation on the viewing surface. The obverse of an orthographic projection is an oblique projection , which is a parallel projection in which the projection lines are not orthogonal to the projection plane.
+
+The term orthographic sometimes means a technique in multiview projection in which principal axes or the planes of the subject are also parallel with the projection plane to create the primary views .
+
+[ 2 ] If the principal planes or axes of an object in an orthographic projection are not parallel with the projection plane, the depiction is called axonometric or an auxiliary views . ( Axonometric projection is synonymous with parallel projection .) Sub-types of primary views include plans , elevations , and sections ; sub-types of auxiliary views include isometric , dimetric , and trimetric projections .
+
+A lens that provides an orthographic projection is an object-space telecentric lens .
+
+Geometry [ edit ] Comparison of several types of graphical projection Various projections and how they are produced The three views. The percentages show the amount of foreshortening.
+
+A simple orthographic projection onto the plane z = 0 can be defined by the following matrix: P = [ 1 0 0 0 1 0 0 0 0 ] {\displaystyle P={\begin{bmatrix}1&0&0\\0&1&0\\0&0&0\\\end{bmatrix}}} For each point v = ( v x , v y , v z ), the transformed point Pv would be P v = [ 1 0 0 0 1 0 0 0 0 ] [ v x v y v z ] = [ v x v y 0 ] {\displaystyle Pv={\begin{bmatrix}1&0&0\\0&1&0\\0&0&0\\\end{bmatrix}}{\begin{bmatrix}v_{x}\\v_{y}\\v_{z}\end{bmatrix}}={\begin{bmatrix}v_{x}\\v_{y}\\0\end{bmatrix}}} Often, it is more useful to use homogeneous coordinates .  The transformation above can be represented for homogeneous coordinates as P = [ 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 ] {\displaystyle P={\begin{bmatrix}1&0&0&0\\0&1&0&0\\0&0&0&0\\0&0&0&1\end{bmatrix}}} For each homogeneous vector v = ( v x , v y , v z , 1), the transformed vector Pv would be P v = [ 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 ] [ v x v y v z 1 ] = [ v x v y 0 1 ] {\displaystyle Pv={\begin{bmatrix}1&0&0&0\\0&1&0&0\\0&0&0&0\\0&0&0&1\end{bmatrix}}{\begin{bmatrix}v_{x}\\v_{y}\\v_{z}\\1\end{bmatrix}}={\begin{bmatrix}v_{x}\\v_{y}\\0\\1\end{bmatrix}}} In computer graphics ,  one of the most common matrices used for orthographic projection can be defined by a 6-tuple , ( left , right , bottom , top , near , far ), which defines the clipping planes.  These planes form a box with the minimum corner at ( left , bottom , - near ) and the maximum corner at ( right , top , - far ).
+
+[ 3 ] The box is translated so that its center is at the origin, then it is scaled to the unit cube which is defined by having a minimum corner at (−1,−1,−1) and a maximum corner at (1,1,1).
+
+The orthographic transform can be given by the following matrix: P = [ 2 right − − left 0 0 − − right + left right − − left 0 2 top − − bottom 0 − − top + bottom top − − bottom 0 0 − − 2 far − − near − − far + near far − − near 0 0 0 1 ] {\displaystyle P={\begin{bmatrix}{\frac {2}{{\text{right}}-{\text{left}}}}&0&0&-{\frac {{\text{right}}+{\text{left}}}{{\text{right}}-{\text{left}}}}\\0&{\frac {2}{{\text{top}}-{\text{bottom}}}}&0&-{\frac {{\text{top}}+{\text{bottom}}}{{\text{top}}-{\text{bottom}}}}\\0&0&{\frac {-2}{{\text{far}}-{\text{near}}}}&-{\frac {{\text{far}}+{\text{near}}}{{\text{far}}-{\text{near}}}}\\0&0&0&1\end{bmatrix}}} which can be given as a scaling S followed by a translation T of the form P = S T = [ 2 right − − left 0 0 0 0 2 top − − bottom 0 0 0 0 2 far − − near 0 0 0 0 1 ] [ 1 0 0 − − left + right 2 0 1 0 − − top + bottom 2 0 0 − − 1 − − far + near 2 0 0 0 1 ] {\displaystyle P=ST={\begin{bmatrix}{\frac {2}{{\text{right}}-{\text{left}}}}&0&0&0\\0&{\frac {2}{{\text{top}}-{\text{bottom}}}}&0&0\\0&0&{\frac {2}{{\text{far}}-{\text{near}}}}&0\\0&0&0&1\end{bmatrix}}{\begin{bmatrix}1&0&0&-{\frac {{\text{left}}+{\text{right}}}{2}}\\0&1&0&-{\frac {{\text{top}}+{\text{bottom}}}{2}}\\0&0&-1&-{\frac {{\text{far}}+{\text{near}}}{2}}\\0&0&0&1\end{bmatrix}}} The inversion of the projection matrix P −1 , which can be used as the unprojection matrix is defined: P − − 1 = [ right − − left 2 0 0 left + right 2 0 top − − bottom 2 0 top + bottom 2 0 0 far − − near − − 2 − − far + near 2 0 0 0 1 ] {\displaystyle P^{-1}={\begin{bmatrix}{\frac {{\text{right}}-{\text{left}}}{2}}&0&0&{\frac {{\text{left}}+{\text{right}}}{2}}\\0&{\frac {{\text{top}}-{\text{bottom}}}{2}}&0&{\frac {{\text{top}}+{\text{bottom}}}{2}}\\0&0&{\frac {{\text{far}}-{\text{near}}}{-2}}&-{\frac {{\text{far}}+{\text{near}}}{2}}\\0&0&0&1\end{bmatrix}}} Types [ edit ] Classification of Orthographic projection and some 3D projections Three sub-types of orthographic projection are isometric projection , dimetric projection , and trimetric projection , depending on the exact angle at which the view deviates from the orthogonal.
+
+[ 2 ] [ 4 ] Typically in axonometric drawing, as in other types of pictorials, one axis of space is shown to be vertical.
+
+In isometric projection , the most commonly used form of axonometric projection in engineering drawing, [ 5 ] the direction of viewing is such that the three axes of space appear equally foreshortened , and there is a common angle of 120° between them.  As the distortion caused by foreshortening is uniform, the proportionality between lengths is preserved, and the axes share a common scale; this eases one's ability to take measurements directly from the drawing.  Another advantage is that 120° angles are easily constructed using only a compass and straightedge .
+
+In dimetric projection , the direction of viewing is such that two of the three axes of space appear equally foreshortened, of which the attendant scale and angles of presentation are determined according to the angle of viewing; the scale of the third direction is determined separately.
+
+In trimetric projection , the direction of viewing is such that all of the three axes of space appear unequally foreshortened. The scale along each of the three axes and the angles among them are determined separately as dictated by the angle of viewing. Trimetric perspective is seldom used in technical drawings.
+
+[ 4 ] Multiview projection [ edit ] Symbols used to define whether a multiview projection is either first-angle (left) or third-angle (right) Main article: Multiview projection In multiview projection , up to six pictures of an object are produced, called primary views , with each projection plane parallel to one of the coordinate axes of the object. The views are positioned relative to each other according to either of two schemes: first-angle or third-angle projection. In each, the appearances of views may be thought of as being projected onto planes that form a six-sided box around the object. Although six different sides can be drawn, usually three views of a drawing give enough information to make a three-dimensional object. These views are known as front view (also elevation ), top view (also plan ) and end view (also section ). When the plane or axis of the object depicted is not parallel to the projection plane, and where multiple sides of an object are visible in the same image, it is called an auxiliary view . Thus isometric projection , dimetric projection and trimetric projection would be considered auxiliary views in multiview projection. A typical characteristic of multiview projection is that one axis of space is usually displayed as vertical.
+
+Cartography [ edit ] Main article: Orthographic projection in cartography Orthographic projection (equatorial aspect) of eastern hemisphere 30°W–150°E An orthographic projection map is a map projection of cartography . Like the stereographic projection and gnomonic projection , orthographic projection is a perspective (or azimuthal) projection , in which the sphere is projected onto a tangent plane or secant plane .  The point of perspective for the orthographic projection is at infinite distance.  It depicts a hemisphere of the globe as it appears from outer space , where the horizon is a great circle .  The shapes and areas are distorted , particularly near the edges.
+
+[ 6 ] [ 7 ] The orthographic projection has been known since antiquity, with its cartographic uses being well documented.
+
+Hipparchus used the projection in the 2nd century BC to determine the places of star-rise and star-set. In about 14 BC, Roman engineer Marcus Vitruvius Pollio used the projection to construct sundials and to compute sun positions.
+
+[ 7 ] Vitruvius also seems to have devised the term orthographic – from the Greek orthos ("straight") and graphē ("drawing") – for the projection. However, the name analemma , which also meant a sundial showing latitude and longitude, was the common name until François d'Aguilon of Antwerp promoted its present name in 1613.
+
+[ 7 ] The earliest surviving maps on the projection appear as woodcut drawings of terrestrial globes of 1509 (anonymous), 1533 and 1551 (Johannes Schöner), and 1524 and 1551 (Apian).
+
+[ 7 ] Notes [ edit ] ^ This usage is obsolete; the common meaning of " analemma " is a diagram of the position of the Sun from the Earth.
+
+[ 1 ] References [ edit ] ^ Sawyer, F., Of Analemmas, Mean Time and the Analemmatic Sundial ^ a b c Maynard, Patric (2005).
+
+Drawing Distinctions: The Varieties of Graphic Expression . Cornell University Press. p. 22.
+
+ISBN 0-8014-7280-6 .
+
+^ Thormählen, Thorsten (November 26, 2021).
+
+"Graphics Programming – Cameras: Parallel Projection – Part 6, Chapter 2" .
+
+Mathematik Uni Marburg . pp. 8 ff . Retrieved 2022-04-22 .
+
+^ a b McReynolds, Tom; David Blythe (2005).
+
+Advanced graphics programming using openGL . Elsevier. p. 502.
+
+ISBN 1-55860-659-9 .
+
+^ Godse, Atul P. (1984).
+
+Computer graphics . Technical Publications. p. 29.
+
+ISBN 81-8431-558-9 .
+
+^ Snyder, J. P. (1987).
+
+Map Projections—A Working Manual (US Geologic Survey Professional Paper 1395) . Washington, D.C.: US Government Printing Office. pp.
+
+145– 153.
+
+^ a b c d Snyder, John P. (1993).
+
+Flattening the Earth: Two Thousand Years of Map Projections pp. 16–18. Chicago and London: The University of Chicago Press.
+
+ISBN 0-226-76746-9 .
+
+External links [ edit ] Wikimedia Commons has media related to Orthographic projections .
+
+Normale (orthogonale) Axonometrie (in German) Orthographic Projection Video and mathematics v t e Structural geology Underlying theory Deformation mechanism Lamé's stress ellipsoid Mohr–Coulomb theory Mohr's circle Overburden pressure Rock mechanics Strain Strain partitioning Stress Stress field Tension Measurement conventions Brunton compass Inclinometer Orthographic projection Rake Stereographic projection Strike and dip Large-scale tectonics Accretionary wedge Allochthon Autochthon Back-arc basin Continental collision Convergent boundary Décollement Divergent boundary Extensional tectonics Fault block Fenster Fold and thrust belt Fold mountains Foreland basin Graben Half-graben Horse Horst Horst and graben Intra-arc basin Inversion Klippe List of tectonic plate interactions Mélange Mountain formation Nappe Obduction Orogeny Passive margin Plate tectonics Pull-apart basin Rift valley Rift Saddle Strike-slip tectonics Structural basin Suture Syneclise Terrane Thick-skinned deformation Thin-skinned deformation Thrust tectonics Fracturing Columnar jointing Dike Exfoliation joint Fissure Joint Vein Faulting Asperity Cataclasite Cataclastic rock Detachment fault Disturbance Fault friction Fault mechanics Fault scarp Fault trace Thrust fault Transfer zone Transform fault Foliation and lineation Cleavage Compaction Crenulation Fissility Oblique foliation Pressure solution Rock microstructure Slickenside Stylolite Tectonic phase Tectonite Folding Anticline Chevron Detachment fold Dome Homocline Monocline Syncline Vergence Boudinage Competence Kinematic analysis 3D fold evolution Paleostress inversion Paleostress Section restoration Shear zone Mylonite Pure shear Shear Category NewPP limit report
+Parsed by mw‐web.codfw.main‐597b4b5bbd‐s25js
+Cached time: 20250814220214
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.505 seconds
+Real time usage: 0.680 seconds
+Preprocessor visited node count: 1131/1000000
+Revision size: 12770/2097152 bytes
+Post‐expand include size: 41654/2097152 bytes
+Template argument size: 1525/2097152 bytes
+Highest expansion depth: 13/100
+Expensive parser function count: 5/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 45644/5000000 bytes
+Lua time usage: 0.330/10.000 seconds
+Lua memory usage: 17346588/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  529.663      1 -total
+ 23.98%  127.002      2 Template:Reflist
+ 18.99%  100.572      1 Template:In_lang
+ 18.44%   97.692      4 Template:Cite_book
+ 15.88%   84.136      1 Template:Views
+ 15.55%   82.377      1 Template:Sidebar_with_collapsible_lists
+ 14.53%   76.934      1 Template:Short_description
+  8.67%   45.941      2 Template:Pagetype
+  8.29%   43.902      1 Template:Commons_category
+  7.97%   42.191      1 Template:Sister_project Saved in parser cache with key enwiki:pcache:203052:|#|:idhash:canonical and timestamp 20250814220214 and revision id 1303311927. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Orthographic_projection&oldid=1303311927 " Categories : Euclidean geometry Graphical projections Linear algebra Hidden categories: Articles with short description Short description is different from Wikidata Commons category link is on Wikidata Articles with German-language sources (de) This page was last edited on 30 July 2025, at 06:48 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Orthographic projection 28 languages Add topic
+

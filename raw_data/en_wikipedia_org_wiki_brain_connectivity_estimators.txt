@@ -1,0 +1,787 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Bi-variate estimators Toggle Bi-variate estimators subsection 1.1 Classical methods 1.2 Non-linear methods 1.2.1 Transfer entropy 1.2.2 Convergent cross-Mapping and reservoir computing causality 2 Bivariate versus multivariate estimators 3 Multivariate methods based on Granger causality Toggle Multivariate methods based on Granger causality subsection 3.1 Multivariate Autoregressive Model 3.2 Granger Causality Index 3.3 Directed Transfer Function 3.4 Partial Directed Coherence 4 Time-varying estimators of effective connectivity 5 Applications 6 Conclusions 7 See also 8 References 9 External links Toggle the table of contents Brain connectivity estimators Add languages Add links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia This article may be too technical for most readers to understand .
+
+Please help improve it to make it understandable to non-experts , without removing the technical details.
+
+( April 2015 ) ( Learn how and when to remove this message ) Brain connectivity estimators [ 1 ] represent patterns of links in the brain . Connectivity can be considered at different levels of the brain's organisation: from neurons , to neural assemblies and brain structures. Brain connectivity involves different concepts such as: neuroanatomical or structural connectivity (pattern of anatomical links), functional connectivity (usually understood as statistical dependencies ) and effective connectivity (referring to causal interactions ).
+
+[ 2 ] Neuroanatomical connectivity is inherently difficult to define given the fact that at the microscopic scale of neurons, new synaptic connections or elimination of existing ones are formed dynamically and are largely dependent on the function executed, but may be considered as pathways extending over regions of the brain, which are in accordance with general anatomical knowledge.
+
+Diffusion Weighted Imaging (DWI) can be used to provide such information.  
+The distinction between functional and effective connectivity is not always sharp; sometimes causal or directed connectivity is called functional connectivity. Functional connectivity, may be defined as the temporal correlation (in terms of statistically significant dependence between distant brain regions) among the activity of different neural assemblies, whereas effective connectivity may be defined as the direct or indirect influence that one neural system exerts over another.
+
+[ 3 ] Some brain connectivity estimators evaluate connectivity from brain activity time series such as Electroencephalography (EEG), Local field potential (LFP) or spike trains , with an effect on the directed connectivity. These estimators can be applied to fMRI data, if the required image sequences are available.
+Among estimators of connectivity, there are linear and non-linear, bivariate and multivariate measures. Certain estimators also indicate directionality. Different methods of connectivity estimation vary in their effectiveness.
+
+[ 4 ] [ 5 ] [ 6 ] This article provides an overview of these measures, with an emphasis on the most effective methods.
+
+Bi-variate estimators [ edit ] Classical methods [ edit ] Classical estimators of connectivity are correlation and coherence . The above measures provide information on the directionality of interactions in terms of delay (correlation) or coherence ( phase ), however the information does not imply causal interaction. Moreover, it may be ambiguous, since phase is determined modulo 2π. It is also not possible to identify by means of correlation or coherence.
+
+Non-linear methods [ edit ] Transfer entropy [ edit ] The most frequently used nonlinear estimators of connectivity are mutual information , transfer entropy , generalised synchronisation, [ 7 ] the continuity measure, [ 8 ] synchronization likelihood, [ 9 ] and phase synchronization .
+
+[ 7 ] Transfer entropy has been applied in neuroimaging studies to infer effective connectivity, particularly in dynamic systems like resting-state fMRI. Vincent Calhoun and colleagues have employed TE to identify connectivity alterations in disorders like schizophrenia.
+
+[ 10 ] Mutual information and transfer entropy rely on the construction of histograms for probability estimates. The continuity measure, generalized synchronisations, and synchronisation likelihood are very similar methods based on phase space reconstruction. Among these measures, only transfer entropy allows for the determination of directionality. Nonlinear measures require long stationary segments of signals, are prone to systematic errors, and above all are very sensitive to noise.
+
+[ 7 ] [ 8 ] [ 11 ] The comparison of nonlinear methods with linear correlation in the presence of noise reveals the poorer performance of non-linear estimators.
+
+[ 8 ] In [ 7 ] the authors conclude that there must be good reason to think that there is non-linearity in the data to apply non-linear methods. In fact it was demonstrated by means of surrogate data test , [ 12 ] [ 13 ] and time series forecasting [ 14 ] that nonlinearity in EEG and LFP is the exception rather than the norm. On the other hand, linear methods perform quite well for non-linear signals.
+
+[ 15 ] Finally, non-linear methods are bivariate (calculated pair-wise), which has serious implication on their performance.
+
+Convergent cross-Mapping and reservoir computing causality [ edit ] Convergent Cross Mapping (CCM) is a method rooted in dynamical systems theory. CCM evaluates causality in coupled systems by assessing whether the states of one variable X {\displaystyle X} can be reconstructed from another variable Y {\displaystyle Y} using its shadow manifold neighbourhood.
+
+[ 16 ] Reservoir computing causality extends the convergent cross-mapping principle by using a fixed, high-dimensional recurrent network (the reservoir) to model complex temporal patterns and interactions.  A high-dimensional reservoir R ( t ) {\displaystyle \mathbf {R} (t)} is composed of recurrently connected units to process temporal patterns. Ciezobka et al. (2025) demonstrated that RC is effective in modeling non-linear interactions in large-scale brain networks, making it a robust tool for effective connectivity analysis.
+
+[ 17 ] Bivariate versus multivariate estimators [ edit ] Comparison of performance of bivariate and multivariate estimators of connectivity may be found in, [ 18 ] [ 19 ] where it was demonstrated that in case of interrelated system of channels, greater than two, bivariate methods supply misleading information, even reversal of true propagation may be found.
+Consider the very common situation that the activity from a given source is measured at electrodes positioned at different distances, hence different delays between the recorded signals.
+
+When a bivariate measure is applied, propagation is always obtained when there is a delay between channels., [ 19 ] which results in a lot of spurious flows. When we have two or three sources acting simultaneously, which is a common situation, we shall get dense and disorganized structure of connections, similar to random structure (at best some "small world" structure may be identified). This kind of pattern is usually obtained in case of application of bivariate measures. In fact, effective connectivity patterns yielded by EEG or LFP measurements are far from randomness, when proper multivariate measures are applied, as we shall demonstrate below.
+
+Multivariate methods based on Granger causality [ edit ] The testable definition of causality was introduced by Granger .
+
+[ 20 ] Granger causality principle states that if some series Y ( t ) contains information in past terms that helps in the prediction of series X ( t ), then Y ( t ) is said to cause X ( t ). Granger causality principle can be expressed in terms of two-channel multivariate autoregressive model (MVAR). Granger in his later work [ 21 ] pointed out that the determination of causality is not possible when the system of considered channels is not complete.
+The measures based on Granger causality principle are: Granger Causality Index (GCI), Directed Transfer Function (DTF) and Partial Directed Coherence (PDC). These measures are defined in the framework of Multivariate Autoregressive Model.
+
+[ 22 ] [ 23 ] Multivariate Autoregressive Model [ edit ] The AR model assumes that X ( t )—a sample of data at a time t —can be expressed as a sum of p previous values of the samples from the set of k -signals weighted by model coefficients A plus a random value E ( t ): X ( t ) = ∑ ∑ j = 1 p A ( j ) X ( t − − j ) + E ( t ) {\displaystyle X(t)=\sum _{j=1}^{p}A(j)X(t-j)+E(t)} 1 The p is called the model order. For a k -channel process X ( t ) and E ( t ) are vectors of size k and the coefficients A are k × k -sized matrices.
+The model order may be determined by means of criteria developed in the framework of information theory and the coefficients of the model are found by means of the minimalization of the residual noise. In the procedure correlation matrix between signals is calculated.
+By the transformation to the frequency domain we get: E ( f ) = A ( f ) X ( f ) X ( f ) = A − − 1 ( f ) E ( f ) = H ( f ) E ( f ) {\displaystyle {\begin{array}{l}E(f)=A(f)X(f)\\X(f)=A^{-1}(f)E(f)=H(f)E(f)\end{array}}} 2 H ( f ) is a transfer matrix of the system, it contains information about the relationships between signals and their spectral characteristics.
+
+H ( f ) is non-symmetric, so it allows for finding causal dependencies.
+Model order may be found by means of criteria developed in the framework of information theory, [ 22 ] e.g.
+
+AIC criterion.
+
+Granger Causality Index [ edit ] Granger causality index showing the driving of channel x by channel y is defined as the logarithm of the ratio of residual variance for one channel to the residual variance of the two-channel model: [ 24 ] GCI y → x = ln ( e / e 1 ) 
+This definition can be extended to the multichannel system by considering how the inclusion of the given channel changes the residual variance ratios. To quantify directed influence from a channel x j to x i for n channel autoregressive process in time domain we consider n and n −1 dimensional MVAR models. First, the model is fitted to whole n -channel system, leading to the residual variance V i , n (t) = var( E i , n ( t )) for signal x i . Next, a n −1 dimensional MVAR model is fitted for n −1 channels, excluding channel j , which leads to the residual variance V i , n −1 (t) = var ( E i , n −1 ( t )). Then Granger causality is defined as: G C I j → → i ( t ) = ln ⁡ ⁡ ( V i , n ( t ) V i , n − − 1 ( t ) ) {\displaystyle \mathrm {GCI} _{j\rightarrow i}(t)=\ln \left({\frac {V_{i,n}(t)}{V_{i,n-1}(t)}}\right)} GCI is smaller or equal 1, since the variance of n -dimensional system is lower than the residual variance of a smaller, n −1 dimensional system. 
+GCI( t ) estimates causality relations in time domain. For brain signals the spectral characteristics of the signals is of interest, because for a given task the increase of propagation in certain frequency band may be accompanied by the decrease in another frequency band.
+
+[ 25 ] DTF or PDC are the estimators defined in the frequency domain.
+
+Directed Transfer Function [ edit ] Directed Transfer Function (DTF) was introduced by Kaminski and Blinowska [ 26 ] in the form: D T F j → → i 2 ( f ) = | H i j ( f ) | 2 ∑ ∑ m = 1 k | H i m ( f ) | 2 {\displaystyle \mathrm {DTF} _{j\rightarrow i}^{2}(f)={\frac {\left|H_{ij}(f)\right|^{2}}{\sum _{m=1}^{k}\left|H_{im}(f)\right|^{2}}}} 3 Where H ij ( f ) is an element of a transfer matrix of MVAR model.
+DTF describes causal influence of channel j on channel i at frequency f . The above equation ( 3 ) defines a normalized version of DTF, which takes values from 0 to 1 producing a ratio between the inflow from channel j to channel i to all the inflows to channel i . 
+The non-normalized DTF which is directly related to the coupling strength [ 27 ] is defined as: N D T F j → → i 2 ( f ) = | H i j ( f ) | 2 {\displaystyle \mathrm {NDTF} _{j\rightarrow i}^{2}(f)=\left|H_{ij}(f)\right|^{2}} 4 DTF shows not only direct, but also cascade flows, namely in case of propagation 1→2→3 it shows also propagation 1→3. In order to distinguish direct from indirect flows direct Directed Transfer Function (dDTF) was introduced.
+
+[ 28 ] The dDTF is defined as a multiplication of a modified DTF by partial coherence. The modification of DTF concerned normalization of the function in such a way as to make the denominator independent of frequency. The dDTF j → i showing direct propagation from channel j to i is defined as: d D T F j → → i 2 ( f ) = F i j 2 ( f ) C i j 2 ( f ) F i j 2 ( f ) = | H i j ( f ) | 2 ∑ ∑ f ∑ ∑ m = 1 k | H i m ( f ) | 2 {\displaystyle {\begin{array}{l}\mathrm {dDTF} _{j\rightarrow i}^{2}(f)=F_{ij}^{2}(f)C_{ij}^{2}(f)\\F_{ij}^{2}(f)=\displaystyle {\frac {\left|H_{ij}(f)\right|^{2}}{\sum _{f}\sum _{m=1}^{k}\left|H_{im}(f)\right|^{2}}}\end{array}}} 5 Where C ij ( f ) is partial coherence. The dDTF j → i has a nonzero value when both functions F ij ( f ) and C ij ( f ) are non-zero, in that case there exists a direct causal relation between channels j → i . 
+Distinguishing direct from indirect transmission is essential in case of signals from implanted electrodes, for EEG signals recorded by scalp electrodes it is not really important.
+
+[ 18 ] DTF may be used for estimation of propagation in case of point processes e.g. spike trains or for the estimation of causal relations between spike trains and Local Field Potentials.
+
+[ 29 ] Partial Directed Coherence [ edit ] The partial directed coherence (PDC) was defined by Baccala and Sameshima [ 30 ] in the following form: P i j ( f ) = A i j ( f ) a j ∗ ∗ ( f ) a j ( f ) {\displaystyle P_{ij}(f)={\frac {A_{ij}(f)}{\sqrt {\mathbf {a} _{j}^{*}(f)\mathbf {a} _{j}(f)}}}} 6 In the above equation A ij ( f ) is an element of A ( f )—a Fourier transform of MVAR model coefficients A ( t ), where a j ( f ) is j -th column of A ( f ) and the asterisk denotes the transpose and complex conjugate operation. Although it is a function operating in the frequency domain, the dependence of A ( f ) on the frequency has not a direct correspondence to the power spectrum. From normalization condition it follows that PDC takes values from the interval [0,1]. PDC shows only direct flows between channels. Unlike DTF, PDC is normalized to show a ratio between the outflow from channel j to channel i to all the outflows from the source channel j , so it emphasizes rather the sinks, not the sources. The normalization of PDC affects the detected intensities of flow as was pointed out in.
+
+[ 31 ] Namely, adding further variables that are influenced by a source variable decreases PDC, although the relationship between source and target processes remains unchanged. In other words: the flow emitted in one direction will be enhanced in comparison to the flows of the same intensity emitted from a given source in several directions.
+
+Time-varying estimators of effective connectivity [ edit ] In order to account for the dynamic changes of propagation, the method of adaptive filtering or the method based on the sliding window may be applied to estimators of connectivity. Both methods require multiple repetition of the experiment to obtain statistically satisfactory results and they produce similar results.
+
+[ 32 ] The adaptive methods, e.g. Kalman filtering, are more computationally demanding, therefore methods based on sliding window may be recommended.
+
+In the case of parametric model the number of data points kN T ( k —number of channels, N T —number of points in the data window) has to be bigger (preferably by order of magnitude) than the number of parameters, which in case of MVAR is equal to k 2 p ( p —model order). In order to evaluate dynamics of the process, a short data window has to be applied, which requires an increase of the number of the data points, which may be achieved by means of a repetition of the experiment. A non-stationary recording may be divided into shorter time windows, short enough to treat the data within a window as quasi-stationary. Estimation of MVAR coefficients is based on calculation of the correlation matrix between channels R ij of k signals X i from multivariate set, [ 22 ] separately for each trial. The resulting model coefficients are based on the correlation matrix averaged over trials. The correlation matrix has the form: R ~ ~ i j ( s ) = 1 N T ∑ ∑ r = 1 N T R i j ( r ) ( s ) = 1 N T ∑ ∑ r = 1 N T 1 N S ∑ ∑ t = 1 N S X i ( r ) ( t ) X j ( r ) ( t + s ) {\displaystyle {\tilde {R}}_{ij}(s)={\frac {1}{N_{T}}}\sum _{r=1}^{N_{T}}R_{ij}^{(r)}(s)={\frac {1}{N_{T}}}\sum _{r=1}^{N_{T}}{\frac {1}{N_{S}}}\sum _{t=1}^{N_{S}}X_{i}^{(r)}(t)X_{j}^{(r)}(t+s)} 7 The averaging concerns correlation matrices (model is fitted independently for each short data window); the data are not averaged in the process. The choice of window size is always a compromise between quality of the fit and time resolution.
+
+The errors of the SDTF may be evaluated by means of bootstrap method.
+
+[ 33 ] This procedure corresponds to simulations of other realizations of the experiment. The variance of the function value is obtained by repeated calculation of the results for a randomly selected (with repetitions) pool of the original data trials.
+
+Applications [ edit ] The estimation of brain connectivity has found numerous and notable applications, namely when investigating brain changes associated with the treatment of psychopathology like schizophrenia [ 34 ] and depression, [ 35 ] or following structural damage like in hemorrhage [ 36 ] or tumor.
+
+[ 37 ] [ 38 ] The methods applied benefit from a parcellation approach, where regions of the brain are defined from atlases [ 39 ] or DWI data, [ 40 ] with connectivity metrics then extracted to compare changes within standardized regions.
+
+Specifically, DTF found multiple applications, the early ones involved: localization of epileptic foci , [ 41 ] estimation of EEG propagation in different sleep stages and wakefulness, [ 42 ] determination of transmission between brain structures of an animal during a behavioral test.
+
+[ 43 ] One may observe the shifting of sources toward the front in transition from wakefulness to the deeper sleep stages. In the deep sleep the source is over corpus callosum , presumably it is connected with feeding the cortex from the sub-cortical structures.
+
+One of the first applications of SDTF was determination of the dynamic propagation during performance of finger movement and its imagination,.
+
+[ 44 ] [ 45 ] The results corresponded very well with the known phenomena of event related synchronization and desynchronization such as decrease of the activity in alpha and beta band and brief increase of activity in the gamma band during movement in the areas corresponding to primary motor cortex, beta rebound after movement and so-called surround effect.
+
+[ 46 ] Especially interesting was comparison of real finger movement and its imagination. In case of real movement the short burst of gamma propagation was observed from the electrode positioned over finger primary motor cortex . In case of movement imagination this propagation started later and a cross-talk between different sites overlying motor area and supplementary motor area (SMA) was found. (The dynamics of propagation may be observed in animations [ 47 ] ).
+
+Another applications of SDTF concerned evaluation of transmission during cognitive experiments. The results of the Continuous Attention Test (CAT) [ 48 ] confirmed the engagement of prefrontal and frontal structures in the task and supported the hypothesis of an active inhibition by pre-SMA and right inferior frontal cortex . Animations of propagation during CAT test are available.
+
+[ 49 ] The results obtained by means of SDTF in experiments involving working memory were compatible with fMRI studies on the localization of the active sites and supplied the information concerning the temporal interaction between them.
+
+[ 50 ] The animation illustrating dynamics of the interaction are available.
+
+[ 51 ] Note that care should be taken to avoid spurious connectivity estimates when using EEG channel data. Recent articles [ 52 ] [ 53 ] highlight that previous claims [ 54 ] that DTF and PDC were insensitive to volume conduction were inaccurate. Indeed, DTF results obtained for signals recorded from the scalp are in general affected by volume conduction. Even though the effects of volume conduction might be minimal in specific recording situations, [ 55 ] appropriate preprocessing on channel data (such as source identification) should be performed before estimating DTF or PDC.
+
+Conclusions [ edit ] The existence of well defined sources of brain activity connected with particular experimental conditions are well established in fMRI experiments, by means of inverse solution methods and intracortical measurements. This kind of deterministic structure of brain activity should affect functional connectivity, so reported in some works random or barely distinguished from random connectivity structure may be considered as a surprising phenomenon. This kind of results may be explained by methodological errors: 1) unrobust methods of connectivity estimation and, even more important, 2) application of bivariate methods. When multivariate robust measures of connectivity are applied for EEG analysis a clear picture of functional connectivity emerges.
+
+[ 25 ] [ 26 ] [ 41 ] [ 42 ] [ 43 ] [ 44 ] [ 45 ] [ 48 ] [ 50 ] [ 56 ] [ 57 ] [ 58 ] See also [ edit ] Resting State fMRI Dynamic Functional Connectivity List of Functional Connectivity Software Synapse References [ edit ] ^ Sporns, Olaf (2007).
+
+"Brain connectivity" .
+
+Scholarpedia .
+
+2 (10): 4695.
+
+Bibcode : 2007SchpJ...2.4695S .
+
+doi : 10.4249/scholarpedia.4695 .
+
+^ Sakkalis, V. (2011). "Review of Advanced Techniques for the estimation of Brain Connectivity measured with EEG/MEG".
+
+Comput Biol Med .
+
+41 (12): 1110– 1117.
+
+doi : 10.1016/j.compbiomed.2011.06.020 .
+
+PMID 21794851 .
+
+^ Colombo, Matteo; Weinberger, Naftali (June 1, 2018).
+
+"Discovering Brain Mechanisms Using Network Analysis and Causal Modeling" .
+
+Minds and Machines .
+
+28 (2): 265– 286.
+
+doi : 10.1007/s11023-017-9447-0 .
+
+PMC 6438494 .
+
+PMID 30996522 – via Springer Link.
+
+^ Blinowska, K. J. (2011).
+
+"Review of the methods of determination of directed connectivity from multichannel data" .
+
+Medical & Biological Engineering & Computing .
+
+49 (5): 521– 529.
+
+doi : 10.1007/s11517-011-0739-x .
+
+PMC 3097342 .
+
+PMID 21298355 .
+
+^ Matlab_book [Blinowska, 2011] ^ Kaminski, M.; Liang, H. (2005). "Causal Influence: Advances in Neurosignal Analysis".
+
+Critical Reviews in Biomedical Engineering .
+
+33 (4): 347– 430.
+
+doi : 10.1615/CritRevBiomedEng.v33.i4.20 .
+
+PMID 15982186 .
+
+S2CID 27601014 .
+
+^ a b c d Pereda, E.; Quiroga, R. Q.; Bhattacharya, J. (2005). "Causal Influence: Nonlinear multivariate analysis of neurophysical signals".
+
+Prog Neurobiol .
+
+77 ( 1– 2): 1– 37.
+
+arXiv : nlin/0510077 .
+
+doi : 10.1016/j.pneurobio.2005.10.003 .
+
+PMID 16289760 .
+
+S2CID 9529656 .
+
+^ a b c Netoff, I.; Caroll, T. L.; Pecora, L. M.; Schiff, S. J. (2006). "Detecting coupling in the presence of noise and nonlinearity". In Schelter, J.; Winterhalder, W.; Timmer (eds.).
+
+Handbook of Time Series Analysis . Wiley-B.W.
+
+^ Stam, C. J.; Van Dijk, B. W. (2002). "Synchronization likelihood: an unbiased measure of generalized synchronization in multivariate data sets".
+
+Physica D .
+
+163 ( 3– 4): 236– 251.
+
+Bibcode : 2002PhyD..163..236S .
+
+doi : 10.1016/S0167-2789(01)00386-4 .
+
+^ Li, C.; Calhoun, V. D.; Adalı, T. (2021).
+
+"A new transfer entropy method for measuring directed connectivity from complex-valued fMRI data" .
+
+NeuroImage .
+
+226 : 117549.
+
+doi : 10.1016/j.neuroimage.2020.117549 .
+
+PMC 7983579 .
+
+^ Blinowska, K. J.; Żygierewicz, J. (2012).
+
+Practical Biomedical Signal Analysis Using Matlab . CRC Press, Boca Raton.
+
+Bibcode : 2011pbsa.book.....Z .
+
+^ Achermann, P.; Hartmann, R.; Gunzinger, A.; Guggenbühl, W.; Borbély, A. A. (1994). "All night sleep and artificial stochastic control signals have similar correlation dimension".
+
+Electroencephalogr. Clin. Neurophysiol .
+
+90 (5): 384– 387.
+
+doi : 10.1016/0013-4694(94)90054-X .
+
+PMID 7514985 .
+
+^ Stam, C. J.; Suffczynski, P.; Lopes da Silva, F. H.; Lopes Da Silva, FH (1999). "Dynamics of the human alpha rhythm: evidence for non-linearity?".
+
+Clin. Neurophysiol .
+
+110 (10): 1801– 1813.
+
+doi : 10.1016/S1388-2457(99)00099-1 .
+
+PMID 10574295 .
+
+S2CID 32554820 .
+
+^ Blinowska, K. J.; Malinowski, M. (1991). "Non-linear and linear forecasting of the EEG time series".
+
+Biol Cybern .
+
+66 (2): 159– 165.
+
+doi : 10.1007/BF00243291 .
+
+PMID 1768720 .
+
+S2CID 19441303 .
+
+^ Winterhalder, M.; Schelter, B.; Hesse, W.; Schwab, K.; Leistritz, L.; Klan, D.; Bauer, R.; Timmer, J.; Witte, H. (2005). "Comparison of linear signal processing techniques to infer directed interactions in multivariate neural systems".
+
+Signal Process .
+
+85 (11): 2137– 2160.
+
+Bibcode : 2005SigPr..85.2137W .
+
+CiteSeerX 10.1.1.123.2234 .
+
+doi : 10.1016/j.sigpro.2005.07.011 .
+
+^ Sugihara, G., May, R., Ye, H., Hsieh, C.-h., Deyle, E., Fogarty, M., & Munch, S. (2012). Detecting causality in complex ecosystems.
+
+Science , 338(6106), 496–500.
+
+https://doi.org/10.1126/science.1227079 ^ Ciezobka, W.; Falcó-Roget, J.; Koba, C.; Crimi, A. (2025).
+
+"End-to-End Stroke Imaging Analysis Using Effective Connectivity and Interpretable Artificial Intelligence" .
+
+IEEE Access .
+
+13 : 10934– 10947.
+
+arXiv : 2407.12553 .
+
+doi : 10.1109/ACCESS.2025.3529179 .
+
+^ a b Kuś, R.; Kamiński, M.; Blinowska, K. J. (2004). "Determination of EEG activity propagation: pair-wise versus multichannel estimate".
+
+IEEE Trans Biomed Eng .
+
+51 (9): 1501– 1510.
+
+doi : 10.1109/TBME.2004.827929 .
+
+PMID 15376498 .
+
+S2CID 25213886 .
+
+^ a b Blinowska, K. J.; Kuś, R.; Kamiński, M. (2004). "Granger causality and information flow in multivariate processes".
+
+Phys. Rev. E .
+
+70 (5): 050902 (also in Virt J Biol Phys Res 8 (11) ).
+
+Bibcode : 2004PhRvE..70e0902B .
+
+doi : 10.1103/PhysRevE.70.050902 .
+
+PMID 15600583 .
+
+^ Granger, C. W. J. (1969). "Investigating causal relations in by econometric models and cross-spectral methods".
+
+Econometrica .
+
+37 (3): 424– 438.
+
+doi : 10.2307/1912791 .
+
+JSTOR 1912791 .
+
+^ Granger, C. W. J. (1980). "Testing for causality: a personal viewpoint".
+
+J Econ Dyn Control .
+
+2 : 329– 352.
+
+doi : 10.1016/0165-1889(80)90069-X .
+
+^ a b c Blinowska, K. J.; Kaminski, M. (2006). "Multivariate Signal Analysis by Parametric Models". In Schelter, B.; Winterhalder, W.; Timmer, J. (eds.).
+
+Handbook of Time Series Analysis . Wiley-VCH Verlag.
+
+^ Crimi, A.; al., et (2021).
+
+"Structurally constrained brain connectivity" .
+
+NeuroImage .
+
+289 (1): 118288.
+
+doi : 10.1016/j.neuroimage.2021.118288 .
+
+hdl : 11577/3411156 .
+
+PMID 34147631 .
+
+S2CID 235468119 .
+
+^ Geweke, J. (1982). "Measurement of linear dependence and feedback between multiple time series".
+
+Journal of the American Statistical Association .
+
+77 (378): 304– 324.
+
+doi : 10.1080/01621459.1982.10477803 .
+
+^ a b Ginter Jr., J.; Blinowska, K. J.; Kaminski, M.; Durka, P. J.; Pfurtscheller, G.; Neuper, C. (2005). "Propagation of EEG activity in beta and gamma band during movement imagery in human".
+
+Methods Inf. Med .
+
+44 (1): 106– 113.
+
+doi : 10.1055/s-0038-1633932 .
+
+PMID 15778801 .
+
+S2CID 13036715 .
+
+^ a b Kaminski, M.; Blinowska, K. J. (1991). "A new method of the description of the information flow in brain structures".
+
+Biol Cybern .
+
+65 (3): 203– 210.
+
+doi : 10.1007/BF00198091 .
+
+PMID 1912013 .
+
+S2CID 20924487 .
+
+^ Kaminski, M.; Ding, M.; Truccolo, W.; Bressler, S. (2001). "Evaluating causal relations in neural systems: Granger causality, directed transfer function and statistical assessment of significance".
+
+Biol Cybern .
+
+85 (2): 145– 157.
+
+doi : 10.1007/s004220000235 .
+
+PMID 11508777 .
+
+S2CID 11318476 .
+
+^ Korzeniewska, A.; Mańczak, M.; Kaminski, M.; Blinowska, K. J.; Kasicki, S. (2003). "Determination of information flow direction among brain structures by a modified Directed Transfer Function method (dDTF)".
+
+J Neurosci Methods .
+
+125 ( 1– 2): 195– 207.
+
+doi : 10.1016/S0165-0270(03)00052-9 .
+
+PMID 12763246 .
+
+S2CID 38538879 .
+
+^ Kocsis, B.; Kaminski, M. (2006). "Dynamic changes in the direction of the theta rhythmic drive between Supramammillary Nucleus and the Septohippocampal system".
+
+Hippocampus .
+
+16 (6): 531– 540.
+
+doi : 10.1002/hipo.20180 .
+
+PMID 16598710 .
+
+S2CID 36676205 .
+
+^ Baccala, L. A.; Sameshima, K. (2001). "Partial directed coherence: A new conception in neural structure determination".
+
+Biol Cybern .
+
+84 (6): 463– 474.
+
+doi : 10.1007/PL00007990 .
+
+PMID 11417058 .
+
+S2CID 30435970 .
+
+^ Schelter, B.; Timmer, J.; Eichler, M. (2009). "Assessing the strength of directed influences among neural signals using renormalized partial directed coherence".
+
+J. Neurosci. Methods .
+
+179 (1): 121– 130.
+
+doi : 10.1016/j.jneumeth.2009.01.006 .
+
+PMID 19428518 .
+
+S2CID 11631344 .
+
+^ Kaminski, M.; Szerling, P.; Blinowska, K. (Nov 2–5, 2010). "Comparison of methods for estimation of time-varying transmission in multichannel data".
+
+Proc. 10th IEEE International Conference on Information Technology and Applications in Biomedicine . Corfu, Greece.
+
+^ Efron, B. (1979).
+
+"Bootstrap methods: another look at the jackknife" .
+
+Ann. Stat .
+
+7 : 1– 6.
+
+doi : 10.1214/aos/1176344552 .
+
+^ Camchong, Jazmin; MacDonald, Angus W. III; Bell, Christopher; Mueller, Bryon A.; Lim, Kelvin O. (2011-05-01).
+
+"Altered Functional and Anatomical Connectivity in Schizophrenia" .
+
+Schizophrenia Bulletin .
+
+37 (3): 640– 650.
+
+doi : 10.1093/schbul/sbp131 .
+
+ISSN 0586-7614 .
+
+PMC 3080691 .
+
+PMID 19920062 .
+
+^ Rosen, A. C.; Bhat, J. V.; Cardenas, V. A.; Ehrlich, T. J.; Horwege, A. M.; Mathalon, D. H.; Roach, B. J.; Glover, G. H.
+
+; Badran, B. W.; Forman, S. D.; George, M. S. (May 2021).
+
+"Targeting location relates to treatment response in active but not sham rTMS stimulation" .
+
+Brain Stimulation .
+
+14 (3): 703– 709.
+
+doi : 10.1016/j.brs.2021.04.010 .
+
+ISSN 1876-4754 .
+
+PMC 8884259 .
+
+PMID 33866020 .
+
+S2CID 233236061 .
+
+^ Höller, Yvonne; Thomschewski, Aljoscha; Bergmann, Jürgen; Kronbichler, Martin; Crone, Julia S.; Schmid, Elisabeth V.; Butz, Kevin; Höller, Peter; Nardone, Raffaele; Trinka, Eugen (2014-08-01).
+
+"Connectivity biomarkers can differentiate patients with different levels of consciousness" .
+
+Clinical Neurophysiology .
+
+125 (8): 1545– 1555.
+
+doi : 10.1016/j.clinph.2013.12.095 .
+
+ISSN 1388-2457 .
+
+PMID 24394693 .
+
+S2CID 21226652 .
+
+^ Yeung, Jacky T.; Young, Isabella M.; Doyen, Stephane; Teo, Charles; Sughrue, Michael E. (2021-10-28).
+
+"Changes in the Brain Connectome Following Repetitive Transcranial Magnetic Stimulation for Stroke Rehabilitation" .
+
+Cureus .
+
+13 (10): e19105.
+
+doi : 10.7759/cureus.19105 .
+
+ISSN 2168-8184 .
+
+PMC 8614179 .
+
+PMID 34858752 .
+
+^ Dadario, Nicholas B.; Brahimaj, Bledi; Yeung, Jacky; Sughrue, Michael E. (2021).
+
+"Reducing the Cognitive Footprint of Brain Tumor Surgery" .
+
+Frontiers in Neurology .
+
+12 : 711646.
+
+doi : 10.3389/fneur.2021.711646 .
+
+ISSN 1664-2295 .
+
+PMC 8415405 .
+
+PMID 34484105 .
+
+^ Glasser, Matthew F; Coalson, Timothy S; Robinson, Emma C; Hacker, Carl D; Harwell, John; Yacoub, Essa; Ugurbil, Kamil; Andersson, Jesper; Beckmann, Christian F; Jenkinson, Mark; Smith, Stephen M (2016-08-11).
+
+"A multi-modal parcellation of human cerebral cortex" .
+
+Nature .
+
+536 (7615): 171– 178.
+
+Bibcode : 2016Natur.536..171G .
+
+doi : 10.1038/nature18933 .
+
+ISSN 0028-0836 .
+
+PMC 4990127 .
+
+PMID 27437579 .
+
+^ Doyen, Stephane; Nicholas, Peter; Poologaindran, Anujan; Crawford, Lewis; Young, Isabella M.; Romero-Garcia, Rafeael; Sughrue, Michael E. (2021).
+
+"Connectivity-based parcellation of normal and anatomically distorted human cerebral cortex" .
+
+Human Brain Mapping .
+
+43 (4): 1358– 1369.
+
+doi : 10.1002/hbm.25728 .
+
+ISSN 1097-0193 .
+
+PMC 8837585 .
+
+PMID 34826179 .
+
+S2CID 244660926 .
+
+^ a b Franaszczuk, P. J.; Bergey, G. J.; Kaminski, M. (1994). "Analysis of mesial temporal seizure onset and propagation using the directed transfer function method".
+
+Electroencephalogr. Clin. Neurophysiol .
+
+91 (6): 413– 427.
+
+doi : 10.1016/0013-4694(94)90163-5 .
+
+PMID 7529681 .
+
+^ a b Kaminski, M.; Blinowska, K. J.; Szelenberger, W. (1997). "Topographic analysis of coherence and propagation of EEG activity during sleep and wakefulness".
+
+Electroencephalogr. Clin. Neurophysiol .
+
+102 (3): 216– 227.
+
+doi : 10.1016/S0013-4694(96)95721-5 .
+
+PMID 9129577 .
+
+^ a b Korzeniewska, A.; Kasicki, S.; Kaminski, M.; Blinowska, K. J. (1997). "Information flow between hippocampus and related structures during various types of rat's behavior".
+
+J Neurosci Methods .
+
+73 (1): 49– 60.
+
+doi : 10.1016/S0165-0270(96)02212-1 .
+
+PMID 9130678 .
+
+S2CID 37590742 .
+
+^ a b Ginter Jr, J.; Blinowska, K. J.; Kaminski, M.; Durka, P. J. (2001). "Phase and amplitude analysis in time-frequency space-application to voluntary finger movement".
+
+J Neurosci Methods .
+
+110 ( 1– 2): 113– 124.
+
+doi : 10.1016/S0165-0270(01)00424-1 .
+
+PMID 11564531 .
+
+S2CID 8328455 .
+
+^ a b Kus, R.; Ginter Jr, J.; Blinowska, K. J. (2006).
+
+"Propagation of EEG activity during finger movement and its imagination" .
+
+Acta Neurobiol Exp .
+
+66 (3): 195– 206.
+
+doi : 10.55782/ane-2006-1607 .
+
+PMID 17133951 .
+
+^ Pfurtscheller, G. (1999). "Quantification of ERD and ERS in the time domain".
+
+Event-Related Desynchronization . Elsevier.
+
+^ "DTF_MOV.HTML" . Archived from the original on 2007-11-18 . Retrieved 2012-08-06 .
+
+^ a b Blinowska, K. J.; Kus, R.; Kaminski, M.; Janiszewska, J. (2010). "Transmission of information during Continuous Attention Test".
+
+Brain Topography .
+
+23 (2): 205– 213.
+
+doi : 10.1007/s10548-010-0137-y .
+
+PMID 20191316 .
+
+S2CID 8579316 .
+
+^ "Cat Experiment Animations" . Archived from the original on 2013-10-03 . Retrieved 2012-08-06 .
+
+^ a b Brzezicka, A.; Kaminski, M.; Kaminski, J.; Blinowska, K. J. (2011).
+
+"Information transfer during transitive reasoning task" .
+
+Brain Topography .
+
+24 (1): 1– 8.
+
+doi : 10.1007/s10548-010-0158-6 .
+
+PMC 3036833 .
+
+PMID 20686832 .
+
+^ "Cat Experiment Animations" . Archived from the original on 2016-03-04 . Retrieved 2012-07-27 .
+
+^ Brunner, C.; Billinger, M.; Seeber, M.; Mullen, T. R.; Makeig, S. (2016).
+
+"Volume conduction influences scalp-based connectivity estimates" .
+
+Front Comput Neurosci .
+
+10 : 121.
+
+doi : 10.3389/fncom.2016.00121 .
+
+PMC 5119053 .
+
+PMID 27920674 .
+
+^ Van De Steen, F.; Faes, L.; Karahan, E.; Songsiri, J.; Valdes-Sosa, P. A.; Marinazzo, D. (2016). "Critical Comments on EEG Sensor Space Dynamical Connectivity Analysis".
+
+Brain Topogr .
+
+32 (4): 643– 654.
+
+arXiv : 1607.03687 .
+
+Bibcode : 2016arXiv160703687V .
+
+doi : 10.1007/s10548-016-0538-7 .
+
+PMID 27905073 .
+
+S2CID 11095444 .
+
+^ Kaminski, M.; Blinowska, K. J. (2014).
+
+"Directed Transfer Function is not influenced by volume conduction - inexpedient pre-processing should be avoided" .
+
+Front Comput Neurosci .
+
+8 : 61.
+
+doi : 10.3389/fncom.2014.00061 .
+
+PMC 4050361 .
+
+PMID 24959136 .
+
+^ Kaminski, M.; Blinowska, K. (2017).
+
+"The Influence of Volume Conduction on DTF Estimate and the Problem of Its Mitigation" .
+
+Front Comput Neurosci .
+
+11 : 36.
+
+doi : 10.3389/fncom.2017.00036 .
+
+PMC 5427064 .
+
+PMID 28553220 .
+
+^ Blinowska, K. J.; Kaminski, M.; Kaminski, J.; Brzezicka, A. (2010). "Information processing in brain and dynamic patterns of transmission".
+
+Proc. of IEEE EMBS Conference . Buenos Aires, Argentina. pp.
+
+1722– 1726.
+
+^ Korzeniewska, A.; Crainiceanu, C.; Kus, R.; Franaszczuk, P. J.; Crone, N. E. (2008).
+
+"Dynamics of event-related causality (ERC) in brain electrical activity" .
+
+Hum. Brain Mapp .
+
+29 (10): 1170– 1192.
+
+doi : 10.1002/hbm.20458 .
+
+PMC 6870676 .
+
+PMID 17712784 .
+
+^ Niso, G.; Bruña, R.; Pereda, E. (2013). "HERMES: towards an integrated toolbox to characterize functional and effective brain connectivity".
+
+Neuroinformatics .
+
+11 (4): 405– 434.
+
+arXiv : 1305.2550 .
+
+Bibcode : 2013arXiv1305.2550N .
+
+doi : 10.1007/s12021-013-9186-1 .
+
+PMID 23812847 .
+
+S2CID 1043710 .
+
+External links [ edit ] SCoT - Python toolbox for source connectivity estimation SIFT - MATLAB-based toolbox for source connectivity estimation based on EEGLAB Connectome HERMES - MATLAB toolbox for functional and effective brain connectivity estimation for M/EEG NewPP limit report
+Parsed by mw‐web.eqiad.main‐74cbc45b88‐vlm77
+Cached time: 20250812024918
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.758 seconds
+Real time usage: 1.060 seconds
+Preprocessor visited node count: 4093/1000000
+Revision size: 42674/2097152 bytes
+Post‐expand include size: 150544/2097152 bytes
+Template argument size: 2957/2097152 bytes
+Highest expansion depth: 10/100
+Expensive parser function count: 2/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 248140/5000000 bytes
+Lua time usage: 0.467/10.000 seconds
+Lua memory usage: 4948074/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  717.098      1 -total
+ 75.38%  540.573      1 Template:Reflist
+ 57.97%  415.682     47 Template:Cite_journal
+ 11.05%   79.205      1 Template:Technical
+  8.59%   61.631      1 Template:Ambox
+  8.43%   60.419      7 Template:NumBlk
+  3.53%   25.282      4 Template:Cite_book
+  2.21%   15.857      2 Template:Cite_conference
+  2.03%   14.536      3 Template:Cite_web
+  0.59%    4.216      7 Template:Trim Saved in parser cache with key enwiki:pcache:36558703:|#|:idhash:canonical and timestamp 20250812024918 and revision id 1291884020. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Brain_connectivity_estimators&oldid=1291884020 " Category : Human anatomy Hidden categories: Wikipedia articles that are too technical from April 2015 All articles that are too technical This page was last edited on 23 May 2025, at 23:44 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Brain connectivity estimators Add languages Add topic
+

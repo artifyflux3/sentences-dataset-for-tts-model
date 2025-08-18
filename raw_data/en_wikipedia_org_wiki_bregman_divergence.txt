@@ -1,0 +1,350 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Definition 2 Properties Toggle Properties subsection 2.1 Proofs 2.2 Classification theorems 3 Examples 4 Generalizing projective duality 5 Generalization of Bregman divergences 6 Bregman divergence on other objects 7 Applications 8 References Toggle the table of contents Bregman divergence 2 languages Français Русский Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia A measure of difference between two points In mathematics , specifically statistics and information geometry , a Bregman divergence or Bregman distance is a measure of difference between two points, defined in terms of a strictly convex function ; they form an important class of divergences . When the points are interpreted as probability distributions – notably as either values of the parameter of a parametric model or as a data set of observed values – the resulting distance is a statistical distance . The most basic Bregman divergence is the squared Euclidean distance .
+
+Bregman divergences are similar to metrics , but satisfy neither the triangle inequality (ever) nor symmetry (in general). However, they satisfy a generalization of the Pythagorean theorem , and in information geometry the corresponding statistical manifold is interpreted as a (dually) flat manifold . This allows many techniques of optimization theory to be generalized to Bregman divergences, geometrically as generalizations of least squares .
+
+Bregman divergences are named after Russian mathematician Lev M. Bregman , who introduced the concept in 1967.
+
+Definition [ edit ] Let F : : Ω Ω → → R {\displaystyle F\colon \Omega \to \mathbb {R} } be a continuously-differentiable, strictly convex function defined on a convex set Ω Ω {\displaystyle \Omega } .
+
+The Bregman distance associated with F for points p , q ∈ ∈ Ω Ω {\displaystyle p,q\in \Omega } is the difference between the value of F at point p and the value of the first-order Taylor expansion of F around point q evaluated at point p : D F ( p , q ) = F ( p ) − − F ( q ) − − ⟨ ⟨ ∇ ∇ F ( q ) , p − − q ⟩ ⟩ .
+
+{\displaystyle D_{F}(p,q)=F(p)-F(q)-\langle \nabla F(q),p-q\rangle .} Properties [ edit ] Non-negativity : D F ( p , q ) ≥ ≥ 0 {\displaystyle D_{F}(p,q)\geq 0} for all p {\displaystyle p} , q {\displaystyle q} . This is a consequence of the convexity of F {\displaystyle F} .
+
+Positivity : When F {\displaystyle F} is strictly convex, D F ( p , q ) = 0 {\displaystyle D_{F}(p,q)=0} iff p = q {\displaystyle p=q} .
+
+Uniqueness up to affine difference : D F = D G {\displaystyle D_{F}=D_{G}} iff F − − G {\displaystyle F-G} is an affine function.
+
+Convexity : D F ( p , q ) {\displaystyle D_{F}(p,q)} is convex in its first argument, but not necessarily in the second argument. If F is strictly convex, then D F ( p , q ) {\displaystyle D_{F}(p,q)} is strictly convex in its first argument.
+
+For example, Take f(x) = |x|, smooth it at 0, then take y = 1 , x 1 = 0.1 , x 2 = − − 0.9 , x 3 = 0.9 x 1 + 0.1 x 2 {\displaystyle y=1,x_{1}=0.1,x_{2}=-0.9,x_{3}=0.9x_{1}+0.1x_{2}} , then D f ( y , x 3 ) ≈ ≈ 1 > 0.9 D f ( y , x 1 ) + 0.1 D f ( y , x 2 ) ≈ ≈ 0.2 {\displaystyle D_{f}(y,x_{3})\approx 1>0.9D_{f}(y,x_{1})+0.1D_{f}(y,x_{2})\approx 0.2} .
+
+Linearity : If we think of the Bregman distance as an operator on the function F , then it is linear with respect to non-negative coefficients. In other words, for F 1 , F 2 {\displaystyle F_{1},F_{2}} strictly convex and differentiable, and λ λ ≥ ≥ 0 {\displaystyle \lambda \geq 0} , D F 1 + λ λ F 2 ( p , q ) = D F 1 ( p , q ) + λ λ D F 2 ( p , q ) {\displaystyle D_{F_{1}+\lambda F_{2}}(p,q)=D_{F_{1}}(p,q)+\lambda D_{F_{2}}(p,q)} Duality : If F is strictly convex, then the function F has a convex conjugate F ∗ ∗ {\displaystyle F^{*}} which is also strictly convex and continuously differentiable on some convex set Ω Ω ∗ ∗ {\displaystyle \Omega ^{*}} . The Bregman distance defined with respect to F ∗ ∗ {\displaystyle F^{*}} is dual to D F ( p , q ) {\displaystyle D_{F}(p,q)} as D F ∗ ∗ ( p ∗ ∗ , q ∗ ∗ ) = D F ( q , p ) {\displaystyle D_{F^{*}}(p^{*},q^{*})=D_{F}(q,p)} Here, p ∗ ∗ = ∇ ∇ F ( p ) {\displaystyle p^{*}=\nabla F(p)} and q ∗ ∗ = ∇ ∇ F ( q ) {\displaystyle q^{*}=\nabla F(q)} are the dual points corresponding to p and q.
+
+Moreover, using the same notations : D F ( p , q ) = F ( p ) + F ∗ ∗ ( q ∗ ∗ ) − − ⟨ ⟨ p , q ∗ ∗ ⟩ ⟩ {\displaystyle D_{F}(p,q)=F(p)+F^{*}(q^{*})-\langle p,q^{*}\rangle } Integral form: by the integral remainder form of Taylor's Theorem , a Bregman divergence can be written as the integral of the Hessian of F {\displaystyle F} along the line segment between the Bregman divergence's arguments.
+
+Mean as minimizer : A key result about Bregman divergences is that, given a random vector, the mean vector minimizes the expected Bregman divergence from the random vector.  This result generalizes the textbook result that the mean of a set minimizes total squared error to elements in the set.  This result was proved for the vector case by (Banerjee et al. 2005), and extended to the case of functions/distributions by (Frigyik et al. 2008). This result is important because it further justifies using a mean as a representative of a random set, particularly in Bayesian estimation.
+
+Bregman balls are bounded, and compact if X is closed : Define Bregman ball centered at x with radius r by B f ( x , r ) := { y ∈ ∈ X : D f ( y , x ) ≤ ≤ r } {\displaystyle B_{f}(x,r):=\left\{y\in X:D_{f}(y,x)\leq r\right\}} .   When X ⊂ ⊂ R n {\displaystyle X\subset \mathbb {R} ^{n}} is finite dimensional, ∀ ∀ x ∈ ∈ X {\displaystyle \forall x\in X} , if x {\displaystyle x} is in the relative interior of X {\displaystyle X} , or if X {\displaystyle X} is locally closed at x {\displaystyle x} (that is, there exists a closed ball B ( x , r ) {\displaystyle B(x,r)} centered at x {\displaystyle x} , such that B ( x , r ) ∩ ∩ X {\displaystyle B(x,r)\cap X} is closed), then B f ( x , r ) {\displaystyle B_{f}(x,r)} is bounded for all r {\displaystyle r} . If X {\displaystyle X} is closed, then B f ( x , r ) {\displaystyle B_{f}(x,r)} is compact for all r {\displaystyle r} .
+
+Law of cosines : [ 1 ] For any p , q , z {\displaystyle p,q,z} D F ( p , q ) = D F ( p , z ) + D F ( z , q ) − − ( p − − z ) T ( ∇ ∇ F ( q ) − − ∇ ∇ F ( z ) ) {\displaystyle D_{F}(p,q)=D_{F}(p,z)+D_{F}(z,q)-(p-z)^{T}(\nabla F(q)-\nabla F(z))} Parallelogram law : for any θ θ , θ θ 1 , θ θ 2 {\displaystyle \theta ,\theta _{1},\theta _{2}} , B F ( θ θ 1 : θ θ ) + B F ( θ θ 2 : θ θ ) = B F ( θ θ 1 : θ θ 1 + θ θ 2 2 ) + B F ( θ θ 2 : θ θ 1 + θ θ 2 2 ) + 2 B F ( θ θ 1 + θ θ 2 2 : θ θ ) {\displaystyle B_{F}\left(\theta _{1}:\theta \right)+B_{F}\left(\theta _{2}:\theta \right)=B_{F}\left(\theta _{1}:{\frac {\theta _{1}+\theta _{2}}{2}}\right)+B_{F}\left(\theta _{2}:{\frac {\theta _{1}+\theta _{2}}{2}}\right)+2B_{F}\left({\frac {\theta _{1}+\theta _{2}}{2}}:\theta \right)} Generalized Pythagorean theorem for Bregman divergence .
+
+[ 2 ] Bregman projection : For any W ⊂ ⊂ Ω Ω {\displaystyle W\subset \Omega } , define the "Bregman projection" of q {\displaystyle q} onto W {\displaystyle W} : P W ( q ) = argmin ω ω ∈ ∈ W D F ( ω ω , q ) {\displaystyle P_{W}(q)={\text{argmin}}_{\omega \in W}D_{F}(\omega ,q)} . Then if W {\displaystyle W} is convex, then the projection is unique if it exists; if W {\displaystyle W} is nonempty, closed, and convex and Ω Ω ⊂ ⊂ R n {\displaystyle \Omega \subset \mathbb {R} ^{n}} is finite dimensional, then the projection exists and is unique.
+
+[ 3 ] Generalized Pythagorean Theorem : [ 1 ] For any v ∈ ∈ Ω Ω , a ∈ ∈ W {\displaystyle v\in \Omega ,a\in W} , D F ( a , v ) ≥ ≥ D F ( a , P W ( v ) ) + D F ( P W ( v ) , v ) .
+
+{\displaystyle D_{F}(a,v)\geq D_{F}(a,P_{W}(v))+D_{F}(P_{W}(v),v).} This is an equality if P W ( v ) {\displaystyle P_{W}(v)} is in the relative interior of W {\displaystyle W} .
+
+In particular, this always happens when W {\displaystyle W} is an affine set.
+
+Lack of triangle inequality: Since the Bregman divergence is essentially a generalization of squared Euclidean distance, there is no triangle inequality. Indeed, D F ( z , x ) − − D F ( z , y ) − − D F ( y , x ) = ⟨ ⟨ ∇ ∇ f ( y ) − − ∇ ∇ f ( x ) , z − − y ⟩ ⟩ {\displaystyle D_{F}(z,x)-D_{F}(z,y)-D_{F}(y,x)=\langle \nabla f(y)-\nabla f(x),z-y\rangle } , which may be positive or negative.
+
+Proofs [ edit ] Non-negativity and positivity: use Jensen's inequality .
+
+Uniqueness up to affine difference: Fix some x ∈ ∈ Ω Ω {\displaystyle x\in \Omega } , then for any other y ∈ ∈ Ω Ω {\displaystyle y\in \Omega } , we have by definition F ( y ) − − G ( y ) = F ( x ) − − G ( x ) + ⟨ ⟨ ∇ ∇ F ( x ) − − ∇ ∇ G ( x ) , y − − x ⟩ ⟩ {\displaystyle F(y)-G(y)=F(x)-G(x)+\langle \nabla F(x)-\nabla G(x),y-x\rangle } .
+
+Convexity in the first argument: by definition, and use convexity of F. Same for strict convexity.
+
+Linearity in F, law of cosines, parallelogram law: by definition.
+
+Duality: See figure 1 of.
+
+[ 4 ] Bregman balls are bounded, and compact if X is closed: Fix x ∈ ∈ X {\displaystyle x\in X} . Take affine transform on f {\displaystyle f} , so that ∇ ∇ f ( x ) = 0 {\displaystyle \nabla f(x)=0} .
+
+Take some ϵ ϵ > 0 {\displaystyle \epsilon >0} , such that ∂ ∂ B ( x , ϵ ϵ ) ⊂ ⊂ X {\displaystyle \partial B(x,\epsilon )\subset X} . Then consider the "radial-directional" derivative of f {\displaystyle f} on the Euclidean sphere ∂ ∂ B ( x , ϵ ϵ ) {\displaystyle \partial B(x,\epsilon )} .
+
+⟨ ⟨ ∇ ∇ f ( y ) , ( y − − x ) ⟩ ⟩ {\displaystyle \langle \nabla f(y),(y-x)\rangle } for all y ∈ ∈ ∂ ∂ B ( x , ϵ ϵ ) {\displaystyle y\in \partial B(x,\epsilon )} .
+
+Since ∂ ∂ B ( x , ϵ ϵ ) ⊂ ⊂ R n {\displaystyle \partial B(x,\epsilon )\subset \mathbb {R} ^{n}} is compact, it achieves minimal value δ δ {\displaystyle \delta } at some y 0 ∈ ∈ ∂ ∂ B ( x , ϵ ϵ ) {\displaystyle y_{0}\in \partial B(x,\epsilon )} .
+
+Since f {\displaystyle f} is strictly convex, δ δ > 0 {\displaystyle \delta >0} . Then B f ( x , r ) ⊂ ⊂ B ( x , r / δ δ ) ∩ ∩ X {\displaystyle B_{f}(x,r)\subset B(x,r/\delta )\cap X} .
+
+Since D f ( y , x ) {\displaystyle D_{f}(y,x)} is C 1 {\displaystyle C^{1}} in y {\displaystyle y} , D f {\displaystyle D_{f}} is continuous in y {\displaystyle y} , thus B f ( x , r ) {\displaystyle B_{f}(x,r)} is closed if X {\displaystyle X} is.
+
+Projection P W {\displaystyle P_{W}} is well-defined when W {\displaystyle W} is closed and convex.
+
+Fix v ∈ ∈ X {\displaystyle v\in X} . Take some w ∈ ∈ W {\displaystyle w\in W} , then let r := D f ( w , v ) {\displaystyle r:=D_{f}(w,v)} . Then draw the Bregman ball B f ( v , r ) ∩ ∩ W {\displaystyle B_{f}(v,r)\cap W} . It is closed and bounded, thus compact. Since D f ( ⋅ ⋅ , v ) {\displaystyle D_{f}(\cdot ,v)} is continuous and strictly convex on it, and bounded below by 0 {\displaystyle 0} , it achieves a unique minimum on it.
+
+Pythagorean inequality.
+
+By cosine law, D f ( w , v ) − − D f ( w , P W ( v ) ) − − D f ( P W ( v ) , v ) = ⟨ ⟨ ∇ ∇ y D f ( y , v ) | y = P W ( v ) , w − − P W ( v ) ⟩ ⟩ {\displaystyle D_{f}(w,v)-D_{f}(w,P_{W}(v))-D_{f}(P_{W}(v),v)=\langle \nabla _{y}D_{f}(y,v)|_{y=P_{W}(v)},w-P_{W}(v)\rangle } , which must be ≥ ≥ 0 {\displaystyle \geq 0} , since P W ( v ) {\displaystyle P_{W}(v)} minimizes D f ( ⋅ ⋅ , v ) {\displaystyle D_{f}(\cdot ,v)} in W {\displaystyle W} , and W {\displaystyle W} is convex.
+
+Pythagorean equality when P W ( v ) {\displaystyle P_{W}(v)} is in the relative interior of X {\displaystyle X} .
+
+If ⟨ ⟨ ∇ ∇ y D f ( y , v ) | y = P W ( v ) , w − − P W ( v ) ⟩ ⟩ > 0 {\displaystyle \langle \nabla _{y}D_{f}(y,v)|_{y=P_{W}(v)},w-P_{W}(v)\rangle >0} , then since w {\displaystyle w} is in the relative interior, we can move from P W ( v ) {\displaystyle P_{W}(v)} in the direction opposite of w {\displaystyle w} , to decrease D f ( y , v ) {\displaystyle D_{f}(y,v)} , contradiction.
+
+Thus ⟨ ⟨ ∇ ∇ y D f ( y , v ) | y = P W ( v ) , w − − P W ( v ) ⟩ ⟩ = 0 {\displaystyle \langle \nabla _{y}D_{f}(y,v)|_{y=P_{W}(v)},w-P_{W}(v)\rangle =0} .
+
+Classification theorems [ edit ] The only symmetric Bregman divergences on X ⊂ ⊂ R n {\displaystyle X\subset \mathbb {R} ^{n}} are squared generalized Euclidean distances ( Mahalanobis distance ), that is, D f ( y , x ) = ( y − − x ) T A ( y − − x ) {\displaystyle D_{f}(y,x)=(y-x)^{T}A(y-x)} for some positive definite A {\displaystyle A} .
+
+[ 5 ] Proof Bregman divergence interpreted as areas.
+
+For any x ≠ ≠ y ∈ ∈ X {\displaystyle x\neq y\in X} , define r = ‖ ‖ y − − x ‖ ‖ , v = ( y − − x ) / r , g ( t ) = f ( x + t v ) {\displaystyle r=\|y-x\|,v=(y-x)/r,g(t)=f(x+tv)} for t ∈ ∈ [ 0 , r ] {\displaystyle t\in [0,r]} . Let z ( t ) = x + t v {\displaystyle z(t)=x+tv} .
+
+Then g ′ ( t ) = ⟨ ⟨ ∇ ∇ f ( z ( t ) ) , v ⟩ ⟩ {\displaystyle g'(t)=\langle \nabla f(z(t)),v\rangle } for t ∈ ∈ ( 0 , r ) {\displaystyle t\in (0,r)} , and since ∇ ∇ f {\displaystyle \nabla f} is continuous, also for t = 0 , r {\displaystyle t=0,r} .
+
+Then, from the diagram, we see that for D f ( x ; z ( t ) ) = D f ( z ( t ) ; x ) {\displaystyle D_{f}(x;z(t))=D_{f}(z(t);x)} for all t ∈ ∈ [ 0 , r ] {\displaystyle t\in [0,r]} , we must have g ′ ( t ) {\displaystyle g'(t)} linear on t ∈ ∈ [ 0 , r ] {\displaystyle t\in [0,r]} .
+
+Thus we find that ∇ ∇ f {\displaystyle \nabla f} varies linearly along any direction. By the next lemma, f {\displaystyle f} is quadratic. Since f {\displaystyle f} is also strictly convex, it is of form f ( x ) + x T A x + B T x + C {\displaystyle f(x)+x^{T}Ax+B^{T}x+C} , where A ≻ ≻ 0 {\displaystyle A\succ 0} .
+
+Lemma : If S {\displaystyle S} is an open subset of R n {\displaystyle \mathbb {R} ^{n}} , f : S → → R {\displaystyle f:S\to \mathbb {R} } has continuous derivative, and given any line segment [ x , x + v ] ⊂ ⊂ S {\displaystyle [x,x+v]\subset S} , the function h ( t ) := ⟨ ⟨ ∇ ∇ f ( x + t v ) , v ⟩ ⟩ {\displaystyle h(t):=\langle \nabla f(x+tv),v\rangle } is linear in t {\displaystyle t} , then f {\displaystyle f} is a quadratic function.
+
+Proof idea: For any quadratic function q : S → → R {\displaystyle q:S\to \mathbb {R} } , we have f − − q {\displaystyle f-q} still has such derivative-linearity, so we will subtract away a few quadratic functions and show that f {\displaystyle f} becomes zero.
+
+The proof idea can be illustrated fully for the case of S = R 2 {\displaystyle S=\mathbb {R} ^{2}} , so we prove it in this case.
+
+By the derivative-linearity, f {\displaystyle f} is a quadratic function on any line segment in R 2 {\displaystyle \mathbb {R} ^{2}} . We subtract away four quadratic functions, such that g := f − − q 0 − − q 1 − − q 2 − − q 3 {\displaystyle g:=f-q_{0}-q_{1}-q_{2}-q_{3}} becomes identically zero on the x-axis, y-axis, and the { x = y } {\displaystyle \{x=y\}} line.
+
+Let q 0 ( x , y ) = f ( 0 , 0 ) + ∇ ∇ f ( 0 , 0 ) ⋅ ⋅ ( x , y ) , q 1 ( x , y ) = A 1 x 2 , q 2 ( x , y ) = A 2 y 2 , q 3 ( x , y ) = A 3 x y {\displaystyle q_{0}(x,y)=f(0,0)+\nabla f(0,0)\cdot (x,y),q_{1}(x,y)=A_{1}x^{2},q_{2}(x,y)=A_{2}y^{2},q_{3}(x,y)=A_{3}xy} , for well-chosen A 1 , A 2 , A 3 {\displaystyle A_{1},A_{2},A_{3}} . Now use q 0 {\displaystyle q_{0}} to remove the linear term, and use q 1 , q 2 , q 3 {\displaystyle q_{1},q_{2},q_{3}} respectively to remove the quadratic terms along the three lines.
+
+∀ ∀ ( x , y ) ∈ ∈ R 2 {\displaystyle \forall (x,y)\in \mathbb {R} ^{2}} not on the origin, there exists a line l {\displaystyle l} across ( x , y ) {\displaystyle (x,y)} that intersects the x-axis, y-axis, and the { x = y } {\displaystyle \{x=y\}} line at three different points. Since g {\displaystyle g} is quadratic on l {\displaystyle l} , and is zero on three different points, g {\displaystyle g} is identically zero on l {\displaystyle l} , thus g ( x , y ) = 0 {\displaystyle g(x,y)=0} . Thus f = q 0 + q 1 + q 2 + q 3 {\displaystyle f=q_{0}+q_{1}+q_{2}+q_{3}} is quadratic.
+
+The following two characterizations are for divergences on Γ Γ n {\displaystyle \Gamma _{n}} , the set of all probability measures on { 1 , 2 , .
+
+.
+
+.
+
+, n } {\displaystyle \{1,2,...,n\}} , with n ≥ ≥ 2 {\displaystyle n\geq 2} .
+
+Define a divergence on Γ Γ n {\displaystyle \Gamma _{n}} as any function of type D : Γ Γ n × × Γ Γ n → → [ 0 , ∞ ∞ ] {\displaystyle D:\Gamma _{n}\times \Gamma _{n}\to [0,\infty ]} , such that D ( x , x ) = 0 {\displaystyle D(x,x)=0} for all x ∈ ∈ Γ Γ n {\displaystyle x\in \Gamma _{n}} , then: The only divergence on Γ Γ n {\displaystyle \Gamma _{n}} that is both a Bregman divergence and an f-divergence is the Kullback–Leibler divergence .
+
+[ 6 ] If n ≥ ≥ 3 {\displaystyle n\geq 3} , then any Bregman divergence on Γ Γ n {\displaystyle \Gamma _{n}} that satisfies the data processing inequality must be the Kullback–Leibler divergence. (In fact, a weaker assumption of "sufficiency" is enough.) Counterexamples exist when n = 2 {\displaystyle n=2} .
+
+[ 6 ] Given a Bregman divergence D F {\displaystyle D_{F}} , its "opposite", defined by D F ∗ ∗ ( v , w ) = D F ( w , v ) {\displaystyle D_{F}^{*}(v,w)=D_{F}(w,v)} , is generally not a Bregman divergence. For example, the Kullback-Leiber divergence is both a Bregman divergence and an f-divergence. Its reverse is also an f-divergence, but by the above characterization, the reverse KL divergence cannot be a Bregman divergence.
+
+Examples [ edit ] The squared Mahalanobis distance D F ( x , y ) = 1 2 ( x − − y ) T Q ( x − − y ) {\displaystyle D_{F}(x,y)={\tfrac {1}{2}}(x-y)^{T}Q(x-y)} is generated by the convex quadratic form F ( x ) = 1 2 x T Q x {\displaystyle F(x)={\tfrac {1}{2}}x^{T}Qx} .
+
+The canonical example of a Bregman distance is the squared Euclidean distance D F ( x , y ) = ‖ ‖ x − − y ‖ ‖ 2 {\displaystyle D_{F}(x,y)=\|x-y\|^{2}} . It results as the special case of the above, when Q {\displaystyle Q} is the identity, i.e. for F ( x ) = ‖ ‖ x ‖ ‖ 2 {\displaystyle F(x)=\|x\|^{2}} . As noted, affine differences, i.e. the lower orders added in F {\displaystyle F} , are irrelevant to D F {\displaystyle D_{F}} .
+
+The generalized Kullback–Leibler divergence D F ( p , q ) = ∑ ∑ i p ( i ) log ⁡ ⁡ p ( i ) q ( i ) − − ∑ ∑ p ( i ) + ∑ ∑ q ( i ) {\displaystyle D_{F}(p,q)=\sum _{i}p(i)\log {\frac {p(i)}{q(i)}}-\sum p(i)+\sum q(i)} is generated by the negative entropy function F ( p ) = ∑ ∑ i p ( i ) log ⁡ ⁡ p ( i ) {\displaystyle F(p)=\sum _{i}p(i)\log p(i)} When restricted to the simplex , the last two terms cancel, giving the usual Kullback–Leibler divergence for distributions.
+
+The Itakura–Saito distance , D F ( p , q ) = ∑ ∑ i ( p ( i ) q ( i ) − − log ⁡ ⁡ p ( i ) q ( i ) − − 1 ) {\displaystyle D_{F}(p,q)=\sum _{i}\left({\frac {p(i)}{q(i)}}-\log {\frac {p(i)}{q(i)}}-1\right)} is generated by the convex function F ( p ) = − − ∑ ∑ i log ⁡ ⁡ p ( i ) {\displaystyle F(p)=-\sum _{i}\log p(i)} Generalizing projective duality [ edit ] A key tool in computational geometry is the idea of projective duality , which maps points to hyperplanes and vice versa, while preserving incidence and above-below relationships. There are numerous analytical forms of the projective dual: one common form maps the point p = ( p 1 , … … p d ) {\displaystyle p=(p_{1},\ldots p_{d})} to the hyperplane x d + 1 = ∑ ∑ 1 d 2 p i x i {\displaystyle x_{d+1}=\sum _{1}^{d}2p_{i}x_{i}} . This mapping can be interpreted (identifying the hyperplane with its normal) as the convex conjugate mapping that takes the point p to its dual point p ∗ ∗ = ∇ ∇ F ( p ) {\displaystyle p^{*}=\nabla F(p)} , where F defines the d -dimensional paraboloid x d + 1 = ∑ ∑ x i 2 {\displaystyle x_{d+1}=\sum x_{i}^{2}} .
+
+If we now replace the paraboloid by an arbitrary convex function, we obtain a different dual mapping that retains the incidence and above-below properties of the standard projective dual. This implies that natural dual concepts in computational geometry like Voronoi diagrams and Delaunay triangulations retain their meaning in distance spaces defined by an arbitrary Bregman divergence. Thus, algorithms from "normal" geometry extend directly to these spaces (Boissonnat, Nielsen and Nock, 2010) Generalization of Bregman divergences [ edit ] Bregman divergences can be interpreted as limit cases of skewed Jensen divergences (see Nielsen and Boltz, 2011). Jensen divergences can be generalized using comparative convexity, and limit cases of these skewed Jensen divergences generalizations yields generalized Bregman divergence (see Nielsen and Nock, 2017).
+The Bregman chord divergence [ 7 ] is obtained by taking a chord instead of a tangent line.
+
+Bregman divergence on other objects [ edit ] Bregman divergences can also be defined between matrices, between functions, and between measures (distributions).  Bregman divergences between matrices include the Stein's loss and von Neumann entropy .  Bregman divergences between functions include total squared error, relative entropy, and squared bias; see the references by Frigyik et al. below for definitions and properties. Similarly Bregman divergences have also been defined over sets, through a submodular set function which is known as the discrete analog of a convex function . The submodular Bregman divergences subsume a number of discrete distance measures, like the Hamming distance , precision and recall , mutual information and some other set based distance measures (see Iyer & Bilmes, 2012 for more details and properties of the submodular Bregman.) For a list of common matrix Bregman divergences, see Table 15.1 in.
+
+[ 8 ] Applications [ edit ] In machine learning, Bregman divergences are used to calculate the bi-tempered logistic loss, performing better than the softmax function with noisy datasets.
+
+[ 9 ] Bregman divergence is used in the formulation of mirror descent , which includes optimization algorithms used in machine learning such as gradient descent and the hedge algorithm .
+
+References [ edit ] ^ a b "Learning with Bregman Divergences" (PDF) .
+
+utexas.edu . Retrieved 19 August 2023 .
+
+^ Adamčík, Martin (2014).
+
+"The Information Geometry of Bregman Divergences and Some Applications in Multi-Expert Reasoning" .
+
+Entropy .
+
+16 (12): 6338– 6381.
+
+Bibcode : 2014Entrp..16.6338A .
+
+doi : 10.3390/e16126338 .
+
+^ Dhillon, Inderjit ; Tropp, Joel (2008).
+
+"Matrix Nearness Problems with Bregman Divergence" (PDF) .
+
+SIAM Journal on Matrix Analysis and Applications .
+
+29 (4): 1120– 1146.
+
+doi : 10.1137/060649021 .
+
+Supposed D_\varphi is a Bregman divergence, supposed that {C_k} is a finite collection of closed, convex sets whose intersection is nonempty. Given an input matrix Y our goal is to produce a matrix \mathbf{X} in the intersection that diverges the least from \textbf{Y}, i.e. to solve \min_{\mathbf{X} } D_\varphi(\mathbf{X};\mathbf{Y}) subject to \mathbf{X} \in \big\cap_k C_k. Under mild conditions, the solution is unique and it has a variational characterization analogous with the characterization of an orthogonal projection onto a convex set" (see s2.4, page 1125 for more) ^ Nielsen, Frank (28 October 2021).
+
+"Fast Approximations of the Jeffreys Divergence between Univariate Gaussian Mixtures via Mixture Conversions to Exponential-Polynomial Distributions" .
+
+Entropy .
+
+23 (11): 1417.
+
+arXiv : 2107.05901 .
+
+Bibcode : 2021Entrp..23.1417N .
+
+doi : 10.3390/e23111417 .
+
+ISSN 1099-4300 .
+
+PMC 8619509 .
+
+PMID 34828115 .
+
+^ Nielsen, Frank; Boissonnat, Jean-Daniel ; Nock, Richard (September 2010). "Bregman Voronoi Diagrams: Properties, Algorithms and Applications".
+
+Discrete & Computational Geometry .
+
+44 (2): 281– 307.
+
+arXiv : 0709.2196 .
+
+doi : 10.1007/s00454-010-9256-1 .
+
+ISSN 0179-5376 .
+
+S2CID 1327029 .
+
+^ a b Jiao, Jiantao; Courtade, Thomas; No, Albert; Venkat, Kartik; Weissman, Tsachy (December 2014). "Information Measures: the Curious Case of the Binary Alphabet".
+
+IEEE Transactions on Information Theory .
+
+60 (12): 7616– 7626.
+
+arXiv : 1404.6810 .
+
+doi : 10.1109/TIT.2014.2360184 .
+
+ISSN 0018-9448 .
+
+S2CID 13108908 .
+
+^ Nielsen, Frank; Nock, Richard (2019). "The Bregman Chord Divergence".
+
+Geometric Science of Information . Lecture Notes in Computer Science. Vol. 11712. pp.
+
+299– 308.
+
+arXiv : 1810.09113 .
+
+doi : 10.1007/978-3-030-26980-7_31 .
+
+ISBN 978-3-030-26979-1 .
+
+S2CID 53046425 .
+
+^ "Matrix Information Geometry", R. Nock, B. Magdalou, E. Briys and F. Nielsen, pdf , from this book ^ Ehsan Amid, Manfred K. Warmuth, Rohan Anil, Tomer Koren (2019). "Robust Bi-Tempered Logistic Loss Based on Bregman Divergences". Conference on Neural Information Processing Systems. pp. 14987-14996.
+
+pdf Banerjee, Arindam; Merugu, Srujana; Dhillon, Inderjit S.; Ghosh, Joydeep (2005).
+
+"Clustering with Bregman divergences" .
+
+Journal of Machine Learning Research .
+
+6 : 1705– 1749.
+
+Bregman, L. M. (1967). "The relaxation method of finding the common points of convex sets and its application to the solution of problems in convex programming".
+
+USSR Computational Mathematics and Mathematical Physics .
+
+7 (3): 200– 217.
+
+doi : 10.1016/0041-5553(67)90040-7 .
+
+Frigyik, Bela A.; Srivastava, Santosh; Gupta, Maya R. (2008).
+
+"Functional Bregman Divergences and Bayesian Estimation of Distributions" (PDF) .
+
+IEEE Transactions on Information Theory .
+
+54 (11): 5130– 5139.
+
+arXiv : cs/0611123 .
+
+doi : 10.1109/TIT.2008.929943 .
+
+S2CID 1254 . Archived from the original (PDF) on 12 August 2010.
+
+Iyer, Rishabh; Bilmes, Jeff (2012). "Submodular-Bregman divergences and Lovász-Bregman divergences with Applications".
+
+Conference on Neural Information Processing Systems .
+
+Frigyik, Bela A.; Srivastava, Santosh; Gupta, Maya R. (2008).
+
+An Introduction to Functional Derivatives (PDF) . UWEE Tech Report 2008-0001. University of Washington, Dept. of Electrical Engineering. Archived from the original (PDF) on 17 February 2017 . Retrieved 20 March 2014 .
+
+Harremoës, Peter (2017).
+
+"Divergence and Sufficiency for Convex Optimization" .
+
+Entropy .
+
+19 (5): 206.
+
+arXiv : 1701.01010 .
+
+Bibcode : 2017Entrp..19..206H .
+
+doi : 10.3390/e19050206 .
+
+Nielsen, Frank; Nock, Richard (2009).
+
+"The dual Voronoi diagrams with respect to representational Bregman divergences" (PDF) .
+
+Proc. 6th International Symposium on Voronoi Diagrams . IEEE.
+
+doi : 10.1109/ISVD.2009.15 .
+
+Nielsen, Frank; Nock, Richard (2007). "On the Centroids of Symmetrized Bregman Divergences".
+
+arXiv : 0711.3242 [ cs.CG ].
+
+Nielsen, Frank; Boissonnat, Jean-Daniel; Nock, Richard (2007).
+
+"Visualizing Bregman Voronoi diagrams" (PDF) .
+
+Proc. 23rd ACM Symposium on Computational Geometry (video track) .
+
+doi : 10.1145/1247069.1247089 .
+
+Boissonnat, Jean-Daniel ; Nielsen, Frank; Nock, Richard (2010).
+
+"Bregman Voronoi Diagrams" .
+
+Discrete & Computational Geometry .
+
+44 (2): 281– 307.
+
+arXiv : 0709.2196 .
+
+doi : 10.1007/s00454-010-9256-1 .
+
+S2CID 1327029 .
+
+Nielsen, Frank; Nock, Richard (2006). "On approximating the smallest enclosing Bregman Balls".
+
+Proc. 22nd ACM Symposium on Computational Geometry . pp.
+
+485– 486.
+
+doi : 10.1145/1137856.1137931 .
+
+Nielsen, Frank; Boltz, Sylvain (2011). "The Burbea-Rao and Bhattacharyya centroids".
+
+IEEE Transactions on Information Theory .
+
+57 (8): 5455– 5466.
+
+arXiv : 1004.5049 .
+
+doi : 10.1109/TIT.2011.2159046 .
+
+S2CID 14238708 .
+
+Nielsen, Frank; Nock, Richard (2017). "Generalizing Skew Jensen Divergences and Bregman Divergences With Comparative Convexity".
+
+IEEE Signal Processing Letters .
+
+24 (8): 1123– 1127.
+
+arXiv : 1702.04877 .
+
+Bibcode : 2017ISPL...24.1123N .
+
+doi : 10.1109/LSP.2017.2712195 .
+
+S2CID 31899023 .
+
+Retrieved from " https://en.wikipedia.org/w/index.php?title=Bregman_divergence&oldid=1306395106 " Categories : Geometric algorithms Statistical distance Hidden categories: Articles with short description Short description matches Wikidata Use dmy dates from August 2023 This page was last edited on 17 August 2025, at 14:11 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Bregman divergence 2 languages Add topic
+

@@ -1,0 +1,408 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Background 2 The Cox model Toggle The Cox model subsection 2.1 Introduction 2.2 Why it is called "proportional" 2.3 Absence of an intercept term 2.4 Likelihood for unique times 2.5 Likelihood when there exist tied times 2.6 Examples 2.6.1 A single binary covariate 2.6.2 A single continuous covariate 3 Time-varying predictors and coefficients 4 Specifying the baseline hazard function 5 Relationship to Poisson models 6 Under high-dimensional setup 7 Software implementations 8 See also 9 Notes 10 References Toggle the table of contents Proportional hazards model 9 languages العربية Čeština Deutsch Español Français 한국어 日本語 Polski 粵語 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Class of statistical survival models Proportional hazards models are a class of survival models in statistics .  Survival models relate the time that passes, before some event occurs, to one or more covariates that may be associated with that quantity of time.  In a proportional hazards model, the unique effect of a unit increase in a covariate is multiplicative with respect to the hazard rate . The hazard rate at time t {\displaystyle t} is the probability per short time d t that an event will occur between t {\displaystyle t} and t + d t {\displaystyle t+dt} given that up to time t {\displaystyle t} no event has occurred yet. 
+For example, taking a drug may halve one's hazard rate for a stroke occurring, or, changing the material from which a manufactured component is constructed, may double its hazard rate for failure.  Other types of survival models such as accelerated failure time models do not exhibit proportional hazards.  The accelerated failure time model describes a situation where the biological or mechanical life history of an event is accelerated (or decelerated).
+
+Background [ edit ] Survival models can be viewed as consisting of two parts: the underlying baseline hazard function , often denoted λ λ 0 ( t ) {\displaystyle \lambda _{0}(t)} , describing how the risk of event per time unit changes over time at baseline levels of covariates; and the effect parameters, describing how the hazard varies in response to explanatory covariates. A typical medical example would include covariates such as treatment assignment, as well as patient characteristics such as age at start of study, gender, and the presence of other diseases at start of study, in order to reduce variability and/or control for confounding.
+
+The proportional hazards condition [ 1 ] states that covariates are multiplicatively related to the hazard. In the simplest case of stationary coefficients, for example, a treatment with a drug may, say, halve a subject's hazard at any given time t {\displaystyle t} , while the baseline hazard may vary. Note however, that this does not double the lifetime of the subject; the precise effect of the covariates on the lifetime depends on the type of λ λ 0 ( t ) {\displaystyle \lambda _{0}(t)} . The covariate is not restricted to binary predictors; in the case of a continuous covariate x {\displaystyle x} , it is typically assumed that the hazard responds exponentially; each unit increase in x {\displaystyle x} results in proportional scaling of the hazard.
+
+The Cox model [ edit ] Introduction [ edit ] Sir David Cox observed that if the proportional hazards assumption holds (or, is assumed to hold) then it is possible to estimate the effect parameter(s), denoted β β i {\displaystyle \beta _{i}} below, without any consideration of the full hazard function.  This approach to survival data is called application of the Cox proportional hazards model , [ 2 ] sometimes abbreviated to Cox model or to proportional hazards model .
+
+[ 3 ] However, Cox also noted that biological interpretation of the proportional hazards assumption can be quite tricky.
+
+[ 4 ] [ 5 ] Let X i = ( X i 1 , … , X ip ) be the realized values of the p covariates for subject i .  The hazard function for the Cox proportional hazards model has the form λ λ ( t | X i ) = λ λ 0 ( t ) exp ⁡ ⁡ ( β β 1 X i 1 + ⋯ ⋯ + β β p X i p ) = λ λ 0 ( t ) exp ⁡ ⁡ ( X i ⋅ ⋅ β β ) {\displaystyle {\begin{aligned}\lambda (t|X_{i})&=\lambda _{0}(t)\exp(\beta _{1}X_{i1}+\cdots +\beta _{p}X_{ip})\\&=\lambda _{0}(t)\exp(X_{i}\cdot \beta )\end{aligned}}} This expression gives the hazard function at time t for subject i with covariate vector (explanatory variables) X i . Note that between subjects, the baseline hazard λ λ 0 ( t ) {\displaystyle \lambda _{0}(t)} is identical (has no dependency on i ). The only difference between subjects' hazards comes from the baseline scaling factor exp ⁡ ⁡ ( X i ⋅ ⋅ β β ) {\displaystyle \exp(X_{i}\cdot \beta )} .
+
+Why it is called "proportional" [ edit ] To start, suppose we only have a single covariate, x {\displaystyle x} , and therefore a single coefficient, β β 1 {\displaystyle \beta _{1}} . Our model looks like: λ λ ( t | x ) = λ λ 0 ( t ) exp ⁡ ⁡ ( β β 1 x ) {\displaystyle \lambda (t|x)=\lambda _{0}(t)\exp(\beta _{1}x)} Consider the effect of increasing x {\displaystyle x} by 1: λ λ ( t | x + 1 ) = λ λ 0 ( t ) exp ⁡ ⁡ ( β β 1 ( x + 1 ) ) = λ λ 0 ( t ) exp ⁡ ⁡ ( β β 1 x + β β 1 ) = ( λ λ 0 ( t ) exp ⁡ ⁡ ( β β 1 x ) ) exp ⁡ ⁡ ( β β 1 ) = λ λ ( t | x ) exp ⁡ ⁡ ( β β 1 ) {\displaystyle {\begin{aligned}\lambda (t|x+1)&=\lambda _{0}(t)\exp(\beta _{1}(x+1))\\&=\lambda _{0}(t)\exp(\beta _{1}x+\beta _{1})\\&={\Bigl (}\lambda _{0}(t)\exp(\beta _{1}x){\Bigr )}\exp(\beta _{1})\\&=\lambda (t|x)\exp(\beta _{1})\end{aligned}}} We can see that increasing a covariate by 1 scales the original hazard by the constant exp ⁡ ⁡ ( β β 1 ) {\displaystyle \exp(\beta _{1})} . Rearranging things slightly, we see that: λ λ ( t | x + 1 ) λ λ ( t | x ) = exp ⁡ ⁡ ( β β 1 ) {\displaystyle {\frac {\lambda (t|x+1)}{\lambda (t|x)}}=\exp(\beta _{1})} The right-hand-side is constant over time (no term has a t {\displaystyle t} in it). This relationship, x / y = constant {\displaystyle x/y={\text{constant}}} , is called a proportional relationship .
+
+More generally, consider two subjects, i and j , with covariates X i {\displaystyle X_{i}} and X j {\displaystyle X_{j}} respectively. Consider the ratio of their hazards: λ λ ( t | X i ) λ λ ( t | X j ) = λ λ 0 ( t ) exp ⁡ ⁡ ( X i ⋅ ⋅ β β ) λ λ 0 ( t ) exp ⁡ ⁡ ( X j ⋅ ⋅ β β ) = λ λ 0 ( t ) exp ⁡ ⁡ ( X i ⋅ ⋅ β β ) λ λ 0 ( t ) exp ⁡ ⁡ ( X j ⋅ ⋅ β β ) = exp ⁡ ⁡ ( ( X i − − X j ) ⋅ ⋅ β β ) {\displaystyle {\begin{aligned}{\frac {\lambda (t|X_{i})}{\lambda (t|X_{j})}}&={\frac {\lambda _{0}(t)\exp(X_{i}\cdot \beta )}{\lambda _{0}(t)\exp(X_{j}\cdot \beta )}}\\&={\frac {{\cancel {\lambda _{0}(t)}}\exp(X_{i}\cdot \beta )}{{\cancel {\lambda _{0}(t)}}\exp(X_{j}\cdot \beta )}}\\&=\exp((X_{i}-X_{j})\cdot \beta )\end{aligned}}} The right-hand-side isn't dependent on time, as the only time-dependent factor, λ λ 0 ( t ) {\displaystyle \lambda _{0}(t)} , was cancelled out. Thus the ratio of hazards of two subjects is a constant, i.e. the hazards are proportional.
+
+Absence of an intercept term [ edit ] Often there is an intercept term (also called a constant term or bias term) used in regression models. The Cox model lacks one because the baseline hazard, λ λ 0 ( t ) {\displaystyle \lambda _{0}(t)} , takes the place of it. Let's see what would happen if we did include an intercept term anyways, denoted β β 0 {\displaystyle \beta _{0}} : λ λ ( t | X i ) = λ λ 0 ( t ) exp ⁡ ⁡ ( β β 1 X i 1 + ⋯ ⋯ + β β p X i p + β β 0 ) = λ λ 0 ( t ) exp ⁡ ⁡ ( X i ⋅ ⋅ β β ) exp ⁡ ⁡ ( β β 0 ) = ( exp ⁡ ⁡ ( β β 0 ) λ λ 0 ( t ) ) exp ⁡ ⁡ ( X i ⋅ ⋅ β β ) = λ λ 0 ∗ ∗ ( t ) exp ⁡ ⁡ ( X i ⋅ ⋅ β β ) {\displaystyle {\begin{aligned}\lambda (t|X_{i})&=\lambda _{0}(t)\exp(\beta _{1}X_{i1}+\cdots +\beta _{p}X_{ip}+\beta _{0})\\&=\lambda _{0}(t)\exp(X_{i}\cdot \beta )\exp(\beta _{0})\\&=\left(\exp(\beta _{0})\lambda _{0}(t)\right)\exp(X_{i}\cdot \beta )\\&=\lambda _{0}^{*}(t)\exp(X_{i}\cdot \beta )\end{aligned}}} where we've redefined exp ⁡ ⁡ ( β β 0 ) λ λ 0 ( t ) {\displaystyle \exp(\beta _{0})\lambda _{0}(t)} to be a new baseline hazard, λ λ 0 ∗ ∗ ( t ) {\displaystyle \lambda _{0}^{*}(t)} . Thus, the baseline hazard incorporates all parts of the hazard that are not dependent on the subjects' covariates, which includes any intercept term (which is constant for all subjects, by definition). In other words, adding an intercept term would make the model unidentifiable .
+
+Likelihood for unique times [ edit ] The Cox partial likelihood , shown below, is obtained by using Breslow's estimate of the baseline hazard function, plugging it into the full likelihood and then observing that the result is a product of two factors. The first factor is the partial likelihood shown below, in which the baseline hazard has "canceled out". It is simply the probability for subjects to have experienced events in the order that they actually have occurred, given the set of times of occurrences and given the subjects' covariates.  
+The second factor is free of the regression coefficients and depends on the data only through the censoring pattern . The effect of covariates estimated by any proportional hazards model can thus be reported as hazard ratios .
+
+To calculate the partial likelihood, the probability for the order of events, let us index the M samples for which events have already occurred by increasing time of occurrence, Y 1 < Y 2 < ... < Y M . Covariates of all other subjects for which no event has occurred get indices M +1,.., N . The partial likelihood can be factorized into one factor for each event that has occurred. The i 'th factor is the probability that out of all subjects ( i , i +1,..., N ) for which no event has occurred before time Y i , the one that actually occurred at time Y i is the event for subject i : L i ( β β ) = λ λ ( Y i ∣ ∣ X i ) ∑ ∑ j = i N λ λ ( Y i ∣ ∣ X j ) = λ λ 0 ( Y i ) θ θ i ∑ ∑ j = i N λ λ 0 ( Y i ) θ θ j = θ θ i ∑ ∑ j = i N θ θ j , {\displaystyle L_{i}(\beta )={\frac {\lambda (Y_{i}\mid X_{i})}{\sum _{j=i}^{N}\lambda (Y_{i}\mid X_{j})}}={\frac {\lambda _{0}(Y_{i})\theta _{i}}{\sum _{j=i}^{N}\lambda _{0}(Y_{i})\theta _{j}}}={\frac {\theta _{i}}{\sum _{j=i}^{N}\theta _{j}}},} where θ j = exp( X j ⋅ β ) and the summation is over the set of subjects j where the event has not occurred before time Y i (including subject i itself). Obviously 0 < L i (β) ≤ 1.
+
+Treating the subjects as statistically independent of each other, the partial likelihood for the order of events [ 6 ] is L ( β β ) = ∏ ∏ i = 1 M L i ( β β ) = ∏ ∏ i : C i = 1 L i ( β β ) , {\displaystyle L(\beta )=\prod _{i=1}^{M}L_{i}(\beta )=\prod _{i:C_{i}=1}L_{i}(\beta ),} where the subjects for which an event has occurred are indicated by C i = 1 and all others by C i = 0. The corresponding log partial likelihood is ℓ ℓ ( β β ) = ∑ ∑ i : C i = 1 ( X i ⋅ ⋅ β β − − log ⁡ ⁡ ∑ ∑ j : Y j ≥ ≥ Y i θ θ j ) , {\displaystyle \ell (\beta )=\sum _{i:C_{i}=1}\left(X_{i}\cdot \beta -\log \sum _{j:Y_{j}\geq Y_{i}}\theta _{j}\right),} where we have written ∑ ∑ j = i N {\displaystyle \sum _{j=i}^{N}} using the indexing introduced above in a more general way, as ∑ ∑ j : Y j ≥ ≥ Y i {\displaystyle \sum _{j:Y_{j}\geq Y_{i}}} .
+Crucially, the effect of the covariates can be estimated without the need to specify the hazard function λ λ 0 ( t ) {\displaystyle \lambda _{0}(t)} over time. The partial likelihood can be maximized over β to produce maximum partial likelihood estimates of the model parameters.
+
+The partial score function is ℓ ℓ ′ ′ ( β β ) = ∑ ∑ i : C i = 1 ( X i − − ∑ ∑ j : Y j ≥ ≥ Y i θ θ j X j ∑ ∑ j : Y j ≥ ≥ Y i θ θ j ) , {\displaystyle \ell ^{\prime }(\beta )=\sum _{i:C_{i}=1}\left(X_{i}-{\frac {\sum _{j:Y_{j}\geq Y_{i}}\theta _{j}X_{j}}{\sum _{j:Y_{j}\geq Y_{i}}\theta _{j}}}\right),} and the Hessian matrix of the partial log likelihood is ℓ ℓ ′ ′ ′ ′ ( β β ) = − − ∑ ∑ i : C i = 1 ( ∑ ∑ j : Y j ≥ ≥ Y i θ θ j X j X j ′ ′ ∑ ∑ j : Y j ≥ ≥ Y i θ θ j − − [ ∑ ∑ j : Y j ≥ ≥ Y i θ θ j X j ] [ ∑ ∑ j : Y j ≥ ≥ Y i θ θ j X j ′ ′ ] [ ∑ ∑ j : Y j ≥ ≥ Y i θ θ j ] 2 ) .
+
+{\displaystyle \ell ^{\prime \prime }(\beta )=-\sum _{i:C_{i}=1}\left({\frac {\sum _{j:Y_{j}\geq Y_{i}}\theta _{j}X_{j}X_{j}^{\prime }}{\sum _{j:Y_{j}\geq Y_{i}}\theta _{j}}}-{\frac {\left[\sum _{j:Y_{j}\geq Y_{i}}\theta _{j}X_{j}\right]\left[\sum _{j:Y_{j}\geq Y_{i}}\theta _{j}X_{j}^{\prime }\right]}{\left[\sum _{j:Y_{j}\geq Y_{i}}\theta _{j}\right]^{2}}}\right).} Using this score function and Hessian matrix, the partial likelihood can be maximized using the Newton-Raphson algorithm. The inverse of the Hessian matrix, evaluated at the estimate of β , can be used as an approximate variance-covariance matrix for the estimate, and used to produce approximate standard errors for the regression coefficients.
+
+Likelihood when there exist tied times [ edit ] Several approaches have been proposed to handle situations in which there are ties in the time data.
+
+Breslow's method describes the approach in which the procedure described above is used unmodified, even when ties are present. An alternative approach that is considered to give better results is Efron's method .
+
+[ 7 ] Let t j denote the unique times, let H j denote the set of indices i such that Y i = t j and C i = 1, and let m j = | H j |.  Efron's approach maximizes the following partial likelihood.
+
+L ( β β ) = ∏ ∏ j ∏ ∏ i ∈ ∈ H j θ θ i ∏ ∏ ℓ ℓ = 0 m j − − 1 [ ∑ ∑ i : Y i ≥ ≥ t j θ θ i − − ℓ ℓ m j ∑ ∑ i ∈ ∈ H j θ θ i ] .
+
+{\displaystyle L(\beta )=\prod _{j}{\frac {\prod _{i\in H_{j}}\theta _{i}}{\prod _{\ell =0}^{m_{j}-1}\left[\sum _{i:Y_{i}\geq t_{j}}\theta _{i}-{\frac {\ell }{m_{j}}}\sum _{i\in H_{j}}\theta _{i}\right]}}.} The corresponding log partial likelihood is ℓ ℓ ( β β ) = ∑ ∑ j ( ∑ ∑ i ∈ ∈ H j X i ⋅ ⋅ β β − − ∑ ∑ ℓ ℓ = 0 m j − − 1 log ⁡ ⁡ ( ∑ ∑ i : Y i ≥ ≥ t j θ θ i − − ℓ ℓ m j ∑ ∑ i ∈ ∈ H j θ θ i ) ) , {\displaystyle \ell (\beta )=\sum _{j}\left(\sum _{i\in H_{j}}X_{i}\cdot \beta -\sum _{\ell =0}^{m_{j}-1}\log \left(\sum _{i:Y_{i}\geq t_{j}}\theta _{i}-{\frac {\ell }{m_{j}}}\sum _{i\in H_{j}}\theta _{i}\right)\right),} the score function is ℓ ℓ ′ ′ ( β β ) = ∑ ∑ j ( ∑ ∑ i ∈ ∈ H j X i − − ∑ ∑ ℓ ℓ = 0 m j − − 1 ∑ ∑ i : Y i ≥ ≥ t j θ θ i X i − − ℓ ℓ m j ∑ ∑ i ∈ ∈ H j θ θ i X i ∑ ∑ i : Y i ≥ ≥ t j θ θ i − − ℓ ℓ m j ∑ ∑ i ∈ ∈ H j θ θ i ) , {\displaystyle \ell ^{\prime }(\beta )=\sum _{j}\left(\sum _{i\in H_{j}}X_{i}-\sum _{\ell =0}^{m_{j}-1}{\frac {\sum _{i:Y_{i}\geq t_{j}}\theta _{i}X_{i}-{\frac {\ell }{m_{j}}}\sum _{i\in H_{j}}\theta _{i}X_{i}}{\sum _{i:Y_{i}\geq t_{j}}\theta _{i}-{\frac {\ell }{m_{j}}}\sum _{i\in H_{j}}\theta _{i}}}\right),} and the Hessian matrix is ℓ ℓ ′ ′ ′ ′ ( β β ) = − − ∑ ∑ j ∑ ∑ ℓ ℓ = 0 m j − − 1 ( ∑ ∑ i : Y i ≥ ≥ t j θ θ i X i X i ′ ′ − − ℓ ℓ m j ∑ ∑ i ∈ ∈ H j θ θ i X i X i ′ ′ ϕ ϕ j , ℓ ℓ , m j − − Z j , ℓ ℓ , m j Z j , ℓ ℓ , m j ′ ′ ϕ ϕ j , ℓ ℓ , m j 2 ) , {\displaystyle \ell ^{\prime \prime }(\beta )=-\sum _{j}\sum _{\ell =0}^{m_{j}-1}\left({\frac {\sum _{i:Y_{i}\geq t_{j}}\theta _{i}X_{i}X_{i}^{\prime }-{\frac {\ell }{m_{j}}}\sum _{i\in H_{j}}\theta _{i}X_{i}X_{i}^{\prime }}{\phi _{j,\ell ,m_{j}}}}-{\frac {Z_{j,\ell ,m_{j}}Z_{j,\ell ,m_{j}}^{\prime }}{\phi _{j,\ell ,m_{j}}^{2}}}\right),} where ϕ ϕ j , ℓ ℓ , m j = ∑ ∑ i : Y i ≥ ≥ t j θ θ i − − ℓ ℓ m j ∑ ∑ i ∈ ∈ H j θ θ i {\displaystyle \phi _{j,\ell ,m_{j}}=\sum _{i:Y_{i}\geq t_{j}}\theta _{i}-{\frac {\ell }{m_{j}}}\sum _{i\in H_{j}}\theta _{i}} Z j , ℓ ℓ , m j = ∑ ∑ i : Y i ≥ ≥ t j θ θ i X i − − ℓ ℓ m j ∑ ∑ i ∈ ∈ H j θ θ i X i .
+
+{\displaystyle Z_{j,\ell ,m_{j}}=\sum _{i:Y_{i}\geq t_{j}}\theta _{i}X_{i}-{\frac {\ell }{m_{j}}}\sum _{i\in H_{j}}\theta _{i}X_{i}.} Note that when H j is empty (all observations with time t j are censored), the summands in these expressions are treated as zero.
+
+Examples [ edit ] Below are some worked examples of the Cox model in practice.
+
+A single binary covariate [ edit ] Suppose the endpoint we are interested in is patient survival during a 5-year observation period after a surgery. Patients can die within the 5-year period, and we record when they died, or patients can live past 5 years, and we only record that they lived past 5 years. The surgery was performed at one of two hospitals, A or B , and we would like to know if the hospital location is associated with 5-year survival. Specifically, we would like to know the relative increase (or decrease) in hazard from a surgery performed at hospital A compared to hospital B. Provided is some (fake) data, where each row represents a patient: T is how long the patient was observed for before death or 5 years (measured in months), and C denotes if the patient died in the 5-year period. We have encoded the hospital as a binary variable denoted X : 1 if from hospital A , 0 from hospital B .
+
+hospital X T C B 0 60 False B 0 32 True B 0 60 False B 0 60 False B 0 60 False A 1 4 True A 1 18 True A 1 60 False A 1 9 True A 1 31 True A 1 53 True A 1 17 True Our single-covariate Cox proportional model looks like the following, with β β 1 {\displaystyle \beta _{1}} representing the hospital's effect, and i indexing each patient: λ λ ( t | X i ) ⏞ ⏞ hazard for i = λ λ 0 ( t ) ⏟ ⏟ baseline hazard ⋅ ⋅ exp ⁡ ⁡ ( β β 1 X i ) ⏞ ⏞ scaling factor for i {\displaystyle \overbrace {\lambda (t|X_{i})} ^{\text{hazard for i}}=\underbrace {\lambda _{0}(t)} _{{\text{baseline}} \atop {\text{hazard}}}\cdot \overbrace {\exp(\beta _{1}X_{i})} ^{\text{scaling factor for i}}} Using statistical software, we can estimate β β 1 {\displaystyle \beta _{1}} to be 2.12. The hazard ratio is the exponential of this value, exp ⁡ ⁡ ( β β 1 ) = exp ⁡ ⁡ ( 2.12 ) {\displaystyle \exp(\beta _{1})=\exp(2.12)} . To see why, consider the ratio of hazards, specifically: λ λ ( t | X = 1 ) λ λ ( t | X = 0 ) = λ λ 0 ( t ) exp ⁡ ⁡ ( β β 1 ⋅ ⋅ 1 ) λ λ 0 ( t ) exp ⁡ ⁡ ( β β 1 ⋅ ⋅ 0 ) = exp ⁡ ⁡ ( β β 1 ) {\displaystyle {\frac {\lambda (t|X=1)}{\lambda (t|X=0)}}={\frac {{\cancel {\lambda _{0}(t)}}\exp(\beta _{1}\cdot 1)}{{\cancel {\lambda _{0}(t)}}\exp(\beta _{1}\cdot 0)}}=\exp(\beta _{1})} Thus, the hazard ratio of hospital A to hospital B is exp ⁡ ⁡ ( 2.12 ) = 8.32 {\displaystyle \exp(2.12)=8.32} . Putting aside statistical significance for a moment, we can make a statement saying that patients in hospital A are associated with a 8.3x higher risk of death occurring in any short period of time compared to hospital B.
+
+There are important caveats to mention about the interpretation: a 8.3x higher risk of death does not mean that 8.3x more patients will die in hospital A: survival analysis examines how quickly events occur, not simply whether they occur.
+
+More specifically, "risk of death" is a measure of a rate. A rate has units, like meters per second. However, a relative rate does not: a bicycle can go two times faster than another bicycle (the reference bicycle), without specifying any units. Likewise, the risk of death (comparable to the speed of a bike) in hospital A is 8.3 times higher (faster) than the risk of death in hospital B (the reference group).
+
+the inverse quantity, 1 / 8.32 = 1 exp ⁡ ⁡ ( 2.12 ) = exp ⁡ ⁡ ( − − 2.12 ) = 0.12 {\displaystyle 1/8.32={\frac {1}{\exp(2.12)}}=\exp(-2.12)=0.12} is the hazard ratio of hospital B relative to hospital A .
+
+We haven't made any inferences about probabilities of survival between the hospitals. This is because we would need an estimate of the baseline hazard rate, λ λ 0 ( t ) {\displaystyle \lambda _{0}(t)} , as well as our β β 1 {\displaystyle \beta _{1}} estimate. However, standard estimation of the Cox proportional hazard model does not directly estimate the baseline hazard rate.
+
+Because we have ignored the only time varying component of the model, the baseline hazard rate, our estimate is timescale-invariant. For example, if we had measured time in years instead of months, we would get the same estimate.
+
+It is tempting to say that the hospital caused the difference in hazards between the two groups, but since our study is not causal (that is, we do not know how the data was generated), we stick with terminology like "associated".
+
+A single continuous covariate [ edit ] To demonstrate a less traditional use case of survival analysis, the next example will be an economics question: what is the relationship between a company's price-to-earnings ratio (P/E) on their first IPO anniversary and their future survival? More specifically, if we consider a company's "birth event" to be their first IPO anniversary, and any bankruptcy, sale, going private, etc. as a "death" event the company, we'd like to know the influence of the companies' P/E ratio at their "birth" (first IPO anniversary) on their survival.
+
+Provided is a (fake) dataset with survival data from 12 companies: T represents the number of days between first IPO anniversary and death (or an end date of 2022-01-01, if did not die).
+
+C represents if the company died before 2022-01-01 or not. P/E represents the company's price-to-earnings ratio at its 1st IPO anniversary.
+
+Co.
+
+1 year IPO date Death date* C T P/E 0 2000-11-05 2011-01-22 True 3730 9.7 1 2000-12-01 2003-03-30 True 849 12.0 2 2011-01-05 2012-03-30 True 450 3.0 3 2010-05-29 2011-02-22 True 269 5.3 4 2005-06-23 2022-01-01 False 6036 10.8 5 2000-06-10 2002-07-24 True 774 6.3 6 2011-07-11 2014-05-01 True 1025 11.6 7 2007-09-27 2022-01-01 False 5210 10.3 8 2006-07-30 2010-06-03 True 1404 8.0 9 2000-07-13 2001-07-19 True 371 4.0 10 2013-06-10 2018-10-10 True 1948 5.9 11 2011-07-16 2014-08-15 True 1126 8.3 Unlike the previous example where there was a binary variable, this dataset has a continuous variable, P/E; however, the model looks similar: λ λ ( t | P i ) = λ λ 0 ( t ) ⋅ ⋅ exp ⁡ ⁡ ( β β 1 P i ) {\displaystyle \lambda (t|P_{i})=\lambda _{0}(t)\cdot \exp(\beta _{1}P_{i})} where P i {\displaystyle P_{i}} represents a company's P/E ratio. Running this dataset through a Cox model produces an estimate of the value of the unknown β β 1 {\displaystyle \beta _{1}} , which is -0.34. Therefore, an estimate of the entire hazard is: λ λ ( t | P i ) = λ λ 0 ( t ) ⋅ ⋅ exp ⁡ ⁡ ( − − 0.34 P i ) {\displaystyle \lambda (t|P_{i})=\lambda _{0}(t)\cdot \exp(-0.34P_{i})} Since the baseline hazard, λ λ 0 ( t ) {\displaystyle \lambda _{0}(t)} , was not estimated, the entire hazard is not able to be calculated. However, consider the ratio of the companies i and j' s hazards: λ λ ( t | P i ) λ λ ( t | P j ) = λ λ 0 ( t ) ⋅ ⋅ exp ⁡ ⁡ ( − − 0.34 P i ) λ λ 0 ( t ) ⋅ ⋅ exp ⁡ ⁡ ( − − 0.34 P j ) = exp ⁡ ⁡ ( − − 0.34 ( P i − − P j ) ) {\displaystyle {\begin{aligned}{\frac {\lambda (t|P_{i})}{\lambda (t|P_{j})}}&={\frac {{\cancel {\lambda _{0}(t)}}\cdot \exp(-0.34P_{i})}{{\cancel {\lambda _{0}(t)}}\cdot \exp(-0.34P_{j})}}\\&=\exp(-0.34(P_{i}-P_{j}))\end{aligned}}} All terms on the right are known, so calculating the ratio of hazards between companies is possible. Since there is no time-dependent term on the right (all terms are constant), the hazards are proportional to each other. For example, the hazard ratio of company 5 to company 2 is exp ⁡ ⁡ ( − − 0.34 ( 6.3 − − 3.0 ) ) = 0.33 {\displaystyle \exp(-0.34(6.3-3.0))=0.33} . This means that, within the interval of study, company 5's risk of "death" is 0.33 ≈ 1/3 as large as company 2's risk of death.
+
+There are important caveats to mention about the interpretation: The hazard ratio is the quantity exp ⁡ ⁡ ( β β 1 ) {\displaystyle \exp(\beta _{1})} , which is exp ⁡ ⁡ ( − − 0.34 ) = 0.71 {\displaystyle \exp(-0.34)=0.71} in the above example. From the last calculation above, an interpretation of this is as the ratio of hazards between two "subjects" that have their variables differ by one unit: if P i = P j + 1 {\displaystyle P_{i}=P_{j}+1} , then exp ⁡ ⁡ ( β β 1 ( P i − − P j ) = exp ⁡ ⁡ ( β β 1 ( 1 ) ) {\displaystyle \exp(\beta _{1}(P_{i}-P_{j})=\exp(\beta _{1}(1))} . The choice of "differ by one unit" is convenience, as it communicates precisely the value of β β 1 {\displaystyle \beta _{1}} .
+
+The baseline hazard can be represented when the scaling factor is 1, i.e.
+
+P = 0 {\displaystyle P=0} .
+
+λ λ ( t | P i = 0 ) = λ λ 0 ( t ) ⋅ ⋅ exp ⁡ ⁡ ( − − 0.34 ⋅ ⋅ 0 ) = λ λ 0 ( t ) {\displaystyle \lambda (t|P_{i}=0)=\lambda _{0}(t)\cdot \exp(-0.34\cdot 0)=\lambda _{0}(t)} Can we interpret the baseline hazard as the hazard of a "baseline" company whose P/E happens to be 0? This interpretation of the baseline hazard as "hazard of a baseline subject" is imperfect, as the covariate being 0 is impossible in this application: a P/E of 0 is meaningless (it means the company's stock price is 0, i.e., they are "dead"). A more appropriate interpretation would be "the hazard when all variables are nil".
+
+It is tempting to want to understand and interpret a value like exp ⁡ ⁡ ( β β 1 P i ) {\displaystyle \exp(\beta _{1}P_{i})} to represent the hazard of a company. However, consider what this is actually representing: exp ⁡ ⁡ ( β β 1 P i ) = exp ⁡ ⁡ ( β β 1 ( P i − − 0 ) ) = exp ⁡ ⁡ ( β β 1 P i ) exp ⁡ ⁡ ( β β 1 0 ) = λ λ ( t | P i ) λ λ ( t | 0 ) {\displaystyle \exp(\beta _{1}P_{i})=\exp(\beta _{1}(P_{i}-0))={\frac {\exp(\beta _{1}P_{i})}{\exp(\beta _{1}0)}}={\frac {\lambda (t|P_{i})}{\lambda (t|0)}}} . There is implicitly a ratio of hazards here, comparing company i' s hazard to an imaginary baseline company with 0 P/E. However, as explained above, a P/E of 0 is impossible in this application, so exp ⁡ ⁡ ( β β 1 P i ) {\displaystyle \exp(\beta _{1}P_{i})} is meaningless in this example. Ratios between plausible hazards are meaningful, however.
+
+Time-varying predictors and coefficients [ edit ] Extensions to time dependent variables, time dependent strata, and multiple events per subject, can be incorporated by the counting process formulation of Andersen and Gill.
+
+[ 8 ] One example of the use of hazard models with time-varying regressors is estimating the effect of unemployment insurance on unemployment spells.
+
+[ 9 ] [ 10 ] In addition to allowing time-varying covariates (i.e., predictors), the Cox model may be generalized to time-varying coefficients as well. That is, the proportional effect of a treatment may vary with time; e.g. a drug may be very effective if administered within one month of morbidity , and become less effective as time goes on. The hypothesis of no change with time (stationarity) of the coefficient may then be tested. Details and software ( R package ) are available in Martinussen and Scheike (2006).
+
+[ 11 ] [ 12 ] In this context, it could also be mentioned that it is theoretically possible to specify the effect of covariates by using additive hazards, [ 13 ] i.e. specifying λ λ ( t | X i ) = λ λ 0 ( t ) + β β 1 X i 1 + ⋯ ⋯ + β β p X i p = λ λ 0 ( t ) + X i ⋅ ⋅ β β .
+
+{\displaystyle \lambda (t|X_{i})=\lambda _{0}(t)+\beta _{1}X_{i1}+\cdots +\beta _{p}X_{ip}=\lambda _{0}(t)+X_{i}\cdot \beta .} If such additive hazards models are used in situations where (log-)likelihood maximization is the objective, care must be taken to restrict λ λ ( t ∣ ∣ X i ) {\displaystyle \lambda (t\mid X_{i})} to non-negative values. Perhaps as a result of this complication, such models are seldom seen.  If the objective is instead least squares the non-negativity restriction is not strictly required.
+
+Specifying the baseline hazard function [ edit ] The Cox model may be specialized if a reason exists to assume that the baseline hazard follows a particular form. In this case, the baseline hazard λ λ 0 ( t ) {\displaystyle \lambda _{0}(t)} is replaced by a given function. For example, assuming the hazard function to be the Weibull hazard function gives the Weibull proportional hazards model .
+
+Incidentally, using the Weibull baseline hazard is the only circumstance under which the model satisfies both the proportional hazards, and accelerated failure time models.
+
+The generic term parametric proportional hazards models can be used to describe proportional hazards models in which the hazard function is specified.  The Cox proportional hazards model is sometimes called a semiparametric model by contrast.
+
+Some authors use the term Cox proportional hazards model even when specifying the underlying hazard function, [ 14 ] to acknowledge the debt of the entire field to David Cox.
+
+The term Cox regression model (omitting proportional hazards ) is sometimes used to describe the extension of the Cox model to include time-dependent factors.  However, this usage is potentially ambiguous since the Cox proportional hazards model can itself be described as a regression model.
+
+Relationship to Poisson models [ edit ] There is a relationship between proportional hazards models and Poisson regression models which is sometimes used to fit approximate proportional hazards models in software for Poisson regression.  The usual reason for doing this is that calculation is much quicker.  This was more important in the days of slower computers but can still be useful for particularly large data sets or complex problems.  Laird and Olivier (1981) [ 15 ] provide the mathematical details.  They note, "we do not assume [the Poisson model] is true, but simply use it as a device for deriving the likelihood."  McCullagh and Nelder's [ 16 ] book on generalized linear models has a chapter on converting proportional hazards models to generalized linear models .
+
+Under high-dimensional setup [ edit ] In high-dimension, when number of covariates p is large compared to the sample size n, the LASSO method is one of the classical model-selection strategies. Tibshirani (1997) has proposed a Lasso procedure for the proportional hazard regression parameter.
+
+[ 17 ] The Lasso estimator of the regression parameter β is defined as the minimizer of the opposite of the Cox partial log-likelihood under an L 1 -norm type constraint.
+
+ℓ ℓ ( β β ) = ∑ ∑ j ( ∑ ∑ i ∈ ∈ H j X i ⋅ ⋅ β β − − ∑ ∑ ℓ ℓ = 0 m j − − 1 log ⁡ ⁡ ( ∑ ∑ i : Y i ≥ ≥ t j θ θ i − − ℓ ℓ m j ∑ ∑ i ∈ ∈ H j θ θ i ) ) + λ λ ‖ ‖ β β ‖ ‖ 1 , {\displaystyle \ell (\beta )=\sum _{j}\left(\sum _{i\in H_{j}}X_{i}\cdot \beta -\sum _{\ell =0}^{m_{j}-1}\log \left(\sum _{i:Y_{i}\geq t_{j}}\theta _{i}-{\frac {\ell }{m_{j}}}\sum _{i\in H_{j}}\theta _{i}\right)\right)+\lambda \|\beta \|_{1},} There has been theoretical progress on this topic recently.
+
+[ 18 ] [ 19 ] [ 20 ] [ 21 ] Software implementations [ edit ] Mathematica : CoxModelFit function.
+
+[ 22 ] R : coxph() function, located in the survival package.
+
+SAS : phreg procedure Stata : stcox command Python : CoxPHFitter located in the lifelines library.
+
+phreg in the statsmodels library.
+
+SPSS : Available under Cox Regression .
+
+MATLAB : fitcox or coxphfit function Julia : Available in the Survival.jl library.
+
+JMP : Available in Fit Proportional Hazards platform.
+
+Prism : Available in Survival Analyses and Multiple Variable Analyses See also [ edit ] Mathematics portal Accelerated failure time model One in ten rule Weibull distribution Hypertabastic distribution Notes [ edit ] ^ Breslow, N. E.
+
+(1975). "Analysis of Survival Data under the Proportional Hazards Model".
+
+International Statistical Review / Revue Internationale de Statistique .
+
+43 (1): 45– 57.
+
+doi : 10.2307/1402659 .
+
+JSTOR 1402659 .
+
+^ Cox, David R (1972). "Regression Models and Life-Tables".
+
+Journal of the Royal Statistical Society, Series B .
+
+34 (2): 187– 220.
+
+JSTOR 2985181 .
+
+MR 0341758 .
+
+^ Kalbfleisch, John D.; Schaubel, Douglas E. (10 March 2023).
+
+"Fifty Years of the Cox Model" .
+
+Annual Review of Statistics and Its Application .
+
+10 (1): 1– 23.
+
+Bibcode : 2023AnRSA..10....1K .
+
+doi : 10.1146/annurev-statistics-033021-014043 .
+
+ISSN 2326-8298 .
+
+^ Reid, N. (1994).
+
+"A Conversation with Sir David Cox" .
+
+Statistical Science .
+
+9 (3): 439– 455.
+
+doi : 10.1214/ss/1177010394 .
+
+^ Cox, D. R.
+
+(1997).
+
+Some remarks on the analysis of survival data . the First Seattle Symposium of Biostatistics: Survival Analysis.
+
+^ "Each failure contributes to the likelihood function", Cox (1972), page 191.
+
+^ Efron, Bradley (1974). "The Efficiency of Cox's Likelihood Function for Censored Data".
+
+Journal of the American Statistical Association .
+
+72 (359): 557– 565.
+
+doi : 10.1080/01621459.1977.10480613 .
+
+JSTOR 2286217 .
+
+^ Andersen, P.; Gill, R. (1982).
+
+"Cox's regression model for counting processes, a large sample study" .
+
+Annals of Statistics .
+
+10 (4): 1100– 1120.
+
+doi : 10.1214/aos/1176345976 .
+
+JSTOR 2240714 .
+
+^ Meyer, B. D. (1990).
+
+"Unemployment Insurance and Unemployment Spells" (PDF) .
+
+Econometrica .
+
+58 (4): 757– 782.
+
+doi : 10.2307/2938349 .
+
+JSTOR 2938349 .
+
+^ Bover, O.; Arellano, M.
+
+; Bentolila, S. (2002).
+
+"Unemployment Duration, Benefit Duration, and the Business Cycle" (PDF) .
+
+The Economic Journal .
+
+112 (479): 223– 265.
+
+doi : 10.1111/1468-0297.00034 .
+
+S2CID 15575103 .
+
+^ Martinussen; Scheike (2006).
+
+Dynamic Regression Models for Survival Data . Springer.
+
+doi : 10.1007/0-387-33960-4 .
+
+ISBN 978-0-387-20274-7 .
+
+^ "timereg: Flexible Regression Models for Survival Data" .
+
+CRAN .
+
+^ Cox, D. R.
+
+(1997).
+
+Some remarks on the analysis of survival data . the First Seattle Symposium of Biostatistics: Survival Analysis.
+
+^ Bender, R.; Augustin, T.; Blettner, M. (2006).
+
+"Generating survival times to simulate Cox proportional hazards models" .
+
+Statistics in Medicine .
+
+24 (11): 1713– 1723.
+
+doi : 10.1002/sim.2369 .
+
+PMID 16680804 .
+
+S2CID 43875995 .
+
+^ Nan Laird and Donald Olivier (1981). "Covariance Analysis of Censored Survival Data Using Log-Linear Analysis Techniques".
+
+Journal of the American Statistical Association .
+
+76 (374): 231– 240.
+
+doi : 10.2307/2287816 .
+
+JSTOR 2287816 .
+
+^ P. McCullagh and J. A. Nelder (2000). "Chapter 13: Models for Survival Data".
+
+Generalized Linear Models (Second ed.). Boca Raton, Florida: Chapman & Hall/CRC.
+
+ISBN 978-0-412-31760-6 .
+
+(Second edition 1989; first CRC reprint 1999.) ^ Tibshirani, R. (1997). "The Lasso method for variable selection in the Cox model".
+
+Statistics in Medicine .
+
+16 (4): 385– 395.
+
+CiteSeerX 10.1.1.411.8024 .
+
+doi : 10.1002/(SICI)1097-0258(19970228)16:4<385::AID-SIM380>3.0.CO;2-3 .
+
+PMID 9044528 .
+
+^ Bradić, J.; Fan, J.; Jiang, J. (2011).
+
+"Regularization for Cox's proportional hazards model with NP-dimensionality" .
+
+Annals of Statistics .
+
+39 (6): 3092– 3120.
+
+arXiv : 1010.5233 .
+
+doi : 10.1214/11-AOS911 .
+
+PMC 3468162 .
+
+PMID 23066171 .
+
+^ Bradić, J.; Song, R. (2015). "Structured Estimation in Nonparametric Cox Model".
+
+Electronic Journal of Statistics .
+
+9 (1): 492– 534.
+
+arXiv : 1207.4510 .
+
+doi : 10.1214/15-EJS1004 .
+
+S2CID 88519017 .
+
+^ Kong, S.; Nan, B. (2014).
+
+"Non-asymptotic oracle inequalities for the high-dimensional Cox regression via Lasso" .
+
+Statistica Sinica .
+
+24 (1): 25– 42.
+
+arXiv : 1204.1992 .
+
+doi : 10.5705/ss.2012.240 .
+
+PMC 3916829 .
+
+PMID 24516328 .
+
+^ Huang, J.; Sun, T.; Ying, Z.; Yu, Y.; Zhang, C. H. (2011).
+
+"Oracle inequalities for the lasso in the Cox model" .
+
+The Annals of Statistics .
+
+41 (3): 1142– 1165.
+
+arXiv : 1306.4847 .
+
+doi : 10.1214/13-AOS1098 .
+
+PMC 3786146 .
+
+PMID 24086091 .
+
+^ "CoxModelFit" .
+
+Wolfram Language & System Documentation Center .
+
+References [ edit ] Bagdonavicius, V.; Levuliene, R.; Nikulin, M. (2010). "Goodness-of-fit Criteria for the Cox model from Left Truncated and Right Censored Data".
+
+Journal of Mathematical Sciences .
+
+167 (4): 436– 443.
+
+doi : 10.1007/s10958-010-9929-6 .
+
+S2CID 121788950 .
+
+Cox, D. R.; Oakes, D. (1984).
+
+Analysis of Survival Data . New York: Chapman & Hall.
+
+ISBN 978-0412244902 .
+
+Collett, D. (2003).
+
+Modelling Survival Data in Medical Research (2nd ed.). Boca Raton: CRC.
+
+ISBN 978-1584883258 .
+
+Gouriéroux, Christian (2000).
+
+"Duration Models" .
+
+Econometrics of Qualitative Dependent Variables . New York: Cambridge University Press. pp.
+
+284– 362.
+
+ISBN 978-0-521-58985-7 .
+
+Singer, Judith D.; Willett, John B. (2003).
+
+"Fitting Cox Regression Models" .
+
+Applied Longitudinal Data Analysis: Modeling Change and Event Occurrence . New York: Oxford University Press. pp.
+
+503– 542.
+
+ISBN 978-0-19-515296-8 .
+
+Therneau, T. M.; Grambsch, P. M.
+
+(2000).
+
+Modeling Survival Data: Extending the Cox Model . New York: Springer.
+
+ISBN 978-0387987842 .
+
+v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject Retrieved from " https://en.wikipedia.org/w/index.php?title=Proportional_hazards_model&oldid=1266843493 " Categories : Survival analysis Semi-parametric models Poisson point processes Hidden categories: Articles with short description Short description matches Wikidata This page was last edited on 2 January 2025, at 13:31 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Proportional hazards model 9 languages Add topic
+

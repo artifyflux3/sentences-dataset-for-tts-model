@@ -1,0 +1,217 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Generalized color balance Toggle Generalized color balance subsection 1.1 Psychological color balance 2 Illuminant estimation and adaptation 3 Chromatic colors 4 Mathematics of color balance Toggle Mathematics of color balance subsection 4.1 Scaling monitor R, G, and B 4.2 Scaling X, Y, Z 4.3 Von Kries's method 4.4 Scaling camera RGB 4.5 Preferred chromatic adaptation spaces 4.6 General illuminant adaptation 4.7 Examples 5 See also 6 References 7 External links Toggle the table of contents Color balance 28 languages العربية বাংলা Català Čeština Dansk Deutsch Ελληνικά Español فارسی Français 한국어 Bahasa Indonesia Íslenska Italiano Magyar 日本語 Norsk bokmål Polski Português Русский සිංහල Suomi Svenska తెలుగు ไทย Türkçe Українська 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Adjustment of color intensities in photography This article is about the process applied to still images. For the equivalent process applied to video, see Color grading .
+
+The left half shows the photo as it came from the digital camera. The right half shows the photo adjusted to make a gray surface neutral in the same light.
+
+In photography and image processing , color balance is the global adjustment of the intensities of the colors (typically red, green, and blue primary colors ).  An important goal of this adjustment is to render specific colors – particularly neutral colors like white or grey – correctly. Hence, the general method is sometimes called gray balance , neutral balance , or white balance .  Color balance changes the overall mixture of colors in an image and is used for color correction . Generalized versions of color balance are used to correct colors other than neutrals or to deliberately change them for effect.
+
+White balance is one of the most common kinds of balancing, and is when colors are adjusted to make a white object (such as a piece of paper or a wall) appear white and not a shade of any other colour.
+
+Image data acquired by sensors – either film or electronic image sensors – must be transformed from the acquired values to new values that are appropriate for color reproduction or display.  Several aspects of the acquisition and display process make such color correction essential – including that the acquisition sensors do not match the sensors in the human eye, that the properties of the display medium must be accounted for, and that the ambient viewing conditions of the acquisition differ from the display viewing conditions.
+
+The color balance operations in popular image editing applications usually operate directly on the red, green, and blue channel pixel values, [ 1 ] [ 2 ] without respect to any color sensing or reproduction model.  In film photography, color balance is typically achieved by using color correction filters over the lights or on the camera lens.
+
+[ 3 ] Generalized color balance [ edit ] Example of color balancing Sometimes the adjustment to keep neutrals neutral is called white balance , and the phrase color balance refers to the adjustment that in addition makes other colors in a displayed image appear to have the same general appearance as the colors in an original scene.
+
+[ 4 ] It is particularly important that neutral (gray, neutral, white) colors in a scene appear neutral in the reproduction.
+
+[ 5 ] Psychological color balance [ edit ] Humans relate to flesh tones more critically than other colors. Trees, grass and sky can all be off without concern, but if human flesh tones are 'off' then the human subject can look sick or dead. To address this critical color balance issue, the tri-color primaries themselves are formulated to not balance as a true neutral color. The purpose of this color primary imbalance is to more faithfully reproduce the flesh tones through the entire brightness range.
+
+Illuminant estimation and adaptation [ edit ] A seascape photograph at Clifton Beach , South Arm , Tasmania , Australia. The white balance has been adjusted towards the warm side for creative effect.
+
+Photograph of a ColorChecker as a reference shot for color balance adjustments.
+
+Two photos of a high-rise building shot within a minute of each other with an entry-level point-and-shoot camera. Left photo shows a "normal", more accurate color balance, while the right side shows a "vivid" color balance, in-camera effects and no post-production besides black background.
+
+Comparison of color versions (raw, natural, white balance) of Mount Sharp (Aeolis Mons) on Mars A white-balanced image of Mount Sharp (Aeolis Mons) on Mars Most digital cameras have means to select color correction based on the type of scene lighting, using either manual lighting selection, automatic white balance, or custom white balance.
+
+[ 6 ] The algorithms for these processes perform generalized chromatic adaptation .
+
+Many methods exist for color balancing.  Setting a button on a camera is a way for the user to indicate to the processor the nature of the scene lighting. Another option on some cameras is a button which one may press when the camera is pointed at a gray card or other neutral colored object. This captures an image of the ambient light, which enables a digital camera to set the correct color balance for that light.
+
+There is a large literature on how one might estimate the ambient lighting from the camera data and then use this information to transform the image data. A variety of algorithms have been proposed, and the quality of these has been debated. A few examples and examination of the references therein will lead the reader to many others. Examples are Retinex , an artificial neural network [ 7 ] or a Bayesian method .
+
+[ 8 ] Chromatic colors [ edit ] Color balancing an image affects not only the neutrals, but other colors as well. An image that is not color balanced is said to have a color cast , as everything in the image appears to have been shifted towards one color.
+
+[ 9 ] [ page needed ] Color balancing may be thought in terms of removing this color cast.
+
+Color balance is also related to color constancy . Algorithms and techniques used to attain color constancy are frequently used for color balancing, as well. Color constancy is, in turn, related to chromatic adaptation . Conceptually, color balancing consists of two steps: first, determining the illuminant under which an image was captured; and second, scaling the components (e.g., R, G, and B) of the image or otherwise transforming the components so they conform to the viewing illuminant.
+
+Viggiano found that white balancing in the camera's native RGB color model tended to produce less color inconstancy (i.e., less distortion of the colors) than in monitor RGB for over 4000 hypothetical sets of camera sensitivities.
+
+[ 10 ] This difference typically amounted to a factor of more than two in favor of camera RGB. This means that it is advantageous to get color balance right at the time an image is captured, rather than edit later on a monitor. If one must color balance later, balancing the raw image data will tend to produce less distortion of chromatic colors than balancing in monitor RGB.
+
+Mathematics of color balance [ edit ] Color balancing is sometimes performed on a three-component image (e.g., RGB ) using a 3x3 matrix . This type of transformation is appropriate if the image was captured using the wrong white balance setting on a digital camera, or through a color filter. Changing the color balance of an image can improve classifier results on a trained ML model.
+
+Scaling monitor R, G, and B [ edit ] In principle, one wants to scale all relative luminances in an image so that objects which are believed to be neutral appear so. If, say, a surface with R = 240 {\displaystyle R=240} was believed to be a white object, and if 255 is the count which corresponds to white, one could multiply all red values by 255/240. Doing analogously for green and blue would result, at least in theory, in a color balanced image. In this type of transformation the 3x3 matrix is a diagonal matrix .
+
+[ R G B ] = [ 255 / R w ′ 0 0 0 255 / G w ′ 0 0 0 255 / B w ′ ] [ R ′ G ′ B ′ ] {\displaystyle \left[{\begin{array}{c}R\\G\\B\end{array}}\right]=\left[{\begin{array}{ccc}255/R'_{w}&0&0\\0&255/G'_{w}&0\\0&0&255/B'_{w}\end{array}}\right]\left[{\begin{array}{c}R'\\G'\\B'\end{array}}\right]} where R {\displaystyle R} , G {\displaystyle G} , and B {\displaystyle B} are the color balanced red, green, and blue components of a pixel in the image; R ′ {\displaystyle R'} , G ′ {\displaystyle G'} , and B ′ {\displaystyle B'} are the red, green, and blue components of the image before color balancing, and R w ′ {\displaystyle R'_{w}} , G w ′ {\displaystyle G'_{w}} , and B w ′ {\displaystyle B'_{w}} are the red, green, and blue components of a pixel which is believed to be a white surface in the image before color balancing. This is a simple scaling of the red, green, and blue channels, and is why color balance tools in Photoshop have a white eyedropper tool.  It has been demonstrated that performing the white balancing in the phosphor set assumed by sRGB tends to produce large errors in chromatic colors, even though it can render the neutral surfaces perfectly neutral.
+
+[ 10 ] Scaling X, Y, Z [ edit ] If the image may be transformed into CIE XYZ tristimulus values , the color balancing may be performed there.  This has been termed a "wrong von Kries" transformation.
+
+[ 11 ] [ 12 ] Although it has been demonstrated to offer usually poorer results than balancing in monitor RGB, it is mentioned here as a bridge to other things. Mathematically, one computes: [ X Y Z ] = [ X w / X w ′ 0 0 0 Y w / Y w ′ 0 0 0 Z w / Z w ′ ] [ X ′ Y ′ Z ′ ] {\displaystyle \left[{\begin{array}{c}X\\Y\\Z\end{array}}\right]=\left[{\begin{array}{ccc}X_{w}/X'_{w}&0&0\\0&Y_{w}/Y'_{w}&0\\0&0&Z_{w}/Z'_{w}\end{array}}\right]\left[{\begin{array}{c}X'\\Y'\\Z'\end{array}}\right]} where X {\displaystyle X} , Y {\displaystyle Y} , and Z {\displaystyle Z} are the color-balanced tristimulus values; X w {\displaystyle X_{w}} , Y w {\displaystyle Y_{w}} , and Z w {\displaystyle Z_{w}} are the tristimulus values of the viewing illuminant (the white point to which the image is being transformed to conform to); X w ′ {\displaystyle X'_{w}} , Y w ′ {\displaystyle Y'_{w}} , and Z w ′ {\displaystyle Z'_{w}} are the tristimulus values of an object believed to be white in the un-color-balanced image, and X ′ {\displaystyle X'} , Y ′ {\displaystyle Y'} , and Z ′ {\displaystyle Z'} are the tristimulus values of a pixel in the un-color-balanced image. If the tristimulus values of the monitor primaries are in a matrix P {\displaystyle \mathbf {P} } so that: [ X Y Z ] = P [ L R L G L B ] {\displaystyle \left[{\begin{array}{c}X\\Y\\Z\end{array}}\right]=\mathbf {P} \left[{\begin{array}{c}L_{R}\\L_{G}\\L_{B}\end{array}}\right]} where L R {\displaystyle L_{R}} , L G {\displaystyle L_{G}} , and L B {\displaystyle L_{B}} are the un- gamma corrected monitor RGB, one may use: [ L R L G L B ] = P − − 1 [ X w / X w ′ 0 0 0 Y w / Y w ′ 0 0 0 Z w / Z w ′ ] P [ L R ′ L G ′ L B ′ ] {\displaystyle \left[{\begin{array}{c}L_{R}\\L_{G}\\L_{B}\end{array}}\right]=\mathbf {P^{-1}} \left[{\begin{array}{ccc}X_{w}/X'_{w}&0&0\\0&Y_{w}/Y'_{w}&0\\0&0&Z_{w}/Z'_{w}\end{array}}\right]\mathbf {P} \left[{\begin{array}{c}L_{R'}\\L_{G'}\\L_{B'}\end{array}}\right]} Von Kries's method [ edit ] Johannes von Kries , whose theory of rods and three color-sensitive cone types in the retina has survived as the dominant explanation of color sensation for over 100 years, motivated the method of converting color to the LMS color space , representing the effective stimuli for the Long-, Medium-, and Short-wavelength cone types that are modeled as adapting independently.  A 3x3 matrix converts RGB or XYZ to LMS, and then the three LMS primary values are scaled to balance the neutral; the color can then be converted back to the desired final color space : [ 13 ] [ L M S ] = [ 1 / L w ′ 0 0 0 1 / M w ′ 0 0 0 1 / S w ′ ] [ L ′ M ′ S ′ ] {\displaystyle \left[{\begin{array}{c}L\\M\\S\end{array}}\right]=\left[{\begin{array}{ccc}1/L'_{w}&0&0\\0&1/M'_{w}&0\\0&0&1/S'_{w}\end{array}}\right]\left[{\begin{array}{c}L'\\M'\\S'\end{array}}\right]} where L {\displaystyle L} , M {\displaystyle M} , and S {\displaystyle S} are the color-balanced LMS cone tristimulus values; L w ′ {\displaystyle L'_{w}} , M w ′ {\displaystyle M'_{w}} , and S w ′ {\displaystyle S'_{w}} are the tristimulus values of an object believed to be white in the un-color-balanced image, and L ′ {\displaystyle L'} , M ′ {\displaystyle M'} , and S ′ {\displaystyle S'} are the tristimulus values of a pixel in the un-color-balanced image.
+
+Matrices to convert to LMS space were not specified by von Kries, but can be derived from CIE color matching functions and LMS color matching functions when the latter are specified; matrices can also be found in reference books.
+
+[ 13 ] Scaling camera RGB [ edit ] By Viggiano's measure, and using his model of gaussian camera spectral sensitivities, most camera RGB spaces performed better than either monitor RGB or XYZ.
+
+[ 10 ] If the camera's raw RGB values are known, one may use the 3x3 diagonal matrix: [ R G B ] = [ 255 / R w ′ 0 0 0 255 / G w ′ 0 0 0 255 / B w ′ ] [ R ′ G ′ B ′ ] {\displaystyle \left[{\begin{array}{c}R\\G\\B\end{array}}\right]=\left[{\begin{array}{ccc}255/R'_{w}&0&0\\0&255/G'_{w}&0\\0&0&255/B'_{w}\end{array}}\right]\left[{\begin{array}{c}R'\\G'\\B'\end{array}}\right]} and then convert to a working RGB space such as sRGB or Adobe RGB after balancing.
+
+Preferred chromatic adaptation spaces [ edit ] Comparisons of images balanced by diagonal transforms in a number of different RGB spaces have identified several such spaces that work better than others, and better than camera or monitor spaces, for chromatic adaptation, as measured by several color appearance models ; the systems that performed statistically as well as the best on the majority of the image test sets used were the "Sharp", "Bradford", "CMCCAT", and "ROMM" spaces.
+
+[ 14 ] General illuminant adaptation [ edit ] The best color matrix for adapting to a change in illuminant is not necessarily a diagonal matrix in a fixed color space.  It has long been known that if the space of illuminants can be described as a linear model with N basis terms, the proper color transformation will be the weighted sum of N fixed linear transformations, not necessarily consistently diagonalizable.
+
+[ 15 ] Examples [ edit ] Neutral light Warm light Cold light Comparison of resulted colors as shot by the digital camera for different light qualities (color temperature): Neutral, Warm and Cold.
+
+[ 16 ] Setting: As shot Setting: Cloudy Setting: Tungsten Example of different white balance settings on digital camera for Neutral light.
+
+[ 16 ] See also [ edit ] Color cast Color temperature Gamma correction White point References [ edit ] ^ Phyllis Davis (2000).
+
+The Gimp for Linux and Unix . Peachpit Press. p. 134.
+
+ISBN 978-0-201-70253-8 .
+
+^ Adobe Creative Team (2000).
+
+Adobe Photoshop 6.0 . Adobe Press. p. 278.
+
+ISBN 978-0-201-71016-8 .
+
+[ need quotation to verify ] ^ Blain Brown (2002).
+
+Cinematography: Theory and Practice : Imagemaking for Cinematographers, Directors, and Videographers . Focal Press. p. 170.
+
+ISBN 978-0-240-80500-9 .
+
+^ Hsien-Che Lee (2005).
+
+Introduction to Color Imaging Science . Cambridge University Press. p.
+
+450 .
+
+ISBN 978-0-521-84388-1 .
+
+^ White Balance .
+
+Nikon Digital .
+
+Retrieved October 12, 2016 .
+
+^ Afifi, Mahmoud; Price, Brian; Cohen, Scott; Brown, Michael S (2019).
+
+"When Color Constancy Goes Wrong: Correcting Improperly White-Balanced Images" (PDF) .
+
+2019 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) . pp.
+
+1535– 1544.
+
+doi : 10.1109/cvpr.2019.00163 .
+
+ISBN 978-1-7281-3293-8 .
+
+S2CID 196195956 .
+
+^ Brian Funt, Vlad Cardei, and Kobus Barnard, " Learning color constancy ", in Proceedings of the Fourth IS&T/SID Color Imaging Conference , pp. 58–60 (1996).
+
+^ Graham Finlayson; Paul M. Hubel; Steven Hordley (November 2001).
+
+"Color by correlation: a simple, unifying framework for color constancy" (PDF) .
+
+IEEE Transactions on Pattern Analysis and Machine Intelligence .
+
+23 (11): 1209– 21.
+
+CiteSeerX 10.1.1.133.2101 .
+
+doi : 10.1109/34.969113 .
+
+^ John A C Yule, Principles of Color Reproduction.
+
+New York: Wiley, 1967.
+
+^ a b c Viggiano, J A Stephen (2004). "Comparison of the accuracy of different white-balancing options as quantified by their color constancy". In Blouke, Morley M; Sampat, Nitin; Motta, Ricardo J (eds.).
+
+Sensors and Camera Systems for Scientific, Industrial, and Digital Photography Applications V . Vol. 5301. pp.
+
+323– 333.
+
+doi : 10.1117/12.524922 .
+
+S2CID 8971750 .
+
+^ Heinz Terstiege (1972). "Chromatic adaptation: a state-of-the-art report".
+
+Journal of Color Appearance .
+
+1 (4): 19–23 (cont. 40).
+
+^ Mark D Fairchild, Color Appearance Models.
+
+Reading, MA: Addison-Wesley, 1998.
+
+^ a b Gaurav Sharma (2003).
+
+Digital Color Imaging Handbook .
+
+CRC Press . p. 153.
+
+ISBN 978-0-8493-0900-7 .
+
+^ Sabine Süsstrunk; Jack Holm; Graham D. Finlayson (January 2001). Eschbach, Reiner; Marcu, Gabriel G. (eds.).
+
+"Chromatic Adaptation Performance of Different RGB Sensors" .
+
+IS&T/SPIE Electronic Imaging . Color Imaging: Device-Independent Color, Color Hardcopy, and Graphic Arts VI.
+
+4300 : 172– 183.
+
+doi : 10.1117/12.410788 .
+
+S2CID 8140548 . Archived from the original on 2006-10-18 . Retrieved 2009-03-20 .
+
+^ Laurence T. Maloney; Brain A. Wandell (1987).
+
+"Color constancy: a method for recovering surface spectral reflectance" . In Martin A. Fischler; Oscar Firschein (eds.).
+
+Readings in Computer Vision . Morgan-Kaufmann.
+
+ISBN 978-0-934613-33-0 .
+
+^ a b "photoskop: Interactive Photography Lessons" . April 25, 2015.
+
+External links [ edit ] White Balance - Intro at nikondigital.org photoskop: Interactive Photography Lessons - Interactive White Balance Understanding White Balance - Tutorial Affine color balance with saturation, with code and on-line demonstration Getting the White Balance Right for Neutral Colors - Photography Tutorial v t e Color topics Color science Color physics Electromagnetic spectrum Light Rainbow Visible Spectral colors Chromophore Structural coloration Animal coloration Color of chemicals Water Spectral power distribution Colorimetry Color perception Chromesthesia Sonochromatism Color blindness Achromatopsia Dichromacy Color calibration Color constancy Color task Color code Color temperature Color vision test Evolution of color vision Impossible colors Metamerism Opponent process Afterimage Unique hues Tetrachromacy The dress Color psychology Color symbolism Color preferences Lüscher color test Kruithof curve Political color National colors Chromophobia Chromotherapy Color reproduction Color photography Color balance Color cast Digital image processing Color management Color printing Multi-primary color display Quattron Color model additive RGB subtractive CMYK Color space Color mapping Color philosophy Color scheme Color tool Monochromatic colors Black-and-white Grisaille Complementary colors Analogous colors Achromatic colors (Neutral) Polychromatic colors Light-on-dark Web colors Tinctures in heraldry Color theory Color mixing Primary color Secondary color Chromaticity Color solid Color wheel Color triangle Color analysis (fashion) Color realism (art style) On Vision and Colours (Schopenhauer) Theory of Colours (Goethe) Color terms Basic English terms Red Orange Yellow Green Blue Purple Pink Brown White Gray Black Cultural differences Linguistic relativity and the color naming debate Blue–green distinction in language Color history Black-and-white dualism Blue in culture Color in Chinese culture Traditional colors of Japan Human skin color Color dimensions Hue Dichromatism Colorfulness Pastel colors Luminance Lightness Darkness Brightness Iridescence Fluorescence Grayscale Tint, shade and tone Color organizations Pantone Color Marketing Group Color Association of the United States International Colour Authority International Commission on Illumination (CIE) International Color Consortium International Colour Association Names Lists List of colors: A–F List of colors: G–M List of colors: N–Z List of colors (compact) List of colors by shade List of color palettes List of color spaces List of Crayola crayon colors history Color chart List of RAL colors List of web colors Shades of: Red Orange Yellow Green Cyan Blue Violet Purple Magenta Pink Brown White Gray Black Related Vision Contrast Qualia Lighting Category Index NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐ghmmf
+Cached time: 20250812003235
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.484 seconds
+Real time usage: 0.707 seconds
+Preprocessor visited node count: 2000/1000000
+Revision size: 22131/2097152 bytes
+Post‐expand include size: 75857/2097152 bytes
+Template argument size: 1690/2097152 bytes
+Highest expansion depth: 17/100
+Expensive parser function count: 4/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 62204/5000000 bytes
+Lua time usage: 0.278/10.000 seconds
+Lua memory usage: 5927952/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  453.775      1 -total
+ 39.97%  181.360      1 Template:Reflist
+ 27.66%  125.501      8 Template:Cite_book
+ 23.95%  108.701      5 Template:Navbox
+ 22.71%  103.051      1 Template:Color_topics
+ 17.09%   77.564      1 Template:Short_description
+  9.71%   44.080      2 Template:Pagetype
+  8.84%   40.123      1 Template:Page_needed
+  8.78%   39.860      2 Template:Fix
+  5.03%   22.828      3 Template:Category_handler Saved in parser cache with key enwiki:pcache:1561411:|#|:idhash:canonical and timestamp 20250812003235 and revision id 1282946635. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Color_balance&oldid=1282946635 " Categories : Color Image processing Film post-production Hidden categories: Wikipedia articles needing factual verification from April 2021 Articles with short description Short description is different from Wikidata Wikipedia articles needing page number citations from September 2010 This page was last edited on 29 March 2025, at 15:10 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Color balance 28 languages Add topic
+

@@ -1,0 +1,97 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Motivation 2 Implementations 3 Definitions 4 Mathematical formulation and examples Toggle Mathematical formulation and examples subsection 4.1 Group actions 4.2 Inner-products and canonical map to the dual 4.3 Cross-products and the adjoint map for Lie algebras 5 See also 6 References 7 Further reading 8 External links Toggle the table of contents Partial application 2 languages Русский 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia In functional programming Not to be confused with partial evaluation or partial function .
+
+In computer science , partial application (or partial function application ) refers to the process of fixing a number of arguments of a function, producing another function of smaller arity .  Given a function f : : ( X × × Y × × Z ) → → N {\displaystyle f\colon (X\times Y\times Z)\to N} , we might fix (or 'bind') the first argument, producing a function of type partial ( f ) : : ( Y × × Z ) → → N {\displaystyle {\text{partial}}(f)\colon (Y\times Z)\to N} .  Evaluation of this function might be represented as f partial ( 2 , 3 ) {\displaystyle f_{\text{partial}}(2,3)} .  Note that the result of partial function application in this case is a function that takes two arguments. Partial application is sometimes incorrectly called currying , which is a related, but distinct concept.
+
+Motivation [ edit ] Intuitively, partial function application says "if you fix the first arguments of the function, you get a function of the remaining arguments". For example, if function div ( x , y ) = x / y , then div with the parameter x fixed at 1 is another function: div 1 ( y ) = div (1, y ) = 1/ y . This is the same as the function inv that returns the multiplicative inverse of its argument, defined by inv ( y ) = 1/ y .
+
+The practical motivation for partial application is that very often the functions obtained by supplying some but not all of the arguments to a function are useful; for example, many languages have a function or operator similar to plus_one . Partial application makes it easy to define these functions, for example by creating a function that represents the addition operator with 1 bound as its first argument.
+
+Implementations [ edit ] In languages such as ML , Haskell and F# , functions are defined in curried form by default. Supplying fewer than the total number of arguments is referred to as partial application.
+
+In languages with first-class functions , one can define curry , uncurry and papply to perform currying and partial application explicitly. This might incur a greater run-time overhead due to the creation of additional closures , while Haskell can use more efficient techniques.
+
+[ 1 ] Scala implements optional partial application with placeholder, e.g.
+
+def add ( x : Int , y : Int ) = { x + y }; add ( 1 , _: Int ) returns an incrementing function. Scala also supports multiple parameter lists as currying, e.g.
+
+def add ( x : Int )( y : Int ) = { x + y }; add ( 1 ) _ .
+
+Clojure implements partial application using the partial function defined in its core library.
+
+[ 2 ] The C++ standard library provides bind(function, args..) to return a function object that is the result of partial application of the given arguments to the given function. Since C++20 the function bind_front(function, args...) is also provided which binds the first sizeof...(args) arguments of the function to the args. In contrast, bind allows binding any of the arguments of the function passed to it, not just the first ones. Alternatively, lambda expressions can be used: int f ( int a , int b ); auto f_partial = []( int a ) { return f ( a , 123 ); }; assert ( f_partial ( 456 ) == f ( 456 , 123 ) ); In Java , MethodHandle.bindTo partially applies a function to its first argument.
+
+[ 3 ] Alternatively, since Java 8, lambdas can be used: public static < A , B , R > Function < B , R > partialApply ( BiFunction < A , B , R > biFunc , A value ) { return b -> biFunc .
+
+apply ( value , b ); } In Raku , the assuming method creates a new function with fewer parameters.
+
+[ 4 ] The Python standard library module functools includes the partial function, allowing positional and named argument bindings, returning a new function.
+
+[ 5 ] In XQuery , an argument placeholder ( ?
+
+) is used for each non-fixed argument in a partial function application.
+
+[ 6 ] Definitions [ edit ] In the simply typed lambda calculus with function and product types ( λ →,× ) partial application, currying and uncurrying can be defined as papply ((( a × b ) → c ) × a ) → ( b → c ) = λ ( f , x ).
+
+λy .
+
+f ( x , y ) curry (( a × b ) → c ) → ( a → ( b → c )) = λf .
+
+λx .
+
+λy .
+
+f ( x , y ) uncurry ( a → ( b → c )) → (( a × b ) → c ) = λf .
+
+λ ( x , y ).
+
+f x y Note that curry papply = curry .
+
+Mathematical formulation and examples [ edit ] Partial application can be a useful way to define several useful notions in mathematics.
+
+Given sets X , Y {\displaystyle X,Y} and Z {\displaystyle Z} , and a function f : X × × Y → → Z {\displaystyle f:X\times Y\rightarrow Z} , one can define the function f ( ⋅ ⋅ , − − ) : X → → ( Y → → Z ) , {\displaystyle f(\,\cdot \,,-):X\rightarrow (Y\rightarrow Z),} where ( Y → → Z ) {\displaystyle (Y\rightarrow Z)} is the set of functions Y → → Z {\displaystyle Y\rightarrow Z} . The image of x ∈ ∈ X {\displaystyle x\in X} under this map is f ( x , ⋅ ⋅ ) : Y → → Z {\displaystyle f(x,\,\cdot \,):Y\rightarrow Z} . This is the function which sends y ∈ ∈ Y {\displaystyle y\in Y} to f ( x , y ) {\displaystyle f(x,y)} . There are often structures on X , Y , Z {\displaystyle X,Y,Z} which mean that the image of f ( ⋅ ⋅ , − − ) {\displaystyle f(\,\cdot \,,-)} restricts to some subset of functions Y → → Z {\displaystyle Y\rightarrow Z} , as illustrated in the following examples.
+
+Group actions [ edit ] A group action can be understood as a function ∗ ∗ : G × × X → → X {\displaystyle *:G\times X\rightarrow X} . The partial evaluation ρ ρ : G → → Sym ( X ) ⊂ ⊂ ( X → → X ) {\displaystyle \rho :G\rightarrow {\text{Sym}}(X)\subset (X\rightarrow X)} restricts to the group of bijections from X {\displaystyle X} to itself. The group action axioms further ensure ρ ρ {\displaystyle \rho } is a group homomorphism .
+
+Inner-products and canonical map to the dual [ edit ] An inner-product on a vector space V {\displaystyle V} over a field K {\displaystyle K} is a map ϕ ϕ : V × × V → → K {\displaystyle \phi :V\times V\rightarrow K} . The partial evaluation provides a canonical map to the dual vector space , ϕ ϕ ( ⋅ ⋅ , − − ) : V → → V ∗ ∗ ⊂ ⊂ ( V → → K ) {\displaystyle \phi (\,\cdot \,,-):V\rightarrow V^{*}\subset (V\rightarrow K)} . If this is the inner-product of a Hilbert space , the Riesz representation theorem ensures this is an isomorphism .
+
+Cross-products and the adjoint map for Lie algebras [ edit ] The partial application of the cross product × × {\displaystyle \times } on R 3 {\displaystyle \mathbb {R} ^{3}} is × × ( ⋅ ⋅ , − − ) : R 3 ↦ ↦ End ( R 3 ) {\displaystyle \times (\,\cdot \,,-):\mathbb {R} ^{3}\mapsto {\text{End}}(\mathbb {R} ^{3})} . The image of the vector u {\displaystyle \mathbf {u} } is a linear map T u {\displaystyle T_{\mathbf {u} }} such that T u ( v ) = u × × v {\displaystyle T_{\mathbf {u} }(\mathbf {v} )=\mathbf {u} \times \mathbf {v} } . The components of T u {\displaystyle T_{\mathbf {u} }} can be found to be ( T u ) i j = ϵ ϵ i j k u k {\displaystyle (T_{\mathbf {u} })_{ij}=\epsilon _{ijk}u_{k}} .
+
+This is closely related to the adjoint map for Lie algebras . Lie algebras are equipped with a bracket [ ⋅ ⋅ , ⋅ ⋅ ] : g × × g → → g {\displaystyle [\,\cdot \,,\,\cdot \,]:{\mathfrak {g}}\times {\mathfrak {g}}\rightarrow {\mathfrak {g}}} . The partial application gives a map ad : g → → End ( g ) {\displaystyle {\text{ad}}:{\mathfrak {g}}\rightarrow {\text{End}}({\mathfrak {g}})} . The axioms for the bracket ensure this map is a homomorphism of Lie algebras.
+
+See also [ edit ] η-conversion POP-2 Restriction (mathematics) , the more general phenomenon of restricting a function to a subset of its domain References [ edit ] ^ Marlow & Peyton Jones 2004 ^ "clojure/clojure, partial function" .
+
+GitHub . Retrieved 2020-07-18 .
+
+^ "MethodHandle (Java Platform SE 7)" .
+
+docs.oracle.com . Retrieved 2018-09-12 .
+
+^ "Method assuming" .
+
+docs.perl6.org . Retrieved 2018-09-12 .
+
+^ "10.2. functools — Higher-order functions and operations on callable objects — Python 3.7.0 documentation" .
+
+docs.python.org . Retrieved 2018-09-12 .
+
+^ "XQuery 3.1: An XML Query Language" .
+
+www.w3.org . Retrieved 2018-09-12 .
+
+Further reading [ edit ] Marlow, Simon ; Peyton Jones, Simon (2004), "Making a Fast Curry: Push/Enter vs. Eval/Apply for Higher-order Languages" , ICFP '04 Proceedings of the ninth ACM SIGPLAN international conference on Functional programming Benjamin C. Pierce et al.
+
+"Partial Application" , Archived 2016-05-21 at the Wayback Machine "Digression: Currying" .
+
+Archived 2016-05-21 at the Wayback Machine Software Foundations .
+
+External links [ edit ] Partial function application on Rosetta code.
+
+Partial application at Haskell Wiki Constant applicative form at Haskell Wiki The dangers of being too partial Retrieved from " https://en.wikipedia.org/w/index.php?title=Partial_application&oldid=1282971595 " Categories : Functional programming Implementation of functional programming languages Hidden categories: Articles with short description Short description is different from Wikidata Webarchive template wayback links Articles with example Java code Articles with example C++ code This page was last edited on 29 March 2025, at 17:57 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Partial application 2 languages Add topic
+

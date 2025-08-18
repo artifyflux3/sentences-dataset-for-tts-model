@@ -1,0 +1,327 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Definition 2 Interpretation 3 Example 4 See also 5 References 6 Further reading 7 External links Toggle the table of contents Bayes factor 13 languages العربية Català فارسی Italiano עברית 日本語 Polski Português Русский Српски / srpski Sunda Українська 粵語 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Statistical factor used to compare competing hypotheses Part of a series on Bayesian statistics Posterior = Likelihood × Prior ÷ Evidence Background Bayesian inference Bayesian probability Bayes' theorem Bernstein–von Mises theorem Coherence Cox's theorem Cromwell's rule Likelihood principle Principle of indifference Principle of maximum entropy Model building Conjugate prior Linear regression Empirical Bayes Hierarchical model Posterior approximation Markov chain Monte Carlo Laplace's approximation Integrated nested Laplace approximations Variational inference Approximate Bayesian computation Estimators Bayesian estimator Credible interval Maximum a posteriori estimation Evidence approximation Evidence lower bound Nested sampling Model evaluation Bayes factor ( Schwarz criterion ) Model averaging Posterior predictive Mathematics portal v t e The Bayes factor is a ratio of two competing statistical models represented by their evidence , and is used to quantify the support for one model over the other.
+
+[ 1 ] The models in question can have a common set of parameters, such as a null hypothesis and an alternative, but this is not necessary; for instance, it could also be a non-linear model compared to its linear approximation . The Bayes factor can be thought of as a Bayesian analog to the likelihood-ratio test , although it uses the integrated (i.e., marginal) likelihood rather than the maximized likelihood. As such, both quantities only coincide under simple hypotheses (e.g., two specific parameter values).
+
+[ 2 ] Also, in contrast with null hypothesis significance testing , Bayes factors support evaluation of evidence in favor of a null hypothesis, rather than only allowing the null to be rejected or not rejected.
+
+[ 3 ] Although conceptually simple, the computation of the Bayes factor can be challenging depending on the complexity of the model and the hypotheses.
+
+[ 4 ] Since closed-form expressions of the marginal likelihood are generally not available, numerical approximations based on MCMC samples have been suggested.
+
+[ 5 ] For certain special cases, simplified algebraic expressions can be derived; for instance, the Savage–Dickey density ratio in the case of a precise (equality constrained) hypothesis against an unrestricted alternative.
+
+[ 6 ] [ 7 ] Another approximation, derived by applying Laplace's approximation to the integrated likelihoods, is known as the Bayesian information criterion (BIC); [ 8 ] in large data sets the Bayes factor will approach the BIC as the influence of the priors wanes. In small data sets, priors generally matter and must not be improper since the Bayes factor will be undefined if either of the two integrals in its ratio is not finite.
+
+Definition [ edit ] The Bayes factor is the ratio of two marginal likelihoods; that is, the likelihoods of two statistical models integrated over the prior probabilities of their parameters.
+
+[ 9 ] The posterior probability Pr ( M | D ) {\displaystyle \Pr(M|D)} of a model M given data D is given by Bayes' theorem : Pr ( M | D ) = Pr ( D | M ) Pr ( M ) Pr ( D ) .
+
+{\displaystyle \Pr(M|D)={\frac {\Pr(D|M)\Pr(M)}{\Pr(D)}}.} The key data-dependent term Pr ( D | M ) {\displaystyle \Pr(D|M)} represents the probability that some data are produced under the assumption of the model M ; evaluating it correctly is the key to Bayesian model comparison.
+
+Given a model selection problem in which one wishes to choose between two models on the basis of observed data D , the plausibility of the two different models M 1 and M 2 , parametrised by model parameter vectors θ θ 1 {\displaystyle \theta _{1}} and θ θ 2 {\displaystyle \theta _{2}} , is assessed by the Bayes factor K given by K = Pr ( D | M 1 ) Pr ( D | M 2 ) = ∫ ∫ Pr ( θ θ 1 | M 1 ) Pr ( D | θ θ 1 , M 1 ) d θ θ 1 ∫ ∫ Pr ( θ θ 2 | M 2 ) Pr ( D | θ θ 2 , M 2 ) d θ θ 2 = Pr ( M 1 | D ) Pr ( D ) Pr ( M 1 ) Pr ( M 2 | D ) Pr ( D ) Pr ( M 2 ) = Pr ( M 1 | D ) Pr ( M 2 | D ) Pr ( M 2 ) Pr ( M 1 ) .
+
+{\displaystyle K={\frac {\Pr(D|M_{1})}{\Pr(D|M_{2})}}={\frac {\int \Pr(\theta _{1}|M_{1})\Pr(D|\theta _{1},M_{1})\,d\theta _{1}}{\int \Pr(\theta _{2}|M_{2})\Pr(D|\theta _{2},M_{2})\,d\theta _{2}}}={\frac {\frac {\Pr(M_{1}|D)\Pr(D)}{\Pr(M_{1})}}{\frac {\Pr(M_{2}|D)\Pr(D)}{\Pr(M_{2})}}}={\frac {\Pr(M_{1}|D)}{\Pr(M_{2}|D)}}{\frac {\Pr(M_{2})}{\Pr(M_{1})}}.} When the two models have equal prior probability, so that Pr ( M 1 ) = Pr ( M 2 ) {\displaystyle \Pr(M_{1})=\Pr(M_{2})} , the Bayes factor is equal to the ratio of the posterior probabilities of M 1 and M 2 . If instead of the Bayes factor integral, the likelihood corresponding to the maximum likelihood estimate of the parameter for each statistical model is used, then the test becomes a classical likelihood-ratio test . Unlike a likelihood-ratio test, this Bayesian model comparison does not depend on any single set of parameters, as it integrates over all parameters in each model (with respect to the respective priors).  An advantage of the use of Bayes factors is that it automatically, and quite naturally, includes a penalty for including too much model structure.
+
+[ 10 ] It thus guards against overfitting . For models where an explicit version of the likelihood is not available or too costly to evaluate numerically, approximate Bayesian computation can be used for model selection in a Bayesian framework, [ 11 ] with the caveat that approximate-Bayesian estimates of Bayes factors are often biased.
+
+[ 12 ] Other approaches are: to treat model comparison as a decision problem , computing the expected value or cost of each model choice; to use minimum message length (MML).
+
+to use minimum description length (MDL).
+
+Interpretation [ edit ] A value of K > 1 means that M 1 is more strongly supported by the data under consideration than M 2 . Note that classical hypothesis testing gives one hypothesis (or model) preferred status (the 'null hypothesis'), and only considers evidence against it. The fact that a Bayes factor can produce evidence for and not just against a null hypothesis is one of the key advantages of this analysis method.
+
+[ 13 ] Harold Jeffreys gave a scale ( Jeffreys' scale ) for interpretation of K {\displaystyle K} : [ 14 ] K dHart bits Strength of evidence < 10 0 < 0 < 0 Negative (supports M 2 ) 10 0 to 10 1/2 0 to 5 0 to 1.6 Barely worth mentioning 10 1/2 to 10 1 5 to 10 1.6 to 3.3 Substantial 10 1 to 10 3/2 10 to 15 3.3 to 5.0 Strong 10 3/2 to 10 2 15 to 20 5.0 to 6.6 Very strong > 10 2 > 20 > 6.6 Decisive The second column gives the corresponding weights of evidence in decihartleys (also known as decibans ); bits are added in the third column for clarity. The table continues in the other direction, so that, for example, K ≤ ≤ 10 − − 2 {\displaystyle K\leq 10^{-2}} is decisive evidence for M 2 {\displaystyle M_{2}} .
+
+An alternative table, widely cited, is provided by Kass and Raftery  (1995): [ 10 ] log 10 K K Strength of evidence 0 to 1/2 1 to 3.2 Not worth more than a bare mention 1/2 to 1 3.2 to 10 Substantial 1 to 2 10 to 100 Strong > 2 > 100 Decisive According to I. J. Good , the just-noticeable difference of humans in their everyday life, when it comes to a change degree of belief in a hypothesis, is about a factor of 1.3x, or 1 deciban, or 1/3 of a bit, or from 1:1 to 5:4 in odds ratio.
+
+[ 15 ] Example [ edit ] Suppose we have a random variable that produces either a success or a failure.  We want to compare a model M 1 where the probability of success is q = 1 ⁄ 2 , and another model M 2 where q is unknown and we take a prior distribution for q that is uniform on [0,1].  We take a sample of 200, and find 115 successes and 85 failures.  The likelihood can be calculated according to the binomial distribution : ( 200 115 ) q 115 ( 1 − − q ) 85 .
+
+{\displaystyle {{200 \choose 115}q^{115}(1-q)^{85}}.} Thus we have for M 1 P ( X = 115 ∣ ∣ M 1 ) = ( 200 115 ) ( 1 2 ) 200 ≈ ≈ 0.006 {\displaystyle P(X=115\mid M_{1})={200 \choose 115}\left({1 \over 2}\right)^{200}\approx 0.006} whereas for M 2 we have P ( X = 115 ∣ ∣ M 2 ) = ∫ ∫ 0 1 ( 200 115 ) q 115 ( 1 − − q ) 85 d q = 1 201 ≈ ≈ 0.005 {\displaystyle P(X=115\mid M_{2})=\int _{0}^{1}{200 \choose 115}q^{115}(1-q)^{85}dq={1 \over 201}\approx 0.005} The ratio is then 1.2, which is "barely worth mentioning" even if it points very slightly towards M 1 .
+
+A frequentist hypothesis test of M 1 (here considered as a null hypothesis ) would have produced a very different result.  Such a test says that M 1 should be rejected at the 5% significance level, since the probability of getting 115 or more successes from a sample of 200 if q = 1 ⁄ 2 is 0.02, and as a two-tailed test of getting a figure as extreme as or more extreme than 115 is 0.04.  Note that 115 is more than two standard deviations away from 100. Thus, whereas a frequentist hypothesis test would yield significant results at the 5% significance level, the Bayes factor hardly considers this to be an extreme result. Note, however, that a non-uniform prior (for example one that reflects the fact that you expect the number of success and failures to be of the same order of magnitude) could result in a Bayes factor that is more in agreement with the frequentist hypothesis test.
+
+A classical likelihood-ratio test would have found the maximum likelihood estimate for q , namely q ^ ^ = 115 200 = 0.575 {\displaystyle {\hat {q}}={\frac {115}{200}}=0.575} , whence P ( X = 115 ∣ ∣ M 2 ) = ( 200 115 ) q ^ ^ 115 ( 1 − − q ^ ^ ) 85 ≈ ≈ 0.06 {\displaystyle \textstyle P(X=115\mid M_{2})={{200 \choose 115}{\hat {q}}^{115}(1-{\hat {q}})^{85}}\approx 0.06} (rather than averaging over all possible q ).  That gives a likelihood ratio of 0.1 and points towards M 2 .
+
+M 2 is a more complex model than M 1 because it has a free parameter which allows it to model the data more closely.  The ability of Bayes factors to take this into account is a reason why Bayesian inference has been put forward as a theoretical justification for and generalisation of Occam's razor , reducing Type I errors .
+
+[ 16 ] On the other hand, the modern method of relative likelihood takes into account the number of free parameters in the models, unlike the classical likelihood ratio.  The relative likelihood method could be applied as follows.  Model M 1 has 0 parameters, and so its Akaike information criterion (AIC) value is 2 ⋅ ⋅ 0 − − 2 ⋅ ⋅ ln ⁡ ⁡ ( 0.005956 ) ≈ ≈ 10.2467 {\displaystyle 2\cdot 0-2\cdot \ln(0.005956)\approx 10.2467} .  Model M 2 has 1 parameter, and so its AIC value is 2 ⋅ ⋅ 1 − − 2 ⋅ ⋅ ln ⁡ ⁡ ( 0.056991 ) ≈ ≈ 7.7297 {\displaystyle 2\cdot 1-2\cdot \ln(0.056991)\approx 7.7297} .  Hence M 1 is about exp ⁡ ⁡ ( 7.7297 − − 10.2467 2 ) ≈ ≈ 0.284 {\displaystyle \exp \left({\frac {7.7297-10.2467}{2}}\right)\approx 0.284} times as probable as M 2 to minimize the information loss.  Thus M 2 is slightly preferred, but M 1 cannot be excluded.
+
+See also [ edit ] Mathematics portal Akaike information criterion Approximate Bayesian computation Bayesian information criterion Deviance information criterion Lindley's paradox Minimum message length Model selection E-Value Statistical ratios Odds ratio Relative risk References [ edit ] ^ Morey, Richard D.; Romeijn, Jan-Willem; Rouder, Jeffrey N. (2016).
+
+"The philosophy of Bayes factors and the quantification of statistical evidence" .
+
+Journal of Mathematical Psychology .
+
+72 : 6– 18.
+
+doi : 10.1016/j.jmp.2015.11.001 .
+
+^ Lesaffre, Emmanuel; Lawson, Andrew B. (2012). "Bayesian hypothesis testing".
+
+Bayesian Biostatistics . Somerset: John Wiley & Sons. pp.
+
+72– 78.
+
+doi : 10.1002/9781119942412.ch3 .
+
+ISBN 978-0-470-01823-1 .
+
+^ Ly, Alexander; et al. (2020).
+
+"The Bayesian Methodology of Sir Harold Jeffreys as a Practical Alternative to the P Value Hypothesis Test" .
+
+Computational Brain & Behavior .
+
+3 (2): 153– 161.
+
+doi : 10.1007/s42113-019-00070-x .
+
+hdl : 2066/226717 .
+
+^ Llorente, Fernando; et al. (2023). "Marginal likelihood computation for model selection and hypothesis testing: an extensive review".
+
+SIAM Review . to appear: 3– 58.
+
+arXiv : 2005.08334 .
+
+doi : 10.1137/20M1310849 .
+
+S2CID 210156537 .
+
+^ Congdon, Peter (2014). "Estimating model probabilities or marginal likelihoods in practice".
+
+Applied Bayesian Modelling (2nd ed.). Wiley. pp.
+
+38– 40.
+
+ISBN 978-1-119-95151-3 .
+
+A widely used approach is the method proposed by Chib, Siddhartha (1995). "Marginal Likelihood from the Gibbs Output".
+
+Journal of the American Statistical Association .
+
+90 (432): 1313– 1321.
+
+doi : 10.2307/2291521 .
+
+This method was later extended to handle cases where Metropolis-Hastings samplers are used, Chib, Siddhartha; Jeliazkov, Ivan (2001). "Marginal Likelihood from the Metropolis–Hastings Output".
+
+Journal of the American Statistical Association .
+
+96 (453): 270– 281.
+
+doi : 10.1198/016214501750332848 .
+
+^ Koop, Gary (2003). "Model Comparison: The Savage–Dickey Density Ratio".
+
+Bayesian Econometrics . Somerset: John Wiley & Sons. pp.
+
+69– 71.
+
+ISBN 0-470-84567-8 .
+
+^ Wagenmakers, Eric-Jan; Lodewyckx, Tom; Kuriyal, Himanshu; Grasman, Raoul (2010).
+
+"Bayesian hypothesis testing for psychologists: A tutorial on the Savage–Dickey method" (PDF) .
+
+Cognitive Psychology .
+
+60 (3): 158– 189.
+
+doi : 10.1016/j.cogpsych.2009.12.001 .
+
+PMID 20064637 .
+
+S2CID 206867662 .
+
+^ Ibrahim, Joseph G.; Chen, Ming-Hui; Sinha, Debajyoti (2001). "Model Comparison".
+
+Bayesian Survival Analysis . Springer Series in Statistics. New York: Springer. pp.
+
+246– 254.
+
+doi : 10.1007/978-1-4757-3447-8_6 .
+
+ISBN 0-387-95277-2 .
+
+^ Gill, Jeff (2002). "Bayesian Hypothesis Testing and the Bayes Factor".
+
+Bayesian Methods : A Social and Behavioral Sciences Approach . Chapman & Hall. pp.
+
+199– 237.
+
+ISBN 1-58488-288-3 .
+
+^ a b Robert E. Kass & Adrian E. Raftery (1995).
+
+"Bayes Factors" (PDF) .
+
+Journal of the American Statistical Association .
+
+90 (430): 791.
+
+doi : 10.2307/2291091 .
+
+JSTOR 2291091 .
+
+^ Toni, T.; Stumpf, M.P.H. (2009).
+
+"Simulation-based model selection for dynamical systems in systems and population biology" .
+
+Bioinformatics .
+
+26 (1): 104– 10.
+
+arXiv : 0911.1705 .
+
+doi : 10.1093/bioinformatics/btp619 .
+
+PMC 2796821 .
+
+PMID 19880371 .
+
+^ Robert, C.P.; J. Cornuet; J. Marin & N.S. Pillai (2011).
+
+"Lack of confidence in approximate Bayesian computation model choice" .
+
+Proceedings of the National Academy of Sciences .
+
+108 (37): 15112– 15117.
+
+Bibcode : 2011PNAS..10815112R .
+
+doi : 10.1073/pnas.1102900108 .
+
+PMC 3174657 .
+
+PMID 21876135 .
+
+^ Williams, Matt; Bååth, Rasmus; Philipp, Michael (2017).
+
+"Using Bayes Factors to Test Hypotheses in Developmental Research" .
+
+Research in Human Development .
+
+14 (4): 321– 337.
+
+doi : 10.1080/15427609.2017.1370964 .
+
+^ Jeffreys, Harold (1998) [1961].
+
+The Theory of Probability (3rd ed.). Oxford, England. p. 432.
+
+ISBN 9780191589676 .
+
+{{ cite book }} :  CS1 maint: location missing publisher ( link ) ^ Good, I.J.
+
+(1979). "Studies in the History of Probability and Statistics. XXXVII A. M. Turing's statistical work in World War II".
+
+Biometrika .
+
+66 (2): 393– 396.
+
+doi : 10.1093/biomet/66.2.393 .
+
+MR 0548210 .
+
+^ Sharpening Ockham's Razor On a Bayesian Strop Further reading [ edit ] Bernardo, J.; Smith, A. F. M. (1994).
+
+Bayesian Theory . John Wiley.
+
+ISBN 0-471-92416-4 .
+
+Denison, D. G. T.; Holmes, C. C.; Mallick, B. K.; Smith, A. F. M. (2002).
+
+Bayesian Methods for Nonlinear Classification and Regression . John Wiley.
+
+ISBN 0-471-49036-9 .
+
+Dienes, Z. (2019). How do I know what my theory predicts?
+
+Advances in Methods and Practices in Psychological Science doi : 10.1177/2515245919876960 Duda, Richard O.; Hart, Peter E.; Stork, David G. (2000). "Section 9.6.5".
+
+Pattern classification (2nd ed.). Wiley. pp.
+
+487– 489.
+
+ISBN 0-471-05669-3 .
+
+Gelman, A.; Carlin, J.; Stern, H.; Rubin, D. (1995).
+
+Bayesian Data Analysis . London: Chapman & Hall .
+
+ISBN 0-412-03991-5 .
+
+Jaynes, E. T.
+
+(1994), Probability Theory: the logic of science , chapter 24.
+
+Kadane, Joseph B.; Dickey, James M. (1980). "Bayesian Decision Theory and the Simplification of Models". In Kmenta, Jan; Ramsey, James B. (eds.).
+
+Evaluation of Econometric Models . New York: Academic Press. pp.
+
+245– 268.
+
+ISBN 0-12-416550-8 .
+
+Lee, P. M. (2012).
+
+Bayesian Statistics: an introduction . Wiley.
+
+ISBN 9781118332573 .
+
+Richard, Mark; Vecer, Jan (2021).
+
+"Efficiency Testing of Prediction Markets: Martingale Approach, Likelihood Ratio and Bayes Factor Analysis" .
+
+Risks .
+
+9 (2): 31.
+
+doi : 10.3390/risks9020031 .
+
+hdl : 10419/258120 .
+
+Winkler, Robert (2003).
+
+Introduction to Bayesian Inference and Decision (2nd ed.). Probabilistic.
+
+ISBN 0-9647938-4-9 .
+
+External links [ edit ] BayesFactor —an R package for computing Bayes factors in common research designs Bayes factor calculator — Online calculator for informed Bayes factors Bayes Factor Calculators Archived 2015-05-07 at the Wayback Machine —web-based version of much of the BayesFactor package NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐2tnx4
+Cached time: 20250812004402
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.401 seconds
+Real time usage: 0.509 seconds
+Preprocessor visited node count: 1743/1000000
+Revision size: 19710/2097152 bytes
+Post‐expand include size: 59874/2097152 bytes
+Template argument size: 846/2097152 bytes
+Highest expansion depth: 8/100
+Expensive parser function count: 2/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 97792/5000000 bytes
+Lua time usage: 0.273/10.000 seconds
+Lua memory usage: 6144755/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  386.649      1 -total
+ 46.22%  178.727      1 Template:Reflist
+ 34.68%  134.075     12 Template:Cite_journal
+ 19.58%   75.717      1 Template:Bayesian_statistics
+ 18.32%   70.847     13 Template:Cite_book
+ 13.05%   50.446      1 Template:Short_description
+  8.12%   31.391      2 Template:Pagetype
+  3.00%   11.615      3 Template:Main_other
+  2.63%   10.185      1 Template:SDcat
+  2.03%    7.857      1 Template:Portal-inline Saved in parser cache with key enwiki:pcache:824552:|#|:idhash:canonical and timestamp 20250812004402 and revision id 1305388752. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Bayes_factor&oldid=1305388752 " Categories : Bayesian inference Model selection Statistical ratios Hidden categories: CS1: long volume value CS1 maint: location missing publisher Articles with short description Short description is different from Wikidata Webarchive template wayback links This page was last edited on 11 August 2025, at 19:49 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Bayes factor 13 languages Add topic
+

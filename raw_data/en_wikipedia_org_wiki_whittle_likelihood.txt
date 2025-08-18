@@ -1,0 +1,159 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Context 2 Definition 3 Special case of a known noise spectrum 4 Accuracy of approximation 5 Applications Toggle Applications subsection 5.1 Parameter estimation 5.2 Signal detection 5.3 Spectrum estimation 6 See also 7 References Toggle the table of contents Whittle likelihood Add languages Add links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Statistical model In statistics , Whittle likelihood is an approximation to the likelihood function of a stationary Gaussian time series . It is named after the mathematician and statistician Peter Whittle , who introduced it in his PhD thesis in 1951.
+
+[ 1 ] It is commonly used in time series analysis and signal processing for parameter estimation and signal detection.
+
+Context [ edit ] In a stationary Gaussian time series model , the likelihood function is (as usual in Gaussian models) a function of the associated mean and covariance parameters. With a large number ( N {\displaystyle N} ) of observations, the ( N × × N {\displaystyle N\times N} ) covariance matrix may become very large, making computations very costly in practice. However, due to stationarity, the covariance matrix has a rather simple structure, and by using an approximation, computations may be simplified considerably (from O ( N 2 ) {\displaystyle O(N^{2})} to O ( N log ⁡ ⁡ ( N ) ) {\displaystyle O(N\log(N))} ).
+
+[ 2 ] The idea effectively boils down to assuming a heteroscedastic zero-mean Gaussian model in Fourier domain ; the model formulation is based on the time series' discrete Fourier transform and its power spectral density .
+
+[ 3 ] [ 4 ] [ 5 ] Definition [ edit ] Let X 1 , … … , X N {\displaystyle X_{1},\ldots ,X_{N}} be a stationary Gaussian time series with ( one-sided ) power spectral density S 1 ( f ) {\displaystyle S_{1}(f)} , where N {\displaystyle N} is even and samples are taken at constant sampling intervals Δ Δ t {\displaystyle \Delta _{t}} .
+Let X ~ ~ 1 , … … , X ~ ~ N / 2 + 1 {\displaystyle {\tilde {X}}_{1},\ldots ,{\tilde {X}}_{N/2+1}} be the (complex-valued) discrete Fourier transform (DFT) of the time series. Then for the Whittle likelihood one effectively assumes independent zero-mean Gaussian distributions for all X ~ ~ j {\displaystyle {\tilde {X}}_{j}} with variances for the real and imaginary parts given by Var ⁡ ⁡ ( Re ⁡ ⁡ ( X ~ ~ j ) ) = Var ⁡ ⁡ ( Im ⁡ ⁡ ( X ~ ~ j ) ) = S 1 ( f j ) {\displaystyle \operatorname {Var} \left(\operatorname {Re} ({\tilde {X}}_{j})\right)=\operatorname {Var} \left(\operatorname {Im} ({\tilde {X}}_{j})\right)=S_{1}(f_{j})} where f j = j N Δ Δ t {\displaystyle f_{j}={\frac {j}{N\,\Delta _{t}}}} is the j {\displaystyle j} th Fourier frequency. This approximate model immediately leads to the (logarithmic) likelihood function log ⁡ ⁡ ( P ( x 1 , … … , x N ) ) ∝ ∝ − − ∑ ∑ j ( log ⁡ ⁡ ( S 1 ( f j ) ) + | x ~ ~ j | 2 N 2 Δ Δ t S 1 ( f j ) ) {\displaystyle \log \left(P(x_{1},\ldots ,x_{N})\right)\propto -\sum _{j}\left(\log \left(S_{1}(f_{j})\right)+{\frac {|{\tilde {x}}_{j}|^{2}}{{\frac {N}{2\,\Delta _{t}}}S_{1}(f_{j})}}\right)} where | ⋅ ⋅ | {\displaystyle |\cdot |} denotes the absolute value with | x ~ ~ j | 2 = ( Re ⁡ ⁡ ( x ~ ~ j ) ) 2 + ( Im ⁡ ⁡ ( x ~ ~ j ) ) 2 {\displaystyle |{\tilde {x}}_{j}|^{2}=\left(\operatorname {Re} ({\tilde {x}}_{j})\right)^{2}+\left(\operatorname {Im} ({\tilde {x}}_{j})\right)^{2}} .
+
+[ 3 ] [ 4 ] [ 6 ] Special case of a known noise spectrum [ edit ] In case the noise spectrum is assumed a-priori known , and noise properties are not to be inferred from the data, the likelihood function may be simplified further by ignoring constant terms, leading to the sum-of-squares expression log ⁡ ⁡ ( P ( x 1 , … … , x N ) ) ∝ ∝ − − ∑ ∑ j | x ~ ~ j | 2 N 2 Δ Δ t S 1 ( f j ) {\displaystyle \log \left(P(x_{1},\ldots ,x_{N})\right)\;\propto \;-\sum _{j}{\frac {|{\tilde {x}}_{j}|^{2}}{{\frac {N}{2\,\Delta _{t}}}S_{1}(f_{j})}}} This expression also is the basis for the common matched filter .
+
+Accuracy of approximation [ edit ] The Whittle likelihood in general is only an approximation, it is only exact if the spectrum is constant, i.e., in the trivial case of white noise .
+The efficiency of the Whittle approximation always depends on the particular circumstances.
+
+[ 7 ] [ 8 ] Note that due to linearity of the Fourier transform, Gaussianity in Fourier domain implies Gaussianity in time domain and vice versa. What makes the Whittle likelihood only approximately accurate is related to the sampling theorem —the effect of Fourier-transforming only a finite number of data points, which also manifests itself as spectral leakage in related problems (and which may be ameliorated using the same methods, namely, windowing ). In the present case, the implicit periodicity assumption implies correlation between the first and last samples ( x 1 {\displaystyle x_{1}} and x N {\displaystyle x_{N}} ), which are effectively treated as "neighbouring" samples (like x 1 {\displaystyle x_{1}} and x 2 {\displaystyle x_{2}} ).
+
+Applications [ edit ] Parameter estimation [ edit ] Whittle's likelihood is commonly used to estimate signal parameters for signals that are buried in non-white noise. The noise spectrum then may be assumed known, [ 9 ] or it may be inferred along with the signal parameters.
+
+[ 4 ] [ 6 ] Signal detection [ edit ] Signal detection is commonly performed with the matched filter , which is based on the Whittle likelihood for the case of a known noise power spectral density.
+
+[ 10 ] [ 11 ] The matched filter effectively does a maximum-likelihood fit of the signal to the noisy data and uses the resulting likelihood ratio as the detection statistic.
+
+[ 12 ] The matched filter may be generalized to an analogous procedure based on a Student-t distribution by also considering uncertainty (e.g.
+
+estimation uncertainty) in the noise spectrum. On the technical side, the EM algorithm may be utilized here, effectively leading to repeated or iterative matched-filtering.
+
+[ 12 ] Spectrum estimation [ edit ] The Whittle likelihood is also applicable for estimation of the noise spectrum , either alone or in conjunction with signal parameters.
+
+[ 13 ] [ 14 ] See also [ edit ] Mathematics portal Science portal Coloured noise – Power spectrum of a noise signal Discrete Fourier transform – Function in discrete mathematics Likelihood function – Function related to statistics and probability theory Matched filter – Filters used in signal processing that are optimal in some sense Power spectral density – Relative importance of certain frequencies in a composite signal Pages displaying short descriptions of redirect targets Statistical signal processing – Field of electrical engineering Pages displaying short descriptions of redirect targets Weighted least squares – Method for model fitting in statistics References [ edit ] ^ Whittle, P. (1951).
+
+Hypothesis testing in times series analysis . Uppsala: Almqvist & Wiksells Boktryckeri AB.
+
+^ Hurvich, C. (2002).
+
+"Whittle's approximation to the likelihood function" (PDF) .
+
+NYU Stern .
+
+^ a b Calder, M.; Davis, R. A. (1997), "An introduction to Whittle (1953) "The analysis of multiple stationary time series" ", in Kotz, S.; Johnson, N. L. (eds.), Breakthroughs in Statistics , Springer Series in Statistics, New York: Springer-Verlag, pp.
+
+141– 169, doi : 10.1007/978-1-4612-0667-5_7 , ISBN 978-0-387-94989-5 See also: Calder, M.; Davis, R. A. (1996), "An introduction to Whittle (1953) "The analysis of multiple stationary time series" " , Technical report 1996/41 , Department of Statistics, Colorado State University ^ a b c Hannan, E. J. (1994), "The Whittle likelihood and frequency estimation", in Kelly, F. P. (ed.), Probability, statistics and optimization; a tribute to Peter Whittle , Chichester: Wiley ^ Pawitan, Y. (1998), "Whittle likelihood", in Kotz, S.; Read, C. B.; Banks, D. L. (eds.), Encyclopedia of Statistical Sciences , vol. Update Volume 2, New York: Wiley & Sons, pp.
+
+708– 710, doi : 10.1002/0471667196.ess0753 , ISBN 978-0471667193 ^ a b Röver, C.; Meyer, R.; Christensen, N. (2011). "Modelling coloured residual noise in gravitational-wave signal processing".
+
+Classical and Quantum Gravity .
+
+28 (1): 025010.
+
+arXiv : 0804.3853 .
+
+Bibcode : 2011CQGra..28a5010R .
+
+doi : 10.1088/0264-9381/28/1/015010 .
+
+S2CID 46673503 .
+
+^ Choudhuri, N.; Ghosal, S.; Roy, A. (2004).
+
+"Contiguity of the Whittle measure for a Gaussian time series" .
+
+Biometrika .
+
+91 (4): 211– 218.
+
+doi : 10.1093/biomet/91.1.211 .
+
+^ Countreras-Cristán, A.; Gutiérrez-Peña, E.; Walker, S. G. (2006). "A Note on Whittle's Likelihood".
+
+Communications in Statistics – Simulation and Computation .
+
+35 (4): 857– 875.
+
+doi : 10.1080/03610910600880203 .
+
+S2CID 119395974 .
+
+^ Finn, L. S. (1992). "Detection, measurement and gravitational radiation".
+
+Physical Review D .
+
+46 (12): 5236– 5249.
+
+arXiv : gr-qc/9209010 .
+
+Bibcode : 1992PhRvD..46.5236F .
+
+doi : 10.1103/PhysRevD.46.5236 .
+
+PMID 10014913 .
+
+S2CID 19004097 .
+
+^ Turin, G. L. (1960).
+
+"An introduction to matched filters" .
+
+IRE Transactions on Information Theory .
+
+6 (3): 311– 329.
+
+doi : 10.1109/TIT.1960.1057571 .
+
+S2CID 5128742 .
+
+^ Wainstein, L. A.; Zubakov, V. D. (1962).
+
+Extraction of signals from noise . Englewood Cliffs, NJ: Prentice-Hall.
+
+^ a b Röver, C. (2011). "Student-t-based filter for robust signal detection".
+
+Physical Review D .
+
+84 (12): 122004.
+
+arXiv : 1109.0442 .
+
+Bibcode : 2011PhRvD..84l2004R .
+
+doi : 10.1103/PhysRevD.84.122004 .
+
+^ Choudhuri, N.; Ghosal, S.; Roy, A. (2004).
+
+"Bayesian estimation of the spectral density of a time series" (PDF) .
+
+Journal of the American Statistical Association .
+
+99 (468): 1050– 1059.
+
+CiteSeerX 10.1.1.212.2814 .
+
+doi : 10.1198/016214504000000557 .
+
+S2CID 17906077 .
+
+^ Edwards, M. C.; Meyer, R.; Christensen, N. (2015). "Bayesian semiparametric power spectral density estimation in gravitational wave data analysis".
+
+Physical Review D .
+
+92 (6): 064011.
+
+arXiv : 1506.00185 .
+
+Bibcode : 2015PhRvD..92f4011E .
+
+doi : 10.1103/PhysRevD.92.064011 .
+
+S2CID 11508218 .
+
+v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject Retrieved from " https://en.wikipedia.org/w/index.php?title=Whittle_likelihood&oldid=1293337903 " Categories : Time series Time series models Frequency-domain analysis Statistical inference Statistical models Statistical signal processing Signal estimation Normal distribution Hidden categories: CS1: long volume value Articles with short description Short description matches Wikidata Pages displaying short descriptions of redirect targets via Module:Annotated link This page was last edited on 1 June 2025, at 04:43 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Whittle likelihood Add languages Add topic
+

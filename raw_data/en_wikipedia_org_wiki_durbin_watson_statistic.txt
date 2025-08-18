@@ -1,0 +1,167 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Computing and interpreting the Durbin–Watson statistic 2 Durbin h-statistic 3 Implementations in statistics packages 4 See also 5 References 6 Further reading 7 External links Toggle the table of contents Durbin–Watson statistic 14 languages العربية Deutsch Español فارسی Français Italiano 日本語 Norsk bokmål Polski Русский Türkçe Українська Tiếng Việt 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Test statistic This article includes a list of general references , but it lacks sufficient corresponding inline citations .
+
+Please help to improve this article by introducing more precise citations.
+
+( December 2012 ) ( Learn how and when to remove this message ) In statistics , the Durbin–Watson statistic is a test statistic used to detect the presence of autocorrelation at lag 1 in the residuals (prediction errors) from a regression analysis . It is named after James Durbin and Geoffrey Watson . The small sample distribution of this ratio was derived by John von Neumann (von Neumann, 1941). Durbin and Watson (1950, 1951) applied this statistic to the residuals from least squares regressions, and developed bounds tests for the null hypothesis that the errors are serially uncorrelated against the alternative that they follow a first order autoregressive process. Note that the distribution of this test statistic does not depend on the estimated regression coefficients and the variance of the errors.
+
+[ 1 ] A similar assessment can be also carried out with the Breusch–Godfrey test and the Ljung–Box test .
+
+Computing and interpreting the Durbin–Watson statistic [ edit ] If e t {\textstyle e_{t}} is the residual given by e t = ρ ρ e t − − 1 + ν ν t , {\displaystyle e_{t}=\rho e_{t-1}+\nu _{t},} the Durbin-Watson test statistic is d = ∑ ∑ t = 2 T ( e t − − e t − − 1 ) 2 ∑ ∑ t = 1 T e t 2 , {\displaystyle d={\sum _{t=2}^{T}(e_{t}-e_{t-1})^{2} \over {\sum _{t=1}^{T}e_{t}^{2}}},} where T {\textstyle T} is the number of observations. For large T {\textstyle T} , d {\textstyle d} is approximately equal to 2 ( 1 − − ρ ρ ^ ^ ) {\textstyle 2(1-{\hat {\rho }})} , where ρ ρ ^ ^ {\displaystyle {\hat {\rho }}} is the sample autocorrelation of the residuals at lag 1.
+
+[ 2 ] d = 2 {\textstyle d=2} therefore indicates no autocorrelation. The value of d {\textstyle d} always lies between 0 {\textstyle 0} and 4 {\textstyle 4} . If the Durbin–Watson statistic is substantially less than 2, there is evidence of positive serial correlation. As a rough rule of thumb, if Durbin–Watson is less than 1.0, there may be cause for alarm. Small values of d {\textstyle d} indicate successive error terms are positively correlated. If d > 2 {\textstyle d>2} , successive error terms are negatively correlated. In regressions, this can imply an underestimation of the level of statistical significance .
+
+To test for positive autocorrelation at significance α α {\textstyle \alpha } , the test statistic d {\textstyle d} is compared to lower and upper critical values ( d L , α α {\textstyle d_{L,\alpha }} and d U , α α {\textstyle d_{U,\alpha }} ): If d < d L , α α {\textstyle d<d_{L,\alpha }} , there is statistical evidence that the error terms are positively autocorrelated.
+
+If d > d U , α α {\textstyle d>d_{U,\alpha }} , there is no statistical evidence that the error terms are positively autocorrelated.
+
+If d L , α α < d < d U , α α {\displaystyle d_{L,\alpha }<d<d_{U,\alpha }} , the test is inconclusive.
+
+Positive serial correlation is serial correlation in which a positive error for one observation increases the chances of a positive error for another observation.
+
+To test for negative autocorrelation at significance α α {\textstyle \alpha } , the test statistic ( 4 − − d ) {\textstyle (4-d)} is compared to lower and upper critical values ( d L , α α {\textstyle d_{L,\alpha }} and d U , α α {\textstyle d_{U,\alpha }} ): If ( 4 − − d ) < d L , α α {\textstyle (4-d)<d_{L,\alpha }} , there is statistical evidence that the error terms are negatively autocorrelated.
+
+If ( 4 − − d ) > d U , α α {\textstyle (4-d)>d_{U,\alpha }} , there is no statistical evidence that the error terms are negatively autocorrelated.
+
+If d L , α α < ( 4 − − d ) < d U , α α {\displaystyle d_{L,\alpha }<(4-d)<d_{U,\alpha }} , the test is inconclusive.
+
+Negative serial correlation implies that a positive error for one observation increases the chance of a negative error for another observation and a negative error for one observation increases the chances of a positive error for another.
+
+The critical values, d L , α α {\textstyle d_{L,\alpha }} and d U , α α {\textstyle d_{U,\alpha }} , vary by level of significance ( α α {\textstyle \alpha } ) and the degrees of freedom in the regression equation. Their derivation is complex—statisticians typically obtain them from the appendices of statistical texts.
+
+If the design matrix X {\displaystyle \mathbf {X} } of the regression is known, exact critical values for the distribution of d {\displaystyle d} under the null hypothesis of no serial correlation can be calculated. Under the null hypothesis d {\displaystyle d} is distributed as ∑ ∑ i = 1 n − − k ν ν i ξ ξ i 2 ∑ ∑ i = 1 n − − k ξ ξ i 2 , {\displaystyle {\frac {\sum _{i=1}^{n-k}\nu _{i}\xi _{i}^{2}}{\sum _{i=1}^{n-k}\xi _{i}^{2}}},} where n {\textstyle n} is the number of observations and k {\textstyle k} is number of regression variables; the ξ ξ i {\displaystyle \xi _{i}} are independent standard normal random variables; and the ν ν i {\displaystyle \nu _{i}} are the nonzero eigenvalues of ( I − − X ( X T X ) − − 1 X T ) A , {\displaystyle (\mathbf {I} -\mathbf {X} (\mathbf {X} ^{T}\mathbf {X} )^{-1}\mathbf {X} ^{T})\mathbf {A} ,} where A {\displaystyle \mathbf {A} } is the matrix that transforms the residuals into the d {\displaystyle d} statistic, i.e.
+
+d = e T A e .
+
+{\displaystyle d=\mathbf {e} ^{T}\mathbf {A} \mathbf {e} .} [ 3 ] A number of computational algorithms for finding percentiles of this distribution are available.
+
+[ 4 ] Although serial correlation does not affect the consistency of  the estimated regression coefficients, it does affect our ability to conduct valid statistical tests. First, the F-statistic to test for overall significance of the regression may be inflated under positive serial correlation because the mean squared error (MSE) will tend to underestimate the population error variance. Second, positive serial correlation typically causes the ordinary least squares (OLS) standard errors for the regression coefficients to underestimate the true standard errors. As a consequence, if positive serial correlation is present in the regression, standard linear regression analysis will typically lead us to compute artificially small standard errors for the regression coefficient. These small standard errors will cause the estimated t-statistic to be inflated, suggesting significance where perhaps there is none. The inflated t-statistic, may in turn, lead us to incorrectly reject null hypotheses, about population values of the parameters of the regression model more often than we would if the standard errors were correctly estimated.
+
+If the Durbin–Watson statistic indicates the presence of serial correlation of the residuals, this can be remedied by using the Cochrane–Orcutt procedure .
+
+The Durbin–Watson statistic, while displayed by many regression analysis programs, is not applicable in certain situations. For instance, when lagged dependent variables are included in the explanatory variables, then it is inappropriate to use this test. Durbin's h-test (see below) or likelihood ratio tests, that are valid in large samples, should be used.
+
+Durbin h-statistic [ edit ] The Durbin–Watson statistic is biased for autoregressive moving average models , so that autocorrelation is underestimated. But for large samples one can easily compute the unbiased normally distributed h-statistic: h = ( 1 − − 1 2 d ) T 1 − − T ⋅ ⋅ Var ^ ^ ( β β ^ ^ 1 ) , {\displaystyle h=\left(1-{\frac {1}{2}}d\right){\sqrt {\frac {T}{1-T\cdot {\widehat {\operatorname {Var} }}({\widehat {\beta }}_{1}\,)}}},} using the Durbin–Watson statistic d and the estimated variance Var ^ ^ ( β β ^ ^ 1 ) {\displaystyle {\widehat {\operatorname {Var} }}({\widehat {\beta }}_{1})} of the regression coefficient of the lagged dependent variable, provided T ⋅ ⋅ Var ^ ^ ( β β ^ ^ 1 ) < 1.
+
+{\displaystyle T\cdot {\widehat {\operatorname {Var} }}({\widehat {\beta }}_{1})<1.\,} Implementations in statistics packages [ edit ] R : the dwtest function in the lmtest package, durbinWatsonTest (or dwt for short) function in the car package, and pdwtest and pbnftest for panel models in the plm package.
+
+[ 5 ] MATLAB : the dwtest function in the Statistics Toolbox.
+
+Mathematica : the Durbin–Watson ( d ) statistic is included as an option in the LinearModelFit function.
+
+SAS : Is a standard output when using proc model and is an option (dw) when using proc reg.
+
+EViews : Automatically calculated when using OLS regression gretl : Automatically calculated when using OLS regression Stata : the command estat dwatson , following regress in time series data.
+
+[ 6 ] Engle's LM test for autoregressive conditional heteroskedasticity (ARCH), a test for time-dependent volatility, the Breusch–Godfrey test, and Durbin's alternative test for serial correlation are also available. All (except -dwatson-) tests separately for higher-order serial correlations. The Breusch–Godfrey test and Durbin's alternative test also allow regressors that are not strictly exogenous.
+
+Excel : although Microsoft Excel 2007 does not have a specific Durbin–Watson function, the d -statistic may be calculated using =SUMXMY2(x_array,y_array)/SUMSQ(array) Minitab : the option to report the statistic in the Session window can be found under the "Options" box under Regression and via the "Results" box under General Regression.
+
+Python : a durbin_watson function is included in the statsmodels package ( statsmodels.stats.stattools.durbin_watson ), but statistical tables for critical values are not available there.
+
+SPSS : Included as an option in the Regression function.
+
+Julia : the DurbinWatsonTest function is available in the HypothesisTests package.
+
+[ 7 ] See also [ edit ] Time-series regression ACF / PACF Correlation dimension Breusch–Godfrey test Ljung–Box test References [ edit ] ^ Chatterjee, Samprit; Simonoff, Jeffrey (2013).
+
+Handbook of Regression Analysis . John Wiley & Sons.
+
+ISBN 1118532813 .
+
+^ Gujarati (2003)  p. 469 ^ Durbin, J.; Watson, G. S. (1971). "Testing for serial correlation in least squares regression.III".
+
+Biometrika .
+
+58 (1): 1– 19.
+
+doi : 10.2307/2334313 .
+
+^ Farebrother, R. W. (1980). "Algorithm AS 153: Pan's procedure for the tail probabilities of the Durbin-Watson statistic".
+
+Journal of the Royal Statistical Society, Series C .
+
+29 (2): 224– 227.
+
+^ Hateka, Neeraj R. (2010).
+
+"Tests for Detecting Autocorrelation" .
+
+Principles of Econometrics: An Introduction (Using R) . SAGE Publications. pp.
+
+379– 82.
+
+ISBN 978-81-321-0660-9 .
+
+^ "regress postestimation time series — Postestimation tools for regress with time series" (PDF) .
+
+Stata Manual .
+
+^ "Time series tests" .
+
+juliastats.org . Retrieved 2020-02-04 .
+
+Further reading [ edit ] Durbin, J.; Watson, G. S. (1950). "Testing for Serial Correlation in Least Squares Regression, I".
+
+Biometrika .
+
+37 ( 3– 4): 409– 428.
+
+doi : 10.1093/biomet/37.3-4.409 .
+
+JSTOR 2332391 .
+
+Durbin, J.; Watson, G. S. (1951). "Testing for Serial Correlation in Least Squares Regression, II".
+
+Biometrika .
+
+38 ( 1– 2): 159– 179.
+
+doi : 10.1093/biomet/38.1-2.159 .
+
+JSTOR 2332325 .
+
+Gujarati, Damodar N.; Porter, Dawn C.
+
+(2009).
+
+Basic Econometrics (5th ed.). Boston: McGraw-Hill Irwin.
+
+ISBN 978-0-07-337577-9 .
+
+Kmenta, Jan (1986).
+
+Elements of Econometrics (Second ed.). New York: Macmillan. pp.
+
+328 –332.
+
+ISBN 0-02-365070-2 .
+
+Neumann, John von (1941).
+
+"Distribution of the ratio of the mean square successive difference to the variance" .
+
+Annals of Mathematical Statistics .
+
+12 (4): 367– 395.
+
+doi : 10.1214/aoms/1177731677 .
+
+JSTOR 2235951 .
+
+Verbeek, Marno (2012).
+
+A Guide to Modern Econometrics (4th ed.). Chichester: John Wiley & Sons. pp.
+
+117– 118.
+
+ISBN 978-1-119-95167-4 .
+
+External links [ edit ] Table for high n and k Archived 2011-08-07 at the Wayback Machine Econometrics lecture (topic: Durbin–Watson statistic) on YouTube by Mark Thoma v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject Retrieved from " https://en.wikipedia.org/w/index.php?title=Durbin–Watson_statistic&oldid=1260966790 " Categories : Time series statistical tests Autocorrelation Hidden categories: Articles with short description Short description is different from Wikidata Articles lacking in-text citations from December 2012 All articles lacking in-text citations Webarchive template wayback links This page was last edited on 3 December 2024, at 15:31 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Durbin–Watson statistic 14 languages Add topic
+

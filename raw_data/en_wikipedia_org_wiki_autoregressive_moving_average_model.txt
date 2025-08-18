@@ -1,0 +1,267 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Mathematical formulation Toggle Mathematical formulation subsection 1.1 Autoregressive model 1.2 Moving average model 1.3 ARMA model 1.4 In terms of lag operator 2 Spectrum 3 Fitting models Toggle Fitting models subsection 3.1 Choosing p and q 3.2 Estimating coefficients 3.3 Software implementations 4 History and interpretations 5 Applications 6 Generalizations Toggle Generalizations subsection 6.1 Autoregressive–moving-average model with exogenous inputs (ARMAX) 7 See also 8 References 9 Further reading Toggle the table of contents Autoregressive moving-average model 18 languages العربية Català Deutsch Español فارسی Français Galego 한국어 Italiano 日本語 Polski Português Русский Sunda Türkçe Українська Tiếng Việt 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia (Redirected from Autoregressive–moving-average model ) Statistical model used in time series analysis "ARMA model" redirects here. For other uses, see ARMA (disambiguation) .
+
+In the statistical analysis of time series , autoregressive–moving-average ( ARMA ) models are a way to describe a (weakly) stationary stochastic process using autoregression (AR) and a moving average (MA), each with a polynomial. They are a tool for understanding a series and predicting future values. AR involves regressing the variable on its own lagged (i.e., past) values. MA involves modeling the error as a linear combination of error terms occurring contemporaneously and at various times in the past. The model is usually denoted ARMA( p , q ), where p is the order of AR and q is the order of MA.
+
+The general ARMA model was described in the 1951 thesis of Peter Whittle , Hypothesis testing in time series analysis , and it was popularized in the 1970 book by George E. P. Box and Gwilym Jenkins .
+
+ARMA models can be estimated by using the Box–Jenkins method .
+
+Mathematical formulation [ edit ] Autoregressive model [ edit ] Main article: Autoregressive model The notation AR( p ) refers to the autoregressive model of order p . The AR( p ) model is written as X t = ∑ ∑ i = 1 p φ φ i X t − − i + ε ε t {\displaystyle X_{t}=\sum _{i=1}^{p}\varphi _{i}X_{t-i}+\varepsilon _{t}} where φ φ 1 , … … , φ φ p {\displaystyle \varphi _{1},\ldots ,\varphi _{p}} are parameters and the random variable ε ε t {\displaystyle \varepsilon _{t}} is white noise , usually independent and identically distributed (i.i.d.) normal random variables .
+
+[ 1 ] [ 2 ] In order for the model to remain stationary , the roots of its characteristic polynomial must lie outside the unit circle. For example, processes in the AR(1) model with | φ φ 1 | ≥ ≥ 1 {\displaystyle |\varphi _{1}|\geq 1} are not stationary because the root of 1 − − φ φ 1 B = 0 {\displaystyle 1-\varphi _{1}B=0} lies within the unit circle.
+
+[ 3 ] The augmented Dickey–Fuller test can assesses the stability of an intrinsic mode function and trend components. For stationary time series, the ARMA models can be used, while for non-stationary series, Long short-term memory models can be used to derive abstract features. The final value is obtained by reconstructing the predicted outcomes of each time series.
+
+[ citation needed ] Moving average model [ edit ] Main article: Moving-average model The notation MA( q ) refers to the moving average model of order q : X t = μ μ + ε ε t + ∑ ∑ i = 1 q θ θ i ε ε t − − i {\displaystyle X_{t}=\mu +\varepsilon _{t}+\sum _{i=1}^{q}\theta _{i}\varepsilon _{t-i}\,} where the θ θ 1 , .
+
+.
+
+.
+
+, θ θ q {\displaystyle \theta _{1},...,\theta _{q}} are the parameters of the model, μ μ {\displaystyle \mu } is the expectation of X t {\displaystyle X_{t}} (often assumed to equal 0), and ε ε 1 {\displaystyle \varepsilon _{1}} , ..., ε ε t {\displaystyle \varepsilon _{t}} are i.i.d. white noise error terms that are commonly normal random variables.
+
+[ 4 ] ARMA model [ edit ] The notation ARMA( p , q ) refers to the model with p autoregressive terms and q moving-average terms. This model contains the AR( p ) and MA( q ) models, [ 5 ] X t = ε ε t + ∑ ∑ i = 1 p φ φ i X t − − i + ∑ ∑ i = 1 q θ θ i ε ε t − − i .
+
+{\displaystyle X_{t}=\varepsilon _{t}+\sum _{i=1}^{p}\varphi _{i}X_{t-i}+\sum _{i=1}^{q}\theta _{i}\varepsilon _{t-i}.\,} In terms of lag operator [ edit ] In some texts, the models is specified using the lag operator L .  In these terms, the AR( p ) model is given by ε ε t = ( 1 − − ∑ ∑ i = 1 p φ φ i L i ) X t = φ φ ( L ) X t {\displaystyle \varepsilon _{t}=\left(1-\sum _{i=1}^{p}\varphi _{i}L^{i}\right)X_{t}=\varphi (L)X_{t}\,} where φ φ {\displaystyle \varphi } represents the polynomial φ φ ( L ) = 1 − − ∑ ∑ i = 1 p φ φ i L i .
+
+{\displaystyle \varphi (L)=1-\sum _{i=1}^{p}\varphi _{i}L^{i}.\,} The MA( q ) model is given by X t − − μ μ = ( 1 + ∑ ∑ i = 1 q θ θ i L i ) ε ε t = θ θ ( L ) ε ε t , {\displaystyle X_{t}-\mu =\left(1+\sum _{i=1}^{q}\theta _{i}L^{i}\right)\varepsilon _{t}=\theta (L)\varepsilon _{t},\,} where θ θ {\displaystyle \theta } represents the polynomial θ θ ( L ) = 1 + ∑ ∑ i = 1 q θ θ i L i .
+
+{\displaystyle \theta (L)=1+\sum _{i=1}^{q}\theta _{i}L^{i}.\,} Finally, the combined ARMA( p , q ) model is given by ( 1 − − ∑ ∑ i = 1 p φ φ i L i ) X t = ( 1 + ∑ ∑ i = 1 q θ θ i L i ) ε ε t , {\displaystyle \left(1-\sum _{i=1}^{p}\varphi _{i}L^{i}\right)X_{t}=\left(1+\sum _{i=1}^{q}\theta _{i}L^{i}\right)\varepsilon _{t}\,,} or more concisely, φ φ ( L ) X t = θ θ ( L ) ε ε t {\displaystyle \varphi (L)X_{t}=\theta (L)\varepsilon _{t}\,} or φ φ ( L ) θ θ ( L ) X t = ε ε t .
+
+{\displaystyle {\frac {\varphi (L)}{\theta (L)}}X_{t}=\varepsilon _{t}\,.} This is the form used in Box , Jenkins & Reinsel.
+
+[ 6 ] Moreover, starting summations from i = 0 {\displaystyle i=0} and setting ϕ ϕ 0 = − − 1 {\displaystyle \phi _{0}=-1} and θ θ 0 = 1 {\displaystyle \theta _{0}=1} , then we get an even more elegant formulation: − − ∑ ∑ i = 0 p ϕ ϕ i L i X t = ∑ ∑ i = 0 q θ θ i L i ε ε t .
+
+{\displaystyle -\sum _{i=0}^{p}\phi _{i}L^{i}\;X_{t}=\sum _{i=0}^{q}\theta _{i}L^{i}\;\varepsilon _{t}\,.} Spectrum [ edit ] The spectral density of an ARMA process is S ( f ) = σ σ 2 2 π π | θ θ ( e − − i f ) ϕ ϕ ( e − − i f ) | 2 {\displaystyle S(f)={\frac {\sigma ^{2}}{2\pi }}\left\vert {\frac {\theta (e^{-if})}{\phi (e^{-if})}}\right\vert ^{2}} where σ σ 2 {\displaystyle \sigma ^{2}} is the variance of the white noise, θ θ {\displaystyle \theta } is the characteristic polynomial of the moving average part of the ARMA model, and ϕ ϕ {\displaystyle \phi } is the characteristic polynomial of the autoregressive part of the ARMA model.
+
+[ 7 ] [ 8 ] Fitting models [ edit ] Choosing p and q [ edit ] An appropriate value of p in the ARMA( p , q ) model can be found by plotting the partial autocorrelation functions . Similarly, q can be estimated by using the autocorrelation functions . Both p and q can be determined simultaneously using extended autocorrelation functions (EACF).
+
+[ 9 ] Further information can be gleaned by considering the same functions for the residuals of a model fitted with an initial selection of p and q .
+
+Brockwell & Davis recommend using Akaike information criterion (AIC) for finding p and q .
+
+[ 10 ] Another option is the Bayesian information criterion (BIC).
+
+Estimating coefficients [ edit ] After choosing p and q, ARMA models can be fitted by least squares regression to find the values of the parameters which minimize the error term.  It is good practice to find the smallest values of p and q which provide an acceptable fit to the data.  For a pure AR model, the Yule-Walker equations may be used to provide a fit.
+
+ARMA outputs are used primarily to forecast (predict), and not to infer causation as in other areas of econometrics and regression methods such as OLS and 2SLS.
+
+Software implementations [ edit ] In R , standard package stats has function arima , documented in ARIMA Modelling of Time Series . Package astsa has an improved script called sarima for fitting ARMA models (seasonal and nonseasonal) and sarima.sim to simulate data from these models. Extension packages contain related and extended functionality: package tseries includes the function arma() , documented in "Fit ARMA Models to Time Series" ; package fracdiff contains fracdiff() for fractionally integrated ARMA processes; and package forecast includes auto.arima for selecting a parsimonious set of p, q .  The CRAN task view on Time Series contains links to most of these.
+
+Mathematica has a complete library of time series functions including ARMA.
+
+[ 11 ] MATLAB includes functions such as arma , ar and arx to estimate autoregressive, exogenous autoregressive and ARMAX models.  See System Identification Toolbox and Econometrics Toolbox for details.
+
+Julia has community-driven packages that implement fitting with an ARMA model such as arma.jl .
+
+Python has the statsmodels S package which includes many models and functions for time series analysis, including ARMA. Formerly part of the scikit-learn library, it is now stand-alone and integrates well with Pandas .
+
+PyFlux has a Python-based implementation of ARIMAX models, including Bayesian ARIMAX models.
+
+IMSL Numerical Libraries are libraries of numerical analysis functionality including ARMA and ARIMA procedures implemented in standard programming languages like C, Java, C# .NET, and Fortran.
+
+gretl can estimate ARMA models, as mentioned here GNU Octave extra package octave-forge supports AR models.
+
+Stata includes the function arima . for ARMA and ARIMA models.
+
+SuanShu is a Java library of numerical methods that implements univariate/multivariate ARMA, ARIMA, ARMAX, etc models, documented in "SuanShu, a Java numerical and statistical library" .
+
+SAS has an econometric package, ETS, that estimates ARIMA models.
+
+See details .
+
+History and interpretations [ edit ] The general ARMA model was described in the 1951 thesis of Peter Whittle , who used mathematical analysis ( Laurent series and Fourier analysis ) and statistical inference.
+
+[ 12 ] [ 13 ] ARMA models were popularized by a 1970 book by George E. P. Box and Jenkins, who expounded an iterative ( Box–Jenkins ) method for choosing and estimating them. This method was useful for low-order polynomials (of degree three or less).
+
+[ 14 ] ARMA is essentially an infinite impulse response filter applied to white noise, with some additional interpretation placed on it.
+
+In digital signal processing , ARMA is represented as a digital filter with white noise at the input and the ARMA process at the output.
+
+Applications [ edit ] ARMA is appropriate when a system is a function of a series of unobserved shocks (the MA or moving average part) as well as its own behavior.  For example, stock prices may be shocked by fundamental information as well as exhibiting technical trending and mean-reversion effects due to market participants.
+
+[ citation needed ] Generalizations [ edit ] There are various generalizations of ARMA.
+
+Nonlinear AR (NAR), nonlinear MA (NMA) and nonlinear ARMA (NARMA) model nonlinear dependence on past values and error terms.
+
+Vector AR (VAR) and vector ARMA (VARMA) model multivariate time series.
+
+Autoregressive integrated moving average (ARIMA) models non-stationary time series (that is, whose mean changes over time).
+
+Autoregressive conditional heteroskedasticity (ARCH) models time series where the variance changes. Seasonal ARIMA (SARIMA or periodic ARMA) models periodic variation.
+
+Autoregressive fractionally integrated moving average (ARFIMA, or Fractional ARIMA, FARIMA) model time-series that exhibits long memory . Multiscale AR (MAR) is indexed by the nodes of a tree instead of integers.
+
+Autoregressive–moving-average model with exogenous inputs (ARMAX) [ edit ] The notation ARMAX( p , q , b ) refers to a model with p autoregressive terms, q moving average terms and b exogenous inputs terms. The last term is a linear combination of the last b terms of a known and external time series d t {\displaystyle d_{t}} . It is given by: X t = ε ε t + ∑ ∑ i = 1 p φ φ i X t − − i + ∑ ∑ i = 1 q θ θ i ε ε t − − i + ∑ ∑ i = 1 b η η i d t − − i .
+
+{\displaystyle X_{t}=\varepsilon _{t}+\sum _{i=1}^{p}\varphi _{i}X_{t-i}+\sum _{i=1}^{q}\theta _{i}\varepsilon _{t-i}+\sum _{i=1}^{b}\eta _{i}d_{t-i}.\,} where η η 1 , … … , η η b {\displaystyle \eta _{1},\ldots ,\eta _{b}} are the parameters of the exogenous input d t {\displaystyle d_{t}} .
+
+Some nonlinear variants of models with exogenous variables have been defined: see for example Nonlinear autoregressive exogenous model .
+
+Statistical packages implement the ARMAX model through the use of "exogenous" (that is, independent) variables. Care must be taken when interpreting the output of those packages, because the estimated parameters usually (for example, in R [ 15 ] and gretl ) refer to the regression: X t − − m t = ε ε t + ∑ ∑ i = 1 p φ φ i ( X t − − i − − m t − − i ) + ∑ ∑ i = 1 q θ θ i ε ε t − − i .
+
+{\displaystyle X_{t}-m_{t}=\varepsilon _{t}+\sum _{i=1}^{p}\varphi _{i}(X_{t-i}-m_{t-i})+\sum _{i=1}^{q}\theta _{i}\varepsilon _{t-i}.\,} where m t {\displaystyle m_{t}} incorporates all exogenous (or independent) variables: m t = c + ∑ ∑ i = 0 b η η i d t − − i .
+
+{\displaystyle m_{t}=c+\sum _{i=0}^{b}\eta _{i}d_{t-i}.\,} See also [ edit ] Autoregressive integrated moving average (ARIMA) Exponential smoothing Linear predictive coding Predictive analytics Infinite impulse response Finite impulse response This article includes a list of general references , but it lacks sufficient corresponding inline citations .
+
+Please help to improve this article by introducing more precise citations.
+
+( August 2010 ) ( Learn how and when to remove this message ) References [ edit ] ^ Box, George E. P. (1994).
+
+Time series analysis : forecasting and control . Gwilym M. Jenkins, Gregory C. Reinsel (3rd ed.). Englewood Cliffs, N.J.: Prentice Hall. p. 54.
+
+ISBN 0-13-060774-6 .
+
+OCLC 28888762 .
+
+^ Shumway, Robert H. (2000).
+
+Time series analysis and its applications . David S. Stoffer. New York: Springer. pp.
+
+90– 91.
+
+ISBN 0-387-98950-1 .
+
+OCLC 42392178 .
+
+^ Box, George E. P.; Jenkins, Gwilym M.; Reinsel, Gregory C. (1994).
+
+Time series analysis : forecasting and control (3rd ed.). Englewood Cliffs, N.J.: Prentice Hall. pp.
+
+54– 55.
+
+ISBN 0-13-060774-6 .
+
+OCLC 28888762 .
+
+^ Box, George E. P.; Jenkins, Gwilym M.; Reinsel, Gregory C.; Ljung, Greta M. (2016).
+
+Time series analysis : forecasting and control (5th ed.). Hoboken, New Jersey: John Wiley & Sons, Incorporated. p. 53.
+
+ISBN 978-1-118-67492-5 .
+
+OCLC 908107438 .
+
+^ Shumway, Robert H. (2000).
+
+Time series analysis and its applications . David S. Stoffer. New York: Springer. p. 98.
+
+ISBN 0-387-98950-1 .
+
+OCLC 42392178 .
+
+^ Box, George; Jenkins, Gwilym M.; Reinsel, Gregory C. (1994).
+
+Time Series Analysis: Forecasting and Control (Third ed.). Prentice-Hall.
+
+ISBN 0130607746 .
+
+^ Rosenblatt, Murray (2000).
+
+Gaussian and non-Gaussian linear time series and random fields . New York: Springer. p. 10.
+
+ISBN 0-387-98917-X .
+
+OCLC 42061096 .
+
+^ Wei, William W. S. (1990).
+
+Time series analysis : univariate and multivariate methods . Redwood City, Calif.: Addison-Wesley Pub. pp.
+
+242– 243.
+
+ISBN 0-201-15911-2 .
+
+OCLC 18166355 .
+
+^ Missouri State University.
+
+"Model Specification, Time Series Analysis" (PDF) .
+
+^ Brockwell, P. J.; Davis, R. A. (2009).
+
+Time Series: Theory and Methods (2nd ed.). New York: Springer. p. 273.
+
+ISBN 9781441903198 .
+
+^ Time series features in Mathematica Archived November 24, 2011, at the Wayback Machine ^ Hannan, Edward James (1970).
+
+Multiple time series . Wiley series in probability and mathematical statistics. New York: John Wiley and Sons.
+
+^ Whittle, P. (1951).
+
+Hypothesis Testing in Time Series Analysis . Almquist and Wicksell.
+
+Whittle, P. (1963).
+
+Prediction and Regulation . English Universities Press.
+
+ISBN 0-8166-1147-5 .
+
+{{ cite book }} : ISBN / Date incompatibility ( help ) Republished as: Whittle, P. (1983).
+
+Prediction and Regulation by Linear Least-Square Methods . University of Minnesota Press.
+
+ISBN 0-8166-1148-3 .
+
+^ Hannan & Deistler (1988 , p. 227): Hannan, E. J.
+
+; Deistler, Manfred (1988).
+
+Statistical theory of linear systems . Wiley series in probability and mathematical statistics. New York: John Wiley and Sons.
+
+^ ARIMA Modelling of Time Series , R documentation Further reading [ edit ] Mills, Terence C. (1990).
+
+Time Series Techniques for Economists . Cambridge University Press.
+
+ISBN 0521343399 .
+
+Percival, Donald B.; Walden, Andrew T. (1993).
+
+Spectral Analysis for Physical Applications . Cambridge University Press.
+
+ISBN 052135532X .
+
+Francq, C.; Zakoïan, J.-M. (2005), "Recent results for linear time series models with non independent innovations", in Duchesne, P.; Remillard, B. (eds.), Statistical Modeling and Analysis for Complex Data Problems , Springer, pp.
+
+241– 265, CiteSeerX 10.1.1.721.1754 .
+
+Shumway, R.H. and Stoffer, D.S. (2017).
+
+Time Series Analysis and Its Applications with R Examples . Springer. DOI: 10.1007/978-3-319-52452-8 v t e Stochastic processes Discrete time Bernoulli process Branching process Chinese restaurant process Galton–Watson process Independent and identically distributed random variables Markov chain Moran process Random walk Loop-erased Self-avoiding Biased Maximal entropy Continuous time Additive process Airy process Bessel process Birth–death process pure birth Brownian motion Bridge Dyson Excursion Fractional Geometric Meander Cauchy process Contact process Continuous-time random walk Cox process Diffusion process Empirical process Feller process Fleming–Viot process Gamma process Geometric process Hawkes process Hunt process Interacting particle systems Itô diffusion Itô process Jump diffusion Jump process Lévy process Local time Markov additive process McKean–Vlasov process Ornstein–Uhlenbeck process Poisson process Compound Non-homogeneous Quasimartingale Schramm–Loewner evolution Semimartingale Sigma-martingale Stable process Superprocess Telegraph process Variance gamma process Wiener process Wiener sausage Both Branching process Gaussian process Hidden Markov model (HMM) Markov process Martingale Differences Local Sub- Super- Random dynamical system Regenerative process Renewal process Stochastic chains with memory of variable length White noise Fields and other Dirichlet process Gaussian random field Gibbs measure Hopfield model Ising model Potts model Boolean network Markov random field Percolation Pitman–Yor process Point process Cox Determinantal Poisson Random field Random graph Time series models Autoregressive conditional heteroskedasticity (ARCH) model Autoregressive integrated moving average (ARIMA) model Autoregressive (AR) model Autoregressive–moving-average (ARMA) model Generalized autoregressive conditional heteroskedasticity (GARCH) model Moving-average (MA) model Financial models Binomial options pricing model Black–Derman–Toy Black–Karasinski Black–Scholes Chan–Karolyi–Longstaff–Sanders (CKLS) Chen Constant elasticity of variance (CEV) Cox–Ingersoll–Ross (CIR) Garman–Kohlhagen Heath–Jarrow–Morton (HJM) Heston Ho–Lee Hull–White Korn-Kreer-Lenssen LIBOR market Rendleman–Bartter SABR volatility Vašíček Wilkie Actuarial models Bühlmann Cramér–Lundberg Risk process Sparre–Anderson Queueing models Bulk Fluid Generalized queueing network M/G/1 M/M/1 M/M/c Properties Càdlàg paths Continuous Continuous paths Ergodic Exchangeable Feller-continuous Gauss–Markov Markov Mixing Piecewise-deterministic Predictable Progressively measurable Self-similar Stationary Time-reversible Limit theorems Central limit theorem Donsker's theorem Doob's martingale convergence theorems Ergodic theorem Fisher–Tippett–Gnedenko theorem Large deviation principle Law of large numbers (weak/strong) Law of the iterated logarithm Maximal ergodic theorem Sanov's theorem Zero–one laws ( Blumenthal , Borel–Cantelli , Engelbert–Schmidt , Hewitt–Savage , Kolmogorov , Lévy ) Inequalities Burkholder–Davis–Gundy Doob's martingale Doob's upcrossing Kunita–Watanabe Marcinkiewicz–Zygmund Tools Cameron–Martin formula Convergence of random variables Doléans-Dade exponential Doob decomposition theorem Doob–Meyer decomposition theorem Doob's optional stopping theorem Dynkin's formula Feynman–Kac formula Filtration Girsanov theorem Infinitesimal generator Itô integral Itô's lemma Karhunen–Loève theorem Kolmogorov continuity theorem Kolmogorov extension theorem Lévy–Prokhorov metric Malliavin calculus Martingale representation theorem Optional stopping theorem Prokhorov's theorem Quadratic variation Reflection principle Skorokhod integral Skorokhod's representation theorem Skorokhod space Snell envelope Stochastic differential equation Tanaka Stopping time Stratonovich integral Uniform integrability Usual hypotheses Wiener space Classical Abstract Disciplines Actuarial mathematics Control theory Econometrics Ergodic theory Extreme value theory (EVT) Large deviations theory Mathematical finance Mathematical statistics Probability theory Queueing theory Renewal theory Ruin theory Signal processing Statistics Stochastic analysis Time series analysis Machine learning List of topics Category v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐pjn77
+Cached time: 20250812024358
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.555 seconds
+Real time usage: 0.736 seconds
+Preprocessor visited node count: 2946/1000000
+Revision size: 18987/2097152 bytes
+Post‐expand include size: 220380/2097152 bytes
+Template argument size: 2968/2097152 bytes
+Highest expansion depth: 15/100
+Expensive parser function count: 9/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 82372/5000000 bytes
+Lua time usage: 0.313/10.000 seconds
+Lua memory usage: 7798293/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  480.952      1 -total
+ 39.18%  188.429      1 Template:Reflist
+ 29.31%  140.976     16 Template:Cite_book
+ 22.71%  109.233     12 Template:Navbox
+ 13.95%   67.090      1 Template:Stochastic_processes
+ 12.88%   61.956      1 Template:Statistics
+ 12.36%   59.443      1 Template:Navbox_with_collapsible_groups
+ 10.93%   52.552      1 Template:Short_description
+  6.82%   32.789      2 Template:Pagetype
+  6.49%   31.237      2 Template:Citation_needed Saved in parser cache with key enwiki:pcache:764848:|#|:idhash:canonical and timestamp 20250812024358 and revision id 1305034850. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Autoregressive_moving-average_model&oldid=1305034850 " Category : Autocorrelation Hidden categories: Webarchive template wayback links CS1 errors: ISBN date Articles with short description Short description matches Wikidata All articles with unsourced statements Articles with unsourced statements from April 2025 Articles with unsourced statements from November 2018 Articles lacking in-text citations from August 2010 All articles lacking in-text citations This page was last edited on 9 August 2025, at 17:29 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Autoregressive moving-average model 18 languages Add topic
+

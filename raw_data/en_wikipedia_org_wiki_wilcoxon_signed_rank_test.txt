@@ -1,0 +1,379 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 History 2 Test procedure 3 Null and alternative hypotheses Toggle Null and alternative hypotheses subsection 3.1 One-sample test 3.2 Paired data test 4 Zeros and ties Toggle Zeros and ties subsection 4.1 Zeros 4.2 Ties 5 Computing the null distribution 6 Alternative statistics 7 Example 8 Effect size 9 Software implementations 10 See also 11 References 12 External links Toggle the table of contents Wilcoxon signed-rank test 13 languages Català Deutsch Español Euskara فارسی Français 한국어 Italiano Nederlands 日本語 Polski Português Русский Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Statistical hypothesis test Not to be confused with Wilcoxon rank-sum test .
+
+The Wilcoxon signed-rank test is a non-parametric rank test for statistical hypothesis testing used either to test the location of a population based on a sample of data, or to compare the locations of two populations using two matched samples.
+
+[ 1 ] The one-sample version serves a purpose similar to that of the one-sample Student's t -test .
+
+[ 2 ] For two matched samples, it is a paired difference test like the paired Student's t -test (also known as the " t -test for matched pairs" or " t -test for dependent samples"). The Wilcoxon test is a good alternative to the t-test when the normal distribution of the differences between paired individuals cannot be assumed. Instead, it assumes a weaker hypothesis that the distribution of this difference   is symmetric  around a central value  and it aims to test whether this center value differs significantly from zero. The Wilcoxon test is a more powerful alternative to the sign test because it considers the magnitude of the differences, but it requires this moderately strong assumption of symmetry.
+
+History [ edit ] The test is named after Frank Wilcoxon (1892–1965) who, in a single paper, proposed both it and the rank-sum test for two independent samples.
+
+[ 3 ] The test was popularized by Sidney Siegel (1956) in his influential textbook on non-parametric statistics.
+
+[ 4 ] Siegel used the symbol T for the test statistic, and consequently, the test is sometimes referred to as the Wilcoxon T -test .
+
+Test procedure [ edit ] There are two variants of the signed-rank test. From a theoretical point of view, the one-sample test is more fundamental because the paired sample test is performed by converting the data to the situation of the one-sample test. However, most practical applications of the signed-rank test arise from paired data.
+
+For a paired sample test, the data consists of a sample ( X 1 , Y 1 ) , … … , ( X n , Y n ) {\displaystyle (X_{1},Y_{1}),\dots ,(X_{n},Y_{n})} . Each data point in the sample is a pair of measurements. In the simplest case, the measurements are on an interval scale . Then they may be converted to real numbers , and the paired sample test is converted to a one-sample test by replacing each pair of numbers ( X i , Y i ) {\displaystyle (X_{i},Y_{i})} by its difference X i − − Y i {\displaystyle X_{i}-Y_{i}} .
+
+[ 5 ] In general, it must be possible to rank the differences between the pairs. This requires that the data be on an ordered metric scale, a type of scale that carries more information than an ordinal scale but may have less than an interval scale.
+
+[ 6 ] The data for a one-sample test is a sample in which each observation is a real number: X 1 , … … , X n {\displaystyle X_{1},\dots ,X_{n}} . Assume for simplicity that the observations in the sample have distinct absolute values and that no observation equals zero. (Zeros and ties introduce several Complications; see below.) The test is performed as follows: [ 7 ] [ 8 ] Compute | X 1 | , … … , | X n | .
+
+{\displaystyle |X_{1}|,\dots ,|X_{n}|.} Sort | X 1 | , … … , | X n | {\displaystyle |X_{1}|,\dots ,|X_{n}|} , and use this sorted list to assign ranks R 1 , … … , R n {\displaystyle R_{1},\dots ,R_{n}} : The rank of the smallest observation is one, the rank of the next smallest is two, and so on.
+
+Let sgn {\displaystyle \operatorname {sgn} } denote the sign function : sgn ⁡ ⁡ ( x ) = 1 {\displaystyle \operatorname {sgn}(x)=1} if x > 0 {\displaystyle x>0} and sgn ⁡ ⁡ ( x ) = − − 1 {\displaystyle \operatorname {sgn}(x)=-1} if x < 0 {\displaystyle x<0} . The test statistic is the signed-rank sum T {\displaystyle T} : T = ∑ ∑ i = 1 N sgn ⁡ ⁡ ( X i ) R i .
+
+{\displaystyle T=\sum _{i=1}^{N}\operatorname {sgn}(X_{i})R_{i}.} Produce a p {\displaystyle p} -value by comparing T {\displaystyle T} to its distribution under the null hypothesis.
+
+The ranks are defined so that R i {\displaystyle R_{i}} is the number of j {\displaystyle j} for which | X j | ≤ ≤ | X i | {\displaystyle |X_{j}|\leq |X_{i}|} .  Additionally, if σ σ : { 1 , … … , n } → → { 1 , … … , n } {\displaystyle \sigma :\{1,\dots ,n\}\to \{1,\dots ,n\}} is such that | X σ σ ( 1 ) | < ⋯ ⋯ < | X σ σ ( n ) | {\displaystyle |X_{\sigma (1)}|<\dots <|X_{\sigma (n)}|} , then R σ σ ( i ) = i {\displaystyle R_{\sigma (i)}=i} for all i {\displaystyle i} .
+
+The signed-rank sum T {\displaystyle T} is closely related to two other test statistics. The positive-rank sum T + {\displaystyle T^{+}} and the negative-rank sum T − − {\displaystyle T^{-}} are defined by [ 9 ] T + = ∑ ∑ 1 ≤ ≤ i ≤ ≤ n , X i > 0 R i , T − − = ∑ ∑ 1 ≤ ≤ i ≤ ≤ n , X i < 0 R i .
+
+{\displaystyle {\begin{aligned}T^{+}&=\sum _{1\leq i\leq n,\ X_{i}>0}R_{i},\\T^{-}&=\sum _{1\leq i\leq n,\ X_{i}<0}R_{i}.\end{aligned}}} Because T + + T − − {\displaystyle T^{+}+T^{-}} equals the sum of all the ranks, which is 1 + 2 + ⋯ ⋯ + n = n ( n + 1 ) / 2 {\displaystyle 1+2+\dots +n=n(n+1)/2} , these three statistics are related by: [ 9 ] T + = n ( n + 1 ) 2 − − T − − = n ( n + 1 ) 4 + T 2 , T − − = n ( n + 1 ) 2 − − T + = n ( n + 1 ) 4 − − T 2 , T = T + − − T − − = 2 T + − − n ( n + 1 ) 2 = n ( n + 1 ) 2 − − 2 T − − .
+
+{\displaystyle {\begin{aligned}T^{+}&={\frac {n(n+1)}{2}}-T^{-}={\frac {n(n+1)}{4}}+{\frac {T}{2}},\\T^{-}&={\frac {n(n+1)}{2}}-T^{+}={\frac {n(n+1)}{4}}-{\frac {T}{2}},\\T&=T^{+}-T^{-}=2T^{+}-{\frac {n(n+1)}{2}}={\frac {n(n+1)}{2}}-2T^{-}.\end{aligned}}} Because T {\displaystyle T} , T + {\displaystyle T^{+}} , and T − − {\displaystyle T^{-}} carry the same information, any of them may be used as the test statistic.
+
+The positive-rank sum and negative-rank sum have alternative interpretations that are useful for the theory behind the test. Define the Walsh average W i j {\displaystyle W_{ij}} to be 1 2 ( X i + X j ) {\displaystyle {\tfrac {1}{2}}(X_{i}+X_{j})} . Then: [ 10 ] T + = # # { W i j > 0 : : 1 ≤ ≤ i ≤ ≤ j ≤ ≤ n } , T − − = # # { W i j < 0 : : 1 ≤ ≤ i ≤ ≤ j ≤ ≤ n } .
+
+{\displaystyle {\begin{aligned}T^{+}=\#\{W_{ij}>0\colon 1\leq i\leq j\leq n\},\\T^{-}=\#\{W_{ij}<0\colon 1\leq i\leq j\leq n\}.\end{aligned}}} Null and alternative hypotheses [ edit ] One-sample test [ edit ] The one-sample Wilcoxon signed-rank test can be used to test whether data comes from a symmetric population with a specified center (which corresponds to median , mean and pseudomedian ).
+
+[ 11 ] If the population center is known, then it can be used to test whether data is symmetric about its center.
+
+[ 12 ] To explain the null and alternative hypotheses formally, assume that the data consists of independent and identically distributed samples from a distribution F {\displaystyle F} . If F {\displaystyle F} can be assumed symmetric, then the null and alternative hypotheses are the following: [ 13 ] Null hypothesis H 0 F {\displaystyle F} is symmetric about μ μ = 0 {\displaystyle \mu =0} .
+
+One-sided alternative hypothesis H 1 F {\displaystyle F} is symmetric about μ μ < 0 {\displaystyle \mu <0} .
+
+One-sided alternative hypothesis H 2 F {\displaystyle F} is symmetric about μ μ > 0 {\displaystyle \mu >0} .
+
+Two-sided alternative hypothesis H 3 F {\displaystyle F} is symmetric about μ μ ≠ ≠ 0 {\displaystyle \mu \neq 0} .
+
+If in addition Pr ( X = μ μ ) = 0 {\displaystyle \Pr(X=\mu )=0} , then μ μ {\displaystyle \mu } is a median of F {\displaystyle F} . If this median is unique, then the Wilcoxon signed-rank sum test becomes a test for the location of the median.
+
+[ 14 ] When the mean of F {\displaystyle F} is defined, then the mean is μ μ {\displaystyle \mu } , and the test is also a test for the location of the mean.
+
+[ 7 ] The restriction that the alternative distribution is symmetric is highly restrictive, but for one-sided tests it can be weakened. Say that F {\displaystyle F} is stochastically smaller than a distribution symmetric about zero if an F {\displaystyle F} -distributed random variable X {\displaystyle X} satisfies Pr ( X < − − x ) ≥ ≥ Pr ( X > x ) {\displaystyle \Pr(X<-x)\geq \Pr(X>x)} for all x ≥ ≥ 0 {\displaystyle x\geq 0} . Similarly, F {\displaystyle F} is stochastically larger than a distribution symmetric about zero if Pr ( X < − − x ) ≤ ≤ Pr ( X > x ) {\displaystyle \Pr(X<-x)\leq \Pr(X>x)} for all x ≥ ≥ 0 {\displaystyle x\geq 0} . Then the Wilcoxon signed-rank sum test can also be used for the following null and alternative hypotheses: [ 15 ] [ 16 ] Null hypothesis H 0 F {\displaystyle F} is symmetric about μ μ = 0 {\displaystyle \mu =0} .
+
+One-sided alternative hypothesis H 1 F {\displaystyle F} is stochastically smaller than a distribution symmetric about zero.
+
+One-sided alternative hypothesis H 2 F {\displaystyle F} is stochastically larger than a distribution symmetric about zero.
+
+The hypothesis that the data are IID can be weakened. Each data point may be taken from a different distribution, as long as all the distributions are assumed to be continuous and symmetric about a common point μ μ 0 {\displaystyle \mu _{0}} . The data points are not required to be independent as long as the conditional distribution of each observation given the others is symmetric about μ μ 0 {\displaystyle \mu _{0}} .
+
+[ 17 ] Paired data test [ edit ] Because the paired data test arises from taking paired differences, its null and alternative hypotheses can be derived from those of the one-sample test. In each case, they become assertions about the behavior of the differences X i − − Y i {\displaystyle X_{i}-Y_{i}} .
+
+Let F ( x , y ) {\displaystyle F(x,y)} be the joint cumulative distribution of the pairs ( X i , Y i ) {\displaystyle (X_{i},Y_{i})} . In this case, the null and alternative hypotheses are: [ 18 ] [ 19 ] Null hypothesis H 0 The observations X i − − Y i {\displaystyle X_{i}-Y_{i}} are symmetric about μ μ = 0 {\displaystyle \mu =0} .
+
+One-sided alternative hypothesis H 1 The observations X i − − Y i {\displaystyle X_{i}-Y_{i}} are symmetric about μ μ < 0 {\displaystyle \mu <0} .
+
+One-sided alternative hypothesis H 2 The observations X i − − Y i {\displaystyle X_{i}-Y_{i}} are symmetric about μ μ > 0 {\displaystyle \mu >0} .
+
+Two-sided alternative hypothesis H 3 The observations X i − − Y i {\displaystyle X_{i}-Y_{i}} are symmetric about μ μ ≠ ≠ 0 {\displaystyle \mu \neq 0} .
+
+These can also be expressed more directly in terms of the original pairs: [ 20 ] Null hypothesis H 0 The observations ( X i , Y i ) {\displaystyle (X_{i},Y_{i})} are exchangeable , meaning that ( X i , Y i ) {\displaystyle (X_{i},Y_{i})} and ( Y i , X i ) {\displaystyle (Y_{i},X_{i})} have the same distribution. Equivalently, F ( x , y ) = F ( y , x ) {\displaystyle F(x,y)=F(y,x)} .
+
+One-sided alternative hypothesis H 1 For some μ μ < 0 {\displaystyle \mu <0} , the pairs ( X i , Y i ) {\displaystyle (X_{i},Y_{i})} and ( Y i + μ μ , X i − − μ μ ) {\displaystyle (Y_{i}+\mu ,X_{i}-\mu )} have the same distribution.
+
+One-sided alternative hypothesis H 2 For some μ μ > 0 {\displaystyle \mu >0} , the pairs ( X i , Y i ) {\displaystyle (X_{i},Y_{i})} and ( Y i + μ μ , X i − − μ μ ) {\displaystyle (Y_{i}+\mu ,X_{i}-\mu )} have the same distribution.
+
+Two-sided alternative hypothesis H 3 For some μ μ ≠ ≠ 0 {\displaystyle \mu \neq 0} , the pairs ( X i , Y i ) {\displaystyle (X_{i},Y_{i})} and ( Y i + μ μ , X i − − μ μ ) {\displaystyle (Y_{i}+\mu ,X_{i}-\mu )} have the same distribution.
+
+The null hypothesis of exchangeability can arise from a matched pair experiment with a treatment group and a control group. Randomizing the treatment and control within each pair makes the observations exchangeable. For an exchangeable distribution, X i − − Y i {\displaystyle X_{i}-Y_{i}} has the same distribution as Y i − − X i {\displaystyle Y_{i}-X_{i}} , and therefore, under the null hypothesis, the distribution is symmetric about zero.
+
+[ 20 ] Because the one-sample test can be used as a one-sided test for stochastic dominance, the paired difference Wilcoxon test can be used to compare the following hypotheses: [ 16 ] Null hypothesis H 0 The observations ( X i , Y i ) {\displaystyle (X_{i},Y_{i})} are exchangeable.
+
+One-sided alternative hypothesis H 1 The differences X i − − Y i {\displaystyle X_{i}-Y_{i}} are stochastically smaller than a distribution symmetric about zero, that is, for every x ≥ ≥ 0 {\displaystyle x\geq 0} , Pr ( X i < Y i − − x ) ≥ ≥ Pr ( X i > Y i + x ) {\displaystyle \Pr(X_{i}<Y_{i}-x)\geq \Pr(X_{i}>Y_{i}+x)} .
+
+One-sided alternative hypothesis H 2 The differences X i − − Y i {\displaystyle X_{i}-Y_{i}} are stochastically larger than a distribution symmetric about zero, that is, for every x ≥ ≥ 0 {\displaystyle x\geq 0} , Pr ( X i < Y i − − x ) ≤ ≤ Pr ( X i > Y i + x ) {\displaystyle \Pr(X_{i}<Y_{i}-x)\leq \Pr(X_{i}>Y_{i}+x)} .
+
+Zeros and ties [ edit ] In real data, it sometimes happens that there is an observation X i {\displaystyle X_{i}} in the sample which equals zero or a pair ( X i , Y i ) {\displaystyle (X_{i},Y_{i})} with X i = Y i {\displaystyle X_{i}=Y_{i}} . It can also happen that there are tied observations. This means that for some i ≠ ≠ j {\displaystyle i\neq j} , we have X i = X j {\displaystyle X_{i}=X_{j}} (in the one-sample case) or X i − − Y i = X j − − Y j {\displaystyle X_{i}-Y_{i}=X_{j}-Y_{j}} (in the paired sample case). This is particularly common for discrete data. When this happens, the test procedure defined above is usually undefined because there is no way to uniquely rank the data. (The sole exception is if there is a single observation X i {\displaystyle X_{i}} which is zero and no other zeros or ties.) Because of this, the test statistic needs to be modified.
+
+Zeros [ edit ] Wilcoxon's original paper did not address the question of observations (or, in the paired sample case, differences) that equal zero. However, in later surveys, he recommended removing zeros from the sample.
+
+[ 21 ] Then the standard signed-rank test could be applied to the resulting data, as long as there were no ties. This is now called the reduced sample procedure.
+
+Pratt [ 22 ] observed that the reduced sample procedure can lead to paradoxical behavior. He gives the following example. Suppose that we are in the one-sample situation and have the following thirteen observations: 0, 2, 3, 4, 6, 7, 8, 9, 11, 14, 15, 17, −18.
+
+The reduced sample procedure removes the zero. To the remaining data, it assigns the signed ranks: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, −12.
+
+This has a one-sided p -value of 55 / 2 12 {\displaystyle 55/2^{12}} , and therefore the sample is not significantly positive at any significance level α α < 55 / 2 12 ≈ ≈ 0.0134 {\displaystyle \alpha <55/2^{12}\approx 0.0134} . Pratt argues that one would expect that decreasing the observations should certainly not make the data appear more positive. However, if the zero observation is decreased by an amount less than 2, or if all observations are decreased by an amount less than 1, then the signed ranks become: −1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, −13.
+
+This has a one-sided p -value of 109 / 2 13 {\displaystyle 109/2^{13}} . Therefore the sample would be judged significantly positive at any significance level α α > 109 / 2 13 ≈ ≈ 0.0133 {\displaystyle \alpha >109/2^{13}\approx 0.0133} . The paradox is that, if α α {\displaystyle \alpha } is between 109 / 2 13 {\displaystyle 109/2^{13}} and 55 / 2 12 {\displaystyle 55/2^{12}} , then decreasing an insignificant sample causes it to appear significantly positive .
+
+Pratt therefore proposed the signed-rank zero procedure.
+
+This procedure includes the zeros when ranking the observations in the sample. However, it excludes them from the test statistic, or equivalently it defines sgn ⁡ ⁡ ( 0 ) = 0 {\displaystyle \operatorname {sgn}(0)=0} . Pratt proved that the signed-rank zero procedure has several desirable behaviors not shared by the reduced sample procedure: [ 23 ] Increasing the observed values does not make a significantly positive sample insignificant, and it does not make an insignificant sample significantly negative.
+
+If the distribution of the observations is symmetric, then the values of μ μ {\displaystyle \mu } which the test does not reject form an interval.
+
+A sample is significantly positive, not significant, or significantly negative, if and only if it is so when the zeros are assigned arbitrary non-zero signs, if and only if it is so when the zeros are replaced with non-zero values which are smaller in absolute value than any non-zero observation.
+
+For a fixed significance threshold α α {\displaystyle \alpha } , and for a test which is randomized to have level exactly α α {\displaystyle \alpha } , the probability of calling a set of observations significantly positive (respectively, significantly negative) is a non-decreasing (respectively, non-increasing) function of the observations.
+
+Pratt remarks that, when the signed-rank zero procedure is combined with the average rank procedure for resolving ties, the resulting test is a consistent test against the alternative hypothesis that, for all i ≠ ≠ j {\displaystyle i\neq j} , Pr ( X i + X j > 0 ) {\displaystyle \Pr(X_{i}+X_{j}>0)} and Pr ( X i + X j < 0 ) {\displaystyle \Pr(X_{i}+X_{j}<0)} differ by at least a fixed constant that is independent of i {\displaystyle i} and j {\displaystyle j} .
+
+[ 24 ] The signed-rank zero procedure has the disadvantage that, when zeros occur, the null distribution of the test statistic changes, so tables of p -values can no longer be used.
+
+When the data is on a Likert scale with equally spaced categories, the signed-rank zero procedure is more likely to maintain the Type I error rate than the reduced sample procedure.
+
+[ 25 ] From the viewpoint of statistical efficiency, there is no perfect rule for handling zeros. Conover found examples of null and alternative hypotheses that show that neither Wilcoxon's and Pratt's methods are uniformly better than the other. When comparing a discrete uniform distribution to a distribution where probabilities linearly increase from left to right, Pratt's method outperforms Wilcoxon's. When testing a binomial distribution centered at zero to see whether the parameter of each Bernoulli trial is 1 2 {\displaystyle {\tfrac {1}{2}}} , Wilcoxon's method outperforms Pratt's.
+
+[ 26 ] Ties [ edit ] When the data does not have ties, the ranks R i {\displaystyle R_{i}} are used to calculate the test statistic. In the presence of ties, the ranks are not defined. There are two main approaches to resolving this.
+
+The most common procedure for handling ties, and the one originally recommended by Wilcoxon, is called the average rank or midrank procedure.
+
+This procedure assigns numbers between 1 and n to the observations, with two observations getting the same number if and only if they have the same absolute value. These numbers are conventionally called ranks even though the set of these numbers is not equal to { 1 , … … , n } {\displaystyle \{1,\dots ,n\}} (except when there are no ties). The rank assigned to an observation is the average of the possible ranks it would have if the ties were broken in all possible ways. Once the ranks are assigned, the test statistic is computed in the same way as usual.
+
+[ 27 ] [ 28 ] For example, suppose that the observations satisfy | X 3 | < | X 2 | = | X 5 | < | X 6 | < | X 1 | = | X 4 | = | X 7 | .
+
+{\displaystyle |X_{3}|<|X_{2}|=|X_{5}|<|X_{6}|<|X_{1}|=|X_{4}|=|X_{7}|.} In this case, X 3 {\displaystyle X_{3}} is assigned rank 1, X 2 {\displaystyle X_{2}} and X 5 {\displaystyle X_{5}} are assigned rank ( 2 + 3 ) / 2 = 2.5 {\displaystyle (2+3)/2=2.5} , X 6 {\displaystyle X_{6}} is assigned rank 4, and X 1 {\displaystyle X_{1}} , X 4 {\displaystyle X_{4}} , and X 7 {\displaystyle X_{7}} are assigned rank ( 5 + 6 + 7 ) / 3 = 6 {\displaystyle (5+6+7)/3=6} . Formally, suppose that there is a set of observations all having the same absolute value v {\displaystyle v} , that k − − 1 {\displaystyle k-1} observations have absolute value less than v {\displaystyle v} , and that ℓ ℓ {\displaystyle \ell } observations have absolute value less than or equal to v {\displaystyle v} . If the ties among the observations with absolute value v {\displaystyle v} were broken, then these observations would occupy ranks k {\displaystyle k} through ℓ ℓ {\displaystyle \ell } . The average rank procedure therefore assigns them the rank ( k + ℓ ℓ ) / 2 {\displaystyle (k+\ell )/2} .
+
+Under the average rank procedure, the null distribution is different in the presence of ties.
+
+[ 29 ] [ 30 ] The average rank procedure also has some disadvantages that are similar to those of the reduced sample procedure for zeros. It is possible that a sample can be judged significantly positive by the average rank procedure; but increasing some of the values so as to break the ties, or breaking the ties in any way whatsoever, results in a sample that the test judges to be not significant.
+
+[ 31 ] [ 32 ] However, increasing all the observed values by the same amount cannot turn a significantly positive result into an insignificant one, nor an insignificant one into a significantly negative one. Furthermore, if the observations are distributed symmetrically, then the values of μ μ {\displaystyle \mu } which the test does not reject form an interval.
+
+[ 33 ] [ 34 ] The other common option for handling ties is a tiebreaking procedure. In a tiebreaking procedure, the observations are assigned distinct ranks in the set { 1 , … … , n } {\displaystyle \{1,\dots ,n\}} . The rank assigned to an observation depends on its absolute value and the tiebreaking rule. Observations with smaller absolute values are always given smaller ranks, just as in the standard rank-sum test. The tiebreaking rule is used to assign ranks to observations with the same absolute value. One advantage of tiebreaking rules is that they allow the use of standard tables for computing p -values.
+
+[ 35 ] Random tiebreaking breaks the ties at random. Under random tiebreaking, the null distribution is the same as when there are no ties, but the result of the test depends not only on the data but on additional random choices. Averaging the ranks over the possible random choices results in the average rank procedure.
+
+[ 31 ] One could also report the probability of rejection over all random choices.
+
+[ 36 ] Random tiebreaking has the advantage that the probability that a sample is judged significantly positive does not decrease when some observations are increased.
+
+[ 37 ] Conservative tiebreaking breaks the ties in favor of the null hypothesis. When performing a one-sided test in which negative values of T {\displaystyle T} tend to be more significant, ties are broken by assigning lower ranks to negative observations and higher ranks to positive ones. When the test makes positive values of T {\displaystyle T} significant, ties are broken the other way, and when large absolute values of T {\displaystyle T} are significant, ties are broken so as to make | T | {\displaystyle |T|} as small as possible. Pratt observes that when ties are likely, the conservative tiebreaking procedure "presumably has low power, since it amounts to breaking all ties in favor of the null hypothesis." [ 38 ] The average rank procedure can disagree with tiebreaking procedures. Pratt gives the following example.
+
+[ 31 ] Suppose that the observations are: 1, 1, 1, 1, 2, 3, −4.
+
+The average rank procedure assigns these the signed ranks 2.5, 2.5, 2.5, 2.5, 5, 6, −7.
+
+This sample is significantly positive at the one-sided level α α = 14 / 2 7 {\displaystyle \alpha =14/2^{7}} . On the other hand, any tiebreaking rule will assign the ranks 1, 2, 3, 4, 5, 6, −7.
+
+At the same one-sided level α α = 14 / 2 7 {\displaystyle \alpha =14/2^{7}} , this is not significant.
+
+Two other options for handling ties are based around averaging the results of tiebreaking. In the average statistic method, the test statistic T {\displaystyle T} is computed for every possible way of breaking ties, and the final statistic is the mean of the tie-broken statistics.  In the average probability method, the p -value is computed for every possible way of breaking ties, and the final p -value is the mean of the tie-broken p -values.
+
+[ 39 ] Computing the null distribution [ edit ] Computing p -values requires knowing the distribution of T {\displaystyle T} under the null hypothesis. There is no closed formula for this distribution.
+
+[ 40 ] However, for small values of n {\displaystyle n} , the distribution may be computed exactly. Under the null hypothesis that the data is symmetric about zero, each X i {\displaystyle X_{i}} is exactly as likely to be positive as it is negative. Therefore the probability that T = t {\displaystyle T=t} under the null hypothesis is equal to the number of sign combinations that yield T = t {\displaystyle T=t} divided by the number of possible sign combinations 2 n {\displaystyle 2^{n}} . This can be used to compute the exact distribution of T {\displaystyle T} under the null hypothesis.
+
+[ 41 ] Computing the distribution of T {\displaystyle T} by considering all possibilities requires computing 2 n {\displaystyle 2^{n}} sums, which is intractable for all but the smallest n {\displaystyle n} . However, there is an efficient recursion for the distribution of T + {\displaystyle T^{+}} .
+
+[ 42 ] [ 43 ] Define u n ( t + ) {\displaystyle u_{n}(t^{+})} to be the number of sign combinations for which T + = t + {\displaystyle T^{+}=t^{+}} . This is equal to the number of subsets of { 1 , … … , n } {\displaystyle \{1,\dots ,n\}} which sum to t + {\displaystyle t^{+}} . The base cases of the recursion are u 0 ( 0 ) = 1 {\displaystyle u_{0}(0)=1} , u 0 ( t + ) = 0 {\displaystyle u_{0}(t^{+})=0} for all t + ≠ ≠ 0 {\displaystyle t^{+}\neq 0} , and u n ( t + ) = 0 {\displaystyle u_{n}(t^{+})=0} for all t < 0 {\displaystyle t<0} or t > n ( n + 1 ) / 2 {\displaystyle t>n(n+1)/2} . The recursive formula is u n ( t + ) = u n − − 1 ( t + ) + u n − − 1 ( t + − − n ) .
+
+{\displaystyle u_{n}(t^{+})=u_{n-1}(t^{+})+u_{n-1}(t^{+}-n).} The formula is true because every subset of { 1 , … … , n } {\displaystyle \{1,\dots ,n\}} which sums to t + {\displaystyle t^{+}} either does not contain n {\displaystyle n} , in which case it is also a subset of { 1 , … … , n − − 1 } {\displaystyle \{1,\dots ,n-1\}} , or it does contain n {\displaystyle n} , in which case removing n {\displaystyle n} from the subset produces a subset of { 1 , … … , n − − 1 } {\displaystyle \{1,\dots ,n-1\}} which sums to t + − − n {\displaystyle t^{+}-n} . Under the null hypothesis, the probability mass function of T + {\displaystyle T^{+}} satisfies Pr ( T + = t + ) = u n ( t + ) / 2 n {\displaystyle \Pr(T^{+}=t^{+})=u_{n}(t^{+})/2^{n}} . The function u n {\displaystyle u_{n}} is closely related to the integer partition function .
+
+[ 44 ] If p n ( t + ) {\displaystyle p_{n}(t^{+})} is the probability that T + = t + {\displaystyle T^{+}=t^{+}} under the null hypothesis when there are n {\displaystyle n} observations in the sample, then p n ( t + ) {\displaystyle p_{n}(t^{+})} satisfies a similar recursion: [ 44 ] 2 p n ( t + ) = p n − − 1 ( t + ) + p n − − 1 ( t + − − n ) {\displaystyle 2p_{n}(t^{+})=p_{n-1}(t^{+})+p_{n-1}(t^{+}-n)} with similar boundary conditions. There is also a recursive formula for the cumulative distribution function Pr ( T + ≤ ≤ t + ) {\displaystyle \Pr(T^{+}\leq t^{+})} .
+
+[ 44 ] For very large n {\displaystyle n} , even the above recursion is too slow. In this case, the null distribution can be approximated. The null distributions of T {\displaystyle T} , T + {\displaystyle T^{+}} , and T − − {\displaystyle T^{-}} are asymptotically normal with means and variances: [ 45 ] E [ T + ] = E [ T − − ] = n ( n + 1 ) 4 , E [ T ] = 0 , Var ⁡ ⁡ ( T + ) = Var ⁡ ⁡ ( T − − ) = n ( n + 1 ) ( 2 n + 1 ) 24 , Var ⁡ ⁡ ( T ) = n ( n + 1 ) ( 2 n + 1 ) 6 .
+
+{\displaystyle {\begin{aligned}\mathbf {E} [T^{+}]&=\mathbf {E} [T^{-}]={\frac {n(n+1)}{4}},\\\mathbf {E} [T]&=0,\\\operatorname {Var} (T^{+})&=\operatorname {Var} (T^{-})={\frac {n(n+1)(2n+1)}{24}},\\\operatorname {Var} (T)&={\frac {n(n+1)(2n+1)}{6}}.\end{aligned}}} Better approximations can be produced using Edgeworth expansions. Using a fourth-order Edgeworth expansion shows that: [ 46 ] [ 47 ] Pr ( T + ≤ ≤ k ) ≈ ≈ Φ Φ ( t ) + ϕ ϕ ( t ) ( 3 n 2 + 3 n − − 1 10 n ( n + 1 ) ( 2 n + 1 ) ) ( t 3 − − 3 t ) , {\displaystyle \Pr(T^{+}\leq k)\approx \Phi (t)+\phi (t){\Big (}{\frac {3n^{2}+3n-1}{10n(n+1)(2n+1)}}{\Big )}(t^{3}-3t),} where t = k + 1 2 − − n ( n + 1 ) 4 n ( n + 1 ) ( 2 n + 1 ) 24 .
+
+{\displaystyle t={\frac {k+{\tfrac {1}{2}}-{\frac {n(n+1)}{4}}}{\sqrt {\frac {n(n+1)(2n+1)}{24}}}}.} The technical underpinnings of these expansions are rather involved, because conventional Edgeworth expansions apply to sums of IID continuous random variables, while T + {\displaystyle T^{+}} is a sum of non-identically distributed discrete random variables. The final result, however, is that the above expansion has an error of O ( n − − 3 / 2 ) {\displaystyle O(n^{-3/2})} , just like a conventional fourth-order Edgeworth expansion.
+
+[ 46 ] The moment generating function of T {\displaystyle T} has the exact formula: [ 48 ] M ( t ) = 1 2 n ∏ ∏ j = 1 n ( 1 + e j t ) .
+
+{\displaystyle M(t)={\frac {1}{2^{n}}}\prod _{j=1}^{n}(1+e^{jt}).} When zeros are present and the signed-rank zero procedure is used, or when ties are present and the average rank procedure is used, the null distribution of T {\displaystyle T} changes. Cureton derived a normal approximation for this situation.
+
+[ 49 ] [ 50 ] Suppose that the original number of observations was n {\displaystyle n} and the number of zeros was z {\displaystyle z} . The tie correction is c = ∑ ∑ t 3 − − t , {\displaystyle c=\sum t^{3}-t,} where the sum is over all the sizes t {\displaystyle t} of each group of tied observations. The expectation of T {\displaystyle T} is still zero, while the expectation of T + {\displaystyle T^{+}} is E [ T + ] = n ( n + 1 ) 4 − − z ( z + 1 ) 4 .
+
+{\displaystyle \mathbf {E} [T^{+}]={\frac {n(n+1)}{4}}-{\frac {z(z+1)}{4}}.} If σ σ 2 = n ( n + 1 ) ( 2 n + 1 ) − − z ( z + 1 ) ( 2 z + 1 ) − − c / 2 6 , {\displaystyle \sigma ^{2}={\frac {n(n+1)(2n+1)-z(z+1)(2z+1)-c/2}{6}},} then Var ⁡ ⁡ ( T ) = σ σ 2 , Var ⁡ ⁡ ( T + ) = σ σ 2 / 4.
+
+{\displaystyle {\begin{aligned}\operatorname {Var} (T)&=\sigma ^{2},\\\operatorname {Var} (T^{+})&=\sigma ^{2}/4.\end{aligned}}} Alternative statistics [ edit ] Wilcoxon [ 51 ] originally defined the Wilcoxon rank-sum statistic to be min ( T + , T − − ) {\displaystyle \min(T^{+},T^{-})} . Early authors such as Siegel [ 6 ] followed Wilcoxon. This is appropriate for two-sided hypothesis tests, but it cannot be used for one-sided tests.
+
+Instead of assigning ranks between 1 and n , it is also possible to assign ranks between 0 and n − − 1 {\displaystyle n-1} . These are called modified ranks .
+
+[ 52 ] The modified signed-rank sum T 0 {\displaystyle T_{0}} , the modified positive-rank sum T 0 + {\displaystyle T_{0}^{+}} , and the modified negative-rank sum T 0 − − {\displaystyle T_{0}^{-}} are defined analogously to T {\displaystyle T} , T + {\displaystyle T^{+}} , and T − − {\displaystyle T^{-}} but with the modified ranks in place of the ordinary ranks. The probability that the sum of two independent F {\displaystyle F} -distributed random variables is positive can be estimated as 2 T 0 + / ( n ( n − − 1 ) ) {\displaystyle 2T_{0}^{+}/(n(n-1))} .
+
+[ 53 ] When consideration is restricted to continuous distributions, this is a minimum variance unbiased estimator of p 2 {\displaystyle p_{2}} .
+
+[ 54 ] Example [ edit ] i {\displaystyle i} x 2 , i {\displaystyle x_{2,i}} x 1 , i {\displaystyle x_{1,i}} x 2 , i − − x 1 , i {\displaystyle x_{2,i}-x_{1,i}} sgn {\displaystyle \operatorname {sgn} } abs {\displaystyle \operatorname {abs} } 1 125 110 1 15 2 115 122 –1 7 3 130 125 1 5 4 140 120 1 20 5 140 140 0 6 115 124 –1 9 7 140 123 1 17 8 125 137 –1 12 9 140 135 1 5 10 135 145 –1 10 order by absolute difference i {\displaystyle i} x 2 , i {\displaystyle x_{2,i}} x 1 , i {\displaystyle x_{1,i}} x 2 , i − − x 1 , i {\displaystyle x_{2,i}-x_{1,i}} sgn {\displaystyle \operatorname {sgn} } abs {\displaystyle {\text{abs}}} R i {\displaystyle R_{i}} sgn ⋅ ⋅ R i {\displaystyle \operatorname {sgn} \cdot R_{i}} 5 140 140 0 3 130 125 1 5 1.5 1.5 9 140 135 1 5 1.5 1.5 2 115 122 –1 7 3 –3 6 115 124 –1 9 4 –4 10 135 145 –1 10 5 –5 8 125 137 –1 12 6 –6 1 125 110 1 15 7 7 7 140 123 1 17 8 8 4 140 120 1 20 9 9 sgn {\displaystyle \operatorname {sgn} } is the sign function , abs {\displaystyle \operatorname {abs} } is the absolute value , and R i {\displaystyle R_{i}} is the rank . Notice that pairs 3 and 9 are tied in absolute value. They would be ranked 1 and 2, so each gets the average of those ranks, 1.5.
+
+W = 1.5 + 1.5 − − 3 − − 4 − − 5 − − 6 + 7 + 8 + 9 = 9 {\displaystyle W=1.5+1.5-3-4-5-6+7+8+9=9} | W | < W crit ⁡ ⁡ ( α α = 0.05 , 9 , two-sided ) = 15 {\displaystyle |W|<W_{\operatorname {crit} (\alpha =0.05,\ 9{\text{, two-sided}})}=15} ∴ ∴ failed to reject H 0 {\displaystyle \therefore {\text{failed to reject }}H_{0}} that the median of pairwise differences is different from zero.
+
+The p {\displaystyle p} -value for this result is 0.6113 {\displaystyle 0.6113} Effect size [ edit ] Main article: Mann–Whitney_U_test § Rank-biserial_correlation To compute an effect size for the signed-rank test, one can use the rank-biserial correlation .
+
+If the test statistic T is reported, the rank correlation r is equal to the test statistic T divided by the total rank sum S , or r = T / S .
+
+[ 55 ] Using the above example, the test statistic is T = 9. The sample size of 9 has a total rank sum of S = (1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9) = 45. Hence, the rank correlation is 9/45, so r = 0.20.
+
+If the test statistic T is reported, an equivalent way to compute the rank correlation is with the difference in proportion between the two rank sums, which is the Kerby (2014) simple difference formula.
+
+[ 55 ] To continue with the current example, the sample size is 9, so the total rank sum is 45.
+
+T is the smaller of the two rank sums, so T is 3 + 4 + 5 + 6 = 18. From this information alone, the remaining rank sum can be computed, because it is the total sum S minus T , or in this case 45 − 18 = 27. Next, the two rank-sum proportions are 27/45 = 60% and 18/45 = 40%. Finally, the rank correlation is the difference between the two proportions (.60 minus .40), hence r = .20.
+
+Software implementations [ edit ] R includes an implementation of the test as wilcox.test ( x , y , paired = TRUE ) , where x and y are vectors of equal length.
+
+[ 56 ] ALGLIB includes implementation of the Wilcoxon signed-rank test in C++, C#, Delphi, Visual Basic, etc.
+
+GNU Octave implements various one-tailed and two-tailed versions of the test in the wilcoxon_test function.
+
+SciPy includes an implementation of the Wilcoxon signed-rank test in Python.
+
+Accord.NET includes an implementation of the Wilcoxon signed-rank test in C# for .NET applications.
+
+MATLAB implements this test using "Wilcoxon rank sum test" as [p,h] = signrank(x,y) also returns a logical value indicating the test decision. The result h = 1 indicates a rejection of the null hypothesis, and h = 0 indicates a failure to reject the null hypothesis at the 5% significance level.
+
+Julia HypothesisTests package includes the Wilcoxon signed-rank test as value(SignedRankTest(x, y)) .
+
+SAS PROC UNIVARIATE includes the Wilcoxon-Signed Rank Test in the frame titles "Tests for Location" as "Signed Rank". Even though this procedure calculates an S-Statistic rather than a W-Statistic, the resulting p-value can still be used for this test.
+
+[ 57 ] Also SAS with PROC NPAR1WAY contains many non-parametric test and also sports exact test using a bayesian mcmc approach.
+
+SAS Documentation See also [ edit ] Mann–Whitney–Wilcoxon test Sign test References [ edit ] ^ Conover, W. J. (1999).
+
+Practical nonparametric statistics (3rd ed.). John Wiley & Sons, Inc.
+
+ISBN 0-471-16068-7 .
+
+, p. 350 ^ McDonald, John H.
+
+"Wilcoxon signed-rank test – Handbook of Biological Statistics" .
+
+www.biostathandbook.com . Retrieved 2021-09-02 .
+
+^ Wilcoxon, Frank (Dec 1945).
+
+"Individual comparisons by ranking methods" (PDF) .
+
+Biometrics Bulletin .
+
+1 (6): 80– 83.
+
+doi : 10.2307/3001968 .
+
+hdl : 10338.dmlcz/135688 .
+
+JSTOR 3001968 .
+
+^ Siegel, Sidney (2007) [1956].
+
+Non-parametric statistics for the behavioral sciences . New York: McGraw-Hill. pp.
+
+75– 83.
+
+ISBN 9780070573482 .
+
+^ Conover, p. 352 ^ a b Siegel, p. 76 ^ a b Conover, p. 353 ^ Pratt, John W.; Gibbons, Jean D. (1981).
+
+Concepts of Nonparametric Theory . Springer-Verlag.
+
+ISBN 978-1-4612-5933-6 .
+
+, p. 148 ^ a b Pratt and Gibbons, p. 148 ^ Pratt and Gibbons, p. 150 ^ Conover, pp. 352–357 ^ Hettmansperger, Thomas P. (1984).
+
+Statistical Inference Based on Ranks . John Wiley & Sons.
+
+ISBN 0-471-88474-X .
+
+, pp. 32, 50 ^ Pratt and Gibbons, pp. 146–147 ^ Hettmansperger, pp. 30–31 ^ Pratt and Gibbons, pp. 155–156 ^ a b Hettmansperger, pp. 49–50 ^ Pratt and Gibbons, p. 155 ^ Conover, p. 354 ^ Hollander, Myles ; Wolfe, Douglas A.; Chicken, Eric (2014).
+
+Nonparametric Statistical Methods (Third ed.). John Wiley & Sons, Inc.
+
+ISBN 978-0-470-38737-5 .
+
+, pp. 39–41 ^ a b Pratt and Gibbons, p. 147 ^ Wilcoxon, Frank (1949).
+
+Some Rapid Approximate Statistical Procedures . American Cynamic Co.
+
+^ Pratt, J. (1959). "Remarks on zeros and ties in the Wilcoxon signed rank procedures".
+
+Journal of the American Statistical Association .
+
+54 (287): 655– 667.
+
+doi : 10.1080/01621459.1959.10501526 .
+
+^ Pratt, p. 659 ^ Pratt, p. 663 ^ Derrick, B; White, P (2017). "Comparing Two Samples from an Individual Likert Question".
+
+International Journal of Mathematics and Statistics .
+
+18 (3): 1– 13.
+
+^ Conover, William Jay (1973). "On Methods of Handling Ties in the Wilcoxon Signed-Rank Test".
+
+Journal of the American Statistical Association .
+
+68 (344): 985– 988.
+
+doi : 10.1080/01621459.1973.10481460 .
+
+^ Pratt and Gibbons, p. 162 ^ Conover, pp. 352–353 ^ Pratt and Gibbons, p. 164 ^ Conover, pp. 358–359 ^ a b c Pratt, p. 660 ^ Pratt and Gibbons, pp. 168–169 ^ Pratt, pp. 661–662 ^ Pratt and Gibbons, p. 170 ^ Pratt and Gibbons, pp. 163, 166 ^ Pratt and Gibbons, p. 166 ^ Pratt and Gibbons, p. 171 ^ Pratt, p. 661 ^ Gibbons, Jean D.; Chakraborti, Subhabrata (2011).
+
+Nonparametric Statistical Inference (Fifth ed.). Chapman & Hall/CRC.
+
+ISBN 978-1-4200-7762-9 .
+
+, p. 194 ^ Hettmansperger, p. 34 ^ Pratt and Gibbons, pp. 148–149 ^ Pratt and Gibbons, pp. 148–149, pp. 186–187 ^ Hettmansperger, p. 171 ^ a b c Pratt and Gibbons, p. 187 ^ Pratt and Gibbons, p. 149 ^ a b Kolassa, John E. (1995).
+
+"Edgeworth approximations for rank sum test statistics" .
+
+Statistics and Probability Letters .
+
+24 (2): 169– 171.
+
+doi : 10.1016/0167-7152(95)00164-H .
+
+^ Hettmansperger, p. 37 ^ Hettmansperger, p. 35 ^ Cureton, Edward E. (1967). "The normal approximation to the signed-rank sampling distribution when zero differences are present".
+
+Journal of the American Statistical Association .
+
+62 (319): 1068– 1069.
+
+doi : 10.1080/01621459.1967.10500917 .
+
+^ Pratt and Gibbons, p. 193 ^ Wilcoxon, p. 82 ^ Pratt and Gibbons, p. 158 ^ Pratt and Gibbons, p. 159 ^ Pratt and Gibbons, p. 191 ^ a b Kerby, Dave S. (2014), "The simple difference formula: An approach to teaching nonparametric correlation.", Comprehensive Psychology , 3 : 11.IT.3.1, doi : 10.2466/11.IT.3.1 ^ Dalgaard, Peter (2008).
+
+Introductory Statistics with R . Springer Science & Business Media. pp.
+
+99– 100.
+
+ISBN 978-0-387-79053-4 .
+
+^ "Wilcox signed-rank test: SAS instruction" .
+
+www.stat.purdue.edu . Retrieved 2023-08-24 .
+
+External links [ edit ] Wilcoxon Signed-Rank Test in R Example of using the Wilcoxon signed-rank test An online version of the test A table of critical values for the Wilcoxon signed-rank test Brief guide by experimental psychologist Karl L. Weunsch – Nonparametric effect size estimators (Copyright 2015 by Karl L. Weunsch) Kerby, D. S. (2014). The simple difference formula: An approach to teaching nonparametric correlation.
+
+Comprehensive Psychology , volume 3, article 1. doi:10.2466/11.IT.3.1.
+
+link to article v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐h6b2n
+Cached time: 20250812002030
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.625 seconds
+Real time usage: 0.979 seconds
+Preprocessor visited node count: 3818/1000000
+Revision size: 40476/2097152 bytes
+Post‐expand include size: 172790/2097152 bytes
+Template argument size: 1531/2097152 bytes
+Highest expansion depth: 15/100
+Expensive parser function count: 7/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 96793/5000000 bytes
+Lua time usage: 0.254/10.000 seconds
+Lua memory usage: 5720643/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  497.220      1 -total
+ 35.11%  174.591      1 Template:Reflist
+ 23.99%  119.306      1 Template:Statistics
+ 23.49%  116.791      1 Template:Navbox_with_collapsible_groups
+ 20.87%  103.790      8 Template:Cite_book
+ 15.81%   78.614      1 Template:Short_description
+ 14.91%   74.152      3 Template:Code
+  9.95%   49.464      2 Template:Pagetype
+  9.16%   45.522     11 Template:Navbox
+  6.35%   31.575      6 Template:Cite_journal Saved in parser cache with key enwiki:pcache:1954987:|#|:idhash:canonical and timestamp 20250812002030 and revision id 1291114696. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Wilcoxon_signed-rank_test&oldid=1291114696 " Categories : Statistical tests Nonparametric statistics U-statistics Hidden categories: Articles with short description Short description is different from Wikidata This page was last edited on 19 May 2025, at 05:06 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Wilcoxon signed-rank test 13 languages Add topic
+

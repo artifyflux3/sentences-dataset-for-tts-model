@@ -1,0 +1,1657 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Machine learning with quantum computers Toggle Machine learning with quantum computers subsection 1.1 Quantum associative memories and quantum pattern recognition 1.2 Linear algebra simulation with quantum amplitudes 1.3 Variational Quantum Algorithms (VQAs) 1.4 Quantum binary classifier 1.5 Quantum machine learning algorithms based on Grover search 1.6 Quantum-enhanced reinforcement learning 1.7 Quantum annealing 1.8 Quantum sampling techniques 1.9 Quantum neural networks 1.10 Quantum Convolution Neural Network 1.11 Fully quantum machine learning 1.12 Explainable quantum machine learning 1.13 Quantum Kernel Methods and Generative Models 2 Classical learning applied to quantum problems 3 Quantum learning theory 4 Implementations and experiments 5 Breakthrough Solutions to Barren Plateaus 6 Skepticism 7 See also 8 References Toggle the table of contents Quantum machine learning 14 languages العربية Basa Bali Català Eesti Español فارسی Français Bahasa Indonesia עברית Русский Српски / srpski Suomi Українська 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Interdisciplinary research area at the intersection of quantum physics and machine learning This article is about using quantum algorithms to solve machine learning tasks. For applications of classical machine learning to quantum systems, see Machine learning in physics .
+
+This article may need to be rewritten to comply with Wikipedia's quality standards , as it is excessively detailed, relies heavily on primary sources, and may not provide sufficient weight to criticisms.
+
+You can help . The talk page may contain suggestions.
+
+( July 2023 ) Part of a series of articles about Quantum mechanics i ℏ ℏ d d t | Ψ Ψ ⟩ ⟩ = H ^ ^ | Ψ Ψ ⟩ ⟩ {\displaystyle i\hbar {\frac {d}{dt}}|\Psi \rangle ={\hat {H}}|\Psi \rangle } Schrödinger equation Introduction Glossary History Background Classical mechanics Old quantum theory Bra–ket notation Hamiltonian Interference Fundamentals Complementarity Decoherence Entanglement Energy level Measurement Nonlocality Quantum number State Superposition Symmetry Tunnelling Uncertainty Wave function Collapse Experiments Bell's inequality CHSH inequality Davisson–Germer Double-slit Elitzur–Vaidman Franck–Hertz Leggett inequality Leggett–Garg inequality Mach–Zehnder Popper Quantum eraser Delayed-choice Schrödinger's cat Stern–Gerlach Wheeler's delayed-choice Formulations Overview Heisenberg Interaction Matrix Phase-space Schrödinger Sum-over-histories (path integral) Equations Dirac Klein–Gordon Pauli Rydberg Schrödinger Interpretations Bayesian Consciousness causes collapse Consistent histories Copenhagen de Broglie–Bohm Ensemble Hidden-variable Many-worlds Objective-collapse Quantum logic Superdeterminism Relational Transactional Advanced topics Relativistic quantum mechanics Quantum field theory Quantum information science Quantum computing Quantum chaos EPR paradox Density matrix Scattering theory Quantum statistical mechanics Quantum machine learning Scientists Aharonov Bell Bethe Blackett Bloch Bohm Bohr Born Bose de Broglie Compton Dirac Davisson Debye Ehrenfest Einstein Everett Fock Fermi Feynman Glauber Gutzwiller Heisenberg Hilbert Jordan Kramers Lamb Landau Laue Moseley Millikan Onnes Pauli Planck Rabi Raman Rydberg Schrödinger Simmons Sommerfeld von Neumann Weyl Wien Wigner Zeeman Zeilinger v t e Quantum machine learning (QML) is the study of quantum algorithms which solve machine learning tasks.
+
+[ 1 ] [ 2 ] [ 3 ] [ 4 ] The most common use of the term refers to quantum algorithms for machine learning tasks which analyze classical data, sometimes called quantum-enhanced machine learning.
+
+[ 5 ] [ 6 ] [ 7 ] QML algorithms use qubits and quantum operations to try to improve the space and time complexity of classical machine learning algortihms.
+
+[ 8 ] This includes hybrid methods that involve both classical and quantum processing, where computationally difficult subroutines are outsourced to a quantum device.
+
+[ 9 ] [ 10 ] [ 11 ] These routines can be more complex in nature and executed faster on a quantum computer.
+
+[ 3 ] Furthermore, quantum algorithms can be used to analyze quantum states instead of classical data.
+
+[ 12 ] [ 13 ] The term "quantum machine learning" is sometimes use to refer classical machine learning methods applied to data generated from quantum experiments (i.e.
+
+machine learning of quantum systems ), such as learning the phase transitions of a quantum system [ 14 ] [ 15 ] or creating new quantum experiments.
+
+[ 16 ] [ 17 ] [ 18 ] QML also extends to a branch of research that explores methodological and structural similarities between certain physical systems and learning systems, in particular neural networks. For example, some mathematical and numerical techniques from quantum physics are applicable to classical deep learning and vice versa.
+
+[ 19 ] [ 20 ] [ 21 ] Furthermore, researchers investigate more abstract notions of learning theory with respect to quantum information, sometimes referred to as "quantum learning theory".
+
+[ 22 ] [ 23 ] Four different approaches to combine the disciplines of quantum computing and machine learning.
+
+[ 24 ] [ 25 ] The first letter refers to whether the system under study is classical or quantum, while the second letter defines whether a classical or quantum information processing device is used.
+
+Machine learning with quantum computers [ edit ] Quantum-enhanced machine learning refers to quantum algorithms that solve tasks in machine learning, thereby improving and often expediting classical machine learning techniques. Such algorithms typically require one to encode the given classical data set into a quantum computer to make it accessible for quantum information processing. Subsequently, quantum information processing routines are applied and the result of the quantum computation is read out by measuring the quantum system. For example, the outcome of the measurement of a qubit reveals the result of a binary classification task. While many proposals of QML algorithms are still purely theoretical and require a full-scale universal quantum computer to be tested, others have been implemented on small-scale or special purpose quantum devices.
+
+Quantum associative memories and quantum pattern recognition [ edit ] Associative (or content-addressable) memories are able to recognize stored content on the basis of a similarity measure, while random access memories are accessed by the address of stored information and not its content. As such they must be able to retrieve both incomplete and corrupted patterns, the essential machine learning task of pattern recognition.
+
+Typical classical associative memories store p patterns in the O ( n 2 ) {\displaystyle O(n^{2})} interactions (synapses) of a real,  symmetric energy matrix over a network of n artificial neurons. The encoding is such that the desired patterns are local minima of the energy functional and retrieval is done by minimizing the total energy, starting from an initial configuration.
+
+Unfortunately, classical associative memories are severely limited by the phenomenon of cross-talk . When too many patterns are stored, spurious memories appear which quickly proliferate, so that the energy landscape becomes disordered and no retrieval is anymore possible. The number of storable patterns is typically limited by a linear function of the number of neurons, p ≤ ≤ O ( n ) {\displaystyle p\leq O(n)} .
+
+Quantum associative memories [ 26 ] [ 27 ] [ 28 ] (in their simplest realization) store patterns in a unitary matrix U acting on the Hilbert space of n qubits. Retrieval is realized by the unitary evolution of a fixed initial state to a quantum superposition of the desired patterns with probability distribution peaked on the most similar pattern to an input. By its very quantum nature, the retrieval process is thus probabilistic. Because quantum associative memories are free from cross-talk, however, spurious memories are never generated. Correspondingly, they have a superior capacity than classical ones. The number of parameters in the unitary matrix U is O ( p n ) {\displaystyle O(pn)} . One can thus have efficient, spurious-memory-free quantum associative memories for any polynomial number of patterns.
+
+Linear algebra simulation with quantum amplitudes [ edit ] A number of quantum algorithms for machine learning are based on the idea of amplitude encoding, that is, to associate the amplitudes of a quantum state with the inputs and outputs of computations.
+
+[ 29 ] [ 30 ] [ 31 ] Since a state of n {\displaystyle n} qubits is described by 2 n {\displaystyle 2^{n}} complex amplitudes, this information encoding can allow for an exponentially compact representation. Intuitively, this corresponds to associating a discrete probability distribution over binary random variables with a classical vector. The goal of algorithms based on amplitude encoding is to formulate quantum algorithms whose resources grow polynomially in the number of qubits n {\displaystyle n} , which amounts to a logarithmic time complexity in the number of amplitudes and thereby the dimension of the input.
+
+Many QML algorithms in this category are based on variations of the quantum algorithm for linear systems of equations [ 32 ] (colloquially called HHL, after the paper's authors) which, under specific conditions, performs a matrix inversion using an amount of physical resources growing only logarithmically in the dimensions of the matrix. One of these conditions is that a Hamiltonian which entry wise corresponds to the matrix can be simulated efficiently, which is known to be possible if the matrix is sparse [ 33 ] or low rank.
+
+[ 34 ] For reference, any known classical algorithm for matrix inversion requires a number of operations that grows more than quadratically in the dimension of the matrix (e.g.
+
+O ( n 2.373 ) {\displaystyle O{\mathord {\left(n^{2.373}\right)}}} ), but they are not restricted to sparse matrices.
+
+Quantum matrix inversion can be applied to machine learning methods in which the training reduces to solving a linear system of equations , for example in least-squares linear regression, [ 30 ] [ 31 ] the least-squares version of support vector machines , [ 29 ] and Gaussian processes.
+
+[ 35 ] A crucial bottleneck of methods that simulate linear algebra computations with the amplitudes of quantum states is state preparation, which often requires one to initialise a quantum system in a state whose amplitudes reflect the features of the entire dataset. Although efficient methods for state preparation are known for specific cases, [ 36 ] [ 37 ] this step easily hides the complexity of the task.
+
+[ 38 ] [ 39 ] Variational Quantum Algorithms (VQAs) [ edit ] In a variational quantum algorithm, a classical computer optimizes the parameters used to prepare a quantum state, while a quantum computer is used to do the actual state preparation and measurement. VQAs are considered promising candidates for noisy intermediate-scale quantum computers . Variational quantum circuits (or parameterized quantum circuits) are a popular class of VQAs where the parameters are those used in a fixed quantum circuit .
+
+[ 40 ] [ 41 ] [ 42 ] Researchers have studied VQCs to solve optimization problems and find the ground state energy of complex quantum systems, which were difficult to solve using a classical computer.
+
+[ 43 ] Quantum binary classifier [ edit ] Pattern reorganization is one of the important tasks of machine learning, binary classification is one of the tools or algorithms to find patterns. Binary classification is used in supervised learning and in unsupervised learning . In QML, classical bits are converted to qubits and they are mapped to Hilbert space; complex value data are used in a quantum binary classifier to use the advantage of Hilbert space.
+
+[ 44 ] [ 45 ] By exploiting the quantum mechanic properties such as superposition, entanglement, interference the quantum binary classifier produces the accurate result in short period of time.
+
+[ 46 ] Quantum machine learning algorithms based on Grover search [ edit ] Another approach to improving classical machine learning with quantum information processing uses amplitude amplification methods based on Grover's search algorithm, which has been shown to solve unstructured search problems with a quadratic speedup compared to classical algorithms. These quantum routines can be employed for learning algorithms that translate into an unstructured search task, as can be done, for instance, in the case of the k-medians [ 47 ] and the k-nearest neighbors algorithms .
+
+[ 5 ] Other applications include quadratic speedups in the training of perceptrons .
+
+[ 48 ] An example of amplitude amplification being used in a machine learning algorithm is Grover's search algorithm minimization. In which a subroutine uses Grover's search algorithm to find an element less than some previously defined element. This can be done with an oracle that determines whether or not a state with a corresponding element is less than the predefined one. Grover's algorithm can then find an element such that our condition is met. The minimization is initialized by some random element in our data set, and iteratively does this subroutine to find the minimum element in the data set. This minimization is notably used in quantum k-medians, and it has a speed up of at least O ( n k ) {\displaystyle {\mathcal {O}}\left({\sqrt {\frac {n}{k}}}\right)} compared to classical versions of k-medians, where n {\displaystyle n} is the number of data points and k {\displaystyle k} is the number of clusters.
+
+[ 47 ] Amplitude amplification is often combined with quantum walks to achieve the same quadratic speedup. Quantum walks have been proposed to enhance Google's PageRank algorithm [ 49 ] as well as the performance of reinforcement learning agents in the projective simulation framework.
+
+[ 50 ] Quantum-enhanced reinforcement learning [ edit ] In quantum-enhanced reinforcement learning , a quantum agent interacts with a classical or quantum environment and occasionally receives rewards for its actions.
+
+[ 51 ] [ 50 ] [ 52 ] In some situations, either because of the quantum processing capability of the agent, [ 50 ] or due to the possibility to probe the environment in superpositions , [ 25 ] a quantum speedup may be achieved. Implementations of these kinds of protocols have been proposed for systems of trapped ions [ 53 ] and superconducting circuits .
+
+[ 54 ] A quantum speedup of the agent's internal decision-making time [ 50 ] has been experimentally demonstrated in trapped ions, [ 55 ] while a quantum speedup of the learning time in a fully coherent (`quantum') interaction between agent and environment has been experimentally realized in a photonic setup.
+
+[ 56 ] Quantum annealing [ edit ] Main article: Quantum annealing Quantum annealing is an optimization technique used to determine the local minima and maxima of a function over a given set of candidate functions. This is a method of discretizing a function with many local minima or maxima in order to determine the observables of the function. The process can be distinguished from Simulated annealing by the Quantum tunneling process, by which particles tunnel through kinetic or potential barriers from a high state to a low state. Quantum annealing starts from a superposition of all possible states of a system, weighted equally. Then the time-dependent Schrödinger equation guides the time evolution of the system, serving to affect the amplitude of each state as time increases. Eventually, the ground state can be reached to yield the instantaneous Hamiltonian of the system.
+
+Quantum sampling techniques [ edit ] Sampling from high-dimensional probability distributions is at the core of a wide spectrum of computational techniques with important applications across science, engineering, and society. Examples include deep learning , probabilistic programming , and other machine learning and artificial intelligence applications.
+
+A computationally hard problem, which is key for some relevant machine learning tasks, is the estimation of averages over probabilistic models defined in terms of a Boltzmann distribution . Sampling from generic probabilistic models is hard: algorithms relying heavily on sampling are expected to remain intractable no matter how large and powerful classical computing resources become. Even though quantum annealers, like those produced by D-Wave Systems, were designed for challenging combinatorial optimization problems, it has been recently recognized as a potential candidate to speed up computations that rely on sampling by exploiting quantum effects.
+
+[ 57 ] Some research groups have recently explored the use of quantum annealing hardware for training Boltzmann machines and deep neural networks .
+
+[ 58 ] [ 59 ] [ 60 ] The standard approach to training Boltzmann machines relies on the computation of certain averages that can be estimated by standard sampling techniques, such as Markov chain Monte Carlo algorithms. Another possibility is to rely on a physical process, like quantum annealing, that naturally generates samples from a Boltzmann distribution. The objective is to find the optimal control parameters that best represent the empirical distribution of a given dataset.
+
+The D-Wave 2X system hosted at NASA Ames Research Center has been recently used for the learning of a special class of restricted Boltzmann machines that can serve as a building block for deep learning architectures.
+
+[ 59 ] Complementary work that appeared roughly simultaneously showed that quantum annealing can be used for supervised learning in classification tasks.
+
+[ 58 ] The same device was later used to train a fully connected Boltzmann machine to generate, reconstruct, and classify down-scaled, low-resolution handwritten digits, among other synthetic datasets.
+
+[ 61 ] In both cases, the models trained by quantum annealing had a similar or better performance in terms of quality. The ultimate question that drives this endeavour is whether there is quantum speedup in sampling applications. Experience with the use of quantum annealers for combinatorial optimization suggests the answer is not straightforward. Reverse annealing has been used as well to solve a fully connected quantum restricted Boltzmann machine.
+
+[ 62 ] Inspired by the success of Boltzmann machines based on classical Boltzmann distribution, a new machine learning approach based on quantum Boltzmann distribution of a transverse-field Ising Hamiltonian was recently proposed.
+
+[ 63 ] Due to the non-commutative nature of quantum mechanics, the training process of the quantum Boltzmann machine can become nontrivial. This problem was, to some extent, circumvented by introducing bounds on the quantum probabilities, allowing the authors to train the model efficiently by sampling. It is possible that a specific type of quantum Boltzmann machine has been trained in the D-Wave 2X by using a learning rule analogous to that of classical Boltzmann machines.
+
+[ 61 ] [ 60 ] [ 64 ] Quantum annealing is not the only technology for sampling. In a prepare-and-measure scenario, a universal quantum computer prepares a thermal state, which is then sampled by measurements. This can reduce the time required to train a deep restricted Boltzmann machine, and provide a richer and more comprehensive framework for deep learning than classical computing.
+
+[ 65 ] The same quantum methods also permit efficient training of full Boltzmann machines and multi-layer, fully connected models and do not have well-known classical counterparts. Relying on an efficient thermal state preparation protocol starting from an arbitrary state, quantum-enhanced Markov logic networks exploit the symmetries and the locality structure of the probabilistic graphical model generated by a first-order logic template.
+
+[ 66 ] [ 15 ] This provides an exponential reduction in computational complexity in probabilistic inference, and, while the protocol relies on a universal quantum computer, under mild assumptions it can be embedded on contemporary quantum annealing hardware.
+
+Quantum neural networks [ edit ] Main article: Quantum neural network Quantum analogues or generalizations of classical neural nets are often referred to as quantum neural networks . The term is claimed by a wide range of approaches, including the implementation and extension of neural networks using photons, layered variational circuits or quantum Ising-type models .
+
+Quantum Convolution Neural Network [ edit ] A novel design for multi-dimensional vectors that uses circuits as convolution filters [ 67 ] is QCNN. It was inspired by the advantages of CNNs [ 68 ] [ 69 ] and the power of QML. It is made using a combination of a variational quantum circuit (VQC) [ 70 ] and a deep neural network [ 71 ] (DNN), fully utilizing the power of extremely parallel processing on a superposition of a quantum state with a finite number of qubits. The main strategy is to carry out an iterative optimization process in the NISQ [ 72 ] devices, without the negative impact of noise, which is possibly incorporated into the circuit parameter, and without the need for quantum error correction.
+
+[ 73 ] The quantum circuit must effectively handle spatial information in order for QCNN to function as CNN. The convolution filter is the most basic technique for making use of spatial information. One or more quantum convolutional filters make up a quantum convolutional neural network (QCNN), and each of these filters transforms input data using a quantum circuit that can be created in an organized or randomized way. Three parts  that make up the quantum convolutional filter are:  the encoder, the parameterized quantum circuit (PQC), [ 74 ] and the measurement. The quantum convolutional filter can be seen as an extension of the filter in the traditional CNN because it was designed with trainable parameters.
+
+Quantum neural networks take advantage of the hierarchical structures, [ 75 ] and for each subsequent layer, the number of qubits from the preceding layer is decreased by a factor of two. For n input qubits, these structure have O(log(n)) layers, allowing for shallow circuit depth. Additionally, they are able to avoid "barren plateau," one of the most significant issues with PQC-based algorithms, ensuring trainability.
+
+[ 76 ] Despite the fact that the QCNN model does not include the corresponding quantum operation, the fundamental idea of the pooling layer is also offered to assure validity. In QCNN architecture, the pooling layer is typically placed between succeeding convolutional layers. Its function is to shrink the representation's spatial size while preserving crucial features, which allows it to reduce the number of parameters, streamline network computing, and manage over-fitting.  Such process can be accomplished applying full Tomography on the state to reduce it all the way down to one qubit and then processed it in subway. The most frequently used unit type in the pooling layer is max pooling, although there are other types as well. Similar to conventional feed-forward neural networks, the last module is a fully connected layer with full connections to all activations in the preceding layer. Translational invariance, which requires identical blocks of parameterized quantum gates within a layer, is a distinctive feature of the QCNN architecture.
+
+[ 77 ] Fully quantum machine learning [ edit ] In the most general case of QML, both the learning device and the system under study, as well as their interaction, are fully quantum. This section gives a few examples of results on this topic.
+
+One class of problem that can benefit from the fully quantum approach is that of 'learning' unknown quantum states, processes or measurements, in the sense that one can subsequently reproduce them on another quantum system. For example, one may wish to learn a measurement that discriminates between two coherent states, given not a classical description of the states to be discriminated, but instead a set of example quantum systems prepared in these states. The naive approach would be to first extract a classical description of the states and then implement an ideal discriminating measurement based on this information. This would only require classical learning. However, one can show that a fully quantum approach is strictly superior in this case.
+
+[ 78 ] (This also relates to work on quantum pattern matching.
+
+[ 79 ] ) The problem of learning unitary transformations can be approached in a similar way.
+
+[ 80 ] Going beyond the specific problem of learning states and transformations, the task of clustering also admits a fully quantum version, wherein both the oracle which returns the distance between data-points and the information processing device which runs the algorithm are quantum.
+
+[ 81 ] Finally, a general framework spanning supervised, unsupervised and reinforcement learning in the fully quantum setting was introduced in, [ 25 ] where it was also shown that the possibility of probing the environment in superpositions permits a quantum speedup in reinforcement learning. Such a speedup in the reinforcement-learning paradigm has been experimentally demonstrated in a photonic setup.
+
+[ 56 ] Explainable quantum machine learning [ edit ] The need for models that can be understood by humans emerges in QML in analogy to classical machine learning and drives the research field of explainable QML (or XQML [ 82 ] in analogy to XAI/XML ). These efforts are often also referred to as Interpretable Machine Learning (IML, and by extension IQML).
+
+[ 83 ] XQML/IQML can be considered as an alternative research direction instead of finding a quantum advantage.
+
+[ 84 ] For example, XQML has been used in the context of mobile malware detection and classification.
+
+[ 85 ] Quantum Shapley values have also been proposed to interpret gates within a circuit based on a game-theoretic approach.
+
+[ 82 ] For this purpose, gates instead of features act as players in a coalitional game with a value function that depends on measurements of the quantum circuit of interest. Additionally, a quantum version of the classical technique known as LIME (Linear Interpretable Model-Agnostic Explanations) [ 86 ] has also been proposed, known as Q-LIME.
+
+[ 87 ] Quantum Kernel Methods and Generative Models [ edit ] Quantum kernel method s have emerged as particularly promising approaches for near-term applications. Large-scale benchmarking studies encompassing over 20,000 trained models have provided comprehensive insights into the effectiveness of fidelity quantum kernels (FQKs) and projected quantum kernels (PQKs) across diverse classification and regression tasks. These studies have revealed universal patterns that guide effective quantum kernel method design.
+
+[ 88 ] In the generative modeling domain, quantum generative adversarial networks and quantum circuit Born machines have shown particular promise for tabular data synthesis. Novel quantum generative models for tabular data have demonstrated performance improvements of 8.5% over leading classical models while using only 0.072% of the parameters, indicating significant potential for parameter-efficient learning.
+
+[ 89 ] Classical learning applied to quantum problems [ edit ] Further information: Machine learning in physics The term "quantum machine learning" sometimes refers to classical machine learning performed on data from quantum systems. A basic example of this is quantum state tomography , where a quantum state is learned from measurement. Other applications include learning Hamiltonians [ 90 ] and automatically generating quantum experiments.
+
+[ 16 ] Quantum learning theory [ edit ] Quantum learning theory pursues a mathematical analysis of the quantum generalizations of classical learning models and of the possible speed-ups or other improvements that they may provide. The framework is very similar to that of classical computational learning theory , but the learner in this case is a quantum information processing device, while the data may be either classical or quantum. Quantum learning theory should be contrasted with the quantum-enhanced machine learning discussed above, where the goal was to consider specific problems and to use quantum protocols to improve the time complexity of classical algorithms for these problems. Although quantum learning theory is still under development, partial results in this direction have been obtained.
+
+[ 91 ] The starting point in learning theory is typically a concept class, a set of possible concepts. Usually a concept is a function on some domain, such as { 0 , 1 } n {\displaystyle \{0,1\}^{n}} . For example, the concept class could be the set of disjunctive normal form (DNF) formulas on n bits or the set of Boolean circuits of some constant depth. The goal for the learner is to learn (exactly or approximately) an unknown target concept from this concept class. The learner may be actively interacting with the target concept, or passively receiving samples from it.
+
+In active learning, a learner can make membership queries to the target concept c, asking for its value c(x) on inputs x chosen by the learner. The learner then has to reconstruct the exact target concept, with high probability. In the model of quantum exact learning, the learner can make membership queries in quantum superposition. If the complexity of the learner is measured by the number of membership queries it makes, then quantum exact learners can be polynomially more efficient than classical learners for some concept classes, but not more.
+
+[ 92 ] If complexity is measured by the amount of time the learner uses, then there are concept classes that can be learned efficiently by quantum learners but not by classical learners (under plausible complexity-theoretic assumptions).
+
+[ 92 ] A natural model of passive learning is Valiant's probably approximately correct (PAC) learning . Here the learner receives random examples (x,c(x)), where x is distributed according to some unknown distribution D. The learner's goal is to output a hypothesis function h such that h(x)=c(x) with high probability when x is drawn according to D. The learner has to be able to produce such an 'approximately correct' h for every D and every target concept c in its concept class. We can consider replacing the random examples by potentially more powerful quantum examples ∑ ∑ x D ( x ) | x , c ( x ) ⟩ ⟩ {\displaystyle \sum _{x}{\sqrt {D(x)}}|x,c(x)\rangle } . In the PAC model (and the related agnostic model), this doesn't significantly reduce the number of examples needed: for every concept class, classical and quantum sample complexity are the same up to constant factors.
+
+[ 93 ] However, for learning under some fixed distribution D, quantum examples can be very helpful, for example for learning DNF under the uniform distribution.
+
+[ 94 ] When considering time complexity, there exist concept classes that can be PAC-learned efficiently by quantum learners, even from classical examples, but not by classical learners (again, under plausible complexity-theoretic assumptions).
+
+[ 92 ] This passive learning type is also the most common scheme in supervised learning: a learning algorithm typically takes the training examples fixed, without the ability to query the label of unlabelled examples. Outputting a hypothesis h is a step of induction. Classically, an inductive model splits into a training and an application phase: the model parameters are estimated in the training phase, and the learned model is applied an arbitrary many times in the application phase. In the asymptotic limit of the number of applications, this splitting of phases is also present with quantum resources.
+
+[ 95 ] Implementations and experiments [ edit ] The earliest experiments were conducted using the adiabatic D-Wave quantum computer, for instance, to detect cars in digital images using regularized boosting with a nonconvex objective function in a demonstration in 2009.
+
+[ 96 ] Many experiments followed on the same architecture, and leading tech companies have shown interest in the potential of QML for future technological implementations. In 2013, Google Research, NASA , and the Universities Space Research Association launched the Quantum Artificial Intelligence Lab which explores the use of the adiabatic D-Wave quantum computer.
+
+[ 97 ] [ 98 ] A more recent example trained a probabilistic generative models with arbitrary pairwise connectivity, showing that their model is capable of generating handwritten digits as well as reconstructing noisy images of bars and stripes and handwritten digits.
+
+[ 61 ] Using a different annealing technology based on nuclear magnetic resonance (NMR), a quantum Hopfield network was implemented in 2009 that mapped the input data and memorized data to Hamiltonians, allowing the use of adiabatic quantum computation.
+
+[ 99 ] NMR technology also enables universal quantum computing, [ citation needed ] and it was used for the first experimental implementation of a quantum support vector machine to distinguish hand written number ‘6’ and ‘9’ on a liquid-state  quantum computer in 2015.
+
+[ 100 ] The training data involved the pre-processing of the image which maps them to normalized 2-dimensional vectors to represent the images as the states of a qubit. The two entries of the vector are the vertical and horizontal ratio of the pixel intensity of the image. Once the vectors are defined on the feature space , the quantum support vector machine was implemented to classify the unknown input vector. The readout avoids costly quantum tomography by reading out the final state in terms of direction (up/down) of the NMR signal.
+
+Photonic implementations are attracting more attention, [ 101 ] not the least because they do not require extensive cooling. Simultaneous spoken digit and speaker recognition and chaotic time-series prediction were demonstrated at data rates beyond 1 gigabyte per second in 2013.
+
+[ 102 ] Using non-linear photonics to implement an all-optical linear classifier, a perceptron model was capable of learning the classification boundary iteratively from training data through a feedback rule.
+
+[ 103 ] A core building block in many learning algorithms is to calculate the distance between two vectors: this was first experimentally demonstrated for up to eight dimensions using entangled qubits in a photonic quantum computer in 2015.
+
+[ 104 ] Recently, based on a neuromimetic approach, a novel ingredient has been added to the field of QML, in the form of a so-called quantum memristor, a quantized model of the standard classical memristor .
+
+[ 105 ] This device can be constructed by means of a tunable resistor, weak measurements on the system, and a classical feed-forward mechanism. An implementation of a quantum memristor in superconducting circuits has been proposed, [ 106 ] and an experiment with quantum dots performed.
+
+[ 107 ] A quantum memristor would implement nonlinear interactions in the quantum dynamics which would aid the search for a fully functional quantum neural network.
+
+Since 2016, IBM has launched an online cloud-based platform for quantum software developers, called the IBM Q Experience . This platform consists of several fully operational quantum processors accessible via the IBM Web API. In doing so, the company is encouraging software developers to pursue new algorithms through a development environment with quantum capabilities. New architectures are being explored on an experimental basis, up to 32 qubits, using both trapped-ion and superconductive quantum computing methods.
+
+In October 2019, it was noted that the introduction of Quantum Random Number Generators (QRNGs) to machine learning models including Neural Networks and Convolutional Neural Networks for random initial weight distribution and Random Forests for splitting processes had a profound effect on their ability when compared to the classical method of Pseudorandom Number Generators (PRNGs).
+
+[ 108 ] However, in a more recent publication from 2021, these claims could not be reproduced for Neural Network weight initialization and no significant advantage of using QRNGs over PRNGs was found.
+
+[ 109 ] The work also demonstrated that the generation of fair random numbers with a gate quantum computer is a non-trivial task on NISQ devices, and QRNGs are therefore typically much more difficult to use in practice than PRNGs.
+
+A paper published in December 2018 reported on an experiment using a trapped-ion system demonstrating a quantum speedup of the deliberation time of reinforcement learning agents employing internal quantum hardware.
+
+[ 55 ] In March 2021, a team of researchers from Austria, The Netherlands, the US and Germany reported the experimental demonstration of a quantum speedup of the learning time of reinforcement learning agents interacting fully quantumly with the environment.
+
+[ 110 ] [ 56 ] The relevant degrees of freedom of both agent and environment were realized on a compact and fully tunable integrated nanophotonic processor.
+
+Breakthrough Solutions to Barren Plateaus [ edit ] The barren plateau problem [1] where quantum algorithms encounter flat optimization landscapes—has seen significant theoretical and practical advances in 2025.
+
+Los Alamos National Laboratory researchers have provided the first mathematical characterization of why and when barren plateaus occur in variational quantum algorithms, establishing theoretical guarantees for algorithm scalability.
+
+[ 111 ] [ 112 ] This work solves a key usability problem for quantum machine learning by providing rigorous theorems that predict whether a given architecture will remain trainable as it scales to larger quantum systems. The breakthrough eliminates the previous trial-and-error approach that had led to researcher fatigue in the field.
+
+[ 113 ] Skepticism [ edit ] While machine learning itself is now not only a research field but an economically significant and fast growing industry and quantum computing is a well established field of both theoretical and experimental research, QML remains a purely theoretical field of studies. Attempts to experimentally demonstrate concepts of QML remain insufficient.
+
+[ citation needed ] Further, another obstacle exists at the prediction stage because the outputs of quantum learning models are inherently random.
+
+[ 114 ] This creates an often considerable overhead, as many executions of a quantum learning model have to be aggregated to obtain an actual prediction.
+
+Many of the leading scientists that extensively publish in the field of QML warn about the extensive hype around the topic and are very restrained if asked about its practical uses in the foreseeable future. Sophia Chen [ 115 ] collected some of the statements made by well known scientists in the field: "I think we haven't done our homework yet. This is an extremely new scientific field," - physicist Maria Schuld of Canada-based quantum computing startup Xanadu.
+
+“When mixing machine learning with ‘quantum,’ you catalyse a hype-condensate.” [ 116 ] - Jacob Biamonte a contributor to the theory of quantum computation.
+
+"There is a lot more work that needs to be done before claiming quantum machine learning will actually work," - computer scientist Iordanis Kerenidis, the head of quantum algorithms at the Silicon Valley-based quantum computing startup QC Ware.
+
+"I have not seen a single piece of evidence that there exists a meaningful [machine learning] task for which it would make sense to use a quantum computer and not a classical computer," - physicist Ryan Sweke of the Free University of Berlin in Germany.
+
+“Don't fall for the hype!” -  Frank Zickert, who is the author of probably the most practical book related to the subject beware that ”quantum computers are far away from advancing machine learning for their representation ability”, and even speaking about evaluation and optimization for any kind of useful task quantum supremacy is not yet achieved. Furthermore, nobody among the active researchers in the field make any forecasts about when it could possibly become practical.
+
+[ citation needed ] See also [ edit ] Differentiable programming Quantum computing Quantum algorithm for linear systems of equations Quantum annealing Quantum neural network Quantum image References [ edit ] ^ Biamonte, Jacob; Wittek, Peter; Nicola, Pancotti; Rebentrost, Patrick; Wiebe, Nathan; Lloyd, Seth (2017). "Quantum machine learning".
+
+Nature .
+
+549 (7671): 195– 202.
+
+arXiv : 1611.09347 .
+
+Bibcode : 2017Natur.549..195B .
+
+doi : 10.1038/nature23474 .
+
+PMID 28905917 .
+
+S2CID 64536201 .
+
+^ Schuld, Maria; Petruccione, Francesco (2018).
+
+Supervised Learning with Quantum Computers . Quantum Science and Technology. Springer.
+
+Bibcode : 2018slqc.book.....S .
+
+doi : 10.1007/978-3-319-96424-9 .
+
+ISBN 978-3-319-96423-2 .
+
+^ a b Schuld, Maria; Sinayskiy, Ilya; Petruccione, Francesco (2014). "An introduction to quantum machine learning".
+
+Contemporary Physics .
+
+56 (2): 172– 185.
+
+arXiv : 1409.3097 .
+
+Bibcode : 2015ConPh..56..172S .
+
+CiteSeerX 10.1.1.740.5622 .
+
+doi : 10.1080/00107514.2014.964942 .
+
+S2CID 119263556 .
+
+^ Wittek, Peter (2014).
+
+Quantum Machine Learning: What Quantum Computing Means to Data Mining . Academic Press.
+
+ISBN 978-0-12-800953-6 .
+
+^ a b Wiebe, Nathan; Kapoor, Ashish; Svore, Krysta (2014). "Quantum Algorithms for Nearest-Neighbor Methods for Supervised and Unsupervised Learning".
+
+Quantum Information & Computation .
+
+15 (3): 0318– 0358.
+
+arXiv : 1401.2142 .
+
+^ Lloyd, Seth; Mohseni, Masoud; Rebentrost, Patrick (2013). "Quantum algorithms for supervised and unsupervised machine learning".
+
+arXiv : 1307.0411 [ quant-ph ].
+
+^ Yoo, Seokwon; Bang, Jeongho; Lee, Changhyoup; Lee, Jinhyoung (2014). "A quantum speedup in machine learning: Finding a N-bit Boolean function for a classification".
+
+New Journal of Physics .
+
+16 (10): 103014.
+
+arXiv : 1303.6055 .
+
+Bibcode : 2014NJPh...16j3014Y .
+
+doi : 10.1088/1367-2630/16/10/103014 .
+
+S2CID 4956424 .
+
+^ Schuld, Maria; Sinayskiy, Ilya; Petruccione, Francesco (2014-10-15). "An introduction to quantum machine learning".
+
+Contemporary Physics .
+
+56 (2): 172– 185.
+
+arXiv : 1409.3097 .
+
+Bibcode : 2015ConPh..56..172S .
+
+CiteSeerX 10.1.1.740.5622 .
+
+doi : 10.1080/00107514.2014.964942 .
+
+ISSN 0010-7514 .
+
+S2CID 119263556 .
+
+^ Benedetti, Marcello; Realpe-Gómez, John; Biswas, Rupak; Perdomo-Ortiz, Alejandro (2017-11-30). "Quantum-Assisted Learning of Hardware-Embedded Probabilistic Graphical Models".
+
+Physical Review X .
+
+7 (4): 041052.
+
+arXiv : 1609.02542 .
+
+Bibcode : 2017PhRvX...7d1052B .
+
+doi : 10.1103/PhysRevX.7.041052 .
+
+ISSN 2160-3308 .
+
+S2CID 55331519 .
+
+^ Farhi, Edward; Neven, Hartmut (2018-02-16). "Classification with Quantum Neural Networks on Near Term Processors".
+
+arXiv : 1802.06002 [ quant-ph ].
+
+^ Schuld, Maria; Bocharov, Alex; Svore, Krysta ; Wiebe, Nathan (2020). "Circuit-centric quantum classifiers".
+
+Physical Review A .
+
+101 (3): 032308.
+
+arXiv : 1804.00633 .
+
+Bibcode : 2020PhRvA.101c2308S .
+
+doi : 10.1103/PhysRevA.101.032308 .
+
+S2CID 49577148 .
+
+^ Yu, Shang; Albarran-Arriagada, F.; Retamal, J. C.; Wang, Yi-Tao; Liu, Wei; Ke, Zhi-Jin; Meng, Yu; Li, Zhi-Peng; Tang, Jian-Shun (2018-08-28). "Reconstruction of a Photonic Qubit State with Quantum Reinforcement Learning".
+
+Advanced Quantum Technologies .
+
+2 ( 7– 8): 1800074.
+
+arXiv : 1808.09241 .
+
+doi : 10.1002/qute.201800074 .
+
+S2CID 85529734 .
+
+^ Ghosh, Sanjib; Opala, A.; Matuszewski, M.; Paterek, T.; Liew, Timothy C. H. (2019). "Quantum reservoir processing".
+
+npj Quantum Information .
+
+5 (35): 35.
+
+arXiv : 1811.10335 .
+
+Bibcode : 2019npjQI...5...35G .
+
+doi : 10.1038/s41534-019-0149-8 .
+
+S2CID 119197635 .
+
+^ Broecker, Peter; Assaad, Fakher F.; Trebst, Simon (2017-07-03). "Quantum phase recognition via unsupervised machine learning".
+
+arXiv : 1707.00663 [ cond-mat.str-el ].
+
+^ a b Huembeli, Patrick; Dauphin, Alexandre; Wittek, Peter (2018). "Identifying Quantum Phase Transitions with Adversarial Neural Networks".
+
+Physical Review B .
+
+97 (13): 134109.
+
+arXiv : 1710.08382 .
+
+Bibcode : 2018PhRvB..97m4109H .
+
+doi : 10.1103/PhysRevB.97.134109 .
+
+ISSN 2469-9950 .
+
+S2CID 125593239 .
+
+^ a b Krenn, Mario (2016-01-01). "Automated Search for new Quantum Experiments".
+
+Physical Review Letters .
+
+116 (9): 090405.
+
+arXiv : 1509.02749 .
+
+Bibcode : 2016PhRvL.116i0405K .
+
+doi : 10.1103/PhysRevLett.116.090405 .
+
+PMID 26991161 .
+
+S2CID 20182586 .
+
+^ Knott, Paul (2016-03-22). "A search algorithm for quantum state engineering and metrology".
+
+New Journal of Physics .
+
+18 (7): 073033.
+
+arXiv : 1511.05327 .
+
+Bibcode : 2016NJPh...18g3033K .
+
+doi : 10.1088/1367-2630/18/7/073033 .
+
+S2CID 2721958 .
+
+^ Dunjko, Vedran; Briegel, Hans J (2018-06-19). "Machine learning & artificial intelligence in the quantum domain: a review of recent progress".
+
+Reports on Progress in Physics .
+
+81 (7): 074001.
+
+arXiv : 1709.02779 .
+
+Bibcode : 2018RPPh...81g4001D .
+
+doi : 10.1088/1361-6633/aab406 .
+
+hdl : 1887/71084 .
+
+ISSN 0034-4885 .
+
+PMID 29504942 .
+
+S2CID 3681629 .
+
+^ Huggins, William; Patel, Piyush; Whaley, K. Birgitta; Stoudenmire, E. Miles (2018-03-30). "Towards Quantum Machine Learning with Tensor Networks".
+
+Quantum Science and Technology .
+
+4 (2): 024001.
+
+arXiv : 1803.11537 .
+
+doi : 10.1088/2058-9565/aaea94 .
+
+S2CID 4531946 .
+
+^ Carleo, Giuseppe; Nomura, Yusuke; Imada, Masatoshi (2018-02-26).
+
+"Constructing exact representations of quantum many-body systems with deep neural networks" .
+
+Nature Communications .
+
+9 (1): 5322.
+
+arXiv : 1802.09558 .
+
+Bibcode : 2018NatCo...9.5322C .
+
+doi : 10.1038/s41467-018-07520-3 .
+
+PMC 6294148 .
+
+PMID 30552316 .
+
+^ Bény, Cédric (2013-01-14). "Deep learning and the renormalization group".
+
+arXiv : 1301.3124 [ quant-ph ].
+
+^ Arunachalam, Srinivasan; de Wolf, Ronald (2017-01-24). "A Survey of Quantum Learning Theory".
+
+arXiv : 1701.06806 [ quant-ph ].
+
+^ Sergioli, Giuseppe; Giuntini, Roberto; Freytes, Hector (2019-05-09).
+
+"A new Quantum approach to binary classification" .
+
+PLOS ONE .
+
+14 (5): e0216224.
+
+Bibcode : 2019PLoSO..1416224S .
+
+doi : 10.1371/journal.pone.0216224 .
+
+PMC 6508868 .
+
+PMID 31071129 .
+
+^ Aïmeur, Esma; Brassard, Gilles; Gambs, Sébastien (2006-06-07).
+
+"Machine Learning in a Quantum World" .
+
+Advances in Artificial Intelligence . Lecture Notes in Computer Science. Vol. 4013. pp.
+
+431–442 .
+
+doi : 10.1007/11766247_37 .
+
+ISBN 978-3-540-34628-9 .
+
+^ a b c Dunjko, Vedran; Taylor, Jacob M.; Briegel, Hans J. (2016-09-20). "Quantum-Enhanced Machine Learning".
+
+Physical Review Letters .
+
+117 (13): 130501.
+
+arXiv : 1610.08251 .
+
+Bibcode : 2016PhRvL.117m0501D .
+
+doi : 10.1103/PhysRevLett.117.130501 .
+
+PMID 27715099 .
+
+S2CID 12698722 .
+
+^ Trugenberger, Carlo A. (2001). "Probabilistic Quantum Memories".
+
+Physical Review Letters .
+
+87 (6): 067901.
+
+arXiv : quant-ph/0012100 .
+
+Bibcode : 2001PhRvL..87f7901T .
+
+doi : 10.1103/PhysRevLett.87.067901 .
+
+PMID 11497863 .
+
+S2CID 23325931 .
+
+^ Trugenberger, Carlo A. (2002). "Quantum Pattern Recognition".
+
+Quantum Information Processing .
+
+1 (6): 471– 493.
+
+arXiv : quant-ph/0210176 .
+
+Bibcode : 2002QuIP....1..471T .
+
+doi : 10.1023/A:1024022632303 .
+
+S2CID 1928001 .
+
+^ Trugenberger, C. A. (2002-12-19).
+
+"Phase Transitions in Quantum Pattern Recognition" .
+
+Physical Review Letters .
+
+89 (27): 277903.
+
+arXiv : quant-ph/0204115 .
+
+Bibcode : 2002PhRvL..89A7903T .
+
+doi : 10.1103/physrevlett.89.277903 .
+
+ISSN 0031-9007 .
+
+PMID 12513243 .
+
+S2CID 33065081 .
+
+^ a b Rebentrost, Patrick; Mohseni, Masoud; Lloyd, Seth (2014). "Quantum Support Vector Machine for Big Data Classification".
+
+Physical Review Letters .
+
+113 (13): 130503.
+
+arXiv : 1307.0471 .
+
+Bibcode : 2014PhRvL.113m0503R .
+
+doi : 10.1103/PhysRevLett.113.130503 .
+
+hdl : 1721.1/90391 .
+
+PMID 25302877 .
+
+S2CID 5503025 .
+
+^ a b Wiebe, Nathan; Braun, Daniel; Lloyd, Seth (2012). "Quantum Algorithm for Data Fitting".
+
+Physical Review Letters .
+
+109 (5): 050505.
+
+arXiv : 1204.5242 .
+
+Bibcode : 2012PhRvL.109e0505W .
+
+doi : 10.1103/PhysRevLett.109.050505 .
+
+PMID 23006156 .
+
+S2CID 118439810 .
+
+^ a b Schuld, Maria; Sinayskiy, Ilya; Petruccione, Francesco (2016). "Prediction by linear regression on a quantum computer".
+
+Physical Review A .
+
+94 (2): 022342.
+
+arXiv : 1601.07823 .
+
+Bibcode : 2016PhRvA..94b2342S .
+
+doi : 10.1103/PhysRevA.94.022342 .
+
+S2CID 118459345 .
+
+^ Harrow, Aram W.; Hassidim, Avinatan; Lloyd, Seth (2008). "Quantum algorithm for solving linear systems of equations".
+
+Physical Review Letters .
+
+103 (15): 150502.
+
+arXiv : 0811.3171 .
+
+Bibcode : 2009PhRvL.103o0502H .
+
+doi : 10.1103/PhysRevLett.103.150502 .
+
+PMID 19905613 .
+
+S2CID 5187993 .
+
+^ Berry, Dominic W.; Childs, Andrew M.; Kothari, Robin (2015). "Hamiltonian simulation with nearly optimal dependence on all parameters".
+
+2015 IEEE 56th Annual Symposium on Foundations of Computer Science . 56th Annual Symposium on Foundations of Computer Science. IEEE. pp.
+
+792– 809.
+
+arXiv : 1501.01715 .
+
+doi : 10.1109/FOCS.2015.54 .
+
+ISBN 978-1-4673-8191-8 .
+
+^ Lloyd, Seth; Mohseni, Masoud; Rebentrost, Patrick (2014). "Quantum principal component analysis".
+
+Nature Physics .
+
+10 (9): 631.
+
+arXiv : 1307.0401 .
+
+Bibcode : 2014NatPh..10..631L .
+
+CiteSeerX 10.1.1.746.480 .
+
+doi : 10.1038/nphys3029 .
+
+S2CID 11553314 .
+
+^ Zhao, Zhikuan; Fitzsimons, Jack K.; Fitzsimons, Joseph F. (2019). "Quantum assisted Gaussian process regression".
+
+Physical Review A .
+
+99 (5): 052331.
+
+arXiv : 1512.03929 .
+
+Bibcode : 2019PhRvA..99e2331Z .
+
+doi : 10.1103/PhysRevA.99.052331 .
+
+S2CID 18303333 .
+
+^ Soklakov, Andrei N.; Schack, Rüdiger (2006). "Efficient state preparation for a register of quantum bits".
+
+Physical Review A .
+
+73 (1): 012307.
+
+arXiv : quant-ph/0408045 .
+
+Bibcode : 2006PhRvA..73a2307S .
+
+doi : 10.1103/PhysRevA.73.012307 .
+
+S2CID 17318769 .
+
+^ Giovannetti, Vittorio; Lloyd, Seth; MacCone, Lorenzo (2008). "Quantum Random Access Memory".
+
+Physical Review Letters .
+
+100 (16): 160501.
+
+arXiv : 0708.1879 .
+
+Bibcode : 2008PhRvL.100p0501G .
+
+doi : 10.1103/PhysRevLett.100.160501 .
+
+PMID 18518173 .
+
+S2CID 570390 .
+
+^ Aaronson, Scott (2015). "Read the fine print".
+
+Nature Physics .
+
+11 (4): 291– 293.
+
+Bibcode : 2015NatPh..11..291A .
+
+doi : 10.1038/nphys3272 .
+
+S2CID 122167250 .
+
+^ Bang, Jeongho; Dutta, Arijit; Lee, Seung-Woo; Kim, Jaewan (2019). "Optimal usage of quantum random access memory in quantum machine learning".
+
+Physical Review A .
+
+99 (1): 012326.
+
+arXiv : 1809.04814 .
+
+Bibcode : 2019PhRvA..99a2326B .
+
+doi : 10.1103/PhysRevA.99.012326 .
+
+S2CID 62841090 .
+
+^ Peddireddy, Dheeraj; Bansal, V.; Jacob, Z.; Aggarwal, V. (2022). "Tensor Ring Parametrized Variational Quantum Circuits for Large Scale Quantum Machine Learning".
+
+arXiv : 2201.08878 [ quant-ph ].
+
+^ Griol-Barres, Israel; Milla, Sergio; Cebrián, Antonio; Mansoori, Yashar; Millet, José (January 2021).
+
+"Variational Quantum Circuits for Machine Learning. An Application for the Detection of Weak Signals" .
+
+Applied Sciences .
+
+11 (14): 6427.
+
+doi : 10.3390/app11146427 .
+
+hdl : 10251/182654 .
+
+ISSN 2076-3417 .
+
+^ Chen, Samuel Yen-Chi; Yang, Chao-Han Huck; Qi, Jun; Chen, Pin-Yu; Ma, Xiaoli; Goan, Hsi-Sheng (2020).
+
+"Variational Quantum Circuits for Deep Reinforcement Learning" .
+
+IEEE Access .
+
+8 : 141007– 141024.
+
+arXiv : 1907.00397 .
+
+Bibcode : 2020IEEEA...8n1007C .
+
+doi : 10.1109/ACCESS.2020.3010470 .
+
+ISSN 2169-3536 .
+
+S2CID 195767325 .
+
+^ Cerezo, M., Arrasmith, A. and Babbush, R.; et al. (Aug 2021) (2021).
+
+"Variational quantum algorithms" .
+
+Nature Reviews Physics .
+
+3 (9): 625– 644.
+
+arXiv : 2012.09265 .
+
+Bibcode : 2021NatRP...3..625C .
+
+doi : 10.1038/s42254-021-00348-9 .
+
+{{ cite journal }} :  CS1 maint: multiple names: authors list ( link ) ^ Park, Daniel K.; Blank, Carsten; Petruccione, Francesco (2020-07-27).
+
+"The theory of the quantum kernel-based binary classifier" .
+
+Physics Letters A .
+
+384 (21): 126422.
+
+arXiv : 2004.03489 .
+
+Bibcode : 2020PhLA..38426422P .
+
+doi : 10.1016/j.physleta.2020.126422 .
+
+ISSN 0375-9601 .
+
+S2CID 215238793 .
+
+^ Yi, Teng; Wang, Jie; Xu, Fufang (2021-08-01).
+
+"Binary classification of single qubits using quantum machine learning method" .
+
+Journal of Physics: Conference Series .
+
+2006 (1): 012020.
+
+doi : 10.1088/1742-6596/2006/1/012020 .
+
+ISSN 1742-6588 .
+
+S2CID 237286847 .
+
+^ Maheshwari, Danyal; Sierra-Sosa, Daniel; Garcia-Zapirain, Begonya (2022).
+
+"Variational Quantum Classifier for Binary Classification: Real vs Synthetic Dataset" .
+
+IEEE Access .
+
+10 : 3705– 3715.
+
+Bibcode : 2022IEEEA..10.3705M .
+
+doi : 10.1109/ACCESS.2021.3139323 .
+
+ISSN 2169-3536 .
+
+S2CID 245614428 .
+
+^ a b Aïmeur, Esma; Brassard, Gilles; Gambs, Sébastien (2013-02-01).
+
+"Quantum speed-up for unsupervised learning" .
+
+Machine Learning .
+
+90 (2): 261– 287.
+
+doi : 10.1007/s10994-012-5316-5 .
+
+ISSN 0885-6125 .
+
+^ Wiebe, Nathan; Kapoor, Ashish; Svore, Krysta M.
+
+(2016).
+
+Quantum Perceptron Models . Advances in Neural Information Processing Systems. Vol. 29. pp.
+
+3999– 4007.
+
+arXiv : 1602.04799 .
+
+^ Paparo, Giuseppe Davide; Martin-Delgado, Miguel Angel (2012).
+
+"Google in a Quantum Network" .
+
+Scientific Reports .
+
+2 (444): 444.
+
+arXiv : 1112.2079 .
+
+Bibcode : 2012NatSR...2..444P .
+
+doi : 10.1038/srep00444 .
+
+PMC 3370332 .
+
+PMID 22685626 .
+
+^ a b c d Paparo, Giuseppe Davide; Dunjko, Vedran; Makmal, Adi; Martin-Delgado, Miguel Angel; Briegel, Hans J. (2014). "Quantum Speedup for Active Learning Agents".
+
+Physical Review X .
+
+4 (3): 031002.
+
+arXiv : 1401.4997 .
+
+Bibcode : 2014PhRvX...4c1002P .
+
+doi : 10.1103/PhysRevX.4.031002 .
+
+S2CID 54652978 .
+
+^ Dong, Daoyi; Chen, Chunlin; Li, Hanxiong; Tarn, Tzyh-Jong (2008). "Quantum Reinforcement Learning".
+
+IEEE Transactions on Systems, Man, and Cybernetics - Part B: Cybernetics .
+
+38 (5): 1207– 1220.
+
+arXiv : 0810.3828 .
+
+CiteSeerX 10.1.1.243.5369 .
+
+doi : 10.1109/TSMCB.2008.925743 .
+
+PMID 18784007 .
+
+S2CID 17768796 .
+
+^ Crawford, Daniel; Levit, Anna; Ghadermarzy, Navid; Oberoi, Jaspreet S.; Ronagh, Pooya (2018). "Reinforcement Learning Using Quantum Boltzmann Machines".
+
+arXiv : 1612.05695 [ quant-ph ].
+
+^ Dunjko, Vedran; Friis, Nicolai; Briegel, Hans J. (2015-01-01). "Quantum-enhanced deliberation of learning agents using trapped ions".
+
+New Journal of Physics .
+
+17 (2): 023006.
+
+arXiv : 1407.2830 .
+
+Bibcode : 2015NJPh...17b3006D .
+
+doi : 10.1088/1367-2630/17/2/023006 .
+
+ISSN 1367-2630 .
+
+S2CID 119292539 .
+
+^ Lamata, Lucas (2017).
+
+"Basic protocols in quantum reinforcement learning with superconducting circuits" .
+
+Scientific Reports .
+
+7 (1): 1609.
+
+arXiv : 1701.05131 .
+
+Bibcode : 2017NatSR...7.1609L .
+
+doi : 10.1038/s41598-017-01711-6 .
+
+PMC 5431677 .
+
+PMID 28487535 .
+
+^ a b Sriarunothai, Theeraphot; Wölk, Sabine; Giri, Gouri Shankar; Friis, Nicolai; Dunjko, Vedran; Briegel, Hans J.; Wunderlich, Christof (2019). "Speeding-up the decision making of a learning agent using an ion trap quantum processor".
+
+Quantum Science and Technology .
+
+4 (1): 015014.
+
+arXiv : 1709.01366 .
+
+Bibcode : 2019QS&T....4a5014S .
+
+doi : 10.1088/2058-9565/aaef5e .
+
+ISSN 2058-9565 .
+
+S2CID 2429346 .
+
+^ a b c Saggio, Valeria; Asenbeck, Beate; Hamann, Arne; Strömberg, Teodor; Schiansky, Peter; Dunjko, Vedran; Friis, Nicolai; Harris, Nicholas C.; Hochberg, Michael; Englund, Dirk; Wölk, Sabine; Briegel, Hans J.; Walther, Philip (10 March 2021).
+
+"Experimental quantum speed-up in reinforcement learning agents" .
+
+Nature .
+
+591 (7849): 229– 233.
+
+arXiv : 2103.06294 .
+
+Bibcode : 2021Natur.591..229S .
+
+doi : 10.1038/s41586-021-03242-7 .
+
+ISSN 1476-4687 .
+
+PMC 7612051 .
+
+PMID 33692560 .
+
+S2CID 232185235 .
+
+^ Biswas, Rupak ; Jiang, Zhang; Kechezi, Kostya; Knysh, Sergey; Mandrà, Salvatore; O’Gorman, Bryan; Perdomo-Ortiz, Alejando; Pethukov, Andre; Realpe-Gómez, John; Rieffel, Eleanor; Venturelli, Davide; Vasko, Fedir; Wang, Zhihui (2016).
+
+"A NASA perspective on quantum computing: Opportunities and challenges" .
+
+Parallel Computing .
+
+64 : 81– 98.
+
+arXiv : 1704.04836 .
+
+doi : 10.1016/j.parco.2016.11.002 .
+
+S2CID 27547901 .
+
+^ a b Adachi, Steven H.; Henderson, Maxwell P. (2015). "Application of quantum annealing to training of deep neural networks".
+
+arXiv : 1510.06356 [ quant-ph ].
+
+^ a b Benedetti, Marcello; Realpe-Gómez, John; Biswas, Rupak; Perdomo-Ortiz, Alejandro (2016). "Estimation of effective temperatures in quantum annealers for sampling applications: A case study with possible applications in deep learning".
+
+Physical Review A .
+
+94 (2): 022308.
+
+arXiv : 1510.07611 .
+
+Bibcode : 2016PhRvA..94b2308B .
+
+doi : 10.1103/PhysRevA.94.022308 .
+
+S2CID 118602077 .
+
+^ a b Korenkevych, Dmytro; Xue, Yanbo; Bian, Zhengbing; Chudak, Fabian; Macready, William G.; Rolfe, Jason; Andriyash, Evgeny (2016). "Benchmarking quantum hardware for training of fully visible Boltzmann machines".
+
+arXiv : 1611.04528 [ quant-ph ].
+
+^ a b c Benedetti, Marcello; Realpe-Gómez, John; Biswas, Rupak; Perdomo-Ortiz, Alejandro (2017). "Quantum-assisted learning of graphical models with arbitrary pairwise connectivity".
+
+Physical Review X .
+
+7 (4): 041052.
+
+arXiv : 1609.02542 .
+
+Bibcode : 2017PhRvX...7d1052B .
+
+doi : 10.1103/PhysRevX.7.041052 .
+
+S2CID 55331519 .
+
+^ Rocutto, Lorenzo; Destri, Claudio; Prati, Enrico (2021). "Quantum Semantic Learning by Reverse Annealing of an Adiabatic Quantum Computer".
+
+Advanced Quantum Technologies .
+
+4 (2): 2000133.
+
+arXiv : 2003.11945 .
+
+doi : 10.1002/qute.202000133 .
+
+ISSN 2511-9044 .
+
+S2CID 214667224 .
+
+^ Amin, Mohammad H.; Andriyash, Evgeny; Rolfe, Jason; Kulchytskyy, Bohdan; Melko, Roger (2018). "Quantum Boltzmann machines".
+
+Phys. Rev. X .
+
+8 (21050): 021050.
+
+arXiv : 1601.02036 .
+
+Bibcode : 2018PhRvX...8b1050A .
+
+doi : 10.1103/PhysRevX.8.021050 .
+
+S2CID 119198869 .
+
+^ Das, Arnab; Chakrabarti, Bikas K.; Stinchcombe, Robin B. (2005). "Quantum annealing in a kinetically constrained system".
+
+Physical Review E .
+
+72 (2): 026701.
+
+arXiv : cond-mat/0502167 .
+
+Bibcode : 2005PhRvE..72b6701D .
+
+doi : 10.1103/PhysRevE.72.026701 .
+
+PMID 16196745 .
+
+^ Wiebe, Nathan; Kapoor, Ashish; Svore, Krysta M.
+
+(2014). "Quantum deep learning".
+
+arXiv : 1412.3489 [ quant-ph ].
+
+^ Wittek, Peter; Gogolin, Christian (2017).
+
+"Quantum Enhanced Inference in Markov Logic Networks" .
+
+Scientific Reports .
+
+7 (45672): 45672.
+
+arXiv : 1611.08104 .
+
+Bibcode : 2017NatSR...745672W .
+
+doi : 10.1038/srep45672 .
+
+PMC 5395824 .
+
+PMID 28422093 .
+
+^ Henderson, Maxwell; Shakya, Samriddhi; Pradhan, Shashindra; Cook, Tristan (2020-02-27).
+
+"Quanvolutional neural networks: powering image recognition with quantum circuits" .
+
+Quantum Machine Intelligence .
+
+2 (1).
+
+arXiv : 1904.04767 .
+
+doi : 10.1007/s42484-020-00012-y .
+
+ISSN 2524-4906 .
+
+S2CID 104291950 .
+
+^ Gaikwad, Akash S.
+
+Pruning convolution neural network (SqueezeNet) for efficient hardware deployment .
+
+OCLC 1197735354 .
+
+^ Cong, Iris; Choi, Soonwon; Lukin, Mikhail D. (2019-08-26).
+
+"Quantum convolutional neural networks" .
+
+Nature Physics .
+
+15 (12): 1273– 1278.
+
+arXiv : 1810.03787 .
+
+Bibcode : 2019NatPh..15.1273C .
+
+doi : 10.1038/s41567-019-0648-8 .
+
+ISSN 1745-2473 .
+
+S2CID 53642483 .
+
+^ Mitarai, K.; Negoro, M.; Kitagawa, M.; Fujii, K. (2018-09-10).
+
+"Quantum circuit learning" .
+
+Physical Review A .
+
+98 (3): 032309.
+
+arXiv : 1803.00745 .
+
+Bibcode : 2018PhRvA..98c2309M .
+
+doi : 10.1103/physreva.98.032309 .
+
+hdl : 11094/77645 .
+
+ISSN 2469-9926 .
+
+S2CID 117542570 .
+
+^ Hochreiter, Sepp; Schmidhuber, Jürgen (1997-11-01).
+
+"Long Short-Term Memory" .
+
+Neural Computation .
+
+9 (8): 1735– 1780.
+
+doi : 10.1162/neco.1997.9.8.1735 .
+
+ISSN 0899-7667 .
+
+PMID 9377276 .
+
+S2CID 1915014 .
+
+^ Preskill, John (2018-08-06).
+
+"Quantum Computing in the NISQ era and beyond" .
+
+Quantum .
+
+2 : 79.
+
+arXiv : 1801.00862 .
+
+Bibcode : 2018Quant...2...79P .
+
+doi : 10.22331/q-2018-08-06-79 .
+
+ISSN 2521-327X .
+
+S2CID 44098998 .
+
+^ Bacon, Dave (2013-09-12).
+
+"Experimental quantum error correction" .
+
+Quantum Error Correction . Cambridge University Press. pp.
+
+509– 518.
+
+doi : 10.1017/cbo9781139034807.023 .
+
+ISBN 9780521897877 . Retrieved 2022-11-23 .
+
+^ Bharti, Kishor; Cervera-Lierta, Alba; Kyaw, Thi Ha; Haug, Tobias; Alperin-Lea, Sumner; Anand, Abhinav; Degroote, Matthias; Heimonen, Hermanni; Kottmann, Jakob S.; Menke, Tim; Mok, Wai-Keong; Sim, Sukin; Kwek, Leong-Chuan; Aspuru-Guzik, Alán (2022-02-15).
+
+"Noisy intermediate-scale quantum algorithms" .
+
+Reviews of Modern Physics .
+
+94 (1): 015004.
+
+arXiv : 2101.08448 .
+
+Bibcode : 2022RvMP...94a5004B .
+
+doi : 10.1103/revmodphys.94.015004 .
+
+hdl : 10356/161272 .
+
+ISSN 0034-6861 .
+
+S2CID 231662441 .
+
+^ Grant, Edward; Benedetti, Marcello; Cao, Shuxiang; Hallam, Andrew; Lockhart, Joshua; Stojevic, Vid; Green, Andrew G.; Severini, Simone (December 2018).
+
+"Hierarchical quantum classifiers" .
+
+npj Quantum Information .
+
+4 (1): 65.
+
+arXiv : 1804.03680 .
+
+Bibcode : 2018npjQI...4...65G .
+
+doi : 10.1038/s41534-018-0116-9 .
+
+S2CID 55479810 .
+
+^ Zhao, Chen; Gao, Xiao-Shan (2021-06-04).
+
+"Analyzing the barren plateau phenomenon in training quantum neural networks with the ZX-calculus" .
+
+Quantum .
+
+5 : 466.
+
+arXiv : 2102.01828 .
+
+Bibcode : 2021Quant...5..466Z .
+
+doi : 10.22331/q-2021-06-04-466 .
+
+ISSN 2521-327X .
+
+S2CID 231786346 .
+
+^ Hur, Tak; Kim, Leeseok; Park, Daniel K. (2022-02-10).
+
+"Quantum convolutional neural network for classical data classification" .
+
+Quantum Machine Intelligence .
+
+4 (1): 3.
+
+arXiv : 2108.00661 .
+
+doi : 10.1007/s42484-021-00061-x .
+
+ISSN 2524-4906 .
+
+S2CID 236772493 .
+
+^ Sentís, Gael; Guţă, Mădălin; Adesso, Gerardo (9 July 2015).
+
+"Quantum learning of coherent states" .
+
+EPJ Quantum Technology .
+
+2 (1): 17.
+
+arXiv : 1410.8700 .
+
+Bibcode : 2015EPJQT...2...17S .
+
+doi : 10.1140/epjqt/s40507-015-0030-4 .
+
+^ Sasaki, Masahide; Carlini, Alberto (6 August 2002). "Quantum learning and universal quantum matching machine".
+
+Physical Review A .
+
+66 (2): 022303.
+
+arXiv : quant-ph/0202173 .
+
+Bibcode : 2002PhRvA..66b2303S .
+
+doi : 10.1103/PhysRevA.66.022303 .
+
+S2CID 119383508 .
+
+^ Bisio, Alessandro; Chiribella, Giulio; D’Ariano, Giacomo Mauro; Facchini, Stefano; Perinotti, Paolo (25 March 2010). "Optimal quantum learning of a unitary transformation".
+
+Physical Review A .
+
+81 (3): 032324.
+
+arXiv : 0903.0543 .
+
+Bibcode : 2010PhRvA..81c2324B .
+
+doi : 10.1103/PhysRevA.81.032324 .
+
+S2CID 119289138 .
+
+^ Aïmeur, Esma; Brassard, Gilles; Gambs, Sébastien (1 January 2007). "Quantum clustering algorithms".
+
+Proceedings of the 24th international conference on Machine learning . pp.
+
+1– 8.
+
+CiteSeerX 10.1.1.80.9513 .
+
+doi : 10.1145/1273496.1273497 .
+
+ISBN 978-1-59593-793-3 .
+
+S2CID 4357684 .
+
+^ a b Heese, Raoul; Gerlach, Thore; Mücke, Sascha; Müller, Sabine; Jakobs, Matthias; Piatkowski, Nico (2025). "Explaining quantum circuits with Shapley values: Towards explainable quantum machine learning".
+
+Quantum Machine Intelligence .
+
+7 .
+
+arXiv : 2301.09138 .
+
+doi : 10.1007/s42484-025-00254-8 .
+
+^ Molnar, Christoph.
+
+Interpretable Machine Learning .
+
+^ Schuld, Maria; Killoran, Nathan (2 March 2022). "Is Quantum Advantage the Right Goal for Quantum Machine Learning?".
+
+PRX Quantum .
+
+3 (3): 030101.
+
+arXiv : 2203.01340 .
+
+Bibcode : 2022PRXQ....3c0101S .
+
+doi : 10.1103/PRXQuantum.3.030101 .
+
+S2CID 247222732 .
+
+^ Mercaldo, F.; Ciaramella, G.; Iadarola, G.; Storto, M.; Martinelli, F.; Santone, A.o (2022).
+
+"Towards Explainable Quantum Machine Learning for Mobile Malware Detection and Classification" .
+
+Applied Sciences .
+
+12 (23): 12025.
+
+doi : 10.3390/app122312025 .
+
+^ Ribeiro, Marco Tulio; Singh, Sameer; Guestrin, Carlos (2016-08-09). " "Why Should I Trust You?": Explaining the Predictions of Any Classifier".
+
+arXiv : 1602.04938 [ cs.LG ].
+
+^ Pira, Lirandë; Ferrie, Chris (2024-04-18). "On the interpretability of quantum neural networks".
+
+Quantum Machine Intelligence .
+
+6 (2).
+
+arXiv : 2308.11098 .
+
+doi : 10.1007/s42484-024-00191-y .
+
+^ Schnabel, Jan; Roth, Marco (2025-04-28), Quantum Kernel Methods under Scrutiny: A Benchmarking Study , arXiv, doi : 10.48550/arXiv.2409.04406 , arXiv:2409.04406 , retrieved 2025-08-06 ^ Bhardwaj, Pallavi; Jones, Caitlin; Dierich, Lasse; Vučković, Aleksandar (2025-05-28), TabularQGAN: A Quantum Generative Model for Tabular Data , arXiv, doi : 10.48550/arXiv.2505.22533 , arXiv:2505.22533 , retrieved 2025-08-06 ^ Cory, D. G.; Wiebe, Nathan; Ferrie, Christopher; Granade, Christopher E. (2012-07-06). "Robust Online Hamiltonian Learning".
+
+New Journal of Physics .
+
+14 (10): 103013.
+
+arXiv : 1207.1655 .
+
+Bibcode : 2012NJPh...14j3013G .
+
+doi : 10.1088/1367-2630/14/10/103013 .
+
+S2CID 9928389 .
+
+^ Arunachalam, Srinivasan; de Wolf, Ronald (2017). "A Survey of Quantum Learning Theory".
+
+arXiv : 1701.06806 [ quant-ph ].
+
+^ a b c Servedio, Rocco A.; Gortler, Steven J. (2004). "Equivalences and Separations Between Quantum and Classical Learnability".
+
+SIAM Journal on Computing .
+
+33 (5): 1067– 1092.
+
+CiteSeerX 10.1.1.69.6555 .
+
+doi : 10.1137/S0097539704412910 .
+
+^ Arunachalam, Srinivasan; de Wolf, Ronald (2016). "Optimal Quantum Sample Complexity of Learning Algorithms".
+
+arXiv : 1607.00932 [ quant-ph ].
+
+^ Bshouty, Nader H.; Jackson, Jeffrey C. (1999). "Learning DNF over the Uniform Distribution Using a Quantum Example Oracle".
+
+SIAM Journal on Computing .
+
+28 (3): 1136– 1153.
+
+CiteSeerX 10.1.1.23.5709 .
+
+doi : 10.1137/S0097539795293123 .
+
+^ Monràs, Alex; Sentís, Gael; Wittek, Peter (2017). "Inductive supervised quantum learning".
+
+Physical Review Letters .
+
+118 (19): 190503.
+
+arXiv : 1605.07541 .
+
+Bibcode : 2017PhRvL.118s0503M .
+
+doi : 10.1103/PhysRevLett.118.190503 .
+
+PMID 28548536 .
+
+S2CID 6521971 .
+
+^ "NIPS 2009 Demonstration: Binary Classification using Hardware Implementation of Quantum Annealing" (PDF) . Static.googleusercontent.com . Retrieved 26 November 2014 .
+
+^ "Google Quantum A.I. Lab Team" .
+
+Google Plus . 31 January 2017 . Retrieved 31 January 2017 .
+
+^ "NASA Quantum Artificial Intelligence Laboratory" .
+
+NASA . 31 January 2017. Archived from the original on 1 February 2017 . Retrieved 31 January 2017 .
+
+^ Neigovzen, Rodion; Neves, Jorge L.; Sollacher, Rudolf; Glaser, Steffen J. (2009). "Quantum pattern recognition with liquid-state nuclear magnetic resonance".
+
+Physical Review A .
+
+79 (4): 042321.
+
+arXiv : 0802.1592 .
+
+Bibcode : 2009PhRvA..79d2321N .
+
+doi : 10.1103/PhysRevA.79.042321 .
+
+S2CID 119115625 .
+
+^ Li, Zhaokai; Liu, Xiaomei; Xu, Nanyang; Du, Jiangfeng (2015). "Experimental Realization of a Quantum Support Vector Machine".
+
+Physical Review Letters .
+
+114 (14): 140504.
+
+arXiv : 1410.1054 .
+
+Bibcode : 2015PhRvL.114n0504L .
+
+doi : 10.1103/PhysRevLett.114.140504 .
+
+PMID 25910101 .
+
+S2CID 119182770 .
+
+^ Wan, Kwok-Ho; Dahlsten, Oscar; Kristjansson, Hler; Gardner, Robert; Kim, Myungshik (2017). "Quantum generalisation of feedforward neural networks".
+
+npj Quantum Information .
+
+3 (36): 36.
+
+arXiv : 1612.01045 .
+
+Bibcode : 2017npjQI...3...36W .
+
+doi : 10.1038/s41534-017-0032-4 .
+
+S2CID 51685660 .
+
+^ Brunner, Daniel; Soriano, Miguel C.; Mirasso, Claudio R.; Fischer, Ingo (2013).
+
+"Parallel photonic information processing at gigabyte per second data rates using transient states" .
+
+Nature Communications .
+
+4 : 1364.
+
+Bibcode : 2013NatCo...4.1364B .
+
+doi : 10.1038/ncomms2368 .
+
+PMC 3562454 .
+
+PMID 23322052 .
+
+^ Tezak, Nikolas; Mabuchi, Hideo (2015). "A coherent perceptron for all-optical learning".
+
+EPJ Quantum Technology .
+
+2 (1): 10.
+
+arXiv : 1501.01608 .
+
+Bibcode : 2015EPJQT...2...10T .
+
+doi : 10.1140/epjqt/s40507-015-0023-3 .
+
+S2CID 28568346 .
+
+^ Cai, X.-D.; Wu, D.; Su, Z.-E.; Chen, M.-C.; Wang, X.-L.; Li, Li; Liu, N.-L.; Lu, C.-Y.; Pan, J.-W. (2015). "Entanglement-Based Machine Learning on a Quantum Computer".
+
+Physical Review Letters .
+
+114 (11): 110504.
+
+arXiv : 1409.7770 .
+
+Bibcode : 2015PhRvL.114k0504C .
+
+doi : 10.1103/PhysRevLett.114.110504 .
+
+PMID 25839250 .
+
+S2CID 44769024 .
+
+^ Pfeiffer, P.; Egusquiza, I. L.; Di Ventra, M.; Sanz, M.; Solano, E. (2016).
+
+"Quantum memristors" .
+
+Scientific Reports .
+
+6 (2016): 29507.
+
+arXiv : 1511.02192 .
+
+Bibcode : 2016NatSR...629507P .
+
+doi : 10.1038/srep29507 .
+
+PMC 4933948 .
+
+PMID 27381511 .
+
+^ Salmilehto, J.; Deppe, F.; Di Ventra, M.; Sanz, M.; Solano, E. (2017).
+
+"Quantum Memristors with Superconducting Circuits" .
+
+Scientific Reports .
+
+7 (42044): 42044.
+
+arXiv : 1603.04487 .
+
+Bibcode : 2017NatSR...742044S .
+
+doi : 10.1038/srep42044 .
+
+PMC 5307327 .
+
+PMID 28195193 .
+
+^ Li, Ying; Holloway, Gregory W.; Benjamin, Simon C.; Briggs, G. Andrew D.; Baugh, Jonathan; Mol, Jan A. (2017). "A simple and robust quantum memristor".
+
+Physical Review B .
+
+96 (7): 075446.
+
+arXiv : 1612.08409 .
+
+Bibcode : 2017PhRvB..96g5446L .
+
+doi : 10.1103/PhysRevB.96.075446 .
+
+S2CID 119454549 .
+
+^ Bird, Jordan J.; Ekárt, Anikó; Faria, Diego R. (2019-10-28).
+
+"On the effects of pseudorandom and quantum-random number generators in soft computing" .
+
+Soft Computing .
+
+24 (12). Springer Science and Business Media LLC: 9243– 9256.
+
+doi : 10.1007/s00500-019-04450-0 .
+
+ISSN 1432-7643 .
+
+^ Heese, Raoul; Wolter, Moritz; Mücke, Sascha; Franken, Lukas; Piatkowski, Nico (2024). "On the effects of biased quantum random numbers on the initialization of artificial neural networks".
+
+Machine Learning .
+
+113 (3): 1189– 1217.
+
+arXiv : 2108.13329 .
+
+doi : 10.1007/s10994-023-06490-y .
+
+^ "A quantum trick with photons gives machine learning a speed boost" .
+
+New Scientist . Retrieved 31 August 2021 .
+
+^ Laboratory, Los Alamos National.
+
+"Solving 'barren plateaus' is the key to quantum machine learning" .
+
+phys.org . Retrieved 2025-08-06 .
+
+^ LANL.
+
+"LANL team cracks the code on the bane of quantum ML algorithms | LANL" .
+
+Los Alamos National Laboratory . Retrieved 2025-08-06 .
+
+^ "Diagnosing Barren Plateaus with Tools from Quantum Optimal Control" .
+
+Quantum: The Open Journal for Quantum Science .
+
+^ Recio-Armengol, Erik; Eisert, Jens; Meyer, Johannes Jakob (2025). "Single-shot quantum machine learning".
+
+Physical Review A .
+
+111 (4): 042420.
+
+arXiv : 2406.13812 .
+
+doi : 10.1103/PhysRevA.111.042420 .
+
+^ "Can quantum machine learning move beyond its own hype?" .
+
+Protocol . 2020-05-04. Archived from the original on 2020-10-27 . Retrieved 2020-10-27 .
+
+^ "Can quantum machine learning move beyond its own hype?" .
+
+quantamagazine.org . 2018-01-22.
+
+v t e Quantum information science General DiVincenzo's criteria NISQ era Quantum computing timeline Quantum information Quantum programming Quantum simulation Qubit physical vs. logical Quantum processors cloud-based Theorems Bell's Eastin–Knill Gleason's Gottesman–Knill Holevo's No-broadcasting No-cloning No-communication No-deleting No-hiding No-teleportation PBR Quantum speed limit Threshold Solovay–Kitaev Schrödinger-HJW Quantum communication Classical capacity entanglement-assisted quantum capacity Entanglement distillation Entanglement swapping Monogamy of entanglement LOCC Quantum channel quantum network State purification Quantum teleportation quantum energy teleportation quantum gate teleportation Superdense coding Quantum cryptography Post-quantum cryptography Quantum coin flipping Quantum money Quantum key distribution BB84 SARG04 other protocols Quantum secret sharing Quantum algorithms Algorithmic cooling Amplitude amplification Bernstein–Vazirani BHT Boson sampling Deutsch–Jozsa Grover's HHL Hidden subgroup Magic state distillation Quantum annealing Quantum counting Quantum Fourier transform Quantum optimization Quantum phase estimation Shor's Simon's VQE Quantum complexity theory BQP DQC1 EQP QIP QMA PostBQP Quantum processor benchmarks Quantum supremacy Quantum volume Randomized benchmarking XEB Relaxation times T 1 T 2 Quantum computing models Adiabatic quantum computation Continuous-variable quantum information One-way quantum computer cluster state Quantum circuit quantum logic gate Quantum machine learning quantum neural network Quantum Turing machine Topological quantum computer Hamiltonian quantum computation Quantum error correction Codes 5 qubit CSS GKP quantum convolutional stabilizer Shor Bacon–Shor Steane Toric gnu Entanglement-assisted Physical implementations Quantum optics Cavity QED Circuit QED Linear optical QC KLM protocol Ultracold atoms Neutral atom QC Trapped-ion QC Spin -based Kane QC Spin qubit QC NV center NMR QC Superconducting Charge qubit Flux qubit Phase qubit Transmon Quantum programming OpenQASM – Qiskit – IBM QX Quil – Forest/Rigetti QCS Cirq Q# libquantum many others...
+
+Quantum information science Quantum mechanics topics v t e Differentiable computing General Differentiable programming Information geometry Statistical manifold Automatic differentiation Neuromorphic computing Pattern recognition Ricci calculus Computational learning theory Inductive bias Hardware IPU TPU VPU Memristor SpiNNaker Software libraries TensorFlow PyTorch Keras scikit-learn Theano JAX Flux.jl MindSpore Portals Computer programming Technology v t e Emerging technologies Fields Quantum algorithms amplifier bus cellular automata channel circuit complexity theory computing cryptography post-quantum dynamics electronics error correction finite automata image processing imaging information key distribution logic logic clock logic gate machine machine learning metamaterial network neural network optics programming sensing simulator teleportation Other Acoustic levitation Anti-gravity Cloak of invisibility Digital scent technology Force field Plasma window Immersive virtual reality Magnetic refrigeration Phased-array optics Thermoacoustic heat engine List Retrieved from " https://en.wikipedia.org/w/index.php?title=Quantum_machine_learning&oldid=1304518022 " Categories : Machine learning Quantum information science Theoretical computer science Quantum programming Hidden categories: CS1 maint: multiple names: authors list Articles with short description Short description is different from Wikidata Wikipedia articles needing rewrite from July 2023 All articles needing rewrite All articles with unsourced statements Articles with unsourced statements from February 2017 Articles with unsourced statements from December 2020 This page was last edited on 6 August 2025, at 14:05 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Quantum machine learning 14 languages Add topic
+

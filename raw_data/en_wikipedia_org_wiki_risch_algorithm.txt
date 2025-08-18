@@ -1,0 +1,223 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Description 2 Problem examples 3 Implementation 4 Decidability 5 See also 6 Notes 7 References 8 External links Toggle the table of contents Risch algorithm 11 languages Català Español فارسی Français Magyar 日本語 Norsk bokmål Português Русский Svenska 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Method for evaluating indefinite integrals Part of a series of articles about Calculus ∫ ∫ a b f ′ ( t ) d t = f ( b ) − − f ( a ) {\displaystyle \int _{a}^{b}f'(t)\,dt=f(b)-f(a)} Fundamental theorem Limits Continuity Rolle's theorem Mean value theorem Inverse function theorem Differential Definitions Derivative ( generalizations ) Differential infinitesimal of a function total Concepts Differentiation notation Second derivative Implicit differentiation Logarithmic differentiation Related rates Taylor's theorem Rules and identities Sum Product Chain Power Quotient L'Hôpital's rule Inverse General Leibniz Faà di Bruno's formula Reynolds Integral Lists of integrals Integral transform Leibniz integral rule Definitions Antiderivative Integral ( improper ) Riemann integral Lebesgue integration Contour integration Integral of inverse functions Integration by Parts Discs Cylindrical shells Substitution ( trigonometric , tangent half-angle , Euler ) Euler's formula Partial fractions ( Heaviside's method ) Changing order Reduction formulae Differentiating under the integral sign Risch algorithm Series Geometric ( arithmetico-geometric ) Harmonic Alternating Power Binomial Taylor Convergence tests Summand limit (term test) Ratio Root Integral Direct comparison Limit comparison Alternating series Cauchy condensation Dirichlet Abel Vector Gradient Divergence Curl Laplacian Directional derivative Identities Theorems Gradient Green's Stokes' Divergence Generalized Stokes Helmholtz decomposition Multivariable Formalisms Matrix Tensor Exterior Geometric Definitions Partial derivative Multiple integral Line integral Surface integral Volume integral Jacobian Hessian Advanced Calculus on Euclidean space Generalized functions Limit of distributions Specialized Fractional Malliavin Stochastic Variations Miscellanea Precalculus History Glossary List of topics Integration Bee Mathematical analysis Nonstandard analysis v t e In symbolic computation , the Risch algorithm is a method of indefinite integration used in some computer algebra systems to find antiderivatives . It is named after the American mathematician Robert Henry Risch , a specialist in computer algebra who developed it in 1968.
+
+The algorithm transforms the problem of integration into a problem in algebra . It is based on the form of the function being integrated and on methods for integrating rational functions , radicals , logarithms , and exponential functions . Risch called it a decision procedure , because it is a method for deciding whether a function has an elementary function as an indefinite integral, and if it does, for determining that indefinite integral. However, the algorithm does not always succeed in identifying whether or not the antiderivative of a given function in fact can be expressed in terms of elementary functions.
+
+[ example needed ] The complete description of the Risch algorithm takes over 100 pages.
+
+[ 1 ] The Risch–Norman algorithm is a simpler, faster, but less powerful variant that was developed in 1976 by Arthur Norman .
+
+Some significant progress has been made in computing the logarithmic part of a mixed transcendental-algebraic integral by Brian L. Miller.
+
+[ 2 ] Description [ edit ] The Risch algorithm is used to integrate elementary functions . These are functions obtained by composing exponentials, logarithms, radicals, trigonometric functions, and the four arithmetic operations ( + − × ÷ ).
+
+Laplace solved this problem for the case of rational functions , as he showed that the indefinite integral of a rational function is a rational function and a finite number of constant multiples of logarithms of rational functions [ citation needed ] . The algorithm suggested by Laplace is usually described in calculus textbooks; as a computer program, it was finally implemented in the 1960s.
+
+[ citation needed ] Liouville formulated the problem that is solved by the Risch algorithm. Liouville proved by analytical means that if there is an elementary solution g to the equation g ′ = f then there exist constants α i and functions u i and v in the field generated by f such that the solution is of the form g = v + ∑ ∑ i < n α α i ln ⁡ ⁡ ( u i ) {\displaystyle g=v+\sum _{i<n}\alpha _{i}\ln(u_{i})} Risch developed a method that allows one to consider only a finite set of functions of Liouville's form.
+
+The intuition for the Risch algorithm comes from the behavior of the exponential and logarithm functions under differentiation. For the function f e g , where f and g are differentiable functions , we have ( f ⋅ ⋅ e g ) ′ ′ = ( f ′ ′ + f ⋅ ⋅ g ′ ′ ) ⋅ ⋅ e g , {\displaystyle \left(f\cdot e^{g}\right)^{\prime }=\left(f^{\prime }+f\cdot g^{\prime }\right)\cdot e^{g},\,} so if e g were in the result of an indefinite integration, it should be expected to be inside the integral. Also, as ( f ⋅ ⋅ ( ln ⁡ ⁡ g ) n ) ′ ′ = f ′ ′ ( ln ⁡ ⁡ g ) n + n f g ′ ′ g ( ln ⁡ ⁡ g ) n − − 1 {\displaystyle \left(f\cdot (\ln g)^{n}\right)^{\prime }=f^{\prime }\left(\ln g\right)^{n}+nf{\frac {g^{\prime }}{g}}\left(\ln g\right)^{n-1}} then if (ln g ) n were in the result of an integration, then only a few powers of the logarithm should be expected.
+
+Problem examples [ edit ] Finding an elementary antiderivative is very sensitive to details. For instance, the following algebraic function (posted to sci.math.symbolic by Henri Cohen in 1993 [ 3 ] ) has an elementary antiderivative, as Wolfram Mathematica since version 13 shows (however, Mathematica does not use the Risch algorithm to compute this integral): [ 4 ] [ 5 ] f ( x ) = x x 4 + 10 x 2 − − 96 x − − 71 , {\displaystyle f(x)={\frac {x}{\sqrt {x^{4}+10x^{2}-96x-71}}},} namely: F ( x ) = − − 1 8 ln ( ( x 6 + 15 x 4 − − 80 x 3 + 27 x 2 − − 528 x + 781 ) x 4 + 10 x 2 − − 96 x − − 71 − − ( x 8 + 20 x 6 − − 128 x 5 + 54 x 4 − − 1408 x 3 + 3124 x 2 + 10001 ) ) + C .
+
+{\displaystyle {\begin{aligned}F(x)=-{\frac {1}{8}}\ln &\,{\Big (}(x^{6}+15x^{4}-80x^{3}+27x^{2}-528x+781){\sqrt {x^{4}+10x^{2}-96x-71}}{\Big .}\\&{}-{\Big .}(x^{8}+20x^{6}-128x^{5}+54x^{4}-1408x^{3}+3124x^{2}+10001){\Big )}+C.\end{aligned}}} But if the constant term 71 is changed to 72, it is not possible to represent the antiderivative in terms of elementary functions, [ 6 ] as FriCAS also shows. Some computer algebra systems may here return an antiderivative in terms of non-elementary functions (i.e.
+
+elliptic integrals ), which are outside the scope of the Risch algorithm. For example, Mathematica returns a result with the functions EllipticPi and EllipticF. Integrals in the form ∫ ∫ x + A x 4 + a x 3 + b x 2 + c x + d d x {\displaystyle \int {\frac {x+A}{\sqrt {x^{4}+ax^{3}+bx^{2}+cx+d}}}\,dx} were solved by Chebyshev (and in what cases it is elementary), [ 7 ] but the strict proof for it was ultimately done by Zolotarev .
+
+[ 6 ] The following is a more complex example that involves both algebraic and transcendental functions : [ 8 ] f ( x ) = x 2 + 2 x + 1 + ( 3 x + 1 ) x + ln ⁡ ⁡ x x x + ln ⁡ ⁡ x ( x + x + ln ⁡ ⁡ x ) .
+
+{\displaystyle f(x)={\frac {x^{2}+2x+1+(3x+1){\sqrt {x+\ln x}}}{x\,{\sqrt {x+\ln x}}\left(x+{\sqrt {x+\ln x}}\right)}}.} In fact, the antiderivative of this function has a fairly short form that can be found using substitution u = x + x + ln ⁡ ⁡ x {\displaystyle u=x+{\sqrt {x+\ln x}}} ( SymPy can solve it while FriCAS fails with "implementation incomplete (constant residues)" error in Risch algorithm): F ( x ) = 2 ( x + ln ⁡ ⁡ x + ln ⁡ ⁡ ( x + x + ln ⁡ ⁡ x ) ) + C .
+
+{\displaystyle F(x)=2\left({\sqrt {x+\ln x}}+\ln \left(x+{\sqrt {x+\ln x}}\right)\right)+C.} Some Davenport "theorems" [ definition needed ] are still being clarified. For example in 2020 a counterexample to such a "theorem" was found, where it turns out that an elementary antiderivative exists after all.
+
+[ 9 ] Implementation [ edit ] Transforming Risch's theoretical algorithm into an algorithm that can be effectively executed by a computer was a complex task which took a long time.
+
+The case of the purely transcendental functions (which do not involve roots of polynomials) is relatively easy and was implemented early in most computer algebra systems . The first implementation was done by Joel Moses in Macsyma soon after the publication of Risch's paper.
+
+[ 10 ] The case of purely algebraic functions was partially solved and implemented in Reduce by James H. Davenport – for simplicity it could only deal with square roots and repeated square roots and not general radicals or other non-quadratic algebraic relations between variables.
+
+[ 11 ] The general case was solved and almost fully implemented in Scratchpad, a precursor of Axiom , by Manuel Bronstein, there is Axiom's fork FriCAS, with active Risch and other algorithm development on github.
+
+[ 12 ] [ 13 ] However, the implementation did not include some of the branches for special cases completely.
+
+[ 14 ] [ 15 ] Currently in 2025, there is no known full implementation of the Risch algorithm.
+
+[ 16 ] Decidability [ edit ] The Risch algorithm applied to general elementary functions is not an algorithm but a semi-algorithm because it needs to check, as a part of its operation, if certain expressions are equivalent to zero ( constant problem ), in particular in the constant field. For expressions that involve only functions commonly taken to be elementary it is not known whether an algorithm performing such a check exists (current computer algebra systems use heuristics); moreover, if one adds the absolute value function to the list of elementary functions, then it is known that no such algorithm exists; see Richardson's theorem .
+
+[ clarification needed ] This issue also arises in the polynomial division algorithm ; this algorithm will fail if it cannot correctly determine whether coefficients vanish identically.
+
+[ 17 ] Virtually every non-trivial algorithm relating to polynomials uses the polynomial division algorithm, the Risch algorithm included.  If the constant field is computable , i.e., for elements not dependent on x , then the problem of zero-equivalence is decidable, so the Risch algorithm is a complete algorithm. Examples of computable constant fields are ℚ and ℚ( y ) , i.e., rational numbers and rational functions in y with rational-number coefficients, respectively, where y is an indeterminate that does not depend on x .
+
+This is also an issue in the Gaussian elimination matrix algorithm (or any algorithm that can compute the nullspace of a matrix), which is also necessary for many parts of the Risch algorithm.  Gaussian elimination will produce incorrect results if it cannot correctly determine whether a pivot is identically zero [ citation needed ] .
+
+See also [ edit ] Computer programming portal Mathematics portal Axiom (computer algebra system) Closed-form expression Incomplete gamma function Lists of integrals Liouville's theorem (differential algebra) Nonelementary integral Symbolic integration Notes [ edit ] ^ Geddes, Czapor & Labahn 1992 .
+
+^ Miller, Brian L. (May 2012).
+
+"On the integration of elementary functions: Computing the logarithmic part" . Retrieved December 10, 2023 .
+
+^ Cohen, Henri (December 21, 1993).
+
+"A Christmas present for your favorite CAS" .
+
+^ "Wolfram Cloud" .
+
+Wolfram Cloud . Retrieved December 11, 2021 .
+
+^ This example was posted by Manuel Bronstein to the Usenet forum comp.soft-sys.math.maple on November 24, 2000.
+
+[1] ^ a b Zolotareff, G. (December 1, 1872).
+
+"Sur la méthode d'intégration de M. Tchébychef" .
+
+Mathematische Annalen (in French).
+
+5 (4): 560– 580.
+
+doi : 10.1007/BF01442910 .
+
+ISSN 1432-1807 .
+
+S2CID 123629827 .
+
+^ Chebyshev, P. L. (1899–1907).
+
+Oeuvres de P.L. Tchebychef (in French). University of California Berkeley. St. Petersbourg, Commissionaires de l'Academie imperiale des sciences. pp.
+
+171– 200.
+
+^ Bronstein 1998 .
+
+^ Masser, David; Zannier, Umberto (December 2020).
+
+"Torsion points, Pell's equation, and integration in elementary terms" .
+
+Acta Mathematica .
+
+225 (2): 227– 312.
+
+doi : 10.4310/ACTA.2020.v225.n2.a2 .
+
+hdl : 11384/110046 .
+
+ISSN 1871-2509 .
+
+S2CID 221405883 .
+
+^ Moses 2012 .
+
+^ Davenport 1981 .
+
+^ fricas/fricas , fricas, February 5, 2025 , retrieved February 6, 2025 ^ Bronstein 1990 .
+
+^ "MathAction RischImplementationStatus" . September 30, 2023. Archived from the original on September 30, 2023 . Retrieved December 23, 2024 .
+
+^ Bronstein, Manuel (September 5, 2003).
+
+"Manuel Bronstein on Axiom's Integration Capabilities" .
+
+groups.google.com . Retrieved February 10, 2023 .
+
+^ "integration - Does there exist a complete implementation of the Risch algorithm?" .
+
+MathOverflow . October 15, 2020 . Retrieved February 10, 2023 .
+
+^ "Mathematica 7 Documentation: PolynomialQuotient" .
+
+Section: Possible Issues . Retrieved July 17, 2010 .
+
+References [ edit ] Bronstein, Manuel (1990). "Integration of elementary functions".
+
+Journal of Symbolic Computation .
+
+9 (2): 117– 173.
+
+doi : 10.1016/s0747-7171(08)80027-2 .
+
+Bronstein, Manuel (1998).
+
+"Symbolic Integration Tutorial" (PDF) .
+
+ISSAC'98, Rostock (August 1998) and Differential Algebra Workshop, Rutgers .
+
+Bronstein, Manuel (2005).
+
+Symbolic Integration I . Springer.
+
+ISBN 3-540-21493-3 .
+
+Davenport, James H.
+
+(1981).
+
+On the integration of algebraic functions .
+
+Lecture Notes in Computer Science . Vol. 102. Springer.
+
+ISBN 978-3-540-10290-8 .
+
+Geddes, Keith O.
+
+; Czapor, Stephen R.; Labahn, George (1992).
+
+Algorithms for computer algebra . Boston, MA: Kluwer Academic Publishers. pp. xxii+585.
+
+Bibcode : 1992afca.book.....G .
+
+doi : 10.1007/b102438 .
+
+ISBN 0-7923-9259-0 .
+
+Moses, Joel (2012). "Macsyma: A personal history".
+
+Journal of Symbolic Computation .
+
+47 (2): 123– 130.
+
+doi : 10.1016/j.jsc.2010.08.018 .
+
+Risch, R. H. (1969).
+
+"The problem of integration in finite terms" .
+
+Transactions of the American Mathematical Society .
+
+139 . American Mathematical Society: 167– 189.
+
+doi : 10.2307/1995313 .
+
+JSTOR 1995313 .
+
+Risch, R. H. (1970).
+
+"The solution of the problem of integration in finite terms" .
+
+Bulletin of the American Mathematical Society .
+
+76 (3): 605– 608.
+
+doi : 10.1090/S0002-9904-1970-12454-5 .
+
+Rosenlicht, Maxwell (1972). "Integration in finite terms".
+
+American Mathematical Monthly .
+
+79 (9). Mathematical Association of America: 963– 972.
+
+doi : 10.2307/2318066 .
+
+JSTOR 2318066 .
+
+External links [ edit ] Bhatt, Bhuvanesh.
+
+"Risch Algorithm" .
+
+MathWorld .
+
+v t e Integrals Types of integrals Riemann integral Lebesgue integral Burkill integral Bochner integral Daniell integral Darboux integral Henstock–Kurzweil integral Haar integral Hellinger integral Khinchin integral Kolmogorov integral Lebesgue–Stieltjes integral Pettis integral Pfeffer integral Riemann–Stieltjes integral Regulated integral Integration techniques Substitution Trigonometric Euler Weierstrass By parts Partial fractions Euler's formula Inverse functions Changing order Reduction formulas Parametric derivatives Differentiation under the integral sign Laplace transform Contour integration Laplace's method Numerical integration Simpson's rule Trapezoidal rule Risch algorithm Improper integrals Gaussian integral Dirichlet integral Fermi–Dirac integral complete incomplete Bose–Einstein integral Frullani integral Common integrals in quantum field theory Stochastic integrals Itô integral Russo–Vallois integral Stratonovich integral Skorokhod integral Miscellaneous Basel problem Euler–Maclaurin formula Gabriel's horn Integration Bee Proof that 22/7 exceeds π Volumes Washers Shells Retrieved from " https://en.wikipedia.org/w/index.php?title=Risch_algorithm&oldid=1302826845 " Categories : Computer algebra Integral calculus Differential algebra Hidden categories: CS1 French-language sources (fr) Use mdy dates from April 2022 Articles with short description Short description is different from Wikidata Pages using sidebar with the child parameter All articles needing examples Articles needing examples from December 2021 All articles with unsourced statements Articles with unsourced statements from June 2021 Articles with unsourced statements from November 2021 Wikipedia articles needing clarification from July 2022 Wikipedia articles needing clarification from July 2025 Articles with unsourced statements from January 2012 This page was last edited on 27 July 2025, at 17:15 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Risch algorithm 11 languages Add topic
+

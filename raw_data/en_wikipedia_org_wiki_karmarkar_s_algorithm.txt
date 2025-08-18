@@ -1,0 +1,281 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 The algorithm 2 Example 3 Patent controversy 4 Applications 5 References Toggle the table of contents Karmarkar's algorithm 8 languages العربية فارسی Français Italiano 日本語 Português Русский Українська Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Linear programming algorithm Karmarkar's algorithm is an algorithm introduced by Narendra Karmarkar in 1984 for solving linear programming problems. It was the first reasonably efficient algorithm that solves these problems in polynomial time . The ellipsoid method is also polynomial time but proved to be inefficient in practice.
+
+Denoting by n {\displaystyle n} the number of variables, m the number of inequality constraints, and L {\displaystyle L} the number of bits of input to the algorithm, Karmarkar's algorithm requires O ( m 1.5 n 2 L ) {\displaystyle O(m^{1.5}n^{2}L)} operations on O ( L ) {\displaystyle O(L)} -digit numbers, as compared to O ( n 3 ( n + m ) L ) {\displaystyle O(n^{3}(n+m)L)} such operations for the ellipsoid algorithm.
+
+[ 1 ] In "square" problems, when m is in O( n ), Karmarkar's algorithm requires O ( n 3.5 L ) {\displaystyle O(n^{3.5}L)} operations on O ( L ) {\displaystyle O(L)} -digit numbers, as compared to O ( n 4 L ) {\displaystyle O(n^{4}L)} such operations for the ellipsoid algorithm. The runtime of Karmarkar's algorithm is thus O ( n 3.5 L 2 ⋅ ⋅ log ⁡ ⁡ L ⋅ ⋅ log ⁡ ⁡ log ⁡ ⁡ L ) , {\displaystyle O(n^{3.5}L^{2}\cdot \log L\cdot \log \log L),} using FFT-based multiplication (see Big O notation ).
+
+Karmarkar's algorithm falls within the class of interior-point methods : the current guess for the solution does not follow the boundary of the feasible set as in the simplex method , but moves through the interior of the feasible region, improving the approximation of the optimal solution by a definite fraction with every iteration and converging to an optimal solution with rational data.
+
+[ 2 ] The algorithm [ edit ] Consider a linear programming problem in matrix form: maximize c T x subject to Ax ≤ b .
+
+Karmarkar's algorithm determines the next feasible direction toward optimality and scales back by a factor 0 < γ ≤ 1 . It is described in a number of sources.
+
+[ 3 ] [ 4 ] [ 5 ] [ 6 ] [ 7 ] [ 8 ] Karmarkar also has extended the method [ 9 ] [ 10 ] [ 11 ] [ 12 ] to solve problems with integer constraints and non-convex problems.
+
+[ 13 ] Algorithm Affine-Scaling Since the actual algorithm is rather complicated, researchers looked for a more intuitive version of it, and in 1985 developed affine scaling , a version of Karmarkar's algorithm that uses affine transformations where Karmarkar used projective ones, only to realize four years later that they had rediscovered an algorithm published by Soviet mathematician I. I. Dikin in 1967.
+
+[ 14 ] The affine-scaling method can be described succinctly as follows.
+
+[ 15 ] While applicable to small scale problems, it is not a polynomial time algorithm.
+
+[ 14 ] Input:  A, b, c, x 0 {\displaystyle x^{0}} , stopping criterion , γ .
+
+k ← ← 0 {\displaystyle k\leftarrow 0} do while stopping criterion not satisfied v k ← ← b − − A x k {\displaystyle v^{k}\leftarrow b-Ax^{k}} D v ← ← diag ⁡ ⁡ ( v 1 k , … … , v m k ) {\displaystyle D_{v}\leftarrow \operatorname {diag} (v_{1}^{k},\ldots ,v_{m}^{k})} h x ← ← ( A T D v − − 2 A ) − − 1 c {\displaystyle h_{x}\leftarrow (A^{T}D_{v}^{-2}A)^{-1}c} h v ← ← − − A h x {\displaystyle h_{v}\leftarrow -Ah_{x}} if h v ≥ ≥ 0 {\displaystyle h_{v}\geq 0} then return unbounded end if α α ← ← γ γ ⋅ ⋅ min { − − v i k / ( h v ) i | ( h v ) i < 0 , i = 1 , … … , m } {\displaystyle \alpha \leftarrow \gamma \cdot \min\{-v_{i}^{k}/(h_{v})_{i}\,\,|\,\,(h_{v})_{i}<0,\,i=1,\ldots ,m\}} x k + 1 ← ← x k + α α h x {\displaystyle x^{k+1}\leftarrow x^{k}+\alpha h_{x}} k ← ← k + 1 {\displaystyle k\leftarrow k+1} end do "←" denotes assignment .  For instance, " largest ← item " means that the value of largest changes to the value of item .
+
+" return " terminates the algorithm and outputs the following value.
+
+Example [ edit ] Example solution Consider the linear program maximize x 1 + x 2 subject to 2 p x 1 + x 2 ≤ ≤ p 2 + 1 , p = 0.0 , 0.1 , 0.2 , … … , 0.9 , 1.0.
+
+{\displaystyle {\begin{array}{lrclr}{\text{maximize}}&x_{1}+x_{2}\\{\text{subject to}}&2px_{1}+x_{2}&\leq &p^{2}+1,&p=0.0,0.1,0.2,\ldots ,0.9,1.0.\end{array}}} That is, there are 2 variables x 1 , x 2 {\displaystyle x_{1},x_{2}} and 11 constraints associated with varying values of p {\displaystyle p} . This figure shows each iteration of the algorithm as red circle points. The constraints are shown as blue lines.
+
+Patent controversy [ edit ] At the time he invented the algorithm, Karmarkar was employed by IBM as a postdoctoral fellow in the IBM San Jose Research Laboratory in California. On August 11, 1983 he gave a seminar at Stanford University explaining the algorithm, with his affiliation still listed as IBM. By the fall of 1983 Karmarkar started to work at AT&T and submitted his paper to the 1984 ACM Symposium on Theory of Computing (STOC, held April 30 - May 2, 1984) stating AT&T Bell Laboratories as his affiliation.
+
+[ 16 ] After applying the algorithm to optimizing AT&T's telephone network, [ 17 ] they realized that his invention could be of practical importance.  In April 1985, AT&T promptly applied for a patent on his algorithm.
+
+The patent became more fuel for the ongoing controversy over the issue of software patents .
+
+[ 18 ] This left many mathematicians uneasy, such as Ronald Rivest (himself one of the holders of the patent on the RSA algorithm), who expressed the opinion that research proceeded on the basis that algorithms should be free. Even before the patent was actually granted, it was argued that there might have been prior art that was applicable.
+
+[ 19 ] Mathematicians who specialized in numerical analysis , including Philip Gill and others, claimed that Karmarkar's algorithm is equivalent to a projected Newton barrier method with a logarithmic barrier function , if the parameters are chosen suitably.
+
+[ 20 ] Legal scholar Andrew Chin opines that Gill's argument was flawed, insofar as the method they describe does not constitute an "algorithm", since it requires choices of parameters that don't follow from the internal logic of the method, but rely on external guidance, essentially from Karmarkar's algorithm.
+
+[ 21 ] Furthermore, Karmarkar's contributions are considered far from obvious in light of all prior work, including Fiacco-McCormick, Gill and others cited by Saltzman.
+
+[ 21 ] [ 22 ] [ 23 ] The patent was granted in recognition of the essential originality of Karmarkar's work, as U.S. patent 4,744,028 : "Methods and apparatus for efficient resource allocation" in May 1988.
+
+AT&T designed a vector multi-processor computer system specifically to run Karmarkar's algorithm, calling the resulting combination of hardware and software KORBX, [ 24 ] and marketed this system at a price of US$8.9 million.
+
+[ 25 ] [ 26 ] Its first customer was the Pentagon .
+
+[ 27 ] [ 28 ] Opponents of software patents have further argued that the patents ruined the positive interaction cycles that previously characterized the relationship between researchers in linear programming and industry, and specifically it isolated Karmarkar himself from the network of mathematical researchers in his field.
+
+[ 29 ] The patent itself expired in April 2006, and the algorithm is presently in the public domain .
+
+The United States Supreme Court has held that mathematics cannot be patented in Gottschalk v. Benson , [ 30 ] In that case, the Court first addressed whether computer algorithms could be patented and it held that they could not because the patent system does not protect ideas and similar abstractions. In Diamond v. Diehr , [ 31 ] the Supreme Court stated, "A mathematical formula as such is not accorded the protection of our patent laws, and this principle cannot be circumvented by attempting to limit the use of the formula to a particular technological environment.
+
+[ 32 ] In Mayo Collaborative Services v. Prometheus Labs., Inc.
+
+, [ 33 ] the Supreme Court explained further that "simply implementing a mathematical principle on a physical machine, namely a computer, [i]s not a patentable application of that principle." [ 34 ] Applications [ edit ] Karmarkar's algorithm was used by the US Army for logistic planning during the Gulf War .
+
+[ 1 ] References [ edit ] Adler, Ilan ; Karmarkar, Narendra; Resende, Mauricio G.C.
+
+; Veiga, Geraldo (1989). "An Implementation of Karmarkar's Algorithm for Linear Programming".
+
+Mathematical Programming .
+
+44 ( 1– 3): 297– 335.
+
+doi : 10.1007/bf01587095 .
+
+S2CID 12851754 .
+
+Narendra Karmarkar (1984). " A New Polynomial Time Algorithm for Linear Programming ", Combinatorica , Vol 4 , nr. 4, p. 373–395.
+
+^ a b Arkadi Nemirovsky (2004).
+
+Interior point polynomial-time methods in convex programming .
+
+^ Strang, Gilbert (1 June 1987). "Karmarkar's algorithm and its place in applied mathematics".
+
+The Mathematical Intelligencer .
+
+9 (2): 4– 10.
+
+doi : 10.1007/BF03025891 .
+
+ISSN 0343-6993 .
+
+MR 0883185 .
+
+S2CID 123541868 .
+
+^ Karmarkar, N. (1984).
+
+"A new polynomial-time algorithm for linear programming" .
+
+Proceedings of the sixteenth annual ACM symposium on Theory of computing - STOC '84 . pp.
+
+302– 311.
+
+doi : 10.1145/800057.808695 .
+
+ISBN 0897911334 .
+
+S2CID 13101261 .
+
+^ Karmarkar, N. (1984). "A new polynomial-time algorithm for linear programming".
+
+Combinatorica .
+
+4 (4): 373– 395.
+
+doi : 10.1007/BF02579150 .
+
+S2CID 7257867 .
+
+^ Karmarkar, Narendra K. (1989). "Power Series Variants of Karmarkar-Type Algorithms".
+
+AT&T Technical Journal .
+
+68 (3): 20– 36.
+
+doi : 10.1002/j.1538-7305.1989.tb00316.x .
+
+S2CID 42071587 .
+
+^ Karmarkar, Narendra (1990). "An interior-point approach to NP-complete problems. I".
+
+Mathematical developments arising from linear programming (Brunswick, ME, 1988) . Contemporary Mathematics. Vol. 114. Providence, RI: American Mathematical Society. pp.
+
+297– 308.
+
+doi : 10.1090/conm/114/1097880 .
+
+ISBN 978-0-8218-5121-0 .
+
+MR 1097880 .
+
+^ Karmarkar, Narendra (1990). "Riemannian geometry underlying interior-point methods for linear programming".
+
+Mathematical developments arising from linear programming (Brunswick, ME, 1988) . Contemporary Mathematics. Vol. 114. Providence, RI: American Mathematical Society. pp.
+
+51– 75.
+
+doi : 10.1090/conm/114/1097865 .
+
+ISBN 978-0-8218-5121-0 .
+
+MR 1097865 .
+
+^ Karmarkar N. K., Lagarias, J.C., Slutsman, L., and Wang, P., Power Series Variants of KarmarkarType Algorithm, AT & T technical Journal 68, No. 3, May/June (1989).
+
+^ Karmarkar, N.K., Interior Point Methods in Optimization, Proceedings of the Second International Conference on Industrial and Applied Mathematics, SIAM, pp. 160181 (1991) ^ Karmarkar, N. K. and Kamath, A. P., A continuous Approach to Deriving Upper Bounds in Quadratic Maximization Problems with Integer Constraints, Recent Advances in Global Optimization, pp. 125140, Princeton University Press (1992).
+
+^ 26.	Karmarkar, N. K., Thakur, S. A., An Interior Point Approach to a Tensor Optimisation Problem with Application to Upper Bounds in Integer Quadratic Optimization Problems, Proceedings of Second Conference on Integer Programming and Combinatorial Optimisation, (May 1992).
+
+^ 27.	Kamath, A., Karmarkar, N. K., A Continuous Method for Computing Bounds in Integer Quadratic Optimisation Problems, Journal of Global Optimization (1992).
+
+^ Karmarkar, N. K., Beyond Convexity: New Perspectives in Computational Optimization. Springer Lecture Notes in Computer Science LNCS 6457, Dec 2010 ^ a b Vanderbei, R. J.; Lagarias, J. C. (1990). "I. I. Dikin's convergence result for the affine-scaling algorithm".
+
+Mathematical developments arising from linear programming (Brunswick, ME, 1988) (PDF) . Contemporary Mathematics. Vol. 114. Providence, RI: American Mathematical Society. pp.
+
+109– 119.
+
+doi : 10.1090/conm/114/1097868 .
+
+ISBN 978-0-8218-5121-0 .
+
+MR 1097868 .
+
+^ Robert J. Vanderbei ; Meketon, Marc; Freedman, Barry (1986).
+
+"A Modification of Karmarkar's Linear Programming Algorithm" (PDF) .
+
+Algorithmica .
+
+1 ( 1– 4): 395– 407.
+
+doi : 10.1007/BF01840454 .
+
+S2CID 779577 .
+
+^ "Karmarkar Algorithm" . IBM Research. Archived from the original on 2016-08-03.
+
+^ Sinha L.P., Freedman, B. A., Karmarkar, N. K., Putcha, A., and Ramakrishnan K.G., Overseas Network Planning, Proceedings of the Third International Network Planning Symposium, NETWORKS' 86, Tarpon Springs, Florida (June 1986).
+
+^ Kolata, Gina (1989-03-12).
+
+"IDEAS & TRENDS; Mathematicians Are Troubled by Claims on Their Recipes" .
+
+The New York Times .
+
+^ Various posts by Matthew Saltzman, Clemson University ^ Gill, Philip E.; Murray, Walter; Saunders, Michael A.; Tomlin, J. A.; Wright, Margaret H. (1986). "On projected Newton barrier methods for linear programming and an equivalence to Karmarkar's projective method".
+
+Mathematical Programming .
+
+36 (2): 183– 209.
+
+doi : 10.1007/BF02592025 .
+
+S2CID 18899771 .
+
+^ a b Andrew Chin (2009).
+
+"On Abstraction and Equivalence in Software Patent Doctrine: A Response to Bessen, Meurer and Klemens" (PDF) .
+
+Journal of Intellectual Property Law .
+
+16 : 214– 223.
+
+^ Mark A. Paley  (1995). "The Karmarkar Patent:  Why Congress Should "Open the Door" to Algorithms as Patentable Subject Matter". 22 Computer  L. Rep. 7 ^ Margaret H. Wright (2004).
+
+"The Interior-Point Revolution in Optimization: History, Recent Developments, and Lasting Consequences" (PDF) .
+
+Bulletin of the American Mathematical Society .
+
+42 : 39– 56.
+
+doi : 10.1090/S0273-0979-04-01040-7 .
+
+^ Marc S. Meketon; Y.C. Cheng; D.J. Houck; J.M.Liu; L. Slutsman; Robert J. Vanderbei ; P. Wang (1989). "The AT&T KORBX System".
+
+AT&T Technical Journal .
+
+68 (3): 7– 19.
+
+doi : 10.1002/j.1538-7305.1989.tb00315.x .
+
+S2CID 18548851 .
+
+^ Lowenstein, Roger (15 August 1988).
+
+"AT&T markets problem solver, based on math whiz's find, for $8.9 million" (PDF) .
+
+Wall Street Journal . Archived from the original (PDF) on 8 June 2016 . Retrieved 30 January 2016 .
+
+^ Markoff, John (13 August 1988).
+
+"Big A.T.&T. Computer for Complexities" .
+
+The New York Times .
+
+^ "Military Is First Announced Customer Of AT&T Software" .
+
+Associated Press . AP News . Retrieved 2019-06-11 .
+
+^ Kennington, J.L. (1989). "Using KORBX for military airlift applications".
+
+Proceedings of the 28th IEEE Conference on Decision and Control . pp.
+
+1603– 1605.
+
+doi : 10.1109/CDC.1989.70419 .
+
+S2CID 60450719 .
+
+^ "今野浩: カーマーカー特許とソフトウェア – 数学は 特許に なるか (Konno Hiroshi: The Kamarkar Patent and Software – Has Mathematics Become Patentable?)" .
+
+FFII . Archived from the original on 2008-06-27 . Retrieved 2008-06-27 .
+
+^ 409 U.S. 63 (1972). The case concerned an algorithm for converting binary-coded decimal numerals to pure binary.
+
+^ 450 U.S. 175 (1981).
+
+^ 450 U.S. at 191. See also Parker v. Flook , 437 U.S. 584, 585 (1978) ("the discovery of a novel and useful mathematical formula may not be patented").
+
+^ 566 U.S. __, 132 S. Ct. 1289 (2012).
+
+^ Accord Alice Corp. v. CLS Bank Int’l ,  573 U.S. __, 134 S. Ct. 2347  (2014).
+
+v t e Optimization : Algorithms , methods , and heuristics Unconstrained nonlinear Functions Golden-section search Powell's method Line search Nelder–Mead method Successive parabolic interpolation Gradients Convergence Trust region Wolfe conditions Quasi–Newton Berndt–Hall–Hall–Hausman Broyden–Fletcher–Goldfarb–Shanno and L-BFGS Davidon–Fletcher–Powell Symmetric rank-one (SR1) Other methods Conjugate gradient Gauss–Newton Gradient Mirror Levenberg–Marquardt Powell's dog leg method Truncated Newton Hessians Newton's method Optimization computes maxima and minima.
+
+Constrained nonlinear General Barrier methods Penalty methods Differentiable Augmented Lagrangian methods Sequential quadratic programming Successive linear programming Convex optimization Convex minimization Cutting-plane method Reduced gradient (Frank–Wolfe) Subgradient method Linear and quadratic Interior point Affine scaling Ellipsoid algorithm of Khachiyan Projective algorithm of Karmarkar Basis- exchange Simplex algorithm of Dantzig Revised simplex algorithm Criss-cross algorithm Principal pivoting algorithm of Lemke Active-set method Combinatorial Paradigms Approximation algorithm Dynamic programming Greedy algorithm Integer programming Branch and bound / cut Graph algorithms Minimum spanning tree Borůvka Prim Kruskal Shortest path Bellman–Ford SPFA Dijkstra Floyd–Warshall Network flows Dinic Edmonds–Karp Ford–Fulkerson Push–relabel maximum flow Metaheuristics Evolutionary algorithm Hill climbing Local search Parallel metaheuristics Simulated annealing Spiral optimization algorithm Tabu search Software Retrieved from " https://en.wikipedia.org/w/index.php?title=Karmarkar%27s_algorithm&oldid=1301578148 " Categories : Optimization algorithms and methods Software patent law Linear programming Hidden categories: Articles with short description Short description is different from Wikidata Articles with example pseudocode This page was last edited on 20 July 2025, at 15:35 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Karmarkar's algorithm 8 languages Add topic
+

@@ -1,0 +1,188 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Basic (simple) exponential smoothing Toggle Basic (simple) exponential smoothing subsection 1.1 Time constant 1.2 Choosing the initial smoothed value 1.3 Optimization 1.4 "Exponential" naming 1.5 Comparison with moving average 2 Double exponential smoothing (Holt linear) 3 Triple exponential smoothing (Holt–Winters) 4 Implementations in statistics packages 5 See also 6 Notes 7 External links Toggle the table of contents Exponential smoothing 11 languages Català Čeština Deutsch Español Euskara Français 한국어 Polski Português Русский Українська Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikimedia Commons Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Generates a forecast of future values of a time series Exponential smoothing or exponential moving average (EMA) is a rule of thumb technique for smoothing time series data using the exponential window function . Whereas in the simple moving average the past observations are weighted equally, exponential functions are used to assign exponentially decreasing weights over time. It is an easily learned and easily applied procedure for making some determination based on prior assumptions by the user, such as seasonality. Exponential smoothing is often used for analysis of time-series data.
+
+Exponential smoothing is one of many window functions commonly applied to smooth data in signal processing , acting as low-pass filters to remove high-frequency noise . This method is preceded by Poisson 's use of recursive exponential window functions in convolutions from the 19th century, as well as Kolmogorov and Zurbenko's use of recursive moving averages from their studies of turbulence in the 1940s.
+
+The raw data sequence is often represented by { x t } {\textstyle \{x_{t}\}} beginning at time t = 0 {\textstyle t=0} , and the output of the exponential smoothing algorithm is commonly written as { s t } {\textstyle \{s_{t}\}} , which may be regarded as a best estimate of what the next value of x {\textstyle x} will be. When the sequence of observations begins at time t = 0 {\textstyle t=0} , the simplest form of exponential smoothing is given by the following formulas: [ 1 ] s 0 = x 0 s t = α α x t + ( 1 − − α α ) s t − − 1 , t > 0 {\displaystyle {\begin{aligned}s_{0}&=x_{0}\\s_{t}&=\alpha x_{t}+(1-\alpha )s_{t-1},\quad t>0\end{aligned}}} where α α {\textstyle \alpha } is the smoothing factor , and 0 < α α < 1 {\textstyle 0<\alpha <1} . If s t − − 1 {\textstyle s_{t-1}} is substituted into s t {\textstyle s_{t}} continuously so that the formula of s t {\textstyle s_{t}} is fully expressed in terms of { x t } {\textstyle \{x_{t}\}} , then exponentially decaying weighting factors on each raw data x t {\textstyle x_{t}} is revealed, showing how exponential smoothing is named.
+
+The simple exponential smoothing is not able to predict what would be observed at t + m {\textstyle t+m} based on the raw data up to t {\textstyle t} , while the double exponential smoothing and triple exponential smoothing can be used for the prediction due to the presence of b t {\displaystyle b_{t}} as the sequence of best estimates of the linear trend.
+
+Basic (simple) exponential smoothing [ edit ] The use of the exponential window function is first attributed to Poisson [ 2 ] as an extension of a numerical analysis technique from the 17th century, and later adopted by the signal processing community in the 1940s. Here, exponential smoothing is the application of the exponential, or Poisson, window function . Exponential smoothing was suggested in the statistical literature without citation to previous work by Robert Goodell Brown in 1956, [ 3 ] and expanded by Charles C. Holt in 1957.
+
+[ 4 ] The formulation below, which is the one commonly used, is attributed to Brown and is known as "Brown’s simple exponential smoothing".
+
+[ 5 ] All the methods of Holt, Winters, and Brown may be seen as a simple application of recursive filtering , first found in the 1940s [ 2 ] to convert finite impulse response (FIR) filters to infinite impulse response filters.
+
+The simplest form of exponential smoothing is given by the formula: s t = α α x t + ( 1 − − α α ) s t − − 1 , {\displaystyle s_{t}=\alpha x_{t}+(1-\alpha )s_{t-1}\,,} where α α {\displaystyle \alpha } is the smoothing factor , with 0 ≤ ≤ α α ≤ ≤ 1 {\displaystyle 0\leq \alpha \leq 1} . In other words, the smoothed statistic s t {\displaystyle s_{t}} is a simple weighted average of the current observation x t {\displaystyle x_{t}} and the previous smoothed statistic s t − − 1 {\displaystyle s_{t-1}} . Simple exponential smoothing is easily applied, and it produces a smoothed statistic as soon as two observations are available. The term smoothing factor applied to α α {\displaystyle \alpha } here is something of a misnomer, as larger values of α α {\displaystyle \alpha } actually reduce the level of smoothing, and in the limiting case with α α {\displaystyle \alpha } = 1 the smoothing output series is just the current observation. Values of α α {\displaystyle \alpha } close to 1 have less of a smoothing effect and give greater weight to recent changes in the data, while values of α α {\displaystyle \alpha } closer to 0 have a greater smoothing effect and are less responsive to recent changes. In the limiting case with α α {\displaystyle \alpha } = 0, the output series is just flat or a constant as the observation x 0 {\textstyle x_{0}} at the beginning of the smoothening process t = 0 {\textstyle t=0} .
+
+The method for choosing α α {\displaystyle \alpha } must be decided by the modeler. Sometimes the statistician's judgment is used to choose an appropriate factor. Alternatively, a statistical technique may be used to optimize the value of α α {\displaystyle \alpha } . For example, the method of least squares might be used to determine the value of α α {\displaystyle \alpha } for which the sum of the quantities ( s t − − x t + 1 ) 2 {\displaystyle (s_{t}-x_{t+1})^{2}} is minimized.
+
+[ 6 ] Unlike some other smoothing methods, such as the simple moving average, this technique does not require any minimum number of observations to be made before it begins to produce results. In practice, however, a "good average" will not be achieved until several samples have been averaged together; for example, a constant signal will take approximately 3 / α α {\displaystyle 3/\alpha } stages to reach 95% of the actual value. To accurately reconstruct the original signal without information loss, all stages of the exponential moving average must also be available, because older samples decay in weight exponentially. This is in contrast to a simple moving average, in which some samples can be skipped without as much loss of information due to the constant weighting of samples within the average. If a known number of samples will be missed, one can adjust a weighted average for this as well, by giving equal weight to the new sample and all those to be skipped.
+
+This simple form of exponential smoothing is also known as an exponentially weighted moving average (EWMA). Technically it can also be classified as an autoregressive integrated moving average (ARIMA) (0,1,1) model with no constant term.
+
+[ 7 ] Time constant [ edit ] The time constant of an exponential moving average is the amount of time for the smoothed response of a unit step function to reach 1 − − 1 / e ≈ ≈ 63.2 % % {\displaystyle 1-1/e\approx 63.2\,\%} of the original signal. The relationship between this time constant, τ τ {\displaystyle \tau } , and the smoothing factor, α α {\displaystyle \alpha } , is given by the following formula: α α = 1 − − e − − Δ Δ T / τ τ {\displaystyle \alpha =1-e^{-\Delta T/\tau }} , thus τ τ = − − Δ Δ T ln ⁡ ⁡ ( 1 − − α α ) {\displaystyle \tau =-{\frac {\Delta T}{\ln(1-\alpha )}}} where Δ Δ T {\displaystyle \Delta T} is the sampling time interval of the discrete time implementation. If the sampling time is fast compared to the time constant ( Δ Δ T ≪ ≪ τ τ {\displaystyle \Delta T\ll \tau } ) then, by using the Taylor expansion of the exponential function , α α ≈ ≈ Δ Δ T τ τ {\displaystyle \alpha \approx {\frac {\Delta T}{\tau }}} , thus τ τ ≈ ≈ Δ Δ T α α {\displaystyle \tau \approx {\frac {\Delta T}{\alpha }}} Choosing the initial smoothed value [ edit ] Note that in the definition above, s 0 {\displaystyle s_{0}} (the initial output of the exponential smoothing algorithm) is being initialized to x 0 {\displaystyle x_{0}} (the initial raw data or observation). Because exponential smoothing requires that, at each stage, we have the previous forecast s t − − 1 {\displaystyle s_{t-1}} , it is not obvious how to get the method started. We could assume that the initial forecast is equal to the initial value of demand; however, this approach has a serious drawback. Exponential smoothing puts substantial weight on past observations, so the initial value of demand will have an unreasonably large effect on early forecasts. This problem can be overcome by allowing the process to evolve for a reasonable number of periods (10 or more) and using the average of the demand during those periods as the initial forecast. There are many other ways of setting this initial value, but it is important to note that the smaller the value of α α {\displaystyle \alpha } , the more sensitive your forecast will be on the selection of this initial smoother value s 0 {\displaystyle s_{0}} .
+
+[ 8 ] [ 9 ] Optimization [ edit ] For every exponential smoothing method, we also need to choose the value for the smoothing parameters. For simple exponential smoothing, there is only one smoothing parameter ( α ), but for the methods that follow there are usually more than one smoothing parameter.
+
+There are cases where the smoothing parameters may be chosen in a subjective manner – the forecaster specifies the value of the smoothing parameters based on previous experience. However, a more robust and objective way to obtain values of the unknown parameters included in any exponential smoothing method is to estimate them from the observed data.
+
+The unknown parameters and the initial values for any exponential smoothing method can be estimated by minimizing the sum of squared errors (SSE). The errors are specified as e t = y t − − y ^ ^ t ∣ ∣ t − − 1 {\textstyle e_{t}=y_{t}-{\hat {y}}_{t\mid t-1}} for t = 1 , … … , T {\textstyle t=1,\ldots ,T} (the one-step-ahead within-sample forecast errors) where y t {\textstyle y_{t}} and y ^ ^ t ∣ ∣ t − − 1 {\textstyle {\hat {y}}_{t\mid t-1}} are a variable to be predicted at t {\displaystyle t} and a variable as the prediction result at t {\displaystyle t} (based on the previous data or prediction), respectively. Hence, we find the values of the unknown parameters and the initial values that minimize SSE = ∑ ∑ t = 1 T ( y t − − y ^ ^ t ∣ ∣ t − − 1 ) 2 = ∑ ∑ t = 1 T e t 2 {\displaystyle {\text{SSE}}=\sum _{t=1}^{T}(y_{t}-{\hat {y}}_{t\mid t-1})^{2}=\sum _{t=1}^{T}e_{t}^{2}} [ 10 ] Unlike the regression case (where we have formulae to directly compute the regression coefficients which minimize the SSE) this involves a non-linear minimization problem, and we need to use an optimization tool to perform this.
+
+"Exponential" naming [ edit ] The name exponential smoothing is attributed to the use of the exponential function as the filter impulse response in the convolution .
+
+By direct substitution of the defining equation for simple exponential smoothing back into itself we find that s t = α α x t + ( 1 − − α α ) s t − − 1 = α α x t + α α ( 1 − − α α ) x t − − 1 + ( 1 − − α α ) 2 s t − − 2 = α α [ x t + ( 1 − − α α ) x t − − 1 + ( 1 − − α α ) 2 x t − − 2 + ( 1 − − α α ) 3 x t − − 3 + ⋯ ⋯ + ( 1 − − α α ) t − − 1 x 1 ] + ( 1 − − α α ) t x 0 .
+
+{\displaystyle {\begin{aligned}s_{t}&=\alpha x_{t}+(1-\alpha )s_{t-1}\\[3pt]&=\alpha x_{t}+\alpha (1-\alpha )x_{t-1}+(1-\alpha )^{2}s_{t-2}\\[3pt]&=\alpha \left[x_{t}+(1-\alpha )x_{t-1}+(1-\alpha )^{2}x_{t-2}+(1-\alpha )^{3}x_{t-3}+\cdots +(1-\alpha )^{t-1}x_{1}\right]+(1-\alpha )^{t}x_{0}.\end{aligned}}} In other words, as time passes the smoothed statistic s t {\displaystyle s_{t}} becomes the weighted average of a greater and greater number of the past observations s t − − 1 , … … , s t − − n , … … {\displaystyle s_{t-1},\ldots ,s_{t-n},\ldots } , and the weights assigned to previous observations are proportional to the terms of the geometric progression 1 , ( 1 − − α α ) , ( 1 − − α α ) 2 , … … , ( 1 − − α α ) n , … … {\displaystyle 1,(1-\alpha ),(1-\alpha )^{2},\ldots ,(1-\alpha )^{n},\ldots } A geometric progression is the discrete version of an exponential function , so this is where the name for this smoothing method originated according to Statistics lore.
+
+Comparison with moving average [ edit ] Exponential smoothing and moving average have similar defects of introducing a lag relative to the input data. While this can be corrected by shifting the result by half the window length for a symmetrical kernel, such as a moving average or gaussian. This approach is not possible for exponential smoothing since it is an IIR filter and therefore has an asymmetric kernel and frequency-dependent group delay . This means each constituent frequency is shifted by a different amount and therefore, there is no single number of samples that can be used to shift the output signal to account for the lag.
+
+Both filters also both have roughly the same distribution of forecast error when α = 2/( k + 1) where k is the number of past data points in consideration of moving average. They differ in that exponential smoothing takes into account all past data, whereas moving average only takes into account k past data points. Computationally speaking, they also differ in that moving average requires that the past k data points, or the data point at lag k + 1 plus the most recent forecast value, to be kept, whereas exponential smoothing only needs the most recent forecast value to be kept.
+
+[ 11 ] In the signal processing literature, the use of non-causal (symmetric) filters is commonplace, and the exponential window function is broadly used in this fashion, but a different terminology is used: exponential smoothing is equivalent to a first-order infinite-impulse response (IIR) filter and moving average is equivalent to a finite impulse response filter with equal weighting factors.
+
+Double exponential smoothing (Holt linear) [ edit ] Simple exponential smoothing does not do well when there is a trend in the data.
+
+[ 1 ] In such situations, several methods were devised under the name "double exponential smoothing" or "second-order exponential smoothing," which is the recursive application of an exponential filter twice, thus being termed "double exponential smoothing". 
+The basic idea behind double exponential smoothing is to introduce a term to take into account the possibility of a series exhibiting some form of trend. This slope component is itself updated via exponential smoothing.
+
+One method works as follows: [ 12 ] Again, the raw data sequence of observations is represented by x t {\displaystyle x_{t}} , beginning at time t = 0 {\displaystyle t=0} . We use s t {\displaystyle s_{t}} to represent the smoothed value for time t {\displaystyle t} , and b t {\displaystyle b_{t}} is our best estimate of the trend at time t {\displaystyle t} . The output of the algorithm is now written as F t + m {\displaystyle F_{t+m}} , an estimate of the value of x t + m {\displaystyle x_{t+m}} at time m > 0 {\displaystyle m>0} based on the raw data up to time t {\displaystyle t} . Double exponential smoothing is given by the formulas s 0 = x 0 b 0 = x 1 − − x 0 {\displaystyle {\begin{aligned}s_{0}&=x_{0}\\b_{0}&=x_{1}-x_{0}\\\end{aligned}}} and for t > 0 {\displaystyle t>0} by s t = α α x t + ( 1 − − α α ) ( s t − − 1 + b t − − 1 ) b t = β β ( s t − − s t − − 1 ) + ( 1 − − β β ) b t − − 1 {\displaystyle {\begin{aligned}s_{t}&=\alpha x_{t}+(1-\alpha )(s_{t-1}+b_{t-1})\\b_{t}&=\beta (s_{t}-s_{t-1})+(1-\beta )b_{t-1}\\\end{aligned}}} where α α {\displaystyle \alpha } ( 0 ≤ ≤ α α ≤ ≤ 1 {\displaystyle 0\leq \alpha \leq 1} ) is the data smoothing factor , and β β {\displaystyle \beta } ( 0 ≤ ≤ β β ≤ ≤ 1 {\displaystyle 0\leq \beta \leq 1} ) is the trend smoothing factor .
+
+To forecast beyond x t {\displaystyle x_{t}} is given by the following approximation: F t + m = s t + m ⋅ ⋅ b t {\displaystyle F_{t+m}=s_{t}+m\cdot b_{t}} .
+
+Setting the initial value b {\displaystyle b} is a matter of preference. An option other than the one listed above is x n − − x 0 n {\textstyle {\frac {x_{n}-x_{0}}{n}}} for some n {\displaystyle n} .
+
+Note that F 0 is undefined (there is no estimation for time 0), and according to the definition F 1 = s 0 + b 0 , which is well defined, thus further values can be evaluated.
+
+A second method, referred to as either Brown's linear exponential smoothing (LES) or Brown's double exponential smoothing, has only one smoothing factor, α α {\displaystyle \alpha } : [ 13 ] s 0 ′ = x 0 s 0 ″ = x 0 s t ′ = α α x t + ( 1 − − α α ) s t − − 1 ′ s t ″ = α α s t ′ + ( 1 − − α α ) s t − − 1 ″ F t + m = a t + m b t , {\displaystyle {\begin{aligned}s'_{0}&=x_{0}\\s''_{0}&=x_{0}\\s'_{t}&=\alpha x_{t}+(1-\alpha )s'_{t-1}\\s''_{t}&=\alpha s'_{t}+(1-\alpha )s''_{t-1}\\F_{t+m}&=a_{t}+mb_{t},\end{aligned}}} where a t , the estimated level at time t , and b t , the estimated trend at time t , are given by a t = 2 s t ′ − − s t ″ b t = α α 1 − − α α ( s t ′ − − s t ″ ) .
+
+{\displaystyle {\begin{aligned}a_{t}&=2s'_{t}-s''_{t}\\[5pt]b_{t}&={\frac {\alpha }{1-\alpha }}(s'_{t}-s''_{t}).\end{aligned}}} Triple exponential smoothing (Holt–Winters) [ edit ] Triple exponential smoothing applies exponential smoothing three times, which is commonly used when there are three high frequency signals to be removed from a time series under study. There are different types of seasonality: 'multiplicative' and 'additive' in nature, much like addition and multiplication are basic operations in mathematics.
+
+If every month of December we sell 10,000 more apartments than we do in November the seasonality is additive in nature. However, if we sell 10% more apartments in the summer months than we do in the winter months the seasonality is multiplicative in nature. Multiplicative seasonality can be represented as a constant factor, not an absolute amount.
+
+[ 14 ] Triple exponential smoothing was first suggested by Holt's student, Peter Winters, in 1960 after reading a signal processing book from the 1940s on exponential smoothing.
+
+[ 15 ] Holt's novel idea was to repeat filtering an odd number of times greater than 1 and less than 5, which was popular with scholars of previous eras.
+
+[ 15 ] While recursive filtering had been used previously, it was applied twice and four times to coincide with the Hadamard conjecture , while triple application required more than double the operations of singular convolution. The use of a triple application is considered a rule of thumb technique, rather than one based on theoretical foundations and has often been over-emphasized by practitioners. Suppose we have a sequence of observations x t , {\displaystyle x_{t},} beginning at time t = 0 {\displaystyle t=0} with a cycle of seasonal change of length L {\displaystyle L} .
+
+The method calculates a trend line for the data as well as seasonal indices that weight the values in the trend line based on where that time point falls in the cycle of length L {\displaystyle L} .
+
+Let s t {\displaystyle s_{t}} represent the smoothed value of the constant part for time t {\displaystyle t} , b t {\displaystyle b_{t}} is the sequence of best estimates of the linear trend that are superimposed on the seasonal changes, and c t {\displaystyle c_{t}} is the sequence of seasonal correction factors. We wish to estimate c t {\displaystyle c_{t}} at every time t {\displaystyle t} mod L {\displaystyle L} in the cycle that the observations take on. As a rule of thumb, a minimum of two full seasons (or 2 L {\displaystyle 2L} periods) of historical data is needed to initialize a set of seasonal factors.
+
+The output of the algorithm is again written as F t + m {\displaystyle F_{t+m}} , an estimate of the value of x t + m {\displaystyle x_{t+m}} at time t + m > 0 {\displaystyle t+m>0} based on the raw data up to time t {\displaystyle t} . Triple exponential smoothing with multiplicative seasonality is given by the formulas [ 1 ] s 0 = x 0 s t = α α x t c t − − L + ( 1 − − α α ) ( s t − − 1 + b t − − 1 ) b t = β β ( s t − − s t − − 1 ) + ( 1 − − β β ) b t − − 1 c t = γ γ x t s t + ( 1 − − γ γ ) c t − − L F t + m = ( s t + m b t ) c t − − L + 1 + ( m − − 1 ) mod L , {\displaystyle {\begin{aligned}s_{0}&=x_{0}\\[5pt]s_{t}&=\alpha {\frac {x_{t}}{c_{t-L}}}+(1-\alpha )(s_{t-1}+b_{t-1})\\[5pt]b_{t}&=\beta (s_{t}-s_{t-1})+(1-\beta )b_{t-1}\\[5pt]c_{t}&=\gamma {\frac {x_{t}}{s_{t}}}+(1-\gamma )c_{t-L}\\[5pt]F_{t+m}&=(s_{t}+mb_{t})c_{t-L+1+(m-1){\bmod {L}}},\end{aligned}}} where α α {\displaystyle \alpha } ( 0 ≤ ≤ α α ≤ ≤ 1 {\displaystyle 0\leq \alpha \leq 1} ) is the data smoothing factor , β β {\displaystyle \beta } ( 0 ≤ ≤ β β ≤ ≤ 1 {\displaystyle 0\leq \beta \leq 1} ) is the trend smoothing factor , and γ γ {\displaystyle \gamma } ( 0 ≤ ≤ γ γ ≤ ≤ 1 {\displaystyle 0\leq \gamma \leq 1} ) is the seasonal change smoothing factor .
+
+The general formula for the initial trend estimate b {\displaystyle b} is b 0 = 1 L ( x L + 1 − − x 1 L + x L + 2 − − x 2 L + ⋯ ⋯ + x L + L − − x L L ) {\displaystyle {\begin{aligned}b_{0}&={\frac {1}{L}}\left({\frac {x_{L+1}-x_{1}}{L}}+{\frac {x_{L+2}-x_{2}}{L}}+\cdots +{\frac {x_{L+L}-x_{L}}{L}}\right)\end{aligned}}} .
+
+Setting the initial estimates for the seasonal indices c i {\displaystyle c_{i}} for i = 1 , 2 , … … , L {\displaystyle i=1,2,\ldots ,L} is a bit more involved. If N {\displaystyle N} is the number of complete cycles present in your data, then c i = 1 N ∑ ∑ j = 1 N x L ( j − − 1 ) + i A j for i = 1 , 2 , … … , L {\displaystyle c_{i}={\frac {1}{N}}\sum _{j=1}^{N}{\frac {x_{L(j-1)+i}}{A_{j}}}\quad {\text{for }}i=1,2,\ldots ,L} where A j = ∑ ∑ k = 1 L x L ( j − − 1 ) + k L for j = 1 , 2 , … … , N {\displaystyle A_{j}={\frac {\sum _{k=1}^{L}x_{L(j-1)+k}}{L}}\quad {\text{for }}j=1,2,\ldots ,N} .
+
+Note that A j {\displaystyle A_{j}} is the average value of x {\displaystyle x} in the j th {\displaystyle j^{\text{th}}} cycle of your data.
+
+This results in c i = 1 N ∑ ∑ j = 1 N x L ( j − − 1 ) + i 1 L ∑ ∑ k = 1 L x L ( j − − 1 ) + k {\displaystyle c_{i}={\frac {1}{N}}\sum _{j=1}^{N}{\frac {x_{L(j-1)+i}}{{\frac {1}{L}}\sum _{k=1}^{L}x_{L(j-1)+k}}}} Triple exponential smoothing with additive seasonality is given by [ citation needed ] s 0 = x 0 s t = α α ( x t − − c t − − L ) + ( 1 − − α α ) ( s t − − 1 + b t − − 1 ) b t = β β ( s t − − s t − − 1 ) + ( 1 − − β β ) b t − − 1 c t = γ γ ( x t − − s t − − 1 − − b t − − 1 ) + ( 1 − − γ γ ) c t − − L F t + m = s t + m b t + c t − − L + 1 + ( m − − 1 ) mod L .
+
+{\displaystyle {\begin{aligned}s_{0}&=x_{0}\\s_{t}&=\alpha (x_{t}-c_{t-L})+(1-\alpha )(s_{t-1}+b_{t-1})\\b_{t}&=\beta (s_{t}-s_{t-1})+(1-\beta )b_{t-1}\\c_{t}&=\gamma (x_{t}-s_{t-1}-b_{t-1})+(1-\gamma )c_{t-L}\\F_{t+m}&=s_{t}+mb_{t}+c_{t-L+1+(m-1){\bmod {L}}}.\\\end{aligned}}} Implementations in statistics packages [ edit ] R : the HoltWinters function in the stats package [ 16 ] and ets function in the forecast package [ 17 ] (a more complete implementation, generally resulting in a better performance [ 18 ] ).
+
+Python : the holtwinters module of the statsmodels package allow for simple, double and triple exponential smoothing.
+
+IBM SPSS includes Simple, Simple Seasonal, Holt's Linear Trend, Brown's Linear Trend, Damped Trend, Winters' Additive, and Winters' Multiplicative in the Time-Series modeling procedure within its Statistics and Modeler statistical packages. The default Expert Modeler feature evaluates all seven exponential smoothing models and ARIMA models with a range of nonseasonal and seasonal p , d , and q values, and selects the model with the lowest Bayesian Information Criterion statistic.
+
+Stata : tssmooth command [ 19 ] LibreOffice 5.2 [ 20 ] Microsoft Excel 2016 [ 21 ] See also [ edit ] Autoregressive moving average model (ARMA) Errors and residuals in statistics Moving average Notes [ edit ] ^ a b c "NIST/SEMATECH e-Handbook of Statistical Methods" . NIST . Retrieved 23 May 2010 .
+
+^ a b Oppenheim, Alan V.; Schafer, Ronald W. (1975).
+
+Digital Signal Processing .
+
+Prentice Hall . p. 5.
+
+ISBN 0-13-214635-5 .
+
+^ Brown, Robert G. (1956).
+
+Exponential Smoothing for Predicting Demand . Cambridge, Massachusetts: Arthur D. Little Inc. p. 15.
+
+^ Holt, Charles C.
+
+(1957). "Forecasting Trends and Seasonal by Exponentially Weighted Averages".
+
+Office of Naval Research Memorandum .
+
+52 .
+
+reprinted in Holt, Charles C.
+
+(January–March 2004). "Forecasting Trends and Seasonal by Exponentially Weighted Averages".
+
+International Journal of Forecasting .
+
+20 (1): 5– 10.
+
+doi : 10.1016/j.ijforecast.2003.09.015 .
+
+^ Brown, Robert Goodell (1963).
+
+Smoothing Forecasting and Prediction of Discrete Time Series . Englewood Cliffs, NJ: Prentice-Hall.
+
+^ "NIST/SEMATECH e-Handbook of Statistical Methods, 6.4.3.1. Single Exponential Smoothing" . NIST . Retrieved 5 July 2017 .
+
+^ Nau, Robert.
+
+"Averaging and Exponential Smoothing Models" . Retrieved 26 July 2010 .
+
+^ "Production and Operations Analysis" Nahmias. 2009.
+
+^ Čisar, P., & Čisar, S. M. (2011). "Optimization methods of EWMA statistics." Acta Polytechnica Hungarica , 8(5), 73–87. Page 78.
+
+^ 7.1 Simple exponential smoothing | Forecasting: Principles and Practice .
+
+^ Nahmias, Steven; Olsen, Tava Lennon.
+
+Production and Operations Analysis (7th ed.). Waveland Press. p.
+
+53 .
+
+ISBN 9781478628248 .
+
+^ "6.4.3.3. Double Exponential Smoothing" .
+
+itl.nist.gov . Retrieved 25 September 2011 .
+
+^ "Averaging and Exponential Smoothing Models" .
+
+duke.edu . Retrieved 25 September 2011 .
+
+^ Kalehar, Prajakta S.
+
+"Time series Forecasting using Holt–Winters Exponential Smoothing" (PDF) . Retrieved 23 June 2014 .
+
+^ a b Winters, P. R. (April 1960). "Forecasting Sales by Exponentially Weighted Moving Averages".
+
+Management Science .
+
+6 (3): 324– 342.
+
+doi : 10.1287/mnsc.6.3.324 .
+
+^ "R: Holt–Winters Filtering" .
+
+stat.ethz.ch . Retrieved 5 June 2016 .
+
+^ "ets {forecast} | inside-R | A Community Site for R" .
+
+inside-r.org . Archived from the original on 16 July 2016 . Retrieved 5 June 2016 .
+
+^ "Comparing HoltWinters() and ets()" .
+
+Hyndsight . 29 May 2011 . Retrieved 5 June 2016 .
+
+^ tssmooth in Stata manual ^ "LibreOffice 5.2: Release Notes – the Document Foundation Wiki" .
+
+^ "Excel 2016 Forecasting Functions | Real Statistics Using Excel" .
+
+External links [ edit ] Lecture notes on exponential smoothing (Robert Nau, Duke University) Data Smoothing by Jon McLoone, The Wolfram Demonstrations Project The Holt–Winters Approach to Exponential Smoothing: 50 Years Old and Going Strong by Paul Goodwin (2010) Foresight: The International Journal of Applied Forecasting Algorithms for Unevenly Spaced Time Series: Moving Averages and Other Rolling Operators by Andreas Eckner v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject v t e Quantitative forecasting methods Historical data forecasts Moving average Exponential smoothing Trend analysis Decomposition of time series Naïve approach Associative (causal) forecasts Moving average Simple linear regression Regression analysis Econometric model Retrieved from " https://en.wikipedia.org/w/index.php?title=Exponential_smoothing&oldid=1304582081 " Category : Time series Hidden categories: Articles with short description Short description matches Wikidata Use dmy dates from December 2020 All articles with unsourced statements Articles with unsourced statements from February 2025 This page was last edited on 6 August 2025, at 22:54 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Exponential smoothing 11 languages Add topic
+

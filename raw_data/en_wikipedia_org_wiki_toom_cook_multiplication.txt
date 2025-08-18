@@ -1,0 +1,119 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Details Toggle Details subsection 1.1 Splitting 1.2 Evaluation 1.2.1 Faster evaluation 1.3 Pointwise multiplication 1.4 Interpolation 1.5 Recomposition 2 Interpolation matrices for various k Toggle Interpolation matrices for various k subsection 2.1 Toom-1 2.2 Toom-1.5 2.3 Toom-2 2.4 Toom-2.5 3 Notes 4 References 5 External links Toggle the table of contents Toom–Cook multiplication 9 languages Deutsch Español Esperanto Français 한국어 Italiano Русский ไทย 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Algorithm for multiplying large numbers Toom–Cook , sometimes known as Toom-3 , named after Andrei Toom , who introduced the new algorithm with its low complexity, and Stephen Cook , who cleaned the description of it, is a multiplication algorithm for large integers.
+
+Given two large integers, a and b , Toom–Cook splits up a and b into k smaller parts each of length l , and performs operations on the parts. As k grows, one may combine many of the multiplication sub-operations, thus reducing the overall computational complexity of the algorithm. The multiplication sub-operations can then be computed recursively using Toom–Cook multiplication again, and so on. Although the terms "Toom-3" and "Toom–Cook" are sometimes incorrectly used interchangeably, Toom-3 is only a single instance of the Toom–Cook algorithm, where k = 3.
+
+Toom-3 reduces nine multiplications to five, and runs in Θ( n log(5)/log(3) ) ≈ Θ( n 1.46 ). In general, Toom- k runs in Θ( c ( k ) n e ) , where e = log(2 k − 1) / log( k ) , n e is the time spent on sub-multiplications, and c is the time spent on additions and multiplication by small constants.
+
+[ 1 ] The Karatsuba algorithm is equivalent to Toom-2, where the number is split into two smaller ones. It reduces four multiplications to three and so operates at Θ( n log(3)/log(2) ) ≈ Θ( n 1.58 ).
+
+Although the exponent e can be set arbitrarily close to 1 by increasing k , the constant term in the function grows very rapidly.
+
+[ 1 ] [ 2 ] The growth rate for mixed-level Toom–Cook schemes was still an open research problem in 2005.
+
+[ 3 ] An implementation described by Donald Knuth achieves the time complexity Θ( n 2 √ 2 log n log n ) .
+
+[ 4 ] Due to its overhead, Toom–Cook is slower than long multiplication with small numbers, and it is therefore typically used for intermediate-size multiplications, before the asymptotically faster Schönhage–Strassen algorithm (with complexity Θ( n log n log log n ) ) becomes practical.
+
+Toom first described this algorithm in 1963, and Cook published an improved (asymptotically equivalent) algorithm in his PhD thesis in 1966.
+
+[ 5 ] Details [ edit ] This section discusses exactly how to perform Toom- k for any given value of k , and is a simplification of a description of Toom–Cook polynomial multiplication described by Marco Bodrato.
+
+[ 6 ] The algorithm has five main steps: Splitting Evaluation Pointwise multiplication Interpolation Recomposition In a typical large integer implementation, each integer is represented as a sequence of digits in positional notation , with the base or radix set to some (typically large) value b ; for this example we use b = 10000, so that each digit corresponds to a group of four decimal digits (in a computer implementation, b would typically be a power of 2 instead). Say the two integers being multiplied are: m = 12 3456 7890 1234 5678 9012 n = 9 8765 4321 9876 5432 1098.
+
+These are much smaller than would normally be processed with Toom–Cook (grade-school multiplication would be faster) but they will serve to illustrate the algorithm.
+
+Splitting [ edit ] In Toom- k , we want to split the factors into k parts.
+
+The first step is to select the base B = b i , such that the number of digits of both m and n in base B is at most k (e.g., 3 in Toom-3). A typical choice for i is given by: i = max { ⌊ ⌊ log b ⁡ ⁡ m ⌋ k ⌋ , ⌊ ⌊ log b ⁡ ⁡ n ⌋ k ⌋ } + 1.
+
+{\displaystyle i=\max \left\{\left\lfloor {\frac {\left\lfloor \log _{b}m\right\rfloor }{k}}\right\rfloor ,\left\lfloor {\frac {\left\lfloor \log _{b}n\right\rfloor }{k}}\right\rfloor \right\}+1.} In our example we'll be doing Toom-3, so we choose B = b 2 = 10 8 . We then separate m and n into their base B digits m i , n i : m 2 = 123456 m 1 = 78901234 m 0 = 56789012 n 2 = 98765 n 1 = 43219876 n 0 = 54321098 {\displaystyle {\begin{aligned}m_{2}&{}=123456\\m_{1}&{}=78901234\\m_{0}&{}=56789012\\n_{2}&{}=98765\\n_{1}&{}=43219876\\n_{0}&{}=54321098\end{aligned}}} We then use these digits as coefficients in degree- ( k − 1) polynomials p and q , with the property that p ( B ) = m and q ( B ) = n : p ( x ) = m 2 x 2 + m 1 x + m 0 = 123456 x 2 + 78901234 x + 56789012 {\displaystyle p(x)=m_{2}x^{2}+m_{1}x+m_{0}=123456x^{2}+78901234x+56789012\,} q ( x ) = n 2 x 2 + n 1 x + n 0 = 98765 x 2 + 43219876 x + 54321098 {\displaystyle q(x)=n_{2}x^{2}+n_{1}x+n_{0}=98765x^{2}+43219876x+54321098\,} The purpose of defining these polynomials is that if we can compute their product r ( x ) = p ( x ) q ( x ) , our answer will be r ( B ) = m × n .
+
+In the case where the numbers being multiplied are of different sizes, it's useful to use different values of k for m and n , which we'll call k m and k n . For example, the algorithm "Toom-2.5" refers to Toom–Cook with k m = 3 and k n = 2. In this case the i in B = b i is typically chosen by: i = max { ⌊ ⌈ log b ⁡ ⁡ m ⌉ k m ⌋ , ⌊ ⌈ log b ⁡ ⁡ n ⌉ k n ⌋ } .
+
+{\displaystyle i=\max \left\{\left\lfloor {\frac {\left\lceil \log _{b}m\right\rceil }{k_{m}}}\right\rfloor ,\left\lfloor {\frac {\left\lceil \log _{b}n\right\rceil }{k_{n}}}\right\rfloor \right\}.} Evaluation [ edit ] The Toom–Cook approach to computing the polynomial product p ( x ) q ( x ) is a commonly used one. Note that a polynomial of degree d is uniquely determined by d + 1 points (for example, a line - polynomial of degree one is specified by two points). The idea is to evaluate p (·) and q (·) at various points. Then multiply their values at these points to get points on the product polynomial. Finally interpolate to find its coefficients.
+
+Since deg( pq ) = deg( p ) + deg( q ) , we will need deg( p ) + deg( q ) + 1 = k m + k n − 1 points to determine the final result. Call this d . In the case of Toom-3, d = 5. The algorithm will work no matter what points are chosen (with a few small exceptions, see matrix invertibility requirement in Interpolation ), but in the interest of simplifying the algorithm it's better to choose small integer values like 0, 1, −1, and −2.
+
+One unusual point value that is frequently used is infinity, written ∞ or 1/0. To "evaluate" a polynomial p at infinity actually means to take the limit of p ( x )/ x deg p as x goes to infinity. Consequently, p (∞) is always the value of its highest-degree coefficient (in the example above coefficient m 2 ).
+
+In our Toom-3 example, we will use the points 0, 1, −1, −2, and ∞. These choices simplify evaluation, producing the formulas: p ( 0 ) = m 0 + m 1 ( 0 ) + m 2 ( 0 ) 2 = m 0 p ( 1 ) = m 0 + m 1 ( 1 ) + m 2 ( 1 ) 2 = m 0 + m 1 + m 2 p ( − − 1 ) = m 0 + m 1 ( − − 1 ) + m 2 ( − − 1 ) 2 = m 0 − − m 1 + m 2 p ( − − 2 ) = m 0 + m 1 ( − − 2 ) + m 2 ( − − 2 ) 2 = m 0 − − 2 m 1 + 4 m 2 p ( ∞ ∞ ) = m 2 {\displaystyle {\begin{array}{lrlrl}p(0)&=&m_{0}+m_{1}(0)+m_{2}(0)^{2}&=&m_{0}\\p(1)&=&m_{0}+m_{1}(1)+m_{2}(1)^{2}&=&m_{0}+m_{1}+m_{2}\\p(-1)&=&m_{0}+m_{1}(-1)+m_{2}(-1)^{2}&=&m_{0}-m_{1}+m_{2}\\p(-2)&=&m_{0}+m_{1}(-2)+m_{2}(-2)^{2}&=&m_{0}-2m_{1}+4m_{2}\\p(\infty )&=&m_{2}&&\end{array}}} and analogously for q . In our example, the values we get are: p (0) = m 0 = 56789012 = 56789012 p (1) = m 0 + m 1 + m 2 = 56789012 + 78901234 + 123456 = 135813702 p (−1) = m 0 − m 1 + m 2 = 56789012 − 78901234 + 123456 = −21988766 p (−2) = m 0 − 2 m 1 + 4 m 2 = 56789012 − 2 × 78901234 + 4 × 123456 = −100519632 p (∞) = m 2 = 123456 = 123456 q (0) = n 0 = 54321098 = 54321098 q (1) = n 0 + n 1 + n 2 = 54321098 + 43219876 + 98765 = 97639739 q (−1) = n 0 − n 1 + n 2 = 54321098 − 43219876 + 98765 = 11199987 q (−2) = n 0 − 2 n 1 + 4 n 2 = 54321098 − 2 × 43219876 + 4 × 98765 = −31723594 q (∞) = n 2 = 98765 = 98765.
+
+As shown, these values may be negative.
+
+For the purpose of later explanation, it will be useful to view this evaluation process as a matrix-vector multiplication, where each row of the matrix contains powers of one of the evaluation points, and the vector contains the coefficients of the polynomial: ( p ( 0 ) p ( 1 ) p ( − − 1 ) p ( − − 2 ) p ( ∞ ∞ ) ) = ( 0 0 0 1 0 2 1 0 1 1 1 2 ( − − 1 ) 0 ( − − 1 ) 1 ( − − 1 ) 2 ( − − 2 ) 0 ( − − 2 ) 1 ( − − 2 ) 2 0 0 1 ) ( m 0 m 1 m 2 ) = ( 1 0 0 1 1 1 1 − − 1 1 1 − − 2 4 0 0 1 ) ( m 0 m 1 m 2 ) .
+
+{\displaystyle \left({\begin{matrix}p(0)\\p(1)\\p(-1)\\p(-2)\\p(\infty )\end{matrix}}\right)=\left({\begin{matrix}0^{0}&0^{1}&0^{2}\\1^{0}&1^{1}&1^{2}\\(-1)^{0}&(-1)^{1}&(-1)^{2}\\(-2)^{0}&(-2)^{1}&(-2)^{2}\\0&0&1\end{matrix}}\right)\left({\begin{matrix}m_{0}\\m_{1}\\m_{2}\end{matrix}}\right)=\left({\begin{matrix}1&0&0\\1&1&1\\1&-1&1\\1&-2&4\\0&0&1\end{matrix}}\right)\left({\begin{matrix}m_{0}\\m_{1}\\m_{2}\end{matrix}}\right).} The dimensions of the matrix are d by k m for p and d by k n for q . The row for infinity is always all zero except for a 1 in the last column.
+
+Faster evaluation [ edit ] Multipoint evaluation can be obtained faster than with the above formulas. The number of elementary operations (addition/subtraction) can be reduced. The sequence given by Bodrato [ 6 ] for Toom-3, executed here over the first operand (polynomial p ) of the running example is the following: p 0 ← m 0 + m 2 = 56789012 + 123456 = 56912468 p (0) = m 0 = 56789012 = 56789012 p (1) = p 0 + m 1 = 56912468 + 78901234 = 135813702 p (−1) = p 0 − m 1 = 56912468 − 78901234 = −21988766 p (−2) = ( p (−1) + m 2 ) × 2 − m 0 = (− 21988766 + 123456 ) × 2 − 56789012 = − 100519632 p (∞) = m 2 = 123456 = 123456.
+
+This sequence requires five addition/subtraction operations, one less than the straightforward evaluation. Moreover the multiplication by 4 in the calculation of p (−2) was saved.
+
+Pointwise multiplication [ edit ] Unlike multiplying the polynomials p (·) and q (·), multiplying the evaluated values p ( a ) and q ( a ) just involves multiplying integers — a smaller instance of the original problem. We recursively invoke our multiplication procedure to multiply each pair of evaluated points. In practical implementations, as the operands become smaller, the algorithm will switch to schoolbook long multiplication . Letting r be the product polynomial, in our example we have: r (0) = p (0) q (0) = 56789012 × 54321098 = 3084841486175176 r (1) = p (1) q (1) = 135813702 × 97639739 = 13260814415903778 r (−1) = p (−1) q (−1) = −21988766 × 11199987 = −246273893346042 r (−2) = p (−2) q (−2) = −100519632 × −31723594 = 3188843994597408 r (∞) = p (∞) q (∞) = 123456 × 98765 = 12193131840.
+
+As shown, these can also be negative. For large enough numbers, this is the most expensive step, the only step that is not linear in the sizes of m and n .
+
+Interpolation [ edit ] This is the most complex step, the reverse of the evaluation step: given our d points on the product polynomial r (·), we need to determine its coefficients. In other words, we want to solve this matrix equation for the vector on the right-hand side: ( r ( 0 ) r ( 1 ) r ( − − 1 ) r ( − − 2 ) r ( ∞ ∞ ) ) = ( 0 0 0 1 0 2 0 3 0 4 1 0 1 1 1 2 1 3 1 4 ( − − 1 ) 0 ( − − 1 ) 1 ( − − 1 ) 2 ( − − 1 ) 3 ( − − 1 ) 4 ( − − 2 ) 0 ( − − 2 ) 1 ( − − 2 ) 2 ( − − 2 ) 3 ( − − 2 ) 4 0 0 0 0 1 ) ( r 0 r 1 r 2 r 3 r 4 ) = ( 1 0 0 0 0 1 1 1 1 1 1 − − 1 1 − − 1 1 1 − − 2 4 − − 8 16 0 0 0 0 1 ) ( r 0 r 1 r 2 r 3 r 4 ) .
+
+{\displaystyle {\begin{aligned}\left({\begin{matrix}r(0)\\r(1)\\r(-1)\\r(-2)\\r(\infty )\end{matrix}}\right)&{}=\left({\begin{matrix}0^{0}&0^{1}&0^{2}&0^{3}&0^{4}\\1^{0}&1^{1}&1^{2}&1^{3}&1^{4}\\(-1)^{0}&(-1)^{1}&(-1)^{2}&(-1)^{3}&(-1)^{4}\\(-2)^{0}&(-2)^{1}&(-2)^{2}&(-2)^{3}&(-2)^{4}\\0&0&0&0&1\end{matrix}}\right)\left({\begin{matrix}r_{0}\\r_{1}\\r_{2}\\r_{3}\\r_{4}\end{matrix}}\right)\\&{}=\left({\begin{matrix}1&0&0&0&0\\1&1&1&1&1\\1&-1&1&-1&1\\1&-2&4&-8&16\\0&0&0&0&1\end{matrix}}\right)\left({\begin{matrix}r_{0}\\r_{1}\\r_{2}\\r_{3}\\r_{4}\end{matrix}}\right).\end{aligned}}} This matrix is constructed the same way as the one in the evaluation step, except that it's d × d . We could solve this equation with a technique like Gaussian elimination , but this is too expensive. Instead, we use the fact that, provided the evaluation points were chosen suitably, this matrix is invertible (see also Vandermonde matrix ), and so: ( r 0 r 1 r 2 r 3 r 4 ) = ( 1 0 0 0 0 1 1 1 1 1 1 − − 1 1 − − 1 1 1 − − 2 4 − − 8 16 0 0 0 0 1 ) − − 1 ( r ( 0 ) r ( 1 ) r ( − − 1 ) r ( − − 2 ) r ( ∞ ∞ ) ) = ( 1 0 0 0 0 1 2 1 3 − − 1 1 6 − − 2 − − 1 1 2 1 2 0 − − 1 − − 1 2 1 6 1 2 − − 1 6 2 0 0 0 0 1 ) ( r ( 0 ) r ( 1 ) r ( − − 1 ) r ( − − 2 ) r ( ∞ ∞ ) ) .
+
+{\displaystyle {\begin{aligned}\left({\begin{matrix}r_{0}\\r_{1}\\r_{2}\\r_{3}\\r_{4}\end{matrix}}\right)&{}=\left({\begin{matrix}1&0&0&0&0\\1&1&1&1&1\\1&-1&1&-1&1\\1&-2&4&-8&16\\0&0&0&0&1\end{matrix}}\right)^{-1}\left({\begin{matrix}r(0)\\r(1)\\r(-1)\\r(-2)\\r(\infty )\end{matrix}}\right)\\&{}=\left({\begin{matrix}1&0&0&0&0\\{\tfrac {1}{2}}&{\tfrac {1}{3}}&-1&{\tfrac {1}{6}}&-2\\-1&{\tfrac {1}{2}}&{\tfrac {1}{2}}&0&-1\\-{\tfrac {1}{2}}&{\tfrac {1}{6}}&{\tfrac {1}{2}}&-{\tfrac {1}{6}}&2\\0&0&0&0&1\end{matrix}}\right)\left({\begin{matrix}r(0)\\r(1)\\r(-1)\\r(-2)\\r(\infty )\end{matrix}}\right).\end{aligned}}} All that remains is to compute this matrix-vector product. Although the matrix contains fractions, the resulting coefficients will be integers — so this can all be done with integer arithmetic, just additions, subtractions, and multiplication/division by small constants. A difficult design challenge in Toom–Cook is to find an efficient sequence of operations to compute this product; one sequence given by Bodrato [ 6 ] for Toom-3 is the following, executed here over the running example: r 0 ← r (0) = 3084841486175176 r 4 ← r (∞) = 12193131840 r 3 ← ( r (−2) − r (1))/3 = (3188843994597408 − 13260814415903778)/3 = −3357323473768790 r 1 ← ( r (1) − r (−1))/2 = (13260814415903778 − (−246273893346042))/2 = 6753544154624910 r 2 ← r (−1) − r (0) = −246273893346042 − 3084841486175176 = −3331115379521218 r 3 ← ( r 2 − r 3 )/2 + 2 r (∞) = (−3331115379521218 − (−3357323473768790))/2 + 2 × 12193131840 = 13128433387466 r 2 ← r 2 + r 1 − r 4 = −3331115379521218 + 6753544154624910 − 12193131840 = 3422416581971852 r 1 ← r 1 − r 3 = 6753544154624910 − 13128433387466 = 6740415721237444.
+
+We now know our product polynomial r : r ( x ) = 3084841486175176 + 6740415721237444 x + 3422416581971852 x 2 + 13128433387466 x 3 + 12193131840 x 4 {\displaystyle {\begin{array}{rrr}r(x)=&{}&3084841486175176\\&+&6740415721237444x\\&+&3422416581971852x^{2}\\&+&13128433387466x^{3}\\&+&12193131840x^{4}\end{array}}} If we were using different k m , k n , or evaluation points, the matrix and so our interpolation strategy would change; but it does not depend on the inputs and so can be hard-coded for any given set of parameters.
+
+Recomposition [ edit ] Finally, we evaluate r(B) to obtain our final answer. This is straightforward since B is a power of b and so the multiplications by powers of B are all shifts by a whole number of digits in base b . In the running example b = 10 4 and B = b 2 = 10 8 .
+
+3084 8414 8617 5176 6740 4157 2123 7444 3422 4165 8197 1852 13 1284 3338 7466 + 121 9313 1840 121 9326 3124 6761 1632 4937 6009 5208 5858 8617 5176 And this is in fact the product of 1234567890123456789012 and 987654321987654321098.
+
+Interpolation matrices for various k [ edit ] Here we give common interpolation matrices for a few different common small values of k m and k n .
+
+Toom-1 [ edit ] Applying formally the definition, we may consider Toom-1 ( k m = k n = 1). This does not yield a multiplication algorithm, but a recursive algorithm that never halts, as it trivially reduces each input instance to a recursive call with the same instance. The algorithm requires 1 evaluation point, whose value is irrelevant, as it is used only to "evaluate" constant polynomials. Thus, the interpolation matrix is the identity matrix: ( 1 ) − − 1 = ( 1 ) .
+
+{\displaystyle \left({\begin{matrix}1\end{matrix}}\right)^{-1}=\left({\begin{matrix}1\end{matrix}}\right).} Toom-1.5 [ edit ] Toom-1.5 ( k m = 2, k n = 1) is still degenerate: it recursively reduces one input by halving its size, but leaves the other input unchanged, hence we can make it into a multiplication algorithm only if we supply a 1 × n multiplication algorithm as a base case (whereas the true Toom–Cook algorithm reduces to constant-size base cases). It requires 2 evaluation points, here chosen to be 0 and ∞. Its interpolation matrix is then the identity matrix: ( 1 0 0 1 ) − − 1 = ( 1 0 0 1 ) .
+
+{\displaystyle \left({\begin{matrix}1&0\\0&1\end{matrix}}\right)^{-1}=\left({\begin{matrix}1&0\\0&1\end{matrix}}\right).} The algorithm is essentially equivalent to a form of long multiplication: both coefficients of one factor are multiplied by the sole coefficient of the other factor.
+
+Toom-2 [ edit ] Toom-2 ( k m = 2, k n = 2) requires 3 evaluation points, here chosen to be 0, 1, and ∞. It is the same as Karatsuba multiplication , with an interpolation matrix of: ( 1 0 0 1 1 1 0 0 1 ) − − 1 = ( 1 0 0 − − 1 1 − − 1 0 0 1 ) .
+
+{\displaystyle \left({\begin{matrix}1&0&0\\1&1&1\\0&0&1\end{matrix}}\right)^{-1}=\left({\begin{matrix}1&0&0\\-1&1&-1\\0&0&1\end{matrix}}\right).} Toom-2.5 [ edit ] Toom-2.5 ( k m = 3, k n = 2) requires 4 evaluation points, here chosen to be 0, 1, −1, and ∞. It then has an interpolation matrix of: ( 1 0 0 0 1 1 1 1 1 − − 1 1 − − 1 0 0 0 1 ) − − 1 = ( 1 0 0 0 0 1 2 − − 1 2 − − 1 − − 1 1 2 1 2 0 0 0 0 1 ) .
+
+{\displaystyle \left({\begin{matrix}1&0&0&0\\1&1&1&1\\1&-1&1&-1\\0&0&0&1\end{matrix}}\right)^{-1}=\left({\begin{matrix}1&0&0&0\\0&{\tfrac {1}{2}}&-{\tfrac {1}{2}}&-1\\-1&{\tfrac {1}{2}}&{\tfrac {1}{2}}&0\\0&0&0&1\end{matrix}}\right).} Notes [ edit ] ^ a b Knuth, p. 296 ^ Crandall & Pomerance, p. 474 ^ Crandall & Pomerance, p. 536 ^ Knuth, p. 302 ^ Positive Results , chapter III of Stephen A. Cook: On the Minimum Computation Time of Functions .
+
+^ a b c Marco Bodrato. Towards Optimal Toom–Cook Multiplication for Univariate and Multivariate Polynomials in Characteristic 2 and 0. In WAIFI'07 proceedings , volume 4547 of LNCS, pages 116–133. June 21–22, 2007.
+
+author website References [ edit ] D. Knuth.
+
+The Art of Computer Programming , Volume 2. Third Edition, Addison-Wesley, 1997. Section 4.3.3.A: Digital methods, pg.294.
+
+R. Crandall & C. Pomerance.
+
+Prime Numbers – A Computational Perspective . Second Edition, Springer, 2005. Section 9.5.1: Karatsuba and Toom–Cook methods, pg.473.
+
+Bodrato, Marco (2007).
+
+"Towards optimal Toom–Cook multiplication for univariate and multivariate polynomials in characteristic 2 and 0" . In Carlet, Claude; Sunar, Berk (eds.).
+
+Arithmetic of Finite Fields, First International Workshop, WAIFI 2007, Madrid, Spain, June 21–22, 2007, Proceedings . Lecture Notes in Computer Science. Vol. 4547. Springer. pp.
+
+116– 133.
+
+doi : 10.1007/978-3-540-73074-3_10 .
+
+ISBN 978-3-540-73073-6 .
+
+Bodrato, Marco (August 8, 2011).
+
+"Optimal Toom-Cook Polynomial Multiplication / Toom Cook convolution, implementation for polynomials" . Retrieved 22 September 2023 .
+
+External links [ edit ] Toom–Cook 3-way multiplication from GMP documentation: "Toom 3-Way Multiplication" .
+
+GNU MP multiple precision arithmetic library (version 6.3.0) manual . Free Software Foundation, Inc. 30 July 2023 [Copyright 1991, 1993-2016, 2018-2020].
+
+v t e Number-theoretic algorithms Primality tests AKS APR Baillie–PSW Elliptic curve Pocklington Fermat Lucas Lucas–Lehmer Lucas–Lehmer–Riesel Proth's theorem Pépin's Quadratic Frobenius Solovay–Strassen Miller–Rabin Prime-generating Sieve of Atkin Sieve of Eratosthenes Sieve of Pritchard Sieve of Sundaram Wheel factorization Integer factorization Continued fraction (CFRAC) Dixon's Lenstra elliptic curve (ECM) Euler's Pollard's rho p − 1 p + 1 Quadratic sieve (QS) General number field sieve (GNFS) Special number field sieve (SNFS) Rational sieve Fermat's Shanks's square forms Trial division Shor's Multiplication Ancient Egyptian Long Karatsuba Toom–Cook Schönhage–Strassen Fürer's Euclidean division Binary Chunking Fourier Goldschmidt Newton-Raphson Long Short SRT Discrete logarithm Baby-step giant-step Pollard rho Pollard kangaroo Pohlig–Hellman Index calculus Function field sieve Greatest common divisor Binary Euclidean Extended Euclidean Lehmer's Modular square root Cipolla Pocklington's Tonelli–Shanks Berlekamp Other algorithms Chakravala Cornacchia Exponentiation by squaring Integer square root Integer relation ( LLL ; KZ ) Modular exponentiation Montgomery reduction Schoof Trachtenberg system Italics indicate that algorithm is for numbers of special forms Retrieved from " https://en.wikipedia.org/w/index.php?title=Toom–Cook_multiplication&oldid=1277556016 " Categories : Computer arithmetic algorithms Multiplication Hidden categories: Articles with short description Short description is different from Wikidata This page was last edited on 25 February 2025, at 10:04 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Toom–Cook multiplication 9 languages Add topic
+

@@ -1,0 +1,383 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Example 2 Formal definition Toggle Formal definition subsection 2.1 Partitioning methods 2.2 Common partitions 3 Block matrix operations Toggle Block matrix operations subsection 3.1 Transpose 3.1.1 Block transpose 3.2 Addition 3.3 Multiplication 3.4 Inversion 3.4.1 Computing submatrix inverses from the full inverse 3.5 Determinant 4 Special types of block matrices Toggle Special types of block matrices subsection 4.1 Direct sums and block diagonal matrices 4.1.1 Direct sum 4.1.2 Block diagonal matrices 4.2 Block tridiagonal matrices 4.3 Block triangular matrices 4.4 Block Toeplitz matrices 4.5 Block Hankel matrices 5 See also 6 Notes 7 References Toggle the table of contents Block matrix 27 languages Català Čeština Deutsch Eesti Ελληνικά Español فارسی Français 한국어 Bahasa Indonesia Íslenska Italiano עברית Nederlands 日本語 Polski Português Română Русский Slovenščina Suomi Svenska தமிழ் ไทย Українська Tiếng Việt 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Matrix defined using smaller matrices called blocks In mathematics , a block matrix or a partitioned matrix is a matrix that is interpreted as having been broken into sections called blocks or submatrices .
+
+[ 1 ] [ 2 ] Intuitively, a matrix interpreted as a block matrix can be visualized as the original matrix with a collection of horizontal and vertical lines, which break it up, or partition it, into a collection of smaller matrices.
+
+[ 3 ] [ 2 ] For example, the 3x4 matrix presented below is divided by horizontal and vertical lines into four blocks: the top-left 2x3 block, the top-right 2x1 block, the bottom-left 1x3 block, and the bottom-right 1x1 block.
+
+[ a 11 a 12 a 13 b 1 a 21 a 22 a 23 b 2 c 1 c 2 c 3 d ] {\displaystyle \left[{\begin{array}{ccc|c}a_{11}&a_{12}&a_{13}&b_{1}\\a_{21}&a_{22}&a_{23}&b_{2}\\\hline c_{1}&c_{2}&c_{3}&d\end{array}}\right]} Any matrix may be interpreted as a block matrix in one or more ways, with each interpretation defined by how its rows and columns are partitioned.
+
+This notion can be made more precise for an n {\displaystyle n} by m {\displaystyle m} matrix M {\displaystyle M} by partitioning n {\displaystyle n} into a collection rowgroups {\displaystyle {\text{rowgroups}}} , and then partitioning m {\displaystyle m} into a collection colgroups {\displaystyle {\text{colgroups}}} . The original matrix is then considered as the "total" of these groups, in the sense that the ( i , j ) {\displaystyle (i,j)} entry of the original matrix corresponds in a 1-to-1 way with some ( s , t ) {\displaystyle (s,t)} offset entry of some ( x , y ) {\displaystyle (x,y)} , where x ∈ ∈ rowgroups {\displaystyle x\in {\text{rowgroups}}} and y ∈ ∈ colgroups {\displaystyle y\in {\text{colgroups}}} .
+
+[ 4 ] Block matrix algebra arises in general from biproducts in categories of matrices.
+
+[ 5 ] A 168×168 element block matrix with 12×12, 12×24, 24×12, and 24×24 sub-matrices. Non-zero elements are in blue, zero elements are grayed.
+
+Example [ edit ] The matrix P = [ 1 2 2 7 1 5 6 2 3 3 4 5 3 3 6 7 ] {\displaystyle \mathbf {P} ={\begin{bmatrix}1&2&2&7\\1&5&6&2\\3&3&4&5\\3&3&6&7\end{bmatrix}}} can be visualized as divided into four blocks, as P = [ 1 2 2 7 1 5 6 2 3 3 4 5 3 3 6 7 ] {\displaystyle \mathbf {P} =\left[{\begin{array}{cc|cc}1&2&2&7\\1&5&6&2\\\hline 3&3&4&5\\3&3&6&7\end{array}}\right]} .
+
+The horizontal and vertical lines have no special mathematical meaning, [ 6 ] [ 7 ] but are a common way to visualize a partition.
+
+[ 6 ] [ 7 ] By this partition, P {\displaystyle P} is partitioned into four 2×2 blocks, as P 11 = [ 1 2 1 5 ] , P 12 = [ 2 7 6 2 ] , P 21 = [ 3 3 3 3 ] , P 22 = [ 4 5 6 7 ] .
+
+{\displaystyle \mathbf {P} _{11}={\begin{bmatrix}1&2\\1&5\end{bmatrix}},\quad \mathbf {P} _{12}={\begin{bmatrix}2&7\\6&2\end{bmatrix}},\quad \mathbf {P} _{21}={\begin{bmatrix}3&3\\3&3\end{bmatrix}},\quad \mathbf {P} _{22}={\begin{bmatrix}4&5\\6&7\end{bmatrix}}.} The partitioned matrix can then be written as P = [ P 11 P 12 P 21 P 22 ] .
+
+{\displaystyle \mathbf {P} ={\begin{bmatrix}\mathbf {P} _{11}&\mathbf {P} _{12}\\\mathbf {P} _{21}&\mathbf {P} _{22}\end{bmatrix}}.} [ 8 ] Formal definition [ edit ] Let A ∈ ∈ C m × × n {\displaystyle A\in \mathbb {C} ^{m\times n}} . A partitioning of A {\displaystyle A} is a representation of A {\displaystyle A} in the form A = [ A 11 A 12 ⋯ ⋯ A 1 q A 21 A 22 ⋯ ⋯ A 2 q ⋮ ⋮ ⋮ ⋮ ⋱ ⋱ ⋮ ⋮ A p 1 A p 2 ⋯ ⋯ A p q ] {\displaystyle A={\begin{bmatrix}A_{11}&A_{12}&\cdots &A_{1q}\\A_{21}&A_{22}&\cdots &A_{2q}\\\vdots &\vdots &\ddots &\vdots \\A_{p1}&A_{p2}&\cdots &A_{pq}\end{bmatrix}}} , where A i j ∈ ∈ C m i × × n j {\displaystyle A_{ij}\in \mathbb {C} ^{m_{i}\times n_{j}}} are contiguous submatrices, ∑ ∑ i = 1 p m i = m {\displaystyle \sum _{i=1}^{p}m_{i}=m} , and ∑ ∑ j = 1 q n j = n {\displaystyle \sum _{j=1}^{q}n_{j}=n} .
+
+[ 9 ] The elements A i j {\displaystyle A_{ij}} of the partition are called blocks .
+
+[ 9 ] By this definition, the blocks in any one column must all have the same number of columns.
+
+[ 9 ] Similarly, the blocks in any one row must have the same number of rows.
+
+[ 9 ] Partitioning methods [ edit ] A matrix can be partitioned in many ways.
+
+[ 9 ] For example, a matrix A {\displaystyle A} is said to be partitioned by columns if it is written as A = ( a 1 a 2 ⋯ ⋯ a n ) {\displaystyle A=(a_{1}\ a_{2}\ \cdots \ a_{n})} , where a j {\displaystyle a_{j}} is the j {\displaystyle j} th column of A {\displaystyle A} .
+
+[ 9 ] A matrix can also be partitioned by rows : A = [ a 1 T a 2 T ⋮ ⋮ a m T ] {\displaystyle A={\begin{bmatrix}a_{1}^{T}\\a_{2}^{T}\\\vdots \\a_{m}^{T}\end{bmatrix}}} , where a i T {\displaystyle a_{i}^{T}} is the i {\displaystyle i} th row of A {\displaystyle A} .
+
+[ 9 ] Common partitions [ edit ] Often, [ 9 ] we encounter the 2x2 partition A = [ A 11 A 12 A 21 A 22 ] {\displaystyle A={\begin{bmatrix}A_{11}&A_{12}\\A_{21}&A_{22}\end{bmatrix}}} , [ 9 ] particularly in the form where A 11 {\displaystyle A_{11}} is a scalar: A = [ a 11 a 12 T a 21 A 22 ] {\displaystyle A={\begin{bmatrix}a_{11}&a_{12}^{T}\\a_{21}&A_{22}\end{bmatrix}}} .
+
+[ 9 ] Block matrix operations [ edit ] Transpose [ edit ] Let A = [ A 11 A 12 ⋯ ⋯ A 1 q A 21 A 22 ⋯ ⋯ A 2 q ⋮ ⋮ ⋮ ⋮ ⋱ ⋱ ⋮ ⋮ A p 1 A p 2 ⋯ ⋯ A p q ] {\displaystyle A={\begin{bmatrix}A_{11}&A_{12}&\cdots &A_{1q}\\A_{21}&A_{22}&\cdots &A_{2q}\\\vdots &\vdots &\ddots &\vdots \\A_{p1}&A_{p2}&\cdots &A_{pq}\end{bmatrix}}} where A i j ∈ ∈ C k i × × ℓ ℓ j {\displaystyle A_{ij}\in \mathbb {C} ^{k_{i}\times \ell _{j}}} . (This matrix A {\displaystyle A} will be reused in § Addition and § Multiplication .) Then its transpose is A T = [ A 11 T A 21 T ⋯ ⋯ A p 1 T A 12 T A 22 T ⋯ ⋯ A p 2 T ⋮ ⋮ ⋮ ⋮ ⋱ ⋱ ⋮ ⋮ A 1 q T A 2 q T ⋯ ⋯ A p q T ] {\displaystyle A^{T}={\begin{bmatrix}A_{11}^{T}&A_{21}^{T}&\cdots &A_{p1}^{T}\\A_{12}^{T}&A_{22}^{T}&\cdots &A_{p2}^{T}\\\vdots &\vdots &\ddots &\vdots \\A_{1q}^{T}&A_{2q}^{T}&\cdots &A_{pq}^{T}\end{bmatrix}}} , [ 9 ] [ 10 ] and the same equation holds with the transpose replaced by the conjugate transpose.
+
+[ 9 ] Block transpose [ edit ] A special form of matrix transpose can also be defined for block matrices, where individual blocks are reordered but not transposed. Let A = ( B i j ) {\displaystyle A=(B_{ij})} be a k × × l {\displaystyle k\times l} block matrix with m × × n {\displaystyle m\times n} blocks B i j {\displaystyle B_{ij}} , the block transpose of A {\displaystyle A} is the l × × k {\displaystyle l\times k} block matrix A B {\displaystyle A^{\mathcal {B}}} with m × × n {\displaystyle m\times n} blocks ( A B ) i j = B j i {\displaystyle \left(A^{\mathcal {B}}\right)_{ij}=B_{ji}} .
+
+[ 11 ] As with the conventional trace operator, the block transpose is a linear mapping such that ( A + C ) B = A B + C B {\displaystyle (A+C)^{\mathcal {B}}=A^{\mathcal {B}}+C^{\mathcal {B}}} .
+
+[ 10 ] However, in general the property ( A C ) B = C B A B {\displaystyle (AC)^{\mathcal {B}}=C^{\mathcal {B}}A^{\mathcal {B}}} does not hold unless the blocks of A {\displaystyle A} and C {\displaystyle C} commute.
+
+Addition [ edit ] Let B = [ B 11 B 12 ⋯ ⋯ B 1 s B 21 B 22 ⋯ ⋯ B 2 s ⋮ ⋮ ⋮ ⋮ ⋱ ⋱ ⋮ ⋮ B r 1 B r 2 ⋯ ⋯ B r s ] {\displaystyle B={\begin{bmatrix}B_{11}&B_{12}&\cdots &B_{1s}\\B_{21}&B_{22}&\cdots &B_{2s}\\\vdots &\vdots &\ddots &\vdots \\B_{r1}&B_{r2}&\cdots &B_{rs}\end{bmatrix}}} , where B i j ∈ ∈ C m i × × n j {\displaystyle B_{ij}\in \mathbb {C} ^{m_{i}\times n_{j}}} , and let A {\displaystyle A} be the matrix defined in § Transpose . (This matrix B {\displaystyle B} will be reused in § Multiplication .) Then if p = r {\displaystyle p=r} , q = s {\displaystyle q=s} , k i = m i {\displaystyle k_{i}=m_{i}} , and ℓ ℓ j = n j {\displaystyle \ell _{j}=n_{j}} , then A + B = [ A 11 + B 11 A 12 + B 12 ⋯ ⋯ A 1 q + B 1 q A 21 + B 21 A 22 + B 22 ⋯ ⋯ A 2 q + B 2 q ⋮ ⋮ ⋮ ⋮ ⋱ ⋱ ⋮ ⋮ A p 1 + B p 1 A p 2 + B p 2 ⋯ ⋯ A p q + B p q ] {\displaystyle A+B={\begin{bmatrix}A_{11}+B_{11}&A_{12}+B_{12}&\cdots &A_{1q}+B_{1q}\\A_{21}+B_{21}&A_{22}+B_{22}&\cdots &A_{2q}+B_{2q}\\\vdots &\vdots &\ddots &\vdots \\A_{p1}+B_{p1}&A_{p2}+B_{p2}&\cdots &A_{pq}+B_{pq}\end{bmatrix}}} .
+
+[ 9 ] Multiplication [ edit ] It is possible to use a block partitioned matrix product that involves only algebra on submatrices of the factors. The partitioning of the factors is not arbitrary, however, and requires " conformable partitions" [ 12 ] between two matrices A {\displaystyle A} and B {\displaystyle B} such that all submatrix products that will be used are defined.
+
+[ 13 ] Two matrices A {\displaystyle A} and B {\displaystyle B} are said to be partitioned conformally for the product A B {\displaystyle AB} , when A {\displaystyle A} and B {\displaystyle B} are partitioned into submatrices and if the multiplication A B {\displaystyle AB} is carried out treating the submatrices as if they are scalars, but keeping the order, and when all products and sums of submatrices involved are defined.
+
+— Arak M. Mathai and Hans J. Haubold, Linear Algebra: A Course for Physicists and Engineers [ 14 ] Let A {\displaystyle A} be the matrix defined in § Transpose , and let B {\displaystyle B} be the matrix defined in § Addition . Then the matrix product C = A B {\displaystyle C=AB} can be performed blockwise, yielding C {\displaystyle C} as an ( p × × s ) {\displaystyle (p\times s)} matrix. The matrices in the resulting matrix C {\displaystyle C} are calculated by multiplying: C i j = ∑ ∑ k = 1 q A i k B k j .
+
+{\displaystyle C_{ij}=\sum _{k=1}^{q}A_{ik}B_{kj}.} [ 6 ] Or, using the Einstein notation that implicitly sums over repeated indices: C i j = A i k B k j .
+
+{\displaystyle C_{ij}=A_{ik}B_{kj}.} Depicting C {\displaystyle C} as a matrix, we have C = A B = [ ∑ ∑ i = 1 q A 1 i B i 1 ∑ ∑ i = 1 q A 1 i B i 2 ⋯ ⋯ ∑ ∑ i = 1 q A 1 i B i s ∑ ∑ i = 1 q A 2 i B i 1 ∑ ∑ i = 1 q A 2 i B i 2 ⋯ ⋯ ∑ ∑ i = 1 q A 2 i B i s ⋮ ⋮ ⋮ ⋮ ⋱ ⋱ ⋮ ⋮ ∑ ∑ i = 1 q A p i B i 1 ∑ ∑ i = 1 q A p i B i 2 ⋯ ⋯ ∑ ∑ i = 1 q A p i B i s ] {\displaystyle C=AB={\begin{bmatrix}\sum _{i=1}^{q}A_{1i}B_{i1}&\sum _{i=1}^{q}A_{1i}B_{i2}&\cdots &\sum _{i=1}^{q}A_{1i}B_{is}\\\sum _{i=1}^{q}A_{2i}B_{i1}&\sum _{i=1}^{q}A_{2i}B_{i2}&\cdots &\sum _{i=1}^{q}A_{2i}B_{is}\\\vdots &\vdots &\ddots &\vdots \\\sum _{i=1}^{q}A_{pi}B_{i1}&\sum _{i=1}^{q}A_{pi}B_{i2}&\cdots &\sum _{i=1}^{q}A_{pi}B_{is}\end{bmatrix}}} .
+
+[ 9 ] Inversion [ edit ] For more details and derivation using block LDU decomposition, see Schur complement .
+
+See also: Helmert–Wolf blocking If a matrix is partitioned into four blocks, it can be inverted blockwise as follows: P = [ A B C D ] − − 1 = [ A − − 1 + A − − 1 B ( D − − C A − − 1 B ) − − 1 C A − − 1 − − A − − 1 B ( D − − C A − − 1 B ) − − 1 − − ( D − − C A − − 1 B ) − − 1 C A − − 1 ( D − − C A − − 1 B ) − − 1 ] , {\displaystyle {P}={\begin{bmatrix}{A}&{B}\\{C}&{D}\end{bmatrix}}^{-1}={\begin{bmatrix}{A}^{-1}+{A}^{-1}{B}\left({D}-{CA}^{-1}{B}\right)^{-1}{CA}^{-1}&-{A}^{-1}{B}\left({D}-{CA}^{-1}{B}\right)^{-1}\\-\left({D}-{CA}^{-1}{B}\right)^{-1}{CA}^{-1}&\left({D}-{CA}^{-1}{B}\right)^{-1}\end{bmatrix}},} where A and D are square blocks of arbitrary size, and B and C are conformable with them for partitioning. Furthermore, A and the Schur complement of A in P : P / A = D − CA −1 B must be invertible.
+
+[ 15 ] Equivalently, by permuting the blocks: P = [ A B C D ] − − 1 = [ ( A − − B D − − 1 C ) − − 1 − − ( A − − B D − − 1 C ) − − 1 B D − − 1 − − D − − 1 C ( A − − B D − − 1 C ) − − 1 D − − 1 + D − − 1 C ( A − − B D − − 1 C ) − − 1 B D − − 1 ] .
+
+{\displaystyle {P}={\begin{bmatrix}{A}&{B}\\{C}&{D}\end{bmatrix}}^{-1}={\begin{bmatrix}\left({A}-{BD}^{-1}{C}\right)^{-1}&-\left({A}-{BD}^{-1}{C}\right)^{-1}{BD}^{-1}\\-{D}^{-1}{C}\left({A}-{BD}^{-1}{C}\right)^{-1}&\quad {D}^{-1}+{D}^{-1}{C}\left({A}-{BD}^{-1}{C}\right)^{-1}{BD}^{-1}\end{bmatrix}}.} [ 16 ] Here, D and the Schur complement of D in P : P / D = A − BD −1 C must be invertible.
+
+If A and D are both invertible, then: [ A B C D ] − − 1 = [ ( A − − B D − − 1 C ) − − 1 0 0 ( D − − C A − − 1 B ) − − 1 ] [ I − − B D − − 1 − − C A − − 1 I ] .
+
+{\displaystyle {\begin{bmatrix}{A}&{B}\\{C}&{D}\end{bmatrix}}^{-1}={\begin{bmatrix}\left({A}-{B}{D}^{-1}{C}\right)^{-1}&{0}\\{0}&\left({D}-{C}{A}^{-1}{B}\right)^{-1}\end{bmatrix}}{\begin{bmatrix}{I}&-{B}{D}^{-1}\\-{C}{A}^{-1}&{I}\end{bmatrix}}.} By the Weinstein–Aronszajn identity , one of the two matrices in the block-diagonal matrix is invertible exactly when the other is.
+
+Computing submatrix inverses from the full inverse [ edit ] By the symmetry between a matrix and its inverse in the block inversion formula, if a matrix P and its inverse P −1 are partitioned conformally: P = [ A B C D ] , P − − 1 = [ E F G H ] {\displaystyle P={\begin{bmatrix}{A}&{B}\\{C}&{D}\end{bmatrix}},\quad P^{-1}={\begin{bmatrix}{E}&{F}\\{G}&{H}\end{bmatrix}}} then the inverse of any principal submatrix can be computed from the corresponding blocks of P −1 : A − − 1 = E − − F H − − 1 G {\displaystyle {A}^{-1}={E}-{FH}^{-1}{G}} D − − 1 = H − − G E − − 1 F {\displaystyle {D}^{-1}={H}-{GE}^{-1}{F}} This relationship follows from recognizing that E −1 = A − BD −1 C (the Schur complement), and applying the same block inversion formula with the roles of P and P −1 reversed.
+
+[ 17 ] [ 18 ] Determinant [ edit ] The formula for the determinant of a 2 × × 2 {\displaystyle 2\times 2} -matrix above continues to hold, under appropriate further assumptions, for a matrix composed of four submatrices A , B , C , D {\displaystyle A,B,C,D} with A {\displaystyle A} and D {\displaystyle D} square. The easiest such formula, which can be proven using either the Leibniz formula or a factorization involving the Schur complement , is det [ A 0 C D ] = det ( A ) det ( D ) = det [ A B 0 D ] .
+
+{\displaystyle \det {\begin{bmatrix}A&0\\C&D\end{bmatrix}}=\det(A)\det(D)=\det {\begin{bmatrix}A&B\\0&D\end{bmatrix}}.} [ 16 ] Using this formula, we can derive that characteristic polynomials of [ A 0 C D ] {\displaystyle {\begin{bmatrix}A&0\\C&D\end{bmatrix}}} and [ A B 0 D ] {\displaystyle {\begin{bmatrix}A&B\\0&D\end{bmatrix}}} are same and equal to the product of characteristic polynomials of A {\displaystyle A} and D {\displaystyle D} . Furthermore, If [ A 0 C D ] {\displaystyle {\begin{bmatrix}A&0\\C&D\end{bmatrix}}} or [ A B 0 D ] {\displaystyle {\begin{bmatrix}A&B\\0&D\end{bmatrix}}} is diagonalizable , then A {\displaystyle A} and D {\displaystyle D} are diagonalizable too. The converse is false; simply check [ 1 1 0 1 ] {\displaystyle {\begin{bmatrix}1&1\\0&1\end{bmatrix}}} .
+
+If A {\displaystyle A} is invertible , one has det [ A B C D ] = det ( A ) det ( D − − C A − − 1 B ) , {\displaystyle \det {\begin{bmatrix}A&B\\C&D\end{bmatrix}}=\det(A)\det \left(D-CA^{-1}B\right),} [ 16 ] and if D {\displaystyle D} is invertible, one has det [ A B C D ] = det ( D ) det ( A − − B D − − 1 C ) .
+
+{\displaystyle \det {\begin{bmatrix}A&B\\C&D\end{bmatrix}}=\det(D)\det \left(A-BD^{-1}C\right).} [ 19 ] [ 16 ] If the blocks are square matrices of the same size further formulas hold. For example, if C {\displaystyle C} and D {\displaystyle D} commute (i.e., C D = D C {\displaystyle CD=DC} ), then det [ A B C D ] = det ( A D − − B C ) .
+
+{\displaystyle \det {\begin{bmatrix}A&B\\C&D\end{bmatrix}}=\det(AD-BC).} [ 20 ] Similar statements hold when A B = B A {\displaystyle AB=BA} , A C = C A {\displaystyle AC=CA} , or ⁠ B D = D B {\displaystyle BD=DB} ⁠ . Namely, if A C = C A {\displaystyle AC=CA} , then det [ A B C D ] = det ( A D − − C B ) .
+
+{\displaystyle \det {\begin{bmatrix}A&B\\C&D\end{bmatrix}}=\det(AD-CB).} Note the change in order of C {\displaystyle C} and B {\displaystyle B} (we have C B {\displaystyle CB} instead of B C {\displaystyle BC} ). Similarly, if B D = D B {\displaystyle BD=DB} , then A D {\displaystyle AD} should be replaced with D A {\displaystyle DA} (i.e. we get det ( D A − − B C ) {\displaystyle \det(DA-BC)} ) and if A B = B A {\displaystyle AB=BA} , then we should have det ( D A − − C B ) {\displaystyle \det(DA-CB)} . Note for the last two results, you have to use commutativity of the underlying ring, but not for the first two.
+
+This formula has been generalized to matrices composed of more than 2 × × 2 {\displaystyle 2\times 2} blocks, again under appropriate commutativity conditions among the individual blocks.
+
+[ 21 ] For A = D {\displaystyle A=D} and B = C {\displaystyle B=C} , the following formula holds (even if A {\displaystyle A} and B {\displaystyle B} do not commute) det [ A B B A ] = det ( A − − B ) det ( A + B ) .
+
+{\displaystyle \det {\begin{bmatrix}A&B\\B&A\end{bmatrix}}=\det(A-B)\det(A+B).} [ 16 ] Special types of block matrices [ edit ] Direct sums and block diagonal matrices [ edit ] Direct sum [ edit ] See also: Direct sum of matrices For any arbitrary matrices A (of size m × n ) and B (of size p × q ), we have the direct sum of A and B , denoted by A ⊕ ⊕ {\displaystyle \oplus } B and defined as A ⊕ ⊕ B = [ a 11 ⋯ ⋯ a 1 n 0 ⋯ ⋯ 0 ⋮ ⋮ ⋱ ⋱ ⋮ ⋮ ⋮ ⋮ ⋱ ⋱ ⋮ ⋮ a m 1 ⋯ ⋯ a m n 0 ⋯ ⋯ 0 0 ⋯ ⋯ 0 b 11 ⋯ ⋯ b 1 q ⋮ ⋮ ⋱ ⋱ ⋮ ⋮ ⋮ ⋮ ⋱ ⋱ ⋮ ⋮ 0 ⋯ ⋯ 0 b p 1 ⋯ ⋯ b p q ] .
+
+{\displaystyle {A}\oplus {B}={\begin{bmatrix}a_{11}&\cdots &a_{1n}&0&\cdots &0\\\vdots &\ddots &\vdots &\vdots &\ddots &\vdots \\a_{m1}&\cdots &a_{mn}&0&\cdots &0\\0&\cdots &0&b_{11}&\cdots &b_{1q}\\\vdots &\ddots &\vdots &\vdots &\ddots &\vdots \\0&\cdots &0&b_{p1}&\cdots &b_{pq}\end{bmatrix}}.} [ 10 ] For instance, [ 1 3 2 2 3 1 ] ⊕ ⊕ [ 1 6 0 1 ] = [ 1 3 2 0 0 2 3 1 0 0 0 0 0 1 6 0 0 0 0 1 ] .
+
+{\displaystyle {\begin{bmatrix}1&3&2\\2&3&1\end{bmatrix}}\oplus {\begin{bmatrix}1&6\\0&1\end{bmatrix}}={\begin{bmatrix}1&3&2&0&0\\2&3&1&0&0\\0&0&0&1&6\\0&0&0&0&1\end{bmatrix}}.} This operation generalizes naturally to arbitrary dimensioned arrays (provided that A and B have the same number of dimensions).
+
+Note that any element in the direct sum of two vector spaces of matrices could be represented as a direct sum of two matrices.
+
+Block diagonal matrices [ edit ] See also: Diagonal matrix A block diagonal matrix is a block matrix that is a square matrix such that the main-diagonal blocks are square matrices and all off-diagonal blocks are zero matrices.
+
+[ 16 ] That is, a block diagonal matrix A has the form A = [ A 1 0 ⋯ ⋯ 0 0 A 2 ⋯ ⋯ 0 ⋮ ⋮ ⋮ ⋮ ⋱ ⋱ ⋮ ⋮ 0 0 ⋯ ⋯ A n ] {\displaystyle {A}={\begin{bmatrix}{A}_{1}&{0}&\cdots &{0}\\{0}&{A}_{2}&\cdots &{0}\\\vdots &\vdots &\ddots &\vdots \\{0}&{0}&\cdots &{A}_{n}\end{bmatrix}}} where A k is a square matrix for all k = 1, ..., n . In other words, matrix A is the direct sum of A 1 , ..., A n .
+
+[ 16 ] It can also be indicated as A 1 ⊕ A 2 ⊕ ... ⊕ A n [ 10 ] or diag( A 1 , A 2 , ..., A n ) [ 10 ] (the latter being the same formalism used for a diagonal matrix ). Any square matrix can trivially be considered a block diagonal matrix with only one block.
+
+For the determinant and trace , the following properties hold: det A = det A 1 × × ⋯ ⋯ × × det A n , {\displaystyle {\begin{aligned}\det {A}&=\det {A}_{1}\times \cdots \times \det {A}_{n},\end{aligned}}} [ 22 ] [ 23 ] and tr ⁡ ⁡ A = tr ⁡ ⁡ A 1 + ⋯ ⋯ + tr ⁡ ⁡ A n .
+
+{\displaystyle {\begin{aligned}\operatorname {tr} {A}&=\operatorname {tr} {A}_{1}+\cdots +\operatorname {tr} {A}_{n}.\end{aligned}}} [ 16 ] [ 23 ] A block diagonal matrix is invertible if and only if each of its main-diagonal blocks are invertible, and in this case its inverse is another block diagonal matrix given by [ A 1 0 ⋯ ⋯ 0 0 A 2 ⋯ ⋯ 0 ⋮ ⋮ ⋮ ⋮ ⋱ ⋱ ⋮ ⋮ 0 0 ⋯ ⋯ A n ] − − 1 = [ A 1 − − 1 0 ⋯ ⋯ 0 0 A 2 − − 1 ⋯ ⋯ 0 ⋮ ⋮ ⋮ ⋮ ⋱ ⋱ ⋮ ⋮ 0 0 ⋯ ⋯ A n − − 1 ] .
+
+{\displaystyle {\begin{bmatrix}{A}_{1}&{0}&\cdots &{0}\\{0}&{A}_{2}&\cdots &{0}\\\vdots &\vdots &\ddots &\vdots \\{0}&{0}&\cdots &{A}_{n}\end{bmatrix}}^{-1}={\begin{bmatrix}{A}_{1}^{-1}&{0}&\cdots &{0}\\{0}&{A}_{2}^{-1}&\cdots &{0}\\\vdots &\vdots &\ddots &\vdots \\{0}&{0}&\cdots &{A}_{n}^{-1}\end{bmatrix}}.} [ 24 ] The eigenvalues [ 25 ] and eigenvectors of A {\displaystyle {A}} are simply those of the A k {\displaystyle {A}_{k}} s combined.
+
+[ 23 ] Block tridiagonal matrices [ edit ] See also: Tridiagonal matrix A block tridiagonal matrix is another special block matrix, which is just like the block diagonal matrix a square matrix , having square matrices (blocks) in the lower diagonal, main diagonal and upper diagonal, with all other blocks being zero matrices. It is essentially a tridiagonal matrix but has submatrices in places of scalars. A block tridiagonal matrix A {\displaystyle A} has the form A = [ B 1 C 1 ⋯ ⋯ 0 A 2 B 2 C 2 ⋱ ⋱ ⋱ ⋱ ⋱ ⋱ ⋮ ⋮ A k B k C k ⋮ ⋮ ⋱ ⋱ ⋱ ⋱ ⋱ ⋱ A n − − 1 B n − − 1 C n − − 1 0 ⋯ ⋯ A n B n ] {\displaystyle {A}={\begin{bmatrix}{B}_{1}&{C}_{1}&&&\cdots &&{0}\\{A}_{2}&{B}_{2}&{C}_{2}&&&&\\&\ddots &\ddots &\ddots &&&\vdots \\&&{A}_{k}&{B}_{k}&{C}_{k}&&\\\vdots &&&\ddots &\ddots &\ddots &\\&&&&{A}_{n-1}&{B}_{n-1}&{C}_{n-1}\\{0}&&\cdots &&&{A}_{n}&{B}_{n}\end{bmatrix}}} where A k {\displaystyle {A}_{k}} , B k {\displaystyle {B}_{k}} and C k {\displaystyle {C}_{k}} are square sub-matrices of the lower, main and upper diagonal respectively.
+
+[ 26 ] [ 27 ] Block tridiagonal matrices are often encountered in numerical solutions of engineering problems (e.g., computational fluid dynamics ). Optimized numerical methods for LU factorization are available [ 28 ] and hence efficient solution algorithms for equation systems with a block tridiagonal matrix as coefficient matrix. The Thomas algorithm , used for efficient solution of equation systems involving a tridiagonal matrix can also be applied using matrix operations to block tridiagonal matrices (see also Block LU decomposition ).
+
+Block triangular matrices [ edit ] See also: Triangular matrix An n × × n {\displaystyle n\times n} matrix A {\displaystyle A} is upper block triangular (or block upper triangular [ 29 ] ) if there are positive integers n 1 , … … , n k {\displaystyle n_{1},\ldots ,n_{k}} such that n = n 1 + n 2 + … … + n k {\displaystyle n=n_{1}+n_{2}+\ldots +n_{k}} and A = [ A 11 A 12 ⋯ ⋯ A 1 k 0 A 22 ⋯ ⋯ A 2 k ⋮ ⋮ ⋮ ⋮ ⋱ ⋱ ⋮ ⋮ 0 0 ⋯ ⋯ A k k ] , {\displaystyle A={\begin{bmatrix}A_{11}&A_{12}&\cdots &A_{1k}\\0&A_{22}&\cdots &A_{2k}\\\vdots &\vdots &\ddots &\vdots \\0&0&\cdots &A_{kk}\end{bmatrix}},} where the matrix A i j {\displaystyle A_{ij}} is n i × × n j {\displaystyle n_{i}\times n_{j}} for all i , j = 1 , … … , k {\displaystyle i,j=1,\ldots ,k} .
+
+[ 25 ] [ 29 ] Similarly, A {\displaystyle A} is lower block triangular if A = [ A 11 0 ⋯ ⋯ 0 A 21 A 22 ⋯ ⋯ 0 ⋮ ⋮ ⋮ ⋮ ⋱ ⋱ ⋮ ⋮ A k 1 A k 2 ⋯ ⋯ A k k ] , {\displaystyle A={\begin{bmatrix}A_{11}&0&\cdots &0\\A_{21}&A_{22}&\cdots &0\\\vdots &\vdots &\ddots &\vdots \\A_{k1}&A_{k2}&\cdots &A_{kk}\end{bmatrix}},} where A i j {\displaystyle A_{ij}} is n i × × n j {\displaystyle n_{i}\times n_{j}} for all i , j = 1 , … … , k {\displaystyle i,j=1,\ldots ,k} .
+
+[ 25 ] Block Toeplitz matrices [ edit ] See also: Toeplitz matrix A block Toeplitz matrix is another special block matrix, which contains blocks that are repeated down the diagonals of the matrix, as a Toeplitz matrix has elements repeated down the diagonal.
+
+A matrix A {\displaystyle A} is block Toeplitz if A ( i , j ) = A ( k , l ) {\displaystyle A_{(i,j)}=A_{(k,l)}} for all k − − i = l − − j {\displaystyle k-i=l-j} , that is, A = [ A 1 A 2 A 3 ⋯ ⋯ A 4 A 1 A 2 ⋯ ⋯ A 5 A 4 A 1 ⋯ ⋯ ⋮ ⋮ ⋮ ⋮ ⋮ ⋮ ⋱ ⋱ ] {\displaystyle A={\begin{bmatrix}A_{1}&A_{2}&A_{3}&\cdots \\A_{4}&A_{1}&A_{2}&\cdots \\A_{5}&A_{4}&A_{1}&\cdots \\\vdots &\vdots &\vdots &\ddots \end{bmatrix}}} , where A i ∈ ∈ F n i × × m i {\displaystyle A_{i}\in \mathbb {F} ^{n_{i}\times m_{i}}} .
+
+[ 25 ] Block Hankel matrices [ edit ] See also: Hankel matrix A matrix A {\displaystyle A} is block Hankel if A ( i , j ) = A ( k , l ) {\displaystyle A_{(i,j)}=A_{(k,l)}} for all i + j = k + l {\displaystyle i+j=k+l} , that is, A = [ A 1 A 2 A 3 ⋯ ⋯ A 2 A 3 A 4 ⋯ ⋯ A 3 A 4 A 5 ⋯ ⋯ ⋮ ⋮ ⋮ ⋮ ⋮ ⋮ ⋱ ⋱ ] {\displaystyle A={\begin{bmatrix}A_{1}&A_{2}&A_{3}&\cdots \\A_{2}&A_{3}&A_{4}&\cdots \\A_{3}&A_{4}&A_{5}&\cdots \\\vdots &\vdots &\vdots &\ddots \end{bmatrix}}} , where A i ∈ ∈ F n i × × m i {\displaystyle A_{i}\in \mathbb {F} ^{n_{i}\times m_{i}}} .
+
+[ 25 ] See also [ edit ] Kronecker product (matrix direct product resulting in a block matrix) Jordan normal form (canonical form of a linear operator on a finite-dimensional complex vector space) Strassen algorithm (algorithm for matrix multiplication that is faster than the conventional matrix multiplication algorithm) Notes [ edit ] ^ Eves, Howard (1980).
+
+Elementary Matrix Theory (reprint ed.). New York: Dover. p.
+
+37 .
+
+ISBN 0-486-63946-0 . Retrieved 24 April 2013 .
+
+We shall find that it is sometimes convenient to subdivide a matrix into rectangular blocks of elements. This leads us to consider so-called partitioned , or block , matrices .
+
+^ a b Dobrushkin, Vladimir.
+
+"Partition Matrices" .
+
+Linear Algebra with Mathematica . Retrieved 2024-03-24 .
+
+^ Anton, Howard (1994).
+
+Elementary Linear Algebra (7th ed.). New York: John Wiley. p. 30.
+
+ISBN 0-471-58742-7 .
+
+A matrix can be subdivided or partitioned into smaller matrices by inserting horizontal and vertical rules between selected rows and columns.
+
+^ Indhumathi, D.; Sarala, S. (2014-05-16).
+
+"Fragment Analysis and Test Case Generation using F-Measure for Adaptive Random Testing and Partitioned Block based Adaptive Random Testing" (PDF) .
+
+International Journal of Computer Applications .
+
+93 (6): 13.
+
+Bibcode : 2014IJCA...93f..11I .
+
+doi : 10.5120/16218-5662 .
+
+^ Macedo, H.D.; Oliveira, J.N. (2013). "Typing linear algebra: A biproduct-oriented approach".
+
+Science of Computer Programming .
+
+78 (11): 2160– 2191.
+
+arXiv : 1312.4818 .
+
+doi : 10.1016/j.scico.2012.07.012 .
+
+^ a b c Johnston, Nathaniel (2021).
+
+Introduction to linear and matrix algebra . Cham, Switzerland: Springer Nature. pp. 30, 425.
+
+ISBN 978-3-030-52811-9 .
+
+^ a b Johnston, Nathaniel (2021).
+
+Advanced linear and matrix algebra . Cham, Switzerland: Springer Nature. p. 298.
+
+ISBN 978-3-030-52814-0 .
+
+^ Jeffrey, Alan (2010).
+
+Matrix operations for engineers and scientists: an essential guide in linear algebra . Dordrecht [Netherlands] ; New York: Springer. p. 54.
+
+ISBN 978-90-481-9273-1 .
+
+OCLC 639165077 .
+
+^ a b c d e f g h i j k l m n Stewart, Gilbert W. (1998).
+
+Matrix algorithms. 1: Basic decompositions . Philadelphia, PA: Soc. for Industrial and Applied Mathematics. pp.
+
+18– 20.
+
+ISBN 978-0-89871-414-2 .
+
+^ a b c d e Gentle, James E. (2007).
+
+Matrix Algebra: Theory, Computations, and Applications in Statistics . Springer Texts in Statistics. New York, NY: Springer New York Springer e-books. pp. 47, 487.
+
+ISBN 978-0-387-70873-7 .
+
+^ Mackey, D. Steven (2006).
+
+Structured linearizations for matrix polynomials (PDF) (Thesis). University of Manchester.
+
+ISSN 1749-9097 .
+
+OCLC 930686781 .
+
+^ Eves, Howard (1980).
+
+Elementary Matrix Theory (reprint ed.). New York: Dover. p.
+
+37 .
+
+ISBN 0-486-63946-0 . Retrieved 24 April 2013 .
+
+A partitioning as in Theorem 1.9.4 is called a conformable partition of A and B .
+
+^ Anton, Howard (1994).
+
+Elementary Linear Algebra (7th ed.). New York: John Wiley. p. 36.
+
+ISBN 0-471-58742-7 .
+
+...provided the sizes of the submatrices of A and B are such that the indicated operations can be performed.
+
+^ Mathai, Arakaparampil M.; Haubold, Hans J. (2017).
+
+Linear Algebra: a course for physicists and engineers . De Gruyter textbook. Berlin Boston: De Gruyter. p. 162.
+
+ISBN 978-3-11-056259-0 .
+
+^ Bernstein, Dennis (2005).
+
+Matrix Mathematics . Princeton University Press. p. 44.
+
+ISBN 0-691-11802-7 .
+
+^ a b c d e f g h Abadir, Karim M.; Magnus, Jan R. (2005).
+
+Matrix Algebra . Cambridge University Press. pp. 97, 100, 106, 111, 114, 118.
+
+ISBN 9781139443647 .
+
+^ "Is this formula for a matrix block inverse in terms of the entire matrix inverse known?" .
+
+MathOverflow .
+
+^ Escalante-B., Alberto N.; Wiskott, Laurenz (2016).
+
+"Improved graph-based SFA: Information preservation complements the slowness principle" .
+
+Machine Learning .
+
+arXiv : 1412.4679 .
+
+doi : 10.1007/s10994-016-5563-y .
+
+^ Taboga, Marco (2021). "Determinant of a block matrix", Lectures on matrix algebra.
+
+^ Silvester, J. R. (2000).
+
+"Determinants of Block Matrices" (PDF) .
+
+Math. Gaz .
+
+84 (501): 460– 467.
+
+doi : 10.2307/3620776 .
+
+JSTOR 3620776 . Archived from the original (PDF) on 2015-03-18 . Retrieved 2021-06-25 .
+
+^ Sothanaphan, Nat (January 2017). "Determinants of block matrices with noncommuting blocks".
+
+Linear Algebra and Its Applications .
+
+512 : 202– 218.
+
+arXiv : 1805.06027 .
+
+doi : 10.1016/j.laa.2016.10.004 .
+
+S2CID 119272194 .
+
+^ Quarteroni, Alfio; Sacco, Riccardo; Saleri, Fausto (2000).
+
+Numerical mathematics . Texts in applied mathematics. New York: Springer. pp. 10, 13.
+
+ISBN 978-0-387-98959-4 .
+
+^ a b c George, Raju K.; Ajayakumar, Abhijith (2024).
+
+"A Course in Linear Algebra" .
+
+University Texts in the Mathematical Sciences : 35, 407.
+
+doi : 10.1007/978-981-99-8680-4 .
+
+ISBN 978-981-99-8679-8 .
+
+ISSN 2731-9318 .
+
+^ Prince, Simon J. D. (2012).
+
+Computer vision: models, learning, and inference . New York: Cambridge university press. p. 531.
+
+ISBN 978-1-107-01179-3 .
+
+^ a b c d e Bernstein, Dennis S. (2009).
+
+Matrix mathematics: theory, facts, and formulas (2 ed.). Princeton, NJ: Princeton University Press. pp. 168, 298.
+
+ISBN 978-0-691-14039-1 .
+
+^ Dietl, Guido K. E. (2007).
+
+Linear estimation and detection in Krylov subspaces . Foundations in signal processing, communications and networking. Berlin ; New York: Springer. pp. 85, 87.
+
+ISBN 978-3-540-68478-7 .
+
+OCLC 85898525 .
+
+^ Horn, Roger A.; Johnson, Charles R. (2017).
+
+Matrix analysis (Second edition, corrected reprint ed.). New York, NY: Cambridge University Press. p. 36.
+
+ISBN 978-0-521-83940-2 .
+
+^ Datta, Biswa Nath (2010).
+
+Numerical linear algebra and applications (2 ed.). Philadelphia, Pa: SIAM. p. 168.
+
+ISBN 978-0-89871-685-6 .
+
+^ a b Stewart, Gilbert W. (2001).
+
+Matrix algorithms. 2: Eigensystems . Philadelphia, Pa: Soc. for Industrial and Applied Mathematics. p. 5.
+
+ISBN 978-0-89871-503-3 .
+
+References [ edit ] Strang, Gilbert (1999).
+
+"Lecture 3: Multiplication and inverse matrices" . MIT Open Course ware. 18:30–21:10.
+
+v t e Linear algebra Outline Glossary Basic concepts Scalar Vector Vector space Scalar multiplication Vector projection Linear span Linear map Linear projection Linear independence Linear combination Multilinear map Basis Change of basis Row and column vectors Row and column spaces Kernel Eigenvalues and eigenvectors Transpose Linear equations Matrices Block Decomposition Invertible Minor Multiplication Rank Transformation Cramer's rule Gaussian elimination Productive matrix Gram matrix Bilinear Orthogonality Dot product Hadamard product Inner product space Outer product Kronecker product Gram–Schmidt process Multilinear algebra Determinant Cross product Triple product Seven-dimensional cross product Geometric algebra Exterior algebra Bivector Multivector Tensor Outermorphism Vector space constructions Dual Direct sum Function space Quotient Subspace Tensor product Numerical Floating-point Numerical stability Basic Linear Algebra Subprograms Sparse matrix Comparison of linear algebra libraries Category v t e Matrix classes Explicitly constrained entries Alternant Anti-diagonal Anti-Hermitian Anti-symmetric Arrowhead Band Bidiagonal Bisymmetric Block-diagonal Block Block tridiagonal Boolean Cauchy Centrosymmetric Conference Complex Hadamard Copositive Diagonally dominant Diagonal Discrete Fourier Transform Elementary Equivalent Frobenius Generalized permutation Hadamard Hankel Hermitian Hessenberg Hollow Integer Logical Matrix unit Metzler Moore Nonnegative Pentadiagonal Permutation Persymmetric Polynomial Quaternionic Signature Skew-Hermitian Skew-symmetric Skyline Sparse Sylvester Symmetric Toeplitz Triangular Tridiagonal Vandermonde Walsh Z Constant Exchange Hilbert Identity Lehmer Of ones Pascal Pauli Redheffer Shift Zero Conditions on eigenvalues or eigenvectors Companion Convergent Defective Definite Diagonalizable Hurwitz-stable Positive-definite Stieltjes Satisfying conditions on products or inverses Congruent Idempotent or Projection Invertible Involutory Nilpotent Normal Orthogonal Unimodular Unipotent Unitary Totally unimodular Weighing With specific applications Adjugate Alternating sign Augmented Bézout Carleman Cartan Circulant Cofactor Commutation Confusion Coxeter Distance Duplication and elimination Euclidean distance Fundamental (linear differential equation) Generator Gram Hessian Householder Jacobian Moment Payoff Pick Random Rotation Routh-Hurwitz Seifert Shear Similarity Symplectic Totally positive Transformation Used in statistics Centering Correlation Covariance Design Doubly stochastic Fisher information Hat Precision Stochastic Transition Used in graph theory Adjacency Biadjacency Degree Edmonds Incidence Laplacian Seidel adjacency Tutte Used in science and engineering Cabibbo–Kobayashi–Maskawa Density Fundamental (computer vision) Fuzzy associative Gamma Gell-Mann Hamiltonian Irregular Overlap S State transition Substitution Z (chemistry) Related terms Jordan normal form Linear independence Matrix exponential Matrix representation of conic sections Perfect matrix Pseudoinverse Row echelon form Wronskian Mathematics portal List of matrices Category:Matrices (mathematics) NewPP limit report
+Parsed by mw‐web.codfw.main‐644585b757‐2jnl7
+Cached time: 20250812175455
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.750 seconds
+Real time usage: 1.065 seconds
+Preprocessor visited node count: 3322/1000000
+Revision size: 32308/2097152 bytes
+Post‐expand include size: 102431/2097152 bytes
+Template argument size: 2999/2097152 bytes
+Highest expansion depth: 12/100
+Expensive parser function count: 10/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 136861/5000000 bytes
+Lua time usage: 0.370/10.000 seconds
+Lua memory usage: 6266255/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  590.932      1 -total
+ 47.75%  282.144      1 Template:Reflist
+ 30.73%  181.615     19 Template:Cite_book
+ 16.60%   98.070      2 Template:Navbox
+ 15.56%   91.927      1 Template:Short_description
+ 14.37%   84.925      1 Template:Linear_algebra
+ 10.96%   64.763      2 Template:Pagetype
+  7.70%   45.473      6 Template:Cite_journal
+  6.33%   37.384      5 Template:Main_other
+  4.03%   23.811      1 Template:Cquote Saved in parser cache with key enwiki:pcache:457464:|#|:idhash:canonical and timestamp 20250812175455 and revision id 1305544972. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Block_matrix&oldid=1305544972 " Categories : Matrices (mathematics) Sparse matrices Hidden categories: Articles with short description Short description matches Wikidata This page was last edited on 12 August 2025, at 17:54 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Block matrix 27 languages Add topic
+

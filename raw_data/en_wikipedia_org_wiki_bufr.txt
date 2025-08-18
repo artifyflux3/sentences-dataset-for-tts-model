@@ -1,0 +1,69 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Description of format Toggle Description of format subsection 1.1 Templates 1.2 Descriptors 1.3 Subsets 2 References 3 External links Toggle External links subsection 3.1 Online BUFR validators 3.2 Software libraries Toggle the table of contents BUFR 3 languages 한국어 日本語 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia The Binary Universal Form for the Representation of meteorological data ( BUFR ) is a binary data format maintained by the World Meteorological Organization (WMO). The latest version is BUFR Edition 4. BUFR Edition 3 is also considered current for operational use. BUFR was created in 1988 with the goal of replacing the WMO's dozens of character-based, position-driven meteorological codes, such as SYNOP (surface observations), TEMP (upper air soundings) and CLIMAT (monthly climatological data). BUFR was designed to be portable, compact, and universal. Any kind of data can be represented, along with its specific spatial/temporal context and any other associated metadata . In the WMO terminology, BUFR belongs to the category of table-driven code forms , where the meaning of data elements is determined by referring to a set of tables that are kept and maintained separately from the message itself.
+
+BUFR is a complex format that can be difficult to use [ 1 ] and it presents some weaknesses.
+
+[ 2 ] The introduction of BUFR format led to data "disparition" and many formatting errors.
+
+[ 3 ] [ 4 ] [ 5 ] Description of format [ edit ] A BUFR message is composed of six sections, numbered zero through five.
+
+Sections 0, 1 and 5 contain static metadata, mostly for message identification.
+
+Section 2 is optional; if used, it may contain arbitrary data in any form wished for by the creator of the message (this is only advisable for local use).
+
+Section 3 contains a sequence of so-called descriptors that define the form and contents of the BUFR data product.
+
+Section 4 is a bit-stream containing the message's core data and meta-data values as laid out by Section 3.
+
+The product description contained in Section 3 can be made sophisticated and non-trivial by the use of replication and/or operator descriptors. (See below for a brief overview of the different kinds of descriptors; refer to the WMO Guide on BUFR for further detail.) Templates [ edit ] Section 3 contains a short header followed by a sequence of descriptors that matches the contents of Section 4's bit-stream. The sequence of descriptors in Section 3 could be understood as the template of the BUFR message.  The template contains the information necessary to describe the structure of the data values embedded in the matching bit-stream. It is to be interpreted in a step-by-step, algorithm-like manner. Given a set of BUFR messages, the values contained in Section 4 may differ from one message to the next, but their ordering and structure will be kept predictable if the template provided in Section 3 remains unchanged. Templates can be designed to meet the requirements of a specific data product (weather observations, for instance).  Such templates can then be used to standardize the content and structure of BUFR data products.  The WMO has released a number of BUFR templates for surface and upper air observational data.
+
+Descriptors [ edit ] All descriptors, 16 bits wide, have a F-X-Y structure, where F refers to the two most significant bits (leftmost); X refers to the 6 middle bits and Y to the least significant (rightmost) 8 bits. The F value (0 to 3) determines the type of descriptor.
+
+Element descriptors (F=0): As the name implies, these descriptors are used to convey elemental data and related meta-data.
+
+The X value identifies the Class of the descriptor (i.e. Horizontal Coordinate parameters, Temperature parameters, etc.). The Y value is the descriptor's number within its class. Element descriptors classes 1 through 9 have the special property of remaining in effect from the moment they appear throughout the remainder of the BUFR template, unless contradicted or cancelled. In practice, class 1 through 9 descriptors are used for spatial, temporal and other meta-data that is applicable to the core data of the BUFR message.
+
+All element descriptors are defined in a section of the BUFR specification known as "Table B". The addition of new element descriptors in Table B does not require changes to the BUFR software specification. The Table B definition of an element descriptor includes its number, short text definition, decoding parameters (bit width, scale factor, and bias), and type (numerical, character string, code table, etc.).
+
+Replication descriptors (F=1): Special descriptors that allow for the controlled repetition of a chosen number of descriptors. This is a very powerful operation that introduces loop-like structures in BUFR templates. The X value specifies the number of following descriptors to be included in the replication; the Y value indicates how many times the replication is to take place. If Y =0, then the replication is called a "delayed replication" and the number of replications is to be obtained from the value of a special element descriptor.
+
+Operator descriptors (F=2): These descriptors convey special operations that can modify the character of data or allow for the creation and manipulation of additional data alongside the original. The X value identifies the operator and the Y value is used to control its application. These descriptors are defined in a section of the BUFR specification known as "Table C". The addition of new operator descriptors in Table C does require changes to the BUFR software specification, and therefore leads to a new BUFR Edition Number.
+
+Sequence descriptors (F=3): A single sequence descriptor is an alias for a sequence of other descriptors, including replication descriptors and Table B, C and D entries. These descriptors are defined in a section of the BUFR specification known as "Table D". The use of the X and Y value is the same as with Element Descriptors.
+
+Subsets [ edit ] The data structure established in the Section 3 template may be re-used multiple times within a single BUFR message. In such a case, Section 4 will contain a succession of so-called subsets . For instance, subsets could be used to convey observations from several locations in a single message.
+
+References [ edit ] ^ "BUFR: A METEOROLOGICAL CODE FOR THE 21ST CENTURY (pdf)" . Archived from the original on 2018-02-15 . Retrieved 2018-02-14 .
+
+^ "On the suitability of BUFR and GRIB for archiving data" . 10 January 2013.
+
+^ Hand, E. (2016).
+
+"Obsolescence looms for balloon data" .
+
+Science .
+
+352 (6283): 281– 282.
+
+Bibcode : 2016Sci...352..281H .
+
+doi : 10.1126/science.352.6283.281 .
+
+PMID 27081049 .
+
+^ "Dealing with Disappearing Surface Data: The Migration to BUFR and the Discontinuation of Text SYNOP and Buoy Reports" . 25 January 2017.
+
+^ "ECMWF - TAC2BUFR - ECMWF Confluence Wiki" (PDF) . Archived from the original (PDF) on 2018-02-15 . Retrieved 2018-02-14 .
+
+External links [ edit ] The official BUFR manual, tables, and other operational WMO code forms A series of introductory PowerPoint presentations WMO table-driven code forms guides (Expands on the BUFR Manual but should be considered a secondary source to the Manual) BUFR in a nutshell A third-party tutorial on creating BUFR templates (from Environment Canada) Online BUFR validators [ edit ] CCD Free Online Validator & Commercial Library ECMWF BUFR/CREX format checker Software libraries [ edit ] ECMWF provided BUFRDC library and the new ecCodes library Archived 2022-01-22 at the Wayback Machine .
+
+Magics and Metview use these to process and visualise BUFR data.
+
+NCEP library libECBUFR Environment Canada library NCAR wmobufr library — Java library and XML implementation fortran and c-based python wrappers around the ECMWF library wreport Archived 2011-07-22 at the Wayback Machine Free Software C++ library implementing encoding and decoding of BUFR and CREX trollbufr , a FOSS pure Python BUFR reader and writer csv2bufr — Python package to transform CSV data into the WMO BUFR format v t e Earth-based meteorological observation systems and weather stations General Aircraft report (AIREP) Automated airport weather station Automatic weather station (AWS) Binary Universal Form for the Representation of meteorological data (BUFR) Dropsonde Hurricane Hunters Mesonet Meteorological Aerodrome Report (METAR) Pilot report (PIREP) Weather ship By region Worldwide Aircraft Communication Addressing and Reporting System (ACARS) Aircraft Meteorological Data Relay (AMDAR) Argo Automated Meteorological Data Acquisition System (AMeDAS) Deep-ocean Assessment and Reporting of Tsunamis (DART) FluxNet Project (FluxNet) Global Atmosphere Watch (GAW) Global Sea Level Observing System (GLOSS) Prediction and Research Moored Array in the Atlantic (PIRATA) Research Moored Array for African-Asian-Australian Monsoon Analysis and Prediction (RAMA) Tropical Atmosphere Ocean project (TAO/TRITON) Voluntary observing ship program United States Citizen Weather Observer Program (CWOP) Coastal-Marine Automated Network (C-MAN) NEXRAD radar Snow Telemetry (SNOTEL) Remote Automated Weather Station (RAWS) Road Weather Information System (RWIS) Tropospheric Airborne Meteorological Data Reporting (TAMDAR) Retrieved from " https://en.wikipedia.org/w/index.php?title=BUFR&oldid=1301348624 " Categories : Earth sciences data formats Meteorological data and networks Hidden category: Webarchive template wayback links This page was last edited on 19 July 2025, at 09:05 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents BUFR 3 languages Add topic
+

@@ -1,0 +1,349 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Qualitative Description Toggle Qualitative Description subsection 1.1 The Fixed Effect 1.2 The Random Effect, ε 2 History and current status 3 Definition 4 Estimation Toggle Estimation subsection 4.1 Choice of random effects structure 4.2 Software 5 See also 6 References 7 Further reading Toggle the table of contents Mixed model 8 languages العربية Deutsch Français 日本語 Norsk bokmål Português Українська 粵語 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Statistical model containing both fixed effects and random effects Not to be confused with mixture model .
+
+Part of a series on Regression analysis Models Linear regression Simple regression Polynomial regression General linear model Generalized linear model Vector generalized linear model Discrete choice Binomial regression Binary regression Logistic regression Multinomial logistic regression Mixed logit Probit Multinomial probit Ordered logit Ordered probit Poisson Multilevel model Fixed effects Random effects Linear mixed-effects model Nonlinear mixed-effects model Nonlinear regression Nonparametric Semiparametric Robust Quantile Isotonic Principal components Least angle Local Segmented Errors-in-variables Estimation Least squares Linear Non-linear Ordinary Weighted Generalized Generalized estimating equation Partial Total Non-negative Ridge regression Regularized Least absolute deviations Iteratively reweighted Bayesian Bayesian multivariate Least-squares spectral analysis Background Regression validation Mean and predicted response Errors and residuals Goodness of fit Studentized residual Gauss–Markov theorem Mathematics portal v t e A mixed model , mixed-effects model or mixed error-component model is a statistical model containing both fixed effects and random effects .
+
+[ 1 ] [ 2 ] These models are useful in a wide variety of disciplines in the physical, biological and social sciences.
+They are particularly useful in settings where repeated measurements are made on the same statistical units (see also longitudinal study ), or where measurements are made on clusters of related statistical units.
+
+[ 2 ] Mixed models are often preferred over traditional analysis of variance regression models because they don't rely on the independent observations assumption. Further, they have their flexibility in dealing with missing values and uneven spacing of repeated measurements.
+
+[ 3 ] The Mixed model analysis allows measurements to be explicitly modeled in a wider variety of correlation and variance - covariance avoiding biased estimations structures.
+
+This page will discuss mainly linear mixed-effects models rather than generalized linear mixed models or nonlinear mixed-effects models .
+
+[ 4 ] Qualitative Description [ edit ] Linear mixed models (LMMs) are statistical models that incorporate fixed and random effects to accurately represent non-independent data structures. LMM is an alternative to analysis of variance . Often, ANOVA assumes the statistical independence of observations within each group, however, this assumption may not hold in non-independent data, such as multilevel/ hierarchical , longitudinal , or correlated datasets.
+
+Non-independent sets are ones in which the variability between outcomes is due to correlations within groups or between groups. Mixed models properly account for nest structures/hierarchical data structures where observations are influenced by their nested associations. For example, when studying education methods involving multiple schools, there are multiple levels of variables to consider. The individual level/lower level comprises individual students or teachers within the school. The observations obtained from this student/teacher is nested within their school. For example, Student A is a unit within the School A. The next higher level is the school. At the higher level, the school contains multiple individual students and teachers. The school level influences the observations obtained from the students and teachers. For Example, School A and School B are the higher levels each with its set of Student A and Student B respectively. This represents a hierarchical data scheme. A solution to modeling hierarchical data is using linear mixed models.
+
+Representation of how data, related to education system, is non-independent and structured in nested/hierarchical levels.
+
+LMMs allow us to understand the important effects between and within levels while incorporating the corrections for standard errors for non-independence embedded in the data structure.
+
+[ 4 ] [ 5 ] In experimental fields such as social psychology, psycholinguistics, cognitive psychology (and neuroscience), where studies often involve multiple grouping variables, failing to account for random effects can lead to inflated Type I error rates and unreliable conclusions.
+
+[ 6 ] [ 7 ] For instance, when analyzing data from experiments that involve both samples of participants and samples of stimuli (e.g., images, scenarios, etc.), ignoring variation in either of these grouping variables (e.g., by averaging over stimuli) can result in misleading conclusions. In such cases, researchers can instead treat both participant and stimulus as random effects with LMMs, and in doing so, can correctly account for the variation in their data across multiple grouping variables. Similarly, when analyzing data from comparative longitudinal surveys, failing to include random effects at all relevant levels—such as country and country-year—can significantly distort the results.
+
+[ 8 ] The Fixed Effect [ edit ] Fixed effects encapsulate the tendencies/trends that are consistent at the levels of primary interest. These effects are considered fixed because they are non-random and assumed to be constant for the population being studied.
+
+[ 5 ] For example, when studying education a fixed effect could represent overall school level effects that are consistent across all schools.
+
+While the hierarchy of the data set is typically obvious, the specific fixed effects that affect the average responses for all subjects must be specified. Some fixed effect coefficients are sufficient without corresponding random effects where as other fixed coefficients only represent an average where the individual units are random. These may be determined by incorporating random intercepts and slopes .
+
+[ 9 ] [ 10 ] [ 11 ] In most situations, several related models are considered and the model that best represents a universal model is adopted.
+
+The Random Effect, ε [ edit ] A key component of the mixed model is the incorporation of random effects with the fixed effect. Fixed effects are often fitted to represent the underlying model. In Linear mixed models, the true regression of the population is linear, β. The fixed data is fitted at the highest level. Random effects introduce statistical variability at different levels of the data hierarchy. These account for the unmeasured sources of variance that affect certain groups in the data. For example, the differences between student 1 and student 2 in the same class, or the differences between class 1 and class 2 in the same school.
+
+[ 9 ] [ 10 ] [ 11 ] History and current status [ edit ] Representation of biased vs. unbiased data and the differences between fitted estimates using least squares regression (LSR) and a linear mixed model (LMM).
+
+Ronald Fisher introduced random effects models to study the correlations of trait values between relatives.
+
+[ 12 ] In the 1950s, Charles Roy Henderson provided best linear unbiased estimates of fixed effects and best linear unbiased predictions of random effects.
+
+[ 13 ] [ 14 ] [ 15 ] [ 16 ] Subsequently, mixed modeling has become a major area of statistical research, including work on computation of maximum likelihood estimates, non-linear mixed effects models, missing data in mixed effects models, and Bayesian estimation of mixed effects models. Mixed models are applied in many disciplines where multiple correlated measurements are made on each unit of interest.  They are prominently used in research involving human and animal subjects in fields ranging from genetics to marketing, and have also been used in baseball [ 17 ] and industrial statistics.
+
+[ 18 ] The mixed linear model association has improved the prevention of false positive associations. Populations are deeply interconnected and the relatedness structure of population dynamics is extremely difficult to model without the use of mixed models. Linear mixed models may not, however, be the only solution. LMM's have a constant- residual variance assumption that is sometimes violated when accounting for deeply associated continuous and binary traits.
+
+[ 19 ] Definition [ edit ] In matrix notation a linear mixed model can be represented as y = X β β + Z u + ϵ ϵ {\displaystyle {\boldsymbol {y}}=X{\boldsymbol {\beta }}+Z{\boldsymbol {u}}+{\boldsymbol {\epsilon }}} where y {\displaystyle {\boldsymbol {y}}} is a known vector of observations, with mean E ( y ) = X β β {\displaystyle E({\boldsymbol {y}})=X{\boldsymbol {\beta }}} ; β β {\displaystyle {\boldsymbol {\beta }}} is an unknown vector of fixed effects; u {\displaystyle {\boldsymbol {u}}} is an unknown vector of random effects, with mean E ( u ) = 0 {\displaystyle E({\boldsymbol {u}})={\boldsymbol {0}}} and variance–covariance matrix var ⁡ ⁡ ( u ) = G {\displaystyle \operatorname {var} ({\boldsymbol {u}})=G} ; ϵ ϵ {\displaystyle {\boldsymbol {\epsilon }}} is an unknown vector of random errors, with mean E ( ϵ ϵ ) = 0 {\displaystyle E({\boldsymbol {\epsilon }})={\boldsymbol {0}}} and variance var ⁡ ⁡ ( ϵ ϵ ) = R {\displaystyle \operatorname {var} ({\boldsymbol {\epsilon }})=R} ; X {\displaystyle X} is the known design matrix for the fixed effects relating the observations y {\displaystyle {\boldsymbol {y}}} to β β {\displaystyle {\boldsymbol {\beta }}} , respectively Z {\displaystyle Z} is the known design matrix for the random effects relating the observations y {\displaystyle {\boldsymbol {y}}} to u {\displaystyle {\boldsymbol {u}}} , respectively.
+
+For example, if each observation can belong to any zero or more of k categories then Z , which has one row per observation, can be chosen to have k columns, where a value of 1 for a matrix element of Z indicates that an observation is known to belong to a category and a value of 0 indicates that an observation is known to not belong to a category.  The inferred value of u for a category is then a category-specific intercept .  If Z has additional columns, where the non-zero values are instead the value of an independent variable for an observation, then the corresponding inferred value of u is a category-specific slope for that independent variable.  The prior distribution for the category intercepts and slopes is described by the covariance matrix G .
+
+Estimation [ edit ] The joint density of y {\displaystyle {\boldsymbol {y}}} and u {\displaystyle {\boldsymbol {u}}} can be written as: f ( y , u ) = f ( y | u ) f ( u ) {\displaystyle f({\boldsymbol {y}},{\boldsymbol {u}})=f({\boldsymbol {y}}|{\boldsymbol {u}})\,f({\boldsymbol {u}})} .
+Assuming normality, u ∼ ∼ N ( 0 , G ) {\displaystyle {\boldsymbol {u}}\sim {\mathcal {N}}({\boldsymbol {0}},G)} , ϵ ϵ ∼ ∼ N ( 0 , R ) {\displaystyle {\boldsymbol {\epsilon }}\sim {\mathcal {N}}({\boldsymbol {0}},R)} and C o v ( u , ϵ ϵ ) = 0 {\displaystyle \mathrm {Cov} ({\boldsymbol {u}},{\boldsymbol {\epsilon }})={\boldsymbol {0}}} , and maximizing the joint density over β β {\displaystyle {\boldsymbol {\beta }}} and u {\displaystyle {\boldsymbol {u}}} , gives Henderson's "mixed model equations" (MME) for linear mixed models: [ 13 ] [ 15 ] [ 20 ] ( X ′ R − − 1 X X ′ R − − 1 Z Z ′ R − − 1 X Z ′ R − − 1 Z + G − − 1 ) ( β β ^ ^ u ^ ^ ) = ( X ′ R − − 1 y Z ′ R − − 1 y ) {\displaystyle {\begin{pmatrix}X'R^{-1}X&X'R^{-1}Z\\Z'R^{-1}X&Z'R^{-1}Z+G^{-1}\end{pmatrix}}{\begin{pmatrix}{\hat {\boldsymbol {\beta }}}\\{\hat {\boldsymbol {u}}}\end{pmatrix}}={\begin{pmatrix}X'R^{-1}{\boldsymbol {y}}\\Z'R^{-1}{\boldsymbol {y}}\end{pmatrix}}} where for example X′ is the matrix transpose of X and R −1 is the matrix inverse of R .
+
+The solutions to the MME, β β ^ ^ {\displaystyle \textstyle {\hat {\boldsymbol {\beta }}}} and u ^ ^ {\displaystyle \textstyle {\hat {\boldsymbol {u}}}} are best linear unbiased estimates and predictors for β β {\displaystyle {\boldsymbol {\beta }}} and u {\displaystyle {\boldsymbol {u}}} , respectively. This is a consequence of the Gauss–Markov theorem when the conditional variance of the outcome is not scalable to the identity matrix. When the conditional variance is known, then the inverse variance weighted least squares estimate is best linear unbiased estimates. However, the conditional variance is rarely, if ever, known. So it is desirable to jointly estimate the variance and weighted parameter estimates when solving MMEs.
+
+Choice of random effects structure [ edit ] One choice that analysts face with mixed models is which random effects (i.e., grouping variables, random intercepts, and random slopes) to include. One prominent recommendation in the context of confirmatory hypothesis testing [ 21 ] is to adopt a "maximal" random effects structure, including all possible random effects justified by the experimental design, as a means to control Type I error rates.
+
+Software [ edit ] One method used to fit such mixed models is that of the expectation–maximization algorithm (EM) where the variance components are treated as unobserved nuisance parameters in the joint likelihood.
+
+[ 22 ] Currently, this is the method implemented in statistical software such as Python (statsmodels package) and SAS (proc mixed), and as initial step only in R 's nlme package lme().  The solution to the mixed model equations is a maximum likelihood estimate when the distribution of the errors is normal.
+
+[ 23 ] [ 24 ] Fixed, mixed, and random effects influence linear regression models.
+
+There are several other methods to fit mixed models, including using a mixed effect model (MEM) initially, and then Newton-Raphson (used by R package nlme [ 25 ] 's lme()), penalized least squares to get a profiled log likelihood only depending on the (low-dimensional) variance-covariance parameters of u {\displaystyle {\boldsymbol {u}}} , i.e., its cov matrix G {\displaystyle {\boldsymbol {G}}} , and then modern direct optimization for that reduced objective function (used by R 's lme4 [ 26 ] package lmer() and the Julia package MixedModels.jl) and direct optimization of the likelihood (used by e.g.
+
+R 's glmmTMB). Notably, while the canonical form proposed by Henderson is useful for theory, many popular software packages use a different formulation for numerical computation in order to take advantage of sparse matrix methods (e.g. lme4 and MixedModels.jl).
+
+In the context of Bayesian methods, the brms package provides a user-friendly interface for fitting mixed models in R using Stan, allowing for the incorporation of prior distributions and the estimation of posterior distributions.
+
+[ 27 ] [ 28 ] In python, Bambi provides a similarly streamlined approach for fitting mixed effects models using PyMC.
+
+[ 29 ] See also [ edit ] Nonlinear mixed-effects model Fixed effects model Generalized linear mixed model Linear regression Mixed-design analysis of variance Multilevel model Random effects model Repeated measures design Empirical Bayes method References [ edit ] ^ Baltagi, Badi H. (2008).
+
+Econometric Analysis of Panel Data (Fourth ed.). New York: Wiley. pp.
+
+54– 55.
+
+ISBN 978-0-470-51886-1 .
+
+^ a b Gomes, Dylan G.E. (20 January 2022).
+
+"Should I use fixed effects or random effects when I have fewer than five levels of a grouping factor in a mixed-effects model?" .
+
+PeerJ .
+
+10 : e12794.
+
+doi : 10.7717/peerj.12794 .
+
+PMC 8784019 .
+
+PMID 35116198 .
+
+^ Yang, Jian; Zaitlen, NA; Goddard, ME; Visscher, PM; Prince, AL (29 January 2014).
+
+"Advantages and pitfalls in the application of mixed-model association methods" .
+
+Nat Genet .
+
+46 (2): 100– 106.
+
+doi : 10.1038/ng.2876 .
+
+PMC 3989144 .
+
+PMID 24473328 .
+
+^ a b Seltman, Howard (2016).
+
+Experimental Design and Analysis . Vol. 1. pp.
+
+357– 378.
+
+^ a b "Introduction to Linear Mixed Models" .
+
+Advanced Research Computing Statistical Methods and Data Analytics . UCLA Statistical Consulting Group. 2021.
+
+^ Judd, Charles M.; Westfall, Jacob; Kenny, David A. (2012). "Treating stimuli as a random factor in social psychology: A new and comprehensive solution to a pervasive but largely ignored problem".
+
+Journal of Personality and Social Psychology .
+
+103 (1): 54– 69.
+
+doi : 10.1037/a0028347 .
+
+PMID 22612667 .
+
+^ Boisgontier, Matthieu P.; Cheval, Boris (September 2016).
+
+"The anova to mixed model transition" .
+
+Neuroscience & Biobehavioral Reviews .
+
+68 : 1004– 1005.
+
+doi : 10.1016/j.neubiorev.2016.05.034 .
+
+PMID 27241200 .
+
+^ Schmidt-Catran, Alexander W.; Fairbrother, Malcolm (February 2016). "The Random Effects in Multilevel Models: Getting Them Wrong and Getting Them Right".
+
+European Sociological Review .
+
+32 (1): 23– 38.
+
+doi : 10.1093/esr/jcv090 .
+
+hdl : 1983/de3e0a3c-9b41-4963-880c-452809860a7e .
+
+^ a b Kreft & de Leeuw, J.
+
+Introducing multilevel modeling . London:Sage.
+
+{{ cite book }} :  CS1 maint: publisher location ( link ) ^ a b Raudenbush, Bryk, S.W, A.S (2002).
+
+Hierarchical Linear Models: Applications and Data Analysis Methods . Thousand Oaks, CA: Sage.
+
+{{ cite book }} :  CS1 maint: multiple names: authors list ( link ) ^ a b Snijders, Bosker, T.A.B, R.J (2012).
+
+Multilevel analysis: An introduction to basic and advanced multilevel modeling . Vol. 2nd edition. London:Sage.
+
+{{ cite book }} :  CS1 maint: multiple names: authors list ( link ) CS1 maint: publisher location ( link ) ^ Fisher, RA (1918).
+
+"The correlation between relatives on the supposition of Mendelian inheritance" .
+
+Transactions of the Royal Society of Edinburgh .
+
+52 (2): 399– 433.
+
+doi : 10.1017/S0080456800012163 .
+
+S2CID 181213898 .
+
+^ a b Robinson, G.K. (1991).
+
+"That BLUP is a Good Thing: The Estimation of Random Effects" .
+
+Statistical Science .
+
+6 (1): 15– 32.
+
+doi : 10.1214/ss/1177011926 .
+
+JSTOR 2245695 .
+
+^ C. R. Henderson; Oscar Kempthorne; S. R. Searle; C. M. von Krosigk (1959). "The Estimation of Environmental and Genetic Trends from Records Subject to Culling".
+
+Biometrics .
+
+15 (2). International Biometric Society: 192– 218.
+
+doi : 10.2307/2527669 .
+
+JSTOR 2527669 .
+
+^ a b L. Dale Van Vleck.
+
+"Charles Roy Henderson, April 1, 1911 – March 14, 1989" (PDF) .
+
+United States National Academy of Sciences .
+
+^ McLean, Robert A.; Sanders, William L.; Stroup, Walter W. (1991). "A Unified Approach to Mixed Linear Models".
+
+The American Statistician .
+
+45 (1). American Statistical Association: 54– 64.
+
+doi : 10.2307/2685241 .
+
+JSTOR 2685241 .
+
+^ Anderson, R.J (2016).
+
+" "MLB analytics guru who could be the next Nate Silver has a revolutionary new stat" " .
+
+^ Obenchain, Lilly, Bob, Eli (1993).
+
+"Data Analysis and Information Visualization" (PDF) . MWSUG.
+
+{{ cite book }} :  CS1 maint: multiple names: authors list ( link ) ^ Chen, H; Wang, C; Conomos, MP; Stilp, AM; Li, Z; Sofer, T; Szpiro, AA; Chen, W; Brehm, JM; Celedon, JC; Redline, S; Papanicolaou, S; Thorton, GJ; Thorton, TA; Laurie, CC; Rice, K; Lin, X (7 April 2016).
+
+"Control for Population Structure and Relatedness for Binary Traits in Genetic Association Studies via Logistic Mixed Models" .
+
+Am J Hum Genet .
+
+98 (4): 653– 666.
+
+doi : 10.1016/j.ajhg.2016.02.012 .
+
+PMC 4833218 .
+
+PMID 27018471 .
+
+^ Henderson, C R (1973).
+
+"Sire evaluation and genetic trends" (PDF) .
+
+Journal of Animal Science .
+
+1973 . American Society of Animal Science: 10– 41.
+
+doi : 10.1093/ansci/1973.Symposium.10 . Retrieved 17 August 2014 .
+
+^ Barr, Dale J.; Levy, Roger; Scheepers, Christoph; Tily, Harry J. (April 2013).
+
+"Random effects structure for confirmatory hypothesis testing: Keep it maximal" .
+
+Journal of Memory and Language .
+
+68 (3): 255– 278.
+
+doi : 10.1016/j.jml.2012.11.001 .
+
+PMC 3881361 .
+
+PMID 24403724 .
+
+^ Lindstrom, ML; Bates, DM (1988). "Newton–Raphson and EM algorithms for linear mixed-effects models for repeated-measures data".
+
+Journal of the American Statistical Association .
+
+83 (404): 1014– 1021.
+
+doi : 10.1080/01621459.1988.10478693 .
+
+^ Laird, Nan M.; Ware, James H. (1982). "Random-Effects Models for Longitudinal Data".
+
+Biometrics .
+
+38 (4). International Biometric Society: 963– 974.
+
+doi : 10.2307/2529876 .
+
+JSTOR 2529876 .
+
+PMID 7168798 .
+
+^ Fitzmaurice, Garrett M.; Laird, Nan M.; Ware, James H. (2004).
+
+Applied Longitudinal Analysis . John Wiley & Sons. pp.
+
+326– 328.
+
+^ Pinheiro, J; Bates, DM (2006).
+
+Mixed-effects models in S and S-PLUS . Statistics and Computing. New York: Springer Science & Business Media.
+
+doi : 10.1007/b98882 .
+
+ISBN 0-387-98957-9 .
+
+^ Bates, D.; Maechler, M.; Bolker, B.; Walker, S. (2015).
+
+"Fitting Linear Mixed-Effects Models Using lme4" .
+
+Journal of Statistical Software .
+
+67 (1).
+
+doi : 10.18637/jss.v067.i01 .
+
+hdl : 2027.42/146808 .
+
+^ Bürkner, Paul-Christian (2017).
+
+"brms : An R Package for Bayesian Multilevel Models Using Stan" .
+
+Journal of Statistical Software .
+
+80 (1).
+
+doi : 10.18637/jss.v080.i01 .
+
+^ Bürkner, Paul-Christian (2018). "Advanced Bayesian Multilevel Modeling with the R Package brms".
+
+The R Journal .
+
+10 (1): 395.
+
+arXiv : 1705.11123 .
+
+doi : 10.32614/RJ-2018-017 .
+
+^ Capretto, Tomás; Piho, Camen; Kumar, Ravin; Westfall, Jacob; Yarkoni, Tal; Martin, Osvaldo A. (2020). "Bambi: A simple interface for fitting Bayesian linear models in Python".
+
+arXiv : 2012.10754 [ stat.CO ].
+
+Further reading [ edit ] Gałecki, Andrzej; Burzykowski, Tomasz (2013).
+
+Linear Mixed-Effects Models Using R: A Step-by-Step Approach . New York: Springer.
+
+ISBN 978-1-4614-3900-4 .
+
+Milliken, G. A.; Johnson, D. E. (1992).
+
+Analysis of Messy Data: Vol. I. Designed Experiments . New York: Chapman & Hall.
+
+West, B. T.; Welch, K. B.; Galecki, A. T. (2007).
+
+Linear Mixed Models: A Practical Guide Using Statistical Software . New York: Chapman & Hall/CRC.
+
+Retrieved from " https://en.wikipedia.org/w/index.php?title=Mixed_model&oldid=1297348172 " Categories : Regression models Analysis of variance Hidden categories: CS1 maint: publisher location CS1 maint: multiple names: authors list CS1: long volume value Articles with short description Short description matches Wikidata This page was last edited on 25 June 2025, at 16:45 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Mixed model 8 languages Add topic
+

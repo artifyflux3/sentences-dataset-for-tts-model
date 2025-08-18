@@ -1,0 +1,621 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Advantages 2 Minimizing the variance of estimators Toggle Minimizing the variance of estimators subsection 2.1 Contrasts 3 Implementation 4 Practical considerations Toggle Practical considerations subsection 4.1 Model dependence and robustness 4.2 Choosing an optimality criterion and robustness 4.2.1 Flexible optimality criteria and convex analysis 4.3 Model uncertainty and Bayesian approaches 4.3.1 Model selection 4.3.2 Bayesian experimental design 5 Iterative experimentation Toggle Iterative experimentation subsection 5.1 Sequential analysis 5.2 Response-surface methodology 5.3 System identification and stochastic approximation 6 Specifying the number of experimental runs Toggle Specifying the number of experimental runs subsection 6.1 Using a computer to find a good design 6.2 Discretizing probability-measure designs 7 History 8 See also 9 Notes 10 References 11 Further reading Toggle Further reading subsection 11.1 Textbooks for practitioners and students 11.1.1 Textbooks emphasizing regression and response-surface methodology 11.1.2 Textbooks emphasizing block designs 11.2 Books for professional statisticians and researchers 11.3 Articles and chapters 11.4 Historical Toggle the table of contents Optimal experimental design 3 languages Deutsch فارسی Українська Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia (Redirected from Optimal design ) Experimental design that is optimal with respect to some statistical criterion This article is about optimal design of experiments . For optimal design in control theory, see shape optimization .
+
+Gustav Elfving developed the optimal design of experiments, and so minimized surveyors' need for theodolite measurements (pictured) , while trapped in his tent in storm-ridden Greenland .
+
+[ 1 ] In the design of experiments , optimal experimental designs (or optimum designs [ 2 ] ) are a class of experimental designs that are optimal with respect to some statistical criterion . The creation of this field of statistics has been credited to Danish statistician Kirstine Smith .
+
+[ 3 ] [ 4 ] In the design of experiments for estimating statistical models , optimal designs allow parameters to be estimated without bias and with minimum variance . A non-optimal design requires a greater number of experimental runs to estimate the parameters with the same precision as an optimal design. In practical terms, optimal experiments can reduce the costs of experimentation.
+
+The optimality of a design depends on the statistical model and is assessed with respect to a statistical criterion, which is related to the variance-matrix of the estimator. Specifying an appropriate model and specifying a suitable criterion function both require understanding of statistical theory and practical knowledge with designing experiments .
+
+Advantages [ edit ] Optimal designs offer three advantages over sub-optimal experimental designs : [ 5 ] Optimal designs reduce the costs of experimentation by allowing statistical models to be estimated with fewer experimental runs.
+
+Optimal designs can accommodate multiple types of factors, such as process, mixture, and discrete factors.
+
+Designs can be optimized when the design-space is constrained, for example, when the mathematical process-space contains factor-settings that are practically infeasible (e.g. due to safety concerns).
+
+Minimizing the variance of estimators [ edit ] Experimental designs are evaluated using statistical criteria.
+
+[ 6 ] It is known that the least squares estimator minimizes the variance of mean - unbiased estimators (under the conditions of the Gauss–Markov theorem ). In the estimation theory for statistical models with one real parameter , the reciprocal of the variance of an ( "efficient" ) estimator is called the " Fisher information " for that estimator.
+
+[ 7 ] Because of this reciprocity, minimizing the variance corresponds to maximizing the information .
+
+When the statistical model has several parameters , however, the mean of the parameter-estimator is a vector and its variance is a matrix . The inverse matrix of the variance-matrix is called the "information matrix". Because the variance of the estimator of a parameter vector is a matrix, the problem of "minimizing the variance" is complicated. Using statistical theory , statisticians compress the  information-matrix using real-valued summary statistics ; being real-valued functions, these "information criteria" can be maximized.
+
+[ 8 ] The traditional optimality-criteria are invariants of the information matrix; algebraically, the traditional optimality-criteria are functionals of the eigenvalues of the information matrix.
+
+A -optimality (" average " or trace ) One criterion is A-optimality , which seeks to minimize the trace of the inverse of the information matrix. This criterion results in minimizing the average variance of the estimates of the regression coefficients.
+
+C -optimality This criterion minimizes the variance of a best linear unbiased estimator of a predetermined linear combination of model parameters.
+
+D -optimality ( determinant ) A popular criterion is D-optimality , which seeks to minimize |(X'X) −1 |, or equivalently maximize the determinant of the information matrix X'X of the design. This criterion results in maximizing the differential Shannon information content of the parameter estimates.
+
+E -optimality ( eigenvalue ) Another design is E-optimality , which maximizes the minimum eigenvalue of the information matrix.
+
+S -optimality [ 9 ] This criterion maximizes a quantity measuring the mutual column orthogonality of X and the determinant of the information matrix.
+
+T -optimality This criterion maximizes the discrepancy between two proposed models at the design locations.
+
+[ 10 ] Other optimality-criteria are concerned with the variance of predictions : G -optimality A popular criterion is G-optimality , which seeks to minimize the maximum entry in the diagonal of the hat matrix X(X'X) −1 X'. This has the effect of minimizing the maximum variance of the predicted values.
+
+I -optimality ( integrated ) A second criterion on prediction variance is I-optimality , which seeks to minimize  the average prediction variance over the design space .
+
+V -optimality ( variance ) A third criterion on prediction variance is V-optimality , which seeks to minimize the average prediction variance over a set of m specific points.
+
+[ 11 ] Contrasts [ edit ] Main article: Contrast (statistics) See also: Nuisance parameter In many applications, the statistician is most concerned with a "parameter of interest" rather than with "nuisance parameters" . More generally, statisticians consider linear combinations of parameters, which are estimated via linear combinations of treatment-means in the design of experiments and in the analysis of variance ; such linear combinations are called contrasts . Statisticians can use appropriate optimality-criteria for such parameters of interest and for contrasts .
+
+[ 12 ] Implementation [ edit ] Catalogs of optimal designs occur in books and in software libraries.
+
+In addition, major statistical systems like SAS and R have procedures for optimizing a design according to a user's specification. The experimenter must specify a model for the design and an optimality-criterion before the method can compute an optimal design.
+
+[ 13 ] Practical considerations [ edit ] Some advanced topics in optimal design require more statistical theory and practical knowledge in designing experiments.
+
+Model dependence and robustness [ edit ] Since the optimality criterion of most optimal designs is based on some function of the information matrix, the 'optimality' of a given design is model dependent : While an optimal design is best for that model , its performance may deteriorate on other models . On other models , an optimal design can be either better or worse than a non-optimal design.
+
+[ 14 ] Therefore, it is important to benchmark the performance of designs under alternative models .
+
+[ 15 ] Choosing an optimality criterion and robustness [ edit ] The choice of an appropriate optimality criterion requires some thought, and it is useful to benchmark the performance of designs with respect to several optimality criteria. Cornell writes that since the [traditional optimality] criteria . . . are variance-minimizing criteria, . . .  a design that is optimal for a given model using one of the . . . criteria is usually near-optimal for the same model with respect to the other criteria.
+
+— [ 16 ] Indeed, there are several classes of designs for which all the traditional optimality-criteria agree, according to the theory of "universal optimality" of Kiefer .
+
+[ 17 ] The experience of practitioners like Cornell and the "universal optimality" theory of Kiefer suggest that robustness with respect to changes in the optimality-criterion is much greater than is robustness with respect to changes in the model .
+
+Flexible optimality criteria and convex analysis [ edit ] High-quality statistical software provide a combination of libraries of optimal designs or iterative methods for constructing approximately optimal designs, depending on the model specified and the optimality criterion. Users may use a standard optimality-criterion or may program a custom-made criterion.
+
+All of the traditional optimality-criteria are convex (or concave) functions , and therefore optimal-designs are amenable to the mathematical theory of convex analysis and their computation can use specialized methods of convex minimization .
+
+[ 18 ] The practitioner need not select exactly one traditional, optimality-criterion, but can specify a custom criterion. In particular, the practitioner can specify a convex criterion using the maxima of convex optimality-criteria and nonnegative combinations of optimality criteria (since these operations preserve convex functions ). For convex optimality criteria, the Kiefer - Wolfowitz equivalence theorem allows the practitioner to verify that a given design is globally optimal.
+
+[ 19 ] The Kiefer - Wolfowitz equivalence theorem is related with the Legendre - Fenchel conjugacy for convex functions .
+
+[ 20 ] If an optimality-criterion lacks convexity , then finding a global optimum and verifying its optimality often are difficult.
+
+Model uncertainty and Bayesian approaches [ edit ] Model selection [ edit ] See also: Model selection When scientists wish to test several theories, then a statistician can design an experiment that allows optimal tests between specified models. Such "discrimination experiments" are especially important in the biostatistics supporting pharmacokinetics and pharmacodynamics , following the work of Cox and Atkinson.
+
+[ 21 ] Bayesian experimental design [ edit ] Main article: Bayesian experimental design When practitioners need to consider multiple models , they can specify a probability-measure on the models and then select any design maximizing the expected value of such an experiment. Such probability-based optimal-designs are called optimal Bayesian designs . Such Bayesian designs are used especially for generalized linear models (where the response follows an exponential-family distribution).
+
+[ 22 ] The use of a Bayesian design does not force statisticians to use Bayesian methods to analyze the data, however. Indeed, the "Bayesian" label for probability-based experimental-designs is disliked by some researchers.
+
+[ 23 ] Alternative terminology for "Bayesian" optimality includes "on-average" optimality or "population" optimality.
+
+Iterative experimentation [ edit ] Scientific experimentation is an iterative process, and statisticians have developed several approaches to the optimal design of sequential experiments.
+
+Sequential analysis [ edit ] Main article: Sequential analysis Sequential analysis was pioneered by Abraham Wald .
+
+[ 24 ] In 1972, Herman Chernoff wrote an overview of optimal sequential designs, [ 25 ] while adaptive designs were surveyed later by S. Zacks.
+
+[ 26 ] Of course, much work on the optimal design of experiments is related to the theory of optimal decisions , especially the statistical decision theory of Abraham Wald .
+
+[ 27 ] Response-surface methodology [ edit ] Main article: Response surface methodology Optimal designs for response-surface models are discussed in the textbook by Atkinson, Donev and Tobias, and in the survey of Gaffke and Heiligers and in the mathematical text of Pukelsheim. The blocking of optimal designs is discussed in the textbook of Atkinson, Donev and Tobias and also in the monograph by Goos.
+
+The earliest optimal designs were developed to estimate the parameters of regression models with continuous variables, for example, by J. D. Gergonne in 1815 (Stigler).  In English, two early contributions were made by Charles S. Peirce and Kirstine Smith .
+
+Pioneering designs for multivariate response-surfaces were proposed by George E. P. Box . However, Box's designs have few optimality properties. Indeed, the Box–Behnken design requires excessive experimental runs when the number of variables exceeds three.
+
+[ 28 ] Box's "central-composite" designs require more experimental runs than do the optimal designs of Kôno.
+
+[ 29 ] System identification and stochastic approximation [ edit ] See also: System identification and Stochastic approximation The optimization of sequential experimentation is studied also in stochastic programming and in systems and control . Popular methods include stochastic approximation and other methods of stochastic optimization . Much of this research has been associated with the subdiscipline of system identification .
+
+[ 30 ] In computational optimal control , D. Judin & A. Nemirovskii and Boris Polyak has described methods that are more efficient than the ( Armijo-style ) step-size rules introduced by G. E. P. Box in response-surface methodology .
+
+[ 31 ] Adaptive designs are used in clinical trials , and optimal adaptive designs are surveyed in the Handbook of Experimental Designs chapter by Shelemyahu Zacks.
+
+Specifying the number of experimental runs [ edit ] Using a computer to find a good design [ edit ] There are several methods of finding an optimal design, given an a priori restriction on the number of experimental runs or replications. Some of these methods are discussed by Atkinson, Donev and Tobias and in the paper by Hardin and Sloane . Of course, fixing the number of experimental runs a priori would be impractical.  Prudent statisticians examine the other optimal designs, whose number of experimental runs differ.
+
+Discretizing probability-measure designs [ edit ] In the mathematical theory on optimal experiments, an optimal design can be a probability measure that is supported on an infinite set of observation-locations. Such optimal probability-measure designs solve a mathematical problem that neglected to specify the cost of observations and experimental runs. Nonetheless, such optimal probability-measure designs can be discretized to furnish approximately optimal designs.
+
+[ 32 ] In some cases, a finite set of observation-locations suffices to support an optimal design. Such a result was proved by Kôno and Kiefer in their works on response-surface designs for quadratic models. The Kôno–Kiefer analysis explains why optimal designs for response-surfaces can have discrete supports, which are very similar as do the less efficient designs that have been traditional in response surface methodology .
+
+[ 33 ] History [ edit ] In 1815, an article on optimal designs for polynomial regression was published by Joseph Diaz Gergonne , according to Stigler .
+
+Charles S. Peirce proposed an economic theory of scientific experimentation in 1876, which sought to maximize the precision of the estimates. Peirce's optimal allocation immediately improved the accuracy of gravitational experiments and was used for decades by Peirce and his colleagues. In his 1882 published lecture at Johns Hopkins University , Peirce introduced experimental design with these words: Logic will not undertake to inform you what kind of experiments you ought to make in order best to determine the acceleration of gravity, or the value of the Ohm; but it will tell you how to proceed to form a plan of experimentation.
+
+[....] Unfortunately practice generally precedes theory, and it is the usual fate of mankind to get things done in some boggling way first, and find out afterward how they could have been done much more easily and perfectly.
+
+[ 34 ] Kirstine Smith proposed optimal designs for polynomial models in 1918. (Kirstine Smith had been a student of the Danish statistician Thorvald N. Thiele and was working with Karl Pearson in London.) See also [ edit ] Bayesian experimental design Blocking (statistics) Computer experiment Convex function Convex minimization Design of experiments Efficiency (statistics) Entropy (information theory) Fisher information Glossary of experimental design Hadamard's maximal determinant problem Information theory Kiefer, Jack Replication (statistics) Response surface methodology Statistical model Wald, Abraham Wolfowitz, Jacob Notes [ edit ] ^ Nordström (1999 , p. 176) ^ The adjective "optimum" (and not "optimal") "is the slightly older form in English and avoids the construction 'optim(um) + al´—there is no 'optimalis' in Latin" (page x in Optimum Experimental Designs, with SAS , by Atkinson, Donev, and Tobias).
+
+^ Guttorp, P.; Lindgren, G. (2009). "Karl Pearson and the Scandinavian school of statistics".
+
+International Statistical Review .
+
+77 : 64.
+
+CiteSeerX 10.1.1.368.8328 .
+
+doi : 10.1111/j.1751-5823.2009.00069.x .
+
+S2CID 121294724 .
+
+^ Smith, Kirstine (1918).
+
+"On the standard deviations of adjusted and interpolated values of an observed polynomial function and its constants and the guidance they give towards a proper choice of the distribution of observations" .
+
+Biometrika .
+
+12 (1/2): 1– 85.
+
+doi : 10.2307/2331929 .
+
+JSTOR 2331929 .
+
+^ These three advantages (of optimal designs) are documented in the textbook by Atkinson, Donev, and Tobias.
+
+^ Such criteria are called objective functions in optimization theory .
+
+^ The Fisher information and other " information " functionals are fundamental concepts in statistical theory .
+
+^ Traditionally, statisticians have evaluated estimators and designs by considering some summary statistic of the covariance matrix (of a mean - unbiased estimator ), usually with positive real values (like the determinant or matrix trace ). Working with positive real-numbers brings several advantages: If the estimator of a single parameter has a positive variance, then the variance and the Fisher information are both positive real numbers; hence they are members of the convex cone of nonnegative real numbers (whose nonzero members have reciprocals in this same cone).
+
+For several parameters, the covariance-matrices and information-matrices are elements of the convex cone of nonnegative-definite symmetric matrices in a partially ordered vector space , under the Loewner (Löwner) order. This cone is closed under matrix-matrix addition, under matrix-inversion, and under the multiplication of positive real-numbers and matrices.
+
+An exposition of matrix theory and the Loewner-order appears in Pukelsheim.
+
+^ Shin, Yeonjong; Xiu, Dongbin (2016). "Nonadaptive quasi-optimal points selection for least squares linear regression".
+
+SIAM Journal on Scientific Computing .
+
+38 (1): A385 – A411 .
+
+Bibcode : 2016SJSC...38A.385S .
+
+doi : 10.1137/15M1015868 .
+
+^ Atkinson, A. C.; Fedorov, V. V. (1975).
+
+"The design of experiments for discriminating between two rival models" .
+
+Biometrika .
+
+62 (1): 57– 70.
+
+doi : 10.1093/biomet/62.1.57 .
+
+ISSN 0006-3444 .
+
+^ The above optimality-criteria are convex functions on domains of symmetric positive-semidefinite matrices : See an on-line textbook for practitioners, which has many illustrations and statistical applications: Boyd, Stephen P.; Vandenberghe, Lieven (2004).
+
+Convex Optimization (PDF) . Cambridge University Press.
+
+ISBN 978-0-521-83378-3 . Retrieved October 15, 2011 .
+
+(book in pdf) Boyd and Vandenberghe discuss optimal experimental designs on pages 384–396.
+
+^ Optimality criteria for "parameters of interest" and for contrasts are discussed by Atkinson, Donev and Tobias.
+
+^ Iterative methods and approximation algorithms are surveyed in the textbook by Atkinson, Donev and Tobias and in the monographs of Fedorov (historical) and Pukelsheim, and in the survey article by Gaffke and Heiligers.
+
+^ See Kiefer ("Optimum Designs for Fitting Biased Multiresponse Surfaces" pages 289–299).
+
+^ Such benchmarking is discussed in the textbook by Atkinson et al. and in the papers of Kiefer.
+
+Model - robust designs (including "Bayesian" designs) are surveyed by Chang and Notz.
+
+^ Cornell, John (2002).
+
+Experiments with Mixtures: Designs, Models, and the Analysis of Mixture Data (third ed.). Wiley.
+
+ISBN 978-0-471-07916-3 .
+
+(Pages 400-401) ^ An introduction to "universal optimality" appears in the textbook of Atkinson, Donev, and Tobias. More detailed expositions occur in the advanced textbook of Pukelsheim and the papers of Kiefer.
+
+^ Computational methods are discussed by Pukelsheim and by Gaffke and Heiligers.
+
+^ The Kiefer - Wolfowitz equivalence theorem is discussed in Chapter 9 of Atkinson, Donev, and Tobias.
+
+^ Pukelsheim uses convex analysis to study Kiefer - Wolfowitz equivalence theorem in relation to the Legendre - Fenchel conjugacy for convex functions The minimization of convex functions on domains of symmetric positive-semidefinite matrices is explained in an on-line textbook for practitioners, which has many illustrations and statistical applications: Convex Optimization . Cambridge University Press. 2004.
+
+(book in pdf) Boyd and Vandenberghe discuss optimal experimental designs on pages 384–396.
+
+^ See Chapter 20 in Atkinison, Donev, and Tobias.
+
+^ Bayesian designs are discussed in Chapter 18 of the textbook by Atkinson, Donev, and Tobias. More advanced discussions occur in the monograph by Fedorov and Hackl, and the articles by Chaloner and Verdinelli and by DasGupta.
+
+Bayesian designs and other aspects of "model-robust" designs are discussed by Chang and Notz.
+
+^ As an alternative to " Bayesian optimality", " on-average optimality" is advocated in Fedorov and Hackl.
+
+^ Wald, Abraham (June 1945).
+
+"Sequential Tests of Statistical Hypotheses" .
+
+The Annals of Mathematical Statistics .
+
+16 (2): 117– 186.
+
+doi : 10.1214/aoms/1177731118 .
+
+JSTOR 2235829 .
+
+^ Chernoff, H. (1972) Sequential Analysis and Optimal Design, SIAM Monograph.
+
+^ Zacks, S. (1996) "Adaptive Designs for Parametric Models". In: Ghosh, S. and Rao, C. R., (Eds) (1996).
+
+Design and Analysis of Experiments, Handbook of Statistics, Volume 13. North-Holland.
+
+ISBN 0-444-82061-2 .  (pages 151–180) ^ Henry P. Wynn wrote, "the modern theory of optimum design has its roots in the decision theory school of U.S. statistics founded by Abraham Wald " in his introduction "Jack Kiefer's Contributions to Experimental Design", which is pages xvii–xxiv in the following volume: Kiefer, Jack Carl (1985).
+
+Brown, Lawrence D.
+
+; Olkin, Ingram; Jerome Sacks; Wynn, Henry P (eds.).
+
+Jack Carl Kiefer Collected Papers III Design of Experiments . Springer-Verlag and the Institute of Mathematical Statistics . pp. 718+xxv.
+
+ISBN 978-0-387-96004-3 .
+
+Kiefer acknowledges Wald's influence and results on many pages – 273 (page 55 in the reprinted volume), 280 (62), 289-291 (71-73), 294 (76), 297 (79),  315 (97) 319 (101) – in this article: Kiefer, J.
+
+(1959). "Optimum Experimental Designs".
+
+Journal of the Royal Statistical Society, Series B .
+
+21 (2): 272– 319.
+
+doi : 10.1111/j.2517-6161.1959.tb00338.x .
+
+^ In the field of response surface methodology , the inefficiency of the Box–Behnken design is noted by Wu and Hamada (page 422).
+
+Wu, C. F. Jeff & Hamada, Michael (2002).
+
+Experiments: Planning, Analysis, and Parameter Design Optimization . Wiley.
+
+ISBN 978-0-471-25511-6 .
+
+Optimal designs for "follow-up" experiments are discussed by Wu and Hamada.
+
+^ The inefficiency of Box 's "central-composite" designs are discussed by according to Atkinson, Donev, and Tobias (page 165). These authors also discuss the blocking of Kôno-type designs for quadratic response-surfaces .
+
+^ In system identification, the following books have chapters on optimal experimental design: Goodwin, Graham C. & Payne, Robert L. (1977).
+
+Dynamic System Identification: Experiment Design and Data Analysis . Academic Press.
+
+ISBN 978-0-12-289750-4 .
+
+Walter, Éric & Pronzato, Luc (1997).
+
+Identification of Parametric Models from Experimental Data . Springer.
+
+^ Some step-size rules for of Judin & Nemirovskii and of Polyak Archived 2007-10-31 at the Wayback Machine are explained in the textbook by Kushner and Yin: Kushner, Harold J.
+
+; Yin, G. George (2003).
+
+Stochastic Approximation and Recursive Algorithms and Applications (Second ed.). Springer.
+
+ISBN 978-0-387-00894-3 .
+
+^ The discretization of optimal probability-measure designs to provide approximately optimal designs is discussed by Atkinson, Donev, and Tobias and by Pukelsheim (especially Chapter 12).
+
+^ Regarding designs for quadratic response-surfaces , the results of Kôno and Kiefer are discussed in Atkinson, Donev, and Tobias.
+
+Mathematically, such results are associated with Chebyshev polynomials , "Markov systems", and "moment spaces": See Karlin, Samuel ; Shapley, Lloyd (1953). "Geometry of moment spaces".
+
+Mem. Amer. Math. Soc .
+
+12 .
+
+Karlin, Samuel ; Studden, William J. (1966).
+
+Tchebycheff systems: With applications in analysis and statistics . Wiley-Interscience.
+
+Dette, Holger & Studden, William J. (1997).
+
+The Theory of canonical moments with applications in statistics, probability, and analysis . John Wiley & Sons Inc.
+
+^ Peirce, C. S. (1882), "Introductory Lecture on the Study of Logic" delivered September 1882, published in Johns Hopkins University Circulars , v. 2, n. 19, pp. 11–12, November 1882, see p. 11, Google Books Eprint . Reprinted in Collected Papers v. 7, paragraphs 59–76, see 59, 63, Writings of Charles S. Peirce v. 4, pp. 378–82, see 378, 379, and The Essential Peirce v. 1, pp. 210–14, see 210–1, also lower down on 211.
+
+References [ edit ] Atkinson, A. C.; Donev, A. N.; Tobias, R. D. (2007).
+
+Optimum experimental designs, with SAS .
+
+Oxford University Press . pp. 511+xvi.
+
+ISBN 978-0-19-929660-6 .
+
+Chernoff, Herman (1972).
+
+Sequential analysis and optimal design . Society for Industrial and Applied Mathematics.
+
+ISBN 978-0-89871-006-9 .
+
+Fedorov, V. V. (1972).
+
+Theory of Optimal Experiments . Academic Press.
+
+Fedorov, Valerii V.; Hackl, Peter (1997).
+
+Model-Oriented Design of Experiments . Lecture Notes in Statistics. Vol. 125. Springer-Verlag.
+
+Goos, Peter (2002).
+
+The Optimal Design of Blocked and Split-plot Experiments . Lecture Notes in Statistics. Vol. 164. Springer.
+
+Kiefer, Jack Carl (1985).
+
+Brown ; Olkin, Ingram ; Sacks, Jerome ; et al. (eds.).
+
+Jack Carl Kiefer: Collected papers III—Design of experiments . Springer-Verlag and the Institute of Mathematical Statistics. pp. 718+xxv.
+
+ISBN 978-0-387-96004-3 .
+
+Logothetis, N.; Wynn, H. P.
+
+(1989).
+
+Quality through design: Experimental design, off-line quality control, and Taguchi's contributions . Oxford U. P. pp. 464+xi.
+
+ISBN 978-0-19-851993-5 .
+
+Nordström, Kenneth (May 1999).
+
+"The life and work of Gustav Elfving" .
+
+Statistical Science .
+
+14 (2): 174– 196.
+
+doi : 10.1214/ss/1009212244 .
+
+JSTOR 2676737 .
+
+MR 1722074 .
+
+Pukelsheim, Friedrich (2006).
+
+Optimal design of experiments . Classics in Applied Mathematics. Vol. 50 (republication with errata-list and new preface of Wiley (0-471-61971-X) 1993 ed.).
+
+Society for Industrial and Applied Mathematics . pp. 454+xxxii.
+
+ISBN 978-0-89871-604-7 .
+
+Shah, Kirti R. & Sinha, Bikas K. (1989).
+
+Theory of Optimal Designs . Lecture Notes in Statistics. Vol. 54. Springer-Verlag. pp. 171+viii.
+
+ISBN 978-0-387-96991-6 .
+
+Further reading [ edit ] Textbooks for practitioners and students [ edit ] Textbooks emphasizing regression and response-surface methodology [ edit ] The textbook by Atkinson, Donev and Tobias has been used for short courses for industrial practitioners as well as university courses.
+
+Atkinson, A. C.; Donev, A. N.; Tobias, R. D. (2007).
+
+Optimum experimental designs, with SAS . Oxford University Press. pp. 511+xvi.
+
+ISBN 978-0-19-929660-6 .
+
+Logothetis, N.; Wynn, H. P.
+
+(1989).
+
+Quality through design: Experimental design, off-line quality control, and Taguchi's contributions . Oxford U. P. pp. 464+xi.
+
+ISBN 978-0-19-851993-5 .
+
+Textbooks emphasizing block designs [ edit ] Optimal block designs are discussed by Bailey and by Bapat. The first chapter of Bapat's book reviews the linear algebra used by Bailey (or the advanced books below). Bailey's exercises and discussion of randomization both emphasize statistical concepts (rather than algebraic computations).
+
+Bailey, R. A.
+
+(2008).
+
+Design of Comparative Experiments . Cambridge U. P.
+
+ISBN 978-0-521-68357-9 .
+
+Draft available on-line. (Especially Chapter 11.8 "Optimality") Bapat, R. B. (2000).
+
+Linear Algebra and Linear Models (Second ed.). Springer.
+
+ISBN 978-0-387-98871-9 .
+
+(Chapter 5 "Block designs and optimality", pages 99–111) Optimal block designs are discussed in the advanced monograph by Shah and Sinha and in the survey-articles by Cheng and by Majumdar.
+
+Books for professional statisticians and researchers [ edit ] Chernoff, Herman (1972).
+
+Sequential Analysis and Optimal Design .
+
+SIAM .
+
+ISBN 978-0-89871-006-9 .
+
+Fedorov, V. V. (1972).
+
+Theory of Optimal Experiments . Academic Press.
+
+Fedorov, Valerii V.; Hackl, Peter (1997).
+
+Model-Oriented Design of Experiments . Vol. 125. Springer-Verlag.
+
+Goos, Peter (2002).
+
+The Optimal Design of Blocked and Split-plot Experiments . Vol. 164. Springer.
+
+Goos, Peter & Jones, Bradley (2011).
+
+Optimal design of experiments: a case study approach . Chichester Wiley. p. 304.
+
+ISBN 978-0-470-74461-1 .
+
+Kiefer, Jack Carl . (1985).
+
+Brown, Lawrence D.
+
+; Olkin, Ingram ; Jerome Sacks; Wynn, Henry P (eds.).
+
+Jack Carl Kiefer Collected Papers III Design of Experiments . Springer-Verlag and the Institute of Mathematical Statistics .
+
+ISBN 978-0-387-96004-3 .
+
+Pukelsheim, Friedrich (2006).
+
+Optimal Design of Experiments . Vol. 50.
+
+Society for Industrial and Applied Mathematics .
+
+ISBN 978-0-89871-604-7 .
+
+Republication with errata-list and new preface of Wiley (0-471-61971-X) 1993 Shah, Kirti R. & Sinha, Bikas K. (1989).
+
+Theory of Optimal Designs . Vol. 54. Springer-Verlag.
+
+ISBN 978-0-387-96991-6 .
+
+Articles and chapters [ edit ] Chaloner, Kathryn & Verdinelli, Isabella (1995).
+
+"Bayesian Experimental Design: A Review" .
+
+Statistical Science .
+
+10 (3): 273– 304.
+
+CiteSeerX 10.1.1.29.5355 .
+
+doi : 10.1214/ss/1177009939 .
+
+Ghosh, S.; Rao, C. R.
+
+, eds. (1996).
+
+Design and Analysis of Experiments . Handbook of Statistics. Vol. 13. North-Holland.
+
+ISBN 978-0-444-82061-7 .
+
+" Model Robust Designs".
+
+Design and Analysis of Experiments . Handbook of Statistics. pp.
+
+1055– 1099.
+
+Cheng, C.-S. "Optimal Design: Exact Theory".
+
+Design and Analysis of Experiments . Handbook of Statistics. pp.
+
+977– 1006.
+
+DasGupta, A. "Review of Optimal Bayesian Designs ".
+
+Design and Analysis of Experiments . Handbook of Statistics. pp.
+
+1099– 1148.
+
+Gaffke, N. & Heiligers, B. "Approximate Designs for Polynomial Regression : Invariance , Admissibility , and Optimality".
+
+Design and Analysis of Experiments . Handbook of Statistics. pp.
+
+1149– 1199.
+
+Majumdar, D. "Optimal and Efficient Treatment-Control Designs".
+
+Design and Analysis of Experiments . Handbook of Statistics. pp.
+
+1007– 1054.
+
+Stufken, J. "Optimal Crossover Designs ".
+
+Design and Analysis of Experiments . Handbook of Statistics. pp.
+
+63– 90.
+
+Zacks, S. "Adaptive Designs for Parametric Models".
+
+Design and Analysis of Experiments . Handbook of Statistics. pp.
+
+151– 180.
+
+Kôno, Kazumasa (1962).
+
+"Optimum designs for quadratic regression on k -cube" (PDF) .
+
+Memoirs of the Faculty of Science. Kyushu University. Series A. Mathematics .
+
+16 (2): 114– 122.
+
+doi : 10.2206/kyushumfs.16.114 .
+
+Historical [ edit ] Gergonne, J. D.
+
+(November 1974) [1815].
+
+"The application of the method of least squares to the interpolation of sequences" .
+
+Historia Mathematica .
+
+1 (4) (Translated by Ralph St. John and S. M. Stigler from the 1815 French ed.): 439– 447.
+
+doi : 10.1016/0315-0860(74)90034-2 .
+
+Stigler, Stephen M.
+
+(November 1974).
+
+"Gergonne's 1815 paper on the design and analysis of polynomial regression experiments" .
+
+Historia Mathematica .
+
+1 (4): 431– 439.
+
+doi : 10.1016/0315-0860(74)90033-0 .
+
+Peirce, C. S (1876). "Note on the Theory of the Economy of Research".
+
+Coast Survey Report : 197– 201.
+
+(Appendix No. 14).
+
+NOAA PDF Eprint . Reprinted in Collected Papers of Charles Sanders Peirce . Vol. 7. 1958.
+
+paragraphs 139–157, and in Peirce, C. S. (July–August 1967). "Note on the Theory of the Economy of Research".
+
+Operations Research .
+
+15 (4): 643– 648.
+
+doi : 10.1287/opre.15.4.643 .
+
+JSTOR 168276 .
+
+Smith, Kirstine (1918).
+
+"On the Standard Deviations of Adjusted and Interpolated Values of an Observed Polynomial Function and its Constants and the Guidance They Give Towards a Proper Choice of the Distribution of the Observations" .
+
+Biometrika .
+
+12 (1/2): 1– 85.
+
+doi : 10.2307/2331929 .
+
+JSTOR 2331929 .
+
+v t e Design of experiments Scientific method Scientific experiment Statistical design Control Internal and external validity Experimental unit Blinding Optimal design : Bayesian Random assignment Randomization Restricted randomization Replication versus subsampling Sample size Treatment and blocking Treatment Effect size Contrast Interaction Confounding Orthogonality Blocking Covariate Nuisance variable Models and inference Linear regression Ordinary least squares Bayesian Random effect Mixed model Hierarchical model: Bayesian Analysis of variance (Anova) Cochran's theorem Manova ( multivariate ) Ancova ( covariance ) Compare means Multiple comparison Designs Completely randomized Factorial Fractional factorial Plackett–Burman Taguchi Response surface methodology Polynomial and rational modeling Box–Behnken Central composite Block Generalized randomized block design (GRBD) Latin square Graeco-Latin square Orthogonal array Latin hypercube Repeated measures design Crossover study Randomized controlled trial Sequential analysis Sequential probability ratio test Glossary Category Mathematics portal Statistical outline Statistical topics v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject NewPP limit report
+Parsed by mw‐web.codfw.main‐6cc77c66b8‐6vqlq
+Cached time: 20250812002636
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.875 seconds
+Real time usage: 1.014 seconds
+Preprocessor visited node count: 4032/1000000
+Revision size: 44633/2097152 bytes
+Post‐expand include size: 255052/2097152 bytes
+Template argument size: 2419/2097152 bytes
+Highest expansion depth: 15/100
+Expensive parser function count: 11/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 180616/5000000 bytes
+Lua time usage: 0.569/10.000 seconds
+Lua memory usage: 7976832/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  834.402      1 -total
+ 31.06%  259.147      1 Template:Reflist
+ 28.99%  241.867     40 Template:Cite_book
+ 19.82%  165.337     15 Template:Cite_journal
+ 19.78%  165.029     12 Template:Navbox
+ 12.66%  105.651      1 Template:Experimental_design
+  8.44%   70.445      1 Template:Statistics
+  8.13%   67.822      1 Template:Navbox_with_collapsible_groups
+  8.06%   67.226      1 Template:Short_description
+  5.17%   43.128      1 Template:Harvtxt Saved in parser cache with key enwiki:pcache:1292142:|#|:idhash:canonical and timestamp 20250812002636 and revision id 1301527818. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Optimal_experimental_design&oldid=1301527818 " Categories : Design of experiments Regression analysis Statistical theory Optimal decisions Mathematical optimization Industrial engineering Systems engineering Statistical process control Hidden categories: Webarchive template wayback links Articles with short description Short description matches Wikidata This page was last edited on 20 July 2025, at 09:18 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Optimal experimental design 3 languages Add topic
+

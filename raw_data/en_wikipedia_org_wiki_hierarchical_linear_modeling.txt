@@ -1,0 +1,441 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Level 1 regression equation 2 Level 2 regression equation 3 Types of models Toggle Types of models subsection 3.1 Random intercepts model 3.2 Random slopes model 3.3 Random intercepts and slopes model 3.4 Developing a multilevel model 4 Assumptions 5 Statistical tests 6 Statistical power 7 Applications Toggle Applications subsection 7.1 Level 7.2 Example 7.3 Uses 7.4 Applications to longitudinal (repeated measures) data 8 Alternative ways of analyzing hierarchical data 9 Error terms 10 Bayesian nonlinear mixed-effects model 11 See also 12 Notes 13 References 14 Further reading 15 External links Toggle the table of contents Multilevel model 8 languages Català Deutsch Español فارسی 한국어 日本語 粵語 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia (Redirected from Hierarchical linear modeling ) Type of statistical model Part of a series on Regression analysis Models Linear regression Simple regression Polynomial regression General linear model Generalized linear model Vector generalized linear model Discrete choice Binomial regression Binary regression Logistic regression Multinomial logistic regression Mixed logit Probit Multinomial probit Ordered logit Ordered probit Poisson Multilevel model Fixed effects Random effects Linear mixed-effects model Nonlinear mixed-effects model Nonlinear regression Nonparametric Semiparametric Robust Quantile Isotonic Principal components Least angle Local Segmented Errors-in-variables Estimation Least squares Linear Non-linear Ordinary Weighted Generalized Generalized estimating equation Partial Total Non-negative Ridge regression Regularized Least absolute deviations Iteratively reweighted Bayesian Bayesian multivariate Least-squares spectral analysis Background Regression validation Mean and predicted response Errors and residuals Goodness of fit Studentized residual Gauss–Markov theorem Mathematics portal v t e Multilevel models [ a ] are statistical models of parameters that vary at more than one level.
+
+[ 1 ] An example could be a model of student performance that contains measures for individual students as well as measures for classrooms within which the students are grouped. These models can be seen as generalizations of linear models (in particular, linear regression ), although they can also extend to non-linear models.  These models became much more popular after sufficient computing power and software became available.
+
+[ 1 ] Multilevel models are particularly appropriate for research designs where data for participants are organized at more than one level (i.e., nested data ).
+
+[ 2 ] The units of analysis are usually individuals (at a lower level) who are nested within contextual/aggregate units (at a higher level).
+
+[ 3 ] While the lowest level of data in multilevel models is usually an individual, repeated measurements of individuals may also be examined.
+
+[ 2 ] [ 4 ] As such, multilevel models provide an alternative type of analysis for univariate or multivariate analysis of repeated measures . Individual differences in growth curves may be examined.
+
+[ 2 ] Furthermore, multilevel models can be used as an alternative to ANCOVA , where scores on the dependent variable are adjusted for covariates (e.g. individual differences) before testing treatment differences.
+
+[ 5 ] Multilevel models are able to analyze these experiments without the assumptions of homogeneity-of-regression slopes that is required by ANCOVA.
+
+[ 2 ] Multilevel models can be used on data with many levels, although 2-level models are the most common and the rest of this article deals only with these. The dependent variable must be examined at the lowest level of analysis.
+
+[ 1 ] Level 1 regression equation [ edit ] When there is a single level 1 independent variable, the level 1 model is Y i j = β β 0 j + β β 1 j X i j + e i j {\displaystyle Y_{ij}=\beta _{0j}+\beta _{1j}X_{ij}+e_{ij}} .
+
+Y i j {\displaystyle Y_{ij}} refers to the score on the dependent variable for an individual observation at Level 1 (subscript i refers to individual case, subscript j refers to the group).
+
+X i j {\displaystyle X_{ij}} refers to the Level 1 predictor.
+
+β β 0 j {\displaystyle \beta _{0j}} refers to the intercept of the dependent variable for group j.
+
+β β 1 j {\displaystyle \beta _{1j}} refers to the slope for the relationship in group j (Level 2) between the Level 1 predictor and the dependent variable.
+
+e i j {\displaystyle e_{ij}} refers to the random errors of prediction for the Level 1 equation (it is also sometimes referred to as r i j {\displaystyle r_{ij}} ).
+
+e i j ∼ ∼ N ( 0 , σ σ 1 2 ) {\displaystyle e_{ij}\sim {\mathcal {N}}(0,\sigma _{1}^{2})} At Level 1, both the intercepts and slopes in the groups can be either fixed (meaning that all groups have the same values, although in the real world this would be a rare occurrence), non-randomly varying (meaning that the intercepts and/or slopes are predictable from an independent variable at Level 2), or randomly varying (meaning that the intercepts and/or slopes are different in the different groups, and that each have their own overall mean and variance).
+
+[ 2 ] [ 4 ] When there are multiple level 1 independent variables, the model can be expanded by substituting vectors and matrices in the equation.
+
+When the relationship between the response Y i j {\displaystyle Y_{ij}} and predictor X i j {\displaystyle X_{ij}} can not be described by the linear relationship, then one can find some non linear functional relationship between the response and predictor, and extend the model to nonlinear mixed-effects model . For example, when the response Y i j {\displaystyle Y_{ij}} is the cumulative infection trajectory of the i {\displaystyle i} -th country, and X i j {\displaystyle X_{ij}} represents the j {\displaystyle j} -th time points, then the ordered pair ( X i j , Y i j ) {\displaystyle (X_{ij},Y_{ij})} for each country may show a shape similar to logistic function .
+
+[ 6 ] [ 7 ] Level 2 regression equation [ edit ] The dependent variables are the intercepts and the slopes for the independent variables at Level 1 in the groups of Level 2.
+
+u 0 j ∼ ∼ N ( 0 , σ σ 2 2 ) {\displaystyle u_{0j}\sim {\mathcal {N}}(0,\sigma _{2}^{2})} u 1 j ∼ ∼ N ( 0 , σ σ 3 2 ) {\displaystyle u_{1j}\sim {\mathcal {N}}(0,\sigma _{3}^{2})} β β 0 j = γ γ 00 + γ γ 01 w j + u 0 j {\displaystyle \beta _{0j}=\gamma _{00}+\gamma _{01}w_{j}+u_{0j}} β β 1 j = γ γ 10 + γ γ 11 w j + u 1 j {\displaystyle \beta _{1j}=\gamma _{10}+\gamma _{11}w_{j}+u_{1j}} γ γ 00 {\displaystyle \gamma _{00}} refers to the overall intercept. This is the grand mean of the scores on the dependent variable across all the groups when all the predictors are equal to 0.
+
+γ γ 10 {\displaystyle \gamma _{10}} refers to the average slope between the dependent variable and the Level 1 predictor.
+
+w j {\displaystyle w_{j}} refers to the Level 2 predictor.
+
+γ γ 01 {\displaystyle \gamma _{01}} and γ γ 11 {\displaystyle \gamma _{11}} refer to the effect of the Level 2 predictor on the Level 1 intercept and slope respectively.
+
+u 0 j {\displaystyle u_{0j}} refers to the deviation in group j from the overall intercept.
+
+u 1 j {\displaystyle u_{1j}} refers to the deviation in group j from the average slope between the dependent variable and the Level 1 predictor.
+
+Types of models [ edit ] Before conducting a multilevel model analysis, a researcher must decide on several aspects, including which predictors are to be included in the analysis, if any. Second, the researcher must decide whether parameter values (i.e., the elements that will be estimated) will be fixed or random.
+
+[ 2 ] [ 5 ] [ 4 ] Fixed parameters are composed of a constant over all the groups, whereas a random parameter has a different value for each of the groups.
+
+[ 4 ] Additionally, the researcher must decide whether to employ a maximum likelihood estimation or a restricted maximum likelihood estimation type.
+
+[ 2 ] Random intercepts model [ edit ] A random intercepts model is a model in which intercepts are allowed to vary, and therefore, the scores on the dependent variable for each individual observation are predicted by the intercept that varies across groups.
+
+[ 5 ] [ 8 ] [ 4 ] This model assumes that slopes are fixed (the same across different contexts). In addition, this model provides information about intraclass correlations , which are helpful in determining whether multilevel models are required in the first place.
+
+[ 2 ] Random slopes model [ edit ] A random slopes model is a model in which slopes are allowed to vary according to a correlation matrix, and therefore, the slopes are different across grouping variable such as time or individuals. This model assumes that intercepts are fixed (the same across different contexts).
+
+[ 5 ] Random intercepts and slopes model [ edit ] A model that includes both random intercepts and random slopes is likely the most realistic type of model, although it is also the most complex. In this model, both intercepts and slopes are allowed to vary across groups, meaning that they are different in different contexts.
+
+[ 5 ] Developing a multilevel model [ edit ] In order to conduct a multilevel model analysis, one would start with fixed coefficients (slopes and intercepts). One aspect would be allowed to vary at a time (that is, would be changed), and compared with the previous model in order to assess better model fit.
+
+[ 1 ] There are three different questions that a researcher would ask in assessing a model. First, is it a good model? Second, is a more complex model better? Third, what contribution do individual predictors make to the model?
+
+In order to assess models, different model fit statistics would be examined.
+
+[ 2 ] One such statistic is the chi-square likelihood-ratio test , which assesses the difference between models. The likelihood-ratio test can be employed for model building in general, for examining what happens when effects in a model are allowed to vary, and when testing a dummy-coded categorical variable as a single effect.
+
+[ 2 ] However, the test can only be used when models are nested (meaning that a more complex model includes all of the effects of a simpler model). When testing non-nested models, comparisons between models can be made using the Akaike information criterion (AIC) or the Bayesian information criterion (BIC), among others.
+
+[ 1 ] [ 2 ] [ 5 ] See further Model selection .
+
+Assumptions [ edit ] Multilevel models have the same assumptions as other major general linear models (e.g., ANOVA , regression ), but some of the assumptions are modified for the hierarchical nature of the design (i.e., nested data).
+
+Linearity The assumption of linearity states that there is a rectilinear (straight-line, as opposed to non-linear or U-shaped) relationship between variables.
+
+[ 9 ] However, the model can be extended to nonlinear relationships.
+
+[ 10 ] Particularly, when the mean part of the level 1 regression equation is replaced with a non-linear parametric function, then such a model framework is widely called the nonlinear mixed-effects model .
+
+[ 7 ] Normality The assumption of normality states that the error terms at every level of the model are normally distributed.
+
+[ 9 ] [ disputed – discuss ] However, most statistical software allows one to specify different distributions for the variance terms, such as a Poisson, binomial, logistic. The multilevel modelling approach can be used for all forms of Generalized Linear models.
+
+Homoscedasticity The assumption of homoscedasticity , also known as homogeneity of variance, assumes equality of population variances.
+
+[ 9 ] However, different variance-correlation matrix can be specified to account for this, and the heterogeneity of variance can itself be modeled.
+
+Independence of observations (No Autocorrelation of Model's Residuals) Independence is an assumption of general linear models, which states that cases are random samples from the population and that scores on the dependent variable are independent of each other.
+
+[ 9 ] One of the main purposes of multilevel models is to deal with cases where the assumption of independence is violated; multilevel models do, however, assume that 1) the level 1 and level 2 residuals are uncorrelated and 2) The errors (as measured by the residuals) at the highest level are uncorrelated.
+
+[ 11 ] Orthogonality of regressors to random effects The regressors must not correlate with the random effects, u 0 j {\displaystyle u_{0j}} . This assumption is testable but often ignored, rendering the estimator inconsistent.
+
+[ 12 ] If this assumption is violated, the random-effect must be modeled explicitly in the fixed part of the model, either by using dummy variables or including cluster means of all X i j {\displaystyle X_{ij}} regressors.
+
+[ 12 ] [ 13 ] [ 14 ] [ 15 ] This assumption is probably the most important assumption the estimator makes, but one that is misunderstood by most applied researchers using these types of models.
+
+[ 12 ] Statistical tests [ edit ] The type of statistical tests that are employed in multilevel models depend on whether one is examining fixed effects or variance components. When examining fixed effects, the tests are compared with the standard error of the fixed effect, which results in a Z-test .
+
+[ 5 ] A t-test can also be computed. When computing a t-test, it is important to keep in mind the degrees of freedom, which will depend on the level of the predictor (e.g., level 1 predictor or level 2 predictor).
+
+[ 5 ] For a level 1 predictor, the degrees of freedom are based on the number of level 1 predictors, the number of groups and the number of individual observations. For a level 2 predictor, the degrees of freedom are based on the number of level 2 predictors and the number of groups.
+
+[ 5 ] Statistical power [ edit ] Statistical power for multilevel models differs depending on whether it is level 1 or level 2 effects that are being examined. Power for level 1 effects is dependent upon the number of individual observations, whereas the power for level 2 effects is dependent upon the number of groups.
+
+[ 16 ] To conduct research with sufficient power, large sample sizes are required in multilevel models. However, the number of individual observations in groups is not as important as the number of groups in a study. In order to detect cross-level interactions, given that the group sizes are not too small, recommendations have been made that at least 20 groups are needed, [ 16 ] although many fewer can be used if one is only interested in inference on the fixed effects and the random effects are control, or "nuisance", variables.
+
+[ 4 ] The issue of statistical power in multilevel models is complicated by the fact that power varies as a function of effect size and intraclass correlations, it differs for fixed effects versus random effects, and it changes depending on the number of groups and the number of individual observations per group.
+
+[ 16 ] Applications [ edit ] Level [ edit ] The concept of level is the keystone of this approach. In an educational research example, the levels for a 2-level model might be pupil class However, if one were studying multiple schools and multiple school districts, a 4-level model could include pupil class school district The researcher must establish for each variable the level at which it was measured. In this example "test score" might be measured at pupil level, "teacher experience" at class level, "school funding" at school level, and "urban" at district level.
+
+Example [ edit ] As a simple example, consider a basic linear regression model that predicts income as a function of age, class, gender and race.  It might then be observed that income levels also vary depending on the city and state of residence.  A simple way to incorporate this into the regression model would be to add an additional independent categorical variable to account for the location (i.e. a set of additional binary predictors and associated regression coefficients, one per location).  This would have the effect of shifting the mean income up or down—but it would still assume, for example, that the effect of race and gender on income is the same everywhere.  In reality, this is unlikely to be the case—different local laws, different retirement policies, differences in level of racial prejudice, etc. are likely to cause all of the predictors to have different sorts of effects in different locales.
+
+In other words, a simple linear regression model might, for example, predict that a given randomly sampled person in Seattle would have an average yearly income $10,000 higher than a similar person in Mobile, Alabama .  However, it would also predict, for example, that a white person might have an average income $7,000 above a black person, and a 65-year-old might have an income $3,000 below a 45-year-old, in both cases regardless of location.  A multilevel model, however, would allow for different regression coefficients for each predictor in each location.  Essentially, it would assume that people in a given location have correlated incomes generated by a single set of regression coefficients, whereas people in another location have incomes generated by a different set of coefficients.  Meanwhile, the coefficients themselves are assumed to be correlated and generated from a single set of hyperparameters .  Additional levels are possible: For example, people might be grouped by cities, and the city-level regression coefficients grouped by state, and the state-level coefficients generated from a single hyper-hyperparameter.
+
+Multilevel models are a subclass of hierarchical Bayesian models , which are general models with multiple levels of random variables and arbitrary relationships among the different variables.  Multilevel analysis has been extended to include multilevel structural equation modeling , multilevel latent class modeling , and other more general models.
+
+Uses [ edit ] Multilevel models have been used in education research or geographical research, to estimate separately the variance between pupils within the same school, and the variance between schools.  In psychological applications, the multiple levels are items in an instrument, individuals, and families. In sociological applications, multilevel models are used to examine individuals embedded within regions or countries. In organizational psychology research, data from individuals must often be nested within teams or other functional units. They are often used in ecological research as well under the more general term mixed models .
+
+[ 4 ] Different covariables may be relevant on different levels.  They can be used for longitudinal studies, as with growth studies, to separate changes within one individual and differences between individuals.
+
+Cross-level interactions may also be of substantive interest; for example, when a slope is allowed to vary randomly, a level-2 predictor may be included in the slope formula for the level-1 covariate. For example, one may estimate the interaction of race and neighborhood to obtain an estimate of the interaction between an individual's characteristics and the social context.
+
+Applications to longitudinal (repeated measures) data [ edit ] Further information: Multilevel Modeling for Repeated Measures Alternative ways of analyzing hierarchical data [ edit ] There are several alternative ways of analyzing hierarchical data, although most of them have some problems. First, traditional statistical techniques can be used. One could disaggregate higher-order variables to the individual level, and thus conduct an analysis on this individual level (for example, assign class variables to the individual level). The problem with this approach is that it would violate the assumption of independence, and thus could bias our results. This is known as atomistic fallacy.
+
+[ 17 ] Another way to analyze the data using traditional statistical approaches is to aggregate individual level variables to higher-order variables and then to conduct an analysis on this higher level. The problem with this approach is that it discards all within-group information (because it takes the average of the individual level variables). As much as 80–90% of the variance could be wasted, and the relationship between aggregated variables is inflated, and thus distorted.
+
+[ 18 ] This is known as ecological fallacy , and statistically, this type of analysis results in decreased power in addition to the loss of information.
+
+[ 2 ] Another way to analyze hierarchical data would be through a random-coefficients model. This model assumes that each group has a different regression model—with its own intercept and slope.
+
+[ 5 ] Because groups are sampled, the model assumes that the intercepts and slopes are also randomly sampled from a population of group intercepts and slopes. This allows for an analysis in which one can assume that slopes are fixed but intercepts are allowed to vary.
+
+[ 5 ] However this presents a problem, as individual components are independent but group components are independent between groups, but dependent within groups. This also allows for an analysis in which the slopes are random; however, the correlations of the error terms (disturbances) are dependent on the values of the individual-level variables.
+
+[ 5 ] Thus, the problem with using a random-coefficients model in order to analyze hierarchical data is that it is still not possible to incorporate higher order variables.
+
+Error terms [ edit ] Multilevel models have two error terms, which are also known as disturbances. The individual components are all independent, but there are also group components, which are independent between groups but correlated within groups. However, variance components can differ, as some groups are more homogeneous than others.
+
+[ 18 ] Bayesian nonlinear mixed-effects model [ edit ] Bayesian research cycle using Bayesian nonlinear mixed effects model: (a) standard research cycle and (b) Bayesian-specific workflow.
+
+[ 19 ] Multilevel modeling is frequently used in diverse applications and it can be formulated by the Bayesian framework. Particularly, Bayesian nonlinear mixed-effects models have recently received significant attention. A basic version of the Bayesian nonlinear mixed-effects models is represented as the following three-stage: Stage 1: Individual-Level Model y i j = f ( t i j ; θ θ 1 i , θ θ 2 i , … … , θ θ l i , … … , θ θ K i ) + ϵ ϵ i j , s p a c e r ϵ ϵ i j ∼ ∼ N ( 0 , σ σ 2 ) , s p a c e r i = 1 , … … , N , j = 1 , … … , M i .
+
+{\displaystyle {\begin{aligned}&{y}_{ij}=f(t_{ij};\theta _{1i},\theta _{2i},\ldots ,\theta _{li},\ldots ,\theta _{Ki})+\epsilon _{ij},\\{\phantom {spacer}}\\&\epsilon _{ij}\sim N(0,\sigma ^{2}),\\{\phantom {spacer}}\\&i=1,\ldots ,N,\,j=1,\ldots ,M_{i}.\end{aligned}}} Stage 2: Population Model θ θ l i = α α l + ∑ ∑ b = 1 P β β l b x i b + η η l i , s p a c e r η η l i ∼ ∼ N ( 0 , ω ω l 2 ) , s p a c e r i = 1 , … … , N , l = 1 , … … , K .
+
+{\displaystyle {\begin{aligned}&\theta _{li}=\alpha _{l}+\sum _{b=1}^{P}\beta _{lb}x_{ib}+\eta _{li},\\{\phantom {spacer}}\\&\eta _{li}\sim N(0,\omega _{l}^{2}),\\{\phantom {spacer}}\\&i=1,\ldots ,N,\,l=1,\ldots ,K.\end{aligned}}} Stage 3: Prior σ σ 2 ∼ ∼ π π ( σ σ 2 ) , s p a c e r α α l ∼ ∼ π π ( α α l ) , s p a c e r ( β β l 1 , … … , β β l b , … … , β β l P ) ∼ ∼ π π ( β β l 1 , … … , β β l b , … … , β β l P ) , s p a c e r ω ω l 2 ∼ ∼ π π ( ω ω l 2 ) , s p a c e r l = 1 , … … , K .
+
+{\displaystyle {\begin{aligned}&\sigma ^{2}\sim \pi (\sigma ^{2}),\\{\phantom {spacer}}\\&\alpha _{l}\sim \pi (\alpha _{l}),\\{\phantom {spacer}}\\&(\beta _{l1},\ldots ,\beta _{lb},\ldots ,\beta _{lP})\sim \pi (\beta _{l1},\ldots ,\beta _{lb},\ldots ,\beta _{lP}),\\{\phantom {spacer}}\\&\omega _{l}^{2}\sim \pi (\omega _{l}^{2}),\\{\phantom {spacer}}\\&l=1,\ldots ,K.\end{aligned}}} Here, y i j {\displaystyle y_{ij}} denotes the continuous response of the i {\displaystyle i} -th subject at the time point t i j {\displaystyle t_{ij}} , and x i b {\displaystyle x_{ib}} is the b {\displaystyle b} -th covariate of the i {\displaystyle i} -th subject. Parameters involved in the model are written in Greek letters.
+
+f ( t ; θ θ 1 , … … , θ θ K ) {\displaystyle f(t;\theta _{1},\ldots ,\theta _{K})} is a known function parameterized by the K {\displaystyle K} -dimensional vector ( θ θ 1 , … … , θ θ K ) {\displaystyle (\theta _{1},\ldots ,\theta _{K})} . Typically, f {\displaystyle f} is a `nonlinear' function and describes the temporal trajectory of individuals. In the model, ϵ ϵ i j {\displaystyle \epsilon _{ij}} and η η l i {\displaystyle \eta _{li}} describe within-individual variability and between-individual variability, respectively. If Stage 3: Prior is not considered, then the model reduces to a frequentist nonlinear mixed-effect model.
+
+A central task in the application of the Bayesian nonlinear mixed-effect models is to evaluate the posterior density: π π ( { θ θ l i } i = 1 , l = 1 N , K , σ σ 2 , { α α l } l = 1 K , { β β l b } l = 1 , b = 1 K , P , { ω ω l } l = 1 K | { y i j } i = 1 , j = 1 N , M i ) {\displaystyle \pi (\{\theta _{li}\}_{i=1,l=1}^{N,K},\sigma ^{2},\{\alpha _{l}\}_{l=1}^{K},\{\beta _{lb}\}_{l=1,b=1}^{K,P},\{\omega _{l}\}_{l=1}^{K}|\{y_{ij}\}_{i=1,j=1}^{N,M_{i}})} ∝ ∝ π π ( { y i j } i = 1 , j = 1 N , M i , { θ θ l i } i = 1 , l = 1 N , K , σ σ 2 , { α α l } l = 1 K , { β β l b } l = 1 , b = 1 K , P , { ω ω l } l = 1 K ) {\displaystyle \propto \pi (\{y_{ij}\}_{i=1,j=1}^{N,M_{i}},\{\theta _{li}\}_{i=1,l=1}^{N,K},\sigma ^{2},\{\alpha _{l}\}_{l=1}^{K},\{\beta _{lb}\}_{l=1,b=1}^{K,P},\{\omega _{l}\}_{l=1}^{K})} = π π ( { y i j } i = 1 , j = 1 N , M i | { θ θ l i } i = 1 , l = 1 N , K , σ σ 2 ) } Stage 1: Individual-Level Model s p a c e r × × π π ( { θ θ l i } i = 1 , l = 1 N , K | { α α l } l = 1 K , { β β l b } l = 1 , b = 1 K , P , { ω ω l } l = 1 K ) } Stage 2: Population Model s p a c e r × × p ( σ σ 2 , { α α l } l = 1 K , { β β l b } l = 1 , b = 1 K , P , { ω ω l } l = 1 K ) } Stage 3: Prior {\displaystyle {\begin{aligned}=&~\left.{\pi (\{y_{ij}\}_{i=1,j=1}^{N,M_{i}}|\{\theta _{li}\}_{i=1,l=1}^{N,K},\sigma ^{2})}\right\}{\text{Stage 1: Individual-Level Model}}\\{\phantom {spacer}}\\\times &~\left.{\pi (\{\theta _{li}\}_{i=1,l=1}^{N,K}|\{\alpha _{l}\}_{l=1}^{K},\{\beta _{lb}\}_{l=1,b=1}^{K,P},\{\omega _{l}\}_{l=1}^{K})}\right\}{\text{Stage 2: Population Model}}\\{\phantom {spacer}}\\\times &~\left.{p(\sigma ^{2},\{\alpha _{l}\}_{l=1}^{K},\{\beta _{lb}\}_{l=1,b=1}^{K,P},\{\omega _{l}\}_{l=1}^{K})}\right\}{\text{Stage 3: Prior}}\end{aligned}}} The panel on the right displays Bayesian research cycle using Bayesian nonlinear mixed-effects model.
+
+[ 19 ] A research cycle using the Bayesian nonlinear mixed-effects model comprises two steps: (a) standard research cycle and (b) Bayesian-specific workflow. Standard research cycle involves literature review, defining a problem and specifying the research question and hypothesis. Bayesian-specific workflow comprises three sub-steps: (b)–(i) formalizing prior distributions based on background knowledge and prior elicitation; (b)–(ii) determining the likelihood function based on a nonlinear function f {\displaystyle f} ; and (b)–(iii) making a posterior inference. The resulting posterior inference can be used to start a new research cycle.
+
+See also [ edit ] Hyperparameter Mixed-design analysis of variance Multiscale modeling Random effects model Nonlinear mixed-effects model Bayesian hierarchical modeling Restricted randomization Notes [ edit ] ^ also known as hierarchical linear models , linear mixed-effect models , mixed models , nested data models , random coefficient , random-effects models , random parameter models , or split-plot designs References [ edit ] ^ a b c d e Bryk, Stephen W. Raudenbush, Anthony S. (2002).
+
+Hierarchical linear models : applications and data analysis methods (2. ed., [3. Dr.] ed.). Thousand Oaks, CA [u.a.]: Sage Publications.
+
+ISBN 978-0-7619-1904-9 .
+
+{{ cite book }} :  CS1 maint: multiple names: authors list ( link ) ^ a b c d e f g h i j k l Fidell, Barbara G. Tabachnick, Linda S. (2007).
+
+Using multivariate statistics (5th ed.). Boston; Montreal: Pearson/A & B.
+
+ISBN 978-0-205-45938-4 .
+
+{{ cite book }} :  CS1 maint: multiple names: authors list ( link ) ^ Luke, Douglas A. (2004).
+
+Multilevel modeling (3. repr. ed.). Thousand Oaks, CA: Sage.
+
+ISBN 978-0-7619-2879-9 .
+
+^ a b c d e f g Gomes, Dylan G.E. (20 January 2022).
+
+"Should I use fixed effects or random effects when I have fewer than five levels of a grouping factor in a mixed-effects model?" .
+
+PeerJ .
+
+10 : e12794.
+
+doi : 10.7717/peerj.12794 .
+
+PMC 8784019 .
+
+PMID 35116198 .
+
+^ a b c d e f g h i j k l Cohen, Jacob (3 October 2003).
+
+Applied multiple regression/correlation analysis for the behavioral sciences (3. ed.). Mahwah, NJ [u.a.]: Erlbaum.
+
+ISBN 978-0-8058-2223-6 .
+
+^ Lee, Se Yoon; Lei, Bowen; Mallick, Bani (2020).
+
+"Estimation of COVID-19 spread curves integrating global data and borrowing information" .
+
+PLOS ONE .
+
+15 (7): e0236860.
+
+arXiv : 2005.00662 .
+
+Bibcode : 2020PLoSO..1536860L .
+
+doi : 10.1371/journal.pone.0236860 .
+
+PMC 7390340 .
+
+PMID 32726361 .
+
+^ a b Lee, Se Yoon; Mallick, Bani (2021). "Bayesian Hierarchical Modeling: Application Towards Production Results in the Eagle Ford Shale of South Texas".
+
+Sankhya B .
+
+84 : 1– 43.
+
+doi : 10.1007/s13571-020-00245-8 .
+
+S2CID 234027590 .
+
+^ editor, G. David Garson (10 April 2012).
+
+Hierarchical linear modeling : guide and applications . Thousand Oaks, Calif.: Sage Publications.
+
+ISBN 978-1-4129-9885-7 .
+
+{{ cite book }} : |last= has generic name ( help ) ^ a b c d Salkind, Samuel B. Green, Neil J. (2004).
+
+Using SPSS for Windows and Macintosh : analyzing and understanding data (4th ed.). Upper Saddle River, NJ: Pearson Education.
+
+ISBN 978-0-13-146597-8 .
+
+{{ cite book }} :  CS1 maint: multiple names: authors list ( link ) ^ Goldstein, Harvey (1991). "Nonlinear Multilevel Models, with an Application to Discrete Response Data".
+
+Biometrika .
+
+78 (1): 45– 51.
+
+doi : 10.1093/biomet/78.1.45 .
+
+JSTOR 2336894 .
+
+^ ATS Statistical Consulting Group.
+
+"Introduction to Multilevel Modeling Using HLM 6" (PDF) . Archived from the original (PDF) on 31 December 2010.
+
+^ a b c Antonakis, John; Bastardoz, Nicolas; Rönkkö, Mikko (2021).
+
+"On Ignoring the Random Effects Assumption in Multilevel Models: Review, Critique, and Recommendations" (PDF) .
+
+Organizational Research Methods .
+
+24 (2): 443– 483.
+
+doi : 10.1177/1094428119877457 .
+
+ISSN 1094-4281 .
+
+S2CID 210355362 .
+
+^ McNeish, Daniel; Kelley, Ken (2019).
+
+"Fixed effects models versus mixed effects models for clustered data: Reviewing the approaches, disentangling the differences, and making recommendations" .
+
+Psychological Methods .
+
+24 (1): 20– 35.
+
+doi : 10.1037/met0000182 .
+
+ISSN 1939-1463 .
+
+PMID 29863377 .
+
+S2CID 44145669 .
+
+^ Bliese, Paul D.; Schepker, Donald J.; Essman, Spenser M.; Ployhart, Robert E. (2020).
+
+"Bridging Methodological Divides Between Macro- and Microresearch: Endogeneity and Methods for Panel Data" .
+
+Journal of Management .
+
+46 (1): 70– 99.
+
+doi : 10.1177/0149206319868016 .
+
+ISSN 0149-2063 .
+
+S2CID 202288849 .
+
+^ Wooldridge, Jeffrey M. (1 October 2010).
+
+Econometric Analysis of Cross Section and Panel Data, second edition . MIT Press.
+
+ISBN 978-0-262-29679-3 .
+
+^ a b c Leeuw, Ita Kreft, Jan de (1998).
+
+Introducing multilevel modeling (Repr. ed.). London: Sage Publications Ltd.
+
+ISBN 978-0-7619-5141-4 .
+
+{{ cite book }} :  CS1 maint: multiple names: authors list ( link ) ^ Hox, Joop (2002).
+
+Multilevel analysis : techniques and applications (Reprint. ed.). Mahwah, NJ [u.a.]: Erlbaum.
+
+ISBN 978-0-8058-3219-8 .
+
+^ a b Bryk, Anthony S.; Raudenbush, Stephen W. (1 January 1988). "Heterogeneity of variance in experimental studies: A challenge to conventional interpretations".
+
+Psychological Bulletin .
+
+104 (3): 396– 404.
+
+doi : 10.1037/0033-2909.104.3.396 .
+
+^ a b Lee, Se Yoon (2022).
+
+"Bayesian Nonlinear Models for Repeated Measurement Data: An Overview, Implementation, and Applications" .
+
+Mathematics .
+
+10 (6): 898.
+
+arXiv : 2201.12430 .
+
+doi : 10.3390/math10060898 .
+
+Further reading [ edit ] Gelman, A.
+
+; Hill, J. (2007).
+
+Data Analysis Using Regression and Multilevel/Hierarchical Models . New York: Cambridge University Press. pp.
+
+235– 299.
+
+ISBN 978-0-521-68689-1 .
+
+Goldstein, H. (2011).
+
+Multilevel Statistical Models (4th ed.). London: Wiley.
+
+ISBN 978-0-470-74865-7 .
+
+Hedeker, D.; Gibbons, R. D. (2012).
+
+Longitudinal Data Analysis (2nd ed.). New York: Wiley.
+
+ISBN 978-0-470-88918-3 .
+
+Hox, J. J.
+
+(2010).
+
+Multilevel Analysis: Techniques and Applications (2nd ed.). New York: Routledge.
+
+ISBN 978-1-84872-845-5 .
+
+Raudenbush, S. W.; Bryk, A. S. (2002).
+
+Hierarchical Linear Models: Applications and Data Analysis Methods (2nd ed.). Thousand Oaks, CA: Sage.
+
+This concentrates on education.
+
+Snijders, T. A. B.; Bosker, R. J. (2011).
+
+Multilevel Analysis: an Introduction to Basic and Advanced Multilevel Modeling (2nd ed.). London: Sage.
+
+ISBN 9781446254332 .
+
+Swamy, P. A. V. B.
+
+; Tavlas, George S. (2001). "Random Coefficient Models". In Baltagi, Badi H. (ed.).
+
+A Companion to Theoretical Econometrics . Oxford: Blackwell. pp.
+
+410– 429.
+
+ISBN 978-0-631-21254-6 .
+
+Verbeke, G.; Molenberghs, G. (2013).
+
+Linear Mixed Models for Longitudinal Data . Springer.
+
+Includes SAS code Gomes, Dylan G.E. (20 January 2022).
+
+"Should I use fixed effects or random effects when I have fewer than five levels of a grouping factor in a mixed-effects model?" .
+
+PeerJ .
+
+10 : e12794.
+
+doi : 10.7717/peerj.12794 .
+
+PMC 8784019 .
+
+PMID 35116198 .
+
+External links [ edit ] Centre for Multilevel Modelling Authority control databases National United States Israel Other Yale LUX NewPP limit report
+Parsed by mw‐api‐ext.codfw.main‐5cf8f5fb49‐mj29x
+Cached time: 20250812013647
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.507 seconds
+Real time usage: 0.732 seconds
+Preprocessor visited node count: 2625/1000000
+Revision size: 33896/2097152 bytes
+Post‐expand include size: 77753/2097152 bytes
+Template argument size: 1520/2097152 bytes
+Highest expansion depth: 12/100
+Expensive parser function count: 4/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 120084/5000000 bytes
+Lua time usage: 0.315/10.000 seconds
+Lua memory usage: 6716024/52428800 bytes
+Number of Wikibase entities loaded: 1/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  496.713      1 -total
+ 36.35%  180.556      2 Template:Reflist
+ 28.59%  142.003     17 Template:Cite_book
+ 17.93%   89.084      1 Template:Regression_bar
+ 17.53%   87.089      1 Template:Sidebar
+ 11.64%   57.809     10 Template:Cite_journal
+ 10.15%   50.420      1 Template:Short_description
+  8.33%   41.354      1 Template:Authority_control
+  7.66%   38.025      1 Template:Disputed_inline
+  7.22%   35.851      1 Template:Fix Saved in parser cache with key enwiki:pcache:4521038:|#|:idhash:canonical and timestamp 20250812013647 and revision id 1291507612. Rendering was triggered because: unknown Retrieved from " https://en.wikipedia.org/w/index.php?title=Multilevel_model&oldid=1291507612 " Categories : Analysis of variance Regression models Hidden categories: CS1 maint: multiple names: authors list CS1 errors: generic name Articles with short description Short description is different from Wikidata Use dmy dates from April 2019 All accuracy disputes Articles with disputed statements from August 2016 This page was last edited on 21 May 2025, at 17:38 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Multilevel model 8 languages Add topic
+

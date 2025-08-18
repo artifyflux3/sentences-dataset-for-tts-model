@@ -1,0 +1,227 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Regression models 2 Interpretation of coefficients Toggle Interpretation of coefficients subsection 2.1 Average partial effect 3 Maximum likelihood-based parameter estimation 4 Poisson regression in practice Toggle Poisson regression in practice subsection 4.1 "Exposure" and offset 4.2 Overdispersion and zero inflation 4.3 Use in survival analysis 5 Extensions Toggle Extensions subsection 5.1 Regularized Poisson regression 6 See also 7 References 8 Further reading Toggle the table of contents Poisson regression 14 languages العربية Català Ελληνικά Español فارسی Français 한국어 Italiano Português Српски / srpski Suomi Українська 粵語 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Statistical model for count data Part of a series on Regression analysis Models Linear regression Simple regression Polynomial regression General linear model Generalized linear model Vector generalized linear model Discrete choice Binomial regression Binary regression Logistic regression Multinomial logistic regression Mixed logit Probit Multinomial probit Ordered logit Ordered probit Poisson Multilevel model Fixed effects Random effects Linear mixed-effects model Nonlinear mixed-effects model Nonlinear regression Nonparametric Semiparametric Robust Quantile Isotonic Principal components Least angle Local Segmented Errors-in-variables Estimation Least squares Linear Non-linear Ordinary Weighted Generalized Generalized estimating equation Partial Total Non-negative Ridge regression Regularized Least absolute deviations Iteratively reweighted Bayesian Bayesian multivariate Least-squares spectral analysis Background Regression validation Mean and predicted response Errors and residuals Goodness of fit Studentized residual Gauss–Markov theorem Mathematics portal v t e In statistics , Poisson regression is a generalized linear model form of regression analysis used to model count data and contingency tables .
+
+[ 1 ] Poisson regression assumes the response variable Y has a Poisson distribution , and assumes the logarithm of its expected value can be modeled by a linear combination of unknown parameters . A Poisson regression model is sometimes known as a log-linear model , especially when used to model contingency tables.
+
+Negative binomial regression is a popular generalization of Poisson regression because it loosens the highly restrictive assumption that the variance is equal to the mean made by the Poisson model. The traditional negative binomial regression model is based on the Poisson-gamma mixture distribution. This model is popular because it models the Poisson heterogeneity with a gamma distribution.
+
+Poisson regression models are generalized linear models with the logarithm as the (canonical) link function , and the Poisson distribution function as the assumed probability distribution of the response.
+
+Regression models [ edit ] If x ∈ ∈ R n {\displaystyle \mathbf {x} \in \mathbb {R} ^{n}} is a vector of independent variables , then the model takes the form log ⁡ ⁡ ( E ⁡ ⁡ ( Y ∣ ∣ x ) ) = α α + β β ′ x , {\displaystyle \log(\operatorname {E} (Y\mid \mathbf {x} ))=\alpha +\mathbf {\beta } '\mathbf {x} ,} where α α ∈ ∈ R {\displaystyle \alpha \in \mathbb {R} } and β β ∈ ∈ R n {\displaystyle \mathbf {\beta } \in \mathbb {R} ^{n}} . Sometimes this is written more compactly as log ⁡ ⁡ ( E ⁡ ⁡ ( Y ∣ ∣ x ) ) = θ θ ′ x , {\displaystyle \log(\operatorname {E} (Y\mid \mathbf {x} ))={\boldsymbol {\theta }}'\mathbf {x} ,\,} where x {\displaystyle \mathbf {x} } is now an ( n + 1)-dimensional vector consisting of n independent variables concatenated to the number one. Here θ θ {\displaystyle \theta } is simply β β {\displaystyle \beta } concatenated to α α {\displaystyle \alpha } .
+
+Thus, when given a Poisson regression model θ θ {\displaystyle \theta } and an input vector x {\displaystyle \mathbf {x} } , the predicted mean of the associated Poisson distribution is given by E ⁡ ⁡ ( Y ∣ ∣ x ) = e θ θ ′ x .
+
+{\displaystyle \operatorname {E} (Y\mid \mathbf {x} )=e^{{\boldsymbol {\theta }}'\mathbf {x} }.\,} If Y i {\displaystyle Y_{i}} are independent observations with corresponding values x i {\displaystyle \mathbf {x} _{i}} of the predictor variables, then θ θ {\displaystyle \theta } can be estimated by maximum likelihood .  The maximum-likelihood estimates lack a closed-form expression and must be found by numerical methods.  The probability surface for maximum-likelihood Poisson regression is always concave, making Newton–Raphson or other gradient-based methods appropriate estimation techniques.
+
+Interpretation of coefficients [ edit ] Suppose we have a model with a single predictor, that is, n = 1 {\displaystyle n=1} : log ⁡ ⁡ ( E ⁡ ⁡ ( Y ∣ ∣ x ) ) = α α + β β x {\displaystyle \log(\operatorname {E} (Y\mid \mathbf {x} ))=\alpha +\beta x} Suppose we compute the predicted values at point ( Y 2 , x 2 ) {\displaystyle (Y_{2},x_{2})} and ( Y 1 , x 1 ) {\displaystyle (Y_{1},x_{1})} : log ⁡ ⁡ ( E ⁡ ⁡ ( Y 2 ∣ ∣ x 2 ) ) = α α + β β x 2 {\displaystyle \log(\operatorname {E} (Y_{2}\mid x_{2}))=\alpha +\beta x_{2}} log ⁡ ⁡ ( E ⁡ ⁡ ( Y 1 ∣ ∣ x 1 ) ) = α α + β β x 1 {\displaystyle \log(\operatorname {E} (Y_{1}\mid x_{1}))=\alpha +\beta x_{1}} By subtracting the first from the second: log ⁡ ⁡ ( E ⁡ ⁡ ( Y 2 ∣ ∣ x 2 ) ) − − log ⁡ ⁡ ( E ⁡ ⁡ ( Y 1 ∣ ∣ x 1 ) ) = β β ( x 2 − − x 1 ) {\displaystyle \log(\operatorname {E} (Y_{2}\mid x_{2}))-\log(\operatorname {E} (Y_{1}\mid x_{1}))=\beta (x_{2}-x_{1})} Suppose now that x 2 = x 1 + 1 {\displaystyle x_{2}=x_{1}+1} . We obtain: log ⁡ ⁡ ( E ⁡ ⁡ ( Y 2 ∣ ∣ x 2 ) ) − − log ⁡ ⁡ ( E ⁡ ⁡ ( Y 1 ∣ ∣ x 1 ) ) = β β {\displaystyle \log(\operatorname {E} (Y_{2}\mid x_{2}))-\log(\operatorname {E} (Y_{1}\mid x_{1}))=\beta } So the coefficient of the model is to be interpreted as the increase in the logarithm of the count of the outcome variable when the independent variable increases by 1.
+
+By applying the rules of logarithms: log ⁡ ⁡ ( E ⁡ ⁡ ( Y 2 ∣ ∣ x 2 ) E ⁡ ⁡ ( Y 1 ∣ ∣ x 1 ) ) = β β {\displaystyle \log \left({\dfrac {\operatorname {E} (Y_{2}\mid x_{2})}{\operatorname {E} (Y_{1}\mid x_{1})}}\right)=\beta } E ⁡ ⁡ ( Y 2 ∣ ∣ x 2 ) E ⁡ ⁡ ( Y 1 ∣ ∣ x 1 ) = e β β {\displaystyle {\dfrac {\operatorname {E} (Y_{2}\mid x_{2})}{\operatorname {E} (Y_{1}\mid x_{1})}}=e^{\beta }} E ⁡ ⁡ ( Y 2 ∣ ∣ x 2 ) = e β β E ⁡ ⁡ ( Y 1 ∣ ∣ x 1 ) {\displaystyle \operatorname {E} (Y_{2}\mid x_{2})=e^{\beta }\operatorname {E} (Y_{1}\mid x_{1})} That is, when the independent variable increases by 1, the outcome variable is multiplied by the exponentiated coefficient.
+
+The exponentiated coefficient is also called the incidence ratio .
+
+Average partial effect [ edit ] Often, the object of interest is the average partial effect or average marginal effect ∂ ∂ E ( Y | x ) ∂ ∂ x {\displaystyle {\frac {\partial E(Y|x)}{\partial x}}} , which is interpreted as the change in the outcome Y {\displaystyle Y} for a one unit change in the independent variable x {\displaystyle x} .  The average partial effect in the Poisson model for a continuous x {\displaystyle x} can be shown to be: [ 2 ] ∂ ∂ E ( Y | x ) ∂ ∂ x = exp ⁡ ⁡ ( θ θ ′ x ) β β {\displaystyle {\frac {\partial E(Y|x)}{\partial x}}=\exp(\theta '\mathbb {x} )\beta } This can be estimated using the coefficient estimates from the Poisson model θ θ ^ ^ = ( α α ^ ^ , β β ^ ^ ) {\displaystyle {\hat {\theta }}=({\hat {\alpha }},{\hat {\beta }})} with the observed values of x {\displaystyle \mathbb {x} } .
+
+Maximum likelihood-based parameter estimation [ edit ] Given a set of parameters θ and an input vector x , the mean of the predicted Poisson distribution , as stated above, is given by λ λ := E ⁡ ⁡ ( Y ∣ ∣ x ) = e θ θ ′ x , {\displaystyle \lambda :=\operatorname {E} (Y\mid x)=e^{\theta 'x},\,} and thus, the Poisson distribution's probability mass function is given by p ( y ∣ ∣ x ; θ θ ) = λ λ y y !
+
+e − − λ λ = e y θ θ ′ x e − − e θ θ ′ x y !
+
+{\displaystyle p(y\mid x;\theta )={\frac {\lambda ^{y}}{y!}}e^{-\lambda }={\frac {e^{y\theta 'x}e^{-e^{\theta 'x}}}{y!}}} Now suppose we are given a data set consisting of m vectors x i ∈ ∈ R n + 1 , i = 1 , … … , m {\displaystyle x_{i}\in \mathbb {R} ^{n+1},\,i=1,\ldots ,m} , along with a set of m values y 1 , … … , y m ∈ ∈ N {\displaystyle y_{1},\ldots ,y_{m}\in \mathbb {N} } . Then, for a given set of parameters θ , the probability of attaining this particular set of data is given by p ( y 1 , … … , y m ∣ ∣ x 1 , … … , x m ; θ θ ) = ∏ ∏ i = 1 m e y i θ θ ′ x i e − − e θ θ ′ x i y i !
+
+.
+
+{\displaystyle p(y_{1},\ldots ,y_{m}\mid x_{1},\ldots ,x_{m};\theta )=\prod _{i=1}^{m}{\frac {e^{y_{i}\theta 'x_{i}}e^{-e^{\theta 'x_{i}}}}{y_{i}!}}.} By the method of maximum likelihood , we wish to find the set of parameters θ that makes this probability as large as possible. To do this, the equation is first rewritten as a likelihood function in terms of θ : L ( θ θ ∣ ∣ X , Y ) = ∏ ∏ i = 1 m e y i θ θ ′ x i e − − e θ θ ′ x i y i !
+
+.
+
+{\displaystyle L(\theta \mid X,Y)=\prod _{i=1}^{m}{\frac {e^{y_{i}\theta 'x_{i}}e^{-e^{\theta 'x_{i}}}}{y_{i}!}}.} Note that the expression on the right hand side has not actually changed. A formula in this form is typically difficult to work with; instead, one uses the log-likelihood : ℓ ℓ ( θ θ ∣ ∣ X , Y ) = log ⁡ ⁡ L ( θ θ ∣ ∣ X , Y ) = ∑ ∑ i = 1 m ( y i θ θ ′ x i − − e θ θ ′ x i − − log ⁡ ⁡ ( y i !
+
+) ) .
+
+{\displaystyle \ell (\theta \mid X,Y)=\log L(\theta \mid X,Y)=\sum _{i=1}^{m}\left(y_{i}\theta 'x_{i}-e^{\theta 'x_{i}}-\log(y_{i}!)\right).} Notice that the parameters θ only appear in the first two terms of each term in the summation. Therefore, given that we are only interested in finding the best value for θ we may drop the y i ! and simply write ℓ ℓ ( θ θ ∣ ∣ X , Y ) = ∑ ∑ i = 1 m ( y i θ θ ′ x i − − e θ θ ′ x i ) .
+
+{\displaystyle \ell (\theta \mid X,Y)=\sum _{i=1}^{m}\left(y_{i}\theta 'x_{i}-e^{\theta 'x_{i}}\right).} To find a maximum, we need to solve an equation ∂ ∂ ℓ ℓ ( θ θ ∣ ∣ X , Y ) ∂ ∂ θ θ = 0 {\displaystyle {\frac {\partial \ell (\theta \mid X,Y)}{\partial \theta }}=0} which has no closed-form solution. However, the negative log-likelihood, − − ℓ ℓ ( θ θ ∣ ∣ X , Y ) {\displaystyle -\ell (\theta \mid X,Y)} , is a convex function, and so standard convex optimization techniques such as gradient descent can be applied to find the optimal value of θ .
+
+Poisson regression in practice [ edit ] Poisson regression may be appropriate when the dependent variable is a count, for instance of events such as the arrival of a telephone call at a call centre.
+
+[ 3 ] The events must be independent in the sense that the arrival of one call will not make another more or less likely, but the probability per unit time of events is understood to be related to covariates such as time of day.
+
+"Exposure" and offset [ edit ] Poisson regression may also be appropriate for rate data, where the rate is a count of events divided by some measure of that unit's exposure (a particular unit of observation).
+
+[ 4 ] For example, biologists may count the number of tree species in a forest:  events would be tree observations, exposure would be unit area, and rate would be the number of species per unit area. Demographers may model death rates in geographic areas as the count of deaths divided by person−years. More generally, event rates can be calculated as events per unit time, which allows the observation window to vary for each unit. In these examples, exposure is respectively unit area, person−years and unit time. In Poisson regression this is handled as an offset . If the rate is count/exposure, multiplying both sides of the equation by exposure moves it to the right side of the equation.  When both sides of the equation are then logged, the final model contains log(exposure) as a term that is added to the regression coefficients. This logged variable, log(exposure), is called the offset variable and enters on the right-hand side of the equation with a parameter estimate (for log(exposure)) constrained to 1.
+
+log ⁡ ⁡ ( E ⁡ ⁡ ( Y ∣ ∣ x ) ) = θ θ ′ x {\displaystyle \log(\operatorname {E} (Y\mid x))=\theta 'x} which implies log ⁡ ⁡ ( E ⁡ ⁡ ( Y ∣ ∣ x ) exposure ) = log ⁡ ⁡ ( E ⁡ ⁡ ( Y ∣ ∣ x ) ) − − log ⁡ ⁡ ( exposure ) = θ θ ′ x + log ⁡ ⁡ ( exposure ) {\displaystyle \log \left({\frac {\operatorname {E} (Y\mid x)}{\text{exposure}}}\right)=\log(\operatorname {E} (Y\mid x))-\log({\text{exposure}})=\theta 'x+\log({\text{exposure}})} Offset in the case of a GLM in R can be achieved using the offset() function: glm ( y ~ offset ( log ( exposure )) + x , family = poisson ( link = log ) ) Overdispersion and zero inflation [ edit ] A characteristic of the Poisson distribution is that its mean is equal to its variance. In certain circumstances, it will be found that the observed variance is greater than the mean;  this is known as overdispersion and indicates that the model is not appropriate. A common reason is the omission of relevant explanatory variables, or dependent observations. Under some circumstances, the problem of overdispersion can be solved by using quasi-likelihood estimation or a negative binomial distribution instead.
+
+[ 5 ] [ 6 ] Ver Hoef and Boveng described the difference between quasi-Poisson (also called overdispersion with quasi-likelihood) and negative binomial (equivalent to gamma-Poisson) as follows:  If E ( Y ) = μ , the quasi-Poisson model assumes var( Y ) = θμ while the gamma-Poisson assumes var( Y ) = μ (1 + κμ ), where θ is the quasi-Poisson overdispersion parameter, and κ is the shape parameter of the negative binomial distribution .  For both models, parameters are estimated using iteratively reweighted least squares .  For quasi-Poisson, the weights are μ / θ .  For negative binomial, the weights are μ /(1 + κμ ).  With large μ and substantial extra-Poisson variation, the negative binomial weights are capped at 1/ κ .  Ver Hoef and Boveng discussed an example where they selected between the two by plotting mean squared residuals vs. the mean.
+
+[ 7 ] Another common problem with Poisson regression is excess zeros: if there are two processes at work, one determining whether there are zero events or any events, and a Poisson process determining how many events there are, there will be more zeros than a Poisson regression would predict. An example would be the distribution of cigarettes smoked in an hour by members of a group where some individuals are non-smokers.
+
+Other generalized linear models such as the negative binomial model or zero-inflated model may function better in these cases.
+
+On the contrary, underdispersion may pose an issue for parameter estimation.
+
+[ 8 ] Use in survival analysis [ edit ] Poisson regression creates proportional hazards models, one class of survival analysis : see proportional hazards models for descriptions of Cox models.
+
+Extensions [ edit ] Regularized Poisson regression [ edit ] When estimating the parameters for Poisson regression, one typically tries to find values for θ that maximize the likelihood of an expression of the form ∑ ∑ i = 1 m log ⁡ ⁡ ( p ( y i ; e θ θ ′ x i ) ) , {\displaystyle \sum _{i=1}^{m}\log(p(y_{i};e^{\theta 'x_{i}})),} where m is the number of examples in the data set, and p ( y i ; e θ θ ′ x i ) {\displaystyle p(y_{i};e^{\theta 'x_{i}})} is the probability mass function of the Poisson distribution with the mean set to e θ θ ′ x i {\displaystyle e^{\theta 'x_{i}}} . Regularization can be added to this optimization problem by instead maximizing [ 9 ] ∑ ∑ i = 1 m log ⁡ ⁡ ( p ( y i ; e θ θ ′ x i ) ) − − λ λ ‖ θ θ ‖ 2 2 , {\displaystyle \sum _{i=1}^{m}\log(p(y_{i};e^{\theta 'x_{i}}))-\lambda \left\|\theta \right\|_{2}^{2},} for some positive constant λ λ {\displaystyle \lambda } . This technique, similar to ridge regression , can reduce overfitting .
+
+See also [ edit ] Zero-inflated model Poisson distribution Fixed-effect Poisson model Partial likelihood methods for panel data § Pooled QMLE for Poisson models Control function (econometrics) § Endogeneity in Poisson regression References [ edit ] ^ Nelder, J. A. (1974).
+
+"Log Linear Models for Contingency Tables: A Generalization of Classical Least Squares" .
+
+Journal of the Royal Statistical Society, Series C (Applied Statistics) .
+
+23 (3): pp.
+
+323–329.
+
+doi : 10.2307/2347125 .
+
+JSTOR 2347125 .
+
+^ Wooldridge, Jeffrey (2010).
+
+Econometric Analysis of Cross Section and Panel Data (2nd ed.). Cambridge, Massachusetts: The MIT Press. p. 726.
+
+^ Greene, William H. (2003).
+
+Econometric Analysis (Fifth ed.). Prentice-Hall. pp.
+
+740 –752.
+
+ISBN 978-0130661890 .
+
+^ Frome, Edward L. (1983).
+
+"The Analysis of Rates Using Poisson Regression Models" .
+
+Biometrics .
+
+39 (3): pp.
+
+665–674.
+
+doi : 10.2307/2531094 .
+
+JSTOR 2531094 .
+
+^ Paternoster R, Brame R (1997). "Multiple routes to delinquency? A test of developmental and general theories of crime".
+
+Criminology .
+
+35 : 49– 84.
+
+doi : 10.1111/j.1745-9125.1997.tb00870.x .
+
+eISSN 1745-9125 .
+
+ISSN 0011-1384 .
+
+^ Berk R, MacDonald J (2008). "Overdispersion and Poisson regression".
+
+Journal of Quantitative Criminology .
+
+24 (3): 269– 284.
+
+doi : 10.1007/s10940-008-9048-4 .
+
+S2CID 121273486 .
+
+^ Ver Hoef, JAY M.; Boveng, Peter L. (2007-01-01).
+
+"Quasi-Poisson vs. Negative Binomial Regression: How should we model overdispersed count data?" .
+
+Ecology .
+
+88 (11): 2766– 2772.
+
+Bibcode : 2007Ecol...88.2766V .
+
+doi : 10.1890/07-0043.1 .
+
+PMID 18051645 . Retrieved 2016-09-01 .
+
+^ Schwarzenegger, Rafael; Quigley, John; Walls, Lesley (23 November 2021).
+
+"Is eliciting dependency worth the effort? A study for the multivariate Poisson-Gamma probability model" .
+
+Proceedings of the Institution of Mechanical Engineers, Part O: Journal of Risk and Reliability .
+
+237 (5): 5.
+
+doi : 10.1177/1748006X211059417 .
+
+^ Perperoglou, Aris (2011-09-08). "Fitting survival data with penalized Poisson regression".
+
+Statistical Methods & Applications .
+
+20 (4). Springer Nature: 451– 462.
+
+doi : 10.1007/s10260-011-0172-1 .
+
+ISSN 1618-2510 .
+
+S2CID 10883925 .
+
+Further reading [ edit ] Cameron, A. C.; Trivedi, P. K. (1998).
+
+Regression analysis of count data . Cambridge University Press.
+
+ISBN 978-0-521-63201-0 .
+
+Christensen, Ronald (1997).
+
+Log-linear models and logistic regression . Springer Texts in Statistics (Second ed.). New York: Springer-Verlag.
+
+ISBN 978-0-387-98247-2 .
+
+MR 1633357 .
+
+Gouriéroux, Christian (2000).
+
+"The Econometrics of Discrete Positive Variables: the Poisson Model" .
+
+Econometrics of Qualitative Dependent Variables . New York: Cambridge University Press. pp.
+
+270– 83.
+
+ISBN 978-0-521-58985-7 .
+
+Greene, William H.
+
+(2008). "Models for Event Counts and Duration".
+
+Econometric Analysis (8th ed.). Upper Saddle River: Prentice Hall. pp.
+
+906 –944.
+
+ISBN 978-0-13-600383-0 .
+
+[ dead link ] Hilbe, J. M. (2007).
+
+Negative Binomial Regression . Cambridge University Press.
+
+ISBN 978-0-521-85772-7 .
+
+Jones, Andrew M.; et al. (2013). "Models for count data".
+
+Applied Health Economics . London: Routledge. pp.
+
+295– 341.
+
+ISBN 978-0-415-67682-3 .
+
+Myers, Raymond H.; et al. (2010). "Logistic and Poisson Regression Models".
+
+Generalized Linear Models With Applications in Engineering and the Sciences (Second ed.). New Jersey: Wiley. pp.
+
+176– 183.
+
+ISBN 978-0-470-45463-3 .
+
+v t e Statistics Outline Index Descriptive statistics Continuous data Center Mean Arithmetic Arithmetic-Geometric Contraharmonic Cubic Generalized/power Geometric Harmonic Heronian Heinz Lehmer Median Mode Dispersion Average absolute deviation Coefficient of variation Interquartile range Percentile Range Standard deviation Variance Shape Central limit theorem Moments Kurtosis L-moments Skewness Count data Index of dispersion Summary tables Contingency table Frequency distribution Grouped data Dependence Partial correlation Pearson product-moment correlation Rank correlation Kendall's τ Spearman's ρ Scatter plot Graphics Bar chart Biplot Box plot Control chart Correlogram Fan chart Forest plot Histogram Pie chart Q–Q plot Radar chart Run chart Scatter plot Stem-and-leaf display Violin plot Data collection Study design Effect size Missing data Optimal design Population Replication Sample size determination Statistic Statistical power Survey methodology Sampling Cluster Stratified Opinion poll Questionnaire Standard error Controlled experiments Blocking Factorial experiment Interaction Random assignment Randomized controlled trial Randomized experiment Scientific control Adaptive designs Adaptive clinical trial Stochastic approximation Up-and-down designs Observational studies Cohort study Cross-sectional study Natural experiment Quasi-experiment Statistical inference Statistical theory Population Statistic Probability distribution Sampling distribution Order statistic Empirical distribution Density estimation Statistical model Model specification L p space Parameter location scale shape Parametric family Likelihood (monotone) Location–scale family Exponential family Completeness Sufficiency Statistical functional Bootstrap U V Optimal decision loss function Efficiency Statistical distance divergence Asymptotics Robustness Frequentist inference Point estimation Estimating equations Maximum likelihood Method of moments M-estimator Minimum distance Unbiased estimators Mean-unbiased minimum-variance Rao–Blackwellization Lehmann–Scheffé theorem Median unbiased Plug-in Interval estimation Confidence interval Pivot Likelihood interval Prediction interval Tolerance interval Resampling Bootstrap Jackknife Testing hypotheses 1- & 2-tails Power Uniformly most powerful test Permutation test Randomization test Multiple comparisons Parametric tests Likelihood-ratio Score/Lagrange multiplier Wald Specific tests Z -test (normal) Student's t -test F -test Goodness of fit Chi-squared G -test Kolmogorov–Smirnov Anderson–Darling Lilliefors Jarque–Bera Normality (Shapiro–Wilk) Likelihood-ratio test Model selection Cross validation AIC BIC Rank statistics Sign Sample median Signed rank (Wilcoxon) Hodges–Lehmann estimator Rank sum (Mann–Whitney) Nonparametric anova 1-way (Kruskal–Wallis) 2-way (Friedman) Ordered alternative (Jonckheere–Terpstra) Van der Waerden test Bayesian inference Bayesian probability prior posterior Credible interval Bayes factor Bayesian estimator Maximum posterior estimator Correlation Regression analysis Correlation Pearson product-moment Partial correlation Confounding variable Coefficient of determination Regression analysis Errors and residuals Regression validation Mixed effects models Simultaneous equations models Multivariate adaptive regression splines (MARS) Linear regression Simple linear regression Ordinary least squares General linear model Bayesian regression Non-standard predictors Nonlinear regression Nonparametric Semiparametric Isotonic Robust Homoscedasticity and Heteroscedasticity Generalized linear model Exponential families Logistic (Bernoulli) / Binomial / Poisson regressions Partition of variance Analysis of variance (ANOVA, anova) Analysis of covariance Multivariate ANOVA Degrees of freedom Categorical / multivariate / time-series / survival analysis Categorical Cohen's kappa Contingency table Graphical model Log-linear model McNemar's test Cochran–Mantel–Haenszel statistics Multivariate Regression Manova Principal components Canonical correlation Discriminant analysis Cluster analysis Classification Structural equation model Factor analysis Multivariate distributions Elliptical distributions Normal Time-series General Decomposition Trend Stationarity Seasonal adjustment Exponential smoothing Cointegration Structural break Granger causality Specific tests Dickey–Fuller Johansen Q-statistic (Ljung–Box) Durbin–Watson Breusch–Godfrey Time domain Autocorrelation (ACF) partial (PACF) Cross-correlation (XCF) ARMA model ARIMA model (Box–Jenkins) Autoregressive conditional heteroskedasticity (ARCH) Vector autoregression (VAR) Frequency domain Spectral density estimation Fourier analysis Least-squares spectral analysis Wavelet Whittle likelihood Survival Survival function Kaplan–Meier estimator (product limit) Proportional hazards models Accelerated failure time (AFT) model First hitting time Hazard function Nelson–Aalen estimator Test Log-rank test Applications Biostatistics Bioinformatics Clinical trials / studies Epidemiology Medical statistics Engineering statistics Chemometrics Methods engineering Probabilistic design Process / quality control Reliability System identification Social statistics Actuarial science Census Crime statistics Demography Econometrics Jurimetrics National accounts Official statistics Population statistics Psychometrics Spatial statistics Cartography Environmental statistics Geographic information system Geostatistics Kriging Category Mathematics portal Commons WikiProject v t e Least squares and regression analysis Computational statistics Least squares Linear least squares Non-linear least squares Iteratively reweighted least squares Correlation and dependence Pearson product-moment correlation Rank correlation ( Spearman's rho Kendall's tau ) Partial correlation Confounding variable Regression analysis Ordinary least squares Partial least squares Total least squares Ridge regression Regression as a statistical model Linear regression Simple linear regression Ordinary least squares Generalized least squares Weighted least squares General linear model Predictor structure Polynomial regression Growth curve (statistics) Segmented regression Local regression Non-standard Nonlinear regression Nonparametric Semiparametric Robust Quantile Isotonic Non-normal errors Generalized linear model Binomial Poisson Logistic Decomposition of variance Analysis of variance Analysis of covariance Multivariate AOV Model exploration Stepwise regression Model selection Mallows's C p AIC BIC Model specification Regression validation Background Mean and predicted response Gauss–Markov theorem Errors and residuals Goodness of fit Studentized residual Minimum mean-square error Frisch–Waugh–Lovell theorem Design of experiments Response surface methodology Optimal design Bayesian design Numerical approximation Numerical analysis Approximation theory Numerical integration Gaussian quadrature Orthogonal polynomials Chebyshev polynomials Chebyshev nodes Applications Curve fitting Calibration curve Numerical smoothing and differentiation System identification Moving least squares Regression analysis category Statistics category Mathematics portal Statistics outline Statistics topics Retrieved from " https://en.wikipedia.org/w/index.php?title=Poisson_regression&oldid=1298798788 " Categories : Generalized linear models Categorical regression models Poisson distribution Mathematical and quantitative methods (economics) Hidden categories: Articles with short description Short description matches Wikidata All articles with dead external links Articles with dead external links from December 2024 Articles with example R code This page was last edited on 4 July 2025, at 19:37 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Poisson regression 14 languages Add topic
+

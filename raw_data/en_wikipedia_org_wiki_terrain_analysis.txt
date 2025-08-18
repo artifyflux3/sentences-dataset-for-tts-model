@@ -1,0 +1,255 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 History 2 Surface gradient (derivatives) Toggle Surface gradient (derivatives) subsection 2.1 Surface normal and gradient 2.2 Slope 2.3 Aspect 3 Other derived products Toggle Other derived products subsection 3.1 Illumination/Shaded Relief/Analytical Hillshading 3.2 Topographic feature extraction 3.3 Local Relief 4 Applications Toggle Applications subsection 4.1 Landscape ecology 4.2 Biogeography 4.3 Hydrology 4.4 Visibility 4.5 Earthworks 5 Geomorphometricians 6 International organisations 7 Training 8 Software 9 See also 10 References 11 Further reading 12 External links Toggle the table of contents Geomorphometry 6 languages العربية Deutsch فارسی Français हिन्दी Bahasa Indonesia Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia (Redirected from Terrain analysis ) Analysis of terrain For broader coverage of this topic, see Spatial analysis .
+
+Geomorphometry , or geomorphometrics ( Ancient Greek : γῆ , romanized : gê , lit.
+
+'earth' + Ancient Greek : μορφή , romanized : morphḗ , lit.
+
+'form, shape' + Ancient Greek : μέτρον , romanized : métron , lit.
+
+'measure'), is the science and practice of measuring the characteristics of terrain , the shape of the surface of the Earth, and the effects of this surface form on human and natural geography.
+
+[ 1 ] It gathers various mathematical, statistical and image processing techniques that can be used to quantify morphological, hydrological, ecological and other aspects of a land surface. Common synonyms for geomorphometry are geomorphological analysis (after geomorphology ), terrain morphometry , terrain analysis , and land surface analysis .
+
+Geomorphometrics is the discipline based on the computational measures of the geometry , topography and shape of the Earth's horizons, and their temporal change.
+
+[ 2 ] This is a major component of geographic information systems (GIS) and other software tools for spatial analysis.
+
+In simple terms, geomorphometry aims at extracting (land) surface parameters (morphometric, hydrological, climatic, etc.) and objects (watersheds, stream networks, landforms, etc.) using input digital land surface model (also known as digital elevation model , DEM) and parameterization software.
+
+[ 3 ] Extracted surface parameters and objects can then be used, for example, to improve mapping and modeling of soils, vegetation, land use, geomorphological and geological features and similar.
+
+With the rapid increase of sources of DEMs today (and mainly due to the Shuttle Radar Topography Mission and LIDAR -based projects), extraction of land surface parameters is becoming more and more attractive to numerous fields ranging from precision agriculture , soil-landscape modeling, climatic and hydrological applications to urban planning, education, and space research. The topography of almost all Earth has been sampled or scanned today so that DEMs are available at resolutions of 100 m or better at a global scale. Today, land surface parameters are successfully used for both stochastic and process-based modeling, the only remaining issue being the level of detail and vertical accuracy of the DEM.
+
+History [ edit ] Although geomorphometry started with the ideas of Brisson (1808) and Gauss (1827), the field did not evolve much until the development of GIS and DEM datasets in the 1970s.
+
+[ 4 ] Geomorphology (which focuses on the processes that modify the land surface) has a long history as a concept and area of study, with geomorphometry being one of the oldest related disciplines.
+
+[ 5 ] Geomatics is a more recently evolved sub-discipline, and even more recent is the concept of geomorphometrics. This has only recently been developed since the availability of more flexible and capable geographic information system (GIS) software, as well as higher resolution Digital Elevation Model (DEM).
+
+[ 6 ] It is a response to the development of this GIS technology to gather and process DEM data (e.g.
+
+remote sensing , the Landsat program and photogrammetry ). Recent applications proceed with the integration of geomorphometry with digital image analysis variables obtained by aerial and satellite remote sensing .
+
+[ 7 ] As the triangulated irregular network (TIN) arose as an alternative model for representing the terrain surface, corresponding algorithms were developed for deriving measurements from it.
+
+Surface gradient (derivatives) [ edit ] See also: Surface gradient Various basic measurements can be derived from the terrain surface, generally applying the techniques of vector calculus . That said, the algorithms typically used in GIS and other software use approximate calculations that produce similar results in much less time with discrete datasets than the pure continuous function methods.
+
+[ 8 ] Many strategies and algorithms have been developed, each having advantages and disadvantages.
+
+[ 9 ] [ 10 ] [ 11 ] Surface normal and gradient [ edit ] A surface with a sample of normal vectors Main articles: Normal (geometry) and Gradient The surface normal at any point on the terrain surface is a vector ray that is perpendicular to the surface. The surface gradient ( ∇ ∇ f {\displaystyle \nabla f} ) is the vector ray that is tangent to the surface, in the direction of steepest downhill slope.
+
+Slope [ edit ] The geometry of calculating slope Main article: Grade (slope) Slope or grade measures how steep the terrain is at any point on the surface, deviating from a horizontal surface. In principle, it is the angle between the gradient vector and the horizontal plane, given either as an angular measure α (common in scientific applications) or as the ratio p = r i s e r u n {\displaystyle p={\frac {rise}{run}}} , commonly expressed as a percentage, such that p = tan α . The latter is frequently used in engineering applications like road and railway construction.
+
+Deriving slope from a raster digital elevation model requires calculating a discrete approximation of the surface derivative based on the elevation of a cell and those of its surrounding cells, and several methods have been developed.
+
+[ 12 ] For example, the Horne method, implemented in ArcGIS , uses the elevation of a cell and its eight immediate neighbors, spaced by the cell size or resolution r : [ 13 ] [ 14 ] e NW e N e NE e W e 0 e E e SW e S e SE The partial derivatives are then approximated as weighted averages of the differences between the opposing sides: ∂ ∂ z ∂ ∂ x ≈ ≈ e N E + 2 e E + e S E − − e N W − − 2 e W − − e S W 8 r {\displaystyle {\frac {\partial z}{\partial x}}\approx {\frac {e_{NE}+2e_{E}+e_{SE}-e_{NW}-2e_{W}-e_{SW}}{8r}}} ∂ ∂ z ∂ ∂ y ≈ ≈ e N E + 2 e N + e N E − − e S W − − 2 e S − − e S W 8 r {\displaystyle {\frac {\partial z}{\partial y}}\approx {\frac {e_{NE}+2e_{N}+e_{NE}-e_{SW}-2e_{S}-e_{SW}}{8r}}} The slope (in percent) is then calculated using the Pythagorean theorem : tan ⁡ ⁡ α α = ( ∂ ∂ z ∂ ∂ x ) 2 + ( ∂ ∂ z ∂ ∂ y ) 2 {\displaystyle \tan \alpha ={\sqrt {({\frac {\partial z}{\partial x}})^{2}+({\frac {\partial z}{\partial y}})^{2}}}} The second derivative of the surface (i.e., curvature) can be derived using similarly analogous calculations.
+
+Aspect [ edit ] Main article: Aspect (geography) The aspect of the terrain at any point on the surface is the direction the slope is "facing," or the cardinal direction of the steepest downhill slope. In principle, it is the projection of the gradient onto the horizontal slope. In practice using a raster digital elevation model , it is approximated using one of the same partial derivative approximation methods developed for slope.
+
+[ 12 ] Then the aspect is calculated as: [ 15 ] tan ⁡ ⁡ β β = ∂ ∂ z ∂ ∂ y − − ∂ ∂ z ∂ ∂ x {\displaystyle \tan \beta ={\frac {\frac {\partial z}{\partial y}}{-{\frac {\partial z}{\partial x}}}}} This yields a counter-clockwise bearing, with 0° at east.
+
+Other derived products [ edit ] Illumination/Shaded Relief/Analytical Hillshading [ edit ] Shaded relief map of New Jersey Main article: Terrain cartography § Shaded relief Another useful product derived from the terrain surface is a shaded relief image, which approximates the degree of illumination of the surface from a light source coming from a given direction. In principle, the degree of illumination is inversely proportional to the angle between the surface normal vector and the illumination vector; the wider the angle between the vectors, the darker that point on the surface is. In practice, it can be calculated from the slope α and aspect β , compared to a corresponding altitude φ and azimuth θ of the light source: [ 16 ] i = cos ⁡ ⁡ ϕ ϕ cos ⁡ ⁡ α α + sin ⁡ ⁡ ϕ ϕ sin ⁡ ⁡ α α cos ⁡ ⁡ ( θ θ − − β β ) {\displaystyle i=\cos \phi \cos \alpha +\sin \phi \sin \alpha \cos(\theta -\beta )} The resultant image is rarely useful for analytical purposes, but it is most commonly used as an intuitive visualization of the terrain surface because it looks like an illuminated three-dimensional model of the surface.
+
+Topographic feature extraction [ edit ] Natural terrain features, such as mountains and canyons, can often be recognized as patterns in elevation and their derivative properties. The most basic patterns include locations where the terrain changes abruptly, such as peaks (local elevation maxima), pits (local elevation minima), ridges (linear maxima), channels (linear minima), and passes (the intersections of ridges and channels).
+
+Due to limitations of resolution , axis-orientation, and object-definitions the derived spatial data may yield meaning with subjective observation or parameterisation , or alternatively processed as fuzzy data to handle the varying contributing errors more quantitatively – for example as a 70% overall chance of a point representing the peak of a mountain given the available data, rather than an educated guess to deal with the uncertainty.
+
+[ 17 ] Local Relief [ edit ] In many applications, knowing how much the surface varies in each local area is useful. For example, one may need to distinguish between mountainous areas and high plateaus, both high in elevation but with different degrees of "ruggedness." The local relief of a cell is a measurement of this variability in the surrounding neighborhood (typically the cells within a given radius), for which several measures have been used, including simple summary statistics such as the total range of values in the neighborhood, an interquartile range, or the standard deviation. More complex formulas have also been developed to capture more subtle variation.
+
+[ 18 ] Applications [ edit ] Quantitative surface analysis through geomorphometrics provides various tools for scientists and managers interested in land management.
+
+[ 19 ] Applications areas include: Landscape ecology [ edit ] Main article: Landscape ecology Slope effect of vegetation that is different on north-facing and south-facing slopes.
+
+Biogeography [ edit ] Main article: Biogeography In many situations, terrain can profoundly affect local environments, especially in semi-arid climates and mountainous areas. This includes well-known effects such as Altitudinal zonation and the Slope effect . This can make it a significant factor in modeling and mapping microclimates , vegetation distribution, wildlife habitat , and precision agriculture .
+
+Hydrology [ edit ] Main article: Surface-water hydrology Because water flows downhill, the surface derivatives of the terrain surface can predict surface stream flow. This can be used to construct stream networks, delineate drainage basins , and calculate total flow accumulation.
+
+Visibility [ edit ] Main articles: Viewshed and Viewshed analysis Mountains and other landforms can block the visibility between locations on opposite sides. Predicting this effect is a valuable tool for applications as varied as military tactics and locating cell sites . Common tools in terrain analysis software include computing the line-of-sight visibility between two points and generating a viewshed , the region of all points visible from a single point.
+
+[ 20 ] Map depicting cut and fill areas for a construction site.
+
+Earthworks [ edit ] Main article: Earthworks (engineering) Many construction projects require significant modification of the terrain surface, including both the removal and addition of material. By modeling the current and designed surface, engineers can calculate the volume of cuts and fills, and predict potential issues such as slope stability and erosion potential.
+
+Geomorphometricians [ edit ] As a relatively new and unknown branch of GIS the topic of geomorphometrics has few 'famous' pioneer figures as is the case with other fields such as hydrology ( Robert Horton ) or geomorphology ( G. K. Gilbert [ 21 ] ). In the past, geomorphometry has been used in many studies (including some high-profile geomorphology papers by academics such as Evans, Leopold, and Wolman). Still, it is only recently that GIS practitioners have begun to integrate it within their work.
+
+[ 22 ] [ 23 ] Nonetheless, it is becoming increasingly used by researchers such as Andy Turner and Joseph Wood.
+
+International organisations [ edit ] Large institutions are increasingly developing GIS-based geomorphometric applications. One example is the creation of a Java -based software package for morphometrics in association with the University of Leeds .
+
+Training [ edit ] Academic institutions are increasingly devoting more resources to geomorphometrics training and specific courses, although these are still limited to a few universities and training centres. The most accessible at present include an online geomorphometrics resource library in conjunction with the University of Leeds and lectures and practicals delivered as part of wider GIS modules, the most comprehensive at present offered at the University of British Columbia (overseen by Brian Klinkenberg) and at Dalhousie University .
+
+Software [ edit ] The following computer software has specialized terrain analysis modules or extensions (listed in alphabetical order): ANUDEM ArcGIS (Spatial Analyst extension) GRASS GIS (r.param.scale, r.slope.aspect, etc.) ILWIS LandSerf SAGA GIS (Terrain analysis modules) Whitebox Geospatial Analysis Tools (Terrain Analysis, LiDAR Analysis, Hydrological Tools, and Stream Network Analysis modules) See also [ edit ] Digital Elevation Model – 3D computer-generated imagery and measurements of terrain Pages displaying short descriptions of redirect targets Geography – Study of lands and inhabitants of Earth Geomatics – Geographic data discipline Geometry – Branch of mathematics Geographic information system – System to capture, manage, and present geographic data Geomorphology – Scientific study of landforms Landforms – Feature of the solid surface of a planetary body Pages displaying short descriptions of redirect targets Landsat program – American network of Earth-observing satellites for international research purposes Morphometry – Quantitative study of size and shape Pages displaying short descriptions of redirect targets Photogrammetry – Taking measurements using photography Remote sensing – Obtaining information through non-contact sensors Scientific modelling – Scientific activity  that produces models Soil-surface roughness – Soil chacteristic Topography – Study of the forms of land surfaces References [ edit ] ^ Pike, R.J.; Evans, I.S.; Hengl, T. (2009).
+
+"Geomorphometry: A Brief Guide" (PDF) .
+
+geomorphometry.org . Developments in Soil Science, Elsevier B.V. Archived from the original (PDF) on March 3, 2016 . Retrieved September 2, 2014 .
+
+^ Turner, A. (2006) Geomorphometrics: ideas for generation and use.  CCG Working Paper, Version 0.3.1 [online] Centre for Computational Geography, University of Leeds, UK; [1] Accessed 7 May 2007 ^ Evans, Ian S. (15 January 2012). "Geomorphometry and landform mapping: What is a landform?".
+
+Geomorphology .
+
+137 (1). Elsevier: 94– 106.
+
+doi : 10.1016/j.geomorph.2010.09.029 .
+
+^ Miller, C.L. and Laflamme, R.A. (1958): The Digital Terrain Model-Theory & Application. MIT Photogrammetry Laboratory ^ Schmidt, J. & Andrew, R. (2005) Multi-scale landform characterization.  Area, 37.3; pp341–350.
+
+^ Turner, A. (2007).
+
+"Lecture 7: Terrain analysis 3; geomatics, geomorphometrics" . School of Geography, University of Leeds, UK. Archived from the original on 2005-01-23 . Retrieved 2007-05-27 .
+
+Accessed 7 May 2007 ^ Franklin, Steven E. (2020-10-01).
+
+"Interpretation and use of geomorphometry in remote sensing: a guide and review of integrated applications" .
+
+International Journal of Remote Sensing .
+
+41 (19): 7700– 7733.
+
+doi : 10.1080/01431161.2020.1792577 .
+
+ISSN 0143-1161 .
+
+S2CID 221052337 .
+
+^ Chang, K. T. (2008).
+
+Introduction to Geographical Information Systems . New York: McGraw Hill. p. 184.
+
+^ Jones, K.H. (1998). "A comparison of algorithms used to compute hill slope as a property of the DEM".
+
+Computers and Geosciences .
+
+24 (4): 315– 323.
+
+Bibcode : 1998CG.....24..315J .
+
+doi : 10.1016/S0098-3004(98)00032-6 .
+
+^ Skidmore (1989). "A comparison of techniques for calculating gradient and aspect from a gridded digital elevation model".
+
+International Journal of Geographical Information Science .
+
+3 (4): 323– 334.
+
+doi : 10.1080/02693798908941519 .
+
+^ Zhou, Q.; Liu, X. (2003). "Analysis of errors of derived slope and aspect related to DEM data properties".
+
+Computers and Geosciences .
+
+30 : 269– 378.
+
+^ a b de Smith, Michael J.; Goodchild, Michael F.; Longley, Paul A. (2018).
+
+Geospatial Analysis: A Comprehensive Guide to Principles, Techniques, and Software Tools (6th ed.).
+
+^ Horne, B. K. P. (1981). "Hill shading and the reflectance map".
+
+Proceedings of the IEEE .
+
+69 (1): 14– 47.
+
+doi : 10.1109/PROC.1981.11918 .
+
+S2CID 18880828 .
+
+^ Esri.
+
+"How Slope works" .
+
+ArcGIS Pro Documentation .
+
+^ Esri.
+
+"How Aspect works" .
+
+ArcGIS Pro Documentation .
+
+^ Esri.
+
+"How Hillshade works" .
+
+ArcGIS Pro Documentation .
+
+^ Fisher, P, Wood, J. & Cheng, T. (2004) Where is Helvellyn? Fuzziness of multi-scale landscape morphometry.  Transactions of the Institute of British Geographers, 29; pp106–128 ^ Sappington, J. Mark; Longshore, Kathleen M.; Thompson, Daniel B. (2007).
+
+"Quantifying Landscape Ruggedness for Animal Habitat Analysis: A Case Study Using Bighorn Sheep in the Mojave Desert" .
+
+Journal of Wildlife Management .
+
+71 (5): 1419.
+
+doi : 10.2193/2005-723 .
+
+JSTOR 4496214 .
+
+S2CID 53073682 .
+
+^ Albani, M., Klinkenberg, B. Anderson, D.  W. & Kimmins, J.  P. (2004) The choice of window size in approximating topographic surfaces from Digital Elevation Models.  International Journal of Geographical Information Science, 18 (6); pp577–593 ^ Nijhuis, Steffen; van Lammeren, Ron; Antrop, Marc (September 2011).
+
+"Exploring the Visual Landscape - Introduction" .
+
+Research in Urbanism Series .
+
+2 : 30.
+
+doi : 10.7480/rius.2.205 . Archived from the original on 2017-08-04 . Retrieved 2021-03-06 .
+
+^ Bierman, Paul R., and David R. Montgomery. Key concepts in geomorphology. Macmillan Higher Education, 2014.
+
+^ Chorley, R.J. 1972. Spatial Analysis in Geomorphology.  Methuen and Co Ltd, UK ^ Klimanek, M. 2006. Optimisation of digital terrain model for its application in forestry, Journal of Forest Science, 52 (5); pp 233–241.
+
+Further reading [ edit ] Mark, D.M. (1975) Geomorphometric parameters: a review and evaluation Geographical Annals, 57, (1); pp 165–177 Miller, C.L. and Laflamme, R.A. (1958): The Digital Terrain Model-Theory & Application . MIT Photogrammetry Laboratory.
+
+Pike, R.  J..
+
+Geomorphometry –- progress, practice, and prospect . Zeitschrift für Geomorphologie Supplementband 101 (1995): 221-238.
+
+Pike, R.J., Evans, I., Hengl, T., 2008.
+
+Geomorphometry: A Brief Guide Archived 2016-03-03 at the Wayback Machine . In: Geomorphometry - Concepts, Software, Applications , Hengl, T. and Hannes I. Reuter (eds.), Series Developments in Soil Science vol. 33, Elsevier, pp. 3–33, ISBN 978-0-12-374345-9 Hengl, Tomislav; Reuter, Hannes I., eds. (2009).
+
+Geomorphometry: concepts, software, applications . Amsterdam: Elsevier.
+
+ISBN 978-0-12-374345-9 .
+
+External links [ edit ] www.geomorphometry.org - a non-commercial association of researchers and experts.
+
+An extensive review of bibliography of Geomorphometry literature by Richard J. Pike (report 02-465) Archived 2017-02-18 at the Wayback Machine [2] - University of Leeds - school of Geography, geomorphometrics home page [3] [ dead link ] - example of Leeds University-developed geomorphometrics output with processing- and resolution-based parameters [4] - University of British Columbia - department of Geography [5] - Dalhousie University - geomorphology and landscape evolution module Authority control databases : National Czech Republic NewPP limit report
+Parsed by mw‐web.codfw.main‐7c956d68b4‐6sms8
+Cached time: 20250817011749
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.570 seconds
+Real time usage: 0.770 seconds
+Preprocessor visited node count: 3780/1000000
+Revision size: 22957/2097152 bytes
+Post‐expand include size: 45178/2097152 bytes
+Template argument size: 1429/2097152 bytes
+Highest expansion depth: 15/100
+Expensive parser function count: 16/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 72161/5000000 bytes
+Lua time usage: 0.410/10.000 seconds
+Lua memory usage: 13854750/52428800 bytes
+Number of Wikibase entities loaded: 1/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  666.828      1 -total
+ 26.66%  177.776      1 Template:Reflist
+ 17.18%  114.567      3 Template:Langx
+ 15.90%  106.032     14 Template:Annotated_link
+ 14.55%   97.021      1 Template:Authority_control
+ 14.30%   95.357      5 Template:Cite_web
+  9.86%   65.773      1 Template:Short_description
+  7.57%   50.478      8 Template:Cite_journal
+  6.10%   40.707      2 Template:Pagetype
+  3.89%   25.972      1 Template:Dead_link Saved in parser cache with key enwiki:pcache:5155886:|#|:idhash:canonical and timestamp 20250817011749 and revision id 1306297026. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Geomorphometry&oldid=1306297026 " Category : Topography techniques Hidden categories: Articles with short description Short description is different from Wikidata Articles containing Ancient Greek (to 1453)-language text Pages displaying short descriptions of redirect targets via Module:Annotated link Webarchive template wayback links All articles with dead external links Articles with dead external links from October 2015 This page was last edited on 17 August 2025, at 01:17 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Geomorphometry 6 languages Add topic
+

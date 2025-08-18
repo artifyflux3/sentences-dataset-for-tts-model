@@ -1,0 +1,93 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Definition Toggle Definition subsection 1.1 Derivation 2 Strong and weak convergence 3 Example with geometric Brownian motion 4 Application 5 References Toggle the table of contents Euler–Maruyama method 6 languages العربية Deutsch Polski Português Türkçe 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Method in Itô calculus This article is about numerical methods in stochastic models ( stochastic differential equations ). For the same problem but for deterministic models see Euler method and Ordinary differential equation .
+
+In Itô calculus , the Euler–Maruyama method (also simply called the Euler method ) is a method for the approximate numerical solution of a stochastic differential equation (SDE). It is an extension of the Euler method for ordinary differential equations to stochastic differential equations named after Leonhard Euler and Gisiro Maruyama . The same generalization cannot be done for any arbitrary deterministic method.
+
+[ 1 ] Definition [ edit ] Consider the stochastic differential equation (see Itô calculus ) d X t = a ( X t , t ) d t + b ( X t , t ) d W t , {\displaystyle \mathrm {d} X_{t}=a(X_{t},t)\,\mathrm {d} t+b(X_{t},t)\,\mathrm {d} W_{t},} with initial condition X 0 = x 0 , where W t denotes the Wiener process , and suppose that we wish to solve this SDE on some interval of time [0, T ]. Then the Euler–Maruyama approximation to the true solution X is the Markov chain Y defined as follows: Partition the interval [0, T ] into N equal subintervals of width Δ Δ t > 0 {\displaystyle \Delta t>0} : 0 = τ τ 0 < τ τ 1 < ⋯ ⋯ < τ τ N = T and Δ Δ t = T / N ; {\displaystyle 0=\tau _{0}<\tau _{1}<\cdots <\tau _{N}=T{\text{ and }}\Delta t=T/N;} Set Y 0 = x 0 Recursively define Y n for 0 ≤ n ≤ N-1 by Y n + 1 = Y n + a ( Y n , τ τ n ) Δ Δ t + b ( Y n , τ τ n ) Δ Δ W n , {\displaystyle \,Y_{n+1}=Y_{n}+a(Y_{n},\tau _{n})\,\Delta t+b(Y_{n},\tau _{n})\,\Delta W_{n},} where Δ Δ W n = W τ τ n + 1 − − W τ τ n .
+
+{\displaystyle \Delta W_{n}=W_{\tau _{n+1}}-W_{\tau _{n}}.} The random variables Δ W n are independent and identically distributed normal random variables with expected value zero and variance Δ t .
+
+Derivation [ edit ] The Euler-Maruyama formula can be derived by considering the integral form of the Itô SDE X τ τ n + 1 = X τ τ n + ∫ ∫ τ τ n τ τ n + 1 a ( X s , s ) d s + ∫ ∫ τ τ n τ τ n + 1 b ( X s , s ) d W s {\displaystyle X_{\tau _{n+1}}=X_{\tau _{n}}+\int _{\tau _{n}}^{\tau _{n+1}}a(X_{s},s)\,ds+\int _{\tau _{n}}^{\tau _{n+1}}b(X_{s},s)\,dW_{s}} and approximating a ( X s , s ) ≈ ≈ a ( X n , τ τ n ) {\displaystyle a(X_{s},s)\approx a(X_{n},\tau _{n})} and b ( X s , s ) ≈ ≈ b ( X n , τ τ n ) {\displaystyle b(X_{s},s)\approx b(X_{n},\tau _{n})} on the small time interval [ τ τ n , τ τ n + 1 ] {\displaystyle [\tau _{n},\tau _{n+1}]} .
+
+Strong and weak convergence [ edit ] Like other approximation methods, the accuracy of the Euler–Maruyama scheme is analyzed through comparison to an underlying continuous solution.
+Let X {\displaystyle X} denote an Itô process over [ 0 , T ] {\displaystyle [0,T]} , equal to X t = X 0 + ∫ ∫ 0 t μ μ ( s , X s ) d s + ∫ ∫ 0 t σ σ ( s , X s ) d W s {\displaystyle X_{t}=X_{0}+\int _{0}^{t}\mu (s,X_{s})ds+\int _{0}^{t}\sigma (s,X_{s})dW_{s}} at time t ∈ ∈ [ 0 , T ] {\displaystyle t\in [0,T]} , where μ μ {\displaystyle \mu } and σ σ {\displaystyle \sigma } denote deterministic "drift" and "diffusion" functions, respectively, and W t {\displaystyle W_{t}} is the Wiener process .
+As discrete approximations of continuous processes are typically assessed through comparison between their respective final states at T > 0 {\displaystyle T>0} , a natural convergence criterion for such discrete processes is lim N → → ∞ ∞ E [ | X ^ ^ N − − X T | ] = 0.
+
+{\displaystyle \lim _{N\to \infty }\mathbb {E} \left[\left|{\hat {X}}_{N}-X_{T}\right|\right]=0.} Here, X ^ ^ N {\displaystyle {\hat {X}}_{N}} corresponds to the final state of the discrete process X ^ ^ {\displaystyle {\hat {X}}} , which approximates X T {\displaystyle X_{T}} by taking N {\displaystyle N} steps of length Δ Δ t = T / N {\displaystyle \Delta t=T/N} .
+
+[ 2 ] Iterative schemes satisfying the above condition are said to strongly converge to the continuous process X {\displaystyle X} , which automatically implies their satisfaction of the weak convergence criterion, lim N → → ∞ ∞ E [ | g ( X ^ ^ N ) − − g ( X T ) | ] = 0 , {\displaystyle \lim _{N\to \infty }\mathbb {E} \left[\left|g({\hat {X}}_{N})-g(X_{T})\right|\right]=0,} for any smooth function g {\displaystyle g} .
+
+[ 3 ] More specifically, if there exists a constant K {\displaystyle K} and γ γ s , δ δ 0 > 0 {\displaystyle \gamma _{s},\delta _{0}>0} such that E [ | X ^ ^ N − − X T | ] ≤ ≤ K δ δ 0 γ γ s {\displaystyle \mathbb {E} \left[\left|{\hat {X}}_{N}-X_{T}\right|\right]\leq K\delta _{0}^{\gamma _{s}}} for any δ δ ∈ ∈ ( 0 , δ δ 0 ) {\displaystyle \delta \in (0,\delta _{0})} , the approximation converges strongly with order γ γ s {\displaystyle \gamma _{s}} to the continuous process X {\displaystyle X} ; 
+likewise, X ^ ^ {\displaystyle {\hat {X}}} converges weakly to X {\displaystyle X} with order γ γ w {\displaystyle \gamma _{w}} if the same inequality holds with g ( X ^ ^ N ) − − g ( X T ) {\displaystyle g({\hat {X}}_{N})-g(X_{T})} in place of X ^ ^ N − − X T {\displaystyle {\hat {X}}_{N}-X_{T}} .
+Strong order γ γ s {\displaystyle \gamma _{s}} convergence implies weak order γ γ w ≥ ≥ γ γ s {\displaystyle \gamma _{w}\geq \gamma _{s}} convergence:
+exemplifying this, it was shown in 1972 [ 4 ] that the Euler–Maruyama method strongly converges with order γ γ s = 1 / 2 {\displaystyle \gamma _{s}=1/2} to any Itô process, provided μ μ , σ σ {\displaystyle \mu ,\sigma } satisfy Lipschitz continuity and linear growth conditions with respect to x {\displaystyle x} , and in 1974, the Euler–Maruyama scheme was proven to converge weakly with order γ γ w = 1 {\displaystyle \gamma _{w}=1} to Itô processes governed by the same such μ μ , σ σ {\displaystyle \mu ,\sigma } , [ 5 ] provided that their derivatives also satisfy similar conditions.
+
+[ 6 ] Example with geometric Brownian motion [ edit ] Simulation of geometric Brownian motion. Solid lines show an analytic solution, dashed lines show the Euler-Maruyama method.
+
+Strong error convergence plot for Euler-Maruyama.
+
+Weak error convergence plot for Euler-Maruyama.
+
+A simple case to analyze is geometric Brownian motion , which satisfies the SDE d X t = λ λ X t d t + σ σ X t d W t {\displaystyle dX_{t}=\lambda X_{t}\,dt+\sigma X_{t}\,dW_{t}} for fixed λ λ {\displaystyle \lambda } and σ σ {\displaystyle \sigma } .  
+Applying Itô’s lemma to ln ⁡ ⁡ X t {\displaystyle \ln X_{t}} yields the closed-form solution X t = X 0 exp ⁡ ⁡ ( ( λ λ − − 1 2 σ σ 2 ) t + σ σ W t ) {\displaystyle X_{t}=X_{0}\exp \left(\left(\lambda -{\tfrac {1}{2}}\sigma ^{2}\right)t+\sigma W_{t}\right)} Discretising with Euler–Maruyama gives the time-step updates Y n + 1 = ( 1 + λ λ Δ Δ t + σ σ Δ Δ W n ) Y n = Y 0 ∏ ∏ k = 0 n ( 1 + λ λ Δ Δ t + σ σ Δ Δ W k ) {\displaystyle Y_{n+1}=\left(1+\lambda \Delta t+\sigma \Delta W_{n}\right)Y_{n}=Y_{0}\prod _{k=0}^{n}\left(1+\lambda \Delta t+\sigma \Delta W_{k}\right)} By using a Taylor series expansion of the exponential function in the analytic solution, we can get a formula for the exact update in a time-step.
+
+X τ τ k + 1 = X τ τ k exp ⁡ ⁡ ( ( λ λ − − 1 2 σ σ 2 ) Δ Δ t + σ σ Δ Δ W k ) = X τ τ k [ 1 + λ λ Δ Δ t + σ σ Δ Δ W k + 1 2 σ σ 2 ( ( Δ Δ W k ) 2 − − Δ Δ t ) + O ( Δ Δ t 3 / 2 ) ] {\displaystyle {\begin{aligned}X_{\tau _{k+1}}&=X_{\tau _{k}}\exp \left((\lambda -{\tfrac {1}{2}}\sigma ^{2})\Delta t+\sigma \Delta W_{k}\right)\\&=X_{\tau _{k}}\left[1+\lambda \Delta t+\sigma \Delta W_{k}+{\tfrac {1}{2}}\sigma ^{2}\left((\Delta W_{k})^{2}-\Delta t\right)+O\left(\Delta t^{3/2}\right)\right]\\\end{aligned}}} Summing the local errors between the analytic and Euler-Maruyama solutions over each of the N = T / Δ Δ t {\displaystyle N=T/\Delta t} steps gives the strong error estimate E [ | X T − − Y N | ] = O ( Δ Δ t ) {\displaystyle \mathbb {E} \left[\,|X_{T}-Y_{N}|\,\right]=O\left({\sqrt {\Delta t}}\right)} confirming strong order 1 / 2 {\displaystyle 1/2} convergence.
+
+Another numerical aspect to consider is stability. The path's second moment is E | X t | 2 ∝ ∝ exp ⁡ ⁡ ( ( 2 λ λ + σ σ 2 ) t ) {\displaystyle \mathbb {E} |X_{t}|^{2}\propto \exp \left((2\lambda +\sigma ^{2})t\right)} ,  
+so long-time decay of the solution occurs only when 2 λ λ + σ σ 2 < 0 {\displaystyle 2\lambda +\sigma ^{2}<0} .  
+The Euler–Maruyama scheme preserves variance decay in this case provided that Δ Δ t ≤ ≤ − − 1 λ λ 2 ( 2 λ λ + σ σ 2 ) {\displaystyle \Delta t\leq {\frac {-1}{\lambda ^{2}}}\left(2\lambda +\sigma ^{2}\right)} .
+
+Application [ edit ] Gene expression modelled as a stochastic process.
+
+An area that has benefited significantly from SDEs is mathematical biology . As many biological processes are both stochastic and continuous in nature, numerical methods of solving SDEs are highly valuable in the field.
+
+References [ edit ] ^ Kloeden, P.E. & Platen, E. (1992).
+
+Numerical Solution of Stochastic Differential Equations . Springer, Berlin.
+
+ISBN 3-540-54062-8 .
+
+^ Higham, Desmond J. (2001). "An Algorithmic Introduction to Numerical Simulation of Stochastic Differential Equations".
+
+SIAM Review .
+
+43 (3). Philadelphia, PA: Society for Industrial and Applied Mathematics: 525– 546.
+
+ISSN 0036-1445 .
+
+^ Kloeden, P.E. & Platen, E. (1992).
+
+Numerical Solution of Stochastic Differential Equations . Springer, Berlin.
+
+ISBN 3-540-54062-8 .
+
+^ Gikhman, Iosif I.; Skorokhod, Anatoli V.; Kotz, S. (2007).
+
+The Theory of Stochastic Processes III . Classics in Mathematics (1 ed.). Berlin, Heidelberg: Springer Berlin / Heidelberg.
+
+ISBN 9783540499404 .
+
+^ Mil’shtein, G. N. (1979). "A Method of Second-Order Accuracy Integration of Stochastic Differential Equations".
+
+Theory of Probability and Its Applications .
+
+23 (2). Philadelphia: Society for Industrial and Applied Mathematics: 396– 401.
+
+ISSN 0040-585X .
+
+^ Mil’shtejn, G. N. (1975). "Approximate Integration of Stochastic Differential Equations".
+
+Theory of Probability and Its Applications .
+
+19 (3). Philadelphia: Society for Industrial and Applied Mathematics: 557– 562.
+
+ISSN 0040-585X .
+
+v t e Leonhard Euler Euler–Lagrange equation Euler–Lotka equation Euler–Maclaurin formula Euler–Maruyama method Euler–Mascheroni constant Euler–Poisson–Darboux equation Euler–Rodrigues formula Euler–Tricomi equation Euler's continued fraction formula Euler's critical load Euler's formula Euler's four-square identity Euler's identity Euler's pump and turbine equation Euler's rotation theorem Euler's sum of powers conjecture Euler's theorem Euler equations (fluid dynamics) Euler function Euler method Euler numbers Euler number (physics) Euler–Bernoulli beam theory Namesakes Category Retrieved from " https://en.wikipedia.org/w/index.php?title=Euler–Maruyama_method&oldid=1289498769 " Categories : Numerical differential equations Stochastic differential equations Leonhard Euler Hidden categories: Articles with short description Short description is different from Wikidata Articles with example Python (programming language) code Articles with example MATLAB/Octave code This page was last edited on 9 May 2025, at 01:17 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Euler–Maruyama method 6 languages Add topic
+

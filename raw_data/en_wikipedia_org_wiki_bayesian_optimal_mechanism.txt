@@ -1,0 +1,81 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Example 2 Notation 3 The Myerson mechanism Toggle The Myerson mechanism subsection 3.1 Truthfulness 3.2 Single-item auction 3.3 Digital-goods auction 4 Alternatives 5 References Toggle the table of contents Bayesian-optimal mechanism 1 language 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia A Bayesian-optimal mechanism (BOM) is a mechanism in which the designer does not know the valuations of the agents for whom the mechanism is designed, but the designer knows that they are random variables and knows the probability distribution of these variables.
+
+A typical application is a seller who wants to sell some items to potential buyers. The seller wants to price the items in a way that will maximize their profit. The optimal prices depend on the amount that each buyer is willing to pay for each item. The seller does not know these amounts, but assumes that they are drawn from a certain known probability distribution . The phrase "Bayesian optimal mechanism design" has the following meaning: [ 1 ] : 335–338 Bayesian means that we know the probability distribution from which the agents' valuations are drawn (in contrast to prior-free mechanism design , which do not assume any prior probability distribution).
+
+Optimal means that we want to maximize the expected revenue of the auctioneer, where the expectation is over the randomness in the agents' valuations.
+
+Mechanism means that we want to design rules that define a truthful mechanism , in which each agent has an incentive to report their true value.
+
+Example [ edit ] There is one item for sale. There are two potential buyers. The valuation of each buyer is drawn i.i.d.
+
+from the uniform distribution on [0,1].
+
+The Vickrey auction is a truthful mechanism and its expected profit, in this case, is 1/3 (the first-price sealed-bid auction is a non-truthful mechanism and its expected profit is the same ).
+
+This auction is not optimal. It is possible to get a better profit by setting a reservation price . The Vickrey auction with a reservation price of 1/2 achieves an expected profit of 5/12, which in this case is optimal.
+
+[ 2 ] Notation [ edit ] We assume that the agents have single-parameter utility functions, such as a single-item auction. Each agent i {\displaystyle i} has a value v i {\displaystyle v_{i}} which represents the agent's "winning value" (e.g, the agent's valuation of the item). We do not know these values, but we do know that each v i {\displaystyle v_{i}} is drawn i.i.d. from a certain probability distribution. We denote by F i {\displaystyle F_{i}} the cumulative distribution function : F i ( z ) = Pr [ v i < z ] {\displaystyle F_{i}(z)=\Pr[v_{i}<z]} and by f i {\displaystyle f_{i}} the probability distribution function : f i ( z ) = F i ′ ( z ) {\displaystyle f_{i}(z)=F_{i}'(z)} An allocation is a vector x {\displaystyle x} , such that for every i {\displaystyle i} , x i {\displaystyle x_{i}} is 1 if agent i {\displaystyle i} wins and 0 otherwise. Each allocation might have a cost to the auctioneer, c ( x ) {\displaystyle c(x)} .
+
+The surplus of an allocation is defined as: S ( x ) = ∑ ∑ i x i ⋅ ⋅ v i − − c ( x ) {\displaystyle S(x)=\sum _{i}x_{i}\cdot v_{i}-c(x)} This is the total gain of the agents, minus the cost of the auctioneer.
+
+The surplus is the largest possible profit. If each winning agent i {\displaystyle i} pays exactly their value v i {\displaystyle v_{i}} , then the profit of the auctioneer is exactly the surplus S ( x ) {\displaystyle S(x)} ; this means that the auctioneer takes all the surplus to themself and leaves zero utility to the agents.
+
+This maximal profit cannot be attained because if the auctioneer will try to charge each winning agent their value v i {\displaystyle v_{i}} , the agents will lie and report a lower value in order to pay less. The Myerson mechanism comes to address this problem.
+
+The Myerson mechanism [ edit ] Roger Myerson designed a Bayesian-optimal mechanism for single-parameter utility agents. The key trick in Myerson's mechanism is to use virtual valuations . For every agent i {\displaystyle i} , define its virtual valuation as: w i ( v i ) = v i − − 1 − − F i ( v i ) f i ( v i ) {\displaystyle w_{i}(v_{i})=v_{i}-{\frac {1-F_{i}(v_{i})}{f_{i}(v_{i})}}} Note that the virtual valuation is usually smaller than the actual valuation. It is even possible that the virtual valuation be negative while the actual valuation is positive.
+
+Define the virtual surplus of an allocation x {\displaystyle x} as: S ∗ ∗ ( x ) = ∑ ∑ i x i ⋅ ⋅ w i ( v i ) − − c ( x ) {\displaystyle S^{*}(x)=\sum _{i}x_{i}\cdot w_{i}(v_{i})-c(x)} Note that the virtual surplus is usually smaller than the actual surplus.
+
+A key theorem of Myerson says that: [ 1 ] : 336 [ 3 ] The expected profit of any truthful mechanism is equal to its expected virtual surplus.
+
+(the expectation is taken over the randomness in the agents' valuations).
+
+This theorem suggests the following mechanism: Ask each agent i {\displaystyle i} to report their valuation v i {\displaystyle v_{i}} Based on the answer and the known distribution functions F i , f i {\displaystyle F_{i},f_{i}} , compute w i {\displaystyle w_{i}} .
+
+Compute an allocation x that maximizes the virtual surplus S ∗ ∗ ( x ) {\displaystyle S^{*}(x)} .
+
+To complete the description of the mechanism, we should specify the price that each winning agent has to pay. One way to calculate the price is to use the VCG mechanism on the virtual valuations w i {\displaystyle w_{i}} . The VCG mechanism returns both an allocation that maximizes the virtual surplus and a price-vector. Since the price-vector corresponds to the virtual-valuations, we must convert it back to the real-valuation space. So the final step of the mechanism is: Take from each winning agent i {\displaystyle i} the price p i = w i − − 1 ( p i ′ ) {\displaystyle p_{i}=w_{i}^{-1}(p'_{i})} , where p i ′ {\displaystyle p'_{i}} is the price determined by the VCG mechanism.
+
+Truthfulness [ edit ] The Myerson mechanism is truthful whenever the allocation rule satisfies the weak monotonicity property, i.e, the allocation function is weakly increasing in the agents' valuations. The VCG allocation rule is indeed weakly-increasing in the valuations, but we use it with the virtual-valuations rather than the real valuations. Hence, the Myerson mechanism is truthful if the virtual-valuations are weakly-increasing in the real valuations. I.e, if for all i {\displaystyle i} : w i {\displaystyle w_{i}} is a weakly-increasing function of v i {\displaystyle v_{i}} .
+
+If w i {\displaystyle w_{i}} is not a weakly-increasing function of v i {\displaystyle v_{i}} , then Myerson ironing can be used.
+
+Myerson's mechanism can be applied in various settings. Two examples are presented below.
+
+Single-item auction [ edit ] Suppose we want to sell a single item, and we know that the valuations of all agents come from the same probability distribution, with functions F , f {\displaystyle F,f} . Then, all bidders have the same virtual-valuation function, w {\displaystyle w} . Suppose that this function is weakly-increasing. In this case, the VCG mechanism reduces to the Vickrey auction : it allocates the item to the agent with the largest valuation (highest bid). But Myerson's mechanism uses VCG with the virtual valuations, which may be negative. Hence, Myerson's mechanism, in this case, reduces to Vickrey auction with reservation price . It allocates the item to the agent with the largest valuation, but only if its virtual valuation is at least 0 . This means that the reservation price of Myerson's mechanism is exactly: w − − 1 ( 0 ) {\displaystyle w^{-1}(0)} So, if we know the probability distribution functions F , f {\displaystyle F,f} , we can calculate the function w {\displaystyle w} , and from it, find the optimal reservation price.
+
+Digital-goods auction [ edit ] In a digital goods auction , we have an unlimited supply of identical items. Each agent wants at most one item. The valuations of the agents to the item come from the same probability distribution, with functions F , f {\displaystyle F,f} and virtual-valuation function w {\displaystyle w} . The VCG mechanism allocates an item to each agent with non-negative virtual-valuation, and charges the minimum winning price, which is: w − − 1 ( 0 ) {\displaystyle w^{-1}(0)} This exactly equals the optimal sale price - the price that maximizes the expected value of the seller's profit, given the distribution of valuations: arg ⁡ ⁡ max z z ⋅ ⋅ ( 1 − − F ( z ) ) {\displaystyle \arg \max _{z}{z\cdot (1-F(z))}} Alternatives [ edit ] Bayesian-optimal mechanism design requires knowing the distributions from which agents' valuations are drawn. This requirement is not always feasible. There are some other alternatives: When the distribution is not known, a prior-independent mechanism can be used.
+
+When it cannot even be assumed that the agents are drawn from some probability distribution, a prior-free mechanism should be used.
+
+References [ edit ] ^ a b Vazirani, Vijay V.
+
+; Nisan, Noam ; Roughgarden, Tim ; Tardos, Éva (2007).
+
+Algorithmic Game Theory (PDF) . Cambridge, UK: Cambridge University Press.
+
+ISBN 0-521-87282-0 .
+
+^ Sergio Parreiras.
+
+"Expected revenue obtained by the Vickery auction with reserve price 1/2" .
+
+stackexchange .
+
+^ Myerson, Roger B. (1981). "Optimal Auction Design".
+
+Mathematics of Operations Research .
+
+6 (1): 58– 73.
+
+doi : 10.1287/moor.6.1.58 .
+
+Retrieved from " https://en.wikipedia.org/w/index.php?title=Bayesian-optimal_mechanism&oldid=1185846327 " Category : Mechanism design This page was last edited on 19 November 2023, at 10:07 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Bayesian-optimal mechanism 1 language Add topic
+

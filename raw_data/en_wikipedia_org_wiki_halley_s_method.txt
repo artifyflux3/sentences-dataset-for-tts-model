@@ -1,0 +1,149 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Method 2 Motivation 3 Cubic convergence 4 Relation to Newton's method 5 Halley's irrational method 6 References 7 External links Toggle the table of contents Halley's method 5 languages Català Deutsch Français Polski Українська Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia A method of numerically finding roots of a function In numerical analysis , Halley's method is a root-finding algorithm used for functions of one real variable with a continuous second derivative .
+
+Edmond Halley was an English mathematician and astronomer who introduced the method now called by his name.
+
+The algorithm is second in the class of Householder's methods , after Newton's method . Like the latter, it iteratively produces a sequence of approximations to the root; their rate of convergence to the root is cubic. Multidimensional versions of this method exist.
+
+[ 1 ] Halley's method exactly finds the roots of a linear-over-linear Padé approximation to the function, in contrast to Newton's method or the Secant method which approximate the function linearly, or Muller's method which approximates the function quadratically.
+
+[ 2 ] There is also Halley's irrational method , described below.
+
+Method [ edit ] Halley's method is a numerical algorithm for solving the nonlinear equation f ( x ) = 0 .
+
+In this case, the function f has to be a function of one real variable. The method consists of a sequence of iterations: x n + 1 = x n − − f ( x n ) f ′ ( x n ) [ f ′ ( x n ) ] 2 − − 1 2 f ( x n ) f ″ ( x n ) {\displaystyle x_{n+1}=x_{n}-{\frac {\ f(x_{n})\ f'(x_{n})\ }{\ \left[\ f'(x_{n})\ \right]^{2}-{\tfrac {1}{2}}\ f(x_{n})\ f''(x_{n})\ }}} beginning with an initial guess x 0 .
+
+[ 3 ] If f is a three times continuously differentiable function and a is a zero of f but not of its derivative, then, in a neighborhood of a , the iterates x n satisfy: | x n + 1 − − a | ≤ ≤ K ⋅ ⋅ | x n − − a | 3 , for some K > 0 .
+
+{\displaystyle |x_{n+1}-a|\leq K\cdot {|x_{n}-a|}^{3},\quad {\text{ for some }}\quad K>0~.} This means that the iterates converge to the zero if the initial guess is sufficiently close, and that the convergence is cubic.
+
+[ 4 ] The following alternative formulation shows the similarity between Halley's method and Newton's method. The ratio f ( x n ) / f ′ ( x n ) {\displaystyle \ f(x_{n})/f'(x_{n})\ } only needs to be computed once, and this form is particularly useful when the other ratio, f ″ ( x n ) / f ′ ( x n ) , {\displaystyle \ f''(x_{n})/f'(x_{n})\ ,} can be reduced to a simpler form: x n + 1 = x n − − f ( x n ) f ′ ( x n ) − − f ( x n ) f ′ ( x n ) f ″ ( x n ) 2 = x n − − f ( x n ) f ′ ( x n ) [ 1 − − 1 2 ⋅ ⋅ f ( x n ) f ′ ( x n ) ⋅ ⋅ f ″ ( x n ) f ′ ( x n ) ] − − 1 .
+
+{\displaystyle x_{n+1}\ =\ x_{n}-{\frac {f(x_{n})}{\ f'(x_{n})-{\frac {f(x_{n})}{\ f'(x_{n})\ }}{\frac {\ f''(x_{n})\ }{2}}\ }}\ =\ x_{n}-{\frac {f(x_{n})}{\ f'(x_{n})\ }}\left[\ 1\ -\ {\frac {1}{2}}\cdot {\frac {f(x_{n})}{\ f'(x_{n})\ }}\cdot {\frac {\ f''(x_{n})\ }{f'(x_{n})}}\ \right]^{-1}~.} When the second derivative , f ″ ( x n ) , {\displaystyle \ f''(x_{n})\ ,} is very close to zero, the Halley's method iteration is almost the same as the Newton's method iteration.
+
+Motivation [ edit ] When deriving Newton's method, a proof starts with the approximation 0 = f ( x n + 1 ) ≈ ≈ f ( x n ) + f ′ ( x n ) ( x n + 1 − − x n ) {\displaystyle 0=f(x_{n+1})\approx f(x_{n})+f'(x_{n})(x_{n+1}-x_{n})} to compute x n + 1 − − x n = − − f ( x n ) f ′ ( x n ) .
+
+{\displaystyle x_{n+1}-x_{n}=-{\frac {f(x_{n})}{f'(x_{n})}}\,.} Similarly for Halley's method, a proof starts with 0 = f ( x n + 1 ) ≈ ≈ f ( x n ) + f ′ ( x n ) ( x n + 1 − − x n ) + f ″ ( x n ) 2 ( x n + 1 − − x n ) 2 .
+
+{\displaystyle 0=f(x_{n+1})\approx f(x_{n})+f'(x_{n})(x_{n+1}-x_{n})+{\frac {f''(x_{n})}{2}}(x_{n+1}-x_{n})^{2}\,.} For Halley's rational method, this is rearranged to give x n + 1 − − x n = − − f ( x n ) f ′ ( x n ) + f ″ ( x n ) 2 ( x n + 1 − − x n ) {\displaystyle x_{n+1}-x_{n}=-{\frac {f(x_{n})}{f'(x_{n})+{\frac {f''(x_{n})}{2}}(x_{n+1}-x_{n})}}\,} where x n +1 − x n appears on both sides of the equation.  Substituting in the Newton's method value for x n +1 − x n into the right-hand side of this last formula gives the formula for Halley's method, x n + 1 = x n − − f ( x n ) f ′ ( x n ) − − f ″ ( x n ) f ( x n ) 2 f ′ ( x n ) .
+
+{\displaystyle x_{n+1}=x_{n}-{\frac {f(x_{n})}{f'(x_{n})-{\frac {f''(x_{n})f(x_{n})}{2f'(x_{n})}}}}\,.} Also see the motivation and proofs for the more general class of Householder's methods .
+
+Cubic convergence [ edit ] Suppose a is a root of f but not of its derivative. And suppose that the third derivative of f exists and is continuous in a neighborhood of a and x n is in that neighborhood. Then Taylor's theorem implies: 0 = f ( a ) = f ( x n ) + f ′ ( x n ) ( a − − x n ) + f ″ ( x n ) 2 ( a − − x n ) 2 + f ‴ ( ξ ξ ) 6 ( a − − x n ) 3 {\displaystyle 0=f(a)=f(x_{n})+f'(x_{n})(a-x_{n})+{\frac {f''(x_{n})}{2}}(a-x_{n})^{2}+{\frac {f'''(\xi )}{6}}(a-x_{n})^{3}} and also 0 = f ( a ) = f ( x n ) + f ′ ( x n ) ( a − − x n ) + f ″ ( η η ) 2 ( a − − x n ) 2 , {\displaystyle 0=f(a)=f(x_{n})+f'(x_{n})(a-x_{n})+{\frac {f''(\eta )}{2}}(a-x_{n})^{2},} where ξ and η are numbers lying between a and x n . Multiply the first equation by 2 f ′ ( x n ) {\displaystyle 2f'(x_{n})} and subtract from it the second equation times f ″ ( x n ) ( a − − x n ) {\displaystyle f''(x_{n})(a-x_{n})} to give: 0 = 2 f ( x n ) f ′ ( x n ) + 2 [ f ′ ( x n ) ] 2 ( a − − x n ) + f ′ ( x n ) f ″ ( x n ) ( a − − x n ) 2 + f ′ ( x n ) f ‴ ( ξ ξ ) 3 ( a − − x n ) 3 − − f ( x n ) f ″ ( x n ) ( a − − x n ) − − f ′ ( x n ) f ″ ( x n ) ( a − − x n ) 2 − − f ″ ( x n ) f ″ ( η η ) 2 ( a − − x n ) 3 .
+
+{\displaystyle {\begin{aligned}0&=2f(x_{n})f'(x_{n})+2[f'(x_{n})]^{2}(a-x_{n})+f'(x_{n})f''(x_{n})(a-x_{n})^{2}+{\frac {f'(x_{n})f'''(\xi )}{3}}(a-x_{n})^{3}\\&\qquad -f(x_{n})f''(x_{n})(a-x_{n})-f'(x_{n})f''(x_{n})(a-x_{n})^{2}-{\frac {f''(x_{n})f''(\eta )}{2}}(a-x_{n})^{3}.\end{aligned}}} Canceling f ′ ( x n ) f ″ ( x n ) ( a − − x n ) 2 {\displaystyle f'(x_{n})f''(x_{n})(a-x_{n})^{2}} and re-organizing terms yields: 0 = 2 f ( x n ) f ′ ( x n ) + ( 2 [ f ′ ( x n ) ] 2 − − f ( x n ) f ″ ( x n ) ) ( a − − x n ) + ( f ′ ( x n ) f ‴ ( ξ ξ ) 3 − − f ″ ( x n ) f ″ ( η η ) 2 ) ( a − − x n ) 3 .
+
+{\displaystyle 0=2f(x_{n})f'(x_{n})+\left(2[f'(x_{n})]^{2}-f(x_{n})f''(x_{n})\right)(a-x_{n})+\left({\frac {f'(x_{n})f'''(\xi )}{3}}-{\frac {f''(x_{n})f''(\eta )}{2}}\right)(a-x_{n})^{3}.} Put the second term on the left side and divide through by 2 [ f ′ ( x n ) ] 2 − − f ( x n ) f ″ ( x n ) {\displaystyle 2[f'(x_{n})]^{2}-f(x_{n})f''(x_{n})} to get: a − − x n = − − 2 f ( x n ) f ′ ( x n ) 2 [ f ′ ( x n ) ] 2 − − f ( x n ) f ″ ( x n ) − − 2 f ′ ( x n ) f ‴ ( ξ ξ ) − − 3 f ″ ( x n ) f ″ ( η η ) 6 ( 2 [ f ′ ( x n ) ] 2 − − f ( x n ) f ″ ( x n ) ) ( a − − x n ) 3 .
+
+{\displaystyle a-x_{n}={\frac {-2f(x_{n})f'(x_{n})}{2[f'(x_{n})]^{2}-f(x_{n})f''(x_{n})}}-{\frac {2f'(x_{n})f'''(\xi )-3f''(x_{n})f''(\eta )}{6(2[f'(x_{n})]^{2}-f(x_{n})f''(x_{n}))}}(a-x_{n})^{3}.} Thus: a − − x n + 1 = − − 2 f ′ ( x n ) f ‴ ( ξ ξ ) − − 3 f ″ ( x n ) f ″ ( η η ) 12 [ f ′ ( x n ) ] 2 − − 6 f ( x n ) f ″ ( x n ) ( a − − x n ) 3 .
+
+{\displaystyle a-x_{n+1}=-{\frac {2f'(x_{n})f'''(\xi )-3f''(x_{n})f''(\eta )}{12[f'(x_{n})]^{2}-6f(x_{n})f''(x_{n})}}(a-x_{n})^{3}.} The limit of the coefficient on the right side as x n → a is: − − 2 f ′ ( a ) f ‴ ( a ) − − 3 f ″ ( a ) f ″ ( a ) 12 [ f ′ ( a ) ] 2 − − 6 f ( a ) f ″ ( a ) .
+
+{\displaystyle -{\frac {2f'(a)f'''(a)-3f''(a)f''(a)}{12[f'(a)]^{2}-6f(a)f''(a)}}.} If we take K to be a little larger than the absolute value of this, we can take absolute values of both sides of the formula and replace the absolute value of coefficient by its upper bound near a to get: | a − − x n + 1 | ≤ ≤ K | a − − x n | 3 {\displaystyle |a-x_{n+1}|\leq K|a-x_{n}|^{3}} which is what was to be proved.
+
+To summarize, Δ Δ x i + 1 = 3 ( f ″ ) 2 − − 2 f ′ f ‴ 12 ( f ′ ) 2 ( Δ Δ x i ) 3 + O [ Δ Δ x i ] 4 , Δ Δ x i ≜ ≜ x i − − a .
+
+{\displaystyle \Delta x_{i+1}={\frac {3(f'')^{2}-2f'f'''}{12(f')^{2}}}(\Delta x_{i})^{3}+O[\Delta x_{i}]^{4},\qquad \Delta x_{i}\triangleq x_{i}-a.} [ 5 ] Relation to Newton's method [ edit ] Halley's rational method applied to the real-valued function f ( x ) is the same as applying Newton's method x n + 1 = x n − − g ( x n ) g ′ ( x n ) {\displaystyle x_{n+1}=x_{n}-{\frac {g(x_{n})}{g'(x_{n})}}} to find the zeros of the function g ( x ) = f ( x ) | k f ′ ( x ) | , {\displaystyle g(x)={\frac {f(x)}{\sqrt {|kf'(x)|}}}\,,} where k is any non-zero constant.
+
+Halley's irrational method [ edit ] Halley actually developed two third-order root-finding methods.  The above, using only a division, is referred to as Halley's rational method .  A second, "irrational" method uses a square root as well.
+
+[ 6 ] [ 7 ] [ 8 ] It starts with f ( x n + 1 ) ≈ ≈ f ( x n ) + f ′ ( x n ) ( x n + 1 − − x n ) + f ″ ( x n ) 2 ( x n + 1 − − x n ) 2 {\displaystyle f(x_{n+1})\approx f(x_{n})+f'(x_{n})(x_{n+1}-x_{n})+{\frac {f''(x_{n})}{2}}(x_{n+1}-x_{n})^{2}} and solves f ( x n + 1 ) ≈ ≈ 0 {\displaystyle f(x_{n+1})\approx 0} for the value ( x n + 1 − − x n ) {\displaystyle (x_{n+1}-x_{n})} using one of two forms of the quadratic formula .  The quadratic formula solution either has the radical in the numerator: x n + 1 = x n − − f ′ ( x n ) − − sign ⁡ ⁡ ( f ′ ( x n ) ) [ f ′ ( x n ) ] 2 − − 2 f ( x n ) f ″ ( x n ) f ″ ( x n ) = x n − − f ′ ( x n ) ( 1 − − 1 − − 2 f ( x n ) f ″ ( x n ) f ′ ( x n ) 2 ) f ″ ( x n ) {\displaystyle x_{n+1}=x_{n}-{\frac {f'(x_{n})-\operatorname {sign} (f'(x_{n})){\sqrt {[f'(x_{n})]^{2}-2f(x_{n})f''(x_{n})}}}{f''(x_{n})}}=x_{n}-{\frac {f'(x_{n})\left(1-{\sqrt {1-{\frac {2f(x_{n})f''(x_{n})}{f'(x_{n})^{2}}}}}\right)}{f''(x_{n})}}} or it has the radical in the denominator: x n + 1 = x n − − 2 f ( x n ) f ′ ( x n ) + sign ⁡ ⁡ ( f ′ ( x n ) ) [ f ′ ( x n ) ] 2 − − 2 f ( x n ) f ″ ( x n ) = x n − − 2 f ( x n ) f ′ ( x n ) ( 1 + 1 − − 2 f ( x n ) f ″ ( x n ) f ′ ( x n ) 2 ) {\displaystyle x_{n+1}=x_{n}-{\frac {2f(x_{n})}{f'(x_{n})+\operatorname {sign} (f'(x_{n})){\sqrt {[f'(x_{n})]^{2}-2f(x_{n})f''(x_{n})}}}}=x_{n}-{\frac {2f(x_{n})}{f'(x_{n})\left(1+{\sqrt {1-{\frac {2f(x_{n})f''(x_{n})}{f'(x_{n})^{2}}}}}\right)}}} This iteration was "deservedly preferred" to the rational method by Halley [ 7 ] on the grounds that the denominator is smaller, making the division easier.  A second advantage is that it tends to have about half of the error of the rational method, a benefit which multiplies as it is iterated.  On a computer, it would appear to be slower as it has two slow operations (division and square root) instead of one, but on modern computers the reciprocal of the denominator can be computed at the same time as the square root via instruction pipelining , so the latency of each iteration differs very little.
+
+[ 8 ] : 24 The formulation with the radical in the denominator reduces to Halley's rational method under the approximation that ⁠ 1 − − z ≈ ≈ 1 − − z / 2 {\displaystyle {\sqrt {1-z}}\approx 1-z/2} ⁠ .
+
+Muller's method could be considered as modification of this method. So, this method can be used to find the complex roots.
+
+References [ edit ] ^ Gundersen, Geir; Steihaug, Trond (2010).
+
+"On large scale unconstrained optimization problems and higher order methods" (PDF) .
+
+Optimization Methods & Software .
+
+25 (3): 337– 358.
+
+doi : 10.1080/10556780903239071 . Retrieved 2 September 2024 .
+
+^ Boyd, John P. (2013).
+
+"Finding the Zeros of a Univariate Equation: Proxy Rootfinders, Chebyshev Interpolation, and the Companion Matrix" .
+
+SIAM Review .
+
+55 (2): 375– 396.
+
+doi : 10.1137/110838297 .
+
+^ Scavo, T.R.; Thoo, J.B. (1995). "On the geometry of Halley's method".
+
+American Mathematical Monthly .
+
+102 (5): 417– 426.
+
+doi : 10.2307/2975033 .
+
+JSTOR 2975033 .
+
+^ Alefeld, G. (1981). "On the convergence of Halley's method".
+
+American Mathematical Monthly .
+
+88 (7): 530– 536.
+
+doi : 10.2307/2321760 .
+
+JSTOR 2321760 .
+
+^ Proinov, Petko D.; Ivanov, Stoil I. (2015). "On the convergence of Halley's method for simultaneous computation of polynomial zeros".
+
+J. Numer. Math .
+
+23 (4): 379– 394.
+
+doi : 10.1515/jnma-2015-0026 .
+
+S2CID 10356202 .
+
+^ Bateman, Harry (January 1938). "Halley's methods for solving equations".
+
+The American Mathematical Monthly .
+
+45 (1): 11– 17.
+
+doi : 10.2307/2303467 .
+
+JSTOR 2303467 .
+
+^ a b Halley, Edmond (May 1694).
+
+"Methodus nova accurata & facilis inveniendi radices æqnationum quarumcumque generaliter, sine praviæ reductione" .
+
+Philosophical Transactions of the Royal Society (in Latin).
+
+18 (210): 136– 148.
+
+doi : 10.1098/rstl.1694.0029 .
+
+An English translation was published as Halley, Edmond (1809) [May 1694]. "A new, exact, and easy Method of finding the Roots of any Equations generally, and that without any previous Reduction". In C. Hutton; G. Shaw; R. Pearson (eds.).
+
+The Philosophical Transactions of the Royal Society of London, from their commencement, in 1665, to the year 1800 . Vol. III from 1683 to 1694. pp.
+
+640– 649.
+
+^ a b Leroy, Robin (21 June 2021).
+
+A correctly rounded binary64 cube root (PDF) (Technical report).
+
+External links [ edit ] Weisstein, Eric W.
+
+"Halley's method" .
+
+MathWorld .
+
+Newton's method and high order iterations , Pascal Sebah and Xavier Gourdon, 2001 (the site has a link to a Postscript version for better formula display) v t e Root-finding algorithms Bracketing (no derivative) Bisection method Regula falsi ITP method Householder Newton's method Halley's method Quasi-Newton Broyden's method Secant method Newton–Krylov method Steffensen's method Hybrid methods Brent's method Ridders' method Polynomial methods Aberth method Bairstow's method Bernoulli's method Durand–Kerner method Graeffe's method Jenkins–Traub algorithm Lehmer–Schur algorithm Laguerre's method Splitting circle method Other methods Fixed-point iteration Inverse quadratic interpolation Muller's method Sidi's generalized secant method Retrieved from " https://en.wikipedia.org/w/index.php?title=Halley%27s_method&oldid=1299511822 " Category : Root-finding algorithms Hidden categories: CS1 Latin-language sources (la) CS1: long volume value Articles with short description Short description is different from Wikidata Use dmy dates from October 2023 This page was last edited on 8 July 2025, at 21:21 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Halley's method 5 languages Add topic
+

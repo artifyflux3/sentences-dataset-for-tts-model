@@ -1,0 +1,145 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 General formula Toggle General formula subsection 1.1 Notation 1.2 Purpose 1.3 Process 1.4 Recurrence relation 1.5 Properties 2 Example of Richardson extrapolation 3 Example pseudocode for Richardson extrapolation 4 See also 5 References 6 External links Toggle the table of contents Richardson extrapolation 13 languages Català Deutsch Español Français 한국어 Italiano Magyar Nederlands 日本語 Norsk bokmål Српски / srpski Sunda 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Sequence acceleration method in numerical analysis An example of Richardson extrapolation method in two dimensions.
+
+In numerical analysis , Richardson extrapolation is a sequence acceleration method used to improve the rate of convergence of a sequence of estimates of some value A ∗ ∗ = lim h → → 0 A ( h ) {\displaystyle A^{\ast }=\lim _{h\to 0}A(h)} . In essence, given the value of A ( h ) {\displaystyle A(h)} for several values of h {\displaystyle h} , we can estimate A ∗ ∗ {\displaystyle A^{\ast }} by extrapolating the estimates to h = 0 {\displaystyle h=0} . It is named after Lewis Fry Richardson , who introduced the technique in the early 20th century, [ 1 ] [ 2 ] though the idea was already known to Christiaan Huygens in his calculation of π π {\displaystyle \pi } .
+
+[ 3 ] In the words of Birkhoff and Rota , "its usefulness for practical computations can hardly be overestimated." [ 4 ] Practical applications of Richardson extrapolation include Romberg integration , which applies Richardson extrapolation to the trapezoid rule , and the Bulirsch–Stoer algorithm for solving ordinary differential equations.
+
+General formula [ edit ] Notation [ edit ] Let A 0 ( h ) {\displaystyle A_{0}(h)} be an approximation of A ∗ ∗ {\displaystyle A^{*}} (exact value) that depends on a step size h (where 0 < h < 1 {\textstyle 0<h<1} ) with an error formula of the form A ∗ ∗ = A 0 ( h ) + a 0 h k 0 + a 1 h k 1 + a 2 h k 2 + ⋯ ⋯ {\displaystyle A^{*}=A_{0}(h)+a_{0}h^{k_{0}}+a_{1}h^{k_{1}}+a_{2}h^{k_{2}}+\cdots } where the a i {\displaystyle a_{i}} are unknown constants and the k i {\displaystyle k_{i}} are known constants such that h k i > h k i + 1 {\displaystyle h^{k_{i}}>h^{k_{i+1}}} . Furthermore, O ( h k i ) {\displaystyle O(h^{k_{i}})} represents the truncation error of the A i ( h ) {\displaystyle A_{i}(h)} approximation such that A ∗ ∗ = A i ( h ) + O ( h k i ) .
+
+{\displaystyle A^{*}=A_{i}(h)+O(h^{k_{i}}).} Similarly, in A ∗ ∗ = A i ( h ) + O ( h k i ) , {\displaystyle A^{*}=A_{i}(h)+O(h^{k_{i}}),} the approximation A i ( h ) {\displaystyle A_{i}(h)} is said to be an O ( h k i ) {\displaystyle O(h^{k_{i}})} approximation.
+
+Note that by simplifying with Big O notation , the following formulae are equivalent: A ∗ ∗ = A 0 ( h ) + a 0 h k 0 + a 1 h k 1 + a 2 h k 2 + ⋯ ⋯ A ∗ ∗ = A 0 ( h ) + a 0 h k 0 + O ( h k 1 ) A ∗ ∗ = A 0 ( h ) + O ( h k 0 ) {\displaystyle {\begin{aligned}A^{*}&=A_{0}(h)+a_{0}h^{k_{0}}+a_{1}h^{k_{1}}+a_{2}h^{k_{2}}+\cdots \\A^{*}&=A_{0}(h)+a_{0}h^{k_{0}}+O(h^{k_{1}})\\A^{*}&=A_{0}(h)+O(h^{k_{0}})\end{aligned}}} Purpose [ edit ] Richardson extrapolation is a process that finds a better approximation of A ∗ ∗ {\displaystyle A^{*}} by changing the error formula from A ∗ ∗ = A 0 ( h ) + O ( h k 0 ) {\displaystyle A^{*}=A_{0}(h)+O(h^{k_{0}})} to A ∗ ∗ = A 1 ( h ) + O ( h k 1 ) .
+
+{\displaystyle A^{*}=A_{1}(h)+O(h^{k_{1}}).} Therefore, by replacing A 0 ( h ) {\displaystyle A_{0}(h)} with A 1 ( h ) {\displaystyle A_{1}(h)} the truncation error has reduced from O ( h k 0 ) {\displaystyle O(h^{k_{0}})} to O ( h k 1 ) {\displaystyle O(h^{k_{1}})} for the same step size h {\displaystyle h} . The general pattern occurs in which A i ( h ) {\displaystyle A_{i}(h)} is a more accurate estimate than A j ( h ) {\displaystyle A_{j}(h)} when i > j {\displaystyle i>j} . By this process, we have achieved a better approximation of A ∗ ∗ {\displaystyle A^{*}} by subtracting the largest term in the error which was O ( h k 0 ) {\displaystyle O(h^{k_{0}})} .  This process can be repeated to remove more error terms to get even better approximations.
+
+Process [ edit ] Using the step sizes h {\displaystyle h} and h / t {\displaystyle h/t} for some constant t {\displaystyle t} , the two formulas for A ∗ ∗ {\displaystyle A^{*}} are: A ∗ ∗ = A 0 ( h ) + a 0 h k 0 + a 1 h k 1 + a 2 h k 2 + O ( h k 3 ) {\displaystyle A^{*}=A_{0}(h)+a_{0}h^{k_{0}}+a_{1}h^{k_{1}}+a_{2}h^{k_{2}}+O(h^{k_{3}})} 1 A ∗ ∗ = A 0 ( h t ) + a 0 ( h t ) k 0 + a 1 ( h t ) k 1 + a 2 ( h t ) k 2 + O ( h k 3 ) {\displaystyle A^{*}=A_{0}\!\left({\frac {h}{t}}\right)+a_{0}\left({\frac {h}{t}}\right)^{k_{0}}+a_{1}\left({\frac {h}{t}}\right)^{k_{1}}+a_{2}\left({\frac {h}{t}}\right)^{k_{2}}+O(h^{k_{3}})} 2 To improve our approximation from O ( h k 0 ) {\displaystyle O(h^{k_{0}})} to O ( h k 1 ) {\displaystyle O(h^{k_{1}})} by removing the first error term, we multiply equation 2 by t k 0 {\displaystyle t^{k_{0}}} and subtract equation 1 to give us ( t k 0 − − 1 ) A ∗ ∗ = [ t k 0 A 0 ( h t ) − − A 0 ( h ) ] + ( t k 0 a 1 ( h t ) k 1 − − a 1 h k 1 ) + ( t k 0 a 2 ( h t ) k 2 − − a 2 h k 2 ) + O ( h k 3 ) .
+
+{\displaystyle (t^{k_{0}}-1)A^{*}={\bigg [}t^{k_{0}}A_{0}\left({\frac {h}{t}}\right)-A_{0}(h){\bigg ]}+{\bigg (}t^{k_{0}}a_{1}{\bigg (}{\frac {h}{t}}{\bigg )}^{k_{1}}-a_{1}h^{k_{1}}{\bigg )}+{\bigg (}t^{k_{0}}a_{2}{\bigg (}{\frac {h}{t}}{\bigg )}^{k_{2}}-a_{2}h^{k_{2}}{\bigg )}+O(h^{k_{3}}).} This multiplication and subtraction was performed because [ t k 0 A 0 ( h t ) − − A 0 ( h ) ] {\textstyle {\big [}t^{k_{0}}A_{0}\left({\frac {h}{t}}\right)-A_{0}(h){\big ]}} is an O ( h k 1 ) {\displaystyle O(h^{k_{1}})} approximation of ( t k 0 − − 1 ) A ∗ ∗ {\displaystyle (t^{k_{0}}-1)A^{*}} . We can solve our current formula for A ∗ ∗ {\displaystyle A^{*}} to give A ∗ ∗ = [ t k 0 A 0 ( h t ) − − A 0 ( h ) ] t k 0 − − 1 + ( t k 0 a 1 ( h t ) k 1 − − a 1 h k 1 ) t k 0 − − 1 + ( t k 0 a 2 ( h t ) k 2 − − a 2 h k 2 ) t k 0 − − 1 + O ( h k 3 ) {\displaystyle A^{*}={\frac {{\bigg [}t^{k_{0}}A_{0}\left({\frac {h}{t}}\right)-A_{0}(h){\bigg ]}}{t^{k_{0}}-1}}+{\frac {{\bigg (}t^{k_{0}}a_{1}{\bigg (}{\frac {h}{t}}{\bigg )}^{k_{1}}-a_{1}h^{k_{1}}{\bigg )}}{t^{k_{0}}-1}}+{\frac {{\bigg (}t^{k_{0}}a_{2}{\bigg (}{\frac {h}{t}}{\bigg )}^{k_{2}}-a_{2}h^{k_{2}}{\bigg )}}{t^{k_{0}}-1}}+O(h^{k_{3}})} which can be written as A ∗ ∗ = A 1 ( h ) + O ( h k 1 ) {\displaystyle A^{*}=A_{1}(h)+O(h^{k_{1}})} by setting A 1 ( h ) = t k 0 A 0 ( h t ) − − A 0 ( h ) t k 0 − − 1 .
+
+{\displaystyle A_{1}(h)={\frac {t^{k_{0}}A_{0}\left({\frac {h}{t}}\right)-A_{0}(h)}{t^{k_{0}}-1}}.} Recurrence relation [ edit ] A general recurrence relation can be defined for the approximations by A i + 1 ( h ) = t k i A i ( h t ) − − A i ( h ) t k i − − 1 {\displaystyle A_{i+1}(h)={\frac {t^{k_{i}}A_{i}\left({\frac {h}{t}}\right)-A_{i}(h)}{t^{k_{i}}-1}}} where k i + 1 {\displaystyle k_{i+1}} satisfies A ∗ ∗ = A i + 1 ( h ) + O ( h k i + 1 ) .
+
+{\displaystyle A^{*}=A_{i+1}(h)+O(h^{k_{i+1}}).} Properties [ edit ] The Richardson extrapolation can be considered as a linear sequence transformation .
+
+Additionally, the general formula can be used to estimate k 0 {\displaystyle k_{0}} (leading order step size behavior of Truncation error ) when neither its value nor A ∗ ∗ {\displaystyle A^{*}} is known a priori .  Such a technique can be useful for quantifying an unknown rate of convergence .  Given approximations of A ∗ ∗ {\displaystyle A^{*}} from three distinct step sizes h {\displaystyle h} , h / t {\displaystyle h/t} , and h / s {\displaystyle h/s} , the exact relationship A ∗ ∗ = t k 0 A i ( h t ) − − A i ( h ) t k 0 − − 1 + O ( h k 1 ) = s k 0 A i ( h s ) − − A i ( h ) s k 0 − − 1 + O ( h k 1 ) {\displaystyle A^{*}={\frac {t^{k_{0}}A_{i}\left({\frac {h}{t}}\right)-A_{i}(h)}{t^{k_{0}}-1}}+O(h^{k_{1}})={\frac {s^{k_{0}}A_{i}\left({\frac {h}{s}}\right)-A_{i}(h)}{s^{k_{0}}-1}}+O(h^{k_{1}})} yields an approximate relationship (please note that the notation here may cause a bit of confusion, the two O appearing in the equation above only indicates the leading order step size behavior but their explicit forms are different and hence cancelling out of the two O terms is only approximately valid) A i ( h t ) + A i ( h t ) − − A i ( h ) t k 0 − − 1 ≈ ≈ A i ( h s ) + A i ( h s ) − − A i ( h ) s k 0 − − 1 {\displaystyle A_{i}\left({\frac {h}{t}}\right)+{\frac {A_{i}\left({\frac {h}{t}}\right)-A_{i}(h)}{t^{k_{0}}-1}}\approx A_{i}\left({\frac {h}{s}}\right)+{\frac {A_{i}\left({\frac {h}{s}}\right)-A_{i}(h)}{s^{k_{0}}-1}}} which can be solved numerically to estimate k 0 {\displaystyle k_{0}} for some arbitrary valid choices of h {\displaystyle h} , s {\displaystyle s} , and t {\displaystyle t} .
+
+As t ≠ ≠ 1 {\displaystyle t\neq 1} , if t > 0 {\displaystyle t>0} and s {\displaystyle s} is chosen so that s = t 2 {\displaystyle s=t^{2}} , this approximate relation reduces to a quadratic equation in t k 0 {\displaystyle t^{k_{0}}} , which is readily solved for k 0 {\displaystyle k_{0}} in terms of h {\displaystyle h} and t {\displaystyle t} .
+
+Example of Richardson extrapolation [ edit ] Suppose that we wish to approximate A ∗ ∗ {\displaystyle A^{*}} , and we have a method A ( h ) {\displaystyle A(h)} that depends on a small parameter h {\displaystyle h} in such a way that A ( h ) = A ∗ ∗ + C h n + O ( h n + 1 ) .
+
+{\displaystyle A(h)=A^{\ast }+Ch^{n}+O(h^{n+1}).} Let us define a new function R ( h , t ) := t n A ( h / t ) − − A ( h ) t n − − 1 {\displaystyle R(h,t):={\frac {t^{n}A(h/t)-A(h)}{t^{n}-1}}} where h {\displaystyle h} and h t {\displaystyle {\frac {h}{t}}} are two distinct step sizes.
+
+Then R ( h , t ) = t n ( A ∗ ∗ + C ( h t ) n + O ( h n + 1 ) ) − − ( A ∗ ∗ + C h n + O ( h n + 1 ) ) t n − − 1 = A ∗ ∗ + O ( h n + 1 ) .
+
+{\displaystyle R(h,t)={\frac {t^{n}(A^{*}+C\left({\frac {h}{t}}\right)^{n}+O(h^{n+1}))-(A^{*}+Ch^{n}+O(h^{n+1}))}{t^{n}-1}}=A^{*}+O(h^{n+1}).} R ( h , t ) {\displaystyle R(h,t)} is called the Richardson extrapolation of A ( h ), and has a higher-order error estimate O ( h n + 1 ) {\displaystyle O(h^{n+1})} compared to A ( h ) {\displaystyle A(h)} .
+
+Very often, it is much easier to obtain a given precision by using R ( h ) rather than A ( h′ ) with a much smaller h′ . Where A ( h′ ) can cause problems due to limited precision ( rounding errors ) and/or due to the increasing number of calculations needed (see examples below).
+
+Example pseudocode for Richardson extrapolation [ edit ] The following pseudocode in MATLAB style demonstrates Richardson extrapolation to help solve the ODE y ′ ( t ) = − − y 2 {\displaystyle y'(t)=-y^{2}} , y ( 0 ) = 1 {\displaystyle y(0)=1} with the Trapezoidal method . In this example we halve the step size h {\displaystyle h} each iteration and so in the discussion above we'd have that t = 2 {\displaystyle t=2} . The error of the Trapezoidal method can be expressed in terms of odd powers so that the error over multiple steps can be expressed in even powers; this leads us to raise t {\displaystyle t} to the second power and to take powers of 4 = 2 2 = t 2 {\displaystyle 4=2^{2}=t^{2}} in the pseudocode. We want to find the value of y ( 5 ) {\displaystyle y(5)} , which has the exact solution of 1 5 + 1 = 1 6 = 0.1666...
+
+{\displaystyle {\frac {1}{5+1}}={\frac {1}{6}}=0.1666...} since the exact solution of the ODE is y ( t ) = 1 1 + t {\displaystyle y(t)={\frac {1}{1+t}}} . This pseudocode assumes that a function called Trapezoidal(f, tStart, tEnd, h, y0) exists which attempts to compute y(tEnd) by performing the trapezoidal method on the function f , with starting point y0 and tStart and step size h .
+
+Note that starting with too small an initial step size can potentially introduce error into the final solution. Although there are methods designed to help pick the best initial step size, one option is to start with a large step size and then to allow the Richardson extrapolation to reduce the step size each iteration until the error reaches the desired tolerance.
+
+tStart = 0 % Starting time tEnd = 5 % Ending time f = - y ^ 2 % The derivative of y, so y' = f(t, y(t)) = -y^2 % The solution to this ODE is y = 1/(1 + t) y0 = 1 % The initial position (i.e. y0 = y(tStart) = y(0) = 1) tolerance = 10 ^- 11 % 10 digit accuracy is desired % Don't allow the iteration to continue indefinitely maxRows = 20 % Pick an initial step size initialH = tStart - tEnd % Were we able to find the solution to within the desired tolerance? not yet.
+
+haveWeFoundSolution = false h = initialH % Create a 2D matrix of size maxRows by maxRows to hold the Richardson extrapolates % Note that this will be a lower triangular matrix and that at most two rows are actually % needed at any time in the computation.
+
+A = zeroMatrix ( maxRows , maxRows ) % Compute the top left element of the matrix.
+
+% The first row of this (lower triangular) matrix has now been filled.
+
+A ( 1 , 1 ) = Trapezoidal ( f , tStart , tEnd , h , y0 ) % Each row of the matrix requires one call to Trapezoidal % This loops starts by filling the second row of the matrix, % since the first row was computed above for i = 1 : maxRows - 1 % Starting at i = 1, iterate at most maxRows - 1 times % Halve the previous value of h since this is the start of a new row.
+
+h = h / 2 % Starting filling row i+1 from the left by calling % the Trapezoidal function with this new smaller step size A ( i + 1 , 1 ) = Trapezoidal ( f , tStart , tEnd , h , y0 ) % Go across this current (i+1)-th row until the diagonal is reached for j = 1 : i % To compute A(i + 1, j + 1), which is the next Richardson extrapolate, % use the most recently computed value (i.e. A(i + 1, j)) % and the value from the row above it (i.e. A(i, j)).
+
+A ( i + 1 , j + 1 ) = (( 4 ^ j ) .* A ( i + 1 , j ) - A ( i , j )) / ( 4 ^ j - 1 ); end % After leaving the above inner loop, the diagonal element of row i + 1 has been computed % This diagonal element is the latest Richardson extrapolate to be computed.
+
+% The difference between this extrapolate and the last extrapolate of row i is a good % indication of the error.
+
+if ( absoluteValue ( A ( i + 1 , i + 1 ) - A ( i , i )) < tolerance ) % If the result is within tolerance % Display the result of the Richardson extrapolation print ( "y = " , A ( i + 1 , i + 1 )) haveWeFoundSolution = true % Done, so leave the loop break end end % If we were not able to find a solution to within the desired tolerance if ( not haveWeFoundSolution ) print ( "Warning: Not able to find solution to within the desired tolerance of " , tolerance ); print ( "The last computed extrapolate was " , A ( maxRows , maxRows )) end See also [ edit ] Aitken's delta-squared process Takebe Kenko Richardson iteration References [ edit ] ^ Richardson, L. F.
+
+(1911).
+
+"The approximate arithmetical solution by finite differences of physical problems including differential equations, with an application to the stresses in a masonry dam" .
+
+Philosophical Transactions of the Royal Society A .
+
+210 ( 459– 470): 307– 357.
+
+doi : 10.1098/rsta.1911.0009 .
+
+^ Richardson, L. F.
+
+; Gaunt, J. A. (1927).
+
+"The deferred approach to the limit" .
+
+Philosophical Transactions of the Royal Society A .
+
+226 ( 636– 646): 299– 349.
+
+doi : 10.1098/rsta.1927.0008 .
+
+^ Brezinski, Claude (2009-11-01), "Some pioneers of extrapolation methods" , The Birth of Numerical Analysis , WORLD SCIENTIFIC, pp.
+
+1– 22, doi : 10.1142/9789812836267_0001 , ISBN 978-981-283-625-0 ^ Page 126 of Birkhoff, Garrett ; Gian-Carlo Rota (1978).
+
+Ordinary differential equations (3rd ed.). John Wiley and sons.
+
+ISBN 0-471-07411-X .
+
+OCLC 4379402 .
+
+Extrapolation Methods. Theory and Practice by C. Brezinski and M. Redivo Zaglia , North-Holland, 1991.
+
+Ivan Dimov, Zahari Zlatev, Istvan Farago, Agnes Havasi: Richardson Extrapolation: Practical Aspects and Applications , Walter de Gruyter GmbH & Co KG, ISBN 9783110533002 (2017).
+
+External links [ edit ] Feldman, Joel (2000).
+
+"Richardson-Extrapolation" (PDF) .
+
+Israel, Robert.
+
+"Richardson extrapolation" .
+
+Matlab code for generic Richardson extrapolation.
+
+Julia code for generic Richardson extrapolation.
+
+NewPP limit report
+Parsed by mw‐web.eqiad.main‐74cbc45b88‐dn42d
+Cached time: 20250812002328
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.300 seconds
+Real time usage: 0.702 seconds
+Preprocessor visited node count: 1195/1000000
+Revision size: 14846/2097152 bytes
+Post‐expand include size: 14603/2097152 bytes
+Template argument size: 1161/2097152 bytes
+Highest expansion depth: 10/100
+Expensive parser function count: 2/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 43050/5000000 bytes
+Lua time usage: 0.112/10.000 seconds
+Lua memory usage: 4864953/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  440.062      1 -total
+ 24.18%  106.410      1 Template:Reflist
+ 18.05%   79.423      2 Template:Cite_journal
+ 17.78%   78.237      1 Template:Short_description
+ 10.59%   46.597      2 Template:Pagetype
+  8.54%   37.564      2 Template:NumBlk
+  4.80%   21.111      4 Template:Main_other
+  4.31%   18.961      1 Template:SDcat
+  2.12%    9.331      2 Template:Cite_web
+  1.73%    7.614      1 Template:Refbegin Saved in parser cache with key enwiki:pcache:650022:|#|:idhash:canonical and timestamp 20250812002328 and revision id 1297111524. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Richardson_extrapolation&oldid=1297111524 " Categories : Series acceleration methods Extrapolation Hidden categories: Articles with short description Short description is different from Wikidata Articles with example MATLAB/Octave code This page was last edited on 24 June 2025, at 06:05 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Richardson extrapolation 13 languages Add topic
+

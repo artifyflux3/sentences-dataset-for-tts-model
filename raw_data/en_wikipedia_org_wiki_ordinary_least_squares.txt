@@ -1,0 +1,438 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Linear model Toggle Linear model subsection 1.1 Matrix/vector formulation 2 Estimation 3 Prediction 4 Sample statistics Toggle Sample statistics subsection 4.1 Simple linear regression model 5 Alternative derivations Toggle Alternative derivations subsection 5.1 Projection 5.2 Maximum likelihood 5.3 Generalized method of moments 6 Properties Toggle Properties subsection 6.1 Assumptions 6.1.1 Classical linear regression model 6.1.2 Independent and identically distributed (iid) 6.1.3 Time series model 6.2 Finite sample properties 6.2.1 Assuming normality 6.2.2 Influential observations 6.2.3 Partitioned regression 6.2.4 Constrained estimation 6.3 Large sample properties 6.3.1 Intervals 6.3.2 Hypothesis testing 7 Example with real data Toggle Example with real data subsection 7.1 Sensitivity to rounding 8 Another example with less real data Toggle Another example with less real data subsection 8.1 Problem statement 8.2 Solution 9 See also 10 References 11 Further reading Toggle the table of contents Ordinary least squares 12 languages العربية Asturianu Català Ελληνικά Español فارسی Français 한국어 Simple English Slovenščina 粵語 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Method for estimating the unknown parameters in a linear regression model Okun's law in macroeconomics states that in an economy the GDP growth should depend linearly on the changes in the unemployment rate. Here the ordinary least squares method is used to construct the regression line describing this law.
+
+Part of a series on Regression analysis Models Linear regression Simple regression Polynomial regression General linear model Generalized linear model Vector generalized linear model Discrete choice Binomial regression Binary regression Logistic regression Multinomial logistic regression Mixed logit Probit Multinomial probit Ordered logit Ordered probit Poisson Multilevel model Fixed effects Random effects Linear mixed-effects model Nonlinear mixed-effects model Nonlinear regression Nonparametric Semiparametric Robust Quantile Isotonic Principal components Least angle Local Segmented Errors-in-variables Estimation Least squares Linear Non-linear Ordinary Weighted Generalized Generalized estimating equation Partial Total Non-negative Ridge regression Regularized Least absolute deviations Iteratively reweighted Bayesian Bayesian multivariate Least-squares spectral analysis Background Regression validation Mean and predicted response Errors and residuals Goodness of fit Studentized residual Gauss–Markov theorem Mathematics portal v t e In statistics , ordinary least squares ( OLS ) is a type of linear least squares method for choosing the unknown parameters in a linear regression model (with fixed level-one [ clarification needed ] effects of a linear function of a set of explanatory variables ) by the principle of least squares : minimizing the sum of the squares of the differences between the observed dependent variable (values of the variable being observed) in the input dataset and the output of the (linear) function of the independent variable . Some sources consider OLS to be linear regression.
+
+[ 1 ] Geometrically, this is seen as the sum of the squared distances, parallel to the axis of the dependent variable, between each data point in the set and the corresponding point on the regression surface—the smaller the differences, the better the model fits the data. The resulting estimator can be expressed by a simple formula, especially in the case of a simple linear regression , in which there is a single regressor on the right side of the regression equation.
+
+The OLS estimator is consistent for the level-one fixed effects when the regressors are exogenous and forms perfect colinearity (rank condition), consistent for the variance estimate of the residuals when regressors have finite fourth moments [ 2 ] and—by the Gauss–Markov theorem — optimal in the class of linear unbiased estimators when the errors are homoscedastic and serially uncorrelated . Under these conditions, the method of OLS provides minimum-variance mean-unbiased estimation when the errors have finite variances . Under the additional assumption that the errors are normally distributed with zero mean, OLS is the maximum likelihood estimator that outperforms any non-linear unbiased estimator.
+
+Linear model [ edit ] Main article: Linear regression model Suppose the data consists of n {\displaystyle n} observations { x i , y i } i = 1 n {\displaystyle \left\{\mathbf {x} _{i},y_{i}\right\}_{i=1}^{n}} . Each observation i {\displaystyle i} includes a scalar response y i {\displaystyle y_{i}} and a column vector x i {\displaystyle \mathbf {x} _{i}} of p {\displaystyle p} parameters (regressors), i.e., x i = [ x i 1 , x i 2 , … … , x i p ] T {\displaystyle \mathbf {x} _{i}=\left[x_{i1},x_{i2},\dots ,x_{ip}\right]^{\operatorname {T} }} . In a linear regression model , the response variable, y i {\displaystyle y_{i}} , is a linear function of the regressors: y i = β β 1 x i 1 + β β 2 x i 2 + ⋯ ⋯ + β β p x i p + ε ε i , {\displaystyle y_{i}=\beta _{1}\ x_{i1}+\beta _{2}\ x_{i2}+\cdots +\beta _{p}\ x_{ip}+\varepsilon _{i},} or in vector form, y i = x i T β β + ε ε i , {\displaystyle y_{i}=\mathbf {x} _{i}^{\operatorname {T} }{\boldsymbol {\beta }}+\varepsilon _{i},\,} where x i {\displaystyle \mathbf {x} _{i}} , as introduced previously, is a column vector of the i {\displaystyle i} -th observation of all the explanatory variables; β β {\displaystyle {\boldsymbol {\beta }}} is a p × × 1 {\displaystyle p\times 1} vector of unknown parameters; and the scalar ε ε i {\displaystyle \varepsilon _{i}} represents unobserved random variables ( errors ) of the i {\displaystyle i} -th observation.
+
+ε ε i {\displaystyle \varepsilon _{i}} accounts for the influences upon the responses y i {\displaystyle y_{i}} from sources other than the explanatory variables x i {\displaystyle \mathbf {x} _{i}} . This model can also be written in matrix notation as y = X β β + ε ε , {\displaystyle \mathbf {y} =\mathbf {X} {\boldsymbol {\beta }}+{\boldsymbol {\varepsilon }},\,} where y {\displaystyle \mathbf {y} } and ε ε {\displaystyle {\boldsymbol {\varepsilon }}} are n × × 1 {\displaystyle n\times 1} vectors of the response variables and the errors of the n {\displaystyle n} observations, and X {\displaystyle \mathbf {X} } is an n × × p {\displaystyle n\times p} matrix of regressors, also sometimes called the design matrix , whose row i {\displaystyle i} is x i T {\displaystyle \mathbf {x} _{i}^{\operatorname {T} }} and contains the i {\displaystyle i} -th observations on all the explanatory variables.
+
+Typically, a constant term is included in the set of regressors X {\displaystyle \mathbf {X} } , say, by taking x i 1 = 1 {\displaystyle x_{i1}=1} for all i = 1 , … … , n {\displaystyle i=1,\dots ,n} . The coefficient β β 1 {\displaystyle \beta _{1}} corresponding to this regressor is called the intercept . Without the intercept, the fitted line is forced to cross the origin when x i = 0 → → {\displaystyle x_{i}={\vec {0}}} .
+
+Regressors do not have to be independent for estimation to be consistent e.g. they may be non-linearly dependent. Short of perfect multicollinearity, parameter estimates may still be consistent; however, as multicollinearity rises the standard error around such estimates increases and reduces the precision of such estimates. When there is perfect multicollinearity, it is no longer possible to obtain unique estimates for the coefficients to the related regressors; estimation for these parameters cannot converge (thus, it cannot be consistent).
+
+As a concrete example where regressors are non-linearly dependent yet estimation may still be consistent, we might suspect the response depends linearly both on a value and its square; in which case we would include one regressor whose value is just the square of another regressor. In that case, the model would be quadratic in the second regressor, but none-the-less is still considered a linear model because the model is still linear in the parameters ( β β {\displaystyle {\boldsymbol {\beta }}} ).
+
+Matrix/vector formulation [ edit ] Consider an overdetermined system ∑ ∑ j = 1 p x i j β β j = y i , ( i = 1 , 2 , … … , n ) , {\displaystyle \sum _{j=1}^{p}x_{ij}\beta _{j}=y_{i},\ (i=1,2,\dots ,n),} of n {\displaystyle n} linear equations in p {\displaystyle p} unknown coefficients , β β 1 , β β 2 , … … , β β p {\displaystyle \beta _{1},\beta _{2},\dots ,\beta _{p}} , with n > p {\displaystyle n>p} . This can be written in matrix form as X β β = y , {\displaystyle \mathbf {X} {\boldsymbol {\beta }}=\mathbf {y} ,} where X = [ X 11 X 12 ⋯ ⋯ X 1 p X 21 X 22 ⋯ ⋯ X 2 p ⋮ ⋮ ⋮ ⋮ ⋱ ⋱ ⋮ ⋮ X n 1 X n 2 ⋯ ⋯ X n p ] , β β = [ β β 1 β β 2 ⋮ ⋮ β β p ] , y = [ y 1 y 2 ⋮ ⋮ y n ] .
+
+{\displaystyle \mathbf {X} ={\begin{bmatrix}X_{11}&X_{12}&\cdots &X_{1p}\\X_{21}&X_{22}&\cdots &X_{2p}\\\vdots &\vdots &\ddots &\vdots \\X_{n1}&X_{n2}&\cdots &X_{np}\end{bmatrix}},\qquad {\boldsymbol {\beta }}={\begin{bmatrix}\beta _{1}\\\beta _{2}\\\vdots \\\beta _{p}\end{bmatrix}},\qquad \mathbf {y} ={\begin{bmatrix}y_{1}\\y_{2}\\\vdots \\y_{n}\end{bmatrix}}.} (Note: for a linear model as above, not all elements in X {\displaystyle \mathbf {X} } contains information on the data points. The first column is populated with ones, X i 1 = 1 {\displaystyle X_{i1}=1} . Only the other columns contain actual data. So here p {\displaystyle p} is equal to the number of regressors plus one).
+
+Such a system usually has no exact solution, so the goal is instead to find the coefficients β β {\displaystyle {\boldsymbol {\beta }}} which fit the equations "best", in the sense of solving the quadratic minimization problem β β ^ ^ = a r g m i n β β S ( β β ) , {\displaystyle {\hat {\boldsymbol {\beta }}}={\underset {\boldsymbol {\beta }}{\operatorname {arg\,min} }}\,S({\boldsymbol {\beta }}),} where the objective function S {\displaystyle S} is given by S ( β β ) = ∑ ∑ i = 1 n | y i − − ∑ ∑ j = 1 p X i j β β j | 2 = ‖ y − − X β β ‖ 2 .
+
+{\displaystyle S({\boldsymbol {\beta }})=\sum _{i=1}^{n}\left|y_{i}-\sum _{j=1}^{p}X_{ij}\beta _{j}\right|^{2}=\left\|\mathbf {y} -\mathbf {X} {\boldsymbol {\beta }}\right\|^{2}.} A justification for choosing this criterion is given in Properties below. This minimization problem has a unique solution, provided that the p {\displaystyle p} columns of the matrix X {\displaystyle \mathbf {X} } are linearly independent , given by solving the so-called normal equations : ( X T X ) β β ^ ^ = X T y .
+
+{\displaystyle \left(\mathbf {X} ^{\operatorname {T} }\mathbf {X} \right){\hat {\boldsymbol {\beta }}}=\mathbf {X} ^{\operatorname {T} }\mathbf {y} \ .} The matrix X T X {\displaystyle \mathbf {X} ^{\operatorname {T} }\mathbf {X} } is known as the normal matrix or Gram matrix and the matrix X T y {\displaystyle \mathbf {X} ^{\operatorname {T} }\mathbf {y} } is known as the moment matrix of regressand by regressors.
+
+[ 3 ] Finally, β β ^ ^ {\displaystyle {\hat {\boldsymbol {\beta }}}} is the coefficient vector of the least-squares hyperplane , expressed as β β ^ ^ = ( X ⊤ ⊤ X ) − − 1 X ⊤ ⊤ y .
+
+{\displaystyle {\hat {\boldsymbol {\beta }}}=\left(\mathbf {X} ^{\top }\mathbf {X} \right)^{-1}\mathbf {X} ^{\top }\mathbf {y} .} or β β ^ ^ = β β + ( X ⊤ ⊤ X ) − − 1 X ⊤ ⊤ ε ε .
+
+{\displaystyle {\hat {\boldsymbol {\beta }}}={\boldsymbol {\beta }}+\left(\mathbf {X} ^{\top }\mathbf {X} \right)^{-1}\mathbf {X} ^{\top }{\boldsymbol {\varepsilon }}.} Estimation [ edit ] Suppose b is a "candidate" value for the parameter vector β . The quantity y i − x i T b , called the residual for the i -th observation, measures the vertical distance between the data point ( x i , y i ) and the hyperplane y = x T b , and thus assesses the degree of fit between the actual data and the model. The sum of squared residuals ( SSR ) (also called the error sum of squares ( ESS ) or residual sum of squares ( RSS )) [ 4 ] is a measure of the overall model fit: S ( b ) = ∑ ∑ i = 1 n ( y i − − x i T b ) 2 = ( y − − X b ) T ( y − − X b ) , {\displaystyle S(b)=\sum _{i=1}^{n}(y_{i}-x_{i}^{\operatorname {T} }b)^{2}=(y-Xb)^{\operatorname {T} }(y-Xb),} where T denotes the matrix transpose , and the rows of X , denoting the values of all the independent variables associated with a particular value of the dependent variable, are X i = x i T .  The value of b which minimizes this sum is called the OLS estimator for β . The function S ( b ) is quadratic in b with positive-definite Hessian , and therefore this function possesses a unique global minimum at b = β β ^ ^ {\displaystyle b={\hat {\beta }}} , which can be given by the explicit formula [ 5 ] [proof] β β ^ ^ = argmin b ∈ ∈ R p ⁡ ⁡ S ( b ) = ( X T X ) − − 1 X T y .
+
+{\displaystyle {\hat {\beta }}=\operatorname {argmin} _{b\in \mathbb {R} ^{p}}S(b)=(X^{\operatorname {T} }X)^{-1}X^{\operatorname {T} }y\ .} The product N = X T X is a Gram matrix , and its inverse, Q = N −1 , is the cofactor matrix of β , [ 6 ] [ 7 ] [ 8 ] closely related to its covariance matrix , C β .
+The matrix ( X T X ) −1 X T = Q X T is called the Moore–Penrose pseudoinverse matrix of X . This formulation highlights the point that estimation can be carried out if, and only if, there is no perfect multicollinearity between the explanatory variables (which would cause the Gram matrix to have no inverse).
+
+Prediction [ edit ] After we have estimated β , the fitted values (or predicted values ) from the regression will be y ^ ^ = X β β ^ ^ = P y , {\displaystyle {\hat {y}}=X{\hat {\beta }}=Py,} where P = X ( X T X ) −1 X T is the projection matrix onto the space V spanned by the columns of X . This matrix P is also sometimes called the hat matrix because it "puts a hat" onto the variable y . Another matrix, closely related to P is the annihilator matrix M = I n − P ; this is a projection matrix onto the space orthogonal to V . Both matrices P and M are symmetric and idempotent (meaning that P 2 = P and M 2 = M ), and relate to the data matrix X via identities PX = X and MX = 0 .
+
+[ 9 ] Matrix M creates the residuals from the regression: ε ε ^ ^ = y − − y ^ ^ = y − − X β β ^ ^ = M y = M ( X β β + ε ε ) = ( M X ) β β + M ε ε = M ε ε .
+
+{\displaystyle {\hat {\varepsilon }}=y-{\hat {y}}=y-X{\hat {\beta }}=My=M(X\beta +\varepsilon )=(MX)\beta +M\varepsilon =M\varepsilon .} The variances of the predicted values s y ^ ^ i 2 {\displaystyle s_{{\hat {y}}_{i}}^{2}} are found in the main diagonal of the variance-covariance matrix of predicted values: C y ^ ^ = s 2 P , {\displaystyle C_{\hat {y}}=s^{2}P,} where P is the projection matrix and s 2 is the sample variance.
+
+[ 10 ] The full matrix is very large; its diagonal elements can be calculated individually as: s y ^ ^ i 2 = s 2 X i ( X T X ) − − 1 X i T , {\displaystyle s_{{\hat {y}}_{i}}^{2}=s^{2}X_{i}(X^{T}X)^{-1}X_{i}^{T},} where X i is the i -th row of matrix X .
+
+Sample statistics [ edit ] Using these residuals we can estimate the sample variance s 2 using the reduced chi-squared statistic: s 2 = ε ε ^ ^ T ε ε ^ ^ n − − p = ( M y ) T M y n − − p = y T M T M y n − − p = y T M y n − − p = S ( β β ^ ^ ) n − − p , σ σ ^ ^ 2 = n − − p n s 2 {\displaystyle s^{2}={\frac {{\hat {\varepsilon }}^{\mathrm {T} }{\hat {\varepsilon }}}{n-p}}={\frac {(My)^{\mathrm {T} }My}{n-p}}={\frac {y^{\mathrm {T} }M^{\mathrm {T} }My}{n-p}}={\frac {y^{\mathrm {T} }My}{n-p}}={\frac {S({\hat {\beta }})}{n-p}},\qquad {\hat {\sigma }}^{2}={\frac {n-p}{n}}\;s^{2}} The denominator, n − p , is the statistical degrees of freedom . The first quantity, s 2 , is the OLS estimate for σ 2 , whereas the second, σ σ ^ ^ 2 {\displaystyle \scriptstyle {\hat {\sigma }}^{2}} , is the MLE estimate for σ 2 . The two estimators are quite similar in large samples; the first estimator is always unbiased , while the second estimator is biased but has a smaller mean squared error . In practice s 2 is used more often, since it is more convenient for the hypothesis testing. The square root of s 2 is called the regression standard error , [ 11 ] standard error of the regression , [ 12 ] [ 13 ] or standard error of the equation .
+
+[ 9 ] It is common to assess the goodness-of-fit of the OLS regression by comparing how much the initial variation in the sample can be reduced by regressing onto X . The coefficient of determination R 2 is defined as a ratio of "explained" variance to the "total" variance of the dependent variable y , in the cases where the regression sum of squares equals the sum of squares of residuals: [ 14 ] R 2 = ∑ ∑ ( y ^ ^ i − − y ¯ ¯ ) 2 ∑ ∑ ( y i − − y ¯ ¯ ) 2 = y T P T L P y y T L y = 1 − − y T M y y T L y = 1 − − R S S T S S {\displaystyle R^{2}={\frac {\sum ({\hat {y}}_{i}-{\overline {y}})^{2}}{\sum (y_{i}-{\overline {y}})^{2}}}={\frac {y^{\mathrm {T} }P^{\mathrm {T} }LPy}{y^{\mathrm {T} }Ly}}=1-{\frac {y^{\mathrm {T} }My}{y^{\mathrm {T} }Ly}}=1-{\frac {\rm {RSS}}{\rm {TSS}}}} where TSS is the total sum of squares for the dependent variable, L = I n − − 1 n J n {\textstyle L=I_{n}-{\frac {1}{n}}J_{n}} , and J n {\textstyle J_{n}} is an n × n matrix of ones. ( L {\displaystyle L} is a centering matrix which is equivalent to regression on a constant; it simply subtracts the mean from a variable.) In order for R 2 to be meaningful, the matrix X of data on regressors must contain a column vector of ones to represent the constant whose coefficient is the regression intercept. In that case, R 2 will always be a number between 0 and 1, with values close to 1 indicating a good degree of fit.
+
+Simple linear regression model [ edit ] Main article: Simple linear regression If the data matrix X contains only two variables, a constant and a scalar regressor x i , then this is called the "simple regression model". This case is often considered in the beginner statistics classes, as it provides much simpler formulas even suitable for manual calculation. The parameters are commonly denoted as ( α , β ) : y i = α α + β β x i + ε ε i .
+
+{\displaystyle y_{i}=\alpha +\beta x_{i}+\varepsilon _{i}.} The least squares estimates in this case are given by simple formulas β β ^ ^ = ∑ ∑ i = 1 n ( x i − − x ¯ ¯ ) ( y i − − y ¯ ¯ ) ∑ ∑ i = 1 n ( x i − − x ¯ ¯ ) 2 α α ^ ^ = y ¯ ¯ − − β β ^ ^ x ¯ ¯ , {\displaystyle {\begin{aligned}{\widehat {\beta }}&={\frac {\sum _{i=1}^{n}{(x_{i}-{\bar {x}})(y_{i}-{\bar {y}})}}{\sum _{i=1}^{n}{(x_{i}-{\bar {x}})^{2}}}}\\[2pt]{\widehat {\alpha }}&={\bar {y}}-{\widehat {\beta }}\,{\bar {x}}\ ,\end{aligned}}} Alternative derivations [ edit ] In the previous section the least squares estimator β β ^ ^ {\displaystyle {\hat {\beta }}} was obtained as a value that minimizes the sum of squared residuals of the model. However it is also possible to derive the same estimator from other approaches. In all cases the formula for OLS estimator remains the same: ^ β = ( X T X ) −1 X T y ; the only difference is in how we interpret this result.
+
+Projection [ edit ] OLS estimation can be viewed as a projection onto the linear space spanned by the regressors. (Here each of X 1 {\displaystyle X_{1}} and X 2 {\displaystyle X_{2}} refers to a column of the data matrix.) This section may need to be cleaned up.
+
+It has been merged from Linear least squares .
+
+For mathematicians, OLS is an approximate solution to an overdetermined system of linear equations Xβ ≈ y , where β is the unknown. Assuming the system cannot be solved exactly (the number of equations n is much larger than the number of unknowns p ), we are looking for a solution that could provide the smallest discrepancy between the right- and left- hand sides. In other words, we are looking for the solution that satisfies β β ^ ^ = a r g min β β ‖ ‖ y − − X β β ‖ ‖ 2 , {\displaystyle {\hat {\beta }}={\rm {arg}}\min _{\beta }\,\lVert \mathbf {y} -\mathbf {X} {\boldsymbol {\beta }}\rVert ^{2},} where ‖ · ‖ is the standard L 2 norm in the n -dimensional Euclidean space R n . The predicted quantity Xβ is just a certain linear combination of the vectors of regressors. Thus, the residual vector y − Xβ will have the smallest length when y is projected orthogonally onto the linear subspace spanned by the columns of X . The OLS estimator β β ^ ^ {\displaystyle {\hat {\beta }}} in this case can be interpreted as the coefficients of vector decomposition of ^ y = Py along the basis of X .
+
+In other words, the gradient equations at the minimum can be written as: ( y − − X β β ^ ^ ) ⊤ ⊤ X = 0.
+
+{\displaystyle (\mathbf {y} -\mathbf {X} {\hat {\boldsymbol {\beta }}})^{\top }\mathbf {X} =0.} A geometrical interpretation of these equations is that the vector of residuals, y − − X β β ^ ^ {\displaystyle \mathbf {y} -X{\hat {\boldsymbol {\beta }}}} is orthogonal to the column space of X , since the dot product ( y − − X β β ^ ^ ) ⋅ ⋅ X v {\displaystyle (\mathbf {y} -\mathbf {X} {\hat {\boldsymbol {\beta }}})\cdot \mathbf {X} \mathbf {v} } is equal to zero for any conformal vector, v . This means that y − − X β β ^ ^ {\displaystyle \mathbf {y} -\mathbf {X} {\boldsymbol {\hat {\beta }}}} is the shortest of all possible vectors y − − X β β {\displaystyle \mathbf {y} -\mathbf {X} {\boldsymbol {\beta }}} , that is, the variance of the residuals is the minimum possible. This is illustrated at the right.
+
+Introducing γ γ ^ ^ {\displaystyle {\hat {\boldsymbol {\gamma }}}} and a matrix K with the assumption that a matrix [ X K ] {\displaystyle [\mathbf {X} \ \mathbf {K} ]} is non-singular and K T X = 0 (cf.
+
+Orthogonal projections ), the residual vector should satisfy the following equation: r ^ ^ := y − − X β β ^ ^ = K γ γ ^ ^ .
+
+{\displaystyle {\hat {\mathbf {r} }}:=\mathbf {y} -\mathbf {X} {\hat {\boldsymbol {\beta }}}=\mathbf {K} {\hat {\boldsymbol {\gamma }}}.} The equation and solution of linear least squares are thus described as follows: y = [ X K ] [ β β ^ ^ γ γ ^ ^ ] , ⇒ ⇒ [ β β ^ ^ γ γ ^ ^ ] = [ X K ] − − 1 y = [ ( X ⊤ ⊤ X ) − − 1 X ⊤ ⊤ ( K ⊤ ⊤ K ) − − 1 K ⊤ ⊤ ] y .
+
+{\displaystyle {\begin{aligned}\mathbf {y} &={\begin{bmatrix}\mathbf {X} &\mathbf {K} \end{bmatrix}}{\begin{bmatrix}{\hat {\boldsymbol {\beta }}}\\{\hat {\boldsymbol {\gamma }}}\end{bmatrix}},\\{}\Rightarrow {\begin{bmatrix}{\hat {\boldsymbol {\beta }}}\\{\hat {\boldsymbol {\gamma }}}\end{bmatrix}}&={\begin{bmatrix}\mathbf {X} &\mathbf {K} \end{bmatrix}}^{-1}\mathbf {y} ={\begin{bmatrix}\left(\mathbf {X} ^{\top }\mathbf {X} \right)^{-1}\mathbf {X} ^{\top }\\\left(\mathbf {K} ^{\top }\mathbf {K} \right)^{-1}\mathbf {K} ^{\top }\end{bmatrix}}\mathbf {y} .\end{aligned}}} Another way of looking at it is to consider the regression line to be a weighted average of the lines passing through the combination of any two points in the dataset.
+
+[ 15 ] Although this way of calculation is more computationally expensive, it provides a better intuition on OLS.
+
+Maximum likelihood [ edit ] The OLS estimator is identical to the maximum likelihood estimator (MLE) under the normality assumption for the error terms.
+
+[ 16 ] [proof] This normality assumption has historical importance, as it provided the basis for the early work in linear regression analysis by Yule and Pearson .
+
+[ citation needed ] From the properties of MLE, we can infer that the OLS estimator is asymptotically efficient (in the sense of attaining the Cramér–Rao bound for variance) if the normality assumption is satisfied.
+
+[ 17 ] Generalized method of moments [ edit ] In iid case the OLS estimator can also be viewed as a GMM estimator arising from the moment conditions E [ x i ( y i − − x i T β β ) ] = 0.
+
+{\displaystyle \mathrm {E} {\big [}\,x_{i}\left(y_{i}-x_{i}^{\operatorname {T} }\beta \right)\,{\big ]}=0.} These moment conditions state that the regressors should be uncorrelated with the errors. Since x i is a p -vector, the number of moment conditions is equal to the dimension of the parameter vector β , and thus the system is exactly identified. This is the so-called classical GMM case, when the estimator does not depend on the choice of the weighting matrix.
+
+Note that the original strict exogeneity assumption E[ ε i | x i ] = 0 implies a far richer set of moment conditions than stated above. In particular, this assumption implies that for any vector-function ƒ , the moment condition E[ ƒ ( x i )· ε i ] = 0 will hold. However it can be shown using the Gauss–Markov theorem that the optimal choice of function ƒ is to take ƒ ( x ) = x , which results in the moment equation posted above.
+
+Properties [ edit ] Assumptions [ edit ] See also: Linear regression § Assumptions There are several different frameworks in which the linear regression model can be cast in order to make the OLS technique applicable. Each of these settings produces the same formulas and same results. The only difference is the interpretation and the assumptions which have to be imposed in order for the method to give meaningful results. The choice of the applicable framework depends mostly on the nature of data in hand, and on the inference task which has to be performed.
+
+One of the lines of difference in interpretation is whether to treat the regressors as random variables, or as predefined constants. In the first case ( random design ) the regressors x i are random and sampled together with the y i ' s from some population , as in an observational study . This approach allows for more natural study of the asymptotic properties of the estimators. In the other interpretation ( fixed design ), the regressors X are treated as known constants set by a design , and y is sampled conditionally on the values of X as in an experiment . For practical purposes, this distinction is often unimportant, since estimation and inference is carried out while conditioning on X . All results stated in this article are within the random design framework.
+
+Classical linear regression model [ edit ] The classical model focuses on the "finite sample" estimation and inference, meaning that the number of observations n is fixed. This contrasts with the other approaches, which study the asymptotic behavior of OLS, and in which the behavior at a large number of samples is studied.
+
+Correct specification . The linear functional form must coincide with the form of the actual data-generating process.
+
+Strict exogeneity . The errors in the regression should have conditional mean zero: [ 18 ] E ⁡ ⁡ [ ε ε ∣ ∣ X ] = 0.
+
+{\displaystyle \operatorname {E} [\,\varepsilon \mid X\,]=0.} The immediate consequence of the exogeneity assumption is that the errors have mean zero: E[ ε ] = 0 (for the law of total expectation ), and that the regressors are uncorrelated with the errors: E[ X T ε ] = 0 .
+
+The exogeneity assumption is critical for the OLS theory. If it holds then the regressor variables are called exogenous . If it does not, then those regressors that are correlated with the error term are called endogenous , [ 19 ] and the OLS estimator becomes biased. In such case the method of instrumental variables may be used to carry out inference.
+
+No linear dependence . The regressors in X must all be linearly independent . Mathematically, this means that the matrix X must have full column rank almost surely: [ 20 ] Pr [ rank ⁡ ⁡ ( X ) = p ] = 1.
+
+{\displaystyle \Pr \!{\big [}\,\operatorname {rank} (X)=p\,{\big ]}=1.} Usually, it is also assumed that the regressors have finite moments up to at least the second moment. Then the matrix Q xx = E[ X T X / n ] is finite and positive semi-definite.
+
+When this assumption is violated the regressors are called linearly dependent or perfectly multicollinear . In such case the value of the regression coefficient β cannot be learned, although prediction of y values is still possible for new values of the regressors that lie in the same linearly dependent subspace.
+
+Spherical errors : [ 20 ] Var ⁡ ⁡ [ ε ε ∣ ∣ X ] = σ σ 2 I n , {\displaystyle \operatorname {Var} [\,\varepsilon \mid X\,]=\sigma ^{2}I_{n},} where I n is the identity matrix in dimension n , and σ 2 is a parameter which determines the variance of each observation. This σ 2 is considered a nuisance parameter in the model, although usually it is also estimated. If this assumption is violated then the OLS estimates are still valid, but no longer efficient.
+
+It is customary to split this assumption into two parts: Homoscedasticity : E[ ε i 2 | X ] = σ 2 , which means that the error term has the same variance σ 2 in each observation. When this requirement is violated this is called heteroscedasticity , in such case a more efficient estimator would be weighted least squares . If the errors have infinite variance then the OLS estimates will also have infinite variance (although by the law of large numbers they will nonetheless tend toward the true values so long as the errors have zero mean). In this case, robust estimation techniques are recommended.
+
+No autocorrelation : the errors are uncorrelated between observations: E[ ε i ε j | X ] = 0 for i ≠ j . This assumption may be violated in the context of time series data, panel data , cluster samples, hierarchical data, repeated measures data, longitudinal data, and other data with dependencies. In such cases generalized least squares provides a better alternative than the OLS. Another expression for autocorrelation is serial correlation .
+
+Normality . It is sometimes additionally assumed that the errors have normal distribution conditional on the regressors: [ 21 ] ε ε ∣ ∣ X ∼ ∼ N ( 0 , σ σ 2 I n ) .
+
+{\displaystyle \varepsilon \mid X\sim {\mathcal {N}}(0,\sigma ^{2}I_{n}).} This assumption is not needed for the validity of the OLS method, although certain additional finite-sample properties can be established in case when it does (especially in the area of hypotheses testing). Also when the errors are normal, the OLS estimator is equivalent to the maximum likelihood estimator (MLE), and therefore it is asymptotically efficient in the class of all regular estimators . Importantly, the normality assumption applies only to the error terms; contrary to a popular misconception, the response (dependent) variable is not required to be normally distributed.
+
+[ 22 ] Independent and identically distributed (iid) [ edit ] In some applications, especially with cross-sectional data , an additional assumption is imposed — that all observations are independent and identically distributed . This means that all observations are taken from a random sample which makes all the assumptions listed earlier simpler and easier to interpret. Also this framework allows one to state asymptotic results (as the sample size n → ∞ ), which are understood as a theoretical possibility of fetching new independent observations from the data generating process . The list of assumptions in this case is: IID observations : ( x i , y i ) is independent from, and has the same distribution as, ( x j , y j ) for all i ≠ j ; No perfect multicollinearity : Q xx = E[ x i x i T ] is a positive-definite matrix ; Exogeneity : E[ ε i | x i ] = 0; Homoscedasticity : Var[ ε i | x i ] = σ 2 .
+
+Time series model [ edit ] The stochastic process { x i , y i } is stationary and ergodic ; if { x i , y i } is nonstationary, OLS results are often spurious unless { x i , y i } is co-integrating .
+
+[ 23 ] The regressors are predetermined : E[ x i ε i ] = 0 for all i = 1, ..., n ; The p × p matrix Q xx = E[ x i x i T ] is of full rank, and hence positive-definite ; { x i ε i } is a martingale difference sequence , with a finite matrix of second moments Q xxε ² = E[ ε i 2 x i x i T ] .
+
+Finite sample properties [ edit ] First of all, under the strict exogeneity assumption the OLS estimators β β ^ ^ {\displaystyle \scriptstyle {\hat {\beta }}} and s 2 are unbiased , meaning that their expected values coincide with the true values of the parameters: [ 24 ] [proof] E ⁡ ⁡ [ β β ^ ^ ∣ ∣ X ] = β β , E ⁡ ⁡ [ s 2 ∣ ∣ X ] = σ σ 2 .
+
+{\displaystyle \operatorname {E} [\,{\hat {\beta }}\mid X\,]=\beta ,\quad \operatorname {E} [\,s^{2}\mid X\,]=\sigma ^{2}.} If the strict exogeneity does not hold (as is the case with many time series models, where exogeneity is assumed only with respect to the past shocks but not the future ones), then these estimators will be biased in finite samples.
+
+The variance-covariance matrix (or simply covariance matrix ) of β β ^ ^ {\displaystyle \scriptstyle {\hat {\beta }}} is equal to [ 25 ] Var ⁡ ⁡ [ β β ^ ^ ∣ ∣ X ] = σ σ 2 ( X T X ) − − 1 = σ σ 2 Q .
+
+{\displaystyle \operatorname {Var} [\,{\hat {\beta }}\mid X\,]=\sigma ^{2}\left(X^{\operatorname {T} }X\right)^{-1}=\sigma ^{2}Q.} In particular, the standard error of each coefficient β β ^ ^ j {\displaystyle \scriptstyle {\hat {\beta }}_{j}} is equal to square root of the j -th diagonal element of this matrix. The estimate of this standard error is obtained by replacing the unknown quantity σ 2 with its estimate s 2 . Thus, s .
+
+e .
+
+^ ^ ( β β ^ ^ j ) = s 2 ( X T X ) j j − − 1 {\displaystyle {\widehat {\operatorname {s.\!e.} }}({\hat {\beta }}_{j})={\sqrt {s^{2}\left(X^{\operatorname {T} }X\right)_{jj}^{-1}}}} It can also be easily shown that the estimator β β ^ ^ {\displaystyle \scriptstyle {\hat {\beta }}} is uncorrelated with the residuals from the model: [ 25 ] Cov ⁡ ⁡ [ β β ^ ^ , ε ε ^ ^ ∣ ∣ X ] = 0.
+
+{\displaystyle \operatorname {Cov} [\,{\hat {\beta }},{\hat {\varepsilon }}\mid X\,]=0.} The Gauss–Markov theorem states that under the spherical errors assumption (that is, the errors should be uncorrelated and homoscedastic ) the estimator β β ^ ^ {\displaystyle \scriptstyle {\hat {\beta }}} is efficient in the class of linear unbiased estimators. This is called the best linear unbiased estimator (BLUE). Efficiency should be understood as if we were to find some other estimator β β ~ ~ {\displaystyle \scriptstyle {\tilde {\beta }}} which would be linear in y and unbiased, then [ 25 ] Var ⁡ ⁡ [ β β ~ ~ ∣ ∣ X ] − − Var ⁡ ⁡ [ β β ^ ^ ∣ ∣ X ] ≥ ≥ 0 {\displaystyle \operatorname {Var} [\,{\tilde {\beta }}\mid X\,]-\operatorname {Var} [\,{\hat {\beta }}\mid X\,]\geq 0} in the sense that this is a nonnegative-definite matrix . This theorem establishes optimality only in the class of linear unbiased estimators, which is quite restrictive. Depending on the distribution of the error terms ε , other, non-linear estimators may provide better results than OLS.
+
+Assuming normality [ edit ] The properties listed so far are all valid regardless of the underlying distribution of the error terms. However, if you are willing to assume that the normality assumption holds (that is, that ε ~ N (0, σ 2 I n ) ), then additional properties of the OLS estimators can be stated.
+
+The estimator β β ^ ^ {\displaystyle \scriptstyle {\hat {\beta }}} is normally distributed, with mean and variance as given before: [ 26 ] β β ^ ^ ∼ ∼ N ( β β , σ σ 2 ( X T X ) − − 1 ) .
+
+{\displaystyle {\hat {\beta }}\ \sim \ {\mathcal {N}}{\big (}\beta ,\ \sigma ^{2}(X^{\mathrm {T} }X)^{-1}{\big )}.} This estimator reaches the Cramér–Rao bound for the model, and thus is optimal in the class of all unbiased estimators.
+
+[ 17 ] Note that unlike the Gauss–Markov theorem , this result establishes optimality among both linear and non-linear estimators, but only in the case of normally distributed error terms.
+
+The estimator s 2 will be proportional to the chi-squared distribution : [ 27 ] s 2 ∼ ∼ σ σ 2 n − − p ⋅ ⋅ χ χ n − − p 2 {\displaystyle s^{2}\ \sim \ {\frac {\sigma ^{2}}{n-p}}\cdot \chi _{n-p}^{2}} The variance of this estimator is equal to 2 σ 4 /( n − p ) , which does not attain the Cramér–Rao bound of 2 σ 4 / n . However it was shown that there are no unbiased estimators of σ 2 with variance smaller than that of the estimator s 2 .
+
+[ 28 ] If we are willing to allow biased estimators, and consider the class of estimators that are proportional to the sum of squared residuals (SSR) of the model, then the best (in the sense of the mean squared error ) estimator in this class will be ~ σ 2 = SSR / ( n − p + 2) , which even beats the Cramér–Rao bound in case when there is only one regressor ( p = 1 ).
+
+[ 29 ] Moreover, the estimators β β ^ ^ {\displaystyle \scriptstyle {\hat {\beta }}} and s 2 are independent , [ 30 ] the fact which comes in useful when constructing the t- and F-tests for the regression.
+
+Influential observations [ edit ] Main article: Influential observation See also: Leverage (statistics) As was mentioned before, the estimator β β ^ ^ {\displaystyle {\hat {\beta }}} is linear in y , meaning that it represents a linear combination of the dependent variables y i . The weights in this linear combination are functions of the regressors X , and generally are unequal. The observations with high weights are called influential because they have a more pronounced effect on the value of the estimator.
+
+To analyze which observations are influential we remove a specific j -th observation and consider how much the estimated quantities are going to change (similarly to the jackknife method ). It can be shown that the change in the OLS estimator for β will be equal to [ 31 ] β β ^ ^ ( j ) − − β β ^ ^ = − − 1 1 − − h j ( X T X ) − − 1 x j T ε ε ^ ^ j , {\displaystyle {\hat {\beta }}^{(j)}-{\hat {\beta }}=-{\frac {1}{1-h_{j}}}(X^{\mathrm {T} }X)^{-1}x_{j}^{\mathrm {T} }{\hat {\varepsilon }}_{j}\,,} where h j = x j T ( X T X ) −1 x j is the j -th diagonal element of the hat matrix P , and x j is the vector of regressors corresponding to the j -th observation. Similarly, the change in the predicted value for j -th observation resulting from omitting that observation from the dataset will be equal to [ 31 ] y ^ ^ j ( j ) − − y ^ ^ j = x j T β β ^ ^ ( j ) − − x j T β β ^ ^ = − − h j 1 − − h j ε ε ^ ^ j {\displaystyle {\hat {y}}_{j}^{(j)}-{\hat {y}}_{j}=x_{j}^{\mathrm {T} }{\hat {\beta }}^{(j)}-x_{j}^{\operatorname {T} }{\hat {\beta }}=-{\frac {h_{j}}{1-h_{j}}}\,{\hat {\varepsilon }}_{j}} From the properties of the hat matrix, 0 ≤ h j ≤ 1 , and they sum up to p , so that on average h j ≈ p/n . These quantities h j are called the leverages , and observations with high h j are called leverage points .
+
+[ 32 ] Usually the observations with high leverage ought to be scrutinized more carefully, in case they are erroneous, or outliers, or in some other way atypical of the rest of the dataset.
+
+Partitioned regression [ edit ] Sometimes the variables and corresponding parameters in the regression can be logically split into two groups, so that the regression takes form y = X 1 β β 1 + X 2 β β 2 + ε ε , {\displaystyle y=X_{1}\beta _{1}+X_{2}\beta _{2}+\varepsilon ,} where X 1 and X 2 have dimensions n × p 1 , n × p 2 , and β 1 , β 2 are p 1 ×1 and p 2 ×1 vectors, with p 1 + p 2 = p .
+
+The Frisch–Waugh–Lovell theorem states that in this regression the residuals ε ε ^ ^ {\displaystyle {\hat {\varepsilon }}} and the OLS estimate β β ^ ^ 2 {\displaystyle \scriptstyle {\hat {\beta }}_{2}} will be numerically identical to the residuals and the OLS estimate for β 2 in the following regression: [ 33 ] M 1 y = M 1 X 2 β β 2 + η η , {\displaystyle M_{1}y=M_{1}X_{2}\beta _{2}+\eta \,,} where M 1 is the annihilator matrix for regressors X 1 .
+
+The theorem can be used to establish a number of theoretical results. For example, having a regression with a constant and another regressor is equivalent to subtracting the means from the dependent variable and the regressor and then running the regression for the de-meaned variables but without the constant term.
+
+Constrained estimation [ edit ] Main article: Ridge regression Suppose it is known that the coefficients in the regression satisfy a system of linear equations A : : Q T β β = c , {\displaystyle A\colon \quad Q^{\operatorname {T} }\beta =c,\,} where Q is a p × q matrix of full rank, and c is a q ×1 vector of known constants, where q < p . In this case least squares estimation is equivalent to minimizing the sum of squared residuals of the model subject to the constraint A . The constrained least squares (CLS) estimator can be given by an explicit formula: [ 34 ] β β ^ ^ c = β β ^ ^ − − ( X T X ) − − 1 Q ( Q T ( X T X ) − − 1 Q ) − − 1 ( Q T β β ^ ^ − − c ) .
+
+{\displaystyle {\hat {\beta }}^{c}={\hat {\beta }}-(X^{\operatorname {T} }X)^{-1}Q{\Big (}Q^{\operatorname {T} }(X^{\operatorname {T} }X)^{-1}Q{\Big )}^{-1}(Q^{\operatorname {T} }{\hat {\beta }}-c).} This expression for the constrained estimator is valid as long as the matrix X T X is invertible. It was assumed from the beginning of this article that this matrix is of full rank, and it was noted that when the rank condition fails, β will not be identifiable. However it may happen that adding the restriction A makes β identifiable, in which case one would like to find the formula for the estimator. The estimator is equal to [ 35 ] β β ^ ^ c = R ( R T X T X R ) − − 1 R T X T y + ( I p − − R ( R T X T X R ) − − 1 R T X T X ) Q ( Q T Q ) − − 1 c , {\displaystyle {\hat {\beta }}^{c}=R(R^{\operatorname {T} }X^{\operatorname {T} }XR)^{-1}R^{\operatorname {T} }X^{\operatorname {T} }y+{\Big (}I_{p}-R(R^{\operatorname {T} }X^{\operatorname {T} }XR)^{-1}R^{\operatorname {T} }X^{\operatorname {T} }X{\Big )}Q(Q^{\operatorname {T} }Q)^{-1}c,} where R is a p ×( p − q ) matrix such that the matrix [ Q R ] is non-singular, and R T Q = 0 . Such a matrix can always be found, although generally it is not unique. The second formula coincides with the first in case when X T X is invertible.
+
+[ 35 ] Large sample properties [ edit ] The least squares estimators are point estimates of the linear regression model parameters β . However, generally we also want to know how close those estimates might be to the true values of parameters. In other words, we want to construct the interval estimates .
+
+Since we have not made any assumption about the distribution of error term ε i , it is impossible to infer the distribution of the estimators β β ^ ^ {\displaystyle {\hat {\beta }}} and σ σ ^ ^ 2 {\displaystyle {\hat {\sigma }}^{2}} . Nevertheless, we can apply the central limit theorem to derive their asymptotic properties as sample size n goes to infinity. While the sample size is necessarily finite, it is customary to assume that n is "large enough" so that the true distribution of the OLS estimator is close to its asymptotic limit.
+
+We can show that under the model assumptions, the least squares estimator for β is consistent (that is β β ^ ^ {\displaystyle {\hat {\beta }}} converges in probability to β ) and asymptotically normal: [proof] ( β β ^ ^ − − β β ) → d N ( 0 , σ σ 2 Q x x − − 1 ) , {\displaystyle ({\hat {\beta }}-\beta )\ {\xrightarrow {d}}\ {\mathcal {N}}{\big (}0,\;\sigma ^{2}Q_{xx}^{-1}{\big )},} where Q x x = X T X .
+
+{\displaystyle Q_{xx}=X^{\operatorname {T} }X.} Intervals [ edit ] Main articles: Confidence interval and Prediction interval Using this asymptotic distribution, approximate two-sided confidence intervals for the j -th component of the vector β β ^ ^ {\displaystyle {\hat {\beta }}} can be constructed as β β j ∈ ∈ [ β β ^ ^ j ± ± q 1 − − α α 2 N ( 0 , 1 ) σ σ ^ ^ 2 [ Q x x − − 1 ] j j ] {\displaystyle \beta _{j}\in {\bigg [}\ {\hat {\beta }}_{j}\pm q_{1-{\frac {\alpha }{2}}}^{{\mathcal {N}}(0,1)}\!{\sqrt {{\hat {\sigma }}^{2}\left[Q_{xx}^{-1}\right]_{jj}}}\ {\bigg ]}} at the 1 − α confidence level, where q denotes the quantile function of standard normal distribution, and [·] jj is the j -th diagonal element of a matrix.
+
+Similarly, the least squares estimator for σ 2 is also consistent and asymptotically normal (provided that the fourth moment of ε i exists) with limiting distribution ( σ σ ^ ^ 2 − − σ σ 2 ) → d N ( 0 , E ⁡ ⁡ [ ε ε i 4 ] − − σ σ 4 ) .
+
+{\displaystyle ({\hat {\sigma }}^{2}-\sigma ^{2})\ {\xrightarrow {d}}\ {\mathcal {N}}\left(0,\;\operatorname {E} \left[\varepsilon _{i}^{4}\right]-\sigma ^{4}\right).} These asymptotic distributions can be used for prediction, testing hypotheses, constructing other estimators, etc.. As an example consider the problem of prediction. Suppose x 0 {\displaystyle x_{0}} is some point within the domain of distribution of the regressors, and one wants to know what the response variable would have been at that point. The mean response is the quantity y 0 = x 0 T β β {\displaystyle y_{0}=x_{0}^{\mathrm {T} }\beta } , whereas the predicted response is y ^ ^ 0 = x 0 T β β ^ ^ {\displaystyle {\hat {y}}_{0}=x_{0}^{\mathrm {T} }{\hat {\beta }}} . Clearly the predicted response is a random variable, its distribution can be derived from that of β β ^ ^ {\displaystyle {\hat {\beta }}} : ( y ^ ^ 0 − − y 0 ) → d N ( 0 , σ σ 2 x 0 T Q x x − − 1 x 0 ) , {\displaystyle \left({\hat {y}}_{0}-y_{0}\right)\ {\xrightarrow {d}}\ {\mathcal {N}}\left(0,\;\sigma ^{2}x_{0}^{\mathrm {T} }Q_{xx}^{-1}x_{0}\right),} which allows construct confidence intervals for mean  response y 0 {\displaystyle y_{0}} to be constructed: y 0 ∈ ∈ [ x 0 T β β ^ ^ ± ± q 1 − − α α 2 N ( 0 , 1 ) σ σ ^ ^ 2 x 0 T Q x x − − 1 x 0 ] {\displaystyle y_{0}\in \left[\ x_{0}^{\mathrm {T} }{\hat {\beta }}\pm q_{1-{\frac {\alpha }{2}}}^{{\mathcal {N}}(0,1)}\!{\sqrt {{\hat {\sigma }}^{2}x_{0}^{\mathrm {T} }Q_{xx}^{-1}x_{0}}}\ \right]} at the 1 − α confidence level.
+
+Hypothesis testing [ edit ] Main article: Hypothesis testing This section needs expansion . You can help by adding to it .
+
+( February 2017 ) Two hypothesis tests are particularly widely used. First, one wants to know if the estimated regression equation is any better than simply predicting that all values of the response variable equal its sample mean (if not, it is said to have no explanatory power). The null hypothesis of no explanatory value of the estimated regression is tested using an F-test . If the calculated F-value is found to be large enough to exceed its critical value for the pre-chosen level of significance, the null hypothesis is rejected and the alternative hypothesis , that the regression has explanatory power, is accepted. Otherwise, the null hypothesis of no explanatory power is accepted.
+
+Second, for each explanatory variable of interest, one wants to know whether its estimated coefficient differs significantly from zero—that is, whether this particular explanatory variable in fact has explanatory power in predicting the response variable. Here the null hypothesis is that the true coefficient is zero. This hypothesis is tested by computing the coefficient's t-statistic , as the ratio of the coefficient estimate to its standard error . If the t-statistic is larger than a predetermined value, the null hypothesis is rejected and the variable is found to have explanatory power, with its coefficient significantly different from zero. Otherwise, the null hypothesis of a zero value of the true coefficient is accepted.
+
+In addition, the Chow test is used to test whether two subsamples both have the same underlying true coefficient values. The sum of squared residuals of regressions on each of the subsets and on the combined data set are compared by computing an F-statistic; if this exceeds a critical value, the null hypothesis of no difference between the two subsets is rejected; otherwise, it is accepted.
+
+Example with real data [ edit ] See also: Simple linear regression § Example , and Linear least squares § Example The following data set gives average heights and weights for American women aged 30–39 (source: The World Almanac and Book of Facts, 1975 ).
+
+Height (m) 1.47 1.50 1.52 1.55 1.57 Scatterplot of the data, the relationship is slightly curved but close to linear Weight (kg) 52.21 53.12 54.48 55.84 57.20 Height (m) 1.60 1.63 1.65 1.68 1.70 Weight (kg) 58.57 59.93 61.29 63.11 64.47 Height (m) 1.73 1.75 1.78 1.80 1.83 Weight (kg) 66.28 68.10 69.92 72.19 74.46 When only one dependent variable is being modeled, a scatterplot will suggest the form and strength of the relationship between the dependent variable and regressors. It might also reveal outliers, heteroscedasticity, and other aspects of the data that may complicate the interpretation of a fitted regression model.  The scatterplot suggests that the relationship is strong and can be approximated as a quadratic function. OLS can handle non-linear relationships by introducing the regressor HEIGHT 2 .  The regression model then becomes a multiple linear model: w i = β β 1 + β β 2 h i + β β 3 h i 2 + ε ε i .
+
+{\displaystyle w_{i}=\beta _{1}+\beta _{2}h_{i}+\beta _{3}h_{i}^{2}+\varepsilon _{i}.} Fitted regression The output from most popular statistical packages will look similar to this: Method Least squares Dependent variable WEIGHT Observations 15 Parameter Value Std error t-statistic p-value β β 1 {\displaystyle \beta _{1}} 128.8128 16.3083 7.8986 0.0000 β β 2 {\displaystyle \beta _{2}} –143.1620 19.8332 –7.2183 0.0000 β β 3 {\displaystyle \beta _{3}} 61.9603 6.0084 10.3122 0.0000 R 2 0.9989 S.E. of regression 0.2516 Adjusted R 2 0.9987 Model sum-of-sq.
+
+692.61 Log-likelihood 1.0890 Residual sum-of-sq.
+
+0.7595 Durbin–Watson stat.
+
+2.1013 Total sum-of-sq.
+
+693.37 Akaike criterion 0.2548 F-statistic 5471.2 Schwarz criterion 0.3964 p-value (F-stat) 0.0000 In this table: The Value column gives the least squares estimates of parameters β j The Std error column shows standard errors of each coefficient estimate: σ σ ^ ^ j = ( σ σ ^ ^ 2 [ Q x x − − 1 ] j j ) 1 2 {\displaystyle {\hat {\sigma }}_{j}=\left({\hat {\sigma }}^{2}\left[Q_{xx}^{-1}\right]_{jj}\right)^{\frac {1}{2}}} The t-statistic and p-value columns are testing whether any of the coefficients might be equal to zero. The t -statistic is calculated simply as t = β β ^ ^ j / σ σ ^ ^ j {\displaystyle t={\hat {\beta }}_{j}/{\hat {\sigma }}_{j}} . If the errors ε follow a normal distribution, t follows a Student-t distribution.  Under weaker conditions, t is asymptotically normal. Large values of t indicate that the null hypothesis can be rejected and that the corresponding coefficient is not zero. The second column, p -value , expresses the results of the hypothesis test as a significance level .  Conventionally, p -values smaller than 0.05 are taken as evidence that the population coefficient is nonzero.
+
+R-squared is the coefficient of determination indicating goodness-of-fit of the regression. This statistic will be equal to one if fit is perfect, and to zero when regressors X have no explanatory power whatsoever. This is a biased estimate of the population R-squared , and will never decrease if additional regressors are added, even if they are irrelevant.
+
+Adjusted R-squared is a slightly modified version of R 2 {\displaystyle R^{2}} , designed to penalize for the excess number of regressors which do not add to the explanatory power of the regression. This statistic is always smaller than R 2 {\displaystyle R^{2}} , can decrease as new regressors are added, and even be negative for poorly fitting models: R ¯ ¯ 2 = 1 − − n − − 1 n − − p ( 1 − − R 2 ) {\displaystyle {\overline {R}}^{2}=1-{\frac {n-1}{n-p}}(1-R^{2})} Log-likelihood is calculated under the assumption that errors follow normal distribution. Even though the assumption is not very reasonable, this statistic may still find its use in conducting LR tests.
+
+Durbin–Watson statistic tests whether there is any evidence of serial correlation between the residuals. As a rule of thumb, the value smaller than 2 will be an evidence of positive correlation.
+
+Akaike information criterion and Schwarz criterion are both used for model selection. Generally when comparing two alternative models, smaller values of one of these criteria will indicate a better model.
+
+[ 36 ] Standard error of regression is an estimate of σ , standard error of the error term.
+
+Total sum of squares , model sum of squared , and residual sum of squares tell us how much of the initial variation in the sample were explained by the regression.
+
+F-statistic tries to test the hypothesis that all coefficients (except the intercept) are equal to zero. This statistic has F ( p–1 , n–p ) distribution under the null hypothesis and normality assumption, and its p-value indicates probability that the hypothesis is indeed true. Note that when errors are not normal this statistic becomes invalid, and other tests such as Wald test or LR test should be used.
+
+Residuals plot Ordinary least squares analysis often includes the use of diagnostic plots designed to detect departures of the data from the assumed form of the model.  These are some of the common diagnostic plots: Residuals against the explanatory variables in the model. A non-linear relation between these variables suggests that the linearity of the conditional mean function may not hold.  Different levels of variability in the residuals for different levels of the explanatory variables suggests possible heteroscedasticity.
+
+Residuals against explanatory variables not in the model. Any relation of the residuals to these variables would suggest considering these variables for inclusion in the model.
+
+Residuals against the fitted values, y ^ ^ {\displaystyle {\hat {y}}} .
+
+Residuals against the preceding residual.  This plot may identify serial correlations in the residuals.
+
+An important consideration when carrying out statistical inference using regression models is how the data were sampled.  In this example, the data are averages rather than measurements on individual women.  The fit of the model is very good, but this does not imply that the weight of an individual woman can be predicted with high accuracy based only on her height.
+
+Sensitivity to rounding [ edit ] Main article: Errors-in-variables models See also: Quantization error model This example also demonstrates that coefficients determined by these calculations are sensitive to how the data is prepared. The heights were originally given rounded to the nearest inch and have been converted and rounded to the nearest centimetre. Since the conversion factor is one inch to 2.54 cm this is not an exact conversion. The original inches can be recovered by Round(x/0.0254) and then re-converted to metric without rounding. If this is done the results become: Const Height Height 2 Converted to metric with rounding.
+
+128.8128 −143.162 61.96033 Converted to metric without rounding.
+
+119.0205 −131.5076 58.5046 Residuals to a quadratic fit for correctly and incorrectly converted data.
+
+Using either of these equations to predict the weight of a 5' 6" (1.6764 m) woman gives similar values: 62.94 kg with rounding vs. 62.98 kg without rounding. Thus a seemingly small variation in the data has a real effect on the coefficients but a small effect on the results of the equation.
+
+While this may look innocuous in the middle of the data range it could become significant at the extremes or in the case where the fitted model is used to project outside the data range ( extrapolation ).
+
+This highlights a common error: this example is an abuse of OLS which inherently requires that the errors in the independent variable (in this case height) are zero or at least negligible. The initial rounding to nearest inch plus any actual measurement errors constitute a finite and non-negligible error. As a result, the fitted parameters are not the best estimates they are presumed to be. Though not totally spurious the error in the estimation will depend upon relative size of the x and y errors.
+
+Another example with less real data [ edit ] Problem statement [ edit ] We can use the least square mechanism to figure out the equation of a two body orbit in polar base co-ordinates. The equation typically used is r ( θ θ ) = p 1 − − e cos ⁡ ⁡ ( θ θ ) {\displaystyle r(\theta )={\frac {p}{1-e\cos(\theta )}}} where r ( θ θ ) {\displaystyle r(\theta )} is the radius of how far the object is from one of the bodies. In the equation the parameters p {\displaystyle p} and e {\displaystyle e} are used to determine the path of the orbit. We have measured the following data.
+
+θ θ {\displaystyle \theta } (in degrees) 43 45 52 93 108 116 r ( θ θ ) {\displaystyle r(\theta )} 4.7126 4.5542 4.0419 2.2187 1.8910 1.7599 We need to find the least-squares approximation of e {\displaystyle e} and p {\displaystyle p} for the given data.
+
+Solution [ edit ] First we need to represent e and p in a linear form. So we are going to rewrite the equation r ( θ θ ) {\displaystyle r(\theta )} as 1 r ( θ θ ) = 1 p − − e p cos ⁡ ⁡ ( θ θ ) {\displaystyle {\frac {1}{r(\theta )}}={\frac {1}{p}}-{\frac {e}{p}}\cos(\theta )} .
+
+Furthermore, one could fit for apsides by expanding cos ⁡ ⁡ ( θ θ ) {\displaystyle \cos(\theta )} with an extra parameter as cos ⁡ ⁡ ( θ θ − − θ θ 0 ) = cos ⁡ ⁡ ( θ θ ) cos ⁡ ⁡ ( θ θ 0 ) + sin ⁡ ⁡ ( θ θ ) sin ⁡ ⁡ ( θ θ 0 ) {\displaystyle \cos(\theta -\theta _{0})=\cos(\theta )\cos(\theta _{0})+\sin(\theta )\sin(\theta _{0})} , which is linear in both cos ⁡ ⁡ ( θ θ ) {\displaystyle \cos(\theta )} and in the extra basis function sin ⁡ ⁡ ( θ θ ) {\displaystyle \sin(\theta )} .
+
+We use the original two-parameter form to represent our observational data as: A T A ( x y ) = A T b , {\displaystyle A^{T}A{\binom {x}{y}}=A^{T}b,} where: x = 1 / p {\displaystyle x=1/p\,} ; y = e / p {\displaystyle y=e/p\,} ; A {\displaystyle A} contains the coefficients of 1 / p {\displaystyle 1/p} in the first column, which are all 1, and the coefficients of e / p {\displaystyle e/p} in the second column, given by cos ⁡ ⁡ ( θ θ ) {\displaystyle \cos(\theta )\,} ; and b = 1 / r ( θ θ ) {\displaystyle b=1/r(\theta )} , such that: A = [ 1 − − 0.731354 1 − − 0.707107 1 − − 0.615661 1 0.052336 1 0.309017 1 0.438371 ] , b = [ 0.21220 0.21958 0.24741 0.45071 0.52883 0.56820 ] .
+
+{\displaystyle A={\begin{bmatrix}1&-0.731354\\1&-0.707107\\1&-0.615661\\1&\ 0.052336\\1&0.309017\\1&0.438371\end{bmatrix}},\quad b={\begin{bmatrix}0.21220\\0.21958\\0.24741\\0.45071\\0.52883\\0.56820\end{bmatrix}}.} On solving we get ( x y ) = ( 0.43478 0.30435 ) {\displaystyle {\binom {x}{y}}={\binom {0.43478}{0.30435}}\,} , so p = 1 x = 2.3000 {\displaystyle p={\frac {1}{x}}=2.3000} and e = p ⋅ ⋅ y = 0.70001 {\displaystyle e=p\cdot y=0.70001} See also [ edit ] Bayesian least squares Fama–MacBeth regression Nonlinear least squares Numerical methods for linear least squares Nonlinear system identification References [ edit ] ^ "The Origins of Ordinary Least Squares Assumptions" .
+
+Feature Column . 2022-03-01 . Retrieved 2024-05-16 .
+
+^ "What is a complete list of the usual assumptions for linear regression?" .
+
+Cross Validated . Retrieved 2022-09-28 .
+
+^ Goldberger, Arthur S.
+
+(1964).
+
+"Classical Linear Regression" .
+
+Econometric Theory . New York: John Wiley & Sons. pp.
+
+158 .
+
+ISBN 0-471-31101-4 .
+
+{{ cite book }} : ISBN / Date incompatibility ( help ) ^ Hayashi, Fumio (2000).
+
+Econometrics . Princeton University Press. p. 15.
+
+^ Hayashi (2000 , page 18).
+
+^ Ghilani, Charles D.; Paul r. Wolf, Ph. D. (12 June 2006).
+
+Adjustment Computations: Spatial Data Analysis . John Wiley & Sons.
+
+ISBN 9780471697282 .
+
+^ Hofmann-Wellenhof, Bernhard; Lichtenegger, Herbert; Wasle, Elmar (20 November 2007).
+
+GNSS – Global Navigation Satellite Systems: GPS, GLONASS, Galileo, and more . Springer.
+
+ISBN 9783211730171 .
+
+^ Xu, Guochang (5 October 2007).
+
+GPS: Theory, Algorithms and Applications . Springer.
+
+ISBN 9783540727156 .
+
+^ a b Hayashi (2000 , page 19) ^ Hoaglin, David C.; Welsch, Roy E. (1978).
+
+"The Hat Matrix in Regression and ANOVA" .
+
+The American Statistician .
+
+32 (1): 17– 22.
+
+doi : 10.1080/00031305.1978.10479237 .
+
+hdl : 1721.1/1920 .
+
+ISSN 0003-1305 .
+
+^ Julian Faraway (2000), Practical Regression and Anova using R ^ Kenney, J.; Keeping, E. S. (1963).
+
+Mathematics of Statistics . van Nostrand. p. 187.
+
+^ Zwillinger, D. (1995).
+
+Standard Mathematical Tables and Formulae . Chapman&Hall/CRC. p. 626.
+
+ISBN 0-8493-2479-3 .
+
+^ Hayashi (2000 , page 20) ^ Akbarzadeh, Vahab (7 May 2014).
+
+"Line Estimation" .
+
+^ Hayashi (2000 , page 49) ^ a b Hayashi (2000 , page 52) ^ Hayashi (2000 , page 7) ^ Hayashi (2000 , page 187) ^ a b Hayashi (2000 , page 10) ^ Hayashi (2000 , page 34) ^ Williams, M. N; Grajales, C. A. G; Kurkiewicz, D (2013).
+
+"Assumptions of multiple regression: Correcting two misconceptions" .
+
+Practical Assessment, Research & Evaluation .
+
+18 (11).
+
+^ "Memento on EViews Output" (PDF) . Retrieved 28 December 2020 .
+
+^ Hayashi (2000 , pages 27, 30) ^ a b c Hayashi (2000 , page 27) ^ Amemiya, Takeshi (1985).
+
+Advanced Econometrics . Harvard University Press. p.
+
+13 .
+
+ISBN 9780674005600 .
+
+^ Amemiya (1985 , page 14) ^ Rao, C. R.
+
+(1973).
+
+Linear Statistical Inference and its Applications (Second ed.). New York: J. Wiley & Sons. p. 319.
+
+ISBN 0-471-70823-2 .
+
+^ Amemiya (1985 , page 20) ^ Amemiya (1985 , page 27) ^ a b Davidson, Russell; MacKinnon, James G. (1993).
+
+Estimation and Inference in Econometrics . New York: Oxford University Press. p. 33.
+
+ISBN 0-19-506011-3 .
+
+^ Davidson & MacKinnon (1993 , page 36) ^ Davidson & MacKinnon (1993 , page 20) ^ Amemiya (1985 , page 21) ^ a b Amemiya (1985 , page 22) ^ Burnham, Kenneth P.; David Anderson (2002).
+
+Model Selection and Multi-Model Inference (2nd ed.). Springer.
+
+ISBN 0-387-95364-7 .
+
+Further reading [ edit ] Dougherty, Christopher (2002).
+
+Introduction to Econometrics (2nd ed.). New York: Oxford University Press. pp.
+
+48– 113.
+
+ISBN 0-19-877643-8 .
+
+Gujarati, Damodar N.
+
+; Porter, Dawn C.
+
+(2009).
+
+Basic Econometics (Fifth ed.). Boston: McGraw-Hill Irwin. pp.
+
+55– 96.
+
+ISBN 978-0-07-337577-9 .
+
+Heij, Christiaan; Boer, Paul; Franses, Philip H.; Kloek, Teun; van Dijk, Herman K. (2004).
+
+Econometric Methods with Applications in Business and Economics (1st ed.). Oxford: Oxford University Press. pp.
+
+76– 115.
+
+ISBN 978-0-19-926801-6 .
+
+Hill, R. Carter; Griffiths, William E.; Lim, Guay C. (2008).
+
+Principles of Econometrics (3rd ed.). Hoboken, NJ: John Wiley & Sons. pp.
+
+8– 47.
+
+ISBN 978-0-471-72360-8 .
+
+Wooldridge, Jeffrey (2008).
+
+"The Simple Regression Model" .
+
+Introductory Econometrics: A Modern Approach (4th ed.). Mason, OH: Cengage Learning. pp.
+
+22– 67.
+
+ISBN 978-0-324-58162-1 .
+
+v t e Least squares and regression analysis Computational statistics Least squares Linear least squares Non-linear least squares Iteratively reweighted least squares Correlation and dependence Pearson product-moment correlation Rank correlation ( Spearman's rho Kendall's tau ) Partial correlation Confounding variable Regression analysis Ordinary least squares Partial least squares Total least squares Ridge regression Regression as a statistical model Linear regression Simple linear regression Ordinary least squares Generalized least squares Weighted least squares General linear model Predictor structure Polynomial regression Growth curve (statistics) Segmented regression Local regression Non-standard Nonlinear regression Nonparametric Semiparametric Robust Quantile Isotonic Non-normal errors Generalized linear model Binomial Poisson Logistic Decomposition of variance Analysis of variance Analysis of covariance Multivariate AOV Model exploration Stepwise regression Model selection Mallows's C p AIC BIC Model specification Regression validation Background Mean and predicted response Gauss–Markov theorem Errors and residuals Goodness of fit Studentized residual Minimum mean-square error Frisch–Waugh–Lovell theorem Design of experiments Response surface methodology Optimal design Bayesian design Numerical approximation Numerical analysis Approximation theory Numerical integration Gaussian quadrature Orthogonal polynomials Chebyshev polynomials Chebyshev nodes Applications Curve fitting Calibration curve Numerical smoothing and differentiation System identification Moving least squares Regression analysis category Statistics category Mathematics portal Statistics outline Statistics topics NewPP limit report
+Parsed by mw‐web.codfw.main‐7c956d68b4‐zdlgq
+Cached time: 20250816075542
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc]
+CPU time usage: 0.815 seconds
+Real time usage: 1.329 seconds
+Preprocessor visited node count: 6056/1000000
+Revision size: 66502/2097152 bytes
+Post‐expand include size: 97362/2097152 bytes
+Template argument size: 6912/2097152 bytes
+Highest expansion depth: 12/100
+Expensive parser function count: 17/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 110567/5000000 bytes
+Lua time usage: 0.383/10.000 seconds
+Lua memory usage: 9221187/52428800 bytes
+Number of Wikibase entities loaded: 0/500 Transclusion expansion time report (%,ms,calls,template)
+100.00%  606.768      1 -total
+ 36.27%  220.074      1 Template:Reflist
+ 14.82%   89.943     16 Template:Cite_book
+ 13.80%   83.761      4 Template:Cite_web
+ 12.74%   77.305      1 Template:Short_description
+ 12.62%   76.570      1 Template:Regression_bar
+ 12.35%   74.918      1 Template:Sidebar
+  9.14%   55.436      2 Template:Pagetype
+  7.06%   42.853     18 Template:Harvtxt
+  6.06%   36.787     41 Template:Math Saved in parser cache with key enwiki:pcache:1651906:|#|:idhash:canonical and timestamp 20250816075542 and revision id 1293729634. Rendering was triggered because: page-view Retrieved from " https://en.wikipedia.org/w/index.php?title=Ordinary_least_squares&oldid=1293729634 " Categories : Parametric statistics Least squares Hidden categories: CS1 errors: ISBN date Articles with short description Short description matches Wikidata Wikipedia articles needing clarification from December 2023 All articles with unsourced statements Articles with unsourced statements from February 2010 Articles to be expanded from February 2017 All articles to be expanded This page was last edited on 3 June 2025, at 10:14 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Ordinary least squares 12 languages Add topic
+

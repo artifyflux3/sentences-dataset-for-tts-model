@@ -1,0 +1,116 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 Model 2 Power-flow problem formulation 3 Newton–Raphson solution method 4 Other power-flow methods 5 DC power flow 6 References Toggle the table of contents Power-flow study 12 languages العربية Čeština Deutsch Español فارسی हिन्दी Italiano Magyar Nederlands Português اردو 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Numerical analysis of electric power flow In power engineering , a power-flow study (also known as power-flow analysis or load-flow study ) is a numerical analysis of the flow of electric power in an interconnected system. A power-flow study usually uses simplified notations such as a one-line diagram and per-unit system , and focuses on various aspects of AC power parameters, such as voltage , voltage angles, real power and reactive power. It analyzes the power systems in normal steady-state operation.
+
+Power-flow or load-flow studies are important for planning future expansion of power systems as well as in determining the best operation of existing systems. The principal information obtained from the power-flow study is the magnitude and phase angle of the voltage at each bus , and the real and reactive power flowing in each line.
+
+Commercial power systems are usually too complex to allow for hand solution of the power flow.  Special-purpose network analyzers were built between 1929 and the early 1960s to provide laboratory-scale physical models of power systems. Large-scale digital computers replaced the analog methods with numerical solutions.
+
+In addition to a power-flow study, computer programs perform related calculations such as short-circuit fault analysis, stability studies (transient and steady-state), unit commitment and economic dispatch .
+
+[ 1 ] In particular, some programs use linear programming to find the optimal power flow , the conditions which give the lowest cost per kilowatt hour delivered.
+
+A load flow study is especially valuable for a system with multiple load centers, such as a refinery complex. The power-flow study is an analysis of the system’s capability to adequately supply the connected load. The total system losses, as well as individual line losses, also are tabulated. Transformer tap positions are selected to ensure the correct voltage at critical locations such as motor control centers. Performing a load-flow study on an existing system provides insight and recommendations as to the system operation and optimization of control settings to obtain maximum capacity while minimizing the operating costs. The results of such an analysis are in terms of active power, reactive power, voltage magnitude and phase angle. Furthermore, power-flow computations are crucial for optimal operations of groups of generating units .
+
+In term of its approach to uncertainties, load-flow study can be divided to deterministic load flow and uncertainty-concerned load flow. Deterministic load-flow study does not take into account the uncertainties arising from both power generations and load behaviors. To take the uncertainties into consideration, there are several approaches that has been used such as probabilistic, possibilistic, information gap decision theory, robust optimization, and interval analysis.
+
+[ 2 ] Model [ edit ] An alternating current power-flow model is a model used in electrical engineering to analyze power grids . It provides a nonlinear system of equations which describes the energy flow through each transmission line. The problem is non-linear because the power flow into load impedances is a function of the square of the applied voltages. Due to nonlinearity, in many cases the analysis of large network via AC power-flow model is not feasible, and a linear (but less accurate) DC power-flow model is used instead.
+
+Usually analysis of a three-phase power system is simplified by assuming balanced loading of all three phases. Sinusoidal steady-state operation is assumed, with no transient changes in power flow or voltage due to load or generation changes, meaning all current and voltage waveforms are sinusoidal with no DC offset and have the same constant frequency. The previous assumption is the same as assuming the power system is linear time-invariant (even though the system of equations is nonlinear), driven by sinusoidal sources of same frequency, and operating in steady-state, which allows to use phasor analysis, another simplification. A further simplification is to use the per-unit system to represent all voltages, power flows, and impedances, scaling the actual target system values to some convenient base. A system one-line diagram is the basis to build a mathematical model of the generators, loads, buses, and transmission lines of the system, and their electrical impedances and ratings.
+
+Power-flow problem formulation [ edit ] The goal of a power-flow study is to obtain complete voltage angles and magnitude information for each bus in a power system for specified load and generator real power and voltage conditions.
+
+[ 3 ] Once this information is known, real and reactive power flow on each branch as well as generator reactive power output can be analytically determined. Due to the nonlinear nature of this problem, numerical methods are employed to obtain a solution that is within an acceptable tolerance.
+
+The solution to the power-flow problem begins with identifying the known and unknown variables in the system. The known and unknown variables are dependent on the type of bus. A bus without any generators connected to it is called a Load Bus. With one exception, a bus with at least one generator connected to it is called a Generator Bus. The exception is one arbitrarily-selected bus that has a generator. This bus is referred to as the slack bus .
+
+In the power-flow problem, it is assumed that the real power P D {\displaystyle P_{D}} and reactive power Q D {\displaystyle Q_{D}} at each Load Bus are known. For this reason, Load Buses are also known as PQ Buses. For Generator Buses, it is assumed that the real power generated P G {\displaystyle P_{G}} and the voltage magnitude | V | {\displaystyle |V|} is known. For the Slack Bus, it is assumed that the voltage magnitude | V | {\displaystyle |V|} and voltage phase θ θ {\displaystyle \theta } are known. Therefore, for each Load Bus, both the voltage magnitude and angle are unknown and must be solved for; for each Generator Bus, the voltage angle must be solved for; there are no variables that must be solved for the Slack Bus. In a system with N {\displaystyle N} buses and R {\displaystyle R} generators, there are then 2 ( N − − 1 ) − − ( R − − 1 ) {\displaystyle 2(N-1)-(R-1)} unknowns.
+
+In order to solve for the 2 ( N − − 1 ) − − ( R − − 1 ) {\displaystyle 2(N-1)-(R-1)} unknowns, there must be 2 ( N − − 1 ) − − ( R − − 1 ) {\displaystyle 2(N-1)-(R-1)} equations that do not introduce any new unknown variables. The possible equations to use are power balance equations, which can be written for real and reactive power for each bus.
+The real power balance equation is: 0 = − − P i + ∑ ∑ k = 1 N | V i | | V k | ( G i k cos ⁡ ⁡ θ θ i k + B i k sin ⁡ ⁡ θ θ i k ) {\displaystyle 0=-P_{i}+\sum _{k=1}^{N}|V_{i}||V_{k}|(G_{ik}\cos \theta _{ik}+B_{ik}\sin \theta _{ik})} where P i {\displaystyle P_{i}} is the net active power injected at bus i , G i k {\displaystyle G_{ik}} is the real part of the element in the bus admittance matrix Y BUS corresponding to the i t h {\displaystyle i_{th}} row and k t h {\displaystyle k_{th}} column, B i k {\displaystyle B_{ik}} is the imaginary part of the element in the Y BUS corresponding to the i t h {\displaystyle i_{th}} row and k t h {\displaystyle k_{th}} column and θ θ i k {\displaystyle \theta _{ik}} is the difference in voltage angle between the i t h {\displaystyle i_{th}} and k t h {\displaystyle k_{th}} buses ( θ θ i k = θ θ i − − θ θ k {\displaystyle \theta _{ik}=\theta _{i}-\theta _{k}} ). The reactive power balance equation is: 0 = − − Q i + ∑ ∑ k = 1 N | V i | | V k | ( G i k sin ⁡ ⁡ θ θ i k − − B i k cos ⁡ ⁡ θ θ i k ) {\displaystyle 0=-Q_{i}+\sum _{k=1}^{N}|V_{i}||V_{k}|(G_{ik}\sin \theta _{ik}-B_{ik}\cos \theta _{ik})} where Q i {\displaystyle Q_{i}} is the net reactive power injected at bus i .
+
+Equations included are the real and reactive power balance equations for each Load Bus and the real power balance equation for each Generator Bus. Only the real power balance equation is written for a Generator Bus because the net reactive power injected is assumed to be unknown and therefore including the reactive power balance equation would result in an additional unknown variable. For similar reasons, there are no equations written for the Slack Bus.
+
+In many transmission systems, the impedance of the power network lines is primarily inductive, i.e. the phase angles of the power lines impedance are usually relatively large and very close to 90 degrees. There is thus a strong coupling between real power and voltage angle, and between reactive power and voltage magnitude, while the coupling between real power and voltage magnitude, as well as reactive power and voltage angle, is weak. As a result, real power is usually transmitted from the bus with higher voltage angle to the bus with lower voltage angle, and reactive power is usually transmitted from the bus with higher voltage magnitude to the bus with lower voltage magnitude. However, this approximation does not hold when the phase angle of the power line impedance is relatively small.
+
+[ 4 ] Newton–Raphson solution method [ edit ] There are several different methods of solving the resulting nonlinear system of equations. The most popular [ according to whom?
+
+] is a variation of the Newton–Raphson method . The Newton-Raphson method is an iterative method which begins with initial guesses of all unknown variables (voltage magnitude and angles at Load Buses and voltage angles at Generator Buses). Next, a Taylor Series is written, with the higher order terms ignored, for each of the power balance equations included in the system of equations. The result is a linear system of equations that can be expressed as: [ Δ Δ θ θ Δ Δ | V | ] = − − J − − 1 [ Δ Δ P Δ Δ Q ] {\displaystyle {\begin{bmatrix}\Delta \theta \\\Delta |V|\end{bmatrix}}=-J^{-1}{\begin{bmatrix}\Delta P\\\Delta Q\end{bmatrix}}} where Δ Δ P {\displaystyle \Delta P} and Δ Δ Q {\displaystyle \Delta Q} are called the mismatch equations: Δ Δ P i = − − P i + ∑ ∑ k = 1 N | V i | | V k | ( G i k cos ⁡ ⁡ θ θ i k + B i k sin ⁡ ⁡ θ θ i k ) {\displaystyle \Delta P_{i}=-P_{i}+\sum _{k=1}^{N}|V_{i}||V_{k}|(G_{ik}\cos \theta _{ik}+B_{ik}\sin \theta _{ik})} Δ Δ Q i = − − Q i + ∑ ∑ k = 1 N | V i | | V k | ( G i k sin ⁡ ⁡ θ θ i k − − B i k cos ⁡ ⁡ θ θ i k ) {\displaystyle \Delta Q_{i}=-Q_{i}+\sum _{k=1}^{N}|V_{i}||V_{k}|(G_{ik}\sin \theta _{ik}-B_{ik}\cos \theta _{ik})} and J {\displaystyle J} is a matrix of partial derivatives known as a Jacobian : J = [ ∂ ∂ Δ Δ P ∂ ∂ θ θ ∂ ∂ Δ Δ P ∂ ∂ | V | ∂ ∂ Δ Δ Q ∂ ∂ θ θ ∂ ∂ Δ Δ Q ∂ ∂ | V | ] {\displaystyle J={\begin{bmatrix}{\dfrac {\partial \Delta P}{\partial \theta }}&{\dfrac {\partial \Delta P}{\partial |V|}}\\{\dfrac {\partial \Delta Q}{\partial \theta }}&{\dfrac {\partial \Delta Q}{\partial |V|}}\end{bmatrix}}} .
+
+The linearized system of equations is solved to determine the next guess ( m + 1) of voltage magnitude and angles based on: θ θ m + 1 = θ θ m + Δ Δ θ θ {\displaystyle \theta _{m+1}=\theta _{m}+\Delta \theta \,} | V | m + 1 = | V | m + Δ Δ | V | {\displaystyle |V|_{m+1}=|V|_{m}+\Delta |V|\,} The process continues until a stopping condition is met. A common stopping condition is to terminate if the norm of the mismatch equations is below a specified tolerance.
+
+A rough outline of solution of the power-flow problem is: Make an initial guess of all unknown voltage magnitudes and angles. It is common to use a "flat start" in which all voltage angles are set to zero and all voltage magnitudes are set to 1.0 p.u.
+
+Solve the power balance equations using the most recent voltage angle and magnitude values.
+
+Linearize the system around the most recent voltage angle and magnitude values Solve for the change in voltage angle and magnitude Update the voltage magnitude and angles Check the stopping conditions, if met then terminate, else go to step 2.
+
+Other power-flow methods [ edit ] Gauss–Seidel method : This is the earliest devised method. It shows slower rates of convergence compared to other iterative methods, but it uses very little memory and does not need to solve a matrix system.
+
+Fast-decoupled-load-flow method is a variation on Newton–Raphson that exploits the approximate decoupling of active and reactive flows in well-behaved power networks, and additionally fixes the value of the Jacobian during the iteration in order to avoid costly matrix decompositions. Also referred to as "fixed-slope, decoupled NR". Within the algorithm, the Jacobian matrix gets inverted only once, and there are three assumptions. Firstly, the conductance between the buses is zero. Secondly, the magnitude of the bus voltage is one per unit. Thirdly, the sine of phases between buses is zero.  Fast decoupled load flow can return the answer within seconds whereas the Newton Raphson method takes much longer. This is useful for real-time management of power grids.
+
+[ 5 ] Holomorphic embedding load flow method : A recently developed method based on advanced techniques of complex analysis. It is direct and guarantees the calculation of the correct (operative) branch, out of the multiple solutions present in the power-flow equations.
+
+Backward-Forward Sweep (BFS) method : A method developed to take advantage of the radial structure of most modern distribution grids. It involves choosing an initial voltage profile and separating the original system of equations of grid components into two separate systems and solving one, using the last results of the other, until convergence is achieved. Solving for the currents with the voltages given is called the backward sweep (BS) and solving for the voltages with the currents given is called the forward sweep (FS).
+
+[ 6 ] Laurent Power Flow (LPF) method : Power flow formulation that provides guarantee of uniqueness of solution and independence on initial conditions for electrical distribution systems. The LPF is based on the current injection method (CIM) and applies the Laurent series expansion. The main characteristics of this formulation are its proven numerical convergence and stability, and its computational advantages, showing to be at least ten times faster than the BFS method both in balanced and unbalanced networks.
+
+[ 7 ] Since it is based on the system's admittance matrix, the formulation is able to consider radial and meshed network topologies without additional modifications (contrary to the compensation-based BFS [ 8 ] ). The simplicity and computational efficiency of the LPF method make it an attractive option for recursive power flow problems, such as those encountered in time-series analyses, metaheuristics, probabilistic analysis, reinforcement learning applied to power systems, and other related applications.
+
+DC power flow [ edit ] This section needs expansion . You can help by adding to it .
+
+( August 2025 ) DC power flow (also known as direct current load flow (DCLF)) gives estimations of lines power flows on AC power systems. Despite the name, DC power flow is not an analysis on direct current , but rather on alternating current; the name comes from the linearity of the analysis, which resembles analysis on direct current. DC power flow looks only at active power flows and neglects reactive power flows. This method is non-iterative and absolutely convergent but less accurate than AC Load Flow solutions. DC power flow is used wherever repetitive and fast load flow estimations are required.
+
+[ 9 ] References [ edit ] ^ Low, S. H. (2013). "Convex relaxation of optimal power flow: A tutorial".
+
+2013 IREP Symposium Bulk Power System Dynamics and Control - IX Optimization, Security and Control of the Emerging Power Grid . pp.
+
+1– 06.
+
+doi : 10.1109/IREP.2013.6629391 .
+
+ISBN 978-1-4799-0199-9 .
+
+S2CID 14195805 .
+
+^ Aien, Morteza; Hajebrahimi, Ali; Fotuhi-Firuzabad, Mahmud (2016). "A comprehensive review on uncertainty modeling techniques in power system studies".
+
+Renewable and Sustainable Energy Reviews .
+
+57 : 1077– 1089.
+
+Bibcode : 2016RSERv..57.1077A .
+
+doi : 10.1016/j.rser.2015.12.070 .
+
+^ Grainger, J.; Stevenson, W. (1994).
+
+Power System Analysis . New York: McGraw–Hill.
+
+ISBN 0-07-061293-5 .
+
+^ Andersson, G: Lectures on Modelling and Analysis of Electric Power Systems Archived 2017-02-15 at the Wayback Machine ^ Stott, B.; Alsac, O. (May 1974). "Fast Decoupled Load Flow".
+
+IEEE Transactions on Power Apparatus and Systems . PAS-93 (3): 859– 869.
+
+Bibcode : 1974ITPAS..93..859S .
+
+doi : 10.1109/tpas.1974.293985 .
+
+ISSN 0018-9510 .
+
+^ Petridis, S.; Blanas, O.; Rakopoulos, D.; Stergiopoulos, F.; Nikolopoulos, N.; Voutetakis, S. An Efficient Backward/Forward Sweep Algorithm for Power Flow Analysis through a Novel Tree-Like Structure for Unbalanced Distribution Networks.
+
+Energies 2021, 14 , 897.
+
+https://doi.org/10.3390/en14040897 , https://www.mdpi.com/1996-1073/14/4/897 ^ Giraldo, J. S., Montoya, O. D., Vergara, P. P., & Milano, F. (2022). A fixed-point current injection power flow for electric distribution systems using Laurent series. Electric Power Systems Research, 211, 108326.
+
+https://doi.org/10.1016/j.epsr.2022.108326 ^ Shirmohammadi, D., Hong, H. W., Semlyen, A., & Luo, G. X. (1988). A compensation-based power flow method for weakly meshed distribution and transmission networks. IEEE Transactions on power systems, 3(2), 753-762.
+
+https://doi.org/10.1109/59.192932 ^ Seifi, H. &. (2011). Appendix A: DC Load Flow. In H. &. Seifi, Electric power system planning: issues, algorithms and solutions (pp. 245-249). Berlin: Springer v t e Electricity delivery Concepts Automatic generation control Backfeeding Base load Demand factor Droop speed control Electric power Electric power quality Electrical fault Energy demand management Energy return on investment Grid code Grid energy storage Grid strength Home energy storage Load-following Merit order Nameplate capacity Peak demand Power factor Power-flow study Power system reliability Repowering Utility frequency Variability Vehicle-to-grid Sources Non-renewable Fossil fuel power station Coal Natural gas Oil shale Petroleum Nuclear Renewable Biofuel Biogas Biomass Geothermal Hydro Marine Current Osmotic Thermal Tidal Wave Solar Sustainable biofuel Wind Generation AC power Cogeneration Combined cycle Cooling tower Dispatchable Energy storage Battery Induction generator Inertial response Inverter-based resource Micro CHP Microgeneration Rankine cycle Three-phase electric power Virtual power plant Transmission and distribution Ancillary services Balancing authority Contingency (electrical grid) Demand response Distributed generation Dynamic demand Electric power distribution Electric power system Electric power transmission Electrical busbar system Electrical grid Electricity retailing Grid balancing High-voltage direct current High-voltage shore connection Interconnector Load management Mains electricity by country Overhead power line Conductor gallop Power station Pumped hydro Single-wire earth return Smart grid Substation Super grid Transformer Transmission system operator (TSO) Transmission tower Utility pole Voltage control and reactive power management Failure modes Black start Brownout Cascading failure Islanding Power outage List Rolling blackout Protective devices Arc-fault circuit interrupter Circuit breaker Earth-leakage Sulfur hexafluoride Generator interlock kit Numerical relay Power system protection Protective relay Residual-current device (GFI) Economics and policies Availability factor Capacity factor Carbon offsets and credits Cost of electricity by source Energy subsidies Environmental tax Feed-in tariff Fossil fuel phase-out Load factor Net metering Pigouvian tax Renewable Energy Certificates Renewable energy commercialization Renewable Energy Payments Spark/Dark/Quark/Bark spread Statistics and production Electric energy consumption List of electricity sectors Category Retrieved from " https://en.wikipedia.org/w/index.php?title=Power-flow_study&oldid=1305448201 " Categories : Electric power distribution Power engineering Hidden categories: Webarchive template wayback links CS1: long volume value Articles with short description Short description matches Wikidata All articles with specifically marked weasel-worded phrases Articles with specifically marked weasel-worded phrases from November 2023 Articles to be expanded from August 2025 All articles to be expanded This page was last edited on 12 August 2025, at 03:38 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Power-flow study 12 languages Add topic
+

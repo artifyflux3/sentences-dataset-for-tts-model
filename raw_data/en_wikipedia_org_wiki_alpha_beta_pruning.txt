@@ -1,0 +1,220 @@
+Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Pages for logged out editors learn more Contributions Talk CentralNotice Contents move to sidebar hide (Top) 1 History 2 Core idea 3 Improvements over naive minimax 4 Pseudocode 5 Heuristic improvements 6 Other algorithms 7 See also 8 References 9 Bibliography Toggle the table of contents Alpha–beta pruning 19 languages العربية Čeština Deutsch Español فارسی Français 한국어 Italiano עברית Magyar 日本語 Polski Русский Simple English Српски / srpski Tagalog Українська 粵語 中文 Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Search algorithm that seeks to decrease the number of nodes in the minimax algorithm search tree For other uses, see Alphabeta (disambiguation) .
+
+Alpha–beta pruning Class Search algorithm Worst-case performance O ( b d ) {\displaystyle O(b^{d})} Best-case performance O ( b d ) {\displaystyle O\left({\sqrt {b^{d}}}\right)} Alpha–beta pruning is a search algorithm that seeks to decrease the number of nodes that are evaluated by the minimax algorithm in its search tree . It is an adversarial search algorithm used commonly for machine playing of two-player combinatorial games ( Tic-tac-toe , Chess , Connect 4 , etc.). It stops evaluating a move when at least one possibility has been found that proves the move to be worse than a previously examined move. Such moves need not be evaluated further. When applied to a standard minimax tree, it returns the same move as minimax would, but prunes away branches that cannot possibly influence the final decision.
+
+[ 1 ] History [ edit ] John McCarthy during the Dartmouth Workshop met Alex Bernstein of IBM , who was writing a chess program. McCarthy invented alpha–beta search and recommended it to him, but Bernstein was "unconvinced".
+
+[ 2 ] Allen Newell and Herbert A. Simon who used what John McCarthy calls an "approximation" [ 3 ] in 1958 wrote that alpha–beta "appears to have been reinvented a number of times".
+
+[ 4 ] Arthur Samuel had an early version for a checkers simulation. Richards, Timothy Hart, Michael Levin and/or Daniel Edwards also invented alpha–beta independently in the United States .
+
+[ 5 ] McCarthy proposed similar ideas during the Dartmouth workshop in 1956 and suggested it to a group of his students including Alan Kotok at MIT in 1961.
+
+[ 6 ] Alexander Brudno independently conceived the alpha–beta algorithm, publishing his results in 1963.
+
+[ 7 ] Donald Knuth and Ronald W. Moore refined the algorithm in 1975.
+
+[ 8 ] [ 9 ] Judea Pearl proved its optimality in terms of the expected running time for trees with randomly assigned leaf values in two papers.
+
+[ 10 ] [ 11 ] The optimality of the randomized version of alpha–beta was shown by Michael Saks and Avi Wigderson in 1986.
+
+[ 12 ] Core idea [ edit ] A game tree can represent many two-player zero-sum games , such as chess, checkers, and reversi. Each node in the tree represents a possible situation in the game. Each terminal node (outcome) of a branch is assigned a numeric score that determines the value of the outcome to the player with the next move.
+
+[ 13 ] The algorithm maintains two values, alpha and beta, which respectively represent the minimum score that the maximizing player is assured of and the maximum score that the minimizing player is assured of. Initially, alpha is negative infinity and beta is positive infinity, i.e. both players start with their worst possible score. Whenever the maximum score that the minimizing player (i.e. the "beta" player) is assured of becomes less than the minimum score that the maximizing player (i.e., the "alpha" player) is assured of (i.e. beta < alpha), the maximizing player need not consider further descendants of this node, as they will never be reached in the actual play.
+
+To illustrate this with a real-life example, suppose somebody is playing chess, and it is their turn. Move "A" will improve the player's position.  The player continues to look for moves to make sure a better one hasn't been missed.  Move "B" is also a good move, but the player then realizes that it will allow the opponent to force checkmate in two moves. Thus, other outcomes from playing move B no longer need to be considered since the opponent can force a win. The maximum score that the opponent could force after move "B" is negative infinity: a loss for the player. This is less than the minimum position that was previously found; move "A" does not result in a forced loss in two moves.
+
+Improvements over naive minimax [ edit ] An illustration of alpha–beta pruning. The grayed-out subtrees don't need to be explored (when moves are evaluated from left to right), since it is known that the group of subtrees as a whole yields the value of an equivalent subtree or worse, and as such cannot influence the final result. The max and min levels represent the turn of the player and the adversary, respectively.
+
+The benefit of alpha–beta pruning lies in the fact that branches of the search tree can be eliminated.
+
+[ 13 ] This way, the search time can be limited to the 'more promising' subtree, and a deeper search can be performed in the same time. Like its predecessor, it belongs to the branch and bound class of algorithms. The optimization reduces the effective depth to slightly more than half that of simple minimax if the nodes are evaluated in an optimal or near optimal order (best choice for side on move ordered first at each node).
+
+With an (average or constant) branching factor of b , and a search depth of d plies , the maximum number of leaf node positions evaluated (when the move ordering is pessimal ) is O ( b d ) – the same as a simple minimax search. If the move ordering for the search is optimal (meaning the best moves are always searched first), the number of leaf node positions evaluated is about O ( b ×1× b ×1×...× b ) for odd depth and O ( b ×1× b ×1×...×1) for even depth, or O ( b d / 2 ) = O ( b d ) {\displaystyle O(b^{d/2})=O({\sqrt {b^{d}}})} . In the latter case, where the ply of a search is even, the effective branching factor is reduced to its square root , or, equivalently, the search can go twice as deep with the same amount of computation.
+
+[ 14 ] The explanation of b ×1× b ×1×... is that all the first player's moves must be studied to find the best one, but for each, only the second player's best move is needed to refute all but the first (and best) first player move—alpha–beta ensures no other second player moves need be considered. When nodes are considered in a random order (i.e., the algorithm randomizes), asymptotically,
+the expected number of nodes evaluated in uniform trees with binary leaf-values is Θ Θ ( ( ( b − − 1 + b 2 + 14 b + 1 ) / 4 ) d ) {\displaystyle \Theta (((b-1+{\sqrt {b^{2}+14b+1}})/4)^{d})} .
+
+[ 12 ] For the same trees, when the values are assigned to the leaf values independently of each other and say zero and one are both equally probable, the expected number of nodes evaluated is Θ Θ ( ( b / 2 ) d ) {\displaystyle \Theta ((b/2)^{d})} , which is much smaller than the work done by the randomized algorithm, mentioned above, and is again optimal for such random trees.
+
+[ 10 ] When the leaf values are chosen independently of each other but from the [ 0 , 1 ] {\displaystyle [0,1]} interval uniformly at random, the expected number of nodes evaluated increases to Θ Θ ( b d / l o g ( d ) ) {\displaystyle \Theta (b^{d/log(d)})} in the d → → ∞ ∞ {\displaystyle d\to \infty } limit, [ 11 ] which is again optimal for this kind of random tree. Note that the actual work for "small" values of d {\displaystyle d} is better approximated using 0.925 d 0.747 {\displaystyle 0.925d^{0.747}} .
+
+[ 11 ] [ 10 ] A chess program that searches four plies with an average of 36 branches per node evaluates more than one million terminal nodes. An optimal alpha-beta prune would eliminate all but about 2,000 terminal nodes, a reduction of 99.8%.
+
+[ 13 ] An animated pedagogical example that attempts to be human-friendly by substituting initial infinite (or arbitrarily large) values for emptiness and by avoiding using the negamax coding simplifications.
+
+Normally during alpha–beta, the subtrees are temporarily dominated by either a first player advantage (when many first player moves are good, and at each search depth the first move checked by the first player is adequate, but all second player responses are required to try to find a refutation), or vice versa. This advantage can switch sides many times during the search if the move ordering is incorrect, each time leading to inefficiency. As the number of positions searched decreases exponentially each move nearer the current position, it is worth spending considerable effort on sorting early moves. An improved sort at any depth will exponentially reduce the total number of positions searched, but sorting all positions at depths near the root node is relatively cheap as there are so few of them.  In practice, the move ordering is often determined by the results of earlier, smaller searches, such as through iterative deepening .
+
+Additionally, this algorithm can be trivially modified to return an entire principal variation in addition to the score. Some more aggressive algorithms such as MTD(f) do not easily permit such a modification.
+
+Pseudocode [ edit ] The pseudo-code for depth limited minimax with alpha–beta pruning is as follows: [ 15 ] function alphabeta(node, depth, α, β, maximizingPlayer) is if depth == 0 or node is terminal then return the heuristic value of node if maximizingPlayer then value := −∞ for each child of node do value := max(value, alphabeta(child, depth − 1, α, β, FALSE)) if value ≥ β then break (* β cutoff *) α := max(α, value) return value else value := +∞ for each child of node do value := min(value, alphabeta(child, depth − 1, α, β, TRUE)) if value ≤ α then break (* α cutoff *) β := min(β, value) return value (* Initial call *) alphabeta(origin, depth, − ∞ , + ∞ , TRUE) Implementations of alpha–beta pruning can often be delineated by whether they are "fail-soft," or "fail-hard". The pseudo-code illustrates the fail-soft variation. With fail-soft alpha–beta, the alphabeta function may return values (v) that exceed (v < α or v > β) the α and β bounds set by its function call arguments. In comparison, fail-hard alpha–beta limits its function return value into the inclusive range of α and β.
+
+Heuristic improvements [ edit ] Further improvement can be achieved without sacrificing accuracy by using ordering heuristics to search earlier parts of the tree that are likely to force alpha–beta cutoffs. For example, in chess, moves that capture pieces may be examined before moves that do not, and moves that have scored highly in earlier passes through the game-tree analysis may be evaluated before others. Another common, and very cheap, heuristic is the killer heuristic , where the last move that caused a beta-cutoff at the same tree level in the tree search is always examined first. This idea can also be generalized into a set of refutation tables .
+
+Alpha–beta search can be made even faster by considering only a narrow search window (generally determined by guesswork based on experience). This is known as an aspiration window . In the extreme case, the search is performed with alpha and beta equal; a technique known as zero-window search , null-window search , or scout search . This is particularly useful for win/loss searches near the end of a game where the extra depth gained from the narrow window and a simple win/loss evaluation function may lead to a conclusive result. If an aspiration search fails, it is straightforward to detect whether it failed high (high edge of window was too low) or low (lower edge of window was too high). This gives information about what window values might be useful in a re-search of the position.
+
+Over time, other improvements have been suggested, and indeed the Falphabeta (fail-soft alpha–beta) idea of John Fishburn is nearly universal and is already incorporated above in a slightly modified form. Fishburn also suggested a combination of the killer heuristic and zero-window search under the name Lalphabeta ("last move with minimal window alpha–beta search").
+
+Other algorithms [ edit ] Since the minimax algorithm and its variants are inherently depth-first , a strategy such as iterative deepening is usually used in conjunction with alpha–beta so that a reasonably good move can be returned even if the algorithm is interrupted before it has finished execution. Another advantage of using iterative deepening is that searches at shallower depths give move-ordering hints, as well as shallow alpha and beta estimates, that both can help produce cutoffs for higher depth searches much earlier than would otherwise be possible.
+
+Algorithms like SSS* , on the other hand, use the best-first strategy.  This can potentially make them more time-efficient, but typically at a heavy cost in space-efficiency.
+
+[ 16 ] See also [ edit ] Minimax Expectiminimax Negamax Pruning (algorithm) Branch and bound Combinatorial optimization Principal variation search Transposition table Late move reductions References [ edit ] ^ Russell & Norvig 2021 , p. 152-161.
+
+^ McCarthy, John (2006-10-30).
+
+"The Dartmouth Workshop--as planned and as it happened" .
+
+www-formal.stanford.edu . Retrieved 2023-10-29 .
+
+^ McCarthy, John (27 November 2006).
+
+"Human Level AI Is Harder Than It Seemed in 1955" . Stanford University . Retrieved 2006-12-20 .
+
+^ Newell, Allen; Simon, Herbert A. (1 March 1976).
+
+"Computer science as empirical inquiry: symbols and search" .
+
+Communications of the ACM .
+
+19 (3): 113– 126.
+
+doi : 10.1145/360018.360022 .
+
+^ Edwards, D.J.; Hart, T.P. (4 December 1961).
+
+The Alpha–beta Heuristic (Technical report).
+
+Massachusetts Institute of Technology .
+
+hdl : 1721.1/6098 . AIM-030.
+
+^ Kotok, Alan (2004) [1962].
+
+"A Chess Playing Program" .
+
+Artificial Intelligence Project . RLE and MIT Computation Center. Memo 41 . Retrieved 2006-07-01 .
+
+^ Marsland, T.A. (May 1987).
+
+"Computer Chess Methods" (PDF) . In Shapiro, S. (ed.).
+
+Encyclopedia of Artificial Intelligence . Wiley. pp.
+
+159– 171.
+
+ISBN 978-0-471-62974-0 . Archived from the original (PDF) on 2008-10-30.
+
+^ Knuth, Donald E.; Moore, Ronald W. (1975). "An analysis of alpha-beta pruning".
+
+Artificial Intelligence .
+
+6 (4): 293– 326.
+
+doi : 10.1016/0004-3702(75)90019-3 .
+
+S2CID 7894372 .
+
+^ Abramson, Bruce (1 June 1989). "Control strategies for two-player games".
+
+ACM Computing Surveys .
+
+21 (2): 137– 161.
+
+doi : 10.1145/66443.66444 .
+
+S2CID 11526154 .
+
+^ a b c Pearl, Judea (1980). "Asymptotic Properties of Minimax Trees and Game-Searching Procedures".
+
+Artificial Intelligence .
+
+14 (2): 113– 138.
+
+doi : 10.1016/0004-3702(80)90037-5 .
+
+^ a b c Pearl, Judea (1982).
+
+"The Solution for the Branching Factor of the Alpha-Beta Pruning Algorithm and Its Optimality" .
+
+Communications of the ACM .
+
+25 (8): 559– 64.
+
+doi : 10.1145/358589.358616 .
+
+S2CID 8296219 .
+
+^ a b Saks, M.; Wigderson, A. (1986). "Probabilistic Boolean Decision Trees and the Complexity of Evaluating Game Trees".
+
+27th Annual Symposium on Foundations of Computer Science . pp.
+
+29– 38.
+
+doi : 10.1109/SFCS.1986.44 .
+
+ISBN 0-8186-0740-8 .
+
+S2CID 6130392 .
+
+^ a b c Levy, David (January 1986).
+
+"Alpha-Beta Soup" .
+
+MacUser . pp.
+
+98– 102 . Retrieved 2021-10-19 .
+
+^ Russell & Norvig 2021 , p. 155.
+
+^ Russell & Norvig 2021 , p. 154.
+
+^ Pearl, Judea ; Korf, Richard (1987), "Search techniques", Annual Review of Computer Science , 2 : 451– 467, doi : 10.1146/annurev.cs.02.060187.002315 , Like its A* counterpart for single-player games, SSS* is optimal in terms of the average number of nodes examined; but its superior pruning power is more than offset by the substantial storage space and bookkeeping required.
+
+Bibliography [ edit ] Russell, Stuart J.
+
+; Norvig, Peter.
+
+(2021).
+
+Artificial Intelligence: A Modern Approach (4th ed.). Hoboken: Pearson.
+
+ISBN 9780134610993 .
+
+LCCN 20190474 .
+
+Heineman, George T.; Pollice, Gary; Selkow, Stanley (2008). "7. Path Finding in AI".
+
+Algorithms in a Nutshell .
+
+Oreilly Media . pp.
+
+217– 223.
+
+ISBN 978-0-596-51624-6 .
+
+Pearl, Judea (1984).
+
+Heuristics: Intelligent Search Strategies for Computer Problem Solving . Addison-Wesley.
+
+ISBN 978-0-201-05594-8 .
+
+OCLC 1035596197 .
+
+Fishburn, John P. (1984). "Appendix A: Some Optimizations of α-β Search".
+
+Analysis of Speedup in Distributed Algorithms (revision of 1981 PhD thesis) . UMI Research Press. pp.
+
+107– 111.
+
+ISBN 0-8357-1527-2 .
+
+v t e Graph and tree traversal algorithms Search α–β pruning A* IDA* LPA* SMA* Best-first search Beam search Bidirectional search Breadth-first search Lexicographic Parallel B* Depth-first search Iterative deepening D* Fringe search Jump point search Monte Carlo tree search SSS* Shortest path Bellman–Ford Dijkstra's Floyd–Warshall Johnson's Shortest path faster Yen's Minimum spanning tree Borůvka's Kruskal's Prim's Reverse-delete List of graph search algorithms v t e Game theory Glossary Game theorists Games Traditional game theory Definitions Asynchrony Bayesian regret Best response Bounded rationality Cheap talk Coalition Complete contract Complete information Complete mixing Confrontation analysis Conjectural variation Contingent cooperator Coopetition Cooperative game theory Dynamic inconsistency Escalation of commitment Farsightedness Game semantics Hierarchy of beliefs Imperfect information Incomplete information Information set Move by nature Mutual knowledge Non-cooperative game theory Non-credible threat Outcome Perfect information Perfect recall Ply Preference Rationality Sequential game Simultaneous action selection Spite Strategic complements Strategic dominance Strategic form Strategic interaction Strategic move Strategy Subgame Succinct game Topological game Tragedy of the commons Uncorrelated asymmetry Equilibrium concepts Backward induction Bayes correlated equilibrium Bayesian efficiency Bayesian game Bayesian Nash equilibrium Berge equilibrium Bertrand–Edgeworth model Coalition-proof Nash equilibrium Core Correlated equilibrium Cursed equilibrium Edgeworth price cycle Epsilon-equilibrium Gibbs equilibrium Incomplete contracts Inequity aversion Individual rationality Iterated elimination of dominated strategies Markov perfect equilibrium Mertens-stable equilibrium Nash equilibrium Open-loop model Pareto efficiency Payoff dominance Perfect Bayesian equilibrium Price of anarchy Program equilibrium Proper equilibrium Quantal response equilibrium Quasi-perfect equilibrium Rational agent Rationalizability Rationalizable strategy Satisfaction equilibrium Self-confirming equilibrium Sequential equilibrium Shapley value Strong Nash equilibrium Subgame perfect equilibrium Trembling hand equilibrium Strategies Appeasement Bid shading Cheap talk Collusion Commitment device De-escalation Deterrence Escalation Fictitious play Focal point Grim trigger Hobbesian trap Markov strategy Max-dominated strategy Mixed strategy Pure strategy Tit for tat Win–stay, lose–switch Games All-pay auction Battle of the sexes Nash bargaining game Bertrand competition Blotto game Centipede game Coordination game Cournot competition Deadlock Dictator game Trust game Diner's dilemma Dollar auction El Farol Bar problem Electronic mail game Gift-exchange game Guess 2/3 of the average Keynesian beauty contest Kuhn poker Lewis signaling game Matching pennies Obligationes Optional prisoner's dilemma Pirate game Prisoner's dilemma Public goods game Rendezvous problem Rock paper scissors Stackelberg competition Stag hunt Traveler's dilemma Ultimatum game Volunteer's dilemma War of attrition Theorems Arrow's impossibility theorem Aumann's agreement theorem Brouwer fixed-point theorem Competitive altruism Folk theorem Gibbard–Satterthwaite theorem Gibbs lemma Glicksberg's theorem Kakutani fixed-point theorem Kuhn's theorem One-shot deviation principle Prim–Read theory Rational ignorance Rational irrationality Sperner's lemma Zermelo's theorem Subfields Algorithmic game theory Behavioral game theory Behavioral strategy Compositional game theory Contract theory Drama theory Graphical game theory Heresthetic Mean-field game theory Negotiation theory Quantum game theory Social software Key people Albert W. Tucker Alvin E. Roth Amos Tversky Antoine Augustin Cournot Ariel Rubinstein David Gale David K. Levine David M. Kreps Donald B. Gillies Drew Fudenberg Eric Maskin Harold W. Kuhn Herbert Simon Herbert Scarf Hervé Moulin Jean Tirole Jean-François Mertens Jennifer Tour Chayes Ken Binmore Kenneth Arrow Leonid Hurwicz Lloyd Shapley Martin Shubik Melvin Dresher Merrill M. Flood Olga Bondareva Oskar Morgenstern Paul Milgrom Peyton Young Reinhard Selten Robert Aumann Robert Axelrod Robert B. Wilson Roger Myerson Samuel Bowles Suzanne Scotchmer Thomas Schelling William Vickrey Combinatorial game theory Core concepts Combinatorial explosion Determinacy Disjunctive sum First-player and second-player win Game complexity Game tree Impartial game Misère Partisan game Solved game Sprague–Grundy theorem Strategy-stealing argument Zugzwang Games Chess Chomp Clobber Cram Domineering Hackenbush Nim Notakto Subtract a square Sylver coinage Toads and Frogs Mathematical tools Mex Nimber On Numbers and Games Star Surreal number Winning Ways for Your Mathematical Plays Search algorithms Alpha–beta pruning Expectiminimax Minimax Monte Carlo tree search Negamax Paranoid algorithm Principal variation search Key people Claude Shannon John Conway John von Neumann Evolutionary game theory Core concepts Bishop–Cannings theorem Evolution and the Theory of Games Evolutionarily stable set Evolutionarily stable state Evolutionarily stable strategy Replicator equation Risk dominance Stochastically stable equilibrium Weak evolutionarily stable strategy Games Chicken Stag hunt Applications Cultural group selection Fisher's principle Mobbing Terminal investment hypothesis Key people John Maynard Smith Robert Axelrod Mechanism design Core concepts Algorithmic mechanism design Bayesian-optimal mechanism Incentive compatibility Market design Monotonicity Participation constraint Revelation principle Strategyproofness Vickrey–Clarke–Groves mechanism Theorems Myerson–Satterthwaite theorem Revenue equivalence Applications Digital goods auction Knapsack auction Truthful cake-cutting Other topics Bertrand paradox Chainstore paradox Computational complexity of games Helly metric Multi-agent system PPAD-complete Mathematics portal Commons WikiProject Category Retrieved from " https://en.wikipedia.org/w/index.php?title=Alpha–beta_pruning&oldid=1301558341 " Categories : Game artificial intelligence Graph algorithms Optimization algorithms and methods Search algorithms Combinatorial game theory Hidden categories: Articles with short description Short description is different from Wikidata Articles with example pseudocode This page was last edited on 20 July 2025, at 13:17 (UTC) .
+
+Text is available under the Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy . Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc.
+
+, a non-profit organization.
+
+Privacy policy About Wikipedia Disclaimers Contact Wikipedia Code of Conduct Developers Statistics Cookie statement Mobile view Search Search Toggle the table of contents Alpha–beta pruning 19 languages Add topic
+
